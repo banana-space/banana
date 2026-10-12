@@ -1,0 +1,46 @@
+<nav class="navigation" aria-label="{{ i18n "main_navigation" }}">
+  <div class="navigation-inner">
+    <a class="navigation-title" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title }}">{{ partialCached "logo.html" . }}</a>
+    {{- /* The results page has its own search field. */ -}}
+    {{ $searchPage := eq .Layout "search" }}
+    {{ if not $searchPage }}
+    <div class="site-search" role="search" aria-label="{{ i18n "site_search" }}">
+      <button class="icon-button search-back" type="button" aria-label="{{ i18n "search_back" }}" hidden>{{ partial "ui-icon.html" "back" }}</button>
+      <label class="search-field">
+        {{ partial "ui-icon.html" "search" }}
+        <span class="sr-only">{{ i18n "search_label" (dict "Site" .Site.Title) }}</span>
+        <input type="text" inputmode="search" enterkeyhint="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-status" placeholder="{{ i18n "search_placeholder" (dict "Site" .Site.Title) }}" autocomplete="off" spellcheck="false" disabled>
+      </label>
+      <button class="icon-button search-clear" type="button" aria-label="{{ i18n "search_clear" }}" hidden>{{ partial "ui-icon.html" "close" }}</button>
+      <div class="search-panel" tabindex="-1">
+        <p id="search-status" class="search-status" role="status"></p>
+        <div id="search-results" class="search-results" role="listbox" aria-label="{{ i18n "search_results" }}"></div>
+        <a class="search-all" href="{{ "search/" | relURL }}" hidden></a>
+      </div>
+    </div>
+    {{ end }}
+    {{ partialCached "search-config.html" . }}
+    <div class="navigation-actions">
+      {{ with partial "page-toc-items.html" . }}
+      <button class="header-toc-button" type="button" aria-expanded="false" aria-controls="header-toc-panel" hidden>{{ i18n "table_of_contents" }}{{ partial "ui-icon.html" "chevron" }}</button>
+      {{ end }}
+      {{ if not $searchPage }}<button class="icon-button search-toggle" type="button" aria-label="{{ i18n "search_open" }}" aria-expanded="false" hidden>{{ partial "ui-icon.html" "search" }}</button>{{ end }}
+      <div class="navigation-links">
+        {{ with .Site.GetPage "/categories" }}<a href="{{ .RelPermalink }}">{{ i18n "categories" }}</a>{{ end }}
+        {{ partial "collections/links.html" . }}
+      </div>
+      <details class="navigation-menu">
+        <summary class="icon-button"><span class="sr-only">{{ i18n "navigation_menu" }}</span>{{ partial "ui-icon.html" "menu" }}</summary>
+        <div class="navigation-menu-panel">
+          {{ with .Site.GetPage "/categories" }}<a href="{{ .RelPermalink }}">{{ i18n "categories" }}</a>{{ end }}
+        {{ partial "collections/links.html" . }}
+        </div>
+      </details>
+    </div>
+    {{ with partial "page-toc-items.html" . }}
+    <div id="header-toc-panel" class="header-toc-panel" hidden></div>
+    {{ end }}
+  </div>
+  {{ partial "collections/navigation.html" . }}
+</nav>
+{{ if .Params.collectionRoot }}<script defer src="{{ "js/collections.js" | relURL }}"></script>{{ end }}

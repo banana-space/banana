@@ -1,0 +1,14 @@
+{{- $caption := i18n (.Get "name") (dict "Number" (.Get "number")) -}}
+{{- $title := .Get "title" | base64Decode -}}
+{{- with $title -}}
+  {{- $caption = i18n "environment_title" (dict "Caption" $caption "Title" .) -}}
+{{- end -}}
+{{- /* ::: -remark [寄语]：只显示标题。 */ -}}
+{{- if eq (.Get "bare") "true" -}}{{- $caption = $title -}}{{- end -}}
+{{- $proof := eq (.Get "kind") "proof" -}}
+<div class="theorem-block theorem-{{ .Get "group" }} environment-{{ .Get "kind" }}"{{ with .Get "id" | base64Decode }} id="{{ . }}"{{ end }}>
+  {{- if $proof -}}
+  <span class="theorem-title">{{ i18n "proof_heading" (dict "Caption" $caption) | .Page.RenderString (dict "display" "inline") }}{{ i18n "proof_title_separator" }}</span>
+  {{- else -}}
+  <p class="theorem-title">{{ $caption | .Page.RenderString (dict "display" "inline") }}</p>
+{{- end -}}<div class="theorem-content">

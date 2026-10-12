@@ -1,0 +1,314 @@
+.navigation {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: $bg-color;
+  // Keep the soft transition into the reading area, without a border or extra row.
+  box-shadow: 0 1rem 1rem $bg-color;
+
+  a {
+    color: $fg-color;
+    border-bottom: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: $link-color;
+    text-decoration: none;
+  }
+}
+
+.navigation-inner {
+  position: relative;
+  max-width: $site-frame-width;
+  min-height: 7.2rem;
+  margin: 0 auto;
+  padding: 0.8rem $site-gutter;
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.navigation-title {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  .navigation &:hover,
+  .navigation &:focus-visible {
+    color: $fg-color;
+  }
+}
+
+// The logo's text is drawn in currentColor.
+.site-logo {
+  display: block;
+  height: 3rem;
+  width: 13.5rem;
+}
+
+.navigation-actions,
+.navigation-links {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.navigation-actions {
+  margin-left: auto;
+  gap: 0.6rem;
+}
+
+.navigation-links {
+  margin-left: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ui-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.icon-button,
+.header-toc-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0.8rem 0;
+  border: 0;
+  color: $muted-color;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+  font-family: inherit;
+  transition: background-color 0.15s, color 0.15s;
+
+  &:hover,
+  &[aria-expanded="true"] {
+    color: $link-color;
+  }
+}
+
+.site-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 30rem;
+  max-width: 36rem;
+  min-width: 16rem;
+}
+
+.search-field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.7rem 1.2rem;
+  border: 1.5px solid $border-color;
+  border-radius: 0.8rem;
+  color: $muted-color;
+  background: rgba($white, 0.5);
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &:focus-within {
+    border-color: rgba($banana-color, 0.45);
+    box-shadow: 0 0 0 3px rgba($banana-color, 0.06);
+  }
+
+  .ui-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: $fg-color;
+    font: inherit;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+
+    &::placeholder {
+      color: $muted-color;
+      opacity: 1;
+    }
+  }
+}
+
+.header-toc-button,
+.search-toggle,
+.navigation-menu {
+  display: none;
+}
+
+.header-toc-button {
+  gap: 0.3rem;
+  width: auto;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  visibility: hidden;
+  pointer-events: none;
+
+  &.is-visible {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .ui-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+.header-toc-panel,
+.navigation-menu-panel {
+  position: absolute;
+  right: 2.4rem;
+  top: 100%;
+  width: 34rem;
+  max-width: calc(100vw - 3.2rem);
+  padding: 1.4rem;
+  border: 1.5px solid $border-color;
+  border-radius: 1.2rem;
+  background: $bg-color;
+  box-shadow: 0 1.2rem 4rem rgba($shadow-color, 0.1);
+}
+
+.header-toc-panel nav {
+  max-height: 55vh;
+  max-height: 55dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.navigation-menu {
+  summary {
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] summary {
+    color: $link-color;
+    background: rgba($link-color, 0.06);
+  }
+}
+
+.navigation-menu-panel {
+  width: 18rem;
+  padding: 0.6rem;
+
+  a {
+    display: block;
+    padding: 1rem 1.2rem;
+    border-radius: 0.6rem;
+    font-size: 1.5rem;
+  }
+
+  a:hover {
+    background: rgba($link-color, 0.04);
+  }
+}
+
+@media (max-width: $toc-breakpoint - 1px) {
+  .header-toc-button {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .navigation-inner {
+    min-height: 6.4rem;
+    padding: 0.8rem 1.6rem;
+    gap: 1rem;
+  }
+
+  .site-logo {
+    width: 11.25rem;
+  }
+
+  .navigation-actions {
+    gap: 0.2rem;
+  }
+
+  .navigation-links,
+  .site-search {
+    display: none;
+  }
+
+  .search-toggle {
+    display: inline-flex;
+    padding: 2rem
+  }
+
+  .navigation-menu {
+    display: block;
+  }
+
+  .header-toc-panel,
+  .navigation-menu-panel {
+    right: 1.6rem;
+  }
+
+  .header-toc-panel {
+    width: calc(100vw - 3.2rem);
+  }
+
+  .navigation.is-searching {
+
+    .navigation-title,
+    .navigation-actions {
+      display: none;
+    }
+
+    .site-search {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      max-width: none;
+      gap: 0.4rem;
+    }
+
+    .search-field {
+      flex: 1;
+      border: 0;
+      padding: 0.8rem;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .search-field>.ui-icon {
+      display: none;
+    }
+
+    input {
+      font-size: 1.6rem;
+    }
+
+    .search-clear {
+      color: $muted-color;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .icon-button,
+  .header-toc-button,
+  .search-field {
+    transition: none;
+  }
+}

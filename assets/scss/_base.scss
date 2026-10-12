@@ -1,0 +1,436 @@
+@font-face {
+  font-family: "Commit Mono";
+  src: url("#{$font-path}CommitMono.woff2") format("woff2");
+}
+
+// Each static face has its own weight metadata and glyphs.
+@each $weight, $file in (400: "BananaPunctuation-Regular", 500: "BananaPunctuation-Medium", 600: "BananaPunctuation-SemiBold") {
+  @font-face {
+    font-family: "Banana Punctuation";
+    src: url("#{$font-path}#{$file}.woff2") format("woff2");
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+2018-2019, U+201C-201D, U+2026, U+3001-3002,
+      U+3008-3011, U+3014-301B, U+FF01, U+FF08-FF09, U+FF0C,
+      U+FF0E, U+FF1A-FF1B, U+FF1F, U+FF3B, U+FF3D, U+FF5B, U+FF5D;
+  }
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("#{$font-path}Inter-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-feature-settings: "ss03" 1, "ss04" 1;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("#{$font-path}Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-feature-settings: "ss03" 1, "ss04" 1;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("#{$font-path}Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-feature-settings: "ss03" 1, "ss04" 1;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("#{$font-path}Inter-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-feature-settings: "ss03" 1, "ss04" 1;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("#{$font-path}Inter-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-feature-settings: "ss03" 1, "ss04" 1;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("#{$font-path}Inter-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-feature-settings: "ss03" 1, "ss04" 1;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+html {
+  --prose-font: #{$font-family};
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+// Put the navigation offset on fragment targets. Root scroll-padding also
+// affects caret scrolling when typing into an input in the sticky header.
+.content [id] {
+  scroll-margin-top: var(--anchor-offset, 8rem);
+}
+
+body {
+  text-autospace: no-autospace;
+  // Firefox's `auto` skips kerning for CJK text, which includes the pairs in
+  // Banana Punctuation.
+  font-kerning: normal;
+  color: $fg-color;
+  background-color: $bg-color;
+  font-family: var(--prose-font);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.8;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+[lang]:not(:lang(zh)) {
+  --prose-font: #{$font-family-western};
+  font-family: var(--prose-font);
+  text-spacing-trim: normal;
+}
+
+// Opening brackets at line starts take half width, using the `halt` feature
+// of Banana Punctuation (Chromium only).
+[lang]:lang(zh) {
+  --prose-font: #{$font-family};
+  text-autospace: no-autospace;
+  text-spacing-trim: trim-start;
+}
+
+[lang]:lang(ja) {
+  --prose-font: #{$font-family-ja};
+}
+
+[lang]:lang(ko) {
+  --prose-font: #{$font-family-ko};
+}
+
+:lang(ko) {
+  text-autospace: normal;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.15s ease-in;
+
+  &:focus,
+  &:hover {
+    border-bottom-color: $link-color;
+  }
+}
+
+[hidden] { display: none !important; }
+
+:focus-visible { outline: 2px solid rgba($link-color, 0.65); outline-offset: 4px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+p {
+  margin: 1.6rem 0;
+  word-wrap: break-word;
+  @media only screen and (max-width: 768px) {
+    margin: 1.5rem 0 1.5rem 0;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--prose-font);
+  font-weight: 600;
+  color: $alt-fg-color;
+  margin: 4rem 0 2.5rem 0;
+  position: relative;
+
+  &:hover .heading-link {
+    visibility: visible;
+  }
+
+  .heading-link {
+    color: $link-color;
+    font-weight: inherit;
+    text-decoration: none;
+    border-bottom: none;
+    font-size: 80%;
+    visibility: hidden;
+    user-select: none;
+  }
+
+  .title-link {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+    border-bottom: none;
+  }
+}
+
+h1 {
+  font-size: 3.2rem;
+  line-height: 3.6rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 3rem;
+    line-height: 3.4rem;
+  }
+}
+
+h2 {
+  font-size: 2.8rem;
+  line-height: 3.2rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+  }
+}
+
+h3 {
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 2.2rem;
+    line-height: 2.6rem;
+  }
+}
+
+h4 {
+  font-size: 2.2rem;
+  line-height: 2.6rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
+}
+
+h5 {
+  font-size: 2rem;
+  line-height: 2.4rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
+}
+
+h6 {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+.highlight {
+
+  div,
+  pre {
+    margin: 2rem 0 2rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    overflow-x: auto;
+  }
+}
+
+pre {
+  display: block;
+  font-family: $code-font-family;
+  text-spacing-trim: normal;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.6rem;
+  overflow-x: auto;
+  margin: 2rem 0 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  code {
+    display: inline-block;
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+code {
+  font-family: $code-font-family;
+  text-spacing-trim: normal;
+  font-size: 1.6rem;
+  font-weight: 400;
+  border-radius: 0.6rem;
+  padding: 0.3rem 0.6rem;
+  background-color: $darker-alt-bg-color;
+  color: $fg-color;
+  @media only screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+blockquote {
+  border-left: 2px solid $border-color;
+  padding-left: 2rem;
+  font-weight: 400;
+  color: $muted-color;
+}
+
+th,
+td {
+  padding: 1.6rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td,
+table th {
+  border: 2px solid $alt-fg-color;
+}
+
+table tr:first-child th {
+  border-top: 0;
+}
+
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+table tr td:first-child,
+table tr th:first-child {
+  border-left: 0;
+}
+
+table tr td:last-child,
+table tr th:last-child {
+  border-right: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+figure {
+  text-align: center;
+}
+
+.footnotes {
+  hr {
+    border: 0;
+    border-top: 1.5px solid $border-color;
+  }
+
+  ol li p {
+    margin: 0;
+  }
+
+  .footnote-backref {
+    font-size: 0.75em;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  width: 100%;
+}
+
+.container {
+  margin: 1rem auto;
+  max-width: 80rem;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+// Share the navigation's frame at every width, independently of sidebar visibility.
+.content > .container,
+.site-footer > .container {
+  max-width: $reading-width + 2 * $site-gutter;
+  margin-left: unquote("max(0rem, calc((100% - #{$site-frame-width}) / 2))");
+  margin-right: auto;
+  padding-left: $site-gutter;
+  padding-right: $site-gutter;
+}
+
+@media (max-width: $search-breakpoint) {
+  .content > .container,
+  .site-footer > .container {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.ui-icon.link-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 2.4;
+  vertical-align: -0.15em;
+  pointer-events: none;
+}
+
+.ui-icon.icon-folder {
+  margin-inline-end: 0.25em;
+  vertical-align: -0.05em;
+}
+
+.ui-icon.icon-external {
+  width: 0.8em;
+  height: 0.8em;
+  margin-inline-start: 0.2em;
+  vertical-align: -0.05em;
+}
+
+// Keep punctuation beside atomic icons/formula fragments. Explicit math
+// breakpoints and ordinary link-label wrapping remain available inside.
+.inline-punctuation,
+a.external-link {
+  white-space: nowrap;
+}
+
+.external-link-label {
+  white-space: normal;
+}

@@ -1,0 +1,17 @@
+<section class="container taxonomy">
+  <header>
+    <h1 class="title">
+      <a class="title-link" href="{{ .Permalink | safeURL }}">
+        {{- if eq .Kind "term" -}}
+          <span class="title-prefix">{{- i18n .Data.Plural -}}{{- i18n "taxonomy_separator" -}}</span>
+        {{- end -}}
+        {{- partial "display-title.html" . -}}
+      </a>
+    </h1>
+  </header>
+  {{ .Content }}
+  {{ $depth := int (site.Params.categoryDepth | default 1) }}
+  {{ if isset site.Params "categorydepth" }}{{ $depth = int site.Params.categoryDepth }}{{ end }}
+  {{ if lt $depth 0 }}{{ errorf "%s" (i18n "build_category_depth") }}{{ end }}
+  {{ partial "category-tree.html" (dict "parent" "" "remaining" $depth) }}
+</section>

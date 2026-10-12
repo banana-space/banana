@@ -1,0 +1,39 @@
+title: '[[复几何]]'
+groups:
+  - title: 流形
+    items:
+      - '[[近复流形]]'
+      - '[[复流形]]'
+      - '[[Kähler 流形]]'
+      - '[[超 Kähler 流形]]'
+      - '[[Stein 流形]]'
+      - '[[复代数流形]]'
+      - '[[Calabi–丘流形]]'
+  - title: 向量丛与层
+    items:
+      - '[[全纯函数层]]'
+      - '[[全纯向量丛]]'
+      - '[[全纯切丛]]、[[反全纯切丛]]'
+      - '[[复微分形式]]'
+      - '[[Dolbeault 算子]]'
+      - '[[Dolbeault 上同调]]'
+      - '[[Hermite 度量 (向量丛)|Hermite 度量]]'
+      - '[[Hirzebruch–Riemann–Roch 定理]]'
+  - title: 复代数几何
+    items:
+      - '[[代数几何–解析几何对应]]'
+      - '[[Hodge 定理]]'
+      - '[[Hodge 结构]]'
+      - '[[Lefschetz 大定理]]'
+      - '[[Griffths 横截性]]'
+      - '[[Kodaira 嵌入定理]]'
+      - '[[Riemann 存在定理]]'
+      - '[[周定理]]'
+      - '[[Riemann–Hilbert 对应]]'
+      - '[[镜像对称]]'
+  - title: 例子
+    items:
+      - '[[复射影空间]]'
+      - '[[复环面]]'
+      - '[[Riemann 面]]'
+      - '[[复 Abel 簇]]'

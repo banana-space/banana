@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 13 161 161">
+  <!-- The banana from images/logo.svg, without the wordmark, on a white rounded square. -->
+  <rect x="14" y="13" width="161" height="161" rx="39" fill="#fff"/>
+  <defs>
+    <clipPath id="banana-body">
+      <path id="banana-shape" d="M37 137C62 104 104 60 140 42L149 20L168 27L163 51C173 84 163 122 136 142C108 162 72 167 44 162L25 160L21 142Z"/>
+    </clipPath>
+  </defs>
+  <g transform="translate(9.5 9.3) scale(0.9)">
+    <g clip-path="url(#banana-body)">
+      <rect x="0" y="0" width="200" height="200" fill="#f8dc5d"/>
+      <path d="M156 48C150 96 104 140 34 151L0 148V200H200V44Z" fill="#f7b95e"/>
+      <path d="M0 120L39 132L47 170L0 170Z" fill="#6b5a45"/>
+      <path d="M130 0L136 45L166 56L200 40V0Z" fill="#6b5a45"/>
+    </g>
+    <use href="#banana-shape" fill="none" stroke="#1c1b1a" stroke-width="9.44" stroke-linejoin="round"/>
+    <g transform="translate(110 100) rotate(32)" fill="#1c1b1a">
+      <circle cx="-12.5" cy="0" r="3.6"/>
+      <circle cx="12.5" cy="0" r="3.6"/>
+      <path d="M-7 7Q-6.5 13 -3 13Q0 13 0 9.5Q0 13 3 13Q6.5 13 7 7" fill="none" stroke="#1c1b1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

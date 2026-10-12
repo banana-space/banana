@@ -1,0 +1,16 @@
+title: 线性代数拾遗
+# 页面和正文标题的 @ 引用按结构层级格式化；不改变目录/标题中的编号。
+referenceFormat:
+  1: '第 {number} 章'
+  2: '第 {number} 节'
+  default: '{number}'
+# 省略 numbering 即采用 pages: true 和三个 depth: 1 默认值。
+contents:
+  - page: vectors
+  - page: maps
+    children:
+      - page: kernel
+        children:
+          - page: test
+  - page: appendix
+    number: A

@@ -1,0 +1,53 @@
+contents:
+  - page: 前言
+    number: false
+  - page: 引子
+    number: false
+  - page: 域扩张与经典几何问题
+    children:
+      - page: 域与线性空间
+      - page: 域扩张
+      - page: 应用：三等分已知角
+  - page: 群、环和模的定义
+    children:
+      - page: 群的定义和例子
+      - page: 群同态
+      - page: 正规子群与商群
+      - page: 环的定义
+      - page: 模的定义
+      - page: 对称群 Sn
+      - page: 习题
+  - page: 群作用
+    children:
+      - page: 基本定义
+      - page: 群作用的基本例子
+      - page: 群作用的应用举例
+      - page: 群的半直积
+      - page: 有限生成交换群的分类
+      - page: 习题
+  - page: 环与模
+    children:
+      - page: 环论的一些基本概念
+      - page: 关于理想的一些操作
+      - page: 与整除相关的几类环
+      - page: 多项式环
+      - page: 主理想整环上的有限生成模
+      - page: 习题
+  - page: 域的扩张
+    children:
+      - page: 代数扩张
+      - page: 代数闭包
+      - page: 环的整扩张
+      - page: 分裂域与正规扩张
+      - page: 可分扩张
+      - page: Galois 理论
+      - page: 群论的补充：可解群
+      - page: Galois 理论的经典应用
+      - page: mod p 的理论
+      - page: Galois 群计算举例
+      - page: 习题
+  - page: 有关集合的回顾
+    number: A
+    children:
+      - page: 商集
+      - page: 偏序关系与 Zorn 引理

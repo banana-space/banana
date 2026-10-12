@@ -1,0 +1,309 @@
+.content {
+  flex: 1;
+  display: flex;
+  margin-top: 1.6rem;
+  margin-bottom: 3.2rem;
+  @media only screen and (max-width: 768px) {
+    margin-top: 1rem;
+    margin-bottom: 1.6rem;
+  }
+
+  header {
+    margin-top: 4.8rem;
+    margin-bottom: 3.2rem;
+
+    h1 {
+      font-size: 4rem;
+      line-height: 4.4rem;
+      margin: 0;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 3.2rem;
+        line-height: 3.6rem;
+      }
+    }
+  }
+
+  article {
+    text-align: justify;
+
+    h1, h2, h3, h4, h5, h6 {
+      text-align: left;
+
+      span.section-number {
+        // The number is followed by a real space for copying and screen readers;
+        // subtract its width (about 0.25em) to keep the visual gap.
+        margin-right: calc(2.4rem - 0.25em);
+        display: inline-block;
+        font-variant-numeric: tabular-nums;
+      }
+    }
+
+    details {
+      summary {
+        cursor: pointer;
+      }
+    }
+
+    // 首页统计的条目与讲义数目。
+    strong.home-stat {
+      font-variant-numeric: tabular-nums;
+    }
+
+    p {
+      text-justify: auto;
+      -ms-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+  }
+
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  // align shortcode：署名、日期等居右，或居中的文字。
+  .align-right,
+  .align-right p {
+    text-align: right;
+  }
+
+  .align-center,
+  .align-center p {
+    text-align: center;
+  }
+
+  // 单独成段的图片（render-image.html）：居中，说明文字在图下。
+  figure.content-figure {
+    margin: 1.5em 0;
+    text-align: center;
+
+    img {
+      display: inline-block;
+    }
+
+    figcaption {
+      margin-top: 0.5em;
+      font-size: 0.9em;
+      color: $semi-light-text-color;
+    }
+  }
+
+  figcaption p {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.6rem;
+    margin: 0;
+  }
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .error {
+    text-align: center;
+
+    h1 {
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-size: 4.6rem;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 3.2rem;
+      }
+    }
+
+    h2 {
+      margin-top: 2rem;
+      margin-bottom: 3.2rem;
+      font-size: 3.2rem;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 2.8rem;
+      }
+    }
+  }
+}
+
+.redirect-source {
+  color: $semi-light-text-color;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+article {
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+  }
+
+  strong {
+    font-weight: 600;
+    color: $alt-fg-color;
+  }
+
+  code {
+    font-size: 90%;
+    font-weight: inherit;
+    background-color: $alt-bg-color;
+  }
+
+  a code,
+  a strong {
+    color: inherit;
+  }
+
+  pre {
+    font-size: 100%;
+    border: 1.5px solid #d0d8dc;
+  }
+
+  .heading-link {
+    position: absolute;
+    right: 100%;
+    padding: 0 0.2em 0 0;
+    font-size: 100% !important;
+    color: $light-text-color;
+
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border: 0.15em solid #d0d8dc;
+  }
+}
+
+// 翻页列表与分类树也是 section.list 的直接子元素，不用项目符号（见 _pagination.scss、_taxonomies.scss）。
+section.list > ul:not(.pagination, .category-tree) {
+  list-style: disc;
+  padding-left: 1.5em;
+
+  li {
+    display: list-item !important;
+    padding-inline-start: 0.25em;
+    margin: 0;
+  }
+
+  li::marker {
+    color: $semi-light-text-color;
+    margin-right: 0.5em;
+  }
+}
+
+.list a {
+  border-bottom: none;
+}
+
+.list a:hover,
+.list a:focus {
+  text-decoration: none;
+}
+
+// lists
+article {
+  ul {
+    padding-left: 2em;
+  }
+
+  ul li {
+    // separation between bullet and text
+    padding-inline-start: 0.25em;
+  }
+
+  ul li::marker {
+    color: $semi-light-text-color;
+    margin-right: 0.5em;
+  }
+
+  ul ul {
+    padding-left: 1.5em;
+
+    li {
+      list-style-type: circle;
+    }
+  }
+}
+
+// Spoilers
+article details {
+  background-color: $alt-bg-color;
+  border: 1.5px solid #d0d8dc;
+  border-radius: 1em;
+  padding: 0.75em 1.25em;
+  margin: 1em 0;
+
+  & > div {
+    margin-top: 0.5em;
+  }
+
+  p:first-child,
+  ul:first-child {
+    margin-top: 0;
+  }
+
+  p:last-child,
+  ul:last-child {
+    margin-bottom: 0;
+  }
+
+  ul li {
+    margin: 0.5em 0;
+  }
+
+  summary {
+    font-weight: 500;
+    cursor: pointer;
+    color: $link-color;
+  }
+}
+
+article a.wiki-link-missing {
+  color: $missing-link-color;
+  border-bottom: 1.5px dotted $missing-link-color;
+}
+
+// Tables
+
+// Rounded corners need the separated border model: browsers ignore border-radius
+// on collapsed tables (an outline there no longer follows it), so the table draws
+// the frame and each cell only its right and bottom rules.
+article table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1.5px solid $border-color;
+  border-radius: 1.5rem;
+  overflow: hidden;
+
+  th,
+  td {
+    border: 0;
+    border-right: 1.5px solid $border-color;
+    border-bottom: 1.5px solid $border-color;
+    padding: 0.2em 0.6em;
+  }
+
+  tr > :last-child {
+    border-right: 0;
+  }
+
+  > :last-child > tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  th {
+    background-color: $alt-bg-color;
+    font-weight: 600;
+  }
+}

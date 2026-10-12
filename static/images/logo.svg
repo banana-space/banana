@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 19 688 148" role="img" aria-label="香蕉空間">
+  <title>香蕉空間</title>
+  <defs>
+    <clipPath id="banana-body">
+      <path id="banana-shape" d="M37 137C62 104 104 60 140 42L149 20L168 27L163 51C173 84 163 122 136 142C108 162 72 167 44 162L25 160L21 142Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Banana -->
+  <g transform="translate(9.5 9.3) scale(0.9)">
+    <g clip-path="url(#banana-body)">
+      <rect x="0" y="0" width="200" height="200" fill="#f8dc5d"/>
+      <path d="M156 48C150 96 104 140 34 151L0 148V200H200V44Z" fill="#f7b95e"/>
+      <path d="M0 120L39 132L47 170L0 170Z" fill="#6b5a45"/>
+      <path d="M130 0L136 45L166 56L200 40V0Z" fill="#6b5a45"/>
+    </g>
+    <use href="#banana-shape" fill="none" stroke="#1c1b1a" stroke-width="9.44" stroke-linejoin="round"/>
+    <g transform="translate(110 100) rotate(32)" fill="#1c1b1a">
+      <circle cx="-12.5" cy="0" r="3.6"/>
+      <circle cx="12.5" cy="0" r="3.6"/>
+      <path d="M-7 7Q-6.5 13 -3 13Q0 13 0 9.5Q0 13 3 13Q6.5 13 7 7" fill="none" stroke="#1c1b1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 香蕉空間 -->
+  <g fill="none" stroke="currentColor" stroke-width="10.45" stroke-linejoin="miter">
+    <!-- 香 -->
+    <path d="M251 41L295 38.5"/>
+    <path d="M241 70H304M272.5 55V96"/>
+    <path d="M221.5 116L255 86M290.5 84.5L322.5 115.5"/>
+    <circle cx="272.5" cy="133.5" r="20.75"/>
+    <path d="M267.5 134.5L290 126"/>
+    <!-- 蕉 -->
+    <path d="M361 47.25H431.5M375.75 33V64M416.75 33V64"/>
+    <path d="M354.5 99.5L386.5 73.5M378.25 98V129"/>
+    <path d="M404 78.5H439.5M404 95.5H439.5M404 113H439.5M404 130.5H439.5M428.5 66.5V126"/>
+    <path d="M387 151H402M421 151H444.5"/>
+    <circle cx="361.25" cy="146.25" r="10.2" fill="currentColor" stroke="none"/>
+    <!-- 空 -->
+    <path d="M516.75 33V48M482 78.5V52.25H552V73"/>
+    <path d="M472.5 113.5L504 87M528.5 79L562.5 107.5"/>
+    <path d="M503 121H546.75M524.25 121V151M501.5 151H546.75"/>
+    <!-- 間 -->
+    <g transform="translate(4.75 0)">
+      <g transform="translate(0 -4.75)">
+        <path d="M598.25 143V54.25H630.25V93H615.5M603 74.5H617.5"/>
+        <path d="M677.5 88H662.75V49.25H694.25V138M675.75 69.75H689.5"/>
+      </g>
+      <circle cx="648" cy="132" r="20.75"/>
+      <path d="M630 138L653 131"/>
+    </g>
+  </g>
+</svg>

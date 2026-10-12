@@ -1,0 +1,77 @@
+{{- $destination := .Destination -}}
+{{- $class := "" -}}
+{{- $title := .Title -}}
+{{- $external := false -}}
+{{- $category := false -}}
+{{- $referenceKey := "" -}}
+{{- $caption := "" -}}
+{{- $text := .Text -}}
+{{- if hasPrefix $destination "citation:" -}}
+  {{- $query := (urls.Parse $destination).Query -}}
+  {{- $destination = printf "#%s" (urlquery ($query.Get "id")) -}}
+  {{- $referenceKey = $query.Get "key" -}}
+  {{- $caption = $query.Get "caption" -}}
+  {{- $class = "citation" -}}
+{{- else if hasPrefix $destination "reference:" -}}
+  {{- $query := (urls.Parse $destination).Query -}}
+  {{- $id := $query.Get "id" -}}
+  {{- $destination = printf "#%s" (urlquery $id) -}}
+  {{- $caption = $query.Get "caption" -}}
+  {{- with $query.Get "name" -}}
+    {{- $text = i18n . (dict "Number" ($query.Get "number")) -}}
+  {{- end -}}
+  {{- with $query.Get "title" -}}
+    {{- $text = i18n "environment_title" (dict "Caption" $text "Title" (. | base64Decode | $.Page.RenderString (dict "display" "inline") | replaceRE "(?is)</?a\\b[^>]*>" "")) -}}
+  {{- end -}}
+{{- else if hasPrefix $destination "wiki:" -}}
+  {{- /* title is the lookup key; name is the target as plain text, shown for a missing article. */ -}}
+  {{- $name := (urls.Parse $destination).Query.Get "title" -}}
+  {{- $display := (urls.Parse $destination).Query.Get "name" | default $name -}}
+  {{- $caption = (urls.Parse $destination).Query.Get "caption" -}}
+  {{- $index := partialCached "wiki/index.html" .Page.Site .Page.Site.Language.Lang -}}
+  {{- with index $index $name -}}
+    {{- $destination = .RelPermalink -}}
+    {{- if in .Params.wikiAliases $name -}}
+      {{- $destination = printf "%s?from=%s" $destination (urlquery $name) -}}
+    {{- end -}}
+    {{- $class = "wiki-link" -}}
+  {{- else -}}
+    {{- $destination = printf "%s?title=%s" ("missing/" | relURL) (urlquery $display) -}}
+    {{- with (urls.Parse $.Destination).Query.Get "source" -}}
+      {{- /* The target as written, with its TeX: the title should someone create the article. */ -}}
+      {{- $destination = printf "%s&source=%s" $destination (urlquery .) -}}
+    {{- end -}}
+    {{- $class = "wiki-link wiki-link-missing" -}}
+    {{- $title = i18n "missing_article_link" (dict "Name" $display) -}}
+  {{- end -}}
+{{- else -}}
+  {{- if and (hasPrefix $destination "/") (not (hasPrefix $destination "//")) (not (hasPrefix $destination .Page.Site.Home.RelPermalink)) -}}
+    {{- $destination = strings.TrimPrefix "/" $destination | relURL -}}
+  {{- end -}}
+  {{- $kind := partial "link-kind.html" (dict "destination" $destination "page" .Page) -}}
+  {{- if eq $kind "external" -}}
+    {{- $external = true -}}
+    {{- $class = "external-link" -}}
+  {{- else if eq $kind "category" -}}
+    {{- $category = true -}}
+    {{- $class = "category-link" -}}
+  {{- end -}}
+{{- end -}}
+{{- if or (hasPrefix .Destination "reference:") (hasPrefix .Destination "citation:") -}}
+  {{- $query := (urls.Parse .Destination).Query -}}
+  {{- with $query.Get "page" -}}
+    {{- $target := $.Page.Site.GetPage (printf "/%s" .) -}}
+    {{- if $target -}}{{- $destination = printf "%s%s" $target.RelPermalink $destination -}}
+    {{- else -}}{{- errorf "%s: 引用页面未发布：%s" $.Page.File.Path . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- with $caption -}}
+  {{- $text = . | base64Decode | $.Page.RenderString (dict "display" "inline") | replaceRE "(?is)</?a\\b[^>]*>" "" -}}
+{{- end -}}
+{{- /* safeURL below keeps the address as written (Chinese paths, anchors); so the scheme is checked here: no
+  javascript:, data: or the like, which a link would otherwise run. */ -}}
+{{- with lower (urls.Parse $destination).Scheme -}}
+  {{- if not (in (slice "http" "https" "mailto") .) -}}{{ errorf "%s" (i18n "build_link_scheme" (dict "File" $.Page.File.Path "Destination" $.Destination)) }}{{- end -}}
+{{- end -}}
+<a href="{{ $destination | safeURL }}"{{ with $title }} title="{{ . }}"{{ end }}{{ with $class }} class="{{ . }}"{{ end }}{{ with $referenceKey }} data-reference="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{- if $category -}}{{- partial "ui-icon.html" "folder" -}}{{- end -}}{{- $text | safeHTML -}}{{- if $external -}}{{- partial "ui-icon.html" "external" -}}{{- end -}}</a>
+{{- /* Trim trailing whitespace. */ -}}

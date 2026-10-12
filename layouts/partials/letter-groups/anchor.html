@@ -1,0 +1,2 @@
+{{- /* Fragment id of a letter group; `#` collects digits and symbols. */ -}}
+{{- return printf "letter-%s" (cond (eq . "#") "other" .) -}}

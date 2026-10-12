@@ -1,0 +1,2 @@
+{{- /* The logo inlined, so that its text takes the navigation's colour; the link carries the name. */ -}}
+{{- readFile "static/images/logo.svg" | replaceRE `\s*<title>.*?</title>` "" | replaceRE `<svg [^>]*?viewBox` `<svg class="site-logo" aria-hidden="true" focusable="false" viewBox` | safeHTML -}}

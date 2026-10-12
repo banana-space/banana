@@ -1,0 +1,16 @@
+.hugo_build.lock
+public
+resources
+
+.build/
+node_modules/
+
+.data/
+
+# Secrets for npm run editor-api -- --env-file .env.editor
+.env*
+
+.claude/
+
+# production config
+deploy/

@@ -1,0 +1,70 @@
+// Rounded bar shared by page links and the letter navigation (_letter-groups.scss).
+@mixin pill-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem;
+  border: 1.5px solid $border-color;
+  border-radius: 999px;
+
+  li {
+    margin: 0;
+  }
+
+  a,
+  span {
+    display: block;
+    min-width: 2.5rem;
+    padding: 0.25rem 0.1rem;
+    text-align: center;
+    font-size: 0.7em;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
+
+  a {
+    color: $semi-light-text-color;
+    border-bottom: none;
+    border-radius: 999px;
+    transition: color 0.15s;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: $link-color;
+    text-decoration: none;
+  }
+}
+
+$pill-highlight: rgba($link-color, 0.1);
+
+.pagination {
+  @include pill-bar;
+  width: fit-content;
+  margin: 3rem auto 0;
+  font-family: $font-family;
+
+  li {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  li.current {
+    background-color: $pill-highlight;
+    border-radius: 999px;
+
+    span {
+      color: $link-color;
+      font-weight: 700;
+    }
+  }
+}
+
+// Phones show the 5 numbers nearest the current page (see pagination.html).
+@media (max-width: $search-breakpoint) {
+  .pagination .wide-only {
+    display: none;
+  }
+}

@@ -1,0 +1,20 @@
+{{- /* 人物条目（“人物”分类及其子分类）的标题是“译名”，其他条目是“术语翻译”。 */ -}}
+{{- $heading := cond (in (.page.Params.categories | default slice) "人物") (i18n "name_translations") (i18n "term_translations") -}}
+<section class="terms" aria-label="{{ $heading }}">
+  <p class="terms-title">{{ $heading }}</p>
+  {{- range .terms -}}
+  <p class="term-entry"><strong class="term-title"{{ with .lang }} lang="{{ . }}"{{ end }}>{{ partial "terms/parts.html" (dict "parts" .titleParts "text" .title) }}</strong>{{- range $index, $entry := .entries -}}
+    {{- /* 语言名称是边界：其后的空格在“中文 译名”这样的汉字之间也保留。 */ -}}
+    <span class="term-separator" data-typography-boundary="true" aria-hidden="true"></span><span class="term-language" data-typography-boundary="true">{{ .label }}</span> <span lang="{{ .lang }}">{{- range $index, $variant := .variants -}}
+      {{- if $index }}{{ i18n "term_variant_separator" }}{{ end -}}
+      {{- if .ruby -}}
+        {{- range .ruby -}}
+          {{- if .reading -}}<ruby>{{ .text }}<rp> (</rp><rt>{{ .reading }}</rt><rp>) </rp></ruby>{{- else -}}{{ partial "terms/parts.html" (dict "parts" .parts "text" .text) }}{{- end -}}
+        {{- end -}}
+      {{- else -}}{{ partial "terms/parts.html" (dict "parts" .parts "text" .text) }}{{- end -}}
+      {{- with .gender }}&nbsp;<span class="term-gender" title="{{ i18n (printf "gender_%s" .) }}">({{ . }})</span>{{ end -}}
+      {{- with .note }} <span class="term-note" lang="{{ site.Language.Lang }}">({{ . }})</span>{{ end -}}
+    {{- end -}}</span>
+  {{- end -}}</p>
+  {{- end -}}
+</section>

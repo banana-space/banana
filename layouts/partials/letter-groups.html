@@ -1,0 +1,77 @@
+{{- /*
+  Entries grouped under the first letter of their reading (see sort-pages.html).
+  Takes `pages` (all entries, sorted), `paginator` and `level` (heading level).
+  With several pages, a letter bar links each letter to the page where it starts.
+*/ -}}
+{{- $pages := .pages -}}
+{{- $paginator := .paginator -}}
+{{- $level := .level -}}
+{{- $size := $paginator.PagerSize -}}
+{{- $groups := slice -}}
+{{- $current := "" -}}
+{{- $members := slice -}}
+{{- range $paginator.Pages -}}
+  {{- if and $members (ne .Params.sortGroup $current) -}}
+    {{- $groups = $groups | append (dict "key" $current "pages" $members) -}}
+    {{- $members = slice -}}
+  {{- end -}}
+  {{- $current = .Params.sortGroup -}}
+  {{- $members = $members | append . -}}
+{{- end -}}
+{{- with $members }}{{ $groups = $groups | append (dict "key" $current "pages" .) }}{{ end -}}
+{{- $offset := mul (sub $paginator.PageNumber 1) $size -}}
+{{- $continued := and (gt $offset 0) (eq (index $pages (sub $offset 1)).Params.sortGroup (index $groups 0).key) -}}
+{{- if gt $paginator.TotalPages 1 -}}
+  {{- $start := dict -}}
+  {{- range $i, $page := $pages -}}
+    {{- if not (isset $start $page.Params.sortGroup) -}}
+      {{- $start = merge $start (dict $page.Params.sortGroup (add (div $i $size) 1)) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $here := slice -}}
+  {{- range $groups }}{{ $here = $here | append .key }}{{ end }}
+  {{- /* This page's letters form one run of the alphabet; the bar highlights it as a single band. */ -}}
+  {{- $letters := split "#abcdefghijklmnopqrstuvwxyz" "" -}}
+  {{- $first := -1 -}}
+  {{- $last := -1 -}}
+  {{- range $i, $key := $letters -}}
+    {{- if in $here $key }}{{ if lt $first 0 }}{{ $first = $i }}{{ end }}{{ $last = $i }}{{ end -}}
+  {{- end -}}
+  <nav class="letter-nav" aria-label="{{ i18n "letter_navigation" }}">
+    <ol>
+      {{- range $i, $key := $letters -}}
+        {{- $classes := slice -}}
+        {{- if and (ge $i $first) (le $i $last) }}{{ $classes = $classes | append "current" }}{{ end -}}
+        {{- if eq $i $first }}{{ $classes = $classes | append "current-first" }}{{ end -}}
+        {{- if eq $i $last }}{{ $classes = $classes | append "current-last" }}{{ end -}}
+        {{- $number := index $start $key -}}
+        <li{{ with $classes }} class="{{ delimit . " " }}"{{ end }}>
+          {{- if $number -}}
+            <a href="{{ (index $paginator.Pagers (sub $number 1)).URL }}#{{ partial "letter-groups/anchor.html" $key }}" title="{{ i18n "letter_page" $number }}">{{ upper $key }}</a>
+          {{- else -}}
+            <span>{{ upper $key }}</span>
+          {{- end -}}
+        </li>
+      {{- end -}}
+    </ol>
+  </nav>
+{{- end -}}
+<div class="letter-groups">
+  {{- range $i, $group := $groups -}}
+    {{- $label := upper $group.key -}}
+    {{- if and (eq $i 0) $continued }}{{ $label = i18n "letter_continued" $label }}{{ end -}}
+    {{- $id := partial "letter-groups/anchor.html" $group.key -}}
+    <section class="letter-group">
+      {{- if eq $level 2 -}}
+        <h2 class="letter-heading" id="{{ $id }}">{{ $label }}</h2>
+      {{- else -}}
+        <h3 class="letter-heading" id="{{ $id }}">{{ $label }}</h3>
+      {{- end -}}
+      <ul class="letter-list">
+        {{- range $group.pages -}}
+          <li><a class="article-item" href="{{ .RelPermalink }}"><span class="title">{{ partial "display-title.html" . }}</span></a></li>
+        {{- end -}}
+      </ul>
+    </section>
+  {{- end -}}
+</div>

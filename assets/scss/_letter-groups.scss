@@ -1,0 +1,72 @@
+// Article lists grouped by first letter (layouts/partials/letter-groups.html).
+
+.letter-nav {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+
+  ol {
+    @include pill-bar;
+  }
+
+  // No gaps between items, so the highlighted run reads as one band.
+  li.current {
+    background-color: $pill-highlight;
+  }
+
+  li.current-first {
+    border-start-start-radius: 999px;
+    border-end-start-radius: 999px;
+  }
+
+  li.current-last {
+    border-start-end-radius: 999px;
+    border-end-end-radius: 999px;
+  }
+
+  li.current a {
+    color: $link-color;
+    font-weight: 700;
+  }
+
+  span {
+    color: rgba($semi-light-text-color, 0.35);
+  }
+
+  // The bar needs about 27 letters in a row; narrow screens rely on the page links.
+  @media (max-width: $search-breakpoint) {
+    display: none;
+  }
+}
+
+.letter-group {
+  .letter-heading {
+    margin: 1.6rem 0 0.8rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1.5px solid $border-color;
+    color: $muted-color;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  .letter-list {
+    list-style: disc;
+    margin: 0;
+    padding-left: 1.5em;
+
+    li {
+      padding-inline-start: 0.25em;
+      margin: 0;
+      break-inside: avoid;
+    }
+
+    li::marker {
+      color: $semi-light-text-color;
+    }
+
+    @media (min-width: $search-breakpoint + 1px) {
+      columns: 2;
+      column-gap: 3rem;
+    }
+  }
+}

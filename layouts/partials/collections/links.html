@@ -1,0 +1,2 @@
+{{ with .Site.GetPage "/books" }}<a href="{{ .RelPermalink }}">{{ i18n "lectures" }}</a>{{ end }}
+{{ with .Site.GetPage "/help" }}<a href="{{ .RelPermalink }}">{{ i18n "guides" }}</a>{{ end }}

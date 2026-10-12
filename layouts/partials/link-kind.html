@@ -1,0 +1,23 @@
+{{- /* Resolve against the page URL, then compare actual taxonomy permalinks.
+      This also handles relative links, escaped names and a baseURL subpath. */ -}}
+{{- $url := urls.Parse .destination -}}
+{{- $base := urls.Parse .page.Permalink -}}
+{{- $kind := "" -}}
+{{- $web := or (eq (lower $url.Scheme) "http") (eq (lower $url.Scheme) "https") (and (eq $url.Scheme "") (ne $url.Host "")) -}}
+{{- if and $web (ne (lower $url.Host) (lower $base.Host)) -}}
+  {{- $kind = "external" -}}
+{{- else if and (or $web (eq $url.Scheme "")) (ne $url.Path "") -}}
+  {{- $target := $url.Path -}}
+  {{- if not (hasPrefix $target "/") -}}
+    {{- $directory := $base.Path -}}
+    {{- if not (hasSuffix $directory "/") -}}
+      {{- $directory = path.Dir $directory -}}
+    {{- end -}}
+    {{- $target = printf "%s/%s" $directory $target -}}
+  {{- end -}}
+  {{- $paths := partialCached "category-link-paths.html" .page.Site .page.Site.Language.Lang -}}
+  {{- if index $paths (path.Clean $target) -}}
+    {{- $kind = "category" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $kind -}}

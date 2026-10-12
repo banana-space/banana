@@ -1,0 +1,21 @@
+{{- /* 图片：地址可带 ?width=像素 指定显示宽度，如 ![说明](图.png?width=200)；页面包内的图片按页面地址发布。 */ -}}
+{{- $url := urls.Parse .Destination -}}
+{{- $width := $url.Query.Get "width" -}}
+{{- if and $width (not (findRE `^[1-9][0-9]*$` $width)) -}}{{ errorf "%s: 图片宽度必须是正整数像素：%s" .Page.File.Path .Destination }}{{- end -}}
+{{- with lower $url.Scheme -}}
+  {{- if not (in (slice "http" "https") .) -}}{{ errorf "%s" (i18n "build_link_scheme" (dict "File" $.Page.File.Path "Destination" $.Destination)) }}{{- end -}}
+{{- end -}}
+{{- $src := .Destination -}}
+{{- if and (not $url.IsAbs) $url.RawQuery -}}{{ $src = $url.Path }}{{- end -}}
+{{- with and (not $url.IsAbs) (.Page.Resources.Get $url.Path) -}}{{ $src = .RelPermalink }}{{- end -}}
+{{- /* 方括号中的说明同时作为替代文字；方括号留空时，标题 ![](图.png "替代文字") 只作替代文字，不显示在图下。 */ -}}
+{{- $alt := .PlainText | default .Title -}}
+{{- /* Every value escaped: the address is the author's, and a quote in it would otherwise add attributes. */ -}}
+{{- $img := printf `<img src="%s" alt="%s"%s loading="lazy">` ($src | htmlEscape) ($alt | htmlEscape) (cond (ne $width "") (printf ` width="%s"` $width) "") -}}
+{{- /* 单独成段的图片居中显示，说明文字写在图下；行内图片保持行内。 */ -}}
+{{- if .IsBlock -}}
+<figure class="content-figure">{{ $img | safeHTML }}{{ with .Text }}<figcaption>{{ . }}</figcaption>{{ end }}</figure>
+{{- else -}}
+{{- $img | safeHTML -}}
+{{- end -}}
+{{- /* 行内元素：不输出多余空白。 */ -}}

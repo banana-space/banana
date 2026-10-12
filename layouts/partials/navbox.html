@@ -1,0 +1,20 @@
+{{- $box := .navbox -}}
+<nav class="navbox" aria-label="{{ i18n "navbox_label" (dict "Name" $box.name) }}">
+  <details{{ if not $box.collapsed }} open{{ end }}>
+    <summary>{{ partial "navbox-text.html" (dict "page" .page "text" $box.title) }}<span class="navbox-toggle" data-expand="{{ i18n "navbox_expand" }}" data-collapse="{{ i18n "navbox_collapse" }}" aria-hidden="true"></span></summary>
+    <div class="navbox-scroll" role="region" aria-label="{{ i18n "navbox_table" (dict "Name" $box.name) }}" tabindex="0">
+      <table>
+        <tbody>
+          {{ range $box.rows }}
+          <tr>
+            {{ range .cells }}
+            <th scope="{{ if gt .rowspan 1 }}rowgroup{{ else }}row{{ end }}"{{ if gt .rowspan 1 }} rowspan="{{ .rowspan }}"{{ end }}{{ if gt .colspan 1 }} colspan="{{ .colspan }}"{{ end }}>{{ partial "navbox-text.html" (dict "page" $.page "text" .text) }}</th>
+            {{ end }}
+            <td><ul class="navbox-items">{{ range .items }}<li>{{ partial "navbox-text.html" (dict "page" $.page "text" .) }}</li>{{ end }}</ul></td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</nav>

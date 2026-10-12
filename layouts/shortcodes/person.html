@@ -1,0 +1,35 @@
+{{- /* **姓名** <person lang="fr" ipa="/…/" years="1900--1980" />：姓名之后的注释（原名、转写、读音、生卒年），
+  scripts/prebuild/tags.mjs 写成本短代码并检查参数。 */ -}}
+{{- if not .IsNamedParams -}}{{ errorf "%s" (i18n "build_person_named_parameters" (dict "Position" .Position)) }}{{- end -}}
+{{- range $key, $value := .Params -}}
+  {{- if not (in (slice "original" "lang" "ipa" "translit" "years") $key) -}}{{ errorf "%s" (i18n "build_person_unknown_parameter" (dict "Position" $.Position "Key" $key)) }}{{- end -}}
+  {{- if ne (printf "%T" $value) "string" -}}{{ errorf "%s" (i18n "build_person_parameter_text" (dict "Position" $.Position "Key" $key)) }}{{- end -}}
+{{- end -}}
+{{- $lang := .Get "lang" -}}
+{{- if and $lang (not (findRE "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$" $lang)) -}}{{ errorf "%s" (i18n "build_person_language" (dict "Position" .Position)) }}{{- end -}}
+{{- $original := .Get "original" -}}
+{{- $translit := .Get "translit" -}}
+{{- $ipa := .Get "ipa" -}}
+{{- $years := .Get "years" -}}
+{{- /* 日语原名可用术语翻译的注音写法：字<假名>、[词组]<假名>。 */ -}}
+{{- $originalHTML := htmlEscape $original -}}
+{{- if hasPrefix $lang "ja" -}}
+  {{- $ruby := "<ruby>$1<rp> (</rp><rt>$2</rt><rp>) </rp></ruby>" -}}
+  {{- $originalHTML = replaceRE `\[([^\]]+)\]&lt;(.+?)&gt;` $ruby $originalHTML -}}
+  {{- $originalHTML = replaceRE `([^\x00-\x7F])&lt;(.+?)&gt;` $ruby $originalHTML -}}
+{{- end -}}
+{{- if not (or $original $translit $ipa $years) -}}{{ errorf "%s" (i18n "build_person_empty" (dict "Position" .Position)) }}{{- end -}}
+<span class="person-annotations">{{ i18n "annotation_open" }}
+  {{- /* 标注文字（语言名称、“拉丁转写”、“IPA”）字号较小；分界属性使其后的空格不被排版删除。 */ -}}
+  {{- $label := `<span class="person-label" data-typography-boundary="true">%s</span> ` -}}
+  {{- $parts := slice -}}
+  {{- with $original -}}{{ $parts = $parts | append (printf "<span%s>%s</span>" (cond (ne $lang "") (printf " lang=\"%s\"" $lang) "") $originalHTML) }}{{- end -}}
+  {{- with $translit -}}{{ $parts = $parts | append (printf "%s<i class=\"person-transliteration\"%s>%s</i>" (printf $label (i18n "person_transliteration_label")) (cond (ne $lang "") (printf " lang=\"%s-Latn\"" $lang) "") (htmlEscape .)) }}{{- end -}}
+  {{- with $ipa -}}{{ $parts = $parts | append (printf "%s<span class=\"person-ipa\" lang=\"und-fonipa\">%s</span>" (printf $label (i18n "person_ipa_label")) (htmlEscape .)) }}{{- end -}}
+  {{- /* 源语言名称（data/language_names.yaml）放在最前，如“日语 米田 信夫，拉丁转写 …，IPA …”。 */ -}}
+  {{- with and $lang $parts (index hugo.Data.language_names $lang) -}}{{ $parts = slice (printf "%s%s" (printf $label .) (index $parts 0)) | append (after 1 $parts) }}{{- end -}}
+  {{- /* 生卒年按行内 Markdown 渲染（1900--1980 成为 1900–1980）；Markdown 不输出原始 HTML。 */ -}}
+  {{- with $years -}}{{ $parts = $parts | append (printf "<span class=\"person-years\">%s</span>" ($.Page.RenderString .)) }}{{- end -}}
+  {{- delimit $parts (i18n "annotation_separator") | safeHTML -}}
+{{ i18n "annotation_close" }}</span>
+{{- /* Inline: no whitespace before following punctuation. */ -}}

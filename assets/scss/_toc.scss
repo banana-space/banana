@@ -1,0 +1,122 @@
+.page>article {
+  position: relative;
+  min-width: 0;
+}
+
+.toc-shell {
+  text-align: left;
+}
+
+.toc-shell .toc-disclosure {
+  border: 0;
+  border-radius: 1.6rem;
+  border: 1.5px solid $border-color;
+  padding: 0;
+  margin: 2.4rem 0 3.2rem;
+  background: transparent;
+
+  >summary {
+    display: flex;
+    align-items: center;
+    padding: .6rem .2rem;
+    border-radius: 1.6rem;
+    background: $navbox-title-bg-color;
+    list-style: none;
+    color: $muted-color;
+    font-size: 1.6rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    #toc-label {
+      margin: 0 .4rem 0 1.2rem;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 1.6rem;
+      }
+    }
+
+    .ui-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &[open]>summary {
+    border-radius: 1.6rem 1.6rem 0 0;
+  }
+
+  &[open]>summary .ui-icon {
+    transform: rotate(180deg);
+  }
+
+  >nav {
+    max-height: 55vh;
+    max-height: 55dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+}
+
+.toc-sidebar-title {
+  display: none;
+}
+
+// Inline and header directories use the same tree as the wide sidebar.
+.toc-shell #TableOfContents > .toc-list { margin: 1rem 0; }
+
+@mixin sidebar-toc {
+  .toc-shell {
+    position: absolute;
+    left: calc(100% + #{$reading-sidebar-gap});
+    top: 0;
+    bottom: 0;
+    width: $toc-width;
+  }
+
+  .toc-shell .toc-disclosure {
+    position: sticky;
+    top: calc(var(--anchor-offset, 8rem) + 1.6rem);
+    margin: 0;
+    border: 0;
+
+    >summary {
+      display: none;
+    }
+
+    >nav {
+      margin: 0;
+      max-height: calc(100dvh - var(--anchor-offset, 8rem) - 7rem);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+  }
+
+  .toc-sidebar-title {
+    display: block;
+    margin: 0 0 1.2rem;
+    padding-left: $directory-toggle-gutter;
+    color: $fg-color;
+    font-weight: 600;
+  }
+
+  .toc-shell #TableOfContents > .toc-list {
+    margin: 0;
+  }
+}
+
+@media (min-width: $toc-breakpoint) {
+  @include sidebar-toc;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .toc-list a {
+    transition: none;
+  }
+}

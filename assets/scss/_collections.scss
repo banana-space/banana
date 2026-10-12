@@ -1,0 +1,199 @@
+.collection-navigation {
+  max-width: $site-frame-width;
+  margin: 0 auto;
+  padding: 0 $site-gutter;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: 1.4rem;
+
+  a {
+    color: $link-color;
+  }
+}
+
+.collection-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  min-width: 0;
+
+  >* {
+    flex-shrink: 0;
+  }
+
+  >[aria-current] {
+    color: $muted-color;
+  }
+}
+
+.breadcrumb-separator {
+  color: $semi-light-text-color;
+}
+
+.collection-disclosure {
+  flex-shrink: 0;
+}
+
+.collection-disclosure>summary {
+  list-style: none;
+}
+
+.collection-disclosure>summary::-webkit-details-marker {
+  display: none;
+}
+
+.drawer-close-icon {
+  display: none;
+}
+
+.collection-disclosure[open] {
+  .drawer-open-icon {
+    display: none;
+  }
+
+  .drawer-close-icon {
+    display: block;
+  }
+}
+
+.collection-drawer-panel {
+  // Native details content can inherit content-box from its anonymous wrapper.
+  box-sizing: border-box;
+  position: fixed;
+  top: calc(var(--anchor-offset, 12rem) - 2rem);
+  bottom: 0;
+  left: 0;
+  width: 23rem;
+  padding: 3.6rem .5rem 2rem 2.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: $bg-color;
+  box-shadow: 0 2rem 2rem rgba($shadow-color, 0.2);
+}
+
+.collection-sidebar {
+  display: none;
+}
+
+.collection-tree-title {
+  margin: 0 0 1.2rem;
+  font-weight: 600;
+  text-align: left;
+  font-size: 1.6rem;
+
+  a {
+    color: $fg-color;
+    border: 0;
+  }
+}
+
+.collection-drawer-panel .collection-tree-title {
+  padding-left: $directory-toggle-gutter;
+}
+
+.collection-children {
+  margin: 3.2rem 0;
+  padding-top: 2rem;
+  border-top: 1.5px solid $border-color;
+}
+
+.collection-pagination {
+  display: flex;
+  gap: 2rem;
+  margin: 3.2rem 0;
+
+  a {
+    flex: 1;
+    border: 0;
+    text-align: left;
+  }
+
+  a[rel="next"] {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  a > span:first-child {
+    display: block;
+    font-size: 1.3rem;
+    color: $muted-color;
+    margin-bottom: .4rem;
+  }
+}
+
+.collection-description {
+  display: block;
+  color: $muted-color;
+  font-size: 1.4rem;
+  margin: .4rem 0 1.2rem;
+}
+
+@media (min-width: $collection-sidebar-breakpoint) {
+  .collection-disclosure {
+    display: none;
+  }
+
+  body:has(.collection-has-sidebar) .navigation .navigation-inner,
+  .collection-navigation:has(.collection-disclosure) {
+    max-width: $collection-frame-width;
+  }
+
+  .collection-has-sidebar.container,
+  body:has(.collection-has-sidebar) .site-footer>.container {
+    margin-left: calc((100% - #{$collection-frame-width}) / 2 + #{$collection-sidebar-width + $reading-sidebar-gap});
+  }
+
+  .collection-sidebar {
+    display: block;
+    position: absolute;
+    right: calc(100% + #{$reading-sidebar-gap});
+    top: 0;
+    bottom: 0;
+    width: $collection-sidebar-width;
+  }
+
+  .collection-sidebar-inner {
+    position: sticky;
+    top: calc(var(--anchor-offset, 12rem) + 1.6rem);
+    max-height: calc(100dvh - var(--anchor-offset, 12rem) - 5rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    // Keep the row start on the navigation edge, with the toggle gutter outside it.
+    margin-left: -$directory-toggle-gutter;
+    padding-left: $directory-toggle-gutter;
+
+    >nav>.directory-tree {
+      padding-left: 0;
+    }
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .collection-navigation {
+    padding: 0 1.6rem .6rem;
+  }
+
+  .collection-disclosure[open]>summary {
+    position: fixed;
+    z-index: 1201;
+    top: .8rem;
+    left: 1.2rem;
+  }
+
+  .collection-drawer-panel {
+    z-index: 1200;
+    inset: 0;
+    width: 100%;
+    padding: 6.4rem 2rem 2rem;
+    border: 0;
+    box-shadow: none;
+  }
+
+  body.collection-drawer-open {
+    overflow: hidden;
+  }
+}

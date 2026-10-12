@@ -1,0 +1,49 @@
+title: '[[量子场论]]'
+groups:
+  - title: 分类
+    subgroups:
+      - title: 一般场论
+        items:
+          - '[[规范场论]]'
+      - title: 自由场论
+        items:
+          - '[[自由场论]]'
+      - title: 共形场论
+        items:
+          - '[[共形场论]]'
+          - '[[二维共形场论]]'
+          - '[[手性共形场论]]'
+      - title: 拓扑场论
+        items:
+          - '[[拓扑量子场论]]'
+          - '[[拓扑量子力学]]'
+      - title: 超对称场论
+        items:
+          - '[[超对称量子场论]]'
+          - '[[超对称共形场论]]'
+          - '[[超对称量子力学]]'
+  - title: 例子
+    subgroups:
+      - title: 一般场论
+        items:
+          - '[[sigma 模型|$σ$ 模型]]'
+          - '[[量子电动力学]]'
+          - '[[量子色动力学]]'
+          - '[[杨–Mills 理论]]'
+          - '[[二维杨–Mills 理论]]'
+      - title: 自由场论
+        items:
+          - '[[Klein–Gordon 场]]'
+          - '[[Dirac 场]]'
+      - title: 共形场论
+        items:
+          - '[[Wess–Zumino–Witten 模型]]'
+          - '[[$\beta$-$\gamma$ 系统]]'
+          - '[[$b$-$c$ 系统]]'
+      - title: 拓扑场论
+        items:
+          - '[[有限群规范场论]]'
+          - '[[陈–Simons 理论]]'
+      - title: 超对称场论
+        items:
+          - '[[超对称杨–Mills 理论]]'

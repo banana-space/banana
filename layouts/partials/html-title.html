@@ -1,0 +1,3 @@
+{{- /* Page title for <title>: pages inside a guide or lecture other than its home page also name the collection. */ -}}
+{{- .Title -}}
+{{- if and .Params.collectionTitle (not .Params.collectionHome) }} - {{ .Params.collectionTitle }}{{ end }} - {{ .Site.Title -}}

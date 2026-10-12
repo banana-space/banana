@@ -1,0 +1,131 @@
+.navbox {
+  margin-top: 3rem;
+  border-radius: 1.5rem;
+  border: 1.5px solid $border-color;
+  overflow: hidden;
+  font-size: 1.4rem;
+  line-height: 1.8;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+
+  details {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  summary {
+    position: relative;
+    display: block;
+    list-style: none;
+    cursor: pointer;
+    padding: 0.4rem 5.2rem;
+    background: $navbox-title-bg-color;
+    color: $navbox-heading-color;
+    font-weight: 600;
+    font-size: 1.1em;
+    text-align: center;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      content: "";
+    }
+  }
+
+  details[open] summary {
+    border-bottom: 1.5px solid $border-color;
+  }
+
+  .navbox-toggle {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $muted-color;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+
+  .navbox-toggle::after {
+    content: attr(data-expand);
+  }
+
+  details[open] .navbox-toggle::after {
+    content: attr(data-collapse);
+  }
+
+  .navbox-scroll {
+    overflow-x: auto;
+    margin-top: 0;
+  }
+
+  .navbox-current {
+    color: $fg-color;
+    font-weight: 700;
+  }
+
+  table {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  table th,
+  table td {
+    padding: 0.4rem 1.2rem;
+    border: 0;
+  }
+
+  table tr:not(:first-child) {
+    th, td {
+      border-top: 1.5px solid $border-color;
+    }
+  }
+
+  table th {
+    background: $navbox-group-bg-color;
+    color: $navbox-heading-color;
+    font-weight: 500;
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  table td {
+    text-align: left;
+  }
+
+  .navbox-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: inline;
+      margin: 0;
+      padding: 0;
+    }
+
+    li+li::before {
+      content: "•";
+      display: inline-block;
+      margin: 0 0.6rem;
+      color: $navbox-separator-color;
+    }
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .navbox table th {
+    white-space: normal;
+    min-width: 4rem;
+    max-width: 6rem;
+  }
+}

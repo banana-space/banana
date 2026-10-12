@@ -1,0 +1,532 @@
+// Search results: the header panel, the compact full-screen search and the
+// /search/ page share the result styles below. Markup comes from static/js/search.js.
+
+$search-text-color: #4b4f53;
+$search-divider: rgba($border-color, 0.6);
+
+// Author display rules below would otherwise override the hidden attribute.
+.search-all[hidden],
+.search-filters[hidden] {
+  display: none;
+}
+
+// Header panel
+.search-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  left: 0;
+  width: 56rem;
+  max-width: calc(100vw - 2 * #{$site-gutter});
+  max-height: unquote("min(72vh, 68rem)");
+  max-height: unquote("min(72dvh, 68rem)");
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding: 0.6rem;
+  border: 1.5px solid $border-color;
+  border-radius: 1.2rem;
+  background: $bg-color;
+  box-shadow: 0 1.2rem 4rem rgba($shadow-color, 0.1);
+  outline: none;
+
+  .site-search.is-open.has-query & {
+    display: block;
+  }
+
+  a,
+  a:hover,
+  a:focus-visible {
+    color: $fg-color;
+  }
+}
+
+.search-status {
+  margin: 0;
+  padding: 1.2rem;
+  color: $muted-color;
+  font-size: 1.35rem;
+  line-height: 1.6;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.search-all {
+  position: sticky;
+  bottom: -0.6rem;
+  display: block;
+  margin: 0.4rem -0.6rem -0.6rem;
+  padding: 1.1rem 1.8rem;
+  border-top: 1.5px solid $border-color;
+  border-bottom: 0;
+  background: $bg-color;
+  font-size: 1.35rem;
+  font-weight: 500;
+
+  .search-panel &,
+  .search-panel &:hover {
+    color: $link-color;
+  }
+
+  &::after {
+    content: "→";
+    display: inline-block;
+    margin-left: 0.4rem;
+    transition: transform 0.15s;
+  }
+
+  &:hover::after {
+    transform: translateX(0.3rem);
+  }
+}
+
+// One result. Hovering or selecting with the keyboard colours the title and
+// icons; the rest of the result keeps its colours.
+.search-hit,
+.search-sub {
+  display: block;
+  border-bottom: 0;
+  border-radius: 0.8rem;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    border-bottom: 0;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba($link-color, 0.5);
+    outline-offset: -2px;
+  }
+}
+
+.search-hit {
+  padding: 1rem 1.2rem;
+
+  &:hover .search-hit-title,
+  &.is-active .search-hit-title {
+    color: $link-color;
+  }
+}
+
+// Divide results in the header panel; the results page does the same below.
+.search-results .search-result + .search-result {
+  border-top: 1.5px solid $search-divider;
+}
+
+.search-breadcrumb {
+  display: block;
+  overflow: hidden;
+  color: $muted-color;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.search-breadcrumb-separator {
+  margin: 0 0.5rem;
+  color: $semi-light-text-color;
+}
+
+.search-hit-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.search-hit-title {
+  min-width: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: color 0.15s;
+
+  .icon-folder {
+    color: $muted-color;
+    transition: color 0.15s;
+  }
+}
+
+.search-hit:hover,
+.search-hit.is-active {
+  .icon-folder,
+  .search-number {
+    color: inherit;
+  }
+}
+
+.search-number {
+  color: $muted-color;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.15s;
+}
+
+.search-kind {
+  flex-shrink: 0;
+  padding: 0 0.6rem;
+  border-radius: 0.4rem;
+  background: $alt-bg-color;
+  color: $muted-color;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.9rem;
+}
+
+.search-hit-alias {
+  display: block;
+  color: $muted-color;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.search-hit-excerpt,
+.search-sub-excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow-wrap: anywhere;
+}
+
+.search-hit-excerpt {
+  margin-top: 0.2rem;
+  color: $search-text-color;
+  font-size: 1.3rem;
+  line-height: 1.65;
+}
+
+// Matching sections and theorems, each with a hook arrow pointing into the page.
+.search-subs {
+  margin: -0.4rem 0 0.6rem 1.2rem;
+}
+
+.search-sub {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.6rem;
+  align-items: baseline;
+  padding: 0.4rem 1rem 0.4rem 0;
+  font-size: 1.3rem;
+  line-height: 1.6;
+
+  > .ui-icon {
+    align-self: start;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.15rem;
+    color: $semi-light-text-color;
+    transition: color 0.15s;
+  }
+
+  &:hover,
+  &.is-active {
+    > .ui-icon,
+    .search-sub-title {
+      color: $link-color;
+    }
+  }
+}
+
+.search-sub-title {
+  grid-column: 2;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.search-sub-excerpt {
+  grid-column: 2;
+  color: $muted-color;
+  font-size: 1.25rem;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.search-result mark {
+  padding: 0 0.1em;
+  border-radius: 0.2rem;
+  background: rgba($banana-color, 0.4);
+  color: inherit;
+}
+
+// Compact search: the panel fills the screen below the search field.
+@media (max-width: $search-breakpoint) {
+  html.search-locked {
+    overflow: hidden;
+  }
+
+  .navigation.is-searching {
+    .site-search {
+      position: static;
+    }
+
+    .search-panel {
+      display: block;
+      top: 100%;
+      right: 0;
+      width: auto;
+      max-width: none;
+      height: var(--search-panel-height, calc(100dvh - 6.4rem));
+      max-height: none;
+      padding: 0.4rem 0.8rem calc(2.4rem + env(safe-area-inset-bottom));
+      border: 0;
+      border-top: 1.5px solid $border-color;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .search-status {
+      padding: 1.6rem 1.2rem;
+    }
+
+    .search-hit {
+      padding: 1.2rem;
+    }
+
+    .search-sub {
+      padding: 0.8rem 1rem 0.8rem 0;
+    }
+
+    .search-all {
+      position: static;
+      margin: 0.8rem 0 0;
+      padding: 1.4rem 1.2rem;
+      border-radius: 0.8rem;
+      border-top: 0;
+      background: $alt-bg-color;
+      text-align: center;
+    }
+  }
+}
+
+// Results page
+.search-page {
+  .search-page-form {
+    margin: 3.2rem 0 1.6rem;
+  }
+
+  .search-page-field {
+    padding: 1rem 1.6rem;
+    border-radius: 1rem;
+    background: $white;
+
+    .ui-icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    input {
+      font-size: 1.7rem;
+      line-height: 2.8rem;
+
+      &::-webkit-search-cancel-button {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.search-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.search-filter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.4rem 1.2rem;
+  border: 1.5px solid $border-color;
+  border-radius: 99rem;
+  background: transparent;
+  color: $search-text-color;
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 2.2rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+
+  &:hover {
+    border-color: $semi-light-text-color;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: $link-color;
+    background-color: rgba($link-color, 0.1);
+    color: $link-color;
+
+    .search-filter-count {
+      color: $link-color;
+    }
+  }
+}
+
+.search-filter-count {
+  color: $muted-color;
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.search-page-status {
+  margin: 0 0 1.2rem;
+  color: $muted-color;
+  font-size: 1.35rem;
+}
+
+.search-page-results {
+  margin: 0 -1.2rem;
+
+  .search-result {
+    padding: 0.4rem 0;
+  }
+
+  .search-result + .search-result,
+  .search-expand + .search-result {
+    border-top: 1.5px solid $search-divider;
+  }
+
+  .search-hit {
+    padding: 1.2rem;
+    color: $fg-color;
+  }
+
+  .search-hit-title {
+    font-size: 1.8rem;
+  }
+
+  .search-hit-excerpt {
+    font-size: 1.45rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .search-breadcrumb {
+    font-size: 1.3rem;
+  }
+
+  .search-sub {
+    color: $fg-color;
+    font-size: 1.4rem;
+  }
+
+  .search-sub-excerpt {
+    font-size: 1.3rem;
+  }
+}
+
+.search-expand,
+.search-load-more {
+  border: 0;
+  background: transparent;
+  color: $link-color;
+  font: inherit;
+  cursor: pointer;
+}
+
+.search-expand {
+  display: block;
+  margin: -0.4rem 0 0.8rem 3.4rem;
+  padding: 0.4rem 0;
+  font-size: 1.35rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.search-load-more {
+  display: block;
+  margin: 2.4rem auto 0;
+  padding: 0.8rem 2.4rem;
+  border: 1.5px solid $border-color;
+  border-radius: 99rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+
+  &:hover {
+    border-color: rgba($link-color, 0.4);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .search-page {
+    .search-page-form {
+      margin-top: 1.6rem;
+    }
+  }
+
+  .search-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-right: -1.6rem;
+    padding-right: 1.6rem;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .search-filter {
+    flex-shrink: 0;
+  }
+
+  .search-page-results {
+    .search-hit-title {
+      font-size: 1.65rem;
+    }
+
+    .search-hit-excerpt {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+// Related pages on the missing-article and 404 pages
+.related-search {
+  width: 100%;
+  margin-top: 4rem;
+  padding-top: 2.4rem;
+  border-top: 1.5px solid $search-divider;
+
+  .centered & {
+    max-width: $reading-width;
+  }
+
+  .related-search-title {
+    margin: 0 0 0.8rem;
+    color: $muted-color;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .related-search-more {
+    margin: 1.6rem 0 0;
+    font-size: 1.4rem;
+
+    a::after {
+      content: " →";
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-hit,
+  .search-sub,
+  .search-filter {
+    transition: none;
+  }
+}

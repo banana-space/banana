@@ -1,0 +1,7 @@
+title: 写作指南
+numbering:
+  pages: false
+  headings: false
+contents:
+  - page: syntax
+  - page: style

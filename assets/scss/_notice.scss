@@ -1,0 +1,72 @@
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1.6rem 0 2.4rem;
+  padding: 1rem 1.6rem;
+  border-left: 3px solid $semi-light-text-color;
+  background: $alt-bg-color;
+  font-size: 1.5rem;
+
+  &.notice-warning {
+    border-left-color: $fg-color-notice-warning-icon;
+    background: $bg-color-notice-warning-content;
+  }
+
+  &.notice-error {
+    border-left-color: $fg-color-notice-error-icon;
+    background: $bg-color-notice-error-content;
+  }
+
+  &.notice-info {
+    border-left-color: $fg-color-notice-info-icon;
+    background: $bg-color-notice-info-content;
+  }
+
+  .notice-icon {
+    flex: 0 0 2rem;
+    line-height: 0;
+    margin-top: 0.35rem;
+    color: $link-color;
+  }
+
+  &.notice-warning .notice-icon {
+    color: $fg-color-notice-warning-icon;
+  }
+
+  &.notice-error .notice-icon {
+    color: $fg-color-notice-error-icon;
+  }
+
+  &.notice-note .notice-icon {
+    color: $muted-color;
+  }
+
+  .notice-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .notice-title {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .notice-body> :first-child {
+    margin-top: 0;
+  }
+
+  .notice-body> :last-child {
+    margin-bottom: 0;
+  }
+}
+// 节首的“参见”行。
+.see-also {
+  margin: 0.8rem 0 1.2rem;
+  color: $muted-color;
+  font-size: 1.5rem;
+}

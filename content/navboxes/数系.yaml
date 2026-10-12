@@ -1,0 +1,17 @@
+title: 数系
+groups:
+  - title: 按包含关系
+    items:
+      - '[[自然数]] ($\mathbb{N}$)'
+      - '[[整数]] ($\mathbb{Z}$)'
+      - '[[有理数]] ($\mathbb{Q}$)'
+      - '[[实数]] ($\mathbb{R}$)'
+      - '[[复数]] ($\mathbb{C}$)'
+      - '[[四元数]] ($\mathbb{H}$)'
+      - '[[八元数]] ($\mathbb{O}$)'
+  - title: 其它
+    items:
+      - '[[Gauß 整数]]'
+      - '[[代数数]]'
+      - '[[$p$ 进数]] ($\mathbb{Q}_{p}$)'
+      - '[[$p$ 进复数]] ($\mathbb{C}_{p}$)'

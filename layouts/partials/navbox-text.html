@@ -1,0 +1,14 @@
+{{- /* Compare final Hugo URLs, preserving captions, math, slug and base paths. */ -}}
+{{- $html := .page.RenderString (dict "display" "inline") .text -}}
+{{- $current := slice .page.RelPermalink .page.Permalink -}}
+{{- range findRE "<a\\b[^>]*>[\\s\\S]*?</a>" $html -}}
+  {{- $anchor := . -}}
+  {{- range findRE "href=\"[^\"]*\"" $anchor -}}
+    {{- $href := . | replaceRE "^href=\"|\"$" "" | htmlUnescape | replaceRE "\\?from=[^&#]*$" "" -}}
+    {{- if in $current $href -}}
+      {{- $text := $anchor | replaceRE "^<a\\b[^>]*>([\\s\\S]*?)</a>$" "$1" -}}
+      {{- $html = replace $html $anchor (printf "<strong class=\"navbox-current\" aria-current=\"page\">%s</strong>" $text) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return ($html | safeHTML) -}}

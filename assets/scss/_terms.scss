@@ -1,0 +1,65 @@
+.terms {
+  margin-top: 2.8rem;
+  font-size: 1.5rem;
+  line-height: 2;
+
+  .terms-title {
+    margin: 0 0 0.6rem;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .term-entry {
+    margin: 0.4rem 0;
+    text-align: left;
+    overflow-wrap: anywhere;
+    text-indent: -2em;
+    padding-left: 2em;
+    line-height: 1.6;
+  }
+
+  .term-title {
+    font-weight: 500;
+  }
+
+  .term-separator::before {
+    content: "•";
+    display: inline-block;
+    text-indent: 0;
+    margin: 0 0.6rem;
+    color: $semi-light-text-color;
+  }
+
+  .term-language {
+    color: $semi-light-text-color;
+  }
+
+  .term-gender,
+  .term-note {
+    color: $semi-light-text-color;
+    font-size: 0.9em;
+  }
+
+  ruby rt {
+    font-size: 0.6em;
+  }
+}
+
+.person-annotations {
+  color: $semi-light-text-color;
+  font-size: 0.9em;
+  // 姓名常被加粗；注释部分不随之加粗。
+  font-weight: normal;
+
+  ruby rt {
+    font-size: 0.6em;
+  }
+}
+
+.person-label {
+  font-size: 0.85em;
+}
+
+.person-ipa {
+  white-space: nowrap;
+}

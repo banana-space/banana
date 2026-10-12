@@ -1,0 +1,199 @@
+# 原讲义的页内各节不编号（\nosectionnumbers）；三册是不编号的分组，讲次连续编号，与原讲义一致。
+numbering:
+  headings: false
+contents:
+  - page: 前言之一
+    number: false
+  - page: 前言之二
+    number: false
+  - page: 数学分析一
+    number: false
+    children:
+      - page: 数学分析一简介
+        number: false
+      - page: 实数的公理化描述
+      - page: 区间套公理与确界原理，距离空间
+      - page: 实数的构造：Dedekind 分割
+      - page: 作业：可数与不可数，Schröder–Bernstein 定理
+        number: false
+      - page: 极限与收敛
+      - page: 收敛判别法
+      - page: 指数函数与三角函数的构造与性质
+      - page: 作业：Riemann 重排，Cesàro 求和，Banach–Mazur 游戏
+        number: false
+      - page: 乘积级数与 Riemann zeta 函数，振荡级数的收敛判断，完备赋范线性空间
+      - page: 作业：素数的倒数和，Basel 问题的 Euler“证明”
+        number: false
+      - page: 函数的连续性
+      - page: 连续映射，介值定理，初等函数的构造
+      - page: 连续函数的拓扑刻画
+      - page: 作业：拓扑与连续性
+        number: false
+      - page: 紧性与开覆盖，一致连续性与函数列的收敛
+      - page: 利用级数收敛来构造连续函数，距离空间的完备化
+      - page: 作业：有无穷多素数的拓扑证明
+        number: false
+      - page: 期中考试：连续函数环的极大理想
+        number: false
+      - page: 导数的定义与计算
+      - page: 导数的基本性质、应用与推广
+      - page: 中值定理的应用
+      - page: 作业：高木贞治函数
+        number: false
+      - page: 空间填充曲线，L’Hôpital法则，Taylor展开
+      - page: 凸函数与 Jensen 不等式
+      - page: 作业：Émile Borel 引理，Peano 的证明
+        number: false
+      - page: Riemann 积分的定义
+      - page: Riemann 和与 Darboux 上下和
+      - page: 作业：Sturm–Liouville 理论的一个例子
+        number: false
+      - page: Riemann 可积函数的刻画，Newton–Leibniz 公式
+      - page: 作业：Dini 定理，多项式逼近与 Weierstraß–Stone 定理
+        number: false
+      - page: Lebesgue 定理
+      - page: 积分的基本性质，积分余项，反常积分
+      - page: 历史注记：微分与积分的交换定理，含参积分
+      - page: 作业：zeta(2) 的无理性
+        number: false
+      - page: 常微分方程解的存在唯一性，Kepler 三大定律的证明，变分法
+      - page: 最速降线问题，积分中值定理
+      - page: 作业：二平方和数的密度
+        number: false
+      - page: 第二积分中值定理，Stieltjes 积分
+      - page: Stieltjes 积分的中值定理
+      - page: 作业：振荡积分
+        number: false
+      - page: 一元微积分拾遗：Baire 纲定理，Liouville 定理
+      - page: 一元微积分拾遗：振荡与衰减
+      - page: 期末考试：两个积分的计算，整系数多项式的逼近
+        number: false
+      - page: 寒假作业
+        number: false
+  - page: 数学分析二
+    number: false
+    children:
+      - page: 数学分析二简介
+        number: false
+      - page: 高维的微分学：高维函数的微分
+        number: '30'
+      - page: 映射的微分
+      - page: 作业：齐次函数与Euler公式
+        number: false
+      - page: 微分同胚与光滑子流形
+      - page: 子流形的坐标表示，反函数定理
+      - page: 习题课：拓扑空间
+        number: false
+      - page: 作业：反函数和隐函数定理
+        number: false
+      - page: 隐函数定理，子流形的判定
+      - page: 子流形的原像定理，切空间
+      - page: 作业：隐函数定理，经典群的子流形结构
+        number: false
+      - page: 子流形上的光滑映射与微分学
+      - page: Hesse 矩阵与极值点，凸函数
+      - page: 习题课：球极投影
+        number: false
+      - page: 作业：Lagrange 乘子法，Morse 引理，横截相交性
+        number: false
+      - page: sigma-代数，可测空间与可测函数
+      - page: 测度与测度空间，Carathéodory 扩张定理
+      - page: Lebesgue 测度及其性质
+      - page: 测度空间上的积分，Beppo Levi 定理
+      - page: 作业：子流形与零测集，Stieltjes 测度，Borel–Cantelli 定理
+        number: false
+      - page: 可积函数空间，Fatou 引理和 Lebesgue 控制收敛定理
+      - page: 积分与求导的交换性，乘积空间
+      - page: 习题课：硬币空间的测度理论
+        number: false
+      - page: 作业：Lebesgue 控制收敛，十进制小数的研究
+        number: false
+      - page: 乘积测度与 Fubini 定理
+      - page: 作业：Archimedes 对抛物线面积的计算，Gauss 积分
+        number: false
+      - page: 抽象换元积分，Borel 测度的正则性
+      - page: 常用的换元积分，子流形上的积分
+      - page: 期中考试：非 Borel 集的构造
+        number: false
+      - page: 子流形上的积分计算，Stokes 定理
+      - page: Sard 型引理，Stokes 定理的微分拓扑证明
+      - page: 作业：曲线曲面积分的计算
+        number: false
+      - page: 习题课：Riemann 积分的定义1
+        number: false
+      - page: 子流形上的积分计算，散度定理与 Green 公式
+      - page: 二维的 Brouwer 不动点定理，Hilbert 空间
+      - page: L2 与 Linfty 的完备性，卷积与逼近
+      - page: 作业：Stokes 定理的应用
+        number: false
+      - page: 习题课：Riemann 积分的定义2
+        number: false
+      - page: L1 函数的光滑逼近，Fourier 级数
+      - page: Fourier 的 L2 理论
+      - page: 作业：波动方程的局部能量估计
+        number: false
+      - page: 习题课：Riemann 积分的定义3
+        number: false
+      - page: 光滑性–衰减速率关系，积分核，局部化引理
+      - page: Fourier 级数的收敛理论
+      - page: 作业：Fourier 级数的计算，三角函数与球谐函数
+        number: false
+      - page: Bernstein 定理，等分布定理
+      - page: Roth 三项等差数列定理
+      - page: 作业：Fourier 级数几乎处处发散的 L1 函数
+        number: false
+      - page: 期末考试：Maaß 波函数的展开
+        number: false
+  - page: 数学分析三
+    number: false
+    children:
+      - page: 数学分析三简介
+        number: false
+      - page: 分布的定义和例子
+        number: '58'
+      - page: 分布的操作：限制，求导及复合
+      - page: 分布的简单应用：Cauchy 积分公式
+      - page: 分布的局部刻画与支集
+      - page: 作业：齐次分布，Hadamard 有限部分
+        number: false
+      - page: 分布的卷积
+      - page: 微分方程的基本解
+      - page: 作业：分布的例子，位势方程
+        number: false
+      - page: 可卷集，波动算子的基本解
+      - page: 选读：复分析相关知识简介
+      - page: Fourier 分析，L1 上的 Fourier 变换
+      - page: L2 上的 Fourier 变换，Schwartz 空间
+      - page: 作业：Fourier 逆变换，分布的扩张与张量积
+        number: false
+      - page: 缓增分布的 Fourier 变换：定义和基本例子
+      - page: 缓增分布的 Fourier 变换与卷积
+      - page: 波动方程和热方程的基本解
+      - page: Sobolev 空间的基本性质，Sobolev 嵌入定理
+      - page: 作业：Heisenberg 测不准原理，Sobolev 空间的物理刻画
+        number: false
+      - page: Sobolev 空间的对偶性，Sobolev 空间的限制定理
+      - page: 有界区域上的 Sobolev 空间，位势方程的初步研究
+      - page: 期中测验
+        number: false
+      - page: 半空间上的 Sobolev 空间的限制与扩张
+      - page: 有界区域上 Sobolev 空间的扩张与限制至子流形
+      - page: 作业：二维波动方程的基本解，Airy 函数与 KdV 方程
+        number: false
+      - page: 位势方程的解与椭圆正则性
+      - page: 习题：一个弹性力学的模型
+        number: false
+      - page: 紧算子、自伴算子、弱收敛与谱理论
+      - page: Laplace 算子的谱分解与特征函数
+      - page: 利用特征函数刻画函数空间
+      - page: 热核与热方程的基本性质
+      - page: 热核的估计、Weyl 渐近公式
+      - page: 波前集的定义与基本性质
+      - page: 非驻相法与微局部椭圆正则性
+      - page: 奇性传播定理
+      - page: 分布理论期末复习题一
+        number: false
+      - page: 分布理论期末复习题二
+        number: false
+      - page: 分布理论期末复习题三
+        number: false

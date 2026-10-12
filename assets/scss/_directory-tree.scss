@@ -1,0 +1,170 @@
+// Reserve the toggle gutter for every row, including leaves.
+$directory-toggle-gutter: 2.4rem;
+
+.directory-tree {
+  list-style: none;
+  padding: 0 0 0 $directory-toggle-gutter;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  text-align: left;
+
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  li::marker {
+    content: none;
+  }
+
+  .directory-tree {
+    padding-left: 0;
+    margin-left: 1.4rem;
+  }
+
+  a.directory-item {
+    position: relative;
+    display: block;
+    padding: .4rem 0;
+    color: $muted-color;
+    border: 0;
+    overflow-wrap: anywhere;
+
+    &:hover {
+      color: $link-color;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -1rem;
+      top: .4rem;
+      bottom: .4rem;
+      width: 2px;
+      background: transparent;
+    }
+
+    &[aria-current] {
+      color: $link-color;
+      font-weight: 600;
+
+      &::before {
+        background: $link-color;
+      }
+    }
+  }
+
+  details {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  summary {
+    position: relative;
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-weight: 400;
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details:not([open])>.directory-tree {
+    display: none;
+  }
+}
+
+.directory-number {
+  font-size: .9em;
+  margin-right: .6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.directory-chevron {
+  position: absolute;
+  left: -$directory-toggle-gutter;
+  top: .9rem;
+  display: flex;
+  color: $muted-color;
+  transform: rotate(-90deg);
+  transition: transform .18s ease;
+
+  .ui-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+.directory-tree details[open]>summary>.directory-chevron {
+  transform: rotate(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directory-chevron {
+    transition: none;
+  }
+}
+
+// Each sibling list shares its number/title columns; nested lists start afresh.
+@supports (grid-template-columns: subgrid) {
+  .directory-tree {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: .6rem;
+
+    >li,
+    >li>details,
+    >li>details>summary,
+    a.directory-item {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+    }
+
+    // Span the native content wrapper so an expanded subtree cannot widen the number column.
+    details::details-content {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .directory-tree {
+      grid-column: 1 / -1;
+    }
+
+    a.directory-item {
+      align-items: first baseline;
+    }
+
+    .directory-number {
+      grid-column: 1;
+      margin-right: 0;
+    }
+
+    .directory-item-title {
+      grid-column: 2;
+      min-width: 0;
+    }
+
+    .directory-item:not(.is-numbered) .directory-item-title {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.directory-tree strong {
+  font-weight: 500;
+  color: inherit;
+}
+
+.directory-tree .katex {
+  font-size: 1em;
+}

@@ -1,0 +1,2 @@
+{{- /* Order by letter group (`#` first), Western before Han names within a group, then by reading (front matter `sort` or generated pinyin), then by title. Hugo's sort is stable, so the last key sorted is the primary one. */ -}}
+{{- return sort (sort (sort (sort . "Title") "Params.sortKey") "Params.sortScript") "Params.sortGroup" -}}

@@ -1,0 +1,185 @@
+// Print: the article alone, typeset like a plain document.
+@media print {
+  @page {
+    size: A4;
+    margin: 2cm 1.8cm;
+  }
+
+  // 87.5% of the screen scale: body text 1.6rem = 14px = 10.5pt, other sizes in proportion.
+  html {
+    font-size: 54.6875%;
+  }
+
+  // The printable width falls under the narrow-screen breakpoints; keep the desktop sizes.
+  body {
+    background: none;
+    color: #000;
+    font-size: 1.6rem;
+    line-height: 1.75;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .content header h1 {
+    margin: 6rem 0 4rem;
+  }
+
+  // Site chrome and reading aids.
+  .navigation,
+  .site-footer,
+  .collection-sidebar,
+  .toc-shell,
+  .collection-pagination,
+  .navbox,
+  .article-footer,
+  .redirect-source,
+  .heading-link,
+  .notice-icon,
+  script {
+    display: none !important;
+  }
+
+  // Fill the printable width.
+  .content,
+  .content > .container,
+  .page,
+  .page > article {
+    display: block;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .content header {
+    margin: 0 0 3.2rem;
+
+    h1 {
+      font-size: 4rem;
+      line-height: 1.2;
+    }
+  }
+
+  // Links read as text; only external links carry their address.
+  a,
+  .content header h1 a.title-link {
+    color: inherit;
+    border-bottom: 0;
+    text-decoration: none;
+  }
+
+  article a.wiki-link-missing {
+    color: inherit;
+    border-bottom: 0;
+  }
+
+  article a.external-link .ui-icon {
+    display: none;
+  }
+
+  article a.external-link::after {
+    content: " <" attr(href) ">";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  // Headings and theorem titles stay with what follows.
+  article h1,
+  article h2,
+  article h3,
+  article h4,
+  article h5,
+  article h6,
+  article .theorem-block:not(.theorem-proof) > .theorem-title {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  article .theorem-block > .theorem-content > :first-child {
+    break-before: avoid;
+  }
+
+  article p {
+    orphans: 2;
+    widows: 2;
+  }
+
+  // Theorem blocks in black.
+  article .theorem-block {
+    --theorem-accent: #000;
+  }
+
+  article .theorem-block:not(.theorem-proof) {
+    margin: 1.6rem 0;
+    padding-left: 1.2rem;
+  }
+
+  .math-display,
+  .katex-display,
+  pre,
+  figure,
+  img,
+  svg,
+  tr {
+    break-inside: avoid;
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+
+  // Spoilers print open.
+  article details {
+    background: none;
+
+    &::details-content {
+      content-visibility: visible;
+      display: block;
+    }
+
+    > summary {
+      color: inherit;
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
+  }
+
+  // Notices drawn like theorem blocks.
+  .notice,
+  .notice.notice-info,
+  .notice.notice-warning,
+  .notice.notice-error {
+    display: block;
+    margin: 1.6rem 0 2.4rem;
+    padding: 0 0 0 1.2rem;
+    border-left: 2px solid #000;
+    background: none;
+    font-size: 1em;
+    break-inside: avoid;
+  }
+
+  // Language names, notes and person details print as ordinary text.
+  .terms .term-separator::before,
+  .terms .term-language,
+  .terms .term-gender,
+  .terms .term-note,
+  .person-annotations {
+    color: inherit;
+  }
+
+  article table {
+    border: 0;
+    border-collapse: collapse;
+    border-radius: 0;
+  }
+
+  .terms {
+    break-inside: avoid;
+  }
+}

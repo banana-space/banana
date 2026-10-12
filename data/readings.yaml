@@ -1,0 +1,10 @@
+# 自动读音的多音字修正。键为只含汉字的词语，值为每个字一个音节的读音（不标声调，ü 写作 v）。
+# 词语在标题中任意位置出现时生效，例如“重积分”也作用于“二重积分”。
+# 只影响自动生成的读音；页面可在 front matter 中用 sort 直接指定完整读音。
+重数: chong shu
+重根: chong gen
+重积分: chong ji fen
+行向量: hang xiang liang
+曾炯: zeng jiong
+曾定理: zeng ding li
+卝: guan

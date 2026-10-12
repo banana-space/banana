@@ -1,0 +1,15 @@
+title: '[[非交换几何]]'
+groups:
+  - title: 范畴
+    items:
+      - '[[微分分次范畴]]'
+      - '[[微分分次范畴模]]'
+      - '[[光滑微分分次范畴]]'
+      - '[[紧合微分分次范畴]]'
+  - title: 不变量
+    items:
+      - '[[Hochschild 同调]]'
+      - '[[Hochschild–Kostant–Rosenberg 定理]]'
+      - '[[循环同调]]'
+      - '[[周期循环同调]]'
+      - '[[Blanc K 理论|Blanc $K$ 理论]]'

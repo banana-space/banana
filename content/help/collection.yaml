@@ -1,0 +1,16 @@
+title: 写作指南
+numbering:
+  pages: false
+  headings: false
+contents:
+  - page: 参与编辑
+  - page: 风格指引
+  - page: 格式手册
+    children:
+      - page: 页面信息
+      - page: 正文排版
+      - page: 公式与图形
+      - page: 定理与证明
+      - page: 引用与参考文献
+      - page: 提示、导航、术语翻译
+      - page: 讲义

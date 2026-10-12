@@ -1,0 +1,11 @@
+{{- /* <lang de>Satz</lang>：外语文字（scripts/prebuild/tags.mjs 写成本短代码并检查语言代码）。内容为 Markdown：
+  一段之内为行内的 span，含有空行（几段）时为 div。 */ -}}
+{{- $lang := .Get 0 | default "" -}}
+{{- if or (ne (len .Params) 1) (not (findRE `^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$` $lang)) -}}{{ errorf "%s" (i18n "build_tag_language" (dict "Name" "lang" "Value" $lang)) }}{{- end -}}
+{{- $inner := .Inner | strings.TrimSpace -}}
+{{- if findRE `\n[ \t]*\n` $inner -}}
+<div lang="{{ $lang }}">{{ .Page.RenderString (dict "display" "block") $inner }}</div>
+{{- else -}}
+<span lang="{{ $lang }}">{{ .Page.RenderString $inner }}</span>
+{{- end -}}
+{{- /* Inline: no whitespace before following punctuation. */ -}}

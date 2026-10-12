@@ -1,0 +1,41 @@
+contents:
+  - page: 线性空间
+    children:
+      - page: 线性空间与子空间
+      - page: 线性组合与线性相关性
+      - page: 基与维数
+      - page: 线性映射与矩阵
+      - page: 习题
+  - page: 矩阵与线性方程组
+    children:
+      - page: 矩阵的基本运算
+      - page: 线性方程组
+      - page: 线性方程组的解空间
+      - page: 习题
+  - page: 行列式
+    children:
+      - page: 面积元与体积元
+      - page: n 阶行列式
+      - page: Laplace 展开定理
+      - page: 乘积的行列式
+      - page: 矩阵的逆
+      - page: 习题
+  - page: 特征值理论
+    children:
+      - page: 特征值与特征向量
+      - page: 相似变换
+      - page: 特征子空间与根子空间
+      - page: Jordan 标准型
+      - page: 一些例子
+      - page: 习题
+  - page: 内积空间
+    children:
+      - page: 欧几里得空间
+      - page: 正交基与正交化
+      - page: 正交方阵
+      - page: 正交相似与奇异值分解
+      - page: 一些例子
+      - page: 酉空间
+      - page: 酉矩阵
+      - page: 一些例子 1
+      - page: 习题

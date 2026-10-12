@@ -1,0 +1,27 @@
+title: 向量丛与 $K$ 理论
+groups:
+  - title: 向量丛
+    items:
+      - '[[拓扑向量丛]]'
+      - '[[光滑向量丛]]'
+      - '[[全纯向量丛]]'
+  - title: 示性类
+    items:
+      - '[[分类空间]]'
+      - '[[示性类]]'
+      - '[[Euler 类]]'
+      - '[[陈类]]'
+      - '[[陈特征]]'
+      - '[[Stiefel–Whitney 类]]'
+      - '[[Pontryagin 类]]'
+      - '[[陈–Weil 理论]]'
+      - '[[Todd 类]]'
+      - '[[Hirzebruch–Riemann–Roch 定理]]'
+      - '[[Atiyah–Singer 指标定理]]'
+  - title: $K$ 理论
+    items:
+      - '[[拓扑 $K$ 理论]]'
+      - '[[等变 K 理论|等变 $K$ 理论]]'
+      - '[[Bott 周期律]]'
+      - '[[K 理论谱|$K$ 理论谱]]'
+      - '[[Adams 运算]]'

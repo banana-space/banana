@@ -1,0 +1,25 @@
+{{- $direct := .Params.directCategories -}}
+{{- $terms := .GetTerms "categories" -}}
+{{- if $direct -}}{{- $terms = where $terms "Title" "in" $direct -}}{{- end -}}
+{{- if or $terms .Params.gitLastmod .File -}}
+<footer class="article-footer">
+  {{ with $terms }}
+  <nav class="article-categories" aria-label="{{ i18n "article_categories" }}">
+    {{ range . }}{{ partial "category-link.html" . }}{{ end }}
+  </nav>
+  {{ end }}
+  {{ if or .Params.gitLastmod .File }}
+  <div class="article-meta">
+  {{ with .Params.gitLastmod }}
+  {{ $modified := time.AsTime . | time.In "UTC" }}
+  {{ $display := i18n "lastmod_datetime" (dict "Year" ($modified.Format "2006") "Month" ($modified.Format "1") "Day" ($modified.Format "2") "Hour" ($modified.Format "15") "Minute" ($modified.Format "04")) }}
+  {{ $display = i18n "lastmod_utc_datetime" (dict "Date" $display) }}
+  {{ $format := i18n "lastmod_datetime" (dict "Year" "{year}" "Month" "{month}" "Day" "{day}" "Hour" "{hour}" "Minute" "{minute}") }}
+  {{ $date := printf "<time datetime=\"%s\" data-local-time data-format=\"%s\">%s</time>" ($modified.Format "2006-01-02T15:04:05Z07:00") ($format | htmlEscape) ($display | htmlEscape) }}
+  <p class="last-modified">{{ i18n "lastmod" (dict "Date" ($date | safeHTML)) | safeHTML }}</p>
+  {{ end }}
+  {{ with .File }}<p class="edit-page"><a href="{{ "edit/" | relURL }}?path={{ replace .Path "\\" "/" | urlquery }}" rel="nofollow">{{ i18n "edit_this_page" }}</a></p>{{ end }}
+  </div>
+  {{ end }}
+</footer>
+{{- end -}}

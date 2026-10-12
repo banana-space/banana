@@ -1,0 +1,9 @@
+{{ if eq hugo.Environment "development" }}
+  {{ $cssOpts := (dict "targetPath" "css/site.css" "enableSourceMap" true ) }}
+  {{ $styles := resources.Get "scss/site.scss" | resources.ExecuteAsTemplate "style.site.scss" . | toCSS $cssOpts }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+{{ else }}
+  {{ $cssOpts := (dict "targetPath" "css/site.css" ) }}
+  {{ $styles := resources.Get "scss/site.scss" | resources.ExecuteAsTemplate "style.site.scss" . | toCSS $cssOpts | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" crossorigin="anonymous" />
+{{ end }}

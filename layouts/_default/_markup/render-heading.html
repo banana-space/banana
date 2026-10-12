@@ -1,0 +1,8 @@
+{{- if and (eq .Page.Section "wiki") .Page.IsPage -}}
+  {{- if eq .Level 1 -}}
+    {{- errorf "%s: %s" .Position (i18n "build_heading_level_one") -}}
+  {{- else if and (eq .Level 2) (not (index .Attributes "data-section-number")) (not (index .Attributes "data-section-unnumbered")) -}}
+    {{- errorf "%s: %s" .Position (i18n "build_heading_level_two") -}}
+  {{- end -}}
+{{- end -}}
+<h{{ .Level }} id="{{ .Anchor | safeURL }}"{{ with .Attributes.class }} class="{{ . }}"{{ end }}><a class="heading-link" href="#{{ .Anchor | safeURL }}" title="{{ i18n "link_to_heading" }}">§</a>{{ with index .Attributes "data-section-number" }}<span class="section-number">{{ . }}</span> {{ end }}{{ .Text | safeHTML }}</h{{ .Level }}>

@@ -1,0 +1,15 @@
+{{- with .Params.titleParts -}}
+  {{- range . -}}
+    {{- if isset . "tex" -}}
+      {{- partial "math.html" (dict "tex" .tex) -}}
+    {{- else -}}
+      {{- .text -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- if eq .Kind "taxonomy" -}}
+    {{- i18n .Data.Plural -}}
+  {{- else -}}
+    {{- .Title -}}
+  {{- end -}}
+{{- end -}}

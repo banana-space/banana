@@ -1,0 +1,26 @@
+definition:
+  group: definition
+theorem:
+  group: theorem
+lemma:
+  group: theorem
+proposition:
+  group: theorem
+corollary:
+  group: theorem
+example:
+  group: example
+remark:
+  group: remark
+notation:
+  group: definition
+conjecture:
+  group: theorem
+exercise:
+  group: example
+convention:
+  group: remark
+  numbered: false
+proof:
+  group: proof
+  numbered: false

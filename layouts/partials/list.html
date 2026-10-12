@@ -1,0 +1,58 @@
+<section class="container list">
+  <header>
+    <h1 class="title"{{ if .Params.structuredPage }} id="page-title"{{ end }}>
+      <a class="title-link" href="{{ .Permalink | safeURL }}">
+        {{- if eq .Kind "term" -}}
+          <span class="title-prefix">{{- i18n .Data.Plural 1 -}}{{- i18n "taxonomy_separator" -}}</span>
+        {{- end -}}
+        {{- partial "display-title.html" . -}}
+      </a>
+    </h1>
+  </header>
+  {{ with .Content }}<div class="list-description">{{ . }}</div>{{ end }}
+  {{ if and (eq .Kind "term") (eq .Data.Plural "categories") }}
+    <nav aria-label="{{ i18n "ancestor_categories" }}" class="category-ancestors">
+      {{- partial "ui-icon.html" "folder" -}}
+      {{- partial "category-ancestors.html" (dict "page" . "seen" slice) -}}
+      <span aria-current="page">{{ partial "display-title.html" . }}</span>
+    </nav>
+    {{ $depth := int (site.Params.categoryDepth | default 1) }}
+    {{ if isset site.Params "categorydepth" }}{{ $depth = int site.Params.categoryDepth }}{{ end }}
+    {{ if lt $depth 0 }}{{ errorf "%s" (i18n "build_category_depth") }}{{ end }}
+    {{ if gt $depth 0 }}
+      {{ $tree := partial "category-tree.html" (dict "parent" .Title "remaining" (sub $depth 1)) }}
+      {{ with $tree }}
+      <h2>{{ i18n "child_categories" }}</h2>
+      {{ . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $pages := .Pages }}
+  {{ if eq .Section "wiki" }}{{ $pages = where .RegularPages "Params.wikiName" "ne" nil }}{{ end }}
+  {{ if and .Params.lectureIndex (not .Params.collectionRoot) }}
+    {{ $pages = where (where .Site.Pages "Params.collectionHome" true) "Params.collectionKind" "lecture" }}
+  {{ end }}
+  {{ if and (eq .Kind "term") (eq .Data.Plural "categories") }}
+    {{ $pages = partial "category-pages.html" . }}
+    {{ if $pages }}<h2>{{ i18n "articles" }}</h2>{{ end }}
+  {{ end }}
+  {{ $pages = partial "sort-pages.html" $pages }}
+  {{ $paginator := .Paginate $pages }}
+  {{ $isCategory := and (eq .Kind "term") (eq .Data.Plural "categories") }}
+  {{/* Longer lists of articles are grouped by letter; short ones stay a plain list. */}}
+  {{ if and (gt (len $pages) 10) (or $isCategory (and (eq .Kind "section") (eq .Section "wiki"))) }}
+  {{ partial "letter-groups.html" (dict "pages" $pages "paginator" $paginator "level" (cond $isCategory 3 2)) }}
+  {{ else }}
+  <ul>
+    {{ range $paginator.Pages }}
+      <li>
+        <a class="article-item" href="{{ .RelPermalink }}">
+          <span class="title">{{ partial "display-title.html" . }}</span>
+          {{ if $.Params.lectureIndex }}{{ with .Description }}<span class="collection-description">{{ . }}</span>{{ end }}{{ end }}
+        </a>
+      </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+  {{ partial "pagination.html" . }}
+</section>

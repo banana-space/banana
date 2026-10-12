@@ -1,0 +1,255 @@
+数学: {}
+代数学:
+  parent: 数学
+环论:
+  parent: 代数学
+交换代数:
+  parent: 环论
+一般环论:
+  parent: 环论
+代数论:
+  parent: 环论
+线性代数:
+  parent: 代数学
+同调代数:
+  parent: 代数学
+群论:
+  parent: 代数学
+有限群论:
+  parent: 群论
+域论:
+  parent: 代数学
+高阶代数:
+  parent: 代数学
+一般代数:
+  parent: 代数学
+Lie 理论:
+  parent: 代数学
+代数群理论:
+  parent: 代数学
+模论:
+  parent: 代数学
+初等代数:
+  parent: 代数学
+数系:
+  parent: 代数学
+表示论:
+  parent: 代数学
+群表示论:
+  parent: 表示论
+半群论:
+  parent: 代数学
+范畴论:
+  parent: 数学
+高阶范畴论:
+  parent: 范畴论
+层论:
+  parent: 范畴论
+范畴代数:
+  parent: 范畴论
+同伦代数:
+  parent: 范畴论
+范畴逻辑:
+  parent: 范畴论
+数学基础:
+  parent: 数学
+集合论:
+  parent: 数学基础
+序论:
+  parent: 集合论
+类型论:
+  parent: 数学基础
+同伦类型论:
+  parent: 类型论
+逻辑学:
+  parent: 数学基础
+模型论:
+  parent: 逻辑学
+证明论:
+  parent: 逻辑学
+命题逻辑:
+  parent: 逻辑学
+谓词逻辑:
+  parent: 逻辑学
+几何学:
+  parent: 数学
+代数几何:
+  parent: 几何学
+概形论:
+  parent: 代数几何
+计数几何:
+  parent: 代数几何
+母题论:
+  parent: 代数几何
+母题同伦论:
+  parent: 母题论
+复代数几何:
+  parent: 代数几何
+叠论:
+  parent: 代数几何
+代数曲线论:
+  parent: 代数几何
+模空间论:
+  parent: 代数几何
+双有理几何:
+  parent: 代数几何
+相交论:
+  parent: 代数几何
+代数曲面论:
+  parent: 代数几何
+上同调论:
+  parent: 代数几何
+导出代数几何:
+  parent: 代数几何
+微分几何:
+  parent: 几何学
+初等几何:
+  parent: 几何学
+晶格论:
+  parent: 初等几何
+复几何:
+  parent: 几何学
+辛几何:
+  parent: 几何学
+Riemann 几何:
+  parent: 几何学
+高阶几何:
+  parent: 几何学
+超几何:
+  parent: 几何学
+非交换几何:
+  parent: 几何学
+旋量几何:
+  parent: 几何学
+拓扑学:
+  parent: 数学
+代数拓扑:
+  parent: 拓扑学
+同伦论:
+  parent: 代数拓扑
+等变同伦论:
+  parent: 同伦论
+色谱同伦论:
+  parent: 同伦论
+简单同伦论:
+  parent: 同伦论
+同调论:
+  parent: 代数拓扑
+$K$ 理论:
+  parent: 代数拓扑
+纤维丛论:
+  parent: 代数拓扑
+示性类:
+  parent: 代数拓扑
+一般拓扑:
+  parent: 拓扑学
+几何拓扑:
+  parent: 拓扑学
+纽结论:
+  parent: 几何拓扑
+分析学:
+  parent: 数学
+实分析:
+  parent: 分析学
+复分析:
+  parent: 分析学
+泛函分析:
+  parent: 分析学
+特殊函数:
+  parent: 分析学
+测度论:
+  parent: 分析学
+抽象调和分析:
+  parent: 分析学
+微分方程论:
+  parent: 分析学
+常微分方程论:
+  parent: 微分方程论
+偏微分方程论:
+  parent: 微分方程论
+凸分析:
+  parent: 分析学
+常数:
+  parent: 分析学
+动力系统:
+  parent: 分析学
+调和分析:
+  parent: 分析学
+数论:
+  parent: 数学
+代数数论:
+  parent: 数论
+解析数论:
+  parent: 数论
+Diophantos 逼近:
+  parent: 解析数论
+初等数论:
+  parent: 数论
+$p$ 进几何:
+  parent: 数论
+算术几何:
+  parent: 数论
+超越数论:
+  parent: 数论
+模形式论:
+  parent: 数论
+组合学:
+  parent: 数学
+图论:
+  parent: 组合学
+组合函数:
+  parent: 组合学
+组合几何:
+  parent: 组合学
+计数组合:
+  parent: 组合学
+组合博弈论:
+  parent: 组合学
+拟阵论:
+  parent: 组合学
+拓扑组合:
+  parent: 组合学
+概率论:
+  parent: 数学
+广泛概念:
+  parent: 数学
+多义词: {}
+人物: {}
+数学家:
+  parent: 人物
+逻辑学家:
+  parent: 人物
+物理学家:
+  parent: 人物
+哲学家:
+  parent: 人物
+物理学: {}
+量子场论:
+  parent: 物理学
+共形场论:
+  parent: 量子场论
+量子力学:
+  parent: 物理学
+相对论:
+  parent: 物理学
+经典力学:
+  parent: 物理学
+电动力学:
+  parent: 物理学
+凝聚态物理:
+  parent: 物理学
+弦论:
+  parent: 物理学
+计算机科学: {}
+递归论:
+  parent: 计算机科学
+形式语言:
+  parent: 计算机科学
+重写系统:
+  parent: 计算机科学
+自动机:
+  parent: 计算机科学
+记号: {}
+问题: {}
+作品: {}
+哲学: {}

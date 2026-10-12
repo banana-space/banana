@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160.4pt" height="128.4pt" viewBox="0 0 160.4 128.4" version="1.1">
+<defs>
+<clipPath id="clip1">
+  <path d="M 64 32 L 160.398438 32 L 160.398438 128.398438 L 64 128.398438 Z M 64 32 "/>
+</clipPath>
+<clipPath id="clip2">
+  <path d="M 128 96 L 160.398438 96 L 160.398438 97 L 128 97 Z M 128 96 "/>
+</clipPath>
+<clipPath id="clip3">
+  <path d="M 128 96 L 129 96 L 129 128.398438 L 128 128.398438 Z M 128 96 "/>
+</clipPath>
+</defs>
+<g id="surface1">
+<path style="fill:none;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 63.999219 800.000781 L 63.999219 704.000781 L 191.999219 704.000781 L 191.999219 800.000781 Z M 63.999219 800.000781 " transform="matrix(1,0,0,-1,-63.8,800.2)"/>
+<g clip-path="url(#clip1)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 127.999219 768.000781 L 127.999219 672.000781 L 223.999219 672.000781 L 223.999219 768.000781 Z M 127.999219 768.000781 " transform="matrix(1,0,0,-1,-63.8,800.2)"/>
+</g>
+<path style="fill:none;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-dasharray:4;stroke-miterlimit:10;" d="M 127.999219 768.000781 L 127.999219 800.000781 " transform="matrix(1,0,0,-1,-63.8,800.2)"/>
+<path style="fill:none;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-dasharray:4;stroke-miterlimit:10;" d="M 127.999219 768.000781 L 63.999219 768.000781 " transform="matrix(1,0,0,-1,-63.8,800.2)"/>
+<g clip-path="url(#clip2)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-dasharray:4;stroke-miterlimit:10;" d="M 191.999219 704.000781 L 223.999219 704.000781 " transform="matrix(1,0,0,-1,-63.8,800.2)"/>
+</g>
+<g clip-path="url(#clip3)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-dasharray:4;stroke-miterlimit:10;" d="M 191.999219 704.000781 L 191.999219 672.000781 " transform="matrix(1,0,0,-1,-63.8,800.2)"/>
+</g>
+</g>
+</svg>

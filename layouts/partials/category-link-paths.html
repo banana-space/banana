@@ -1,0 +1,7 @@
+{{- $paths := dict -}}
+{{- with .GetPage "/categories" -}}
+  {{- range .Pages -}}
+    {{- $paths = merge $paths (dict (path.Clean (urls.Parse .RelPermalink).Path) true) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $paths -}}

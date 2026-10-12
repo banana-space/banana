@@ -1,0 +1,22 @@
+contents:
+  - page: 凝聚态集
+    children:
+      - page: 附录：集合论困难之解决
+        number: false
+  - page: 凝聚态交换群、上同调
+  - page: 局部紧交换群
+    children:
+      - page: 附录：消解引理
+        number: false
+  - page: 固态化
+  - page: 凝聚态生象
+    children:
+      - page: 应用：Suslin 定理
+        number: false
+  - page: 解析环
+  - page: 仿射六函子
+  - page: 解析E∞环
+  - page: 解析空间
+  - page: 展望
+  - page: 参考文献
+    number: false

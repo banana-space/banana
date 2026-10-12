@@ -1,0 +1,52 @@
+// KaTeX 的字体缺少的几个字形，由 BananaMath 补足（由 KaTeX_Main 修改而来，OFL，见 static/fonts/BananaMath-OFL.txt）：
+// - 𝟙（U+1D7D9）：math.html 把 \mathbb{1} 改为 𝟙；字形为本站绘制。
+// - 镜像字母 ꓘ（U+A4D8）、ꓷ（U+A4F7）：KaTeX_Main 的 K、D 左右翻转（如 \mathrm{ꓘꓷ} 表示镜像的 DK）；
+//   TikZ 中由 scripts/tikz/compiler.mjs 翻转普通字母。
+// 与 KaTeX_Main 同名，浏览器只在 KaTeX_Main 缺字时使用它。
+@font-face {
+  font-family: "KaTeX_Main";
+  src: url("#{$font-path}BananaMath-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A4D8, U+A4F7, U+1D7D9;
+}
+
+span.katex {
+  font-size: 1.1em;
+}
+
+span.katex span.cjk_fallback {
+  font-size: 90%;
+  font-family: $font-family;
+}
+
+// Retain MathML for screen readers without duplicating copied formula text.
+span.katex-mathml {
+  user-select: none;
+}
+
+span.katex-display {
+  overflow-x: auto;
+  overflow-y: clip;
+  padding: 0.1em 0;
+  margin: 0;
+}
+
+// Embolden lines
+span.katex .frac-line {
+  border-bottom-width: 0.1em !important;
+}
+
+span.katex svg {
+  path {
+    stroke: currentColor;
+    stroke-width: 20;
+  }
+}
+
+.math-display {
+  display: block;
+  margin: 1em 0;
+  overflow-x: auto;
+}

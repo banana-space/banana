@@ -1,0 +1,10 @@
+{{ define "title" }}
+  {{- if eq .Kind "term" -}}
+    {{- i18n .Data.Plural -}}
+    {{- i18n "taxonomy_separator" -}}
+  {{- end -}}
+  {{- if eq .Kind "taxonomy" -}}{{ i18n .Data.Plural }}{{- else -}}{{ .Title }}{{- end }} - {{ .Site.Title -}}
+{{ end }}
+{{ define "content" }}
+  {{ partial "terms.html" . }}
+{{ end }}

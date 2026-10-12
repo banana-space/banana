@@ -1,0 +1,18 @@
+{{- if and .Params.collectionRoot (not .Params.collectionHome) -}}
+<div class="collection-navigation">
+  {{ if partial "collections/show-sidebar.html" . }}
+  <details class="collection-disclosure" id="collection-drawer">
+    <summary class="icon-button" aria-label="{{ i18n "collection_open" }}" data-open-label="{{ i18n "collection_open" }}" data-close-label="{{ i18n "collection_close" }}"><span class="drawer-open-icon">{{ partial "ui-icon.html" "sidebar" }}</span><span class="drawer-close-icon">{{ partial "ui-icon.html" "close" }}</span></summary>
+    <div class="collection-drawer-panel">{{ partial "collections/directory.html" . }}</div>
+  </details>
+  {{ end }}
+  <nav class="collection-breadcrumbs" aria-label="{{ i18n "collection_navigation" }}">
+    {{- range .Params.collectionAncestors -}}
+      {{- with $.Site.GetPage (printf "/%s" .) -}}
+        <a href="{{ .RelPermalink }}">{{ with .Params.collectionNumber }}{{ . }} {{ end }}{{ partial "display-title.html" . }}</a><span class="breadcrumb-separator" aria-hidden="true">›</span>
+      {{- end -}}
+    {{- end -}}
+    <span aria-current="page">{{ with .Params.collectionNumber }}{{ . }} {{ end }}{{ partial "display-title.html" . }}</span>
+  </nav>
+</div>
+{{- end -}}

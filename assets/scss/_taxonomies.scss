@@ -1,0 +1,39 @@
+.taxonomy-element {
+  a {
+    border-bottom: none;
+  }
+  
+  a:active {
+    color: $fg-color;
+  }
+
+  sup {
+    margin-inline-start: 0.35em;
+    color: $muted-color;
+    font-size: 0.75em;
+  }
+}
+
+// Folder icons replace bullets only in category trees, including subcategories.
+.container ul.category-tree {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    padding-inline-start: 0;
+    margin: 0.4rem 0;
+  }
+
+  ul.category-tree {
+    padding-left: 1.6em;
+  }
+}
+
+.category-ancestors {
+  color: $muted-color;
+}
+
+.category-separator {
+  margin: 0 0.4em;
+  color: $semi-light-text-color;
+}

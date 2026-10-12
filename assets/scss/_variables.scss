@@ -1,0 +1,90 @@
+// Fonts
+$font-family-western:
+  Inter,
+  Segoe UI,
+  -apple-system,
+  BlinkMacSystemFont,
+  PingFang SC,
+  Microsoft YaHei UI,
+  Microsoft YaHei,
+  微软雅黑,
+  Noto Sans CJK SC,
+  sans-serif;
+$font-family: "Banana Punctuation", $font-family-western;
+$code-font-family:
+  Commit Mono,
+  Consolas,
+  PingFang SC,
+  Microsoft YaHei UI,
+  Microsoft YaHei,
+  微软雅黑,
+  Noto Sans CJK SC,
+  monospace;
+$font-family-ja:
+  Inter,
+  Segoe UI,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Noto Sans JP",
+  "Hiragino Kaku Gothic Pro",
+  "Hiragino Sans",
+  "Yu Gothic",
+  "YuGothic",
+  "Meiryo",
+  sans-serif;
+$font-family-ko:
+  Inter,
+  Segoe UI,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Noto Sans KR",
+  "Apple SD Gothic Neo",
+  "Malgun Gothic",
+  "Nanum Gothic",
+  "NanumSquare",
+  sans-serif;
+
+// Colors
+$white: #ffffff !default;
+$bg-color: #fbfcfd !default;
+$fg-color: #202224 !default;
+$alt-bg-color: #eff1f5 !default;
+$alt-fg-color: #000 !default;
+$darker-alt-bg-color: #d0d8dc !default;
+$link-color: #1078d0 !default;
+$missing-link-color: #a32929 !default;
+$light-text-color: #c2c9d6 !default;
+$semi-light-text-color: #a0a7b6 !default;
+$muted-color: #6c7177 !default;
+$border-color: #d0d8dc !default;
+$banana-color: #f2c94c !default;
+$theorem-purple-color: desaturate(#8d44cd, 14%) !default; // Remarks, references and labels.
+$shadow-color: #263747 !default;
+
+// Navigation boxes
+$navbox-title-bg-color: #eff1f5 !default;
+$navbox-group-bg-color: #eff1f5 !default;
+$navbox-heading-color: #4b4f53 !default;
+$navbox-separator-color: #bacbd0 !default;
+
+// Layout
+// The right-hand contents sidebar fits once the reading frame ($site-frame-width, 1052px) and a scrollbar do;
+// the left-hand collection directory needs $collection-frame-width (1284px) as well.
+$toc-breakpoint: 1100px;
+$collection-sidebar-breakpoint: 1320px;
+$search-breakpoint: 760px;
+$site-gutter: 3rem;
+$reading-width: 76rem;
+$toc-width: 20rem;
+$reading-sidebar-gap: 3.2rem;
+$site-frame-width: $reading-width + $reading-sidebar-gap + $toc-width + 2 * $site-gutter;
+$collection-sidebar-width: 20rem;
+$collection-frame-width: $site-frame-width + $collection-sidebar-width + $reading-sidebar-gap;
+
+// Notice colors
+$fg-color-notice-info-icon: #1e88e5 !default;
+$bg-color-notice-info-content: #42a5f51a !default;
+$fg-color-notice-warning-icon: #f79800 !default;
+$bg-color-notice-warning-content: #ffca281a !default;
+$fg-color-notice-error-icon: #e53935 !default;
+$bg-color-notice-error-content: #ef53501a !default;

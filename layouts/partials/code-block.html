@@ -1,0 +1,3 @@
+{{- /* A code block in the site's Markdown dialect, YAML or TeX: the text alone, highlighted by postbuild
+  (scripts/postbuild/code-blocks.mjs) as the online editor highlights it. Other languages go to Chroma. */ -}}
+<pre class="code-block" data-highlight="{{ .Type }}"><code>{{ .Inner }}</code></pre>

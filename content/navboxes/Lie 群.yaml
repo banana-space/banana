@@ -1,0 +1,34 @@
+title: '[[Lie 群]]'
+groups:
+  - title: A 型
+    items:
+      - '[[一般线性群]] $\mathrm{GL}(n)$'
+      - '[[特殊线性群]] $\mathrm{SL}(n)$'
+      - '[[射影线性群]] $\mathrm{PGL}(n)$, $\mathrm{PSL}(n)$'
+      - '[[酉群]] $\mathrm{U}(n)$'
+      - '[[特殊酉群]] $\mathrm{SU}(n)$'
+  - title: B 型、D 型
+    items:
+      - '[[正交群]] $\mathrm{O}(n)$'
+      - '[[特殊正交群]] $\mathrm{SO}(n)$'
+      - '[[不定正交群]] $\mathrm{O}(p,q)$'
+      - '[[不定特殊正交群]] $\mathrm{SO}(p,q)$'
+      - '[[旋量群]] $\mathrm{Spin}(n)$'
+      - '[[扩旋量群]] $\mathrm{Pin}(n)$'
+      - '[[增旋量群]] $\mathrm{Spin}^{\mathrm{c}}(n)$'
+  - title: C 型
+    items:
+      - '[[辛群]] $\mathrm{Sp}(2n)$'
+      - '[[酉辛群]] $\mathrm{USp}(n)$'
+  - title: 例外群
+    items:
+      - '[[E6|$\mathrm{E}_{6}$]]'
+      - '[[E7|$\mathrm{E}_{7}$]]'
+      - '[[E8|$\mathrm{E}_{8}$]]'
+      - '[[F4|$\mathrm{F}_{4}$]]'
+      - '[[$\mathrm{G}_2$]]'
+  - title: 仿射群
+    items:
+      - '[[仿射群]]'
+      - '[[共形群]]'
+      - '[[Poincaré 群]]'

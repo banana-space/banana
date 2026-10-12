@@ -1,0 +1,116 @@
+contents:
+  - page: 平展上同调简介
+  - page: 平展基本群简介
+  - page: 景和层和层化
+    children:
+      - page: 基础概念
+      - page: 平展拓扑的一些基础应用
+  - page: 平展拓扑上的层
+    children:
+      - page: 基础概念
+      - page: 层的茎
+      - page: 常值层和局部常值层
+      - page: Abel群预层和层构成的范畴
+      - page: Kummer理论和Artin-Schreier列
+      - page: 拟凝聚层
+  - page: 层的一些函子
+    children:
+      - page: 直像
+      - page: 逆像
+      - page: 零扩张函子（下叹号函子）
+  - page: 平展上同调的定义和基本性质
+    children:
+      - page: 定义
+      - page: 群上同调一瞥
+      - page: 点的上同调
+      - page: Kummer-Artin-Schreier列和Galois理论
+      - page: 严格Hensel局部环的上同调
+      - page: 平展上同调和极限一瞥
+      - page: 平展上同调的拓扑不变性一瞥
+      - page: 支撑在闭集的上同调及性质
+  - page: Čech上同调和挠子
+    children:
+      - page: Čech上同调
+      - page: Čech-导出谱序列
+      - page: 应用I——Mayer-Vietoris 列
+      - page: 应用II——拟凝聚层的上同调
+      - page: 挠子理论一瞥和应用
+  - page: 高阶直像
+  - page: 曲线的上同调I——基础结果
+    children:
+      - page: Brauer群和Cr域一瞥
+      - page: Gm的上同调
+      - page: µn的上同调
+      - page: 支撑在点上的上同调
+  - page: 可构建层和挠层
+    children:
+      - page: 可构建层
+      - page: 挠层
+  - page: 曲线的上同调II——挠层的上同调
+    children:
+      - page: 迹映射方法基础
+      - page: 挠层的上同调
+  - page: 上同调维数I——一般情况
+  - page: 基变换定理
+    children:
+      - page: 经典拓扑里的紧合基变换
+      - page: 紧合基变换的叙述和证明
+      - page: 紧合基变换的应用
+      - page: 经典拓扑里的光滑基变换
+      - page: 光滑基变换一瞥
+      - page: 紧合-光滑基变换及有限性定理
+      - page: 特化和余特化映射
+  - page: 上同调维数II——仿射情况
+  - page: 紧支上同调
+    children:
+      - page: 分离有限型映射的下叹号函子
+      - page: 紧支高阶直像
+      - page: 紧支上同调
+  - page: 平展上同调的Künneth公式
+    children:
+      - page: 一般的Künneth公式
+      - page: 紧支的Künneth公式
+  - page: ℓ-进上同调和有限性定理一瞥
+  - page: 比较定理
+    children:
+      - page: 经典de Rham上同调-奇异比较定理
+      - page: GAGA一瞥
+      - page: 平展-奇异比较定理
+      - page: 其他比较定理
+  - page: 上同调纯性和Gysin序列
+    children:
+      - page: 光滑对
+      - page: 上同调纯性和Gysin序列I——一般情况
+      - page: 基本类
+      - page: 上同调纯性和Gysin序列II——特殊情况
+  - page: 链映射
+    children:
+      - page: 半纯性和链映射
+      - page: Chern类和Chow环
+  - page: Poincaré对偶
+    children:
+      - page: 经典拓扑的Poincaré对偶
+      - page: 迹映射
+      - page: Poincaré对偶及其应用
+  - page: 迹公式
+    children:
+      - page: Frobenius映射
+      - page: 非交换环上的迹
+      - page: 滤过导出范畴
+      - page: 完美复形和迹
+      - page: 射影曲线的Lefschetz数
+      - page: Grothendieck-Lefschetz迹公式
+  - page: Weil上同调理论一瞥
+    children:
+      - page: Weil上同调理论和同调等价
+      - page: 其他等价及Néron-Severi群
+      - page: Grothendieck标准猜想一瞥
+  - page: 平展上同调的一些应用掠影
+    children:
+      - page: 其他代数簇的计算
+      - page: Abel簇相关
+      - page: 相关大定理和猜想一瞥
+  - page: 平展上同调注记
+    children:
+      - page: 局部系和可构建层
+      - page: Nearby cycles和vanishing cycles

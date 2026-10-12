@@ -1,0 +1,16 @@
+{{ define "title" }}{{ i18n "missing_article" }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<section class="container page">
+  <article>
+    <h1>{{ i18n "missing_article" }}</h1>
+    {{ $name := printf "<span id=\"missing-name\" data-title-format=\"%s\" data-name-format=\"%s\">%s</span>" (i18n "missing_page_title" (dict "Name" "{name}") | htmlEscape) (i18n "missing_quoted_name" (dict "Name" "{name}") | htmlEscape) (i18n "missing_name" | htmlEscape) }}
+    <p>{{ i18n "missing_content" (dict "Name" $name) | safeHTML }}</p>
+    {{- /* Return home or create the entry; once static/js/related-search.js finds related pages, browse them or
+      create the entry. static/js/missing.js adds the name to the editor link, so it opens on that entry. */}}
+    {{- $links := dict "Home" .Site.Home.RelPermalink "Create" ("edit/" | relURL) }}
+    <p><span data-related="none">{{ i18n "missing_create" $links | safeHTML }}</span><span data-related="found" hidden>{{ i18n "missing_create_related" $links | safeHTML }}</span></p>
+    {{ partial "related-search.html" "title" }}
+  </article>
+</section>
+<script defer src="{{ "js/missing.js" | relURL }}"></script>
+{{ end }}

@@ -1,0 +1,5 @@
+{{- $root := .Site.GetPage (printf "/%s" .Params.collectionRoot) -}}
+{{- with $root -}}
+<p class="collection-tree-title"><a href="{{ .RelPermalink }}"{{ if $.Params.collectionHome }} aria-current="page"{{ end }}>{{ partial "display-title.html" . }}</a></p>
+{{- end -}}
+<nav aria-label="{{ .Params.collectionTitle }}">{{ partial "collections/tree.html" (dict "Page" . "Items" .Params.collectionContents "Depth" 32) }}</nav>

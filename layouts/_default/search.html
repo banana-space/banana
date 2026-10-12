@@ -1,0 +1,18 @@
+{{ define "title" }}{{ i18n "search_page_title" }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<section class="container search-page">
+  <h1 class="sr-only">{{ i18n "search_page_title" }}</h1>
+  <form class="search-page-form" role="search" action="{{ .RelPermalink }}" method="get">
+    <label class="search-field search-page-field">
+      {{ partial "ui-icon.html" "search" }}
+      <span class="sr-only">{{ i18n "search_label" (dict "Site" .Site.Title) }}</span>
+      <input type="search" name="q" enterkeyhint="search" placeholder="{{ i18n "search_placeholder" (dict "Site" .Site.Title) }}" aria-describedby="search-page-status" autocomplete="off" spellcheck="false">
+    </label>
+  </form>
+  <div class="search-filters" role="group" aria-label="{{ i18n "search_filter" }}" hidden></div>
+  <p id="search-page-status" class="search-page-status" role="status"><noscript>{{ i18n "search_noscript" }}</noscript></p>
+  <div class="search-page-results"></div>
+  <button class="search-load-more" type="button" hidden>{{ i18n "search_load_more" }}</button>
+</section>
+<script type="module" src="{{ "js/search-page.js" | relURL }}"></script>
+{{ end }}

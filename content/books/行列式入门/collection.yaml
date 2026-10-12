@@ -1,0 +1,121 @@
+numbering:
+  headings: false
+contents:
+  - page: 上传者的话
+    number: false
+  - page: Notice of copyright
+    number: false
+  - page: Dedication
+    number: false
+  - page: 序
+    number: false
+  - page: Acknowledgements
+    number: false
+  - page: 依赖说明
+    number: false
+  - page: 第 1 章
+    children:
+      - page: 缺项定位
+      - page: 排列
+      - page: '-1 的整数次方'
+      - page: 逆序数与符号
+      - page: 阵
+      - page: 行列式
+      - page: 按一列展开行列式
+      - page: 按多列展开行列式
+      - page: 完全展开行列式
+      - page: 阵的一个新记号
+      - page: 完全展开行列式（续）
+      - page: 单位阵
+      - page: 行列式的性质
+      - page: 用行列式的性质确定行列式
+      - page: “行”列式
+      - page: “行”列式（续）
+      - page: 阵的积
+      - page: Binet–Cauchy 公式（青春版）
+      - page: 按一列（行）展开行列式的公式的变体
+      - page: 线性方程组
+      - page: 由 n 个 n 元 ≤1 次方程作成的方程组 (1)
+      - page: 由 n 个 n 元 ≤1 次方程作成的方程组 (2)
+      - page: 由 n 个 n 元 ≤1 次方程作成的方程组 (3)
+      - page: 由 n 个 n 元 ≤1 次方程作成的方程组 (4)
+      - page: 由 m 个 n 元 ≤1 次方程作成的方程组 (1)
+      - page: 由 m 个 n 元 ≤1 次方程作成的方程组 (2)
+      - page: 由 m 个 n 元 ≤1 次方程作成的方程组 (3)
+      - page: 由 m 个 n 元 ≤1 次方程作成的方程组 (4)
+      - page: 由 m 个 n 元 ≤1 次方程作成的方程组 (5)
+      - page: Binet–Cauchy 公式
+      - page: 杂例
+      - page: La lasta leciono
+  - page: 附录 A
+    number: A
+    children:
+      - page: 复数
+      - page: 准备
+      - page: 2 元 2 次式
+      - page: 2 元 2 次方程组
+      - page: 1 元 4 次方程
+  - page: 附录 B
+    number: B
+    children:
+      - page: 求和号
+      - page: 求积号
+      - page: 数学归纳法
+      - page: 数的整数次方
+      - page: 结合律、交换律、分配律
+  - page: 附录 C
+    number: C
+    children:
+      - page: 行列式的性质 II
+      - page: 排列 II
+      - page: Binet–Cauchy 公式 II
+      - page: 按一行展开行列式
+      - page: 方阵与其转置的行列式相等
+      - page: （关于列的）多线性
+      - page: 按前二列展开行列式
+      - page: （关于列的）交错性
+      - page: （关于列的）反称性
+      - page: 反称性的应用
+      - page: 用行列式的性质确定行列式 II
+      - page: 类行列式
+      - page: 绝对值的性质 (1)
+      - page: 绝对值的性质 (2)
+      - page: 绝对值的性质 (3)
+      - page: 关于实数的大小的几个事实
+      - page: 行列式为 0 的阵的性质
+      - page: 判断阵的行列式不是 0 的方法
+      - page: 判断实阵的行列式大于 0 的方法
+      - page: 阵的运算的律
+      - page: falling factorial 与 2 项式系数
+      - page: 2 项式展开
+      - page: 2 项式系数的更多的性质
+      - page: 消去律
+      - page: 古伴的性质 (1)
+      - page: 古伴的性质 (2)
+      - page: 古伴的性质 (3)
+      - page: 阵的积，分块地写
+      - page: 转置的性质
+      - page: 辛阵
+      - page: 反称阵
+      - page: 奇数级反称阵的行列式为 0
+      - page: 阵的积与倍加
+      - page: 反称阵与倍加
+      - page: Pfaffian
+      - page: Pfaffian 的性质
+      - page: 阵的积、倍加、倍乘
+      - page: Pfaffian 的性质（续）
+      - page: 辛阵的行列式为 1
+      - page: Pfaffian 的完全展开
+      - page: 阵的积与倍加（续）
+      - page: 阵的积、倍加、合同
+      - page: 行列式、倍加、倍乘
+      - page: 古伴、倍加、倍乘
+      - page: 线性方程组与秩
+      - page: REF 阵、线性方程组、秩
+      - page: Sylvester 阵与结式
+      - page: derivative
+      - page: 结式的应用
+      - page: 杂例
+      - page: 总结
+      - page: 参考文献
+        number: false

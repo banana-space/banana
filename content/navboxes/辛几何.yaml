@@ -1,0 +1,27 @@
+title: '[[辛几何]]'
+groups:
+  - title: 基本概念
+    items:
+      - '[[辛流形]]'
+      - '[[辛同胚]]'
+      - '[[Hamilton 向量场]]'
+      - '[[Poisson 流形]]'
+      - '[[Poisson 括号]]'
+      - '[[Darboux 定理]]'
+  - title: 子流形
+    items:
+      - '[[辛子流形]]'
+      - '[[Lagrange 子流形]]'
+      - '[[特殊 Lagrange 子流形]]'
+  - title: 动量映射
+    items:
+      - '[[动量映射]]'
+      - '[[Hamilton 作用]]'
+      - '[[辛约化]]'
+      - '[[Delzant 定理]]'
+      - '[[辛环流形]]'
+  - title: 切触几何
+    items:
+      - '[[切触流形]]'
+      - '[[Reeb 向量场]]'
+      - '[[辛化]]'

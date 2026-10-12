@@ -1,0 +1,53 @@
+title: '[[Lie 理论]]'
+groups:
+  - title: 概念
+    items:
+      - '[[Lie 群]]'
+      - '[[Lie 代数]]'
+      - '[[指数映射]]'
+      - '[[伴随表示]]'
+      - '[[Lie 群–Lie 代数对应]]'
+  - title: Lie 代数的性质
+    items:
+      - '[[幂零 Lie 代数]]'
+      - '[[可解 Lie 代数]]'
+      - '[[半单 Lie 代数]]'
+      - '[[单 Lie 代数]]'
+      - '[[约化 Lie 代数]]'
+      - '[[Engel 定理]]'
+      - '[[Lie 定理]]'
+      - '[[Baker–Campbell–Hausdorff 公式]]'
+      - '[[Poincaré–Birkhoff–Witt 定理]]'
+  - title: 半单理论
+    items:
+      - '[[Borel 子代数]]'
+      - '[[Cartan 子代数]]'
+      - '[[Killing 型]]'
+      - '[[Weyl 群]]'
+      - '[[根系]]'
+      - '[[Dynkin 图]]'
+      - '[[Satake 图]]'
+      - '[[实半单 Lie 代数]]'
+  - title: 表示论
+    items:
+      - '[[半单 Lie 代数表示论]]'
+      - '[[泛包络代数]]'
+      - '[[Verma 模]]'
+      - '[[Schur–Weyl 对偶]]'
+      - '[[Weyl 特征公式]]'
+      - '[[范畴 $\mathcal{O}$]]'
+  - title: Lie 群的结构
+    items:
+      - '[[极大紧子群]]'
+      - '[[极分解]]'
+      - '[[奇异值分解]]'
+      - '[[Iwasawa 分解]]'
+      - '[[Bruhat 分解]]'
+  - title: 推广
+    items:
+      - '[[无限维 Lie 群]]'
+      - '[[Kac–Moody 群]]、[[Kac–Moody 代数]]'
+      - '[[仿射 Lie 代数]]'
+      - '[[Lie 型单群]]'
+      - '[[代数群]]'
+      - '[[p-Lie 代数|$p$-Lie 代数]]'

@@ -1,0 +1,38 @@
+title: '[[Riemann 几何]]'
+groups:
+  - title: 概念
+    items:
+      - '[[Riemann 流形]]'
+      - '[[Riemann 度量]]'
+      - '[[Levi-Civita 联络]]'
+      - '[[曲率_(Riemann 几何)|曲率]]'
+      - '[[标架]]'
+      - '[[法坐标]]'
+  - title: 测地线
+    items:
+      - '[[测地线]]'
+      - '[[测地流]]'
+      - '[[指数映射]]'
+      - '[[Jacobi 场]]'
+      - '[[割迹]]'
+      - '[[Morse 理论]]'
+  - title: 子流形
+    items:
+      - '[[等距嵌入]]'
+      - '[[第二基本形式]]'
+      - '[[Nash 嵌入定理]]'
+  - title: 整体性质
+    items:
+      - '[[曲率–拓扑对应]]'
+  - title: 例子
+    items:
+      - '[[球面]]'
+      - '[[双曲空间]]'
+      - '[[Euclid 空间]]'
+      - '[[齐性空间]]'
+      - '[[对称空间]]'
+  - title: 推广
+    items:
+      - '[[Finsler 流形]]'
+      - '[[伪 Riemann 流形]]'
+      - '[[Kähler 流形]]'

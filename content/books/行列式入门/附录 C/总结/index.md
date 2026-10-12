@@ -1,0 +1,122 @@
+---
+title: Until the re-seeing
+lang: en
+---
+
+The title of this section is a literal translation of
+“<lang eo>Ĝis la revido</lang>” in Esperanto,
+which idiomatically means “See you” in English.
+Yes, I am bidding farewell—it is not the case that
+*everything* that has a beginning has an end,
+but it *is* the case that
+this book,
+*An introduction to determinants*,
+which has a beginning, has an end.
+
+I do not really have anything interesting to say,
+but I still choose to say something here.
+
+It is said that there are at least five ways
+of defining the determinant:
+
+- as a function satisfying certain axioms;
+
+- explicitly by the “big formula”;
+
+- recursively;
+
+- as the “oriented volume” of a parallelepiped;
+
+- by the exterior algebra.
+
+I define the determinant recursively in this book.
+I believe that this is the easiest way for beginners.
+Some other ways are hinted in this book as well.
+
+This book is mainly about determinants,
+and it is hundreds of pages long.
+I know that I have written too much in this book:
+the number of pages in Appendix C
+(the current chapter),
+which consists of reading materials,
+is greater than the total number of pages in all other chapters.
+However, I really wanted to share my knowledge,
+hoping that it might be useful and helpful.
+
+This book is available under
+the [Zero-Clause BSD License](https://opensource.org/license/0bsd),
+which means that
+any person or organisation is allowed to use this book
+in any way, for any purpose, with or without charge.
+I have not yet earned a single cent from this book,
+but I did not, do not, and will not
+prevent any person or organisation
+from making a profit from this book.
+I want to propagate the values of “open knowledge”,
+and I want to prove its profitability,
+if I can ever earn money from this book.
+
+I thank mathematicians and their work;
+I thank artists who made artworks for this book;
+I thank my friends, who were good brokers;
+I thank everyone who read or reads this book.
+
+Parenthetically, the day on which
+I wrote this closing remark is 28 June 2025.
+Both six and twenty-eight are perfect numbers,
+in the sense that
+each is equal to the sum of all its positive divisors,
+excluding itself.
+It is also worth noting that
+\(6.28\) is a decimal approximation of \(2\pi\)
+(or \(\tau\)),
+the ratio of the circumference of a circle to its radius.
+Therefore I think of 28 June as
+a “<lang eo>mirinda</lang>” (meaning “worth marvelling at”) day.
+Moreover, \(2\,025\) is remarkable:
+\[
+\begin{aligned}
+  2\,025
+  = {} &
+  1^6 \cdot 3^4 \cdot 5^2 \cdot 7^0
+  \\
+  = {} &
+  5^2 + 20^2 + 40^2
+  \\
+  = {} &
+  27^2 + 36^2
+  \\
+  = {} &
+  (20 + 25)^2
+  \\
+  = {} &
+  (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9)^2
+  \\
+  = {} &
+  1^3 + 2^3 + 3^3 + 4^3 + 5^3 + 6^3 + 7^3 + 8^3 + 9^3
+  \\
+  = {} &
+  \det
+  \begin{bmatrix}
+    1  & 5  & 14 & 12 \\
+    9  & 2  & 7  & 6  \\
+    13 & 8  & 3  & 11 \\
+    15 & 10 & 4  & 16 \\
+  \end{bmatrix}
+  \\
+  = {} &
+  \det
+  \begin{bmatrix}
+    1  & 18 & 9  & 6  & 10 \\
+    5  & 24 & 13 & 7  & 12 \\
+    8  & 22 & 21 & 23 & 14 \\
+    16 & 2  & 15 & 4  & 17 \\
+    19 & 11 & 20 & 3  & 25 \\
+  \end{bmatrix}.
+\end{aligned}
+\]
+I have only listed a few here.
+
+<lang eo>Fartu bone. Kredu, ke ni renkontiĝos iam, ie, iel, ial.</lang>
+(Do well. Believe that we will meet
+sometime, somewhere, somehow, for some reason.)
