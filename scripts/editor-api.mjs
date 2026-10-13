@@ -52,7 +52,9 @@ import katex from 'katex';
 //                                          （需 --github-repo，令牌可选）；pages 为 [{ path, title, titleHTML, url, status, previous, group, letter, sortKey }]，
 //                                          title 为纯文本，titleHTML 中的公式已由 KaTeX 渲染；group 为 { kind, title, titleHTML }，letter 为列表中的字母分组（a–z 或 #）
 // GET  /api/recent-changes/diff?pr=<n>&path=<页面>
-//                                          { ok, pull, page, before, after }：该 PR 修改的一个页面在 PR 前后的全文（不存在时为 null），供 /diff/ 使用
+//                                          { ok, pull, page, before, after, edit }：该 PR 修改的一个页面在 PR 前后的全文（不存在时为 null），供 /diff/ 使用；
+//                                          edit 为编辑按钮打开的编辑器参数：在线编辑器开的未合并 PR 为 { path, pull }（编辑该 PR 的版本，
+//                                          页面在 PR 中新建时也是），否则网站上有此页面时为 { path }，不能在线编辑时为 null
 // POST /api/preview { path, text }          { ok, url, html, missingLinks, timings }（需登录）
 // POST /api/check   { path, text }          { ok, missingLinks }（需登录）
 // POST /api/submit  { path, text, original, message, pull }
@@ -339,7 +341,13 @@ const routes = {
       return githubFailed(error);
     });
     const { source, ...page } = changedPage(file);
-    send(response, 200, { ok: true, pull: { ...pull, author: pull.author.login, namesPage: pull.title === page.title || pull.title === source }, page, before, after }, { 'Cache-Control': 'public, max-age=60' });
+    // What the page's edit button opens: an open pull request from the online editor in the editor (?pull=, which the
+    // editor can add to, also when the page is new in it), otherwise the page on the site. A page that exists only in
+    // another kind of pull request cannot be edited online.
+    const edit = page.status === 'removed' ? null
+      : pull.state === 'open' && pull.editor ? { path: page.path, pull: pull.number }
+        : service.source(page.path) !== undefined ? { path: page.path } : null;
+    send(response, 200, { ok: true, pull: { ...pull, author: pull.author.login, namesPage: pull.title === page.title || pull.title === source }, page, before, after, edit }, { 'Cache-Control': 'public, max-age=60' });
   },
   'POST /api/preview': queued(async (request, response, user) => {
     throttle(user, 'preview');

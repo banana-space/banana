@@ -1,0 +1,156 @@
+import { createProject } from './helpers/project.mjs';
+import assert from 'node:assert/strict';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
+import { join } from 'node:path';
+import { setTimeout as delay } from 'node:timers/promises';
+
+// 最近更改的接口（/api/recent-changes 与 /api/recent-changes/diff），对着 GitHub 的替身：PR 列表与分页、
+// 在线编辑器的 PR 的作者、页面标题、差异的前后全文，以及差异页面的编辑按钮打开哪个版本。
+const main = 'a'.repeat(40);
+const files = new Map([ // "commit:path" -> text
+  [`${main}:content/wiki/甲/index.md`, '---\ntitle: 甲\ncategories: []\n---\n\n甲的正文。\n'],
+]);
+const at = (sha, path, text) => files.set(`${sha}:${path}`, text);
+const pulls = [];
+function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, closed = false, changed, title }) {
+  const head = String(number).padStart(40, 'b');
+  for (const [path, text] of Object.entries(changed)) if (text !== null) at(head, path, text);
+  pulls.push({
+    number, title, html_url: `https://github.example/owner/site/pull/${number}`, user: { login: user },
+    state: merged || closed ? 'closed' : 'open', merged_at: merged ? `2026-10-0${number % 9 + 1}T08:00:00Z` : null,
+    updated_at: `2026-10-1${number % 9}T08:00:00Z`, created_at: '2026-10-01T08:00:00Z', draft: false,
+    base: { sha: main }, head: { sha: head, ref, repo: { full_name: fork ? 'fork/site' : 'Owner/Site' } },
+    files: Object.entries(changed).map(([path, text]) => ({
+      filename: path, status: text === null ? 'removed' : files.has(`${main}:${path}`) ? 'modified' : 'added', additions: 1, deletions: 0,
+    })),
+  });
+}
+const page = (title, body) => `---\ntitle: ${title}\ncategories: []\n---\n\n${body}\n`;
+// Newest first, as GitHub lists them by update.
+pull(9, { ref: 'edit/octo/0123456789ab', title: '乙', changed: { 'content/wiki/乙/index.md': page('乙', '新条目。') } });
+pull(8, { ref: 'new-page', user: 'hand', title: '手写的新页面', changed: { 'content/wiki/丙/index.md': page('丙', '手写。') } });
+pull(7, { ref: 'edit/evil/0123456789ab', fork: true, user: 'evil', title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '复刻中的修改。') } });
+pull(6, { ref: 'edit/hubot/fedcba987654', merged: true, title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '甲的新正文。') } });
+pull(5, { ref: 'closed', closed: true, title: '关闭的', changed: { 'content/wiki/甲/index.md': page('甲', '没有合并。') } });
+pull(4, { ref: 'site-code', user: 'dev', merged: true, title: '网站代码', changed: { 'scripts/x.mjs': 'x' } });
+for (let number = 40; number < 70; number++) pull(number, { ref: `old-${number}`, merged: true, title: `旧 ${number}`, changed: { 'content/wiki/甲/index.md': page('甲', `旧 ${number}`) } });
+// A later page of GitHub's list holds older pull requests.
+pulls.sort((a, b) => (b.number < 10) - (a.number < 10) || b.number - a.number);
+
+const requests = [];
+const github = createServer((request, response) => {
+  const url = new URL(request.url, 'http://localhost');
+  const reply = (status, value) => { response.writeHead(status, { 'Content-Type': 'application/json' }); response.end(JSON.stringify(value)); };
+  const match = url.pathname.match(/^\/repos\/owner\/site(\/.*)$/);
+  if (!match) return reply(404, { message: 'Not Found' });
+  const path = decodeURIComponent(match[1]);
+  requests.push(path);
+  if (path === '/pulls') {
+    const number = Number(url.searchParams.get('page') ?? 1), size = Number(url.searchParams.get('per_page'));
+    assert.equal(url.searchParams.get('state'), 'all');
+    return reply(200, pulls.slice((number - 1) * size, number * size).map(({ files: _, ...pull }) => pull));
+  }
+  let found = path.match(/^\/pulls\/(\d+)(\/files)?$/);
+  if (found) {
+    const pull = pulls.find(pull => pull.number === Number(found[1]));
+    if (!pull) return reply(404, { message: 'Not Found' });
+    const { files: changed, ...rest } = pull;
+    return reply(200, found[2] ? (Number(url.searchParams.get('page')) > 1 ? [] : changed) : rest);
+  }
+  found = path.match(/^\/compare\/(\w+)\.\.\.(\w+)$/);
+  if (found) return reply(200, { merge_base_commit: { sha: found[1] } });
+  if (path.startsWith('/contents/')) {
+    const text = files.get(`${url.searchParams.get('ref')}:${path.slice('/contents/'.length)}`);
+    if (text === undefined) return reply(404, { message: 'Not Found' });
+    assert.equal(request.headers.accept, 'application/vnd.github.raw+json');
+    response.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return response.end(text);
+  }
+  reply(404, { message: 'Not Found' });
+});
+github.listen(0, '127.0.0.1');
+await once(github, 'listening');
+const githubOrigin = `http://127.0.0.1:${github.address().port}`;
+
+const root = await createProject('recent-changes');
+let child, output = '';
+try {
+  await mkdir(join(root, 'content/wiki/甲'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/甲/index.md'), files.get(`${main}:content/wiki/甲/index.md`));
+  // No token: the repository is public.
+  child = spawn(process.execPath, ['scripts/editor-api.mjs', '--port', '0', '--github-repo', 'owner/site', '--cacheDir', join(root, 'cache')], {
+    cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
+    env: { ...process.env, BANANA_GITHUB_API: githubOrigin, BANANA_GITHUB_TOKEN: '' },
+  });
+  child.stdout.on('data', data => { output += data; });
+  child.stderr.on('data', data => { output += data; });
+  const deadline = Date.now() + 60000;
+  while (!/listening on (http:\/\/\S+)\/api\//.test(output)) {
+    if (child.exitCode !== null || Date.now() > deadline) throw new Error(`editor-api 未启动：${output}`);
+    await delay(100);
+  }
+  const base = output.match(/listening on (http:\/\/\S+)\/api\//)[1];
+  const get = async path => {
+    const response = await fetch(`${base}/api/${path}`);
+    return { status: response.status, json: await response.json() };
+  };
+
+  // The list: closed pull requests left out, the editor's by their author, a fork's branch of the same name not.
+  let { json } = await get('recent-changes');
+  assert.equal(json.ok, true);
+  const first = json.pulls.filter(pull => pull.number < 10);
+  assert.deepEqual(first.map(pull => [pull.number, pull.state, pull.author, pull.editor]),
+    [[9, 'open', 'octo', true], [8, 'open', 'hand', false], [7, 'open', 'evil', false], [6, 'merged', 'hubot', true], [4, 'merged', 'dev', false]]);
+  const [bySomeoneNew, byHandNew, , merged, code] = first;
+  assert.deepEqual(bySomeoneNew.pages.map(({ path, title, url, status, letter }) => ({ path, title, url, status, letter })),
+    [{ path: 'wiki/乙/index.md', title: '乙', url: null, status: 'added', letter: 'y' }], '新页面以目录名为标题，尚无网址');
+  assert.equal(bySomeoneNew.namesPage, true, '编辑器的 PR 以页面命名');
+  assert.equal(byHandNew.namesPage, false);
+  assert.deepEqual(merged.pages.map(page => [page.title, page.url, page.status]), [['甲', '/wiki/甲/', 'modified']]);
+  assert.deepEqual([code.pages, code.otherFiles], [[], 1], '只改网站代码的 PR');
+
+  // Pages of 30: the next page continues, the last says there is no more.
+  assert.equal(json.more, true);
+  const second = (await get('recent-changes?page=2')).json;
+  assert.equal(second.more, false);
+  assert.equal(json.pulls.length + second.pulls.length, pulls.length - 1, '两页合起来是全部（关闭的除外）');
+  assert.equal((await get('recent-changes?page=0')).status, 400);
+
+  // The diff of a page, from where the branch left main to its latest commit; and what its edit button opens.
+  const diff = (number, path) => get(`recent-changes/diff?pr=${number}&path=${encodeURIComponent(path)}`);
+  ({ json } = await diff(9, 'wiki/乙/index.md'));
+  assert.deepEqual([json.before, json.after, json.page.status], [null, page('乙', '新条目。'), 'added']);
+  assert.deepEqual(json.edit, { path: 'wiki/乙/index.md', pull: 9 }, '编辑器开的 PR 中的新页面：在编辑器中打开该 PR 的版本，而不是空白的新页面');
+  ({ json } = await diff(8, 'wiki/丙/index.md'));
+  assert.equal(json.edit, null, '其他 PR 中的新页面不能在线编辑');
+  ({ json } = await diff(7, 'wiki/甲/index.md'));
+  assert.deepEqual(json.edit, { path: 'wiki/甲/index.md' }, '复刻中的同名分支不是编辑器的 PR：编辑网站上的版本');
+  ({ json } = await diff(6, 'wiki/甲/index.md'));
+  assert.deepEqual([json.before, json.after], [files.get(`${main}:content/wiki/甲/index.md`), page('甲', '甲的新正文。')]);
+  assert.deepEqual(json.edit, { path: 'wiki/甲/index.md' }, '已合并：编辑网站上的版本');
+  assert.deepEqual([json.pull.number, json.pull.state, json.pull.author, json.pull.namesPage], [6, 'merged', 'hubot', true]);
+
+  // Pages a pull request does not change, closed pull requests and bad requests.
+  assert.equal((await diff(9, 'wiki/甲/index.md')).status, 404);
+  assert.equal((await diff(5, 'wiki/甲/index.md')).status, 404, '关闭而未合并的 PR');
+  assert.equal((await diff(99, 'wiki/甲/index.md')).status, 404, 'GitHub 上没有的 PR');
+  assert.equal((await get('recent-changes/diff?pr=x&path=wiki/甲/index.md')).status, 400);
+  assert.equal((await diff(4, 'scripts/x.mjs')).status, 400, '只有页面');
+
+  // Merged pull requests do not change: their files are read once.
+  const before = requests.filter(path => path === '/pulls/6/files').length;
+  await diff(6, 'wiki/甲/index.md');
+  assert.equal(requests.filter(path => path === '/pulls/6/files').length, before, '文件列表按提交缓存');
+
+  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存验证通过');
+} finally {
+  if (child && child.exitCode === null) {
+    try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}
+    await once(child, 'exit').catch(() => {});
+  }
+  github.close();
+  await rm(root, { recursive: true, force: true });
+}

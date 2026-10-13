@@ -19,7 +19,7 @@ function element(tag, className, ...children) {
   return node;
 }
 
-function header(pull, page) {
+function header(pull, page, edit) {
   document.title = fill(strings.pageTitle, { title: page.title });
   root.querySelector('.diff-title-text').innerHTML = page.titleHTML;
   const title = root.querySelector('.diff-title');
@@ -41,7 +41,8 @@ function header(pull, page) {
   if (pull.state === 'open') Object.assign(root.querySelector('.diff-note'), { hidden: false, textContent: strings.openNote });
 
   if (page.url) Object.assign(root.querySelector('.diff-view-page'), { hidden: false, href: page.url });
-  if (page.status !== 'removed') Object.assign(root.querySelector('.diff-edit-page'), { hidden: false, href: `${config.edit}?${new URLSearchParams({ path: page.path })}` });
+  // The server decides which version the editor opens (an open pull request's own, for one the editor can add to).
+  if (edit) Object.assign(root.querySelector('.diff-edit-page'), { hidden: false, href: `${config.edit}?${new URLSearchParams(edit)}` });
   root.querySelector('.diff-header').hidden = false;
 }
 
@@ -72,7 +73,7 @@ async function load() {
     const body = await response.json().catch(() => ({}));
     if (response.status === 404 || response.status === 400) throw Object.assign(new Error(body.errors?.[0]?.message), { missing: true });
     if (!response.ok || !body.ok) throw new Error(body.errors?.[0]?.message ?? response.status);
-    header(body.pull, body.page);
+    header(body.pull, body.page, body.edit);
     status.textContent = '';
     show(body.before, body.after);
   } catch (error) {

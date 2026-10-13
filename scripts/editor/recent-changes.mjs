@@ -6,9 +6,9 @@ import { GitHubError } from './github.mjs';
 
 /**
  * repo is "owner/name". list(page) resolves to { pulls, more }: one page of the recent pull requests, most recently
- * updated first, each { number, url, title, state: 'open' | 'merged', draft, author: { login }, time, created,
+ * updated first, each { number, url, title, state: 'open' | 'merged', draft, editor, author: { login }, time, created,
  * files: [{ path, status, previous, additions, deletions }], fileCount, truncated }; time is when the pull request
- * was merged, or for an open one when it was last updated. diff(number, path) resolves to { pull, file, before,
+ * was merged, or for an open one when it was last updated; editor is whether the online editor opened it. diff(number, path) resolves to { pull, file, before,
  * after }: the file's text where the pull request started from and in it (null where it does not exist).
  */
 export function recentPullRequests({ repo, token, api = 'https://api.github.com', perPage = 30, maxFiles = 1000, ttl = 60e3 }) {
@@ -55,15 +55,16 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
     return { files: files.slice(0, maxFiles), truncated: files.length >= maxFiles };
   });
 
-  /** Pull requests from the online editor are opened by the bot on edit/<login>/<hash>: their author is that login. */
-  function authorOf(pull) {
-    const login = pull.head.repo?.full_name === repo && pull.head.ref.match(/^edit\/([A-Za-z0-9-]+)\/[0-9a-f]{12}$/)?.[1];
-    return { login: login || pull.user.login };
-  }
+  /**
+   * The online editor opens its pull requests by the bot from edit/<login>/<hash of path> in the repository itself:
+   * their author is that login, and the editor can add to them (scripts/editor/github.mjs).
+   */
+  const editorLogin = pull => pull.head.repo?.full_name?.toLowerCase() === repo.toLowerCase()
+    && pull.head.ref.match(/^edit\/([A-Za-z0-9-]+)\/[0-9a-f]{12}$/)?.[1];
   const summary = pull => ({
     number: pull.number, url: pull.html_url, title: pull.title,
-    state: pull.merged_at ? 'merged' : 'open', draft: Boolean(pull.draft),
-    author: authorOf(pull), time: pull.merged_at ?? pull.updated_at, created: pull.created_at,
+    state: pull.merged_at ? 'merged' : 'open', draft: Boolean(pull.draft), editor: Boolean(editorLogin(pull)),
+    author: { login: editorLogin(pull) || pull.user.login }, time: pull.merged_at ?? pull.updated_at, created: pull.created_at,
   });
 
   /** One page of pull requests, by GitHub's order (most recently updated first). */
