@@ -1,0 +1,37 @@
+{{ define "title" }}{{ i18n "diff_page_title" }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+{{- /* One page's change in one pull request (/diff/?pr=<number>&path=<page>), from /api/recent-changes/diff; rendered
+  by assets/js/diff/main.js. Linked from the recent changes. */ -}}
+{{- $strings := dict
+  "loading" (i18n "recent_changes_loading")
+  "error" (i18n "diff_error")
+  "missing" (i18n "diff_missing")
+  "open" (i18n "recent_changes_open")
+  "draft" (i18n "recent_changes_draft")
+  "merged" (i18n "recent_changes_merged")
+  "added" (i18n "recent_changes_added")
+  "removed" (i18n "recent_changes_removed")
+  "renamed" (i18n "recent_changes_renamed")
+  "pageTitle" (printf "%s - %s" (i18n "diff_title" (dict "Title" "{title}")) site.Title)
+  "openNote" (i18n "diff_open_note")
+  "cm_unchanged_lines" (i18n "editor_cm_unchanged_lines")
+-}}
+<section class="container diff-page">
+  <a class="diff-back" href="{{ "recent-changes/" | relURL }}">{{ partial "ui-icon.html" "back" }}{{ i18n "recent_changes_title" }}</a>
+  <header class="diff-header" hidden>
+    <h1 class="diff-title"><span class="diff-title-text"></span></h1>
+    <div class="diff-meta"></div>
+    <p class="diff-note" hidden></p>
+    <div class="diff-actions">
+      <a class="diff-action diff-view-page" hidden>{{ partial "ui-icon.html" "view" }}{{ i18n "diff_view_page" }}</a>
+      <a class="diff-action diff-edit-page" rel="nofollow" hidden>{{ partial "ui-icon.html" "edit" }}{{ i18n "diff_edit_page" }}</a>
+    </div>
+  </header>
+  <p class="diff-status" role="status"><noscript>{{ i18n "recent_changes_noscript" }}</noscript></p>
+  <div class="diff-view" hidden></div>
+</section>
+<script type="application/json" id="diff-config">{{ dict "api" ("api/recent-changes/diff" | relURL) "edit" ("edit/" | relURL) "strings" $strings | jsonify | safeJS }}</script>
+{{- $js := resources.Get "js/diff/main.js" | js.Build (dict "format" "esm" "target" "es2020" "minify" hugo.IsProduction "targetPath" "js/diff.js") -}}
+{{- if hugo.IsProduction }}{{ $js = $js | fingerprint }}{{ end }}
+<script type="module" src="{{ $js.RelPermalink }}"></script>
+{{ end }}

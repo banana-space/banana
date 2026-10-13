@@ -1,6 +1,6 @@
 // Highlighting of the site's Markdown dialect (scripts/shared/markdown-language.mjs): the online editor, and
 // code blocks in that dialect. Colours are the site's own: links in the link blue; environments and code
-// languages in the definition orange, block structure (list markers, :::, fences) in a lighter orange;
+// languages, and block structure (list markers, :::, fences) in the definition orange;
 // references and labels in the theorem purple, their @ and braces lighter; TeX commands, numbers and YAML
 // keys in the theorem teal (darker, for text); inline markup characters recede in grey.
 $hl-mark-color: #9aa1ab;
@@ -8,7 +8,6 @@ $hl-math-color: #00806f; // The teal of theorem accents (#00a090), darker for te
 $hl-math-mark-color: #6aaea5;
 $hl-purple-color: $theorem-purple-color;
 $hl-orange-color: #e09000; // Definitions.
-$hl-structure-color: mix($hl-orange-color, $white, 55%);
 $hl-reference-mark-color: mix($hl-purple-color, $white, 50%);
 $hl-wiki-mark-color: #8db8e0;
 
@@ -143,7 +142,7 @@ $hl-wiki-mark-color: #8db8e0;
 // Block structure, last: it outweighs the heading's and the quote's colours on their marks.
 .hl-structure,
 .hl-heading.hl-structure {
-  color: $hl-structure-color;
+  color: $hl-orange-color;
 }
 
 // Code blocks highlighted at build time (layouts/partials/code-block.html) look like Chroma's (.highlight).

@@ -91,6 +91,8 @@ see_also_label:
   other: 参见：
 home_stats:
   other: 香蕉空间目前有 <strong class="home-stat">{{ .Wiki }}</strong> 篇百科文章和 <strong class="home-stat">{{ .Books }}</strong> 本讲义。
+home_recent_changes:
+  other: 你可以在<a href="{{ . }}">最近更改</a>查看网站的最新动态．
 redirected_from:
   other: 跳转自：{{ .Name }}
 related_search_more:
@@ -660,6 +662,72 @@ build_front_matter_field:
   other: "导言区缺少 {{ .Field }}"
 build_front_matter_title:
   other: title 不能为空
+
+# 最近更改（layouts/_default/recent-changes.html 与 static/js/recent-changes.js）；{count}、{name} 等由脚本填入
+recent_changes_title:
+  other: 最近更改
+recent_changes_intro:
+  other: 网站的修改都在 GitHub 上以 PR（拉取请求）提交，由维护者合并、发布．<br>以下列出网站的最近修改，<strong>待审阅</strong>的修改还没有出现在网站上．
+recent_changes_loading:
+  other: 正在载入…
+recent_changes_error:
+  other: 暂时无法读取最近更改，请稍后再试．
+recent_changes_empty:
+  other: 没有符合条件的更改．
+recent_changes_noscript:
+  other: 最近更改需要启用 JavaScript．
+recent_changes_today:
+  other: 今天
+recent_changes_yesterday:
+  other: 昨天
+recent_changes_date:
+  other: "{month} 月 {day} 日"
+recent_changes_open:
+  other: 待审阅
+recent_changes_draft:
+  other: 草稿
+recent_changes_merged:
+  other: 已合并
+recent_changes_added:
+  other: 新页面
+recent_changes_removed:
+  other: 已删除
+recent_changes_renamed:
+  other: 原名 {name}
+recent_changes_pages:
+  other: "{count} 个页面"
+recent_changes_more_pages:
+  other: 等 {count} 个页面
+recent_changes_show_pages:
+  other: 列出全部页面
+recent_changes_hide_pages:
+  other: 收起
+recent_changes_other_files:
+  other: 另有 {count} 个其他文件
+recent_changes_site_only:
+  other: 网站代码
+recent_changes_truncated:
+  other: GitHub 只列出了前 {count} 个文件，实际修改的可能更多．
+recent_changes_filter_pages:
+  other: 筛选页面（名称或拼音）
+recent_changes_no_pages:
+  other: 没有符合的页面．
+diff_page_title:
+  other: 页面差异
+diff_title:
+  other: "{{ .Title }} 的修改"
+diff_error:
+  other: 暂时无法读取这项修改，请稍后再试．
+diff_missing:
+  other: 没有找到这项修改：链接可能有误，或者 PR 已经关闭．
+diff_view_page:
+  other: 查看页面
+diff_edit_page:
+  other: 编辑页面
+diff_open_note:
+  other: 这项修改尚待审阅，还没有出现在网站上．
+recent_changes_show_site:
+  other: 显示只修改网站代码的 PR
 
 # 在线编辑（layouts/_default/editor.html 与 assets/js/editor/）；{name}、{number} 等由脚本填入
 edit_this_page:

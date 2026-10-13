@@ -1,0 +1,49 @@
+{{ define "title" }}{{ i18n "recent_changes_title" }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+{{- /* Recent pull requests and the pages they change, from /api/recent-changes; rendered by static/js/recent-changes.js.
+  {count}, {name} and the like are filled in by the script. */ -}}
+{{- $strings := dict
+  "loading" (i18n "recent_changes_loading")
+  "error" (i18n "recent_changes_error")
+  "empty" (i18n "recent_changes_empty")
+  "today" (i18n "recent_changes_today")
+  "yesterday" (i18n "recent_changes_yesterday")
+  "date" (i18n "recent_changes_date")
+  "open" (i18n "recent_changes_open")
+  "draft" (i18n "recent_changes_draft")
+  "merged" (i18n "recent_changes_merged")
+  "added" (i18n "recent_changes_added")
+  "removed" (i18n "recent_changes_removed")
+  "renamed" (i18n "recent_changes_renamed")
+  "pages" (i18n "recent_changes_pages")
+  "morePages" (i18n "recent_changes_more_pages")
+  "showPages" (i18n "recent_changes_show_pages")
+  "hidePages" (i18n "recent_changes_hide_pages")
+  "otherFiles" (i18n "recent_changes_other_files")
+  "siteOnly" (i18n "recent_changes_site_only")
+  "truncated" (i18n "recent_changes_truncated")
+  "loadMore" (i18n "search_load_more")
+  "filterPages" (i18n "recent_changes_filter_pages")
+  "noPages" (i18n "recent_changes_no_pages")
+  "groups" (dict "wiki" (i18n "search_kind_wiki") "help" (i18n "search_kind_guide"))
+-}}
+<section class="container recent-changes">
+  <header class="recent-changes-header">
+    <h1>{{ i18n "recent_changes_title" }}</h1>
+    <p class="recent-changes-intro">{{ i18n "recent_changes_intro" | safeHTML }}</p>
+  </header>
+  <div class="recent-changes-controls" hidden>
+    <div class="recent-changes-filters" role="group" aria-label="{{ i18n "search_filter" }}">
+      <button type="button" data-filter="all" aria-pressed="true">{{ i18n "search_kind_all" }}</button>
+      <button type="button" data-filter="open" aria-pressed="false">{{ i18n "recent_changes_open" }}</button>
+      <button type="button" data-filter="merged" aria-pressed="false">{{ i18n "recent_changes_merged" }}</button>
+    </div>
+    <label class="recent-changes-toggle"><input type="checkbox" data-show="site"> {{ i18n "recent_changes_show_site" }}</label>
+  </div>
+  <p class="recent-changes-status" role="status"><noscript>{{ i18n "recent_changes_noscript" }}</noscript></p>
+  <div class="recent-changes-list"></div>
+  <button class="recent-changes-more" type="button" hidden>{{ i18n "search_load_more" }}</button>
+</section>
+<script type="application/json" id="recent-changes-config">{{ dict "api" ("api/recent-changes" | relURL) "diff" ("diff/" | relURL) "strings" $strings | jsonify | safeJS }}</script>
+<script type="module" src="{{ "js/recent-changes.js" | relURL }}"></script>
+{{ end }}

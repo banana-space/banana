@@ -238,6 +238,18 @@ try {
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.equal(pulls[1].title, '新条目');
   assert.equal(comments.length, 1, '自己的 PR 不发评论');
+  // Someone else opens the new page from its pull request (the edit button of /diff/): that version, not a blank
+  // page; their edit goes to the same pull request.
+  const newText = '---\ntitle: 新条目\ncategories: []\n---\n\n新的。\n';
+  source = (await callAs(other, 'GET', 'source?path=wiki/新条目/index.md&pull=2')).json;
+  assert.deepEqual([source.exists, source.text, source.original, source.pull?.number, source.pullMissing], [true, newText, blob(newText), 2, null], 'PR 中新建的页面按编号载入');
+  source = (await callAs(other, 'GET', 'source?path=wiki/新条目/index.md')).json;
+  assert.deepEqual([source.exists, source.pull, source.pulls.map(pull => pull.number)], [false, null, [2]], '不带编号时网站上没有此页，提供该 PR 供选择');
+  await delay(3100);
+  answer = await callAs(other, 'POST', 'submit', { path: 'wiki/新条目/index.md', text: newText + '\n补充。\n', original: blob(newText), message: '补充新条目', pull: 2 });
+  assert.equal(answer.status, 200, JSON.stringify(answer.json));
+  assert.deepEqual([answer.json.number, answer.json.updated, pulls.length], [2, true, 2], '加到原 PR，不另开');
+  assert.deepEqual(comments.at(-1), { number: 2, body: '@hubot 通过在线编辑器更新了此 PR：\n\n> 补充新条目' }, '通知新条目 PR 的作者');
   // Only entries are created online.
   await delay(3100);
   const beforeRefusal = log.length;
@@ -280,7 +292,7 @@ try {
   const logout = await fetch(`${base}/api/auth/logout`, { method: 'POST', headers: { Cookie: session } });
   assert.match(logout.headers.get('set-cookie'), /^banana_session=; Path=\/api\/; Max-Age=0/);
   assert.ok(!output.includes(botToken) && !output.includes(userToken), '令牌不应出现在日志中');
-  console.log('编辑接口与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、编辑他人的 PR 并通知作者、PR 中途合并或关闭、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
+  console.log('编辑接口与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、编辑他人的 PR 并通知作者、编辑他人 PR 中新建的页面、PR 中途合并或关闭、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
 } catch (error) {
   if (output) console.error(output);
   throw error;

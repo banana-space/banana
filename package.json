@@ -9,7 +9,7 @@
     "editor-api": "node scripts/editor-api.mjs",
     "check": "node scripts/check.mjs",
     "bench": "node scripts/bench.mjs",
-    "test": "node tests/categories.mjs && node tests/wikilinks.mjs && node tests/names.mjs && node tests/structure.mjs && node tests/references.mjs && node tests/site.mjs && node tests/components.mjs && node tests/typography.mjs && node tests/git-dates.mjs && node tests/i18n.mjs && node tests/local-time.mjs && node tests/tikz.mjs && node tests/serve.mjs && node tests/preview.mjs && node tests/source-lines.mjs && node tests/markdown-language.mjs && node tests/completion.mjs && node tests/format.mjs && node tests/adversarial.mjs && node tests/editor-api.mjs && node tests/editor-github.mjs && node tests/editor-page.mjs && node tests/collections.mjs && node tests/search.mjs",
+    "test": "node tests/categories.mjs && node tests/wikilinks.mjs && node tests/names.mjs && node tests/structure.mjs && node tests/references.mjs && node tests/site.mjs && node tests/components.mjs && node tests/typography.mjs && node tests/git-dates.mjs && node tests/i18n.mjs && node tests/local-time.mjs && node tests/tikz.mjs && node tests/serve.mjs && node tests/preview.mjs && node tests/source-lines.mjs && node tests/markdown-language.mjs && node tests/completion.mjs && node tests/format.mjs && node tests/adversarial.mjs && node tests/editor-api.mjs && node tests/editor-github.mjs && node tests/editor-page.mjs && node tests/collections.mjs && node tests/search.mjs && node tests/recent-changes.mjs",
     "format": "node scripts/format.mjs"
   },
   "engines": {

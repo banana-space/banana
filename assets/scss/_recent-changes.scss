@@ -1,0 +1,684 @@
+// Recent changes (/recent-changes/). Markup comes from static/js/recent-changes.js.
+
+$recent-text-color: #4b4f53;
+$recent-open-color: #b26a00;
+$recent-merged-color: #2e7d4f;
+$recent-added-color: #2e7d4f;
+$recent-removed-color: $missing-link-color;
+$recent-time-width: 5.2rem;
+
+.recent-changes-controls[hidden] {
+  display: none;
+}
+
+.recent-changes-intro {
+  color: $muted-color;
+  font-size: 1.45rem;
+  line-height: 1.7;
+
+  strong {
+    color: $recent-open-color;
+    font-weight: 500;
+  }
+}
+
+.recent-changes-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin: 2.4rem 0 0.8rem;
+}
+
+.recent-changes-filters {
+  display: flex;
+  gap: 0.6rem;
+
+  button {
+    padding: 0.4rem 1.4rem;
+    border: 1.5px solid $border-color;
+    border-radius: 99rem;
+    background: transparent;
+    color: $recent-text-color;
+    font: inherit;
+    font-size: 1.35rem;
+    line-height: 2.2rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+
+    &:hover {
+      border-color: $semi-light-text-color;
+    }
+
+    &[aria-pressed="true"] {
+      border-color: $link-color;
+      background-color: rgba($link-color, 0.1);
+      color: $link-color;
+    }
+  }
+}
+
+.recent-changes-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: $muted-color;
+  font-size: 1.35rem;
+  cursor: pointer;
+
+  input {
+    margin: 0;
+    accent-color: $link-color;
+  }
+}
+
+.recent-changes-status {
+  margin: 1.6rem 0;
+  color: $muted-color;
+  font-size: 1.4rem;
+
+  &:empty {
+    display: none;
+  }
+
+  &.is-error {
+    color: $recent-removed-color;
+  }
+}
+
+// Days
+.recent-day {
+  margin-top: 2.8rem;
+}
+
+.recent-day-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 0 0 0.4rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1.5px solid $border-color;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+.recent-day-date {
+  color: $muted-color;
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.recent-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// One pull request
+.recent-item {
+  display: grid;
+  grid-template-columns: $recent-time-width minmax(0, 1fr);
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba($border-color, 0.6);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.recent-time {
+  padding-top: 0.1rem;
+  color: $semi-light-text-color;
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 2.4rem;
+}
+
+.recent-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+.recent-page-item {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.recent-page {
+  font-weight: 500;
+
+  &.is-removed {
+    color: $muted-color;
+    text-decoration: line-through;
+  }
+}
+
+.recent-sep {
+  margin-left: -0.6rem;
+  color: $muted-color;
+}
+
+.recent-page-group {
+  color: $muted-color;
+  font-size: 1.3rem;
+
+  &::before {
+    content: "《";
+  }
+
+  &::after {
+    content: "》";
+  }
+}
+
+.recent-pull-title {
+  color: $fg-color;
+  font-weight: 500;
+}
+
+.recent-badge,
+.recent-chip {
+  padding: 0 0.7rem;
+  border-radius: 0.4rem;
+  background: $alt-bg-color;
+  color: $recent-text-color;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 2rem;
+  white-space: nowrap;
+}
+
+.recent-badge-added {
+  background: rgba($recent-added-color, 0.1);
+  color: $recent-added-color;
+}
+
+.recent-badge-removed {
+  background: rgba($recent-removed-color, 0.08);
+  color: $recent-removed-color;
+}
+
+.recent-chip-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.recent-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1.2rem;
+  margin-top: 0.2rem;
+  color: $muted-color;
+  font-size: 1.3rem;
+  line-height: 2.2rem;
+
+  a {
+    color: $muted-color;
+
+    &:hover {
+      color: $link-color;
+    }
+  }
+}
+
+.recent-state {
+  font-weight: 500;
+
+  // Inline, not a flex item: the line's items align on the label's text baseline.
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+    vertical-align: 0.1em;
+  }
+}
+
+.recent-state-open {
+  color: $recent-open-color;
+}
+
+.recent-state-draft {
+  color: $semi-light-text-color;
+
+  &::before {
+    background: transparent;
+    box-shadow: inset 0 0 0 1.5px currentColor;
+  }
+}
+
+.recent-state-merged {
+  color: $recent-merged-color;
+}
+
+.recent-pull {
+  &,
+  &:hover,
+  &:focus {
+    border-bottom-color: transparent;
+  }
+}
+
+.recent-author {
+  margin-right: 0.4rem;
+}
+
+.recent-pull-number {
+  font-variant-numeric: tabular-nums;
+}
+
+.recent-pull-summary {
+  color: $recent-text-color;
+
+  &::before {
+    content: "“";
+  }
+
+  &::after {
+    content: "”";
+  }
+}
+
+.recent-diff {
+  font-family: $code-font-family;
+  font-size: 1.2rem;
+}
+
+.recent-diff-add {
+  margin-right: 0.6rem;
+  color: $recent-added-color;
+}
+
+.recent-diff-del {
+  color: $recent-removed-color;
+}
+
+// Waiting for review: not on the site yet.
+.recent-item-open .recent-head {
+  // A border, as the site's own link underline is (it underlines formulas too): one line, also on hover.
+  .recent-page,
+  .recent-page:hover,
+  .recent-page:focus,
+  .recent-pull-title {
+    // Shorter dashes than the browser's dashed border: a border image of 3px dashes and 2px gaps.
+    border-bottom: 1.5px solid rgba($recent-open-color, 0.6);
+    border-image: repeating-linear-gradient(to right, rgba($recent-open-color, 0.6) 0 3px, transparent 3px 5px) 0 0 1 0;
+  }
+}
+
+.recent-item.is-site .recent-pull-title {
+  color: $recent-text-color;
+  font-weight: 400;
+}
+
+// Bulk changes
+.recent-groups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.recent-group {
+  display: inline-flex;
+  gap: 0.6rem;
+  padding: 0.1rem 0.9rem;
+  border: 1px solid $border-color;
+  border-radius: 99rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+.recent-group-name {
+  color: $recent-text-color;
+}
+
+.recent-group-count {
+  color: $muted-color;
+  font-variant-numeric: tabular-nums;
+}
+
+.recent-expand {
+  padding: 0.1rem 0.4rem;
+  border: 0;
+  background: none;
+  color: $link-color;
+  font: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: 0.6rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-0.2rem) rotate(45deg);
+    transition: transform 0.15s;
+  }
+
+  &[aria-expanded="true"]::after {
+    transform: translateY(0.1rem) rotate(-135deg);
+  }
+}
+
+.recent-page-panel {
+  max-height: 40rem;
+  overflow-y: auto;
+  margin: 1rem 0 0;
+  padding: 0.4rem 1.6rem 1.2rem;
+  border-radius: 0.8rem;
+  background: $alt-bg-color;
+  scrollbar-width: thin;
+}
+
+.recent-page-panel-title {
+  display: flex;
+  gap: 0.6rem;
+  margin: 1rem 0 0.4rem;
+  color: $recent-text-color;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 2rem;
+
+  .recent-group-count {
+    font-weight: 400;
+  }
+}
+
+.recent-page-grid {
+  columns: 16rem auto;
+  column-gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.35rem;
+  line-height: 2.2rem;
+
+  li {
+    break-inside: avoid;
+  }
+
+  .recent-page {
+    font-weight: 400;
+  }
+}
+
+.recent-page-section[hidden],
+.recent-page-panel li[hidden],
+.recent-letters [hidden],
+.recent-page-none[hidden] {
+  display: none;
+}
+
+.recent-page-tools {
+  position: sticky;
+  top: -0.4rem;
+  z-index: 1;
+  margin: 0 -1.6rem;
+  padding: 1rem 1.6rem 0.4rem;
+  background: $alt-bg-color;
+}
+
+.recent-page-filter {
+  width: 100%;
+  max-width: 32rem;
+  padding: 0.5rem 1rem;
+  border: 1.5px solid $border-color;
+  border-radius: 0.6rem;
+  background: $white;
+  color: $fg-color;
+  font: inherit;
+  font-size: 1.35rem;
+
+  &:focus {
+    border-color: $link-color;
+    outline: none;
+  }
+}
+
+.recent-page-none {
+  margin: 1rem 0 0;
+  color: $muted-color;
+  font-size: 1.35rem;
+}
+
+// A long part of a bulk change, by letter: the letter in the margin, the pages flowing beside it.
+.recent-letters {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.4rem 0;
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 2.2rem;
+
+  dd {
+    margin: 0;
+  }
+}
+
+.recent-letter {
+  color: $muted-color;
+  font-weight: 600;
+}
+
+.recent-letter-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .recent-page {
+    font-weight: 400;
+  }
+}
+
+.recent-changes-more {
+  display: block;
+  margin: 2.4rem auto 0;
+  padding: 0.6rem 2.4rem;
+  border: 1.5px solid $border-color;
+  border-radius: 99rem;
+  background: transparent;
+  color: $recent-text-color;
+  font: inherit;
+  font-size: 1.4rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $semi-light-text-color;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &:disabled {
+    color: $muted-color;
+    cursor: progress;
+  }
+}
+
+.recent-truncated {
+  margin: 0.6rem 0 0;
+  color: $muted-color;
+  font-size: 1.25rem;
+}
+
+@media only screen and (max-width: 560px) {
+  .recent-item {
+    grid-template-columns: 4.4rem minmax(0, 1fr);
+  }
+
+  .recent-time {
+    font-size: 1.2rem;
+  }
+}
+
+// One page's change (/diff/). Markup comes from assets/js/diff/main.js; labels share the recent changes' styles.
+.diff-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.6rem;
+  color: $muted-color;
+  font-size: 1.35rem;
+
+  .ui-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  &:hover,
+  &:focus {
+    border-bottom-color: transparent;
+    color: $link-color;
+  }
+}
+
+.diff-header[hidden],
+.diff-view[hidden],
+.diff-action[hidden],
+.diff-note[hidden] {
+  display: none;
+}
+
+// Prefixed to outweigh the site's header heading (margin: 0).
+.diff-header .diff-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  margin: 0 0 1rem;
+
+  .recent-page-group,
+  .recent-badge {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+}
+
+.diff-meta {
+  @extend .recent-meta;
+  font-size: 1.35rem;
+
+  // Here the pull request is where to go next: a link as links are.
+  .recent-pull,
+  .recent-pull:hover {
+    color: $link-color;
+  }
+}
+
+.diff-time {
+  font-variant-numeric: tabular-nums;
+}
+
+.diff-note {
+  margin: 0.8rem 0 0;
+  color: $recent-open-color;
+  font-size: 1.35rem;
+}
+
+.diff-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1.6rem 0;
+}
+
+.diff-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.2rem;
+  border: 1.5px solid $border-color;
+  border-radius: 0.8rem;
+  color: $recent-text-color;
+  font-size: 1.35rem;
+  line-height: 2.2rem;
+
+  .ui-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $semi-light-text-color;
+  }
+}
+
+.diff-status {
+  @extend .recent-changes-status;
+}
+
+.diff-view {
+  overflow: hidden;
+  border: 1.5px solid $border-color;
+  border-radius: 1rem;
+  background: $white;
+
+  .cm-editor {
+    font-size: 1.4rem;
+
+    &.cm-focused {
+      outline: none;
+    }
+  }
+
+  .cm-scroller {
+    font-family: $code-font-family;
+    line-height: 1.6;
+  }
+
+  .cm-content {
+    padding: 0.8rem 0;
+  }
+
+  .cm-gutters {
+    border-right: 1px solid rgba($border-color, 0.6);
+    background: $bg-color;
+    color: $semi-light-text-color;
+  }
+
+  // Deleted and inserted lines, and the changed text within them: stronger than CodeMirror's faint tints.
+  .cm-editor .cm-deletedChunk {
+    background-color: rgba(#e5484d, 0.12);
+  }
+
+  .cm-editor .cm-changedLine {
+    background-color: rgba(#30a46c, 0.14);
+  }
+
+  .cm-editor .cm-deletedChunk .cm-deletedText,
+  .cm-editor .cm-deletedText {
+    background: rgba(#e5484d, 0.3);
+  }
+
+  .cm-editor .cm-changedText {
+    background: rgba(#30a46c, 0.3);
+  }
+
+  .cm-collapsedLines {
+    padding: 0.4rem 1.2rem;
+    background: $alt-bg-color;
+    color: $muted-color;
+    font-family: $font-family;
+    font-size: 1.25rem;
+  }
+}
