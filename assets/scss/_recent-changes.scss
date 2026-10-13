@@ -230,17 +230,18 @@ $recent-time-width: 5.2rem;
 }
 
 .recent-state {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   font-weight: 500;
 
+  // Inline, not a flex item: the line's items align on the label's text baseline.
   &::before {
     content: "";
+    display: inline-block;
     width: 0.7rem;
     height: 0.7rem;
+    margin-right: 0.5rem;
     border-radius: 50%;
     background: currentColor;
+    vertical-align: 0.1em;
   }
 }
 
@@ -262,8 +263,15 @@ $recent-time-width: 5.2rem;
 }
 
 .recent-pull {
-  display: inline-flex;
-  gap: 0.4rem;
+  &,
+  &:hover,
+  &:focus {
+    border-bottom-color: transparent;
+  }
+}
+
+.recent-author {
+  margin-right: 0.4rem;
 }
 
 .recent-pull-number {
@@ -283,13 +291,12 @@ $recent-time-width: 5.2rem;
 }
 
 .recent-diff {
-  display: inline-flex;
-  gap: 0.6rem;
   font-family: $code-font-family;
   font-size: 1.2rem;
 }
 
 .recent-diff-add {
+  margin-right: 0.6rem;
   color: $recent-added-color;
 }
 
@@ -299,11 +306,12 @@ $recent-time-width: 5.2rem;
 
 // Waiting for review: not on the site yet.
 .recent-item-open .recent-head {
+  // A border, as the site's own link underline is (it underlines formulas too): one line, also on hover.
   .recent-page,
+  .recent-page:hover,
+  .recent-page:focus,
   .recent-pull-title {
-    text-decoration: underline dashed rgba($recent-open-color, 0.5);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.4rem;
+    border-bottom: 1.5px dashed rgba($recent-open-color, 0.6);
   }
 }
 
@@ -535,7 +543,9 @@ $recent-time-width: 5.2rem;
     height: 1.6rem;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
+    border-bottom-color: transparent;
     color: $link-color;
   }
 }
@@ -564,6 +574,12 @@ $recent-time-width: 5.2rem;
 .diff-meta {
   @extend .recent-meta;
   font-size: 1.35rem;
+
+  // Here the pull request is where to go next: a link as links are.
+  .recent-pull,
+  .recent-pull:hover {
+    color: $link-color;
+  }
 }
 
 .diff-time {
@@ -599,9 +615,9 @@ $recent-time-width: 5.2rem;
     height: 1.6rem;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $semi-light-text-color;
-    color: $link-color;
   }
 }
 
@@ -636,6 +652,24 @@ $recent-time-width: 5.2rem;
     border-right: 1px solid rgba($border-color, 0.6);
     background: $bg-color;
     color: $semi-light-text-color;
+  }
+
+  // Deleted and inserted lines, and the changed text within them: stronger than CodeMirror's faint tints.
+  .cm-editor .cm-deletedChunk {
+    background-color: rgba(#e5484d, 0.12);
+  }
+
+  .cm-editor .cm-changedLine {
+    background-color: rgba(#30a46c, 0.14);
+  }
+
+  .cm-editor .cm-deletedChunk .cm-deletedText,
+  .cm-editor .cm-deletedText {
+    background: rgba(#e5484d, 0.3);
+  }
+
+  .cm-editor .cm-changedText {
+    background: rgba(#30a46c, 0.3);
   }
 
   .cm-collapsedLines {

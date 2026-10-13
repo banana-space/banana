@@ -92,7 +92,7 @@ see_also_label:
 home_stats:
   other: 香蕉空间目前有 <strong class="home-stat">{{ .Wiki }}</strong> 篇百科文章和 <strong class="home-stat">{{ .Books }}</strong> 本讲义。
 home_recent_changes:
-  other: 大家最近在编辑什么？请看<a href="{{ . }}">最近更改</a>。
+  other: 你可以在<a href="{{ . }}">最近更改</a>查看网站的最新动态．
 redirected_from:
   other: 跳转自：{{ .Name }}
 related_search_more:
@@ -722,6 +722,8 @@ diff_missing:
   other: 没有找到这项修改：链接可能有误，或者 PR 已经关闭．
 diff_view_page:
   other: 查看页面
+diff_edit_page:
+  other: 编辑页面
 diff_open_note:
   other: 这项修改尚待审阅，还没有出现在网站上．
 recent_changes_show_site:

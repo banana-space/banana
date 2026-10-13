@@ -53,7 +53,7 @@ function show(before, after) {
     state: EditorState.create({
       doc: after ?? '',
       extensions: [
-        lineNumbers(), EditorView.lineWrapping, EditorState.readOnly.of(true), EditorView.editable.of(false),
+        lineNumbers(), EditorState.readOnly.of(true), EditorView.editable.of(false),
         bananaMarkdown(), syntaxHighlighting(bananaHighlighter),
         EditorState.phrases.of({ '$ unchanged lines': strings.cm_unchanged_lines }),
         unifiedMergeView({ original: before ?? '', mergeControls: false,
