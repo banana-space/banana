@@ -91,7 +91,7 @@ try {
   editor.window.close();
   editor = open('wiki/甲/index.md', { me: () => [502, { ok: false, errors: [{ message: 'down' }] }] });
   await until(() => !editor.$('.editor-unavailable').hidden, '服务不可用');
-  assert.equal(editor.$('.editor-unavailable').textContent, '暂时无法连接编辑服务，请稍后再试。');
+  assert.equal(editor.$('.editor-unavailable').textContent, '暂时无法连接编辑服务，请稍后再试．');
   assert.ok(editor.$('.editor-login').hidden && editor.$('.editor-workspace').hidden);
   editor.window.close();
 
@@ -165,7 +165,7 @@ try {
   assert.equal(times.length, 1, '内容未变时 Ctrl+S 不预览');
   editor.type('新增。\n');
   assert.ok(!editor.$('.editor-submit-button').disabled, '工具栏的提交按钮总可以点');
-  assert.deepEqual([confirmButton().disabled, waitNote().textContent], [true, '预览成功后才能提交。'], '修改后需要重新预览才能提交');
+  assert.deepEqual([confirmButton().disabled, waitNote().textContent], [true, '预览成功后才能提交．'], '修改后需要重新预览才能提交');
   const saved = JSON.parse(editor.window.localStorage.getItem('banana-editor:wiki/甲/index.md'));
   assert.deepEqual([saved.text, saved.original], [`${source}新增。\n`, original], '修改保存在本机');
   // Typing does not preview; the button and Ctrl+S do (its key in the button's hover text).
@@ -173,7 +173,7 @@ try {
   assert.equal(times.length, 1, '输入不触发预览');
   const previewButton = editor.$('.editor-preview-button');
   assert.deepEqual([previewButton.textContent, previewButton.title], ['预览', '预览（Ctrl+S）']);
-  assert.equal(editor.$('.editor-preview-empty').textContent, '点击 “预览” 或按 Ctrl+S 查看修改后的页面。');
+  assert.equal(editor.$('.editor-preview-empty').textContent, '点击 “预览” 或按 Ctrl+S 查看修改后的页面．');
   previewButton.click();
   // A spinner on the button while the preview is on its way, nothing in the status.
   const spinner = () => !editor.$('.editor-spinner').hidden;
@@ -203,7 +203,7 @@ try {
   await delay(3500);
   assert.equal(editor.requests.length, requestsBefore, '浏览器发现错误时不请求服务器预览');
   assert.equal(status().textContent, '', '错误不显示在状态中');
-  assert.deepEqual([confirmButton().disabled, waitNote().textContent], [true, '预览有错误，修正后才能提交。'], '有错误时不能提交');
+  assert.deepEqual([confirmButton().disabled, waitNote().textContent], [true, '预览有错误，修正后才能提交．'], '有错误时不能提交');
   editor.$('.editor-submit-button').click();
   await delay(100);
   assert.ok(!editor.$('.editor-submit-dialog').open && editor.$('.editor-spinner').hidden, '有错误时不打开提交对话框');
@@ -252,7 +252,7 @@ try {
     { storage: { 'banana-editor:wiki/甲/index.md': { text: draft, original } } });
   await until(() => editor.view(), '载入草稿');
   assert.equal(editor.text(), draft);
-  assert.equal(editor.$('.editor-banner').textContent, '已恢复保存的草稿。 放弃草稿');
+  assert.equal(editor.$('.editor-banner').textContent, '已恢复保存的草稿． 放弃草稿');
   editor.$('.editor-banner button').click();
   assert.equal(editor.text(), source);
   assert.equal(editor.window.localStorage.getItem('banana-editor:wiki/甲/index.md'), null);
@@ -264,10 +264,10 @@ try {
     { storage: { 'banana-editor:wiki/甲/index.md': { text: draft, original: 'f'.repeat(40) } } });
   await until(() => editor.view(), '载入旧草稿');
   assert.equal(editor.text(), source);
-  assert.equal(editor.$('.editor-banner').textContent, '有未保存的草稿，但页面在此之后已被修改。 加载草稿 放弃草稿');
+  assert.equal(editor.$('.editor-banner').textContent, '有未保存的草稿，但页面在此之后已被修改． 加载草稿 放弃草稿');
   editor.$('.editor-banner button').click();
   assert.equal(editor.text(), draft);
-  assert.match(editor.$('.editor-banner').textContent, /^已加载草稿，下面标出了与当前版本的差异。/);
+  assert.match(editor.$('.editor-banner').textContent, /^已加载草稿，下面标出了与当前版本的差异．/);
   await until(() => editor.document.querySelector('.cm-changedLine, .cm-insertedLine'), '比较视图');
   assert.equal(editor.$('.editor-banner button').textContent, '完成比较');
   editor.$('.editor-banner button').click();
@@ -297,7 +297,7 @@ try {
   const confirm = dialog.querySelector('button[value="submit"]');
   await until(() => editor.$('.editor-preview-empty').hidden, '首次预览');
   editor.$('.editor-submit-button').click();
-  assert.equal(editor.$('.editor-status').textContent, '尚未编辑。');
+  assert.equal(editor.$('.editor-status').textContent, '尚未编辑．');
   assert.ok(!dialog.open);
   // Not yet previewed: the button waits (a spinner) for the preview, and opens the dialog once it succeeds.
   editor.type('修改一。\n');
@@ -335,18 +335,18 @@ try {
   editor.$('.editor-submit-button').click();
   await until(() => dialog.open && !confirm.disabled, '再次预览成功');
   assert.ok(!dialog.querySelector('.editor-submit-form').hidden && confirmation.hidden, '再次打开时是提交表单');
-  assert.equal(dialog.querySelector('.editor-submit-update').textContent, '编辑将添加到 PR #7。');
+  assert.equal(dialog.querySelector('.editor-submit-update').textContent, '编辑将添加到 PR #7．');
   assert.deepEqual(pullLink(dialog.querySelector('.editor-submit-update a')), ['PR #7', 'https://github.example/pull/7'], '追加提示中的 PR 链接');
   dialog.querySelector('button[value="submit"]').click();
   await until(() => !dialog.open, '冲突后关闭对话框');
   assert.equal(editor.requests.at(-1).body.original, 'b'.repeat(40));
-  assert.match(editor.$('.editor-banner').textContent, /^这个页面在你编辑期间被修改了。/);
+  assert.match(editor.$('.editor-banner').textContent, /^这个页面在你编辑期间被修改了．/);
   await until(() => editor.document.querySelector('.cm-changedLine, .cm-insertedLine, .cm-deletedChunk'), '冲突比较视图');
   editor.$('.editor-submit-button').click();
   dialog.querySelector('button[value="submit"]').click();
   await until(() => !confirmation.hidden, '再次提交');
   assert.equal(editor.requests.at(-1).body.original, 'c'.repeat(40), '以最新版本为基础提交');
-  assert.equal(confirmation.querySelector('.editor-submit-done-text').textContent, '已将编辑添加到 PR #7。');
+  assert.equal(confirmation.querySelector('.editor-submit-done-text').textContent, '已将编辑添加到 PR #7．');
   editor.window.close();
 
   // A new page starts from a title; without a path, the page asks for one.
@@ -469,7 +469,7 @@ try {
   // Only entries are created: a new page elsewhere is refused.
   editor = open('books/新讲义/index.md', { me: me(tester), source: () => [200, { ok: true, path: 'content/books/新讲义/index.md', exists: false, text: '', original: null, pull: null }] });
   await until(() => editor.$('.editor-status').textContent, '新的非条目页面');
-  assert.equal(editor.$('.editor-status').textContent, '在线编辑只能新建百科条目。');
+  assert.equal(editor.$('.editor-status').textContent, '在线编辑只能新建百科条目．');
   assert.ok(!editor.view(), '不应打开编辑器');
   editor.window.close();
   // The start page takes an entry's name, not a path.
@@ -479,7 +479,7 @@ try {
   const input = editor.$('.editor-open input');
   input.value = 'books/新讲义';
   editor.$('.editor-open').dispatchEvent(new editor.window.Event('submit', { cancelable: true }));
-  assert.equal(input.validationMessage, '条目名中不能含有 “/”。');
+  assert.equal(input.validationMessage, '条目名中不能含有 “/”．');
   assert.equal(editor.window.location.search, '');
   editor.window.close();
 

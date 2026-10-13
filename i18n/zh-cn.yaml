@@ -734,7 +734,7 @@ editor_cm_revert_chunk:
 editor_page_title:
   other: 编辑
 editor_noscript:
-  other: 在线编辑需要启用 JavaScript。
+  other: 在线编辑需要启用 JavaScript．
 editor_open_label:
   other: 要编辑的页面
 editor_open_placeholder:
@@ -742,11 +742,11 @@ editor_open_placeholder:
 editor_open_button:
   other: 打开
 editor_open_hint:
-  other: 输入已有条目的名称即可编辑；输入新的名称则新建条目。其他页面请在页面底部点击 “编辑本页”。
+  other: 输入已有条目的名称即可编辑；输入新的名称则新建条目．其他页面请在页面底部点击 “编辑本页”．
 editor_open_no_slash:
-  other: 条目名中不能含有 “/”。
+  other: 条目名中不能含有 “/”．
 editor_new_page_not_entry:
-  other: 在线编辑只能新建百科条目。
+  other: 在线编辑只能新建百科条目．
 editor_loading:
   other: 正在载入…
 editor_load_failed:
@@ -782,17 +782,17 @@ editor_preview_tab:
 editor_submit_button:
   other: 提交
 editor_submit_wait_preview:
-  other: 预览成功后才能提交。
+  other: 预览成功后才能提交．
 editor_submit_wait_errors:
-  other: 预览有错误，修正后才能提交。
+  other: 预览有错误，修正后才能提交．
 editor_login:
   other: 用 GitHub 登录
 editor_login_title:
   other: 请登录 GitHub 以继续
 editor_login_intro:
-  other: 在线编辑用 GitHub 账号提交修改：每次提交成为一个 PR，由维护者审阅后合并到网站。
+  other: 在线编辑用 GitHub 账号提交修改：每次提交成为一个 PR，由维护者审阅后合并到网站．
 editor_unavailable:
-  other: 暂时无法连接编辑服务，请稍后再试。
+  other: 暂时无法连接编辑服务，请稍后再试．
 editor_logout:
   other: 退出登录
 editor_my_pulls:
@@ -812,7 +812,7 @@ editor_preview_error_title:
 editor_preview_error_line:
   other: "{line}：{message}"
 editor_preview_empty:
-  other: 点击 “预览” 或按 {key} 查看修改后的页面。
+  other: 点击 “预览” 或按 {key} 查看修改后的页面．
 editor_completion_tag_see:
   other: 参见
 editor_completion_tag_lang:
@@ -856,25 +856,25 @@ editor_problem_line:
 editor_missing_link:
   other: 条目 “{name}” 不存在
 editor_draft_restored:
-  other: 已恢复保存的草稿。
+  other: 已恢复保存的草稿．
 editor_draft_discard:
   other: 放弃草稿
 editor_draft_outdated:
-  other: 有未保存的草稿，但页面在此之后已被修改。
+  other: 有未保存的草稿，但页面在此之后已被修改．
 editor_draft_load:
   other: 加载草稿
 editor_draft_compare:
-  other: 已加载草稿，下面标出了与当前版本的差异。
+  other: 已加载草稿，下面标出了与当前版本的差异．
 editor_conflict:
-  other: 这个页面在你编辑期间被修改了。下面标出了你的版本与最新版本的差异，请确认后再提交。
+  other: 这个页面在你编辑期间被修改了．下面标出了你的版本与最新版本的差异，请确认后再提交．
 editor_merge_done:
   other: 完成比较
 editor_submit_title:
   other: 提交编辑
 editor_submit_intro:
-  other: 编辑会以 GitHub PR 的形式提交，由维护者审阅后合并。
+  other: 编辑会以 GitHub PR 的形式提交，由维护者审阅后合并．
 editor_submit_update:
-  other: "编辑将添加到 PR #{number}。"
+  other: "编辑将添加到 PR #{number}．"
 editor_submit_update_other:
   other: "编辑将添加到 @{author} 的 PR #{number}，对方会收到通知．"
 editor_submit_message:
@@ -888,9 +888,9 @@ editor_submitting:
 editor_submit_done_title:
   other: 提交成功
 editor_submit_done_opened:
-  other: "已创建 PR #{number}，维护者审阅后会合并到网站。你可以继续编辑此 PR。"
+  other: "已创建 PR #{number}，维护者审阅后会合并到网站．你可以继续编辑此 PR．"
 editor_submit_done_updated:
-  other: "已将编辑添加到 PR #{number}。"
+  other: "已将编辑添加到 PR #{number}．"
 editor_submit_done_view:
   other: 在 GitHub 上查看
 editor_submit_close:
@@ -898,6 +898,6 @@ editor_submit_close:
 editor_submit_failed:
   other: 提交失败：{message}
 editor_unchanged:
-  other: 尚未编辑。
+  other: 尚未编辑．
 editor_offline_unsaved:
-  other: 未能保存草稿，离开页面前保存更改。
+  other: 未能保存草稿，离开页面前保存更改．
