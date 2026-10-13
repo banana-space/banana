@@ -773,8 +773,18 @@ editor_pull_confirm:
   other: 开始编辑
 editor_pull_missing:
   other: "PR #{number} 已被合并或关闭．"
+editor_pull_merged:
+  other: "PR #{number} 已被合并．"
 editor_pull_closed:
-  other: 这个 PR 已被合并或关闭，请重新打开页面后再提交．
+  other: "PR #{number} 已被关闭，没有合并．"
+editor_resubmit_new:
+  other: 你的修改都还在，提交时将开一个新的 PR．
+editor_resubmit_new_compare:
+  other: 下面标出了你的版本与网站上最新版本的差异，确认后提交将开一个新的 PR．
+editor_resubmit_own_compare:
+  other: "下面标出了你的版本与你的 PR #{number} 中版本的差异，确认后提交将添加到该 PR．"
+editor_resubmit_button:
+  other: 提交为新的 PR
 editor_source_tab:
   other: 代码
 editor_preview_tab:

@@ -48,7 +48,8 @@ import { blobId, githubLogin, githubRepository } from './editor/github.mjs';
 // POST /api/submit  { path, text, original, message, pull }
 //                                          { ok, number, url, updated, original }（需登录）：检查通过后提交，
 //                                          打开或更新该用户对该页的 PR；有 pull（PR 编号）时添加到该页的这个 PR，
-//                                          可以是别人的（并在 PR 中留言通知），已不再打开时返回 410；original 为编辑开始时的 blob id，
+//                                          可以是别人的（并在 PR 中留言通知）；已不再打开时返回 410 与 merged、
+//                                          不带 pull 提交时的基础 current: { text, original } 以及该用户自己的 pull（或 null）；original 为编辑开始时的 blob id，
 //                                          页面已被别人修改时返回 409 与 current: { text, original }
 // path 为 content/ 中的页面（可省略 content/ 前缀，可以是新页面；只能提交新的条目 wiki/<名称>/index.md，其他新页面返回 403）。
 // 错误时为 { ok: false, errors: [{ file, line, message }] }：预处理与 Hugo 错误为 422（Hugo 错误另带 log），
@@ -334,7 +335,12 @@ const routes = {
       body: number => `由 @${user.login} 通过在线编辑器提交。\n\n${message ? `> ${message}\n\n` : ''}页面：\`content/${path}\`\n\n[在线编辑此 PR](${editorURL(path, number)})`,
     }).catch(error => {
       if (error.status === 409) throw new RequestError(409, error.message, { current: error.current && { text: error.current.text, original: error.current.blob } });
-      if (error.status === 410) throw new RequestError(410, error.message);
+      if (error.status === 410) {
+        throw new RequestError(410, error.message, {
+          current: error.current && { text: error.current.text, original: error.current.blob }, merged: error.merged,
+          pull: error.pull ? { number: error.pull.number, url: error.pull.url, author: error.pull.author } : null,
+        });
+      }
       console.error(`[editor-api] ${error.message}`);
       throw new RequestError(502, 'GitHub refused the submission; try again later');
     });

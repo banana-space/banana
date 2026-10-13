@@ -168,7 +168,7 @@ postbuild 结果按 Hugo 输出的原始 HTML 缓存：书册整组重新渲染�
 - `GET /api/source?path=…`：页面当前的源文本与它的 blob id（`original`），书册页面另有书中其他页面的标签（`labels`，供补全）；登录用户对该页有未合并的 PR 时，取 PR 分支上的版本。`pulls` 列出在线编辑器为该页开的全部未合并 PR（`{ number, url, author, title }`，不论是谁开的）；`&pull=<编号>` 取其中一个 PR 的版本（已合并或关闭时退回默认版本，并在 `pullMissing` 中给出编号），`&pull=none` 取网站上的版本。
 - `POST /api/preview`，`{ path, text }`：`path` 为 `content/` 中的页面（可以是新页面），`text` 为完整源文本。返回 `{ ok, url, html, missingLinks, timings }`。
 - `POST /api/check`，同样的参数：只检查，返回 `{ ok, missingLinks }`。
-- `POST /api/submit`，`{ path, text, original, message, pull }`：检查通过后把文本用 `npm run format` 的规则排版（`scripts/format/markdown.mjs`，只改换行与缩进，页面不变）再提交，打开或更新该用户对该页的 PR，给出 `pull`（PR 编号）时添加到该页的这个 PR（可以是别人的；已不再打开时返回 410），见下；返回 `{ ok, number, url, updated, original, text }`，`text` 是提交的（排版后的）文本，编辑器随即显示它（提交期间又有输入时保留输入）。
+- `POST /api/submit`，`{ path, text, original, message, pull }`：检查通过后把文本用 `npm run format` 的规则排版（`scripts/format/markdown.mjs`，只改换行与缩进，页面不变）再提交，打开或更新该用户对该页的 PR，给出 `pull`（PR 编号）时添加到该页的这个 PR（可以是别人的；已不再打开时不写入，返回 410，带上是否已合并 `merged`，以及不带 `pull` 提交时的基础 `current` 与该用户自己的 PR `pull`），见下；返回 `{ ok, number, url, updated, original, text }`，`text` 是提交的（排版后的）文本，编辑器随即显示它（提交期间又有输入时保留输入）。
 - 登录：`GET /api/auth/login?return=…`、`GET /api/auth/callback`、`POST /api/auth/logout`、`GET /api/me`。
 - 错误返回 `{ ok: false, errors: [{ file, line, message }] }`：预处理与 Hugo 错误为 422（Hugo 错误另带 `log`），未登录 401，跨站请求 403，过于频繁 429（带 `Retry-After`），请求体超过 300 KiB 为 413，排队超过 20 个为 503。
 - `GET /api/health`：`{ ok, waiting }`。
@@ -187,7 +187,7 @@ postbuild 结果按 Hugo 输出的原始 HTML 缓存：书册整组重新渲染�
 
 **提交。** PR 由机器人令牌创建，用户不需要授予任何仓库权限。每个用户对每个页面使用一个分支 `edit/<用户名>/<路径的哈希>`：没有未合并的 PR 时，从目标分支建立（合并或关闭后残留的同名分支重置到目标分支），提交后开 PR；已有未合并的 PR 时，在该分支上追加 commit，PR 随之更新。commit 的作者是登录的用户（`<id>+<用户名>@users.noreply.github.com`），合并后计入用户的贡献；PR 正文注明由谁提交，并链接到编辑器中的该 PR（`/edit/?path=…&pull=<编号>`；PR 建立后才知道编号，所以随即改写一次正文）。
 
-**编辑别人的 PR。** 打开的页面有别人用在线编辑器开的未合并 PR 时，编辑器先请用户选择编辑哪个版本：其中一个 PR，或网站上的版本（用户自己有 PR 时则是自己的 PR，因为自己对该页的提交总是进入它）；关闭对话框保留默认的版本，地址中有 `pull` 时不询问。在别人的 PR 上提交时，commit 追加到该 PR 的分支，作者是提交的用户，机器人在 PR 中留言 `@用户 通过在线编辑器更新了此 PR`，通知 PR 的作者。只认仓库自身的 `edit/<用户名>/<路径的哈希>` 分支，fork 中同名的分支不算。任何登录用户都能向这些 PR 追加 commit，与维基的编辑方式相同；合并前仍由维护者审阅，每个 commit 的作者可查。冲突检测：编辑器打开页面时记下源文本的 blob id，提交时与目标分支（或 PR 分支）上该文件当前的 blob id 比较，不同则不写入，返回 409 与当前版本，由编辑器处理。有预处理错误的稿件不提交。
+**编辑别人的 PR。** 打开的页面有别人用在线编辑器开的未合并 PR 时，编辑器先请用户选择编辑哪个版本：其中一个 PR，或网站上的版本（用户自己有 PR 时则是自己的 PR，因为自己对该页的提交总是进入它）；关闭对话框保留默认的版本，地址中有 `pull` 时不询问。编辑期间该 PR 被合并或关闭时，提交返回 410，编辑器保留修改，转到新的基础（网站上的版本，或用户自己的 PR）：PR 原样合并、网站版本没有别的变化时，只提示并提供“提交为新的 PR”；否则先以比较视图标出差异（PR 未合并时，其中包括该 PR 中被放弃的修改），确认后提交即开新的 PR（或添加到自己的 PR）。在别人的 PR 上提交时，commit 追加到该 PR 的分支，作者是提交的用户，机器人在 PR 中留言 `@用户 通过在线编辑器更新了此 PR`，通知 PR 的作者。只认仓库自身的 `edit/<用户名>/<路径的哈希>` 分支，fork 中同名的分支不算。任何登录用户都能向这些 PR 追加 commit，与维基的编辑方式相同；合并前仍由维护者审阅，每个 commit 的作者可查。冲突检测：编辑器打开页面时记下源文本的 blob id，提交时与目标分支（或 PR 分支）上该文件当前的 blob id 比较，不同则不写入，返回 409 与当前版本，由编辑器处理。有预处理错误的稿件不提交。
 
 **GitHub 设置。** OAuth App、提交用的 token 与会话密钥的设置步骤见 [在线编辑的 GitHub 设置](editor-setup.md)。密钥只从环境变量读取（`BANANA_SESSION_SECRET`、`BANANA_GITHUB_CLIENT_ID`、`BANANA_GITHUB_CLIENT_SECRET`、`BANANA_GITHUB_TOKEN`），可以用 `--env-file` 从文件读入。`tests/editor-github.mjs` 用一个模拟的 GitHub 测试登录、提交与冲突。
 

@@ -460,6 +460,52 @@ try {
   assert.equal(editor.requests.at(-1).body.pull, 3);
   assert.equal(editor.$('.editor-pull').textContent, '@octo 的 PR #3', '仍是他人的 PR');
   editor.window.close();
+  // The pull request is merged while being edited: the draft moves on to the site's version, and a new pull
+  // request is offered (merged as it was: no differences to compare).
+  let lateSubmissions = 0;
+  editor = open('?path=wiki%2F%E7%94%B2%2Findex.md&pull=3', {
+    me: me(tester), source: page({ pull: octoPull, pulls: [octoPull] }),
+    preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }],
+    submit: () => ++lateSubmissions === 1
+      ? [410, { ok: false, errors: [{ message: 'pull request #3 is no longer open' }], current: { text: source, original: 'f'.repeat(40) }, merged: true, pull: null }]
+      : [200, { ok: true, number: 11, url: 'https://github.example/pull/11', updated: false, original: '1'.repeat(40) }],
+  });
+  await until(() => editor.view(), '载入他人的 PR');
+  await until(() => editor.$('.editor-preview-empty').hidden, '首次预览');
+  editor.type('晚了。\n');
+  editor.$('.editor-submit-button').click();
+  const lateDialog = editor.$('.editor-submit-dialog');
+  await until(() => lateDialog.open && !lateDialog.querySelector('button[value="submit"]').disabled, '提交对话框');
+  lateDialog.querySelector('button[value="submit"]').click();
+  await until(() => !lateDialog.open, 'PR 已合并后关闭对话框');
+  assert.equal(editor.$('.editor-banner').textContent.replace(/\s+$/, ''), 'PR #3 已被合并． 你的修改都还在，提交时将开一个新的 PR． 提交为新的 PR');
+  assert.ok(editor.$('.editor-pull').hidden, '不再显示已合并的 PR');
+  assert.equal(editor.text(), `${source}晚了。\n`, '保留修改');
+  assert.equal(JSON.parse(editor.window.localStorage.getItem('banana-editor:wiki/甲/index.md')).original, 'f'.repeat(40), '草稿以网站上的版本为基础');
+  [...editor.document.querySelectorAll('.editor-banner button')].find(button => button.textContent === '提交为新的 PR').click();
+  assert.ok(lateDialog.open && lateDialog.querySelector('.editor-submit-update').hidden, '新 PR 的提交对话框');
+  lateDialog.querySelector('button[value="submit"]').click();
+  await until(() => !lateDialog.querySelector('.editor-submit-done').hidden, '提交为新的 PR');
+  assert.deepEqual([editor.requests.at(-1).body.original, 'pull' in editor.requests.at(-1).body], ['f'.repeat(40), false]);
+  assert.equal(editor.$('.editor-pull').textContent, 'PR #11');
+  editor.window.close();
+  // Closed without merging, or the site changed meanwhile: the differences are shown first.
+  editor = open('?path=wiki%2F%E7%94%B2%2Findex.md&pull=3', {
+    me: me(tester), source: page({ pull: octoPull, pulls: [octoPull] }),
+    preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }],
+    submit: () => [410, { ok: false, errors: [{ message: 'gone' }], current: { text: '---\ntitle: 甲\ncategories: []\n---\n\n网站上的正文。\n', original: '2'.repeat(40) }, merged: false, pull: null }],
+  });
+  await until(() => editor.view(), '载入他人的 PR');
+  await until(() => editor.$('.editor-preview-empty').hidden, '首次预览');
+  editor.type('晚了。\n');
+  editor.$('.editor-submit-button').click();
+  await until(() => editor.$('.editor-submit-dialog').open && !editor.$('.editor-submit-dialog button[value="submit"]').disabled, '提交对话框');
+  editor.$('.editor-submit-dialog button[value="submit"]').click();
+  await until(() => !editor.$('.editor-submit-dialog').open, 'PR 已关闭后关闭对话框');
+  assert.match(editor.$('.editor-banner').textContent, /^PR #3 已被关闭，没有合并． 下面标出了你的版本与网站上最新版本的差异，确认后提交将开一个新的 PR．/);
+  await until(() => editor.document.querySelector('.cm-changedLine, .cm-insertedLine, .cm-deletedChunk'), '与网站版本的比较视图');
+  editor.window.close();
+
   // A linked pull request merged since.
   editor = open('?path=wiki%2F%E7%94%B2%2Findex.md&pull=9', { me: me(tester), source: page({ pullMissing: 9 }), preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }] });
   await until(() => editor.view(), '载入页面');
@@ -484,7 +530,7 @@ try {
   editor.window.close();
 
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、提交与成功提示、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
+  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、提交与成功提示、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }

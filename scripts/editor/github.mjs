@@ -97,8 +97,10 @@ export function githubRepository({ token, repo, base = 'main', api = 'https://ap
 
   /**
    * Commits text to path for user { id, login, name } and opens (or updates) their pull request, or, with
-   * target (a pull request number), adds to that pull request of the page, whoever opened it (410 when it is
-   * no longer open). original is the blob id the edit started from (null for a new page): when the file has
+   * target (a pull request number), adds to that pull request of the page, whoever opened it. When it is no
+   * longer open, nothing is written and a 410 error carries what a submission without target would start
+   * from: current { text, blob } (the user's own open pull request, or the base), pull (the former, or
+   * undefined) and whether the target was merged. original is the blob id the edit started from (null for a new page): when the file has
    * changed since, nothing is written and a 409 error carries the current { text, blob }. body(number) is the
    * new pull request's description. Returns { number, url, updated, blob, author }.
    */
@@ -107,7 +109,13 @@ export function githubRepository({ token, repo, base = 'main', api = 'https://ap
     if (target === undefined) pull = await openPullRequest(user.login, path);
     else {
       pull = (await pagePullRequests(path)).find(candidate => candidate.number === target);
-      if (!pull) throw new GitHubError(410, `pull request #${target} is no longer open`);
+      if (!pull) {
+        const [closed, own] = await Promise.all([request('GET', `/pulls/${target}`).catch(() => undefined), openPullRequest(user.login, path)]);
+        const current = await readFile(path, own?.branch ?? base);
+        throw Object.assign(new GitHubError(410, `pull request #${target} is no longer open`), {
+          current: current ?? null, merged: Boolean(closed?.merged), pull: own && { ...own, author: user.login },
+        });
+      }
     }
     const branch = pull?.branch ?? branchFor(user.login, path);
     const from = pull ? branch : base;

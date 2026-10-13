@@ -866,7 +866,26 @@ async function openPage(path, user, title) {
       return;
     }
     if (code === 422) problems([], json.errors, tracker, value);
-    if (code === 410) { result.textContent = text('pull_closed'); return; }
+    if (code === 410) {
+      // The pull request was merged or closed meanwhile: the draft moves on to what a new submission starts from
+      // (the site's version, or the user's own pull request), and the user is asked to submit it there.
+      dialog.close();
+      const gone = text(json.merged ? 'pull_merged' : 'pull_closed', { number: pull.number });
+      pull = json.pull ?? null;
+      showPull();
+      window.history.replaceState(null, '', `?${new URLSearchParams({ path, pull: pull ? pull.number : 'none' })}`);
+      original = json.current?.original ?? null;
+      const latest = json.current?.text ?? '';
+      if (latest === baseline && !pull) {
+        // Merged as it was, and nothing else changed since: only the user's own edits differ.
+        banner(`${gone} ${text('resubmit_new')}`, [{ label: text('resubmit_button'), run: () => { clearBanner(); openSubmitDialog(); } }], { closable: true });
+      } else {
+        baseline = latest;
+        compareWith(latest, `${gone} ${pull ? text('resubmit_own_compare', { number: pull.number }) : text('resubmit_new_compare')}`);
+      }
+      changed(); // The saved draft now starts from the new version.
+      return;
+    }
     result.textContent = text('submit_failed', { message: errorText(json) });
   });
 

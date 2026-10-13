@@ -84,6 +84,10 @@ const github = createServer(async (request, response) => {
     const open = pulls.filter(pull => pull.state === 'open' && (head === undefined || pull.head === head)).slice((page - 1) * size, page * size);
     return reply(200, open.map(pull => ({ number: pull.number, html_url: pull.url, title: pull.title, head: { ref: pull.head, repo: { full_name: pull.fork ? 'fork/site' : 'Owner/Site' } } })));
   }
+  if (request.method === 'GET' && /^\/pulls\/\d+$/.test(path)) {
+    const pull = pulls[Number(path.split('/')[2]) - 1];
+    return pull ? reply(200, { number: pull.number, state: pull.state, merged: Boolean(pull.merged) }) : reply(404, { message: 'Not Found' });
+  }
   if (request.method === 'PATCH' && /^\/pulls\/\d+$/.test(path)) {
     Object.assign(pulls[Number(path.split('/')[2]) - 1], body);
     return reply(200, {});
@@ -223,6 +227,7 @@ try {
   await delay(3100);
   answer = await callAs(other, 'POST', 'submit', { path: 'wiki/甲/index.md', text: inPull, original: blob(inPull), message: '', pull: 99 });
   assert.equal(answer.status, 410, '目标 PR 已关闭');
+  assert.deepEqual([answer.json.current, answer.json.merged, answer.json.pull], [{ text: original, original: blob(original) }, false, null], '不带 pull 提交的基础：网站上的版本');
   // octo's own edits carry on from hubot's.
   source = (await call('GET', 'source?path=wiki/甲/index.md')).json;
   assert.deepEqual([source.text, source.pull], [inPull + '\n他人补充。\n', octoPull]);
@@ -239,7 +244,14 @@ try {
   answer = await call('POST', 'submit', { path: 'books/新讲义/index.md', text: '---\ntitle: 新讲义\n---\n\n新的。\n', original: null, message: '' });
   assert.equal(answer.status, 403);
   assert.equal(log.length, beforeRefusal, "不应提交条目以外的新页面");
-  pulls[0].state = 'closed';
+  // octo's pull request merged while he edits it: nothing is written; he is told, with what a new one starts from.
+  Object.assign(pulls[0], { state: 'closed', merged: true });
+  await delay(3100);
+  const beforeMerged = branches.get(branch);
+  answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: original + '\n晚了。\n', original: blob(inPull + '\n他人补充。\n'), message: '', pull: 1 });
+  assert.equal(answer.status, 410);
+  assert.deepEqual([answer.json.current, answer.json.merged, answer.json.pull], [{ text: original, original: blob(original) }, true, null], '已合并');
+  assert.equal(branches.get(branch), beforeMerged, '已合并的 PR 不写入');
   await delay(3100);
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: original + '\n再来。\n', original: blob(original), message: '' });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
@@ -268,7 +280,7 @@ try {
   const logout = await fetch(`${base}/api/auth/logout`, { method: 'POST', headers: { Cookie: session } });
   assert.match(logout.headers.get('set-cookie'), /^banana_session=; Path=\/api\/; Max-Age=0/);
   assert.ok(!output.includes(botToken) && !output.includes(userToken), '令牌不应出现在日志中');
-  console.log('编辑接口与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、编辑他人的 PR 并通知作者、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
+  console.log('编辑接口与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、编辑他人的 PR 并通知作者、PR 中途合并或关闭、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
 } catch (error) {
   if (output) console.error(output);
   throw error;
