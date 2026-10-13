@@ -53,7 +53,8 @@ export function githubRepository({ token, repo, base = 'main', api = 'https://ap
     if (!response.ok) throw new GitHubError(response.status, `GitHub ${method} ${path}: ${response.status} ${result?.message ?? ''}`.trim());
     return result;
   }
-  const branchFor = (login, path) => `edit/${login}/${createHash('sha1').update(path).digest('hex').slice(0, 12)}`;
+  const pathHash = path => createHash('sha1').update(path).digest('hex').slice(0, 12);
+  const branchFor = (login, path) => `edit/${login}/${pathHash(path)}`;
 
   /** The file on a branch: { text, blob }, or undefined when it does not exist there. */
   async function readFile(path, ref) {
@@ -67,6 +68,26 @@ export function githubRepository({ token, repo, base = 'main', api = 'https://ap
     }
   }
 
+  /**
+   * The open pull requests the editor opened for a page, by anyone: [{ number, url, branch, author, title }], oldest
+   * first. They are the ones from edit/<login>/<hash of path> in the repository itself.
+   */
+  async function pagePullRequests(path) {
+    const suffix = `/${pathHash(path)}`;
+    const found = [];
+    for (let page = 1; page <= 10; page++) {
+      const pulls = await request('GET', `/pulls?state=open&sort=created&direction=asc&per_page=100&page=${page}`);
+      for (const pull of pulls) {
+        const ref = pull.head?.ref ?? '';
+        if (pull.head?.repo?.full_name?.toLowerCase() !== repo.toLowerCase() || !ref.startsWith('edit/') || !ref.endsWith(suffix)) continue;
+        const author = ref.slice('edit/'.length, -suffix.length);
+        if (/^[A-Za-z0-9-]+$/.test(author)) found.push({ number: pull.number, url: pull.html_url, branch: ref, author, title: pull.title });
+      }
+      if (pulls.length < 100) break;
+    }
+    return found;
+  }
+
   /** The user's open pull request for a page: { number, url, branch }, or undefined. */
   async function openPullRequest(login, path) {
     const branch = branchFor(login, path);
@@ -75,13 +96,27 @@ export function githubRepository({ token, repo, base = 'main', api = 'https://ap
   }
 
   /**
-   * Commits text to path for user { id, login, name } and opens (or updates) their pull request.
-   * original is the blob id the edit started from (null for a new page): when the file has
-   * changed since, nothing is written and a 409 error carries the current { text, blob }.
-   * Returns { number, url, updated, blob }.
+   * Commits text to path for user { id, login, name } and opens (or updates) their pull request, or, with
+   * target (a pull request number), adds to that pull request of the page, whoever opened it. When it is no
+   * longer open, nothing is written and a 410 error carries what a submission without target would start
+   * from: current { text, blob } (the user's own open pull request, or the base), pull (the former, or
+   * undefined) and whether the target was merged. original is the blob id the edit started from (null for a new page): when the file has
+   * changed since, nothing is written and a 409 error carries the current { text, blob }. body(number) is the
+   * new pull request's description. Returns { number, url, updated, blob, author }.
    */
-  async function submit({ user, path, text, original, message, title, body }) {
-    const pull = await openPullRequest(user.login, path);
+  async function submit({ user, path, text, original, message, title, body, target }) {
+    let pull;
+    if (target === undefined) pull = await openPullRequest(user.login, path);
+    else {
+      pull = (await pagePullRequests(path)).find(candidate => candidate.number === target);
+      if (!pull) {
+        const [closed, own] = await Promise.all([request('GET', `/pulls/${target}`).catch(() => undefined), openPullRequest(user.login, path)]);
+        const current = await readFile(path, own?.branch ?? base);
+        throw Object.assign(new GitHubError(410, `pull request #${target} is no longer open`), {
+          current: current ?? null, merged: Boolean(closed?.merged), pull: own && { ...own, author: user.login },
+        });
+      }
+    }
     const branch = pull?.branch ?? branchFor(user.login, path);
     const from = pull ? branch : base;
     const current = await readFile(path, from);
@@ -101,9 +136,20 @@ export function githubRepository({ token, repo, base = 'main', api = 'https://ap
       message, branch, content: Buffer.from(text).toString('base64'), ...(current ? { sha: current.blob } : {}),
       author: { name: user.name, email: `${user.id}+${user.login}@users.noreply.github.com` },
     });
-    const result = pull ?? await request('POST', '/pulls', { title, head: branch, base, body, maintainer_can_modify: true })
-      .then(created => ({ number: created.number, url: created.html_url }));
-    return { number: result.number, url: result.url, updated: Boolean(pull), blob: written.content.sha };
+    let result = pull;
+    if (!result) {
+      // The description links back to the editor with the pull request's number, known once it exists.
+      const created = await request('POST', '/pulls', { title, head: branch, base, body: body(), maintainer_can_modify: true });
+      result = { number: created.number, url: created.html_url, author: user.login };
+      await request('PATCH', `/pulls/${created.number}`, { body: body(created.number) })
+        .catch(error => console.error(`[editor-api] ${error.message}`));
+    }
+    return { number: result.number, url: result.url, updated: Boolean(pull), blob: written.content.sha, author: result.author ?? user.login };
   }
-  return { readFile, openPullRequest, submit, repo, base };
+
+  /** A comment on a pull request (failures are only logged: the commit is what matters). */
+  async function comment(number, text) {
+    await request('POST', `/issues/${number}/comments`, { body: text }).catch(error => console.error(`[editor-api] ${error.message}`));
+  }
+  return { readFile, openPullRequest, pagePullRequests, submit, comment, repo, base };
 }

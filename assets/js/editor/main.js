@@ -115,6 +115,30 @@ function withPullLink(element, message, url) {
     : part));
 }
 
+/**
+ * Asks which of a page's pull requests to edit (pull: the one loaded, null for the site's version). Resolves to a
+ * pull request's number as a string, or "none" for the site's version; closing the dialog keeps the one loaded.
+ */
+function choosePull(pulls, pull, user) {
+  const dialog = $('.editor-pull-dialog'), list = dialog.querySelector('.editor-pull-choices');
+  const own = number => pulls.find(other => other.number === number)?.author.toLowerCase() === user.login.toLowerCase();
+  const loaded = pull ? String(pull.number) : 'none';
+  // The user's own pull request is where their edits go anyway: with it there is no starting afresh.
+  const choices = pulls.map(({ number, title, author, url }) => ({ value: String(number), url, label: text(own(number) ? 'pull_choice_own' : 'pull_choice', { number, title, author }) }));
+  if (!pulls.some(other => own(other.number))) choices.push({ value: 'none', label: text('pull_none') });
+  list.replaceChildren(...choices.map(({ value, label, url }) => {
+    const element = document.createElement('label');
+    element.append(Object.assign(document.createElement('input'), { type: 'radio', name: 'pull', value, checked: value === loaded }), label);
+    if (url) element.append(Object.assign(document.createElement('a'), { href: url, target: '_blank', rel: 'noopener', textContent: text('submit_done_view') }));
+    return element;
+  }));
+  return new Promise(resolve => {
+    dialog.addEventListener('close', () => resolve(dialog.returnValue === 'confirm' ? list.querySelector('input:checked')?.value ?? loaded : loaded), { once: true });
+    dialog.returnValue = '';
+    dialog.showModal();
+  });
+}
+
 /** content/ 内的页面路径：完整路径原样使用；没有斜线的视为条目名；目录补上 index.md。 */
 function pagePath(value) {
   const path = value.trim().replace(/^\/+|\/+$/g, '').replace(/^content\//, '');
@@ -178,8 +202,20 @@ async function openPage(path, user, title) {
   status(text('loading'));
   const file = $('.editor-path');
   $('.editor-path-name').textContent = `content/${path}`;
-  const source = await request('GET', `source?path=${encodeURIComponent(path)}`);
+  // ?pull= is the pull request to edit (a number, or "none" for the site's version), as chosen below or linked
+  // from the pull request's description.
+  const asked = params.get('pull');
+  const source = await request('GET', `source?path=${encodeURIComponent(path)}${asked ? `&pull=${encodeURIComponent(asked)}` : ''}`);
   if (!source.json.ok) { status(text('load_failed', { message: errorText(source.json) })); return; }
+  // Other people's pull requests of the page: the user chooses which to edit, unless the address says.
+  const pulls = source.json.pulls ?? [];
+  if (!asked && pulls.some(other => other.number !== source.json.pull?.number)) {
+    const chosen = await choosePull(pulls, source.json.pull, user);
+    if (chosen !== (source.json.pull ? String(source.json.pull.number) : 'none')) {
+      location.search = `?${new URLSearchParams({ path, pull: chosen })}`;
+      return;
+    }
+  }
   // Only entries are created online.
   if (!source.json.exists && !/^wiki\/[^/]+\/index\.md$/.test(path)) { status(text('new_page_not_entry')); return; }
   status('');
@@ -194,6 +230,7 @@ async function openPage(path, user, title) {
   if (!source.json.exists) file.append(Object.assign(document.createElement('span'), { className: 'editor-new-page', textContent: text('new_page') }));
   if (source.json.url) Object.assign($('.editor-view'), { href: source.json.url, hidden: false });
   showPull();
+  if (source.json.pullMissing) banner(text('pull_missing', { number: source.json.pullMissing }), [], { closable: true });
 
   // Account: the GitHub avatar and login open a menu (also on hover): the user's pull requests, their
   // GitHub page, logging out.
@@ -749,12 +786,14 @@ async function openPage(path, user, title) {
   view.dispatch({ effects: lint.reconfigure(linter(lintNow, { delay: 300 })) });
 
   // Submitting.
+  /** Whether the pull request is someone else's (GitHub logins are case-insensitive). */
+  function othersPull() { return Boolean(pull?.author) && pull.author.toLowerCase() !== user.login.toLowerCase(); }
   function showPull() {
     const element = $('.editor-pull');
     element.hidden = !pull;
     if (pull) {
       element.href = pull.url;
-      element.querySelector('.editor-pull-text').textContent = text('in_pull', { number: pull.number });
+      element.querySelector('.editor-pull-text').textContent = text(othersPull() ? 'in_pull_by' : 'in_pull', { number: pull.number, author: pull.author });
     }
   }
   const dialog = $('.editor-submit-dialog');
@@ -774,7 +813,7 @@ async function openPage(path, user, title) {
   function openSubmitDialog() {
     const update = dialog.querySelector('.editor-submit-update');
     update.hidden = !pull;
-    if (pull) withPullLink(update, text('submit_update', { number: pull.number }), pull.url);
+    if (pull) withPullLink(update, text(othersPull() ? 'submit_update_other' : 'submit_update', { number: pull.number, author: pull.author }), pull.url);
     result.replaceChildren();
     form.hidden = false;
     done.hidden = true;
@@ -790,7 +829,7 @@ async function openPage(path, user, title) {
     result.textContent = text('submitting');
     const value = current();
     const tracker = track();
-    const { status: code, json } = await request('POST', 'submit', { path, text: value, original, message: dialog.querySelector('input').value });
+    const { status: code, json } = await request('POST', 'submit', { path, text: value, original, message: dialog.querySelector('input').value, ...(pull ? { pull: pull.number } : {}) });
     trackers.delete(tracker);
     submitting = false;
     updateSubmit();
@@ -805,9 +844,11 @@ async function openPage(path, user, title) {
         // It renders as the previewed text did.
         previewed = approved = committed;
       }
-      pull = { number: json.number, url: json.url };
+      pull = { number: json.number, url: json.url, author: pull?.author ?? user.login };
       storage.remove(draftKey);
       showPull();
+      // Reopening the editor (or reloading it) continues on this pull request.
+      window.history.replaceState(null, '', `?${new URLSearchParams({ path, pull: json.number })}`);
       // The dialog turns into the confirmation.
       dialog.querySelector('input').value = '';
       withPullLink(done.querySelector('.editor-submit-done-text'), text(json.updated ? 'submit_done_updated' : 'submit_done_opened', { number: json.number }), json.url);
@@ -821,10 +862,30 @@ async function openPage(path, user, title) {
       dialog.close();
       original = json.current.original;
       baseline = json.current.text;
-      compareWith(json.current.text, text('conflict'));
+      compareWith(json.current.text, pull ? text('pull_conflict', { number: pull.number }) : text('conflict'));
       return;
     }
     if (code === 422) problems([], json.errors, tracker, value);
+    if (code === 410) {
+      // The pull request was merged or closed meanwhile: the draft moves on to what a new submission starts from
+      // (the site's version, or the user's own pull request), and the user is asked to submit it there.
+      dialog.close();
+      const gone = text(json.merged ? 'pull_merged' : 'pull_closed', { number: pull.number });
+      pull = json.pull ?? null;
+      showPull();
+      window.history.replaceState(null, '', `?${new URLSearchParams({ path, pull: pull ? pull.number : 'none' })}`);
+      original = json.current?.original ?? null;
+      const latest = json.current?.text ?? '';
+      if (latest === baseline && !pull) {
+        // Merged as it was, and nothing else changed since: only the user's own edits differ.
+        banner(`${gone} ${text('resubmit_new')}`, [{ label: text('resubmit_button'), run: () => { clearBanner(); openSubmitDialog(); } }], { closable: true });
+      } else {
+        baseline = latest;
+        compareWith(latest, `${gone} ${pull ? text('resubmit_own_compare', { number: pull.number }) : text('resubmit_new_compare')}`);
+      }
+      changed(); // The saved draft now starts from the new version.
+      return;
+    }
     result.textContent = text('submit_failed', { message: errorText(json) });
   });
 

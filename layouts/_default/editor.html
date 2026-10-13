@@ -77,11 +77,22 @@
       </div>
     </form>
   </dialog>
+  {{- /* Other people's pull requests of the page: which to edit (assets/js/editor/main.js builds the choices). */}}
+  <dialog class="editor-dialog editor-pull-dialog">
+    <form method="dialog">
+      <h2>{{ i18n "editor_pull_title" }}</h2>
+      <p class="editor-submit-intro">{{ i18n "editor_pull_intro" }}</p>
+      <div class="editor-pull-choices"></div>
+      <div class="editor-dialog-actions">
+        <button type="submit" value="confirm" class="editor-button editor-button-primary">{{ i18n "editor_pull_confirm" }}</button>
+      </div>
+    </form>
+  </dialog>
   <noscript><p>{{ i18n "editor_noscript" }}</p></noscript>
   {{- /* Icons for elements the script builds. */}}
   <template id="editor-icons"><span data-icon="close">{{ partial "ui-icon.html" "close" }}</span><span data-icon="chevron">{{ partial "ui-icon.html" "chevron" }}</span></template>
 </section>
-{{- $keys := slice "new_page" "view_page" "in_pull" "loading" "load_failed" "unavailable" "logout" "my_pulls" "profile" "account_menu" "close" "submit_wait_preview" "submit_wait_errors" "draft_compare" "submit_done_opened" "submit_done_updated" "previewing" "preview_failed" "preview_empty" "preview_error_line" "problem_line" "missing_link" "draft_restored" "draft_discard" "draft_outdated" "draft_load" "conflict" "merge_done" "submit_update" "submitting" "submitted" "submit_updated" "submit_failed" "unchanged" "offline_unsaved" "open_no_slash" "new_page_not_entry" "preview_button_title" "completion_tag_see" "completion_tag_lang" "completion_tag_align" "completion_tag_spoiler" "completion_tag_person" "completion_parameter_original" "completion_parameter_lang" "completion_parameter_translit" "completion_parameter_ipa" "completion_parameter_years" "completion_parameter_title" "completion_align_right" "completion_align_center" "completion_math" "completion_tikz" "completion_terms" "completion_bibliography" "cm_find" "cm_replace" "cm_next" "cm_previous" "cm_all" "cm_match_case" "cm_regexp" "cm_by_word" "cm_replace_one" "cm_replace_all" "cm_close" "cm_current_match" "cm_on_line" "cm_replaced_match" "cm_replaced_matches" "cm_go_to_line" "cm_go" "cm_diagnostics" "cm_no_diagnostics" "cm_folded_code" "cm_to" "cm_unfold" "cm_fold_line" "cm_unfold_line" "cm_folded_lines" "cm_unfolded_lines" "cm_completions" "cm_control_character" "cm_selection_deleted" "cm_unchanged_lines" "cm_accept" "cm_reject" "cm_revert_chunk" -}}
+{{- $keys := slice "new_page" "view_page" "in_pull" "in_pull_by" "pull_choice" "pull_choice_own" "pull_none" "pull_missing" "pull_closed" "pull_conflict" "pull_merged" "resubmit_new" "resubmit_new_compare" "resubmit_own_compare" "resubmit_button" "submit_update_other" "submit_done_view" "loading" "load_failed" "unavailable" "logout" "my_pulls" "profile" "account_menu" "close" "submit_wait_preview" "submit_wait_errors" "draft_compare" "submit_done_opened" "submit_done_updated" "previewing" "preview_failed" "preview_empty" "preview_error_line" "problem_line" "missing_link" "draft_restored" "draft_discard" "draft_outdated" "draft_load" "conflict" "merge_done" "submit_update" "submitting" "submitted" "submit_updated" "submit_failed" "unchanged" "offline_unsaved" "open_no_slash" "new_page_not_entry" "preview_button_title" "completion_tag_see" "completion_tag_lang" "completion_tag_align" "completion_tag_spoiler" "completion_tag_person" "completion_parameter_original" "completion_parameter_lang" "completion_parameter_translit" "completion_parameter_ipa" "completion_parameter_years" "completion_parameter_title" "completion_align_right" "completion_align_center" "completion_math" "completion_tikz" "completion_terms" "completion_bibliography" "cm_find" "cm_replace" "cm_next" "cm_previous" "cm_all" "cm_match_case" "cm_regexp" "cm_by_word" "cm_replace_one" "cm_replace_all" "cm_close" "cm_current_match" "cm_on_line" "cm_replaced_match" "cm_replaced_matches" "cm_go_to_line" "cm_go" "cm_diagnostics" "cm_no_diagnostics" "cm_folded_code" "cm_to" "cm_unfold" "cm_fold_line" "cm_unfold_line" "cm_folded_lines" "cm_unfolded_lines" "cm_completions" "cm_control_character" "cm_selection_deleted" "cm_unchanged_lines" "cm_accept" "cm_reject" "cm_revert_chunk" -}}
 {{- $strings := dict -}}
 {{- range $keys -}}{{- $strings = merge $strings (dict . (i18n (printf "editor_%s" .))) -}}{{- end -}}
 {{- /* The instant checks: the preprocessing's parsing for the browser, loaded by the editor once it is up.
