@@ -36,15 +36,19 @@ import { blobId, githubLogin, githubRepository } from './editor/github.mjs';
 // GET  /api/auth/login?return=<站内路径>    跳转到 GitHub 登录，完成后回到 return
 // GET  /api/auth/callback                  GitHub 登录回调
 // POST /api/auth/logout
-// GET  /api/source?path=<页面>             { ok, path, exists, text, original, pull, file }：当前源文本及其 blob id；
-//                                          登录用户对该页有未合并的 PR 时取 PR 分支上的版本，pull 为 { number, url }；
+// GET  /api/source?path=<页面>[&pull=<编号>|none]
+//                                          { ok, path, exists, text, original, pull, pulls, pullMissing, file }：当前源文本及其 blob id；
+//                                          登录用户对该页有未合并的 PR 时取 PR 分支上的版本，pull 为 { number, url, author, title }；
+//                                          pulls 为编辑器为该页开的全部未合并 PR（任何人的），pull=<编号> 取其中一个的版本
+//                                          （已不再打开时退回默认版本，pullMissing 为该编号），pull=none 取网站上的版本；
 //                                          file 为该文件在 GitHub 上的地址（未配置提交或尚无此文件时为 null），
 //                                          url 为页面在站点上的地址（尚无此页面或未发布时为 null）
 // POST /api/preview { path, text }          { ok, url, html, missingLinks, timings }（需登录）
 // POST /api/check   { path, text }          { ok, missingLinks }（需登录）
-// POST /api/submit  { path, text, original, message }
+// POST /api/submit  { path, text, original, message, pull }
 //                                          { ok, number, url, updated, original }（需登录）：检查通过后提交，
-//                                          打开或更新该用户对该页的 PR；original 为编辑开始时的 blob id，
+//                                          打开或更新该用户对该页的 PR；有 pull（PR 编号）时添加到该页的这个 PR，
+//                                          可以是别人的（并在 PR 中留言通知），已不再打开时返回 410；original 为编辑开始时的 blob id，
 //                                          页面已被别人修改时返回 409 与 current: { text, original }
 // path 为 content/ 中的页面（可省略 content/ 前缀，可以是新页面；只能提交新的条目 wiki/<名称>/index.md，其他新页面返回 403）。
 // 错误时为 { ok: false, errors: [{ file, line, message }] }：预处理与 Hugo 错误为 422（Hugo 错误另带 log），
@@ -259,10 +263,21 @@ const routes = {
   'GET /api/source': async (request, response, url) => {
     const path = pagePath(url.searchParams.get('path'));
     const user = currentUser(request);
-    let text = service.source(path), original = text === undefined ? null : blobId(text), pull;
+    // ?pull=<number> asks for that pull request of the page (anyone's), ?pull=none for the site's version; by
+    // default the user's own pull request, if any.
+    const asked = url.searchParams.get('pull');
+    if (asked !== null && asked !== 'none' && !/^[1-9]\d{0,9}$/.test(asked)) throw new RequestError(400, 'pull must be a pull request number or none');
+    let text = service.source(path), original = text === undefined ? null : blobId(text), pull, pulls = [], pullMissing = null;
     if (user && repository) {
       try {
-        pull = await repository.openPullRequest(user.login, `content/${path}`);
+        pulls = await repository.pagePullRequests(`content/${path}`);
+        const own = pulls.find(candidate => sameLogin(candidate.author, user.login));
+        if (asked === null) pull = own;
+        else if (asked !== 'none') {
+          pull = pulls.find(candidate => candidate.number === Number(asked));
+          // Merged or closed since the link was made: the user's own, or the site's version.
+          if (!pull) { pullMissing = Number(asked); pull = own; }
+        }
         if (pull) {
           const file = await repository.readFile(`content/${path}`, pull.branch);
           text = file?.text;
@@ -270,12 +285,16 @@ const routes = {
         }
       } catch (error) {
         console.error(`[editor-api] ${error.message}`);
-        throw new RequestError(502, 'could not look up your pull request on GitHub; try again later');
+        throw new RequestError(502, 'could not look up the pull requests on GitHub; try again later');
       }
     }
     const segments = value => value.split('/').map(encodeURIComponent).join('/');
     const file = repository && text !== undefined ? `${githubWeb}/${options.githubRepo}/blob/${segments(pull?.branch ?? options.githubBase)}/${segments(`content/${path}`)}` : null;
-    send(response, 200, { ok: true, path: `content/${path}`, exists: text !== undefined, text: text ?? '', original, pull: pull ? { number: pull.number, url: pull.url } : null, file, url: service.url(path) ?? null, labels: service.labels(path) });
+    const describe = ({ number, url, author, title }) => ({ number, url, author, title });
+    send(response, 200, {
+      ok: true, path: `content/${path}`, exists: text !== undefined, text: text ?? '', original, pull: pull ? describe(pull) : null,
+      pulls: pulls.map(describe), pullMissing, file, url: service.url(path) ?? null, labels: service.labels(path),
+    });
   },
   'POST /api/preview': queued(async (request, response, user) => {
     throttle(user, 'preview');
@@ -299,6 +318,7 @@ const routes = {
     const { path, text, body } = await draft(request);
     if (body.original !== null && !(typeof body.original === 'string' && /^[0-9a-f]{40}$/.test(body.original))) throw new RequestError(400, 'original must be the blob id from /api/source, or null for a new page');
     if (body.original === null && !/^wiki\/[^/]+\/index\.md$/.test(path)) throw new RequestError(403, 'only entries (content/wiki/<name>/index.md) can be created online');
+    if (body.pull !== undefined && body.pull !== null && !(Number.isInteger(body.pull) && body.pull > 0)) throw new RequestError(400, 'pull must be a pull request number');
     const message = typeof body.message === 'string' ? body.message.replace(/\s+/g, ' ').trim().slice(0, 200) : '';
     if (!await serviceCall(response, 'check', path, text)) return;
     // What is committed is formatted (npm run format: line breaks and indentation, the page unchanged); the editor
@@ -310,17 +330,27 @@ const routes = {
     title = typeof title === 'string' && title.trim() ? title.trim() : path.replace(/\/_?index\.md$|\.md$/, '').split('/').at(-1);
     const result = await repository.submit({
       user, path: `content/${path}`, text: formatted, original: body.original,
-      message: message || `编辑 ${title}`, title,
-      body: `由 @${user.login} 通过在线编辑器提交。\n\n${message ? `> ${message}\n\n` : ''}页面：\`content/${path}\``,
+      message: message || `编辑 ${title}`, title, target: body.pull ?? undefined,
+      body: number => `由 @${user.login} 通过在线编辑器提交。\n\n${message ? `> ${message}\n\n` : ''}页面：\`content/${path}\`\n\n[在线编辑此 PR](${editorURL(path, number)})`,
     }).catch(error => {
       if (error.status === 409) throw new RequestError(409, error.message, { current: error.current && { text: error.current.text, original: error.current.blob } });
+      if (error.status === 410) throw new RequestError(410, error.message);
       console.error(`[editor-api] ${error.message}`);
       throw new RequestError(502, 'GitHub refused the submission; try again later');
     });
-    console.log(`[editor-api] ${user.login} ${result.updated ? 'updated' : 'opened'} pull request #${result.number} for content/${path}`);
+    // Someone else's pull request: its author hears of the change.
+    if (!sameLogin(result.author, user.login)) {
+      await repository.comment(result.number, `@${user.login} 通过在线编辑器更新了此 PR${message ? `：\n\n> ${message}` : '。'}`);
+    }
+    console.log(`[editor-api] ${user.login} ${result.updated ? 'updated' : 'opened'} pull request #${result.number}${sameLogin(result.author, user.login) ? '' : ` (by ${result.author})`} for content/${path}`);
     send(response, 200, { ok: true, number: result.number, url: result.url, updated: result.updated, original: result.blob, text: formatted });
   }),
 };
+
+/** GitHub logins are case-insensitive. */
+const sameLogin = (a, b) => a.toLowerCase() === b.toLowerCase();
+/** The editor for a page, on a pull request of it (without a number, the editor offers the page's pull requests). */
+const editorURL = (path, number) => new URL(`edit/?${new URLSearchParams({ path, ...(number ? { pull: number } : {}) })}`, options.baseURL.replace(/\/?$/, '/')).href;
 
 async function draft(request) {
   const body = await readJSON(request);

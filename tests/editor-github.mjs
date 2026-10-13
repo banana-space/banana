@@ -7,12 +7,14 @@ import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
+import { sign } from '../scripts/editor/session.mjs';
 
 // GitHub stand-in: OAuth login and the REST calls the editor makes, on an in-memory repository.
 const blob = text => createHash('sha1').update(`blob ${Buffer.byteLength(text)}\0`).update(text).digest('hex');
 const commits = new Map(); // id -> Map(path -> text)
 const branches = new Map(); // name -> commit id
 const pulls = [];
+const comments = []; // { number, body }
 const log = []; // Repository calls, "METHOD path".
 let commitCount = 0;
 function commit(files) {
@@ -77,8 +79,18 @@ const github = createServer(async (request, response) => {
     }
   }
   if (path === '/pulls' && request.method === 'GET') {
-    const head = url.searchParams.get('head').replace('owner:', '');
-    return reply(200, pulls.filter(pull => pull.state === 'open' && pull.head === head).map(pull => ({ number: pull.number, html_url: pull.url })));
+    const head = url.searchParams.get('head')?.replace('owner:', '');
+    const page = Number(url.searchParams.get('page') ?? 1), size = Number(url.searchParams.get('per_page') ?? 30);
+    const open = pulls.filter(pull => pull.state === 'open' && (head === undefined || pull.head === head)).slice((page - 1) * size, page * size);
+    return reply(200, open.map(pull => ({ number: pull.number, html_url: pull.url, title: pull.title, head: { ref: pull.head, repo: { full_name: pull.fork ? 'fork/site' : 'Owner/Site' } } })));
+  }
+  if (request.method === 'PATCH' && /^\/pulls\/\d+$/.test(path)) {
+    Object.assign(pulls[Number(path.split('/')[2]) - 1], body);
+    return reply(200, {});
+  }
+  if (request.method === 'POST' && /^\/issues\/\d+\/comments$/.test(path)) {
+    comments.push({ number: Number(path.split('/')[2]), body: body.body });
+    return reply(201, {});
   }
   if (path === '/pulls' && request.method === 'POST') {
     const pull = { ...body, number: pulls.length + 1, state: 'open', url: `https://github.example/owner/site/pull/${pulls.length + 1}` };
@@ -151,12 +163,13 @@ try {
   assert.match(branch, /^edit\/octo\/[0-9a-f]{12}$/);
   assert.deepEqual([pulls[0].title, pulls[0].base], ['甲', 'main'], 'PR 标题为页面标题');
   assert.match(pulls[0].body, /由 @octo 通过在线编辑器提交。\n\n> 修正 措辞\n\n页面：`content\/wiki\/甲\/index.md`/);
+  assert.match(pulls[0].body, /\n\n\[在线编辑此 PR\]\(https?:\/\/[^)\s]+\/edit\/\?path=wiki%2F%E7%94%B2%2Findex\.md&pull=1\)$/, 'PR 正文链接到编辑器中的该 PR');
   assert.ok(log.includes(`commit ${branch} by Octo Cat <42+octo@users.noreply.github.com>: 修正 措辞`));
   assert.equal(commits.get(branches.get('main')).get('content/wiki/甲/index.md'), original, 'main 不应被修改');
 
   // Reopening the page loads the pull request's version; submitting again updates the same pull request.
   source = (await call('GET', 'source?path=content/wiki/甲/index.md')).json;
-  assert.deepEqual([source.text, source.original, source.pull], [edited, blob(edited), { number: 1, url: 'https://github.example/owner/site/pull/1' }]);
+  assert.deepEqual([source.text, source.original, source.pull], [edited, blob(edited), { number: 1, url: 'https://github.example/owner/site/pull/1', author: 'octo', title: '甲' }]);
   assert.equal(source.file, `${githubOrigin}/owner/site/blob/${branch}/content/wiki/${encodeURIComponent('甲')}/index.md`, 'PR 中的版本链接到 PR 分支');
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: edited + '\n补充。\n', original: source.original, message: '' });
   assert.equal(answer.status, 429, '提交间隔');
@@ -183,11 +196,43 @@ try {
   assert.equal(answer.json.errors[0].line, 6);
   assert.equal(log.length, calls, '有错误的稿件不应提交');
 
+  // Someone else edits octo's pull request: offered with the page, loaded on request, committed to octo's branch
+  // under their own name; octo hears of it in a comment. A fork's branch of the same name is not the editor's.
+  const other = `banana_session=${sign('secret', { id: 7, login: 'hubot', name: 'Hu Bot', exp: Date.now() + 3600e3 })}`;
+  const callAs = async (cookie, method, path, body) => {
+    const response = await fetch(`${base}/api/${path}`, { method, headers: { 'Content-Type': 'application/json', Cookie: cookie }, body: body && JSON.stringify(body) });
+    return { status: response.status, json: await response.json() };
+  };
+  const inPull = edited + '\n补充。\n';
+  pulls.push({ number: 2, state: 'open', head: branch.replace('octo', 'evil'), fork: true, title: '伪造' });
+  source = (await callAs(other, 'GET', 'source?path=wiki/甲/index.md')).json;
+  pulls.pop();
+  const octoPull = { number: 1, url: 'https://github.example/owner/site/pull/1', author: 'octo', title: '甲' };
+  assert.deepEqual([source.text, source.pull, source.pulls, source.pullMissing], [original, null, [octoPull], null], '他人的 PR 列出但不默认载入');
+  source = (await callAs(other, 'GET', 'source?path=wiki/甲/index.md&pull=1')).json;
+  assert.deepEqual([source.text, source.original, source.pull], [inPull, blob(inPull), octoPull], '按编号载入他人的 PR');
+  assert.deepEqual((await callAs(other, 'GET', 'source?path=wiki/甲/index.md&pull=99')).json.pullMissing, 99, '已关闭的 PR');
+  assert.equal((await callAs(other, 'GET', 'source?path=wiki/甲/index.md&pull=x')).status, 400);
+  assert.equal((await callAs(other, 'GET', 'source?path=wiki/甲/index.md&pull=none')).json.text, original);
+  answer = await callAs(other, 'POST', 'submit', { path: 'wiki/甲/index.md', text: inPull + '\n他人补充。\n', original: blob(inPull), message: '补一句', pull: 1 });
+  assert.equal(answer.status, 200, JSON.stringify(answer.json));
+  assert.deepEqual([answer.json.number, answer.json.updated, pulls.length], [1, true, 1]);
+  assert.ok(log.includes(`commit ${branch} by Hu Bot <7+hubot@users.noreply.github.com>: 补一句`), '以编辑者为作者提交到原 PR 分支');
+  assert.deepEqual(comments, [{ number: 1, body: '@hubot 通过在线编辑器更新了此 PR：\n\n> 补一句' }], '通知 PR 作者');
+  assert.ok(!branches.has(branch.replace('octo', 'hubot')), '不另开分支');
+  await delay(3100);
+  answer = await callAs(other, 'POST', 'submit', { path: 'wiki/甲/index.md', text: inPull, original: blob(inPull), message: '', pull: 99 });
+  assert.equal(answer.status, 410, '目标 PR 已关闭');
+  // octo's own edits carry on from hubot's.
+  source = (await call('GET', 'source?path=wiki/甲/index.md')).json;
+  assert.deepEqual([source.text, source.pull], [inPull + '\n他人补充。\n', octoPull]);
+
   // A new page; a merged pull request's branch left behind starts over from main.
   await delay(3100);
   answer = await call('POST', 'submit', { path: 'wiki/新条目/index.md', text: '---\ntitle: 新条目\ncategories: []\n---\n\n新的。\n', original: null, message: '新建' });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.equal(pulls[1].title, '新条目');
+  assert.equal(comments.length, 1, '自己的 PR 不发评论');
   // Only entries are created online.
   await delay(3100);
   const beforeRefusal = log.length;
@@ -223,7 +268,7 @@ try {
   const logout = await fetch(`${base}/api/auth/logout`, { method: 'POST', headers: { Cookie: session } });
   assert.match(logout.headers.get('set-cookie'), /^banana_session=; Path=\/api\/; Max-Age=0/);
   assert.ok(!output.includes(botToken) && !output.includes(userToken), '令牌不应出现在日志中');
-  console.log('编辑接口与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
+  console.log('编辑接口与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、编辑他人的 PR 并通知作者、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
 } catch (error) {
   if (output) console.error(output);
   throw error;

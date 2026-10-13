@@ -49,7 +49,7 @@ try {
   assert.equal(source.text, await read('wiki/甲/index.md'));
   assert.equal(source.original, execFileSync('git', ['hash-object', '--stdin'], { input: source.text, encoding: 'utf8' }).trim());
   assert.deepEqual([source.exists, source.pull, source.file, source.url], [true, null, null, '/wiki/甲/'], '未配置提交时没有 GitHub 地址；页面地址');
-  assert.deepEqual(await (await fetch(`${base}/api/source?path=wiki/尚无/index.md`)).json(), { ok: true, path: 'content/wiki/尚无/index.md', exists: false, text: '', original: null, pull: null, file: null, url: null, labels: [] });
+  assert.deepEqual(await (await fetch(`${base}/api/source?path=wiki/尚无/index.md`)).json(), { ok: true, path: 'content/wiki/尚无/index.md', exists: false, text: '', original: null, pull: null, pulls: [], pullMissing: null, file: null, url: null, labels: [] });
   // A book page's source comes with the labels of the book's other pages, for completion.
   const bookLabels = (await (await fetch(`${base}/api/source?path=books/线性代数拾遗/maps/kernel/_index.md`)).json()).labels;
   assert.deepEqual(bookLabels.slice(0, 4), [

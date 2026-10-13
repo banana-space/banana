@@ -757,6 +757,24 @@ editor_view_page:
   other: 原页面
 editor_in_pull:
   other: "PR #{number}"
+editor_in_pull_by:
+  other: "@{author} 的 PR #{number}"
+editor_pull_title:
+  other: 这个页面有未合并的编辑
+editor_pull_intro:
+  other: 下面的 PR 还在等待审阅．你可以在其中一个 PR 上继续编辑，提交的修改会添加到该 PR 中．
+editor_pull_choice:
+  other: "@{author} 的 PR #{number}：{title}"
+editor_pull_choice_own:
+  other: "你的 PR #{number}：{title}"
+editor_pull_none:
+  other: 网站上的当前版本（提交时新建 PR）
+editor_pull_confirm:
+  other: 开始编辑
+editor_pull_missing:
+  other: "PR #{number} 已被合并或关闭．"
+editor_pull_closed:
+  other: 这个 PR 已被合并或关闭，请重新打开页面后再提交．
 editor_source_tab:
   other: 代码
 editor_preview_tab:
@@ -857,6 +875,8 @@ editor_submit_intro:
   other: 编辑会以 GitHub PR 的形式提交，由维护者审阅后合并。
 editor_submit_update:
   other: "编辑将添加到 PR #{number}。"
+editor_submit_update_other:
+  other: "编辑将添加到 @{author} 的 PR #{number}，对方会收到通知．"
 editor_submit_message:
   other: 编辑说明（可选）
 editor_submit_confirm:

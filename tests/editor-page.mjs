@@ -403,6 +403,69 @@ try {
   assert.deepEqual(marks('error'), ['@thm:none']);
   assert.equal(bookPreviews, 1, '浏览器内检查不请求服务器');
   editor.window.close();
+  // Someone else's pull request of the page: the editor asks which version to edit before opening.
+  const octoPull = { number: 3, url: 'https://github.example/pull/3', author: 'octo', title: '甲' };
+  const choose = (editor, value) => {
+    const pullDialog = editor.$('.editor-pull-dialog');
+    if (value) pullDialog.querySelector(`input[value="${value}"]`).checked = true;
+    pullDialog.returnValue = value ? 'confirm' : '';
+    pullDialog.close();
+    pullDialog.dispatchEvent(new editor.window.Event('close'));
+  };
+  editor = open('wiki/甲/index.md', { me: me(tester), source: page({ pulls: [octoPull] }), preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }] });
+  await until(() => editor.$('.editor-pull-dialog').open, '选择 PR 的对话框');
+  const choices = [...editor.document.querySelectorAll('.editor-pull-choices label')];
+  assert.deepEqual(choices.map(label => [label.textContent, label.querySelector('input').value, label.querySelector('input').checked, label.querySelector('a')?.getAttribute('href') ?? null]), [
+    ['@octo 的 PR #3：甲在 GitHub 上查看', '3', false, octoPull.url],
+    ['网站上的当前版本（提交时新建 PR）', 'none', true, null],
+  ], 'PR 选项，默认为网站上的版本');
+  assert.ok(!editor.view(), '选择之前不打开编辑器');
+  choose(editor, '3');
+  await delay(100);
+  assert.ok(!editor.view(), '选择其他版本后重新载入页面');
+  assert.deepEqual(editor.requests.map(request => request.route), ['me', 'source']);
+  editor.window.close();
+  // Closing the dialog keeps the version loaded.
+  editor = open('wiki/甲/index.md', { me: me(tester), source: page({ pulls: [octoPull] }), preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }] });
+  await until(() => editor.$('.editor-pull-dialog').open, '选择 PR 的对话框');
+  choose(editor, null);
+  await until(() => editor.view(), '关闭对话框后打开编辑器');
+  assert.ok(editor.$('.editor-pull').hidden);
+  editor.window.close();
+  // With the user's own pull request, there is no starting afresh.
+  editor = open('wiki/甲/index.md', { me: me(tester), source: page({ pull: { number: 5, url: 'https://github.example/pull/5', author: 'Tester', title: '甲' }, pulls: [octoPull, { number: 5, url: 'https://github.example/pull/5', author: 'Tester', title: '甲' }] }) });
+  await until(() => editor.$('.editor-pull-dialog').open, '选择 PR 的对话框');
+  assert.deepEqual([...editor.document.querySelectorAll('.editor-pull-choices input')].map(input => [input.value, input.checked]), [['3', false], ['5', true]]);
+  assert.match(editor.$('.editor-pull-choices label:last-child').textContent, /^你的 PR #5：甲/);
+  editor.window.close();
+  // The address names the pull request (the link in its description): no question; submissions go to it.
+  let targeted;
+  editor = open('?path=wiki%2F%E7%94%B2%2Findex.md&pull=3', {
+    me: me(tester), source: (_body, url) => { targeted = url; return page({ pull: octoPull, pulls: [octoPull] })(); },
+    preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }],
+    submit: () => [200, { ok: true, number: 3, url: octoPull.url, updated: true, original: 'e'.repeat(40) }],
+  });
+  await until(() => editor.view(), '载入他人的 PR');
+  assert.match(targeted, /[?&]pull=3(&|$)/);
+  assert.ok(!editor.$('.editor-pull-dialog').open);
+  assert.equal(editor.$('.editor-pull').textContent, '@octo 的 PR #3');
+  await until(() => editor.$('.editor-preview-empty').hidden, '首次预览');
+  editor.type('补充。\n');
+  editor.$('.editor-submit-button').click();
+  const otherDialog = editor.$('.editor-submit-dialog');
+  await until(() => otherDialog.open && !otherDialog.querySelector('button[value="submit"]').disabled, '提交对话框');
+  assert.equal(otherDialog.querySelector('.editor-submit-update').textContent, '编辑将添加到 @octo 的 PR #3，对方会收到通知．');
+  otherDialog.querySelector('button[value="submit"]').click();
+  await until(() => !otherDialog.querySelector('.editor-submit-done').hidden, '提交到他人的 PR');
+  assert.equal(editor.requests.at(-1).body.pull, 3);
+  assert.equal(editor.$('.editor-pull').textContent, '@octo 的 PR #3', '仍是他人的 PR');
+  editor.window.close();
+  // A linked pull request merged since.
+  editor = open('?path=wiki%2F%E7%94%B2%2Findex.md&pull=9', { me: me(tester), source: page({ pullMissing: 9 }), preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }] });
+  await until(() => editor.view(), '载入页面');
+  assert.match(editor.$('.editor-banner').textContent, /^PR #9 已被合并或关闭．/);
+  editor.window.close();
+
   // Only entries are created: a new page elsewhere is refused.
   editor = open('books/新讲义/index.md', { me: me(tester), source: () => [200, { ok: true, path: 'content/books/新讲义/index.md', exists: false, text: '', original: null, pull: null }] });
   await until(() => editor.$('.editor-status').textContent, '新的非条目页面');
@@ -421,7 +484,7 @@ try {
   editor.window.close();
 
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、提交与成功提示、PR 编号链接、更新已有 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
+  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、提交与成功提示、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }
