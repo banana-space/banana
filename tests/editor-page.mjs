@@ -340,7 +340,7 @@ try {
   dialog.querySelector('button[value="submit"]').click();
   await until(() => !dialog.open, '冲突后关闭对话框');
   assert.equal(editor.requests.at(-1).body.original, 'b'.repeat(40));
-  assert.match(editor.$('.editor-banner').textContent, /^这个页面在你编辑期间被修改了．/);
+  assert.match(editor.$('.editor-banner').textContent, /^PR #7 在你编辑期间有了新的提交．下面标出了你的版本与最新版本的差异/);
   await until(() => editor.document.querySelector('.cm-changedLine, .cm-insertedLine, .cm-deletedChunk'), '冲突比较视图');
   editor.$('.editor-submit-button').click();
   dialog.querySelector('button[value="submit"]').click();

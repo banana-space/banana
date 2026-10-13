@@ -862,7 +862,7 @@ async function openPage(path, user, title) {
       dialog.close();
       original = json.current.original;
       baseline = json.current.text;
-      compareWith(json.current.text, text('conflict'));
+      compareWith(json.current.text, pull ? text('pull_conflict', { number: pull.number }) : text('conflict'));
       return;
     }
     if (code === 422) problems([], json.errors, tracker, value);

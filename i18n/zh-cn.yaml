@@ -877,6 +877,8 @@ editor_draft_compare:
   other: 已加载草稿，下面标出了与当前版本的差异．
 editor_conflict:
   other: 这个页面在你编辑期间被修改了．下面标出了你的版本与最新版本的差异，请确认后再提交．
+editor_pull_conflict:
+  other: "PR #{number} 在你编辑期间有了新的提交．下面标出了你的版本与最新版本的差异，请确认后再提交．"
 editor_merge_done:
   other: 完成比较
 editor_submit_title:
