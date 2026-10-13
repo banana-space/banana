@@ -667,7 +667,7 @@ build_front_matter_title:
 recent_changes_title:
   other: 最近更改
 recent_changes_intro:
-  other: 对网站的修改都以 GitHub 上的 pull request（PR）提交，经审阅后合并、发布．这里按时间列出最近的 PR 修改了哪些页面；<strong>待审阅</strong>的修改还没有出现在网站上．
+  other: 网站的修改都在 GitHub 上以 PR（拉取请求）提交，由维护者合并、发布．以下列出网站的最近修改，<strong>待审阅</strong>的修改还没有出现在网站上．
 recent_changes_loading:
   other: 正在载入…
 recent_changes_error:

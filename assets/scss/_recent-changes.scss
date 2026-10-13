@@ -12,7 +12,6 @@ $recent-time-width: 5.2rem;
 }
 
 .recent-changes-intro {
-  max-width: 64rem;
   color: $muted-color;
   font-size: 1.45rem;
   line-height: 1.7;
@@ -311,7 +310,9 @@ $recent-time-width: 5.2rem;
   .recent-page:hover,
   .recent-page:focus,
   .recent-pull-title {
-    border-bottom: 1.5px dashed rgba($recent-open-color, 0.6);
+    // Shorter dashes than the browser's dashed border: a border image of 3px dashes and 2px gaps.
+    border-bottom: 1.5px solid rgba($recent-open-color, 0.6);
+    border-image: repeating-linear-gradient(to right, rgba($recent-open-color, 0.6) 0 3px, transparent 3px 5px) 0 0 1 0;
   }
 }
 
@@ -557,12 +558,13 @@ $recent-time-width: 5.2rem;
   display: none;
 }
 
-.diff-title {
+// Prefixed to outweigh the site's header heading (margin: 0).
+.diff-header .diff-title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.4rem 1rem;
-  margin: 1.2rem 0 0.8rem;
+  margin: 0 0 1rem;
 
   .recent-page-group,
   .recent-badge {
