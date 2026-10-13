@@ -291,8 +291,9 @@ export function previewService({ baseURL, output, content = '.build/content', en
 
   // Hugo rebuilds just the pages whose files changed while a change brings it at most some 50 file events
   // (noticed in about 0.35 s, rebuilt in 0.1–0.25 s); beyond that it pauses some 4 s and rebuilds the whole
-  // site (5–9 s at 2257 pages). A file rewritten in place (touchPages) is one event, a file replaced or removed
-  // through a temporary file (writePages, publishContent) about three. So changes are made in batches.
+  // site (5–9 s at 2257 pages). A file rewritten in place (touchPages, writePages for an existing file) is one or
+  // two events, a file created or removed through a temporary file (writePages, publishContent) about three. So
+  // changes are made in batches.
   const eventBudget = 40;
   /**
    * Makes the changes to the generated directory (changed: the paths that change; write(paths): changes these)

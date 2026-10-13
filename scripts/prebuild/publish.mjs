@@ -99,14 +99,27 @@ async function replaceFile(to, file) {
 /**
  * 只写入给定的生成页面（相对路径 → 文本），不删除其他文件；内容未变的文件不重写。
  * 供增量更新使用。返回实际写入的相对路径。
+ * 已有的文件原地改写（写入后截断），新文件经临时文件 rename。在 Linux 上，rename 覆盖已有文件报告为
+ * RENAME + CREATE，Hugo 当作新增文件（结构变化），把最近渲染过的页面都算作改变：一次预览多出
+ * 十几个变化、几万次依赖检查（服务器上约 0.7 s）。原地改写只有 WRITE 事件。写入与截断之间的
+ * 中间状态只存在几微秒，落在 Hugo 合并事件的间隔之内。
  */
 export async function writePages(pages, destination) {
   const written = [];
   for (const [path, text] of pages) {
     const to = join(destination, path);
-    if (await readFile(to, 'utf8').catch(() => undefined) === text) continue;
-    await mkdir(dirname(to), { recursive: true });
-    await replaceFile(to, { text });
+    const previous = await readFile(to, 'utf8').catch(error => { if (error.code !== 'ENOENT') throw error; });
+    if (previous === text) continue;
+    if (previous === undefined) {
+      await mkdir(dirname(to), { recursive: true });
+      await replaceFile(to, { text });
+    } else {
+      const content = Buffer.from(text), file = await open(to, 'r+');
+      try {
+        await file.write(content, 0, content.length, 0);
+        if (content.length < Buffer.byteLength(previous)) await file.truncate(content.length);
+      } finally { await file.close(); }
+    }
     written.push(path);
   }
   return written;
@@ -116,7 +129,7 @@ export async function writePages(pages, destination) {
  * 原样重写生成目录中的这些文件（相对路径），使监听的 Hugo 重新渲染它们；不存在的跳过。
  * 供 serve 的部分重建使用：内容未变、但依赖其他页面的页面（见 affected.mjs）。
  * 在原文件上写回同样的字节，不截断：任何时刻读到的都是完整的文件，而且 Hugo 只收到一个文件事件
- * （先写临时文件再 rename 是三个，见 preview-service.mjs 的 batchSize）。
+ * （先写临时文件再 rename 是三个，见 preview-service.mjs 的 eventBudget）。
  */
 export async function touchPages(paths, destination) {
   await eachLimit([...paths], async path => {
