@@ -10,6 +10,10 @@ import { frontMatterProblems } from './prebuild/front-matter-rules.mjs';
 import { formatMarkdown } from './format/markdown.mjs';
 import { cookie, parseCookies, sign, verify } from './editor/session.mjs';
 import { blobId, githubLogin, githubRepository } from './editor/github.mjs';
+import { recentPullRequests } from './editor/recent-changes.mjs';
+import { defaultReading, normalizeReading, sortGroup } from './prebuild/reading.mjs';
+import { pageName } from './prebuild/names.mjs';
+import katex from 'katex';
 
 // 在线编辑的接口（见 docs/preview.md）：常驻预览服务加一个只监听本机的 HTTP 服务，由 Apache 把
 // /api/ 反向代理过来。静态站点由 Apache 直接提供，预览页面中的地址都指向它。
@@ -43,6 +47,12 @@ import { blobId, githubLogin, githubRepository } from './editor/github.mjs';
 //                                          （已不再打开时退回默认版本，pullMissing 为该编号），pull=none 取网站上的版本；
 //                                          file 为该文件在 GitHub 上的地址（未配置提交或尚无此文件时为 null），
 //                                          url 为页面在站点上的地址（尚无此页面或未发布时为 null）
+// GET  /api/recent-changes?page=<n>       { ok, pulls: [{ number, url, title, state, draft, author, time, pages, otherFiles, additions, deletions, truncated, namesPage }], more }：
+//                                          站点仓库最近的 PR（待审阅与已合并）修改的页面，每页 30 个 PR，供 /recent-changes/ 使用
+//                                          （需 --github-repo，令牌可选）；pages 为 [{ path, title, titleHTML, url, status, previous, group, letter, sortKey }]，
+//                                          title 为纯文本，titleHTML 中的公式已由 KaTeX 渲染；group 为 { kind, title, titleHTML }，letter 为列表中的字母分组（a–z 或 #）
+// GET  /api/recent-changes/diff?pr=<n>&path=<页面>
+//                                          { ok, pull, page, before, after }：该 PR 修改的一个页面在 PR 前后的全文（不存在时为 null），供 /diff/ 使用
 // POST /api/preview { path, text }          { ok, url, html, missingLinks, timings }（需登录）
 // POST /api/check   { path, text }          { ok, missingLinks }（需登录）
 // POST /api/submit  { path, text, original, message, pull }
@@ -97,6 +107,10 @@ const login = env.BANANA_GITHUB_CLIENT_ID && env.BANANA_GITHUB_CLIENT_SECRET
   : undefined;
 const repository = env.BANANA_GITHUB_TOKEN && options.githubRepo
   ? githubRepository({ token: env.BANANA_GITHUB_TOKEN, repo: options.githubRepo, base: options.githubBase, api: env.BANANA_GITHUB_API })
+  : undefined;
+// Reading public pull requests needs no token; the bot's raises GitHub's rate limit.
+const recentPulls = options.githubRepo
+  ? recentPullRequests({ repo: options.githubRepo, token: env.BANANA_GITHUB_TOKEN, api: env.BANANA_GITHUB_API })
   : undefined;
 if (!login && !options.devUser) console.warn('[editor-api] GitHub login is not configured (BANANA_GITHUB_CLIENT_ID/SECRET): nobody can log in');
 if (!repository) console.warn('[editor-api] submitting is not configured (BANANA_GITHUB_TOKEN and --github-repo)');
@@ -297,6 +311,36 @@ const routes = {
       pulls: pulls.map(describe), pullMissing, file, url: service.url(path) ?? null, labels: service.labels(path),
     });
   },
+  'GET /api/recent-changes': async (_request, response, url) => {
+    if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    const page = Number(url.searchParams.get('page') ?? 1);
+    if (!Number.isInteger(page) || page < 1 || page > 100) throw new RequestError(400, 'page must be a number from 1 to 100');
+    const { pulls, more } = await recentPulls.list(page).catch(githubFailed);
+    send(response, 200, {
+      ok: true, more,
+      pulls: pulls.map(({ files, fileCount, author, ...pull }) => {
+        const pages = files.map(changedPage).filter(Boolean);
+        // The online editor names its pull requests after the page (its title as written, formulas in TeX).
+        const namesPage = pages.some(page => page.title === pull.title || page.source === pull.title);
+        return {
+          ...pull, author: author.login, pages: pages.map(({ source, ...page }) => page), otherFiles: fileCount - pages.length, namesPage,
+          additions: files.reduce((sum, file) => sum + file.additions, 0), deletions: files.reduce((sum, file) => sum + file.deletions, 0),
+        };
+      }),
+    }, { 'Cache-Control': 'public, max-age=60' });
+  },
+  'GET /api/recent-changes/diff': async (_request, response, url) => {
+    if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    const number = Number(url.searchParams.get('pr'));
+    if (!Number.isInteger(number) || number < 1) throw new RequestError(400, 'pr must be a pull request number');
+    const path = pagePath(url.searchParams.get('path'));
+    const { pull, file, before, after } = await recentPulls.diff(number, `content/${path}`).catch(error => {
+      if (error.status === 404) throw new RequestError(404, error.message);
+      return githubFailed(error);
+    });
+    const { source, ...page } = changedPage(file);
+    send(response, 200, { ok: true, pull: { ...pull, author: pull.author.login, namesPage: pull.title === page.title || pull.title === source }, page, before, after }, { 'Cache-Control': 'public, max-age=60' });
+  },
   'POST /api/preview': queued(async (request, response, user) => {
     throttle(user, 'preview');
     const { path, text } = await draft(request);
@@ -357,6 +401,63 @@ const routes = {
 const sameLogin = (a, b) => a.toLowerCase() === b.toLowerCase();
 /** The editor for a page, on a pull request of it (without a number, the editor offers the page's pull requests). */
 const editorURL = (path, number) => new URL(`edit/?${new URLSearchParams({ path, ...(number ? { pull: number } : {}) })}`, options.baseURL.replace(/\/?$/, '/')).href;
+
+function githubFailed(error) {
+  console.error(`[editor-api] ${error.message}`);
+  throw new RequestError(502, 'could not read pull requests from GitHub; try again later');
+}
+
+/** A page's front matter field (title, sort), or undefined. */
+function frontMatterField(text, field) {
+  try {
+    const value = parseYAML(text?.match(/^(?:\uFEFF)?---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? '')?.[field];
+    return typeof value === 'string' && value.trim() ? value.trim() : undefined;
+  } catch {}
+}
+const titleOf = text => frontMatterField(text, 'title');
+const escapeHTML = text => text.replace(/[&<>"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[char]);
+
+/**
+ * A title as the site shows it: { title, titleHTML }, the plain text (formulas as text: (∞,1)-层) and the HTML with
+ * formulas rendered by KaTeX, as layouts/partials/math.html renders them.
+ */
+function displayTitle(title, path) {
+  try {
+    const { name, parts } = pageName(title, path, 'title', { typeset: true });
+    const html = parts.map(part => {
+      if (!Object.hasOwn(part, 'tex')) return escapeHTML(part.text);
+      const tex = part.tex.replace(/\\mathbb\s*\{\s*\\(Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)\s*\}/g, '\\mathbf{\\$1}').replace(/\\mathbb\s*(?:\{\s*1\s*\}|1)/g, '𝟙');
+      return `<span class="math-rendered">${katex.renderToString(tex, { output: 'htmlAndMathml', strict: 'ignore', throwOnError: false })}</span>`;
+    }).join('');
+    return { title: name, titleHTML: html };
+  } catch {
+    return { title, titleHTML: escapeHTML(title) };
+  }
+}
+
+/**
+ * What a changed file in content/ is on the site: { path, title, url, status, previous, group }, or undefined for
+ * files that are not pages (attachments, component definitions, the site's own pages). Titles and addresses are the
+ * current ones on the site; a page that is new in an open pull request is named after its directory.
+ */
+function changedPage(file) {
+  const match = file.path.match(/^content\/((wiki|books|help)\/.+\.md)$/);
+  if (!match) return;
+  const path = match[1], parts = path.split('/');
+  const directory = parts.at(-1).match(/^_?index\.md$/) ? parts.at(-2) : parts.at(-1).replace(/\.md$/, '');
+  const group = parts[0] === 'books'
+    ? { kind: 'book', ...displayTitle(titleOf(service.source(`books/${parts[1]}/_index.md`)) ?? parts[1], `books/${parts[1]}/_index.md`) }
+    : { kind: parts[0], title: null, titleHTML: null };
+  const text = service.source(path), { title, titleHTML } = displayTitle(titleOf(text) ?? directory, path);
+  // Ordered and grouped by letter as in the site's lists; a bulk change lists hundreds of pages.
+  let sortKey;
+  try { sortKey = frontMatterField(text, 'sort') === undefined ? defaultReading(title) : normalizeReading(frontMatterField(text, 'sort'), path); }
+  catch { sortKey = defaultReading(title); }
+  return {
+    path, title, titleHTML, source: titleOf(text), url: file.status === 'removed' ? null : service.url(path) ?? null,
+    status: file.status, previous: file.previous?.replace(/^content\//, '') ?? null, group, letter: sortGroup(title, sortKey), sortKey,
+  };
+}
 
 async function draft(request) {
   const body = await readJSON(request);

@@ -28,12 +28,14 @@
       <div class="navigation-links">
         {{ with .Site.GetPage "/categories" }}<a href="{{ .RelPermalink }}">{{ i18n "categories" }}</a>{{ end }}
         {{ partial "collections/links.html" . }}
+        {{ with .Site.GetPage "/recent-changes" }}<a href="{{ .RelPermalink }}">{{ i18n "recent_changes_title" }}</a>{{ end }}
       </div>
       <details class="navigation-menu">
         <summary class="icon-button"><span class="sr-only">{{ i18n "navigation_menu" }}</span>{{ partial "ui-icon.html" "menu" }}</summary>
         <div class="navigation-menu-panel">
           {{ with .Site.GetPage "/categories" }}<a href="{{ .RelPermalink }}">{{ i18n "categories" }}</a>{{ end }}
         {{ partial "collections/links.html" . }}
+        {{ with .Site.GetPage "/recent-changes" }}<a href="{{ .RelPermalink }}">{{ i18n "recent_changes_title" }}</a>{{ end }}
         </div>
       </details>
     </div>

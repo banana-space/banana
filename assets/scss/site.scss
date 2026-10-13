@@ -20,6 +20,7 @@ $font-path: "{{ "fonts/" | relURL }}";
 @import "navbox";
 @import "terms";
 @import "editor";
+@import "recent-changes";
 
 @import "collections";
 @import "print";
