@@ -121,6 +121,15 @@ assert.ok(has('<align right>\n**甲** $x$\n</align>\n', 'InlineMath', '$x$'));
 const table = '| 名称 | 公式 |\n| --- | --- |\n| [[同调群|同调]] | $|x|$ |\n';
 assert.ok(has(table, 'WikiLink', '[[同调群|同调]]') && has(table, 'InlineMath', '$|x|$'));
 assert.equal(nodes(table).filter(([name]) => name === 'TableCell').length, 4);
+// Labelled list items: their marks, a formula in a label, paragraphs indented to an item's text (not code); a
+// new labelled list does not interrupt a paragraph.
+{
+  const list = '($\\ast$) 乙\n(a) 甲\n\n    第二段\n';
+  assert.ok(has(list, 'ListMark', '(a)') && has(list, 'InlineMath', '$\\ast$'));
+  assert.equal(nodes(list).filter(([name]) => name === 'LabelledItem').length, 2);
+  assert.ok(!nodes(list).some(([name]) => name === 'CodeBlock'));
+  assert.ok(!nodes('文字\n(3) 说\n').some(([name]) => name === 'LabelledList'));
+}
 // No GFM extras the site does not have: ~x~ is text.
 assert.ok(!nodes('a ~x~ b\n').some(([name]) => /Subscript|Strikethrough/.test(name)));
 

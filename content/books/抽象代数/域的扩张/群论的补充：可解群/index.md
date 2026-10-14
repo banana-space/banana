@@ -263,10 +263,10 @@ $\varphi\big({\mathbf{D}}(G)\big)={\mathbf{D}}(G)$。
 ::: proposition {@prop:3.1}
 $H<G$是子群。那么，如下两个命题等价：
 
-- (1) $H \supset {\mathbf{D}}(G)$。
+(1) $H \supset {\mathbf{D}}(G)$。
 
-- (2) $H$是正规子群并且$
-  {G/H}
+(2) $H$是正规子群并且$
+    {G/H}
 $是交换群。
 
 :::
@@ -496,20 +496,20 @@ $d\ell(G) = 0$等价于$G$是平凡群；$d\ell(G) \leqslant 1$等价于$G$是�
 ::: proposition {@prop-solvablity}
 给定群$G$和正整数$n$，如下命题等价
 
-- (1) $G$是可解群并且$d\ell(G) \leqslant n$。
+(1) $G$是可解群并且$d\ell(G) \leqslant n$。
 
-- (2) $G$有特征子群列$G=G_0 > G_1 >  \cdots > G_n = 1$，使得$
-  {G_i/G_{i+1}}
+(2) $G$有特征子群列$G=G_0 > G_1 >  \cdots > G_n = 1$，使得$
+    {G_i/G_{i+1}}
 $交换，其中$0\leqslant i \leqslant n-1$。
 
-- (2') $G$有滤链$G=G_0 \rhd G_1 \rhd\cdots \rhd G_n = 1$，使得$G_{i+1}$是$G_{i}$的正规子群并且$
-  {G_i/G_{i+1}}
+(2') $G$有滤链$G=G_0 \rhd G_1 \rhd\cdots \rhd G_n = 1$，使得$G_{i+1}$是$G_{i}$的正规子群并且$
+     {G_i/G_{i+1}}
 $交换，其中$0\leqslant i \leqslant n-1$。
 
-- (3) $G$有交换的特征子群$A$，使得$
-  {G/A}
+(3) $G$有交换的特征子群$A$，使得$
+    {G/A}
 $可解并且$d\ell\left(
-  {G/A}
+    {G/A}
 \right) \leqslant n-1$。
 
 :::
@@ -544,14 +544,14 @@ G=A_0 \rhd A_1 \rhd \cdots \rhd A_{n-1} = A$，使得
 ::: corollary [有限可解群的等价定义] {@coro:def-solvable}
 $G$是有限群，则如下定义等价
 
-- (1) $G$可解。
+(1) $G$可解。
 
-- (2) $G$有滤链$G=G_0 \rhd G_1 \rhd\cdots \rhd G_n = 1$，使得$G_{i+1}$是$G_{i}$的正规子群并且$
-  {G_i/G_{i+1}}
+(2) $G$有滤链$G=G_0 \rhd G_1 \rhd\cdots \rhd G_n = 1$，使得$G_{i+1}$是$G_{i}$的正规子群并且$
+    {G_i/G_{i+1}}
 $交换，其中$0\leqslant i \leqslant n-1$。
 
-- (3) $G$有滤链$G=H_0 \rhd H_1 \rhd\cdots \rhd H_m = 1$，使得$H_{i+1}$是$H_{i}$的正规子群并且$
-  {H_i/H_{i+1}}
+(3) $G$有滤链$G=H_0 \rhd H_1 \rhd\cdots \rhd H_m = 1$，使得$H_{i+1}$是$H_{i}$的正规子群并且$
+    {H_i/H_{i+1}}
 $是循环群，其中$0\leqslant i \leqslant m-1$。
 
 :::

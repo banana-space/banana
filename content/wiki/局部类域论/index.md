@@ -35,49 +35,49 @@ $K^\times$的有限指数开子群之间的一一对应，
 $N\supset L\supset K \supset F$，
 其中$N/K$为Galois扩张，$K/F$为可分扩张，我们有如下的交换图表：
 
-- (a)
-  \[
-  \begin{tikzcd}
-    K^\times \ar[r,"\phi_{N/K}"] \ar[d,"\mathrm{id}"']
-    & \operatorname{Gal}(N/K)^{\text{ab}}\ar[d,"\pi"]\\
-    K^\times \ar[r,"\phi_{L/K}"]
-    & \operatorname{Gal}(L/K)^{\text{ab}}
-  \end{tikzcd}
-  \]
-  这里$L/K$是正规扩张，$\pi$由典范的投影映射诱导。
+(a)
+    \[
+    \begin{tikzcd}
+      K^\times \ar[r,"\phi_{N/K}"] \ar[d,"\mathrm{id}"']
+      & \operatorname{Gal}(N/K)^{\text{ab}}\ar[d,"\pi"]\\
+      K^\times \ar[r,"\phi_{L/K}"]
+      & \operatorname{Gal}(L/K)^{\text{ab}}
+    \end{tikzcd}
+    \]
+    这里$L/K$是正规扩张，$\pi$由典范的投影映射诱导。
 
-- (b)
-  \[
-  \begin{tikzcd}
-    K^\times \ar[r,"\phi_{N/K}"] \ar[d,"\operatorname{incl}"']
-    & \operatorname{Gal}(N/K)^{\text{ab}}\ar[d,"\operatorname{Ver}"]\\
-    L^\times \ar[r,"\phi_{L/K}"]
-    & \operatorname{Gal}(L/K)^{\text{ab}}
-  \end{tikzcd}
-  \]
-  其中$\operatorname{Ver}$为转移映射。
+(b)
+    \[
+    \begin{tikzcd}
+      K^\times \ar[r,"\phi_{N/K}"] \ar[d,"\operatorname{incl}"']
+      & \operatorname{Gal}(N/K)^{\text{ab}}\ar[d,"\operatorname{Ver}"]\\
+      L^\times \ar[r,"\phi_{L/K}"]
+      & \operatorname{Gal}(L/K)^{\text{ab}}
+    \end{tikzcd}
+    \]
+    其中$\operatorname{Ver}$为转移映射。
 
-- (c)
-  \[
-  \begin{tikzcd}
-    L^\times \ar[r,"\phi_{N/L}"] \ar[d,"\operatorname{Nm}"']
-    & \operatorname{Gal}(N/L)^{\text{ab}}\ar[d,"\kappa"]\\
-    K^\times \ar[r,"\phi_{L/K}"]
-    & \operatorname{Gal}(L/K)^{\text{ab}}
-  \end{tikzcd}
-  \]
-  其中$\kappa$由典范的嵌入映射诱导。
+(c)
+    \[
+    \begin{tikzcd}
+      L^\times \ar[r,"\phi_{N/L}"] \ar[d,"\operatorname{Nm}"']
+      & \operatorname{Gal}(N/L)^{\text{ab}}\ar[d,"\kappa"]\\
+      K^\times \ar[r,"\phi_{L/K}"]
+      & \operatorname{Gal}(L/K)^{\text{ab}}
+    \end{tikzcd}
+    \]
+    其中$\kappa$由典范的嵌入映射诱导。
 
-- (d)
-  \[
-  \begin{tikzcd}
-    K^\times \ar[r,"\phi_{N/K}"] \ar[d,"\sigma"]
-    & \operatorname{Gal}(N/K)^{\text{ab}}\ar[d,"\sigma^*"]\\
-    \sigma K^\times \ar[r,"\phi_{\sigma N/\sigma{K}}"]
-    & \operatorname{Gal}(\sigma N/\sigma{K})^{\text{ab}}
-  \end{tikzcd}
-  \]
-  其中$\sigma\in\operatorname{Gal}(F^\text{sep}/F)$。
+(d)
+    \[
+    \begin{tikzcd}
+      K^\times \ar[r,"\phi_{N/K}"] \ar[d,"\sigma"]
+      & \operatorname{Gal}(N/K)^{\text{ab}}\ar[d,"\sigma^*"]\\
+      \sigma K^\times \ar[r,"\phi_{\sigma N/\sigma{K}}"]
+      & \operatorname{Gal}(\sigma N/\sigma{K})^{\text{ab}}
+    \end{tikzcd}
+    \]
+    其中$\sigma\in\operatorname{Gal}(F^\text{sep}/F)$。
 
 ::: corollary
 对局部域$K$，称形如$\operatorname{Nm}(L^\times)$的子群为范数群。则

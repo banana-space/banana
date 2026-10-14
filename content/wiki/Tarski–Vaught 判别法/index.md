@@ -19,18 +19,18 @@ notices:
 与其子结构$\mathcal{M}=(M,I)$，
 有以下等价：
 
-- (1) $\mathcal{M}$是$\mathcal{N}$的初等子结构；
+(1) $\mathcal{M}$是$\mathcal{N}$的初等子结构；
 
-- (2) $\mathcal{N}$中以$M$中元素为参数的非空可定义的子集
-  都与$M$交非空。
+(2) $\mathcal{N}$中以$M$中元素为参数的非空可定义的子集
+    都与$M$交非空。
 
-  即对于每一个$\mathcal{N}$的一阶语句
-  $\varphi(x,y_1,\ldots,y_n)$，
-  当 $(a_1,\ldots,a_n)\in M^n$时，
-  若 $\mathcal{N}\models
-      \exists x \varphi (x,a_1,\ldots,a_n)$ 成立，
-  就存在$b\in M$，
-  $\mathcal{N} \models \varphi (b,a_1,\ldots,a_n)$。
+    即对于每一个$\mathcal{N}$的一阶语句
+    $\varphi(x,y_1,\ldots,y_n)$，
+    当 $(a_1,\ldots,a_n)\in M^n$时，
+    若 $\mathcal{N}\models
+    \exists x \varphi (x,a_1,\ldots,a_n)$ 成立，
+    就存在$b\in M$，
+    $\mathcal{N} \models \varphi (b,a_1,\ldots,a_n)$。
 
 :::
 

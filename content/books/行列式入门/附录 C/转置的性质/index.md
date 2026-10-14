@@ -23,89 +23,83 @@ title: 转置的性质
 设 \(k\) 是数。
 则：
 
-(1)
-\((A + B)^{\mathrm{T}} = A^{\mathrm{T}} + B^{\mathrm{T}}\)；
+(1) \((A + B)^{\mathrm{T}} = A^{\mathrm{T}} + B^{\mathrm{T}}\)；
 
-(2)
-\((k A)^{\mathrm{T}} = k A^{\mathrm{T}}\)；
+(2) \((k A)^{\mathrm{T}} = k A^{\mathrm{T}}\)；
 
-(3)
-\((A C)^{\mathrm{T}} = C^{\mathrm{T}} A^{\mathrm{T}}\)。
+(3) \((A C)^{\mathrm{T}} = C^{\mathrm{T}} A^{\mathrm{T}}\)。
 :::
 
 ::: proof
 您验证，等式 (1) 与 (2) 的 \(2\) 边的阵的尺寸是一样的；
 我验证，等式 (3) 的 \(2\) 边的阵的尺寸是一样的。
 
-(1)
-对 \(i \leqslant n\) 与 \(j \leqslant m\)，
-\[
-\begin{aligned}
-  [(A + B)^{\mathrm{T}}]_{i,j}
-  = {} &
-  [A + B]_{j,i}
-  \\
-  = {} &
-  [A]_{j,i} + [B]_{j,i}
-  \\
-  = {} &
-  [A^{\mathrm{T}}]_{i,j} + [B^{\mathrm{T}}]_{i,j}
-  \\
-  = {} &
-  [A^{\mathrm{T}} + B^{\mathrm{T}}]_{i,j}.
-\end{aligned}
-\]
+(1) 对 \(i \leqslant n\) 与 \(j \leqslant m\)，
+    \[
+    \begin{aligned}
+      [(A + B)^{\mathrm{T}}]_{i,j}
+      = {} &
+      [A + B]_{j,i}
+      \\
+      = {} &
+      [A]_{j,i} + [B]_{j,i}
+      \\
+      = {} &
+      [A^{\mathrm{T}}]_{i,j} + [B^{\mathrm{T}}]_{i,j}
+      \\
+      = {} &
+      [A^{\mathrm{T}} + B^{\mathrm{T}}]_{i,j}.
+    \end{aligned}
+    \]
 
-(2)
-对 \(i \leqslant n\) 与 \(j \leqslant m\)，
-\[
-\begin{aligned}
-  [(k A)^{\mathrm{T}}]_{i,j}
-  = {} &
-  [k A]_{j,i}
-  \\
-  = {} &
-  k [A]_{j,i}
-  \\
-  = {} &
-  k [A^{\mathrm{T}}]_{i,j}
-  \\
-  = {} &
-  [k A^{\mathrm{T}}]_{i,j}.
-\end{aligned}
-\]
+(2) 对 \(i \leqslant n\) 与 \(j \leqslant m\)，
+    \[
+    \begin{aligned}
+      [(k A)^{\mathrm{T}}]_{i,j}
+      = {} &
+      [k A]_{j,i}
+      \\
+      = {} &
+      k [A]_{j,i}
+      \\
+      = {} &
+      k [A^{\mathrm{T}}]_{i,j}
+      \\
+      = {} &
+      [k A^{\mathrm{T}}]_{i,j}.
+    \end{aligned}
+    \]
 
-(3)
-\(A\) 是 \(m \times n\) 的，
-且 \(C\) 是 \(n \times s\) 的，
-故 \(AC\) 是 \(m \times s\) 的。
-则 \((AC)^{\mathrm{T}}\) 是 \(s \times m\) 的。
-另一方面，
-\(C^{\mathrm{T}}\) 是 \(s \times n\) 的，
-且 \(A^{\mathrm{T}}\) 是 \(n \times m\) 的，
-故 \(C^{\mathrm{T}} A^{\mathrm{T}}\) 是 \(s \times m\) 的。
-对 \(i \leqslant s\) 与 \(j \leqslant m\)，
-\[
-\begin{aligned}
-  [(AC)^{\mathrm{T}}]_{i,j}
-  = {} &
-  [AC]_{j,i}
-  \\
-  = {} &
-  \sum_{p=1}^{n} {[A]_{j,p} [C]_{p,i}}
-  \\
-  = {} &
-  \sum_{p=1}^{n}
-  {[A^{\mathrm{T}}]_{p,j} [C^{\mathrm{T}}]_{i,p}}
-  \\
-  = {} &
-  \sum_{p=1}^{n}
-  {[C^{\mathrm{T}}]_{i,p} [A^{\mathrm{T}}]_{p,j}}
-  \\
-  = {} &
-  [C^{\mathrm{T}} A^{\mathrm{T}}]_{i,j}.
-\end{aligned}
-\]
+(3) \(A\) 是 \(m \times n\) 的，
+    且 \(C\) 是 \(n \times s\) 的，
+    故 \(AC\) 是 \(m \times s\) 的。
+    则 \((AC)^{\mathrm{T}}\) 是 \(s \times m\) 的。
+    另一方面，
+    \(C^{\mathrm{T}}\) 是 \(s \times n\) 的，
+    且 \(A^{\mathrm{T}}\) 是 \(n \times m\) 的，
+    故 \(C^{\mathrm{T}} A^{\mathrm{T}}\) 是 \(s \times m\) 的。
+    对 \(i \leqslant s\) 与 \(j \leqslant m\)，
+    \[
+    \begin{aligned}
+      [(AC)^{\mathrm{T}}]_{i,j}
+      = {} &
+      [AC]_{j,i}
+      \\
+      = {} &
+      \sum_{p=1}^{n} {[A]_{j,p} [C]_{p,i}}
+      \\
+      = {} &
+      \sum_{p=1}^{n}
+      {[A^{\mathrm{T}}]_{p,j} [C^{\mathrm{T}}]_{i,p}}
+      \\
+      = {} &
+      \sum_{p=1}^{n}
+      {[C^{\mathrm{T}}]_{i,p} [A^{\mathrm{T}}]_{p,j}}
+      \\
+      = {} &
+      [C^{\mathrm{T}} A^{\mathrm{T}}]_{i,j}.
+    \end{aligned}
+    \]
 :::
 
 为方便，我记下一个简单的推广。

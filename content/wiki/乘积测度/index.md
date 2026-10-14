@@ -73,11 +73,11 @@ f_{x_{0}}(y)=f(x_{0},y), f^{y_{0}}(x)=f(x,y_{0})
 ::: lemma
 设 $(X,\mathscr{A})$ 和 $(Y,\mathscr{B})$ 是可测空间。
 
-- (a) 若 $E\in \mathscr{A}\otimes\mathscr{B}$，那么对任意的 $x\in X,y\in Y$，
-  $E_{x}\in\mathscr{B}$，$E^{y}\in\mathscr{A}$。
+(a) 若 $E\in \mathscr{A}\otimes\mathscr{B}$，那么对任意的 $x\in X,y\in Y$，
+    $E_{x}\in\mathscr{B}$，$E^{y}\in\mathscr{A}$。
 
-- (b) 若函数 $f$ 是 $\mathscr{A}\otimes\mathscr{B}$-可测的广义实值（或者复值）函数，那么对任意的
-  $x\in X,y\in Y$，$f_{x}$ 是 $\mathscr{B}$-可测的，$f^{y}$ 是 $\mathscr{A}$-可测的。
+(b) 若函数 $f$ 是 $\mathscr{A}\otimes\mathscr{B}$-可测的广义实值（或者复值）函数，那么对任意的
+    $x\in X,y\in Y$，$f_{x}$ 是 $\mathscr{B}$-可测的，$f^{y}$ 是 $\mathscr{A}$-可测的。
 :::
 
 ::: remark

@@ -228,241 +228,235 @@ notices:
 \end{aligned}
 \]
 
-(1)
-\(C_{m+n}\, S(f, g; n, m)\) 是 \(1 \times (m + n)\) 阵，
-且
-\[
-\begin{aligned}
-  [C_{m+n}\, S(f, g; n, m)]_{1,j} =
-  \begin{cases}
-    f(x)\, x^{m-j},     & j \leqslant m; \\
-    g(x)\, x^{n-(j-m)}, & j > m.
-  \end{cases}
-\end{aligned}
-\]
+(1) \(C_{m+n}\, S(f, g; n, m)\) 是 \(1 \times (m + n)\) 阵，
+    且
+    \[
+    \begin{aligned}
+      [C_{m+n}\, S(f, g; n, m)]_{1,j} =
+      \begin{cases}
+        f(x)\, x^{m-j},     & j \leqslant m; \\
+        g(x)\, x^{n-(j-m)}, & j > m.
+      \end{cases}
+    \end{aligned}
+    \]
 
-(2)
-\(C_{m+n}\, S(f, g; n, m)\, Y\) 是 \(1\) 级阵，且
-\[
-\begin{aligned}
-  [C_{m+n}\, S(f, g; n, m)\, Y]_{1,1} = f(x)\, u(x) + g(x)\, v(x).
-\end{aligned}
-\]
+(2) \(C_{m+n}\, S(f, g; n, m)\, Y\) 是 \(1\) 级阵，且
+    \[
+    \begin{aligned}
+      [C_{m+n}\, S(f, g; n, m)\, Y]_{1,1} = f(x)\, u(x) + g(x)\, v(x).
+    \end{aligned}
+    \]
 
-(3)
-记
-\[
-\begin{aligned}
-  f(x)\, u(x) + g(x)\, v(x) = \sum_{k = 0}^{m+n-1} {c_k x^{m+n-1-k}}.
-\end{aligned}
-\]
-则 \(S(f, g; n, m)\, Y\) 是 \((m+n) \times 1\) 阵，且
-\[
-\begin{aligned}
-  c_k = [S(f, g; n, m)\, Y]_{k+1,1}.
-\end{aligned}
-\]
+(3) 记
+    \[
+    \begin{aligned}
+      f(x)\, u(x) + g(x)\, v(x) = \sum_{k = 0}^{m+n-1} {c_k x^{m+n-1-k}}.
+    \end{aligned}
+    \]
+    则 \(S(f, g; n, m)\, Y\) 是 \((m+n) \times 1\) 阵，且
+    \[
+    \begin{aligned}
+      c_k = [S(f, g; n, m)\, Y]_{k+1,1}.
+    \end{aligned}
+    \]
 :::
 
 ::: proof
-(1)
-注意，
-\[
-\begin{aligned}
-  [C_{m+n}\, S(f, g; n, m)]_{1,j}
-  = {} &
-  \sum_{\ell = 1}^{m+n}
-  {[C_{m+n}]_{1,\ell} [S(f, g; n, m)]_{\ell,j}}
-  \\
-  = {} &
-  \sum_{1 \leqslant \ell \leqslant m+n}
-  {[S(f, g; n, m)]_{\ell,j} x^{m+n-\ell}}.
-\end{aligned}
-\]
-若 \(j \leqslant m\)，则
-\([S(f, g; n, m)]_{\ell,j} = a_{\ell-j}\)。
-则
-\[
-\begin{aligned}
-  &
-  [C_{m+n}\, S(f, g; n, m)]_{1,j}
-  \\
-  = {} &
-  \sum_{1 \leqslant \ell \leqslant m+n}
-  {a_{\ell-j} x^{m+n-\ell}}
-  \\
-  = {} &
-  \sum_{1-j \leqslant \ell-j \leqslant m+n-j}
-  {a_{\ell-j} x^{n-(\ell-j)+m-j}}
-  \\
-  = {} &
-  \sum_{1-j \leqslant k \leqslant m+n-j}
-  {a_k x^{n-k+m-j}}
-  \\
-  = {} &
-  \sum_{\substack{
-      1-j \leqslant k \leqslant m+n-j \\
-      0 \leqslant k \leqslant n
-  }}
-  {a_k x^{n-k+m-j}}
-  +
-  \sum_{\substack{
-      1-j \leqslant k \leqslant m+n-j \\
-      k < 0 \,\text{或}\, k > n
-  }}
-  {a_k x^{n-k+m-j}}
-  \\
-  = {} &
-  \sum_{0 \leqslant k \leqslant n}
-  {a_k x^{n-k} x^{m-j}}
-  +
-  \sum_{\substack{
-      1-j \leqslant k < 0 \\
-      \text{或}\, n < k \leqslant m+n-j
-  }}
-  {0\, x^{n-k+m-j}}
-  \\
-  = {} &
-  f(x)\, x^{m-j}.
-\end{aligned}
-\]
-若 \(j > m\)，则
-\([S(f, g; n, m)]_{\ell,j} = b_{\ell-(j-m)}\)。
-则
-\[
-\begin{aligned}
-  &
-  [C_{m+n}\, S(f, g; n, m)]_{1,j}
-  \\
-  = {} &
-  \sum_{1 \leqslant \ell \leqslant m+n}
-  {b_{\ell-(j-m)} x^{m+n-\ell}}
-  \\
-  = {} &
-  \sum_{1-(j-m) \leqslant \ell-(j-m) \leqslant m+n-(j-m)}
-  {b_{\ell-(j-m)} x^{m-(\ell-(j-m))+n-(j-m)}}
-  \\
-  = {} &
-  \sum_{1-(j-m) \leqslant k \leqslant m+n-(j-m)}
-  {b_k x^{m-k+n-(j-m)}}
-  \\
-  = {} &
-  \sum_{\substack{
-      1-(j-m) \leqslant k \leqslant m+n-(j-m) \\
-      0 \leqslant k \leqslant m
-  }}
-  {b_k x^{m-k+n-(j-m)}}
-  +
-  \sum_{\substack{
-      1-(j-m) \leqslant k \leqslant m+n-(j-m) \\
-      k < 0 \,\text{或}\, k > m
-  }}
-  {b_k x^{m-k+n-(j-m)}}
-  \\
-  = {} &
-  \sum_{0 \leqslant k \leqslant m}
-  {b_k x^{m-k} x^{n-(j-m)}}
-  +
-  \sum_{\substack{
-      1-(j-m) \leqslant k < 0 \\
-      \text{或}\, m < k \leqslant m+n-(j-m)
-  }}
-  {0\, x^{m-k+n-(j-m)}}
-  \\
-  = {} &
-  g(x)\, x^{n-(j-m)}.
-\end{aligned}
-\]
+(1) 注意，
+    \[
+    \begin{aligned}
+      [C_{m+n}\, S(f, g; n, m)]_{1,j}
+      = {} &
+      \sum_{\ell = 1}^{m+n}
+      {[C_{m+n}]_{1,\ell} [S(f, g; n, m)]_{\ell,j}}
+      \\
+      = {} &
+      \sum_{1 \leqslant \ell \leqslant m+n}
+      {[S(f, g; n, m)]_{\ell,j} x^{m+n-\ell}}.
+    \end{aligned}
+    \]
+    若 \(j \leqslant m\)，则
+    \([S(f, g; n, m)]_{\ell,j} = a_{\ell-j}\)。
+    则
+    \[
+    \begin{aligned}
+      &
+      [C_{m+n}\, S(f, g; n, m)]_{1,j}
+      \\
+      = {} &
+      \sum_{1 \leqslant \ell \leqslant m+n}
+      {a_{\ell-j} x^{m+n-\ell}}
+      \\
+      = {} &
+      \sum_{1-j \leqslant \ell-j \leqslant m+n-j}
+      {a_{\ell-j} x^{n-(\ell-j)+m-j}}
+      \\
+      = {} &
+      \sum_{1-j \leqslant k \leqslant m+n-j}
+      {a_k x^{n-k+m-j}}
+      \\
+      = {} &
+      \sum_{\substack{
+          1-j \leqslant k \leqslant m+n-j \\
+          0 \leqslant k \leqslant n
+      }}
+      {a_k x^{n-k+m-j}}
+      +
+      \sum_{\substack{
+          1-j \leqslant k \leqslant m+n-j \\
+          k < 0 \,\text{或}\, k > n
+      }}
+      {a_k x^{n-k+m-j}}
+      \\
+      = {} &
+      \sum_{0 \leqslant k \leqslant n}
+      {a_k x^{n-k} x^{m-j}}
+      +
+      \sum_{\substack{
+          1-j \leqslant k < 0 \\
+          \text{或}\, n < k \leqslant m+n-j
+      }}
+      {0\, x^{n-k+m-j}}
+      \\
+      = {} &
+      f(x)\, x^{m-j}.
+    \end{aligned}
+    \]
+    若 \(j > m\)，则
+    \([S(f, g; n, m)]_{\ell,j} = b_{\ell-(j-m)}\)。
+    则
+    \[
+    \begin{aligned}
+      &
+      [C_{m+n}\, S(f, g; n, m)]_{1,j}
+      \\
+      = {} &
+      \sum_{1 \leqslant \ell \leqslant m+n}
+      {b_{\ell-(j-m)} x^{m+n-\ell}}
+      \\
+      = {} &
+      \sum_{1-(j-m) \leqslant \ell-(j-m) \leqslant m+n-(j-m)}
+      {b_{\ell-(j-m)} x^{m-(\ell-(j-m))+n-(j-m)}}
+      \\
+      = {} &
+      \sum_{1-(j-m) \leqslant k \leqslant m+n-(j-m)}
+      {b_k x^{m-k+n-(j-m)}}
+      \\
+      = {} &
+      \sum_{\substack{
+          1-(j-m) \leqslant k \leqslant m+n-(j-m) \\
+          0 \leqslant k \leqslant m
+      }}
+      {b_k x^{m-k+n-(j-m)}}
+      +
+      \sum_{\substack{
+          1-(j-m) \leqslant k \leqslant m+n-(j-m) \\
+          k < 0 \,\text{或}\, k > m
+      }}
+      {b_k x^{m-k+n-(j-m)}}
+      \\
+      = {} &
+      \sum_{0 \leqslant k \leqslant m}
+      {b_k x^{m-k} x^{n-(j-m)}}
+      +
+      \sum_{\substack{
+          1-(j-m) \leqslant k < 0 \\
+          \text{或}\, m < k \leqslant m+n-(j-m)
+      }}
+      {0\, x^{m-k+n-(j-m)}}
+      \\
+      = {} &
+      g(x)\, x^{n-(j-m)}.
+    \end{aligned}
+    \]
 
-(2)
-注意，
-\[
-\begin{aligned}
-  &
-  [C_{m+n}\, S(f, g; n, m)\, Y]_{1,1}
-  \\
-  = {} &
-  [(C_{m+n}\, S(f, g; n, m))\, Y]_{1,1}
-  \\
-  = {} &
-  \sum_{j = 1}^{m+n}
-  {[C_{m+n}\, S(f, g; n, m)]_{1,j} [Y]_{j,1}}
-  \\
-  = {} &
-  \sum_{j = 1}^{m}
-  {[C_{m+n}\, S(f, g; n, m)]_{1,j} [Y]_{j,1}}
-  +
-  \sum_{j = m+1}^{m+n}
-  {[C_{m+n}\, S(f, g; n, m)]_{1,j} [Y]_{j,1}}
-  \\
-  = {} &
-  \sum_{j = 1}^{m}
-  {f(x)\, x^{m-j}\, [Y]_{j,1}}
-  +
-  \sum_{j = m+1}^{m+n}
-  {g(x)\, x^{n-(j-m)}\, [Y]_{j,1}}
-  \\
-  = {} &
-  f(x)
-  \sum_{j = 1}^{m}
-  {x^{m-j}\, [Y]_{j,1}}
-  +
-  g(x)
-  \sum_{j = m+1}^{m+n}
-  {x^{n-(j-m)}\, [Y]_{j,1}}
-  \\
-  = {} &
-  f(x)
-  \sum_{j = 1}^{m}
-  {x^{m-1-(j-1)}\, [Y]_{(j-1)+1,1}}
-  +
-  g(x)
-  \sum_{j = m+1}^{m+n}
-  {x^{n-1-(j-m-1)}\, [Y]_{m+1+(j-m-1),1}}
-  \\
-  = {} &
-  f(x)
-  \sum_{k = 0}^{m-1}
-  {[Y]_{k+1,1} x^{m-1-k}}
-  +
-  g(x)
-  \sum_{k = 0}^{n-1}
-  {[Y]_{m+1+k,1} x^{n-1-k}}
-  \\
-  = {} &
-  f(x)\, u(x) + g(x)\, v(x).
-\end{aligned}
-\]
+(2) 注意，
+    \[
+    \begin{aligned}
+      &
+      [C_{m+n}\, S(f, g; n, m)\, Y]_{1,1}
+      \\
+      = {} &
+      [(C_{m+n}\, S(f, g; n, m))\, Y]_{1,1}
+      \\
+      = {} &
+      \sum_{j = 1}^{m+n}
+      {[C_{m+n}\, S(f, g; n, m)]_{1,j} [Y]_{j,1}}
+      \\
+      = {} &
+      \sum_{j = 1}^{m}
+      {[C_{m+n}\, S(f, g; n, m)]_{1,j} [Y]_{j,1}}
+      +
+      \sum_{j = m+1}^{m+n}
+      {[C_{m+n}\, S(f, g; n, m)]_{1,j} [Y]_{j,1}}
+      \\
+      = {} &
+      \sum_{j = 1}^{m}
+      {f(x)\, x^{m-j}\, [Y]_{j,1}}
+      +
+      \sum_{j = m+1}^{m+n}
+      {g(x)\, x^{n-(j-m)}\, [Y]_{j,1}}
+      \\
+      = {} &
+      f(x)
+      \sum_{j = 1}^{m}
+      {x^{m-j}\, [Y]_{j,1}}
+      +
+      g(x)
+      \sum_{j = m+1}^{m+n}
+      {x^{n-(j-m)}\, [Y]_{j,1}}
+      \\
+      = {} &
+      f(x)
+      \sum_{j = 1}^{m}
+      {x^{m-1-(j-1)}\, [Y]_{(j-1)+1,1}}
+      +
+      g(x)
+      \sum_{j = m+1}^{m+n}
+      {x^{n-1-(j-m-1)}\, [Y]_{m+1+(j-m-1),1}}
+      \\
+      = {} &
+      f(x)
+      \sum_{k = 0}^{m-1}
+      {[Y]_{k+1,1} x^{m-1-k}}
+      +
+      g(x)
+      \sum_{k = 0}^{n-1}
+      {[Y]_{m+1+k,1} x^{n-1-k}}
+      \\
+      = {} &
+      f(x)\, u(x) + g(x)\, v(x).
+    \end{aligned}
+    \]
 
-(3)
-注意，
-\[
-\begin{aligned}
-  [C_{m+n}\, S(f, g; n, m)\, Y]_{1,1}
-  = {} &
-  [C_{m+n}\, (S(f, g; n, m)\, Y)]_{1,1}
-  \\
-  = {} &
-  \sum_{j = 1}^{m+n}
-  {[C_{m+n}]_{1,j} [S(f, g; n, m)\, Y]_{j,1}}
-  \\
-  = {} &
-  \sum_{j = 1}^{m+n}
-  {x^{m+n-j} [S(f, g; n, m)\, Y]_{j,1}}
-  \\
-  = {} &
-  \sum_{j = 1}^{m+n}
-  {[S(f, g; n, m)\, Y]_{(j-1)+1,1} x^{m+n-1-(j-1)}}
-  \\
-  = {} &
-  \sum_{k = 0}^{m+n-1}
-  {[S(f, g; n, m)\, Y]_{k+1,1} x^{m+n-1-k}}.
-\end{aligned}
-\]
-故，对不超过 \(m+n-1\) 的非负整数 \(k\)，
-\[
-[S(f, g; n, m)\, Y]_{k+1,1} = c_k.
-\]
+(3) 注意，
+    \[
+    \begin{aligned}
+      [C_{m+n}\, S(f, g; n, m)\, Y]_{1,1}
+      = {} &
+      [C_{m+n}\, (S(f, g; n, m)\, Y)]_{1,1}
+      \\
+      = {} &
+      \sum_{j = 1}^{m+n}
+      {[C_{m+n}]_{1,j} [S(f, g; n, m)\, Y]_{j,1}}
+      \\
+      = {} &
+      \sum_{j = 1}^{m+n}
+      {x^{m+n-j} [S(f, g; n, m)\, Y]_{j,1}}
+      \\
+      = {} &
+      \sum_{j = 1}^{m+n}
+      {[S(f, g; n, m)\, Y]_{(j-1)+1,1} x^{m+n-1-(j-1)}}
+      \\
+      = {} &
+      \sum_{k = 0}^{m+n-1}
+      {[S(f, g; n, m)\, Y]_{k+1,1} x^{m+n-1-k}}.
+    \end{aligned}
+    \]
+    故，对不超过 \(m+n-1\) 的非负整数 \(k\)，
+    \[
+    [S(f, g; n, m)\, Y]_{k+1,1} = c_k.
+    \]
 :::
 
 ::: theorem
@@ -520,74 +514,70 @@ notices:
 ::: theorem {@thm:resultant-Bézout}
 设 @standing-assumption-of-resultant 成立。
 
-(1)
-存在整式 \(u\)、\(v\)，使
-\[
-\begin{aligned}
-  f(x)\, u(x) + g(x)\, v(x) = \det {(S(f, g; n, m))}.
-\end{aligned}
-\]
-注意，上式的右边不含 \(x\)
-（因为 \(S(f, g; n, m)\) 不含 \(x\)）。
+(1) 存在整式 \(u\)、\(v\)，使
+    \[
+    \begin{aligned}
+      f(x)\, u(x) + g(x)\, v(x) = \det {(S(f, g; n, m))}.
+    \end{aligned}
+    \]
+    注意，上式的右边不含 \(x\)
+    （因为 \(S(f, g; n, m)\) 不含 \(x\)）。
 
-(2)
-设存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
-则
-\[
-\begin{aligned}
-  \det {(S(f, g; n, m))} = 0.
-\end{aligned}
-\]
+(2) 设存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
+    则
+    \[
+    \begin{aligned}
+      \det {(S(f, g; n, m))} = 0.
+    \end{aligned}
+    \]
 :::
 
 ::: proof
-(1)
-我们知道，存在 \((m + n) \times 1\) 阵 \(P\)，
-使
-\[
-\begin{aligned}
-  [S(f, g; n, m)\, P]_{i,1} =
-  \begin{cases}
-    \det {(S(f, g; n, m))}, & i = m + n;   \\
-    0,                      & \text{别的情形}.
-  \end{cases}
-\end{aligned}
-\]
-记
-\[
-\begin{aligned}
-  u(x) = \sum_{k = 0}^{m-1} {[P]_{k+1,1} x^{m-1-k}},
-  \quad
-  v(x) = \sum_{k = 0}^{n-1} {[P]_{m+1+k,1} x^{n-1-k}}.
-\end{aligned}
-\]
-则
-\[
-\begin{aligned}
-  f(x)\, u(x) + g(x)\, v(x) = \sum_{k = 0}^{m+n-1} {c_k x^{m+n-1-k}},
-\end{aligned}
-\]
-其中，
-\[
-\begin{aligned}
-  c_k = [S(f, g; n, m)\, P]_{k+1,1} =
-  \begin{cases}
-    \det {(S(f, g; n, m))}, & k = m + n - 1; \\
-    0,                      & \text{别的情形}.
-  \end{cases}
-\end{aligned}
-\]
+(1) 我们知道，存在 \((m + n) \times 1\) 阵 \(P\)，
+    使
+    \[
+    \begin{aligned}
+      [S(f, g; n, m)\, P]_{i,1} =
+      \begin{cases}
+        \det {(S(f, g; n, m))}, & i = m + n;   \\
+        0,                      & \text{别的情形}.
+      \end{cases}
+    \end{aligned}
+    \]
+    记
+    \[
+    \begin{aligned}
+      u(x) = \sum_{k = 0}^{m-1} {[P]_{k+1,1} x^{m-1-k}},
+      \quad
+      v(x) = \sum_{k = 0}^{n-1} {[P]_{m+1+k,1} x^{n-1-k}}.
+    \end{aligned}
+    \]
+    则
+    \[
+    \begin{aligned}
+      f(x)\, u(x) + g(x)\, v(x) = \sum_{k = 0}^{m+n-1} {c_k x^{m+n-1-k}},
+    \end{aligned}
+    \]
+    其中，
+    \[
+    \begin{aligned}
+      c_k = [S(f, g; n, m)\, P]_{k+1,1} =
+      \begin{cases}
+        \det {(S(f, g; n, m))}, & k = m + n - 1; \\
+        0,                      & \text{别的情形}.
+      \end{cases}
+    \end{aligned}
+    \]
 
-(2)
-我们其实已证它
-（@thm:necessary-condition-for-the-existence-of-a-common-root），
-但我们现在别地证它。
-注意，代 \(x\) 以 \(c\)，得
-\[
-\det {(S(f, g; n, m))}
-= f(c)\, u(c) + g(c)\, v(c)
-= 0.
-\]
+(2) 我们其实已证它
+    （@thm:necessary-condition-for-the-existence-of-a-common-root），
+    但我们现在别地证它。
+    注意，代 \(x\) 以 \(c\)，得
+    \[
+    \det {(S(f, g; n, m))}
+    = f(c)\, u(c) + g(c)\, v(c)
+    = 0.
+    \]
 :::
 
 有一件事，其值得提。
@@ -722,75 +712,71 @@ notices:
 ::: theorem {@thm:resultant-swap}
 设 @standing-assumption-of-resultant 成立。
 
-(1)
-\(S(g, f; m, n)\) 是 \(m + n\) 级阵，
-且 \(S(f, g; n, m)\) 的列 \(j\) 是
-\(S(g, f; m, n)\) 的列 \(n + j\)
-（若 \(j \leqslant m\)）
-或 \(S(g, f; m, n)\) 的列 \(j - m\)
-（若 \(j > m\)）。
+(1) \(S(g, f; m, n)\) 是 \(m + n\) 级阵，
+    且 \(S(f, g; n, m)\) 的列 \(j\) 是
+    \(S(g, f; m, n)\) 的列 \(n + j\)
+    （若 \(j \leqslant m\)）
+    或 \(S(g, f; m, n)\) 的列 \(j - m\)
+    （若 \(j > m\)）。
 
-(2)
-\(\det {(S(g, f; m, n))}
-  = (-1)^{m n} \det {(S(f, g; n, m))}\)。
+(2) \(\det {(S(g, f; m, n))}
+    = (-1)^{m n} \det {(S(f, g; n, m))}\)。
 :::
 
 ::: proof
-(1)
-注意，\(S(g, f; m, n)\) 是这样的 \(m + n\) 级阵：
-\[
-\begin{aligned}
-  [S(g, f; m, n)]_{i,j} =
-  \begin{cases}
-    b_{i-j},     & j \leqslant n; \\
-    a_{i-(j-n)}, & j > n.
-  \end{cases}
-\end{aligned}
-\]
-故，若 \(j \leqslant m\)，
-\[
-\begin{aligned}
-  [S(f, g; n, m)]_{i,j}
-  = a_{i-j}
-  = a_{i-(n+j-n)}
-  = [S(g, f; m, n)]_{i,n+j},
-\end{aligned}
-\]
-且若 \(j > m\)，
-\[
-\begin{aligned}
-  [S(f, g; n, m)]_{i,j}
-  = b_{i-(j-m)}
-  = [S(g, f; m, n)]_{i,j-m}.
-\end{aligned}
-\]
+(1) 注意，\(S(g, f; m, n)\) 是这样的 \(m + n\) 级阵：
+    \[
+    \begin{aligned}
+      [S(g, f; m, n)]_{i,j} =
+      \begin{cases}
+        b_{i-j},     & j \leqslant n; \\
+        a_{i-(j-n)}, & j > n.
+      \end{cases}
+    \end{aligned}
+    \]
+    故，若 \(j \leqslant m\)，
+    \[
+    \begin{aligned}
+      [S(f, g; n, m)]_{i,j}
+      = a_{i-j}
+      = a_{i-(n+j-n)}
+      = [S(g, f; m, n)]_{i,n+j},
+    \end{aligned}
+    \]
+    且若 \(j > m\)，
+    \[
+    \begin{aligned}
+      [S(f, g; n, m)]_{i,j}
+      = b_{i-(j-m)}
+      = [S(g, f; m, n)]_{i,j-m}.
+    \end{aligned}
+    \]
 
-(2)
-若 \(m = 0\) 或 \(n = 0\)，
-则这是平凡地对的
-（见 @emp:morniszero）。
+(2) 若 \(m = 0\) 或 \(n = 0\)，
+    则这是平凡地对的
+    （见 @emp:morniszero）。
 
-设 \(m \geqslant 1\) 且 \(n \geqslant 1\)。
-对 \(S(g, f; m, n)\)，
-交换列 \(n + 1\) 与列 \(n\)，
-再交换新的阵的列 \(n\) 与列 \(n - 1\)，
-……
-再交换新的阵的列 \(2\) 与列 \(1\)，
-我们作了 \(n\) 次相邻的列的交换，
-使 \(S(g, f; m, n)\) 的列 \(n + 1\) 到列 \(1\)，
-且别的列的相对位置不变。
-类似地，我们也可使这个阵的
-列 \(n + 2\)、\(\dots\)、\(n + m\)
-分别地到
-列 \(2\)、\(\dots\)、\(m\)。
-则 \(S(g, f; m, n)\) 的列 \(1\)、\(\dots\)、\(n\)
-分别地到
-列 \(m + 1\)、\(\dots\)、\(m + n\)。
-则 \(n \cdot m\) 次相邻的列的交换
-变 \(S(g, f; m, n)\) 为 \(S(f, g; n, m)\)。
-则
-\(\det {(S(g, f; m, n))}
-  = (-1)^{m n} \det {(S(f, g; n, m))}\)。
+    设 \(m \geqslant 1\) 且 \(n \geqslant 1\)。
+    对 \(S(g, f; m, n)\)，
+    交换列 \(n + 1\) 与列 \(n\)，
+    再交换新的阵的列 \(n\) 与列 \(n - 1\)，
+    ……
+    再交换新的阵的列 \(2\) 与列 \(1\)，
+    我们作了 \(n\) 次相邻的列的交换，
+    使 \(S(g, f; m, n)\) 的列 \(n + 1\) 到列 \(1\)，
+    且别的列的相对位置不变。
+    类似地，我们也可使这个阵的
+    列 \(n + 2\)、\(\dots\)、\(n + m\)
+    分别地到
+    列 \(2\)、\(\dots\)、\(m\)。
+    则 \(S(g, f; m, n)\) 的列 \(1\)、\(\dots\)、\(n\)
+    分别地到
+    列 \(m + 1\)、\(\dots\)、\(m + n\)。
+    则 \(n \cdot m\) 次相邻的列的交换
+    变 \(S(g, f; m, n)\) 为 \(S(f, g; n, m)\)。
+    则
+    \(\det {(S(g, f; m, n))}
+      = (-1)^{m n} \det {(S(f, g; n, m))}\)。
 :::
 
 ::: theorem {@thm:resultant-recursive}
@@ -1022,78 +1008,74 @@ notices:
 ::: theorem
 设 @standing-assumption-of-resultant 成立。
 
-(1)
-设存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
-则 \(\det {(S(f, g; n, m))} = 0\)。
+(1) 设存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
+    则 \(\det {(S(f, g; n, m))} = 0\)。
 
-(2)
-设 \(\det {(S(f, g; n, m))} = 0\)。
-则 \(a_0 = 0 = b_0\)，
-或当 \(a_0 \neq 0\) 或 \(b_0 \neq 0\) 时，
-存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
+(2) 设 \(\det {(S(f, g; n, m))} = 0\)。
+    则 \(a_0 = 0 = b_0\)，
+    或当 \(a_0 \neq 0\) 或 \(b_0 \neq 0\) 时，
+    存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
 :::
 
 ::: proof
-(1)
-我们其实已证它
-（@thm:necessary-condition-for-the-existence-of-a-common-root，
-@thm:resultant-Bézout），
-但我们现在别地证它。
+(1) 我们其实已证它
+    （@thm:necessary-condition-for-the-existence-of-a-common-root，
+    @thm:resultant-Bézout），
+    但我们现在别地证它。
 
-若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
+    若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
 
-若 \(a_0 \neq 0\)，则我们可写
-\(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
-其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
-因为 \(f(c) = 0\)，
-\(a_0\)、\(c - x_1\)、\(c - x_2\)、\(\dots\)、\(c - x_n\)
-的一个是 \(0\)。
-因为 \(a_0 \neq 0\)，
-某 \(c - x_i\) 是 \(0\)。
-则 \(c\) 等于此 \(x_i\)。
-则
-\(\det {(S(f, g; n, m))}
-  = a_0^m g(x_1) g(x_2) \dots g(x_n) = 0\)，
-因为 \(g(x_i) = g(c) = 0\)。
+    若 \(a_0 \neq 0\)，则我们可写
+    \(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
+    其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
+    因为 \(f(c) = 0\)，
+    \(a_0\)、\(c - x_1\)、\(c - x_2\)、\(\dots\)、\(c - x_n\)
+    的一个是 \(0\)。
+    因为 \(a_0 \neq 0\)，
+    某 \(c - x_i\) 是 \(0\)。
+    则 \(c\) 等于此 \(x_i\)。
+    则
+    \(\det {(S(f, g; n, m))}
+      = a_0^m g(x_1) g(x_2) \dots g(x_n) = 0\)，
+    因为 \(g(x_i) = g(c) = 0\)。
 
-若 \(b_0 \neq 0\)，您可类似地证它：
-注意，
+    若 \(b_0 \neq 0\)，您可类似地证它：
+    注意，
 
-```math {@eq:resultant-in-terms-of-roots-of-g}
-\det {(S(f, g; n, m))}
-= (-1)^{m n} b_0^n f(y_1) f(y_2) \dots f(y_m),
-```
+    ```math {@eq:resultant-in-terms-of-roots-of-g}
+    \det {(S(f, g; n, m))}
+    = (-1)^{m n} b_0^n f(y_1) f(y_2) \dots f(y_m),
+    ```
 
-其中，
+    其中，
 
-```math {@eq:roots-of-g}
-g(x) = b_0 (x - y_1) (x - y_2) \dots (x - y_m).
-```
+    ```math {@eq:roots-of-g}
+    g(x) = b_0 (x - y_1) (x - y_2) \dots (x - y_m).
+    ```
 
-(2)
-若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
+(2) 若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
 
-若 \(a_0 \neq 0\)，则我们可写
-\(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
-其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
-注意，
-\(f(x_1)\)、\(f(x_2)\)、\(\dots\)、\(f(x_n)\) 都是 \(0\)。
-则
-\[
-\begin{aligned}
-  0
-  = \det {(S(f, g; n, m))}
-  = a_0^m g(x_1) g(x_2) \dots g(x_n).
-\end{aligned}
-\]
-因为 \(a_0 \neq 0\)，
-我们说，
-在 \(g(x_1)\)、\(g(x_2)\)、\(\dots\)、\(g(x_n)\)，
-\(0\) 存在。
+    若 \(a_0 \neq 0\)，则我们可写
+    \(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
+    其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
+    注意，
+    \(f(x_1)\)、\(f(x_2)\)、\(\dots\)、\(f(x_n)\) 都是 \(0\)。
+    则
+    \[
+    \begin{aligned}
+      0
+      = \det {(S(f, g; n, m))}
+      = a_0^m g(x_1) g(x_2) \dots g(x_n).
+    \end{aligned}
+    \]
+    因为 \(a_0 \neq 0\)，
+    我们说，
+    在 \(g(x_1)\)、\(g(x_2)\)、\(\dots\)、\(g(x_n)\)，
+    \(0\) 存在。
 
-若 \(b_0 \neq 0\)，您可类似地证它：
-注意式 @eq:resultant-in-terms-of-roots-of-g，
-若式 @eq:roots-of-g。
+    若 \(b_0 \neq 0\)，您可类似地证它：
+    注意式 @eq:resultant-in-terms-of-roots-of-g，
+    若式 @eq:roots-of-g。
 :::
 
 ::: theorem

@@ -191,59 +191,55 @@ notices:
 反过来，若 \(f(h_u) < f(h_v)\)，则 \(h_u < h_v\)。
 那么：
 
-(1)
-对任何 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
-\(i_1\)、\(j_1\)、\(\dots\)、\(i_k\)、\(j_k\)、
-\(f(i_1)\)、\(f(j_1)\)、\(\dots\)、\(f(i_k)\)、\(f(j_k)\)
-一定是 \(1\)、\(\dots\)、\(2k\) 的排列。
-反过来，对任何 \(1\)、\(\dots\)、\(2k\) 的排列
-\(u_1\)、\(v_1\)、\(\dots\)、\(u_k\)、\(v_k\)、
-\(h_{u_1}\)、\(h_{v_1}\)、\(\dots\)、\(h_{u_k}\)、\(h_{v_k}\)，
-一定是 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列。
+(1) 对任何 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
+    \(i_1\)、\(j_1\)、\(\dots\)、\(i_k\)、\(j_k\)、
+    \(f(i_1)\)、\(f(j_1)\)、\(\dots\)、\(f(i_k)\)、\(f(j_k)\)
+    一定是 \(1\)、\(\dots\)、\(2k\) 的排列。
+    反过来，对任何 \(1\)、\(\dots\)、\(2k\) 的排列
+    \(u_1\)、\(v_1\)、\(\dots\)、\(u_k\)、\(v_k\)、
+    \(h_{u_1}\)、\(h_{v_1}\)、\(\dots\)、\(h_{u_k}\)、\(h_{v_k}\)，
+    一定是 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列。
 
-(2)
-若 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
-\(i_1\)、\(j_1\)、\(\dots\)、\(i_k\)、\(j_k\)
-适合
-\(i_1 < j_1\)，\(\dots\)，\(i_k < j_k\)，
-则对应的 \(1\)、\(\dots\)、\(2k\) 的排列
-\(f(i_1)\)、\(f(j_1)\)、\(\dots\)、\(f(i_k)\)、\(f(j_k)\)
-适合
-\(f(i_1) < f(j_1)\)，\(\dots\)，\(f(i_k) < f(j_k)\)。
-反过来，若 \(1\)、\(\dots\)、\(2k\) 的排列
-\(u_1\)、\(v_1\)、\(\dots\)、\(u_k\)、\(v_k\)
-适合
-\(u_1 < v_1\)，\(\dots\)，\(u_k < v_k\)，
-则对应的 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
-\(h_{u_1}\)、\(h_{v_1}\)、\(\dots\)、\(h_{u_k}\)、\(h_{v_k}\)
-适合
-\(h_{u_1} < h_{v_1}\)，\(\dots\)，\(h_{u_k} < h_{v_k}\)。
+(2) 若 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
+    \(i_1\)、\(j_1\)、\(\dots\)、\(i_k\)、\(j_k\)
+    适合
+    \(i_1 < j_1\)，\(\dots\)，\(i_k < j_k\)，
+    则对应的 \(1\)、\(\dots\)、\(2k\) 的排列
+    \(f(i_1)\)、\(f(j_1)\)、\(\dots\)、\(f(i_k)\)、\(f(j_k)\)
+    适合
+    \(f(i_1) < f(j_1)\)，\(\dots\)，\(f(i_k) < f(j_k)\)。
+    反过来，若 \(1\)、\(\dots\)、\(2k\) 的排列
+    \(u_1\)、\(v_1\)、\(\dots\)、\(u_k\)、\(v_k\)
+    适合
+    \(u_1 < v_1\)，\(\dots\)，\(u_k < v_k\)，
+    则对应的 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
+    \(h_{u_1}\)、\(h_{v_1}\)、\(\dots\)、\(h_{u_k}\)、\(h_{v_k}\)
+    适合
+    \(h_{u_1} < h_{v_1}\)，\(\dots\)，\(h_{u_k} < h_{v_k}\)。
 
-(3)
-若 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
-\(i_1\)、\(j_1\)、\(\dots\)、\(i_k\)、\(j_k\)
-适合
-\(i_1 < \dots < i_k\)，
-则对应的 \(1\)、\(\dots\)、\(2k\) 的排列
-\(f(i_1)\)、\(f(j_1)\)、\(\dots\)、\(f(i_k)\)、\(f(j_k)\)
-适合
-\(f(i_1) < \dots < f(i_k)\)。
-反过来，若 \(1\)、\(\dots\)、\(2k\) 的排列
-\(u_1\)、\(v_1\)、\(\dots\)、\(u_k\)、\(v_k\)
-适合
-\(u_1 < \dots < u_k\)，
-则对应的 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
-\(h_{u_1}\)、\(h_{v_1}\)、\(\dots\)、\(h_{u_k}\)、\(h_{v_k}\)
-适合
-\(h_{u_1} < \dots < h_{u_k}\)。
+(3) 若 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
+    \(i_1\)、\(j_1\)、\(\dots\)、\(i_k\)、\(j_k\)
+    适合
+    \(i_1 < \dots < i_k\)，
+    则对应的 \(1\)、\(\dots\)、\(2k\) 的排列
+    \(f(i_1)\)、\(f(j_1)\)、\(\dots\)、\(f(i_k)\)、\(f(j_k)\)
+    适合
+    \(f(i_1) < \dots < f(i_k)\)。
+    反过来，若 \(1\)、\(\dots\)、\(2k\) 的排列
+    \(u_1\)、\(v_1\)、\(\dots\)、\(u_k\)、\(v_k\)
+    适合
+    \(u_1 < \dots < u_k\)，
+    则对应的 \(h_1\)、\(\dots\)、\(h_{2k}\) 的排列
+    \(h_{u_1}\)、\(h_{v_1}\)、\(\dots\)、\(h_{u_k}\)、\(h_{v_k}\)
+    适合
+    \(h_{u_1} < \dots < h_{u_k}\)。
 
-(4)
-既然 \(h_u < h_v\) 相当于 \(f(h_u) < f(h_v)\)，
-\(\operatorname{sgn} {(f(h_t) - f(h_s))}
-  = \operatorname{sgn} {(h_t - h_s)}\)。
-则
-\(s(f(i_1), f(j_1), \dots, f(i_k), f(j_k))
-  = s(i_1, j_1, \dots, i_k, j_k)\)。
+(4) 既然 \(h_u < h_v\) 相当于 \(f(h_u) < f(h_v)\)，
+    \(\operatorname{sgn} {(f(h_t) - f(h_s))}
+      = \operatorname{sgn} {(h_t - h_s)}\)。
+    则
+    \(s(f(i_1), f(j_1), \dots, f(i_k), f(j_k))
+      = s(i_1, j_1, \dots, i_k, j_k)\)。
 
 综上，
 \[
@@ -752,50 +748,48 @@ pfaffian 的完全展开有如下变体：
 设 \(A\) 是 \(\ell\) 级反称阵。
 设 \(P\) 是 \(n \times \ell\) 阵。
 
-(1)
-若 \(n > \ell\)，
-则 \(\operatorname{pf} {(P A P^{\mathrm{T}})} = 0\)。
+(1) 若 \(n > \ell\)，
+    则 \(\operatorname{pf} {(P A P^{\mathrm{T}})} = 0\)。
 
-(2)
-若 \(n \leqslant \ell\)，
-则
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(P A P^{\mathrm{T}})}
-  \\
-  = {} &
-  \sum_{1 \leqslant j_1 < j_2 < \dots < j_{n} \leqslant \ell}
-  {\det {\left(
-        P\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,n}{j_1,j_2,\dots,j_{n}}
-    \right)}
-    \operatorname{pf} {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1,j_2,\dots,j_{n}}{j_1,j_2,\dots,j_{n}}
-  \right)}}.
-\end{aligned}
-\]
-特别地，若 \(n = \ell\)，
-则因适合条件
-\(1 \leqslant j_1 < j_2 < \dots < j_{n} \leqslant \ell\)
-的
-\(j_1\)、\(j_2\)、\(\dots\)、\(j_{n}\)，
-是，且只能是，
-\(1\)、\(2\)、\(\dots\)、\(n\)，
-\[
-\begin{aligned}
-  \operatorname{pf} {(P A P^{\mathrm{T}})}
-  = {} &
-  \det {\left(
-      P\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,n}{1,2,\dots,n}
-  \right)}
-  \operatorname{pf} {\left(
-      A\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,n}{1,2,\dots,n}
-  \right)}
-  \\
-  = {} &
-  \det {(P)} \operatorname{pf} {(A)}.
-\end{aligned}
-\]
+(2) 若 \(n \leqslant \ell\)，
+    则
+    \[
+    \begin{aligned}
+      &
+      \operatorname{pf} {(P A P^{\mathrm{T}})}
+      \\
+      = {} &
+      \sum_{1 \leqslant j_1 < j_2 < \dots < j_{n} \leqslant \ell}
+      {\det {\left(
+            P\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,n}{j_1,j_2,\dots,j_{n}}
+        \right)}
+        \operatorname{pf} {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1,j_2,\dots,j_{n}}{j_1,j_2,\dots,j_{n}}
+      \right)}}.
+    \end{aligned}
+    \]
+    特别地，若 \(n = \ell\)，
+    则因适合条件
+    \(1 \leqslant j_1 < j_2 < \dots < j_{n} \leqslant \ell\)
+    的
+    \(j_1\)、\(j_2\)、\(\dots\)、\(j_{n}\)，
+    是，且只能是，
+    \(1\)、\(2\)、\(\dots\)、\(n\)，
+    \[
+    \begin{aligned}
+      \operatorname{pf} {(P A P^{\mathrm{T}})}
+      = {} &
+      \det {\left(
+          P\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,n}{1,2,\dots,n}
+      \right)}
+      \operatorname{pf} {\left(
+          A\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,n}{1,2,\dots,n}
+      \right)}
+      \\
+      = {} &
+      \det {(P)} \operatorname{pf} {(A)}.
+    \end{aligned}
+    \]
 :::
 
 ::: proof
@@ -980,190 +974,188 @@ pfaffian 的完全展开有如下变体：
 则 \(Q(r_1, t_1, \dots, r_m, t_m)\) 有 \(2\) 列相同。
 则 \(\det {(Q(r_1, t_1, \dots, r_m, t_m))} = 0\)。
 
-(1)
-若 \(2m > \ell\)，
-则在 \(r_1\)、\(t_1\)、\(\dots\)、\(r_m\)、\(t_m\)，
-总有 \(2\) 个数相同。
-则和的每项都是 \(0\)。
-故 \(\operatorname{pf} {(P A P^{\mathrm{T}})} = 0\)。
+(1) 若 \(2m > \ell\)，
+    则在 \(r_1\)、\(t_1\)、\(\dots\)、\(r_m\)、\(t_m\)，
+    总有 \(2\) 个数相同。
+    则和的每项都是 \(0\)。
+    故 \(\operatorname{pf} {(P A P^{\mathrm{T}})} = 0\)。
 
-(2)
-若 \(2m \leqslant \ell\)，
-则（见第 1 章，节 *30*）
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(P A P^{\mathrm{T}})}
-  \\
-  = {} &
-  \frac{1}{2^m m!}
-  \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  \det {(Q(r_1, t_1, \dots, r_m, t_m))}
-  \,
-  [A]_{r_1,t_1} \dots [A]_{r_m,t_m}.
-\end{aligned}
-\]
-因为 \(j_1 < j_2 < \dots < j_{2m}\)，
-且 \(r_1\)、\(t_1\)、\(\dots\)、\(r_m\)、\(t_m\)
-是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\) 的排列
-（见第 1 章，节 *30*）
-\[
-\begin{aligned}
-  &
-  \det {(Q(r_1, t_1, \dots, r_m, t_m))}
-  \\
-  = {} &
-  \det {(Q(j_1, j_2, \dots, j_{2m}))}\,
-  s(r_1, t_1, \dots, r_m, t_m)
-  \\
-  = {} &
-  \det {\left(
-      P\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,2m}{j_1,j_2,\dots,j_{2m}}
-  \right)}\,
-  s(r_1, t_1, \dots, r_m, t_m).
-\end{aligned}
-\]
-则
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(P A P^{\mathrm{T}})}
-  \\
-  = {} &
-  \frac{1}{2^m m!}
-  \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  \det {\left(
-      P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
-  \right)}\,
-  s(r_1, t_1, \dots, r_m, t_m)
-  \\
-  &
-  \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
-  \cdot
-  [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
-  \\
-  = {} &
-  \frac{1}{2^m m!}
-  \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
-  \det {\left(
-      P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
-  \right)}
-  \\
-  &
-  \quad \quad \quad \quad \quad \quad \quad \quad
-  \cdot
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  s(r_1, t_1, \dots, r_m, t_m)\,
-  [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
-  \\
-  = {} &
-  \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
-  \det {\left(
-      P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
-  \right)}
-  \\
-  &
-  \quad \quad \quad \quad \quad
-  \cdot
-  \frac{1}{2^m m!}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  s(r_1, t_1, \dots, r_m, t_m)\,
-  [A]_{r_1,t_1} \dots [A]_{r_m,t_m}.
-\end{aligned}
-\]
+(2) 若 \(2m \leqslant \ell\)，
+    则（见第 1 章，节 *30*）
+    \[
+    \begin{aligned}
+      &
+      \operatorname{pf} {(P A P^{\mathrm{T}})}
+      \\
+      = {} &
+      \frac{1}{2^m m!}
+      \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      \det {(Q(r_1, t_1, \dots, r_m, t_m))}
+      \,
+      [A]_{r_1,t_1} \dots [A]_{r_m,t_m}.
+    \end{aligned}
+    \]
+    因为 \(j_1 < j_2 < \dots < j_{2m}\)，
+    且 \(r_1\)、\(t_1\)、\(\dots\)、\(r_m\)、\(t_m\)
+    是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\) 的排列
+    （见第 1 章，节 *30*）
+    \[
+    \begin{aligned}
+      &
+      \det {(Q(r_1, t_1, \dots, r_m, t_m))}
+      \\
+      = {} &
+      \det {(Q(j_1, j_2, \dots, j_{2m}))}\,
+      s(r_1, t_1, \dots, r_m, t_m)
+      \\
+      = {} &
+      \det {\left(
+          P\genfrac{\{}{\}}{0pt}{0}{1,2,\dots,2m}{j_1,j_2,\dots,j_{2m}}
+      \right)}\,
+      s(r_1, t_1, \dots, r_m, t_m).
+    \end{aligned}
+    \]
+    则
+    \[
+    \begin{aligned}
+      &
+      \operatorname{pf} {(P A P^{\mathrm{T}})}
+      \\
+      = {} &
+      \frac{1}{2^m m!}
+      \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      \det {\left(
+          P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
+      \right)}\,
+      s(r_1, t_1, \dots, r_m, t_m)
+      \\
+      &
+      \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+      \cdot
+      [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
+      \\
+      = {} &
+      \frac{1}{2^m m!}
+      \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
+      \det {\left(
+          P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
+      \right)}
+      \\
+      &
+      \quad \quad \quad \quad \quad \quad \quad \quad
+      \cdot
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      s(r_1, t_1, \dots, r_m, t_m)\,
+      [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
+      \\
+      = {} &
+      \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
+      \det {\left(
+          P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
+      \right)}
+      \\
+      &
+      \quad \quad \quad \quad \quad
+      \cdot
+      \frac{1}{2^m m!}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      s(r_1, t_1, \dots, r_m, t_m)\,
+      [A]_{r_1,t_1} \dots [A]_{r_m,t_m}.
+    \end{aligned}
+    \]
 
-设
-\[
-\begin{aligned}
-  H(j_1, j_2, \dots, j_{2m}) =
-  A\genfrac{\{}{\}}{0pt}{0}{j_1,j_2,\dots,j_{2m}}{j_1,j_2,\dots,j_{2m}}.
-\end{aligned}
-\]
-不难看出，
-\([H(j_1, j_2, \dots, j_{2m})]_{u,v} = [A]_{j_u,j_v}\)。
-记 \(f(j_a) = a\)
-（\(a = 1\)、\(2\)、\(\dots\)、\(2m\)）。
-设 \(g_1\)、\(g_2\)、\(\dots\)、\(g_{2m}\)
-是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\)
-的一个排列。
-那么，\(f(g_1)\)、\(f(g_2)\)、\(\dots\)、\(f(g_{2m})\)
-是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列。
-反过来，若 \(w_1\)、\(w_2\)、\(\dots\)、\(w_{2m}\)
-是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列，
-则 \(j_{w_1}\)、\(j_{w_2}\)、\(\dots\)、\(j_{w_{2m}}\)
-是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\) 的一个排列。
-并且，若 \(g_a < g_b\)，则 \(f(g_a) < f(g_b)\)。
-反过来，若 \(f(g_a) < f(g_b)\)，则 \(g_a < g_b\)。
-从而
-\(\operatorname{sgn} {(g_b - g_a)}
-  = \operatorname{sgn} {(f(g_b) - f(g_a))}\)。
-则
-\(s(g_1, g_2, \dots, g_{2m})
-  = s(f(g_1), f(g_2), \dots, f(g_{2m}))\)。
-故
-\[
-\begin{aligned}
-  &
-  \frac{1}{2^m m!}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  s(r_1, t_1, \dots, r_m, t_m)\,
-  [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
-  \\
-  = {} &
-  \frac{1}{2^m m!}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  s(f(r_1), f(t_1), \dots, f(r_m), f(t_m))
-  \\
-  &
-  \quad \quad \quad \quad \quad \quad \quad \quad
-  \cdot
-  [H(j_1, \dots, j_{2m})]_{f(r_1),f(t_1)}
-  \dots
-  [H(j_1, \dots, j_{2m})]_{f(r_m),f(t_m)}
-  \\
-  = {} &
-  \operatorname{pf} {(H(j_1, \dots, j_{2m}))}
-  \\
-  = {} &
-  \operatorname{pf} {\left(
-      A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
-  \right)}.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  \operatorname{pf} {(P A P^{\mathrm{T}})}
-  = {} &
-  \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
-  {\det {\left(
-        P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
-    \right)}
-    \operatorname{pf} {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
-  \right)}}.
-\end{aligned}
-\]
+    设
+    \[
+    \begin{aligned}
+      H(j_1, j_2, \dots, j_{2m}) =
+      A\genfrac{\{}{\}}{0pt}{0}{j_1,j_2,\dots,j_{2m}}{j_1,j_2,\dots,j_{2m}}.
+    \end{aligned}
+    \]
+    不难看出，
+    \([H(j_1, j_2, \dots, j_{2m})]_{u,v} = [A]_{j_u,j_v}\)。
+    记 \(f(j_a) = a\)
+    （\(a = 1\)、\(2\)、\(\dots\)、\(2m\)）。
+    设 \(g_1\)、\(g_2\)、\(\dots\)、\(g_{2m}\)
+    是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\)
+    的一个排列。
+    那么，\(f(g_1)\)、\(f(g_2)\)、\(\dots\)、\(f(g_{2m})\)
+    是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列。
+    反过来，若 \(w_1\)、\(w_2\)、\(\dots\)、\(w_{2m}\)
+    是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列，
+    则 \(j_{w_1}\)、\(j_{w_2}\)、\(\dots\)、\(j_{w_{2m}}\)
+    是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\) 的一个排列。
+    并且，若 \(g_a < g_b\)，则 \(f(g_a) < f(g_b)\)。
+    反过来，若 \(f(g_a) < f(g_b)\)，则 \(g_a < g_b\)。
+    从而
+    \(\operatorname{sgn} {(g_b - g_a)}
+      = \operatorname{sgn} {(f(g_b) - f(g_a))}\)。
+    则
+    \(s(g_1, g_2, \dots, g_{2m})
+      = s(f(g_1), f(g_2), \dots, f(g_{2m}))\)。
+    故
+    \[
+    \begin{aligned}
+      &
+      \frac{1}{2^m m!}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      s(r_1, t_1, \dots, r_m, t_m)\,
+      [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
+      \\
+      = {} &
+      \frac{1}{2^m m!}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      s(f(r_1), f(t_1), \dots, f(r_m), f(t_m))
+      \\
+      &
+      \quad \quad \quad \quad \quad \quad \quad \quad
+      \cdot
+      [H(j_1, \dots, j_{2m})]_{f(r_1),f(t_1)}
+      \dots
+      [H(j_1, \dots, j_{2m})]_{f(r_m),f(t_m)}
+      \\
+      = {} &
+      \operatorname{pf} {(H(j_1, \dots, j_{2m}))}
+      \\
+      = {} &
+      \operatorname{pf} {\left(
+          A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
+      \right)}.
+    \end{aligned}
+    \]
+    从而
+    \[
+    \begin{aligned}
+      \operatorname{pf} {(P A P^{\mathrm{T}})}
+      = {} &
+      \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
+      {\det {\left(
+            P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
+        \right)}
+        \operatorname{pf} {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
+      \right)}}.
+    \end{aligned}
+    \]
 :::
 
 ::: theorem

@@ -205,75 +205,75 @@ D =  \det( \mathbf{D} ) =
 
 现在我们只需对**代数方程**的系数行列式 $D$ 进行讨论：
 
-- (1) $D \ne 0$ 的情形。
+(1) $D \ne 0$ 的情形。
 
-  这种情况下，**代数方程**具有唯一的解
-  \[
-  \begin{cases}
-    x = \alpha, \\
-    y = \beta.
-  \end{cases}
-  \]
-  此时想要把不齐次的**代数方程**化为齐次方程，只需要作如下变换：
-  \[
-  \begin{cases}
-    X = x - \alpha, \\
-    Y = y - \beta;
-  \end{cases}
-  \]
-  则可以将**代数方程**化为
-  \[
+    这种情况下，**代数方程**具有唯一的解
+    \[
     \begin{cases}
-    a_1 X + b_1 Y = 0, \\
-    a_2 X + b_2 Y = 0.
-  \end{cases}
-  \]
-  从而**微分方程**变为
-  \[
-  \frac{ \mathrm{d} y }{ \mathrm{d} x} = f \left ( \frac {a_1 + b_1 \frac{X}{Y} }{a_2 + b_2 \frac{X}{Y} } \right) = g\left( \frac{X}{Y} \right).
-  \]
-  它是一个齐次方程。
-
-- (2) $D = 0$ 的情形。
-
-  行列式 $D$ 的值为 $0$ 可以继续细分为以下三种子情形
-
-  - i. $ a_1 = b_1 = 0 $ 或 $ a_2 = b_2 = 0 $：
-
-    此时原微分方程变为
-    \[
-    \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac { c_1 }{a_2 x + b_2 y + c_2 } \right) = g ( a_2 x + b_2 y +c_2 );
+      x = \alpha, \\
+      y = \beta.
+    \end{cases}
     \]
-    或
+    此时想要把不齐次的**代数方程**化为齐次方程，只需要作如下变换：
     \[
-    \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac {a_1 x + b_1 y + c_1 }{ c_2 } \right) = g ( a_1 x + b_1 y +c_1 );
+    \begin{cases}
+      X = x - \alpha, \\
+      Y = y - \beta;
+    \end{cases}
     \]
-    这样的方程可以根据上一小节的方法求解。
+    则可以将**代数方程**化为
+    \[
+      \begin{cases}
+      a_1 X + b_1 Y = 0, \\
+      a_2 X + b_2 Y = 0.
+    \end{cases}
+    \]
+    从而**微分方程**变为
+    \[
+    \frac{ \mathrm{d} y }{ \mathrm{d} x} = f \left ( \frac {a_1 + b_1 \frac{X}{Y} }{a_2 + b_2 \frac{X}{Y} } \right) = g\left( \frac{X}{Y} \right).
+    \]
+    它是一个齐次方程。
 
-  - ii. $b_1 = b_2 = 0$ 或 $a_1 = a_2 = 0$：
+(2) $D = 0$ 的情形。
 
-    此时原微分方程变为
-    \[
-    \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac {a_1 x + c_1 }{a_2 x + c_2 } \right);
-    \]
-    或
-    \[
-    \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac {b_1 y + c_1 }{b_2 y + c_2 } \right);
-    \]
-    这些都是变量分离方程。
+    行列式 $D$ 的值为 $0$ 可以继续细分为以下三种子情形
 
-  - iii. $\frac{a_1}{a_2} = \frac{b_1}{b_2} = k$：
+    - i. $ a_1 = b_1 = 0 $ 或 $ a_2 = b_2 = 0 $：
 
-    此时令 $ u = a_2 x + b_2 y $，此时 $ \mathrm{d} u = a_2 \mathrm{d} x + b_2 \mathrm{d} y $，
-    对等号右边也有
-    \[
-    f \left ( \frac {a_1 x + b_1 y + c_1 }{a_2 x + b_2 y + c_2 } \right) = f \left ( \frac { k ( a_2 x + b_2 y ) + c_1 }{a_2 x + b_2 y + c_2 } \right) = f \left ( \frac { ku + c_1 }{u + c_2 } \right)
-    \]
-    此时原**微分方程**变为
-    \[
-    \frac{\mathrm{d} u }{\mathrm{d} x} = a_2 + b_2 g(u).
-    \]
-    它是一个变量分离方程。
+      此时原微分方程变为
+      \[
+      \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac { c_1 }{a_2 x + b_2 y + c_2 } \right) = g ( a_2 x + b_2 y +c_2 );
+      \]
+      或
+      \[
+      \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac {a_1 x + b_1 y + c_1 }{ c_2 } \right) = g ( a_1 x + b_1 y +c_1 );
+      \]
+      这样的方程可以根据上一小节的方法求解。
+
+    - ii. $b_1 = b_2 = 0$ 或 $a_1 = a_2 = 0$：
+
+      此时原微分方程变为
+      \[
+      \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac {a_1 x + c_1 }{a_2 x + c_2 } \right);
+      \]
+      或
+      \[
+      \frac{\mathrm{d} y }{\mathrm{d} x} = f \left ( \frac {b_1 y + c_1 }{b_2 y + c_2 } \right);
+      \]
+      这些都是变量分离方程。
+
+    - iii. $\frac{a_1}{a_2} = \frac{b_1}{b_2} = k$：
+
+      此时令 $ u = a_2 x + b_2 y $，此时 $ \mathrm{d} u = a_2 \mathrm{d} x + b_2 \mathrm{d} y $，
+      对等号右边也有
+      \[
+      f \left ( \frac {a_1 x + b_1 y + c_1 }{a_2 x + b_2 y + c_2 } \right) = f \left ( \frac { k ( a_2 x + b_2 y ) + c_1 }{a_2 x + b_2 y + c_2 } \right) = f \left ( \frac { ku + c_1 }{u + c_2 } \right)
+      \]
+      此时原**微分方程**变为
+      \[
+      \frac{\mathrm{d} u }{\mathrm{d} x} = a_2 + b_2 g(u).
+      \]
+      它是一个变量分离方程。
 
 ::: example
 解微分方程：

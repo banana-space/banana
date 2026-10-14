@@ -30,18 +30,18 @@ $X\subset \mathbb{Q}$ 是有理数的子集，令 $X'=\mathbb{Q}-X$。如果下�
 ::: example*
 我们给出两个Dedekind分割的例子（课堂练习：直接验证定义）：
 
-- a) 假设 $\dfrac{p}{q}$ 是有理数，其中 $p \in \mathbb{Z}$，
-  $q\in \mathbb{Z}_{\geqslant 1}$ 并且 $p$ 和 $q$ 互素，我们定义
-  \[
-  X_{\frac{p}{q}}=\left\{ x\in \mathbb{Q} \Bigm| x< \frac{p}{q} \right\}.
-  \]
-  这个例子将给出所有的有理数。
+a) 假设 $\dfrac{p}{q}$ 是有理数，其中 $p \in \mathbb{Z}$，
+   $q\in \mathbb{Z}_{\geqslant 1}$ 并且 $p$ 和 $q$ 互素，我们定义
+   \[
+   X_{\frac{p}{q}}=\left\{ x\in \mathbb{Q} \Bigm| x< \frac{p}{q} \right\}.
+   \]
+   这个例子将给出所有的有理数。
 
-- b) 我们定义 $X_{\sqrt{2}}$ 如下：
-  \[
-  X_{\sqrt{2}}=\bigl\{x\in \mathbb{Q}_{\geqslant 0}\bigm| x^2<2\bigr\}\cup \mathbb{Q}_{\leqslant 0}.
-  \]
-  这个例子将给出我们所熟悉的 $\sqrt{2}$。
+b) 我们定义 $X_{\sqrt{2}}$ 如下：
+   \[
+   X_{\sqrt{2}}=\bigl\{x\in \mathbb{Q}_{\geqslant 0}\bigm| x^2<2\bigr\}\cup \mathbb{Q}_{\leqslant 0}.
+   \]
+   这个例子将给出我们所熟悉的 $\sqrt{2}$。
 
 :::
 
@@ -169,17 +169,17 @@ $X+Y$ 只是 $\mathbb{Q}$ 的一个子集）。为此，我们只需要依次验
 我们下面需要依次验证和加法相关的几条公理。
 如果不加其他的陈述，我们总假设 $X,Y,Z\in \mathcal{R}$ 是任意选定的Dedekind分割。那么，我们有
 
-- (F1) $(X+Y)+Z=X+(Y+Z)$。
+(F1) $(X+Y)+Z=X+(Y+Z)$。
 
-  根据定义，这是显然的。
+     根据定义，这是显然的。
 
-- (F2) $X+Y=Y+X$。
+(F2) $X+Y=Y+X$。
 
-  根据定义，这也是显然的。
+     根据定义，这也是显然的。
 
-- (O4) 如果 $X< Y$，那么 $X+Z< Y+Z$。
+(O4) 如果 $X< Y$，那么 $X+Z< Y+Z$。
 
-  这个性质的证明不是一句话就可以完成的，我们先准备一个技术工具
+     这个性质的证明不是一句话就可以完成的，我们先准备一个技术工具
 
 ::: lemma
 $X$ 是Dedekind分割。那么，对任意的正整数 $n$，总存在 $x\in X$，$x' \in X'$，使得
@@ -212,51 +212,53 @@ $X$ 是Dedekind分割。那么，对任意的正整数 $n$，总存在 $x\in X$�
 我们现在说明 $y+z\notin X+Z$：如若不然，那么存在 $x\in X$，$z_1\in Z$，使得 $y+z=x+z_1$。
 按照定义，$x<\tilde{y}$，所以 $z'<z_1$。这与 Dedekind 分割的定义中的 2) 矛盾！
 
-- (F3) 对任意的 $X\in \mathcal{R}$，我们都有 $\overline{0}+X=X$。
+(F3) 对任意的 $X\in \mathcal{R}$，我们都有 $\overline{0}+X=X$。
 
-  根据 $\overline{0}$ 的定义，$\overline{0}+X=\bigl\{x+(-a)\bigm|a\in \mathbb{Q}_{>0}\bigr\}$。
-  假设 $x-a \in \overline{0}+X$ 是任意给定的一个元素，其中 $x\in X$，$a\in \mathbb{Q}_{>0}$，那么，
-  根据 $x-a<x$，我们知道 $x-a\in X$，这说明 $\overline{0}+X\subset X$；
-  假设 $x\in X$ 是任意给定的一个元素，那么一定存在 $x'\in X$，使得 $x'>x$，
-  我们令 $a=x'-x \in \mathbb{Q}_{>0}$，从而，$x=x'+(-a)$，这个分解表明 $x\in \overline{0}+X$，
-  所以 $X\subset \overline{0}+X$。
+     根据 $\overline{0}$ 的定义，$\overline{0}+X=\bigl\{x+(-a)\bigm|a\in \mathbb{Q}_{>0}\bigr\}$。
+     假设 $x-a \in \overline{0}+X$ 是任意给定的一个元素，其中 $x\in X$，$a\in \mathbb{Q}_{>0}$，
+     那么，
+     根据 $x-a<x$，我们知道 $x-a\in X$，这说明 $\overline{0}+X\subset X$；
+     假设 $x\in X$ 是任意给定的一个元素，那么一定存在 $x'\in X$，使得 $x'>x$，
+     我们令 $a=x'-x \in \mathbb{Q}_{>0}$，从而，$x=x'+(-a)$，这个分解表明 $x\in \overline{0}+X$，
+     所以 $X\subset \overline{0}+X$。
 
-- (F4) 对任意的Dedekind分割 $X$ 和 $Y$，存在唯一的 $Z\in \mathcal{R}$，使得 $X+Z=Y$。
-  $Y=\overline{0}$ 的情况就是公理(F4)。
+(F4) 对任意的Dedekind分割 $X$ 和 $Y$，存在唯一的 $Z\in \mathcal{R}$，使得 $X+Z=Y$。
+     $Y=\overline{0}$ 的情况就是公理(F4)。
 
-  $X,Y\in \mathcal{R}$ 给定，我们按照下面的方式定义 $Z$：
-  \[
-  Z=\bigl\{y-x' \bigm| y\in Y, x'\in X' \bigr\}.
-  \]
-  我们首先要说明 $Z\in \mathcal{R}$，其推理与之前验证 $X+Y\in \mathcal{R}$ 的方式类似：
+     $X,Y\in \mathcal{R}$ 给定，我们按照下面的方式定义 $Z$：
+     \[
+     Z=\bigl\{y-x' \bigm| y\in Y, x'\in X' \bigr\}.
+     \]
+     我们首先要说明 $Z\in \mathcal{R}$，其推理与之前验证 $X+Y\in \mathcal{R}$ 的方式类似：
 
-  - $Z\neq \varnothing$，$Z'\neq \varnothing$。
+     - $Z\neq \varnothing$，$Z'\neq \varnothing$。
 
-    $Z$ 显然不是空集；为了说明 $Z'$ 不是空集，我们选定 $y'_0\in Y'$，$x_0\in X$，
-    只要说明 $y'_0-x_0 \notin Z$ 即可：如若不然，存在 $y\in Y$ 和 $x'\in X'$，使得 $y-x'=y_0'-x_0$，
-    即
-    $y+x_0=y_0'+x'$，这与 $y<y_0'$ 以及 $x_0<x'$ 矛盾。
+       $Z$ 显然不是空集；为了说明 $Z'$ 不是空集，我们选定 $y'_0\in Y'$，$x_0\in X$，
+       只要说明 $y'_0-x_0 \notin Z$ 即可：如若不然，存在 $y\in Y$ 和 $x'\in X'$，
+       使得 $y-x'=y_0'-x_0$，
+       即
+       $y+x_0=y_0'+x'$，这与 $y<y_0'$ 以及 $x_0<x'$ 矛盾。
 
-  - 对任意的 $y-x' \in Z$，其中 $y\in Y, x'\in X'$，如果 $z<y-x'$，就一定有 $z\in Z$。
+     - 对任意的 $y-x' \in Z$，其中 $y\in Y, x'\in X'$，如果 $z<y-x'$，就一定有 $z\in Z$。
 
-    我们只需要把 $z$ 分解为 $z=y-(y-z)$，根据 $z<y-x'$，我们知道 $y-z>x'$，所以 $y-z\in X'$，
-    所以 $z$ 可以写成 $Y$ 中元素与 $X'$ 中元素的差。
+       我们只需要把 $z$ 分解为 $z=y-(y-z)$，根据 $z<y-x'$，我们知道 $y-z>x'$，所以 $y-z\in X'$，
+       所以 $z$ 可以写成 $Y$ 中元素与 $X'$ 中元素的差。
 
-  - $Z$ 中的元素没有最大元。
+     - $Z$ 中的元素没有最大元。
 
-    证明是平凡的。
+       证明是平凡的。
 
-  现在来说明 $X+Z=Y$。
+     现在来说明 $X+Z=Y$。
 
-  由于 $X+Z$ 中的元素形如 $x+(y-x')$，其中 $x\in X$，$y\in Y$，$x'\in X'$，根据 $x<x'$，
-  所以这个元素必然 $<y$，这就说明该元素落在 $Y$ 中，所以 $X+Z\subset Y$；对任意 $y$，
-  由于 $Y$ 没有最大元，我们可以选取 $\tilde{y}\in Y$，使得 $y<\tilde{y}$。
-  根据上面的技术性引理，我们还可以选取 $x\in X$ 和 $x'\in X'$，使得 $x'-x<\tilde{y}-y$，
-  那么 $\tilde{\tilde{y}}=y+(x'-x) <\tilde{y}$，所以 $\tilde{\tilde{y}}\in Y$。从而，
-  \[
-  y=\underbrace{x}_{\in X}+\underbrace{\tilde{\tilde{y}}-x'}_{\in Z}\in X+Z
-  \]
-  这说明 $Y\subset X+Z$。综合上述，$X+Z=Y$。
+     由于 $X+Z$ 中的元素形如 $x+(y-x')$，其中 $x\in X$，$y\in Y$，$x'\in X'$，根据 $x<x'$，
+     所以这个元素必然 $<y$，这就说明该元素落在 $Y$ 中，所以 $X+Z\subset Y$；对任意 $y$，
+     由于 $Y$ 没有最大元，我们可以选取 $\tilde{y}\in Y$，使得 $y<\tilde{y}$。
+     根据上面的技术性引理，我们还可以选取 $x\in X$ 和 $x'\in X'$，使得 $x'-x<\tilde{y}-y$，
+     那么 $\tilde{\tilde{y}}=y+(x'-x) <\tilde{y}$，所以 $\tilde{\tilde{y}}\in Y$。从而，
+     \[
+     y=\underbrace{x}_{\in X}+\underbrace{\tilde{\tilde{y}}-x'}_{\in Z}\in X+Z
+     \]
+     这说明 $Y\subset X+Z$。综合上述，$X+Z=Y$。
 
 我们再进一步研究刚才所定义的加法的结构。注意到，根据刚刚证明的(F4)，我们可以定义相反数的运算：
 \[

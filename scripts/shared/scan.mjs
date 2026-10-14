@@ -92,6 +92,30 @@ export function readMath(text, start) {
   return fail(text.length);
 }
 
+// A labelled list item's marker (scripts/prebuild/lists.mjs): "(label)" or "label)", then whitespace or the
+// line's end. A label is letters and digits, then maybe primes: (a), (iii), (A1), (2'), a), iv), A1), 1′) (not
+// digits alone without the parenthesis: "1)" is CommonMark's); or, in parentheses, one formula ($…$ or \(…\)):
+// ($\ast$), ($T_{2\frac12}$). A backslash before ")" keeps a line text: "(1\) 与 (3) 之间".
+const labelWord = "[A-Za-z0-9]+['′]*";
+export const labelledMarkerSource = `(?:\\((?:${labelWord}|\\$[^$\\n]+\\$|\\\\\\((?:[^\\n\\\\]|\\\\[^)])*\\\\\\))\\)|(?![0-9]+\\))${labelWord}\\))(?=[ \\t]|$)`;
+const labelledMarker = new RegExp(`^${labelledMarkerSource}`);
+
+/**
+ * A labelled list item's marker at start: { end, label, parenthesized } (label without the parentheses or the
+ * ")"), or undefined.
+ */
+export function readLabelledMarker(text, start) {
+  const match = labelledMarker.exec(text.slice(start, start + 300).split('\n', 1)[0]);
+  if (!match) return;
+  const parenthesized = match[0][0] === '(';
+  return { end: start + match[0].length, label: match[0].slice(parenthesized ? 1 : 0, -1), parenthesized };
+}
+
+/** A label as shown: "'" outside its formula is a prime (1' → 1′). */
+export function labelText(label) {
+  return label.replace(/(\$[^$]*\$|\\\(.*?\\\))|'/g, (all, formula) => formula ?? '′');
+}
+
 // A tag on one line, at most a thousand characters: "<", an optional "/", a name, attributes (a name, maybe "="
 // and a value: in double or single quotes, or bare), maybe "/", and ">".
 const tagPattern = /^<(\/?)([A-Za-z][A-Za-z0-9-]*)((?:[ \t]+[A-Za-z_:][\w.:-]*(?:[ \t]*=[ \t]*(?:"[^"\n]*"|'[^'\n]*'|[^\s"'=<>`]+))?)*)[ \t]*(\/?)>/;

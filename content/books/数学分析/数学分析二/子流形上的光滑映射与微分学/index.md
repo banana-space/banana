@@ -71,68 +71,68 @@ A\colon \mathbf{S}^2\rightarrow \mathbf{S}^2.
 
 我们需要说明上述定义是规范的，这包含了如下两个内容：
 
-- a) 定义2)中我们用了子流形的定义，然而，子流形定义中所选取的局部微分同胚 $\Phi$ 不是唯一的。
-  对 $p\in M$，可以存在另外的包含 $p$ 的开集 $U'\subset \mathbb{R}^m$，
-  $\mathbb{R}^n$ 中的开集 $V'$ 以及微分同胚 $\Phi'\colon U' \rightarrow V'$，
-  使得 $\Phi'(U'\cap M) = V' \cap (\mathbb{R}^d \times \{0\})$。那么，映射
-  \[
-  f_{\Phi'}=\left(\Phi'^{-1}\right)^* f=f\circ \Phi'^{-1}
-  \]
-  是否是在 $V \cap (\mathbb{R}^d \times \{0\})\subset \mathbb{R}^d$ 上的 $C^\infty$ 映射？
-  \[
-  \begin{tikzcd}
-  V' \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi'^{-1}"] \arrow[dr, "\text{光滑}?"swap]
-    &   \ M\cap U' \arrow[d,"f"]\\
-  &   N \subset \mathbb{R}^n\end{tikzcd}
-  \]
-  对任意的 $p$，我们考虑 $\widetilde{U}=U\cap U'$，此时，
-  上述的 $\Phi$ 和 $\Phi'$ 在 $\widetilde{U}$ 上都能定义，
-  我们令 $\widetilde{V}=\Phi(\widetilde{U})$，$\widetilde{V}'=\Phi'(\widetilde{U})$，
-  我们就有如下的交换图表：
-  \[
-  \begin{tikzcd}
-  \widetilde{V} \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi^{-1}"] \arrow[dr, "f_\Phi "swap]
-    &   \ M\cap \widetilde{U} \arrow[d,"f"] & \widetilde{V}' \cap (\mathbb{R}^d \times \{0\})  \arrow[ll,bend right, "\Psi=\Phi\circ {\Phi'}^{-1}"swap] \arrow[l,"\Phi'^{-1}"swap]  \arrow[dl, dashrightarrow,"f_{\Phi'}" ]\\
-  &   N \subset \mathbb{R}^n\end{tikzcd}
-  \]
-  很明显，$f_{\Phi'}$ 是 $f_{\Phi}$ 与 $\Psi$ 的复合，而 $\Psi$ 是两个微分同胚的复合也光滑，
-  所以 $f_{\Phi'}$ 光滑。
+a) 定义2)中我们用了子流形的定义，然而，子流形定义中所选取的局部微分同胚 $\Phi$ 不是唯一的。
+   对 $p\in M$，可以存在另外的包含 $p$ 的开集 $U'\subset \mathbb{R}^m$，
+   $\mathbb{R}^n$ 中的开集 $V'$ 以及微分同胚 $\Phi'\colon U' \rightarrow V'$，
+   使得 $\Phi'(U'\cap M) = V' \cap (\mathbb{R}^d \times \{0\})$。那么，映射
+   \[
+   f_{\Phi'}=\left(\Phi'^{-1}\right)^* f=f\circ \Phi'^{-1}
+   \]
+   是否是在 $V \cap (\mathbb{R}^d \times \{0\})\subset \mathbb{R}^d$ 上的 $C^\infty$ 映射？
+   \[
+   \begin{tikzcd}
+   V' \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi'^{-1}"] \arrow[dr, "\text{光滑}?"swap]
+     &   \ M\cap U' \arrow[d,"f"]\\
+   &   N \subset \mathbb{R}^n\end{tikzcd}
+   \]
+   对任意的 $p$，我们考虑 $\widetilde{U}=U\cap U'$，此时，
+   上述的 $\Phi$ 和 $\Phi'$ 在 $\widetilde{U}$ 上都能定义，
+   我们令 $\widetilde{V}=\Phi(\widetilde{U})$，$\widetilde{V}'=\Phi'(\widetilde{U})$，
+   我们就有如下的交换图表：
+   \[
+   \begin{tikzcd}
+   \widetilde{V} \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi^{-1}"] \arrow[dr, "f_\Phi "swap]
+     &   \ M\cap \widetilde{U} \arrow[d,"f"] & \widetilde{V}' \cap (\mathbb{R}^d \times \{0\})  \arrow[ll,bend right, "\Psi=\Phi\circ {\Phi'}^{-1}"swap] \arrow[l,"\Phi'^{-1}"swap]  \arrow[dl, dashrightarrow,"f_{\Phi'}" ]\\
+   &   N \subset \mathbb{R}^n\end{tikzcd}
+   \]
+   很明显，$f_{\Phi'}$ 是 $f_{\Phi}$ 与 $\Psi$ 的复合，而 $\Psi$ 是两个微分同胚的复合也光滑，
+   所以 $f_{\Phi'}$ 光滑。
 
-- b) 我们要说明1)和2)是等价的。
+b) 我们要说明1)和2)是等价的。
 
-  - $1)\Rightarrow 2).$ 我们考虑如下的交换图表：
-    \[
-    \begin{tikzcd}
-    {V} \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi^{-1}"]  \arrow[dr, "f_\Phi "swap]
-      &   \ M\cap {U} \arrow[d,"f"]  \arrow[r,"\iota"] &U \arrow[dl,"F" ]\\
-    &   N \subset \mathbb{R}^n\end{tikzcd}
-    \]
-    其中，映射 $\iota$ 是包含映射，即
-    \[
-    \iota\colon M\cap U \rightarrow U,  \ \  x\mapsto x.
-    \]
-    按照1)的要求，$F$ 是光滑的。所以，$f_\Phi=F\circ \iota\circ \Phi^{-1}$ 是光滑的。
+   - $1)\Rightarrow 2).$ 我们考虑如下的交换图表：
+     \[
+      \begin{tikzcd}
+      {V} \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi^{-1}"]  \arrow[dr, "f_\Phi "swap]
+     &   \ M\cap {U} \arrow[d,"f"]  \arrow[r,"\iota"] &U \arrow[dl,"F" ]\\
+      &   N \subset \mathbb{R}^n\end{tikzcd}
+     \]
+     其中，映射 $\iota$ 是包含映射，即
+     \[
+     \iota\colon M\cap U \rightarrow U,  \ \  x\mapsto x.
+     \]
+     按照1)的要求，$F$ 是光滑的。所以，$f_\Phi=F\circ \iota\circ \Phi^{-1}$ 是光滑的。
 
-  - $2)\Rightarrow 1).$ 我们考虑如下的交换图表：
-    \[
-    \begin{tikzcd}
-    V  \arrow[r,"\Phi^{-1}"] \arrow[ddr,bend left=30,dashrightarrow, "\mathring{F}"] & U \arrow[dd,bend left=60,dashrightarrow, "F"] \\
-    {V} \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi^{-1}"]  \arrow[u,"\iota"]\arrow[dr, "f_\Phi "swap]
-      &   \ M\cap {U} \arrow[d,"f"]  \arrow[u,"\iota"] \\
-    &   N \subset \mathbb{R}^n\end{tikzcd}
-    \]
+   - $2)\Rightarrow 1).$ 我们考虑如下的交换图表：
+     \[
+      \begin{tikzcd}
+      V  \arrow[r,"\Phi^{-1}"] \arrow[ddr,bend left=30,dashrightarrow, "\mathring{F}"] & U \arrow[dd,bend left=60,dashrightarrow, "F"] \\
+      {V} \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi^{-1}"]  \arrow[u,"\iota"]\arrow[dr, "f_\Phi "swap]
+     &   \ M\cap {U} \arrow[d,"f"]  \arrow[u,"\iota"] \\
+      &   N \subset \mathbb{R}^n\end{tikzcd}
+     \]
 
-  按照2)的要求，下面的三角形的图表中的映射都是光滑的。
-  特别地，$f_\Phi$ 用坐标来表达（$\mathbb{R}^d\times\{0\}$ 上用 $x_1,\cdots,x_d$ 作为坐标）可以写成
-  \[
-  V\cap \mathbb{R}^m\times\{0\} \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d)\mapsto f_{\Phi}(x_1,\cdots,x_d).
-  \]
-  我们可以把 $f_\Phi$ 拓展成 $V$ 上的函数：
-  \[
-  \mathring{F}\colon V \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d,x_{d+1},\cdots, x_n)\mapsto f_{\Phi}(x_1,\cdots,x_d).
-  \]
-  很明显，$\mathring{F}$ 在 $V\cap \mathbb{R}^m\times\{0\} $ 上的限制就是 $f_\Phi$。
-  根据上面的图表，我们令 $F=\mathring{F}\circ\Phi$ 即可。
+   按照2)的要求，下面的三角形的图表中的映射都是光滑的。
+   特别地，$f_\Phi$ 用坐标来表达（$\mathbb{R}^d\times\{0\}$ 上用 $x_1,\cdots,x_d$ 作为坐标）可以写成
+   \[
+   V\cap \mathbb{R}^m\times\{0\} \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d)\mapsto f_{\Phi}(x_1,\cdots,x_d).
+   \]
+   我们可以把 $f_\Phi$ 拓展成 $V$ 上的函数：
+   \[
+   \mathring{F}\colon V \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d,x_{d+1},\cdots, x_n)\mapsto f_{\Phi}(x_1,\cdots,x_d).
+   \]
+   很明显，$\mathring{F}$ 在 $V\cap \mathbb{R}^m\times\{0\} $ 上的限制就是 $f_\Phi$。
+   根据上面的图表，我们令 $F=\mathring{F}\circ\Phi$ 即可。
 
 ::: remark*
 当 $N=\mathbb{R}$ 时，我们就定义了 $M$ 上的光滑函数 $C^\infty(M)$。

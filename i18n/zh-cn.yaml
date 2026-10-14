@@ -350,6 +350,8 @@ build_heading_reference_cycle:
   other: 标题显示文字存在循环引用：{{ .Path }}
 build_item_label_empty:
   other: 引用标签无效：列表项目标签不能为空
+build_labelled_list_mixed:
+  other: 标签列表项目（如 (a)、i)）不能与编号列表项目（如 1)、1.）相邻成为同一个列表；请用其他内容将两者隔开
 build_items_list:
   other: items 必须是非空列表
 build_label_duplicate:

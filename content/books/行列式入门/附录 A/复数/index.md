@@ -298,60 +298,49 @@ title: 复数
 设 \(x\)、\(y\)、\(z\) 是复数。
 复数的加法与乘法适合：
 
-(1)
-对任何复数 \(x\)，\(y\)，
-它们的和 \(x + y\) 是复数。
+(1) 对任何复数 \(x\)，\(y\)，
+    它们的和 \(x + y\) 是复数。
 
-(2)
-加法结合律：
-对任何复数 \(x\)、\(y\)、\(z\)，
-\((x + y) + z = x + (y + z)\)。
+(2) 加法结合律：
+    对任何复数 \(x\)、\(y\)、\(z\)，
+    \((x + y) + z = x + (y + z)\)。
 
-(3)
-加法交换律：
-对任何复数 \(x\)，\(y\)，
-\(x + y = y + x\)。
+(3) 加法交换律：
+    对任何复数 \(x\)，\(y\)，
+    \(x + y = y + x\)。
 
-(4)
-\(0 = 0 + \mathrm{i} 0\) 适合，
-对任何复数 \(x\)，
-\(0 + x = x = x + 0\)。
+(4) \(0 = 0 + \mathrm{i} 0\) 适合，
+    对任何复数 \(x\)，
+    \(0 + x = x = x + 0\)。
 
-(5)
-对任何复数 \(x\)，存在复数 \(-x\)，使
-\((-x) + x = 0 = x + (-x)\)。
+(5) 对任何复数 \(x\)，存在复数 \(-x\)，使
+    \((-x) + x = 0 = x + (-x)\)。
 
-(6)
-对任何复数 \(x\)，\(y\)，
-它们的积 \(x y\) 是复数。
+(6) 对任何复数 \(x\)，\(y\)，
+    它们的积 \(x y\) 是复数。
 
-(7)
-乘法结合律：
-对任何复数 \(x\)、\(y\)、\(z\)，
-\((x y) z = x (y z)\)。
+(7) 乘法结合律：
+    对任何复数 \(x\)、\(y\)、\(z\)，
+    \((x y) z = x (y z)\)。
 
-(8)
-乘法交换律：
-对任何复数 \(x\)，\(y\)，
-\(x y = y x\)。
+(8) 乘法交换律：
+    对任何复数 \(x\)，\(y\)，
+    \(x y = y x\)。
 
-(9)
-\(1 = 1 + \mathrm{i} 0\) 适合，
-对任何复数 \(x\)，
-\(1 x = x = x 1\)。
+(9) \(1 = 1 + \mathrm{i} 0\) 适合，
+    对任何复数 \(x\)，
+    \(1 x = x = x 1\)。
 
-(10)
-对任何不等于 \(0\) 的复数 \(x\)，
-存在不等于 \(0\) 的复数 \(\operatorname{rec} {(x)}\)，使
-\(\operatorname{rec} {(x)} \cdot x
-    = 1
-  = x \cdot \operatorname{rec} {(x)}\)。
+(10) 对任何不等于 \(0\) 的复数 \(x\)，
+     存在不等于 \(0\) 的复数 \(\operatorname{rec} {(x)}\)，使
+     \(\operatorname{rec} {(x)} \cdot x
+         = 1
+       = x \cdot \operatorname{rec} {(x)}\)。
 
-(11)
-分配律：
-对任何复数 \(x\)、\(y\)、\(z\)，
-\(x (y + z) = x y + x z\)，
-且 \((x + y) z = x z + y z\)。
+(11) 分配律：
+     对任何复数 \(x\)、\(y\)、\(z\)，
+     \(x (y + z) = x y + x z\)，
+     且 \((x + y) z = x z + y z\)。
 :::
 
 ::: proof
@@ -362,384 +351,373 @@ title: 复数
 其中，
 \(a\)、\(b\)、\(c\)、\(d\)、\(e\)、\(f\) 是实数。
 
-(1)
-回想，
-\(x + y = (a + c) + \mathrm{i} (b + d)\)。
-因为 \(a\)、\(c\) 是实数，
-\(a + c\) 是实数；
-因为 \(b\)、\(d\) 是实数，
-\(b + d\) 是实数。
-则 \(x + y\) 是复数。
+(1) 回想，
+    \(x + y = (a + c) + \mathrm{i} (b + d)\)。
+    因为 \(a\)、\(c\) 是实数，
+    \(a + c\) 是实数；
+    因为 \(b\)、\(d\) 是实数，
+    \(b + d\) 是实数。
+    则 \(x + y\) 是复数。
 
-(2)
-注意，
-\[
-\begin{aligned}
-  (x + y) + z
-  = {} &
-  ((a + \mathrm{i} b) + (c + \mathrm{i} d))
-  + (e + \mathrm{i} f)
-  \\
-  = {} &
-  ((a + c) + \mathrm{i} (b + d))
-  + (e + \mathrm{i} f)
-  \\
-  = {} &
-  ((a + c) + e) + \mathrm{i} ((b + d) + f)
-  \\
-  = {} &
-  (a + (c + e)) + \mathrm{i} (b + (d + f))
-  \\
-  = {} &
-  (a + \mathrm{i} b)
-  + ((c + e) + \mathrm{i} (d + f))
-  \\
-  = {} &
-  (a + \mathrm{i} b)
-  + ((c + \mathrm{i} d) + (e + \mathrm{i} f))
-  \\
-  = {} &
-  x + (y + z).
-\end{aligned}
-\]
+(2) 注意，
+    \[
+        \begin{aligned}
+          (x + y) + z
+          = {} &
+          ((a + \mathrm{i} b) + (c + \mathrm{i} d))
+      + (e + \mathrm{i} f)
+      \\
+      = {} &
+      ((a + c) + \mathrm{i} (b + d))
+      + (e + \mathrm{i} f)
+      \\
+      = {} &
+      ((a + c) + e) + \mathrm{i} ((b + d) + f)
+      \\
+      = {} &
+      (a + (c + e)) + \mathrm{i} (b + (d + f))
+      \\
+      = {} &
+      (a + \mathrm{i} b)
+      + ((c + e) + \mathrm{i} (d + f))
+      \\
+      = {} &
+      (a + \mathrm{i} b)
+      + ((c + \mathrm{i} d) + (e + \mathrm{i} f))
+      \\
+      = {} &
+      x + (y + z).
+    \end{aligned}
+    \]
 
-(3)
-注意，
-\[
-\begin{aligned}
-  x + y
-  = {} &
-  (a + \mathrm{i} b) + (c + \mathrm{i} d)
-  \\
-  = {} &
-  (a + c) + \mathrm{i} (b + d)
-  \\
-  = {} &
-  (c + a) + \mathrm{i} (d + b)
-  \\
-  = {} &
-  (c + \mathrm{i} d) + (a + \mathrm{i} b)
-  \\
-  = {} &
-  y + x.
-\end{aligned}
-\]
+(3) 注意，
+    \[
+    \begin{aligned}
+      x + y
+      = {} &
+      (a + \mathrm{i} b) + (c + \mathrm{i} d)
+      \\
+      = {} &
+      (a + c) + \mathrm{i} (b + d)
+      \\
+      = {} &
+      (c + a) + \mathrm{i} (d + b)
+      \\
+      = {} &
+      (c + \mathrm{i} d) + (a + \mathrm{i} b)
+      \\
+      = {} &
+      y + x.
+    \end{aligned}
+    \]
 
-(4)
-我证 \(0 + x = x\)；
-我留另一部分为您的习题
-（注意，您能用交换律：
-\(x + 0 = 0 + x = x\)）。
-注意，
-\[
-\begin{aligned}
-  0 + x
-  = {} &
-  (0 + \mathrm{i} 0) + (a + \mathrm{i} b)
-  \\
-  = {} &
-  (0 + a) + \mathrm{i} (0 + b)
-  \\
-  = {} &
-  a + \mathrm{i} b
-  \\
-  = {} &
-  x.
-\end{aligned}
-\]
+(4) 我证 \(0 + x = x\)；
+    我留另一部分为您的习题
+    （注意，您能用交换律：
+    \(x + 0 = 0 + x = x\)）。
+    注意，
+    \[
+    \begin{aligned}
+      0 + x
+      = {} &
+      (0 + \mathrm{i} 0) + (a + \mathrm{i} b)
+      \\
+      = {} &
+      (0 + a) + \mathrm{i} (0 + b)
+      \\
+      = {} &
+      a + \mathrm{i} b
+      \\
+      = {} &
+      x.
+    \end{aligned}
+    \]
 
-(5)
-设 \(-x = -a + \mathrm{i} (-b)\)。
-我证 \((-x) + x = 0\)；
-我留另一部分为您的习题
-（注意，您能用交换律：
-\(x + (-x) = (-x) + x = 0\)）。
-注意，
-\[
-\begin{aligned}
-  (-x) + x
-  = {} &
-  (-a + \mathrm{i} (-b)) + (a + \mathrm{i} b)
-  \\
-  = {} &
-  (-a + a) + \mathrm{i} (-b + b)
-  \\
-  = {} &
-  0 + \mathrm{i} 0
-  \\
-  = {} &
-  0.
-\end{aligned}
-\]
+(5) 设 \(-x = -a + \mathrm{i} (-b)\)。
+    我证 \((-x) + x = 0\)；
+    我留另一部分为您的习题
+    （注意，您能用交换律：
+    \(x + (-x) = (-x) + x = 0\)）。
+    注意，
+    \[
+        \begin{aligned}
+      (-x) + x
+      = {} &
+      (-a + \mathrm{i} (-b)) + (a + \mathrm{i} b)
+      \\
+      = {} &
+      (-a + a) + \mathrm{i} (-b + b)
+      \\
+      = {} &
+      0 + \mathrm{i} 0
+      \\
+      = {} &
+      0.
+    \end{aligned}
+    \]
 
-(6)
-回想，
-\(x y = (a c - b d) + \mathrm{i} (a d + b c)\)。
-因为 \(a\)、\(c\) 是实数，
-\(a c\) 是实数；
-因为 \(b\)、\(d\) 是实数，
-\(b d\) 是实数。
-则 \(a c - b d\) 是实数。
-因为 \(a\)、\(d\) 是实数，
-\(a d\) 是实数；
-因为 \(b\)、\(c\) 是实数，
-\(b c\) 是实数。
-则 \(a d + b c\) 是实数。
-则 \(x y\) 是复数。
+(6) 回想，
+    \(x y = (a c - b d) + \mathrm{i} (a d + b c)\)。
+    因为 \(a\)、\(c\) 是实数，
+    \(a c\) 是实数；
+    因为 \(b\)、\(d\) 是实数，
+    \(b d\) 是实数。
+    则 \(a c - b d\) 是实数。
+    因为 \(a\)、\(d\) 是实数，
+    \(a d\) 是实数；
+    因为 \(b\)、\(c\) 是实数，
+    \(b c\) 是实数。
+    则 \(a d + b c\) 是实数。
+    则 \(x y\) 是复数。
 
-(7)
-注意，
-对任何实数 \(g\)，\(h\)，
-\(-(g + h) = -h + (-g) = -h - g\)。
-则
-\[
-\begin{aligned}
-  &
-  (x y) z
-  \\
-  = {} &
-  ((a + \mathrm{i} b) (c + \mathrm{i} d))
-  (e + \mathrm{i} f)
-  \\
-  = {} &
-  ((ac - bd) + \mathrm{i} (ad + bc))
-  (e + \mathrm{i} f)
-  \\
-  = {} &
-  ((ac - bd)e - (ad + bc)f)
-  + \mathrm{i} ((ac - bd)f + (ad + bc)e)
-  \\
-  = {} &
-  (((ac)e - (bd)e) - ((ad)f + (bc)f))
-  + \mathrm{i} (((ac)f - (bd)f) + ((ad)e + (bc)e))
-  \\
-  = {} &
-  ((a(ce) - b(de)) - (a(df) + b(cf)))
-  + \mathrm{i} ((a(cf) - b(df)) + (a(de) + b(ce)))
-  \\
-  = {} &
-  ((a(ce) - b(de)) + (-b(cf) - a(df)))
-  + \mathrm{i} ((a(cf) - b(df)) + (a(de) + b(ce)))
-  \\
-  = {} &
-  ((a(ce) - b(de)) + (-a(df) - b(cf)))
-  + \mathrm{i} ((a(cf) - b(df)) + (a(de) + b(ce)))
-  \\
-  = {} &
-  (((a(ce) - b(de)) - a(df)) - b(cf))
-  + \mathrm{i} (((a(cf) - b(df)) + a(de)) + b(ce))
-  \\
-  = {} &
-  ((a(ce) + (-b(de) - a(df))) - b(cf))
-  \\
-  &
-  \quad \quad \quad \quad \quad \quad \quad
-  \quad \quad \quad \quad \quad \quad \quad
-  + \mathrm{i} ((a(cf) + (-b(df) + a(de))) + b(ce))
-  \\
-  = {} &
-  ((a(ce) + (-a(df) - b(de))) - b(cf))
-  + \mathrm{i} ((a(cf) + (a(de) - b(df))) + b(ce))
-  \\
-  = {} &
-  (((a(ce) - a(df)) - b(de)) - b(cf))
-  + \mathrm{i} (((a(cf) + a(de)) - b(df)) + b(ce))
-  \\
-  = {} &
-  ((a(ce) - a(df)) + (-b(de) - b(cf)))
-  \\
-  &
-  \quad \quad \quad \quad \quad \quad \quad
-  \quad \quad \quad \quad \quad \quad \quad
-  + \mathrm{i} ((a(cf) + a(de)) + (-b(df) + b(ce)))
-  \\
-  = {} &
-  ((a(ce) - a(df)) - (b(cf) + b(de)))
-  + \mathrm{i} ((a(cf) + a(de)) + (b(ce) + b(-df)))
-  \\
-  = {} &
-  (a(ce - df) - b(cf + de))
-  + \mathrm{i} (a(cf + de) + b(ce - df))
-  \\
-  = {} &
-  (a + \mathrm{i} b)
-  ((ce - df) + \mathrm{i} (cf + de))
-  \\
-  = {} &
-  (a + \mathrm{i} b)
-  ((c + \mathrm{i} d) (e + \mathrm{i} f))
-  \\
-  = {} &
-  x (y z).
-\end{aligned}
-\]
+(7) 注意，
+    对任何实数 \(g\)，\(h\)，
+    \(-(g + h) = -h + (-g) = -h - g\)。
+    则
+    \[
+        \begin{aligned}
+          &
+          (x y) z
+          \\
+          = {} &
+          ((a + \mathrm{i} b) (c + \mathrm{i} d))
+          (e + \mathrm{i} f)
+          \\
+          = {} &
+          ((ac - bd) + \mathrm{i} (ad + bc))
+          (e + \mathrm{i} f)
+          \\
+          = {} &
+          ((ac - bd)e - (ad + bc)f)
+      + \mathrm{i} ((ac - bd)f + (ad + bc)e)
+      \\
+      = {} &
+      (((ac)e - (bd)e) - ((ad)f + (bc)f))
+      + \mathrm{i} (((ac)f - (bd)f) + ((ad)e + (bc)e))
+      \\
+      = {} &
+      ((a(ce) - b(de)) - (a(df) + b(cf)))
+      + \mathrm{i} ((a(cf) - b(df)) + (a(de) + b(ce)))
+      \\
+      = {} &
+      ((a(ce) - b(de)) + (-b(cf) - a(df)))
+      + \mathrm{i} ((a(cf) - b(df)) + (a(de) + b(ce)))
+      \\
+      = {} &
+      ((a(ce) - b(de)) + (-a(df) - b(cf)))
+      + \mathrm{i} ((a(cf) - b(df)) + (a(de) + b(ce)))
+      \\
+      = {} &
+      (((a(ce) - b(de)) - a(df)) - b(cf))
+      + \mathrm{i} (((a(cf) - b(df)) + a(de)) + b(ce))
+      \\
+      = {} &
+      ((a(ce) + (-b(de) - a(df))) - b(cf))
+      \\
+      &
+      \quad \quad \quad \quad \quad \quad \quad
+      \quad \quad \quad \quad \quad \quad \quad
+      + \mathrm{i} ((a(cf) + (-b(df) + a(de))) + b(ce))
+      \\
+      = {} &
+      ((a(ce) + (-a(df) - b(de))) - b(cf))
+      + \mathrm{i} ((a(cf) + (a(de) - b(df))) + b(ce))
+      \\
+      = {} &
+      (((a(ce) - a(df)) - b(de)) - b(cf))
+      + \mathrm{i} (((a(cf) + a(de)) - b(df)) + b(ce))
+      \\
+      = {} &
+      ((a(ce) - a(df)) + (-b(de) - b(cf)))
+      \\
+      &
+      \quad \quad \quad \quad \quad \quad \quad
+      \quad \quad \quad \quad \quad \quad \quad
+      + \mathrm{i} ((a(cf) + a(de)) + (-b(df) + b(ce)))
+      \\
+      = {} &
+      ((a(ce) - a(df)) - (b(cf) + b(de)))
+      + \mathrm{i} ((a(cf) + a(de)) + (b(ce) + b(-df)))
+      \\
+      = {} &
+      (a(ce - df) - b(cf + de))
+      + \mathrm{i} (a(cf + de) + b(ce - df))
+      \\
+      = {} &
+      (a + \mathrm{i} b)
+      ((ce - df) + \mathrm{i} (cf + de))
+      \\
+      = {} &
+      (a + \mathrm{i} b)
+      ((c + \mathrm{i} d) (e + \mathrm{i} f))
+      \\
+      = {} &
+      x (y z).
+    \end{aligned}
+    \]
 
-(8)
-注意，
-\[
-\begin{aligned}
-  x y
-  = {} &
-  (a + \mathrm{i} b) (c + \mathrm{i} d)
-  \\
-  = {} &
-  (a c - b d) + \mathrm{i} (a d + b c)
-  \\
-  = {} &
-  (c a - d b) + \mathrm{i} (d a + c b)
-  \\
-  = {} &
-  (c + \mathrm{i} d) (a + \mathrm{i} b)
-  \\
-  = {} &
-  y x.
-\end{aligned}
-\]
+(8) 注意，
+    \[
+    \begin{aligned}
+      x y
+      = {} &
+      (a + \mathrm{i} b) (c + \mathrm{i} d)
+      \\
+      = {} &
+      (a c - b d) + \mathrm{i} (a d + b c)
+      \\
+      = {} &
+      (c a - d b) + \mathrm{i} (d a + c b)
+      \\
+      = {} &
+      (c + \mathrm{i} d) (a + \mathrm{i} b)
+      \\
+      = {} &
+      y x.
+    \end{aligned}
+    \]
 
-(9)
-我证 \(1 x = x\)；
-我留另一部分为您的习题
-（注意，您能用交换律：
-\(x 1 = 1 x = x\)）。
-注意，
-\[
-\begin{aligned}
-  1 x
-  = {} &
-  (1 + \mathrm{i} 0) (a + \mathrm{i} b)
-  \\
-  = {} &
-  (1 a - 0 b) + \mathrm{i} (1 b + 0 a)
-  \\
-  = {} &
-  (a - 0) + \mathrm{i} (b + 0)
-  \\
-  = {} &
-  a + \mathrm{i} b
-  \\
-  = {} &
-  x.
-\end{aligned}
-\]
+(9) 我证 \(1 x = x\)；
+    我留另一部分为您的习题
+    （注意，您能用交换律：
+    \(x 1 = 1 x = x\)）。
+    注意，
+    \[
+    \begin{aligned}
+      1 x
+      = {} &
+      (1 + \mathrm{i} 0) (a + \mathrm{i} b)
+      \\
+      = {} &
+      (1 a - 0 b) + \mathrm{i} (1 b + 0 a)
+      \\
+      = {} &
+      (a - 0) + \mathrm{i} (b + 0)
+      \\
+      = {} &
+      a + \mathrm{i} b
+      \\
+      = {} &
+      x.
+    \end{aligned}
+    \]
 
-(10)
-因为 \(x \neq 0\)，
-\(a\)、\(b\) 不能全是 \(0\)。
-则非负数 \(a^2\)、\(b^2\) 不能全是 \(0\)。
-则 \(a^2 + b^2\) 是正数。
-则 \(a^2 + b^2 \neq 0\)。
-设 \(\operatorname{rec} {(x)}
-  = a/(a^2 + b^2) + \mathrm{i} (-b/(a^2 + b^2))\)。
-则 \(a/(a^2 + b^2)\)、\(-b/(a^2 + b^2)\)
-不能全是 \(0\)。
-则 \(\operatorname{rec} {(x)} \neq 0\)。
+(10) 因为 \(x \neq 0\)，
+     \(a\)、\(b\) 不能全是 \(0\)。
+     则非负数 \(a^2\)、\(b^2\) 不能全是 \(0\)。
+     则 \(a^2 + b^2\) 是正数。
+     则 \(a^2 + b^2 \neq 0\)。
+     设 \(\operatorname{rec} {(x)}
+       = a/(a^2 + b^2) + \mathrm{i} (-b/(a^2 + b^2))\)。
+     则 \(a/(a^2 + b^2)\)、\(-b/(a^2 + b^2)\)
+     不能全是 \(0\)。
+     则 \(\operatorname{rec} {(x)} \neq 0\)。
 
-我证 \(\operatorname{rec} {(x)} \cdot x = 1\)；
-我留另一部分为您的习题
-（注意，您能用交换律：\(
-      x \cdot \operatorname{rec} {(x)}
-      = \operatorname{rec} {(x)} \cdot x = 1
-  \)）。
-注意，
-\[
-\begin{aligned}
-  \operatorname{rec} {(x)} \cdot x
-  = {} &
-  \left( \frac{a}{a^2 + b^2}
-  + \mathrm{i} \frac{-b}{a^2 + b^2} \right)
-  (a + \mathrm{i} b)
-  \\
-  = {} &
-  \left(
-    \frac{a}{a^2 + b^2} a - \frac{-b}{a^2 + b^2} b
-  \right)
-  + \mathrm{i}
-  \left(
-    \frac{a}{a^2 + b^2} b + \frac{-b}{a^2 + b^2} a
-  \right)
-  \\
-  = {} &
-  \frac{a a - (-b) b}{a^2 + b^2}
-  + \mathrm{i} \frac{a b + (-b) a}{a^2 + b^2}
-  \\
-  = {} &
-  \frac{a^2 + b^2}{a^2 + b^2}
-  + \mathrm{i} \frac{a b - a b}{a^2 + b^2}
-  \\
-  = {} &
-  1 + \mathrm{i} 0
-  \\
-  = {} &
-  1.
-\end{aligned}
-\]
+     我证 \(\operatorname{rec} {(x)} \cdot x = 1\)；
+     我留另一部分为您的习题
+     （注意，您能用交换律：\(
+           x \cdot \operatorname{rec} {(x)}
+           = \operatorname{rec} {(x)} \cdot x = 1
+       \)）。
+     注意，
+     \[
+     \begin{aligned}
+       \operatorname{rec} {(x)} \cdot x
+       = {} &
+       \left( \frac{a}{a^2 + b^2}
+       + \mathrm{i} \frac{-b}{a^2 + b^2} \right)
+       (a + \mathrm{i} b)
+       \\
+       = {} &
+       \left(
+         \frac{a}{a^2 + b^2} a - \frac{-b}{a^2 + b^2} b
+       \right)
+       + \mathrm{i}
+       \left(
+         \frac{a}{a^2 + b^2} b + \frac{-b}{a^2 + b^2} a
+       \right)
+       \\
+       = {} &
+       \frac{a a - (-b) b}{a^2 + b^2}
+       + \mathrm{i} \frac{a b + (-b) a}{a^2 + b^2}
+       \\
+       = {} &
+       \frac{a^2 + b^2}{a^2 + b^2}
+       + \mathrm{i} \frac{a b - a b}{a^2 + b^2}
+       \\
+       = {} &
+       1 + \mathrm{i} 0
+       \\
+       = {} &
+       1.
+     \end{aligned}
+     \]
 
-(11)
-我证 \(x (y + z) = x y + x z\)；
-我留另一部分为您的习题
-（注意，您能用交换律：\(
-      (x + y) z = z (x + y) = z x + z y = x z + y z
-  \)）。
-注意，
-\[
-\begin{aligned}
-  x (y + z)
-  = {} &
-  (a + \mathrm{i} b)
-  ((c + \mathrm{i} d) + (e + \mathrm{i} f))
-  \\
-  = {} &
-  (a + \mathrm{i} b)
-  ((c + e) + \mathrm{i} (d + f))
-  \\
-  = {} &
-  (a (c + e) - b (d + f))
-  + \mathrm{i} (a (d + f) + b (c + e))
-  \\
-  = {} &
-  ((ac + ae) - (bd + bf))
-  + \mathrm{i} ((ad + af) + (bc + be))
-  \\
-  = {} &
-  ((ac + ae) + (-bf - bd))
-  + \mathrm{i} ((ad + af) + (bc + be))
-  \\
-  = {} &
-  ((ac + ae) + (-bd - bf))
-  + \mathrm{i} ((ad + af) + (bc + be))
-  \\
-  = {} &
-  (((ac + ae) - bd) - bf)
-  + \mathrm{i} (((ad + af) + bc) + be)
-  \\
-  = {} &
-  ((ac + (ae - bd)) - bf)
-  + \mathrm{i} ((ad + (af + bc)) + be)
-  \\
-  = {} &
-  ((ac + (-bd + ae)) - bf)
-  + \mathrm{i} ((ad + (bc + af)) + be)
-  \\
-  = {} &
-  (((ac - bd) + ae) - bf)
-  + \mathrm{i} (((ad + bc) + af) + be)
-  \\
-  = {} &
-  ((ac - bd) + (ae - bf))
-  + \mathrm{i} ((ad + bc) + (af + be))
-  \\
-  = {} &
-  ((ac - bd) + \mathrm{i} (ad + bc))
-  + ((ae - bf) + \mathrm{i} (af + be))
-  \\
-  = {} &
-  (a + \mathrm{i} b) (c + \mathrm{i} d)
-  + (a + \mathrm{i} b) (e + \mathrm{i} f)
-  \\
-  = {} &
-  x y + x z.
-\end{aligned}
-\]
+(11) 我证 \(x (y + z) = x y + x z\)；
+     我留另一部分为您的习题
+     （注意，您能用交换律：\(
+           (x + y) z = z (x + y) = z x + z y = x z + y z
+       \)）。
+     注意，
+     \[
+          \begin{aligned}
+            x (y + z)
+            = {} &
+            (a + \mathrm{i} b)
+            ((c + \mathrm{i} d) + (e + \mathrm{i} f))
+            \\
+            = {} &
+            (a + \mathrm{i} b)
+            ((c + e) + \mathrm{i} (d + f))
+            \\
+            = {} &
+            (a (c + e) - b (d + f))
+       + \mathrm{i} (a (d + f) + b (c + e))
+       \\
+       = {} &
+       ((ac + ae) - (bd + bf))
+       + \mathrm{i} ((ad + af) + (bc + be))
+       \\
+       = {} &
+       ((ac + ae) + (-bf - bd))
+       + \mathrm{i} ((ad + af) + (bc + be))
+       \\
+       = {} &
+       ((ac + ae) + (-bd - bf))
+       + \mathrm{i} ((ad + af) + (bc + be))
+       \\
+       = {} &
+       (((ac + ae) - bd) - bf)
+       + \mathrm{i} (((ad + af) + bc) + be)
+       \\
+       = {} &
+       ((ac + (ae - bd)) - bf)
+       + \mathrm{i} ((ad + (af + bc)) + be)
+       \\
+       = {} &
+       ((ac + (-bd + ae)) - bf)
+       + \mathrm{i} ((ad + (bc + af)) + be)
+       \\
+       = {} &
+       (((ac - bd) + ae) - bf)
+       + \mathrm{i} (((ad + bc) + af) + be)
+       \\
+       = {} &
+       ((ac - bd) + (ae - bf))
+       + \mathrm{i} ((ad + bc) + (af + be))
+       \\
+       = {} &
+       ((ac - bd) + \mathrm{i} (ad + bc))
+       + ((ae - bf) + \mathrm{i} (af + be))
+       \\
+       = {} &
+       (a + \mathrm{i} b) (c + \mathrm{i} d)
+       + (a + \mathrm{i} b) (e + \mathrm{i} f)
+       \\
+       = {} &
+       x y + x z.
+     \end{aligned}
+     \]
 :::
 
 由此，我们可定义复数的减法与除法。
@@ -891,15 +869,13 @@ title: 复数
 设 \(x\) 是复数，且 \(x \neq 0\)。
 设 \(m\) 是整数。
 
-(1)
-设 \(m \geqslant 0\)。
-则 \(x\) 的 \(m\) 次方 \(x^m\) 已被定义。
+(1) 设 \(m \geqslant 0\)。
+    则 \(x\) 的 \(m\) 次方 \(x^m\) 已被定义。
 
-(2)
-设 \(m < 0\)。
-我们定义 \(x\) 的 \(m\) 次方 \(x^m\)
-为 \(x\) 的倒数 \(\operatorname{rec} {(x)}\)
-的 \(-m\) 次方 \((\operatorname{rec} {(x)})^{-m}\)。
+(2) 设 \(m < 0\)。
+    我们定义 \(x\) 的 \(m\) 次方 \(x^m\)
+    为 \(x\) 的倒数 \(\operatorname{rec} {(x)}\)
+    的 \(-m\) 次方 \((\operatorname{rec} {(x)})^{-m}\)。
 :::
 
 注意，若 \(x \neq 0\)，则
@@ -932,56 +908,52 @@ title: 复数
 复数的加法与乘法适合消去律。
 具体地：
 
-(1)
-若 \(x + y = x + z\)，或 \(y + x = z + x\)，
-则 \(y = z\)。
+(1) 若 \(x + y = x + z\)，或 \(y + x = z + x\)，
+    则 \(y = z\)。
 
-(2)
-设 \(x \neq 0\)。
-若 \(x y = x z\)，或 \(y x = z x\)，
-则 \(y = z\)。
+(2) 设 \(x \neq 0\)。
+    若 \(x y = x z\)，或 \(y x = z x\)，
+    则 \(y = z\)。
 :::
 
 ::: proof
-(1)
-我证明当 \(x + y = x + z\) 时的情形；
-我留另一部分为您的习题。
-（注意，您可以用交换律：
-若 \(y + x = z + x\)，
-则 \(x + y = y + x = z + x = x + z\)。）
-注意，
-\[
-\begin{aligned}
-  y
-  = {} & 0 + y          \\
-  = {} & ((-x) + x) + y \\
-  = {} & (-x) + (x + y) \\
-  = {} & (-x) + (x + z) \\
-  = {} & ((-x) + x) + z \\
-  = {} & 0 + z          \\
-  = {} & z.
-\end{aligned}
-\]
+(1) 我证明当 \(x + y = x + z\) 时的情形；
+    我留另一部分为您的习题。
+    （注意，您可以用交换律：
+    若 \(y + x = z + x\)，
+    则 \(x + y = y + x = z + x = x + z\)。）
+    注意，
+    \[
+    \begin{aligned}
+      y
+      = {} & 0 + y          \\
+      = {} & ((-x) + x) + y \\
+      = {} & (-x) + (x + y) \\
+      = {} & (-x) + (x + z) \\
+      = {} & ((-x) + x) + z \\
+      = {} & 0 + z          \\
+      = {} & z.
+    \end{aligned}
+    \]
 
-(2)
-我证明当 \(x \neq 0\)，且 \(x y = x z\) 时的情形；
-我留另一部分为您的习题。
-（注意，您可以用交换律：
-若 \(y x = z x\)，
-则 \(x y = y x = z x = x z\)。）
-注意，
-\[
-\begin{aligned}
-  y
-  = {} & 1 y          \\
-  = {} & (x^{-1} x) y \\
-  = {} & x^{-1} (x y) \\
-  = {} & x^{-1} (x z) \\
-  = {} & (x^{-1} x) z \\
-  = {} & 1 z          \\
-  = {} & z.
-\end{aligned}
-\]
+(2) 我证明当 \(x \neq 0\)，且 \(x y = x z\) 时的情形；
+    我留另一部分为您的习题。
+    （注意，您可以用交换律：
+    若 \(y x = z x\)，
+    则 \(x y = y x = z x = x z\)。）
+    注意，
+    \[
+    \begin{aligned}
+      y
+      = {} & 1 y          \\
+      = {} & (x^{-1} x) y \\
+      = {} & x^{-1} (x y) \\
+      = {} & x^{-1} (x z) \\
+      = {} & (x^{-1} x) z \\
+      = {} & 1 z          \\
+      = {} & z.
+    \end{aligned}
+    \]
 :::
 
 由此可见，对任何复数 \(x\)，

@@ -322,69 +322,69 @@ y \times e^n = y \times e^1 \times \cdots \times e^1.
 ::: proof [@thm-2-thom 的证明]
 我们从最简单的情况开始。
 
-- (1) $E$ 是平凡丛 $B \times \mathbb{R}^n$。
-  在引理中取 $(X, A) = (B, \emptyset)$，
-  我们就得到了同构
-  \[
-  {} \times e^n \colon H^q (\mathrm{D}(E)) \simeq \widetilde{H}^{q+n} (\mathrm{Th}(E)).
-  \]
-  因此，我们定义
-  \[
-  u = 1 \times e^n \in \widetilde{H}^n(\mathrm{Th}(E)),
-  \]
-  其中 $1 \in H^0(\mathrm{D}(E))$。
-  则 $u$ 满足定理的要求。
-  而上述同构也保证了 $u$ 的唯一性，
-  因为 $1$ 是 $H^0(\mathrm{D}(E))$ 中唯一的在每点限制都等于 $1$ 的上同调类。
+(1) $E$ 是平凡丛 $B \times \mathbb{R}^n$。
+    在引理中取 $(X, A) = (B, \emptyset)$，
+    我们就得到了同构
+    \[
+    {} \times e^n \colon H^q (\mathrm{D}(E)) \simeq \widetilde{H}^{q+n} (\mathrm{Th}(E)).
+    \]
+    因此，我们定义
+    \[
+    u = 1 \times e^n \in \widetilde{H}^n(\mathrm{Th}(E)),
+    \]
+    其中 $1 \in H^0(\mathrm{D}(E))$。
+    则 $u$ 满足定理的要求。
+    而上述同构也保证了 $u$ 的唯一性，
+    因为 $1$ 是 $H^0(\mathrm{D}(E))$ 中唯一的在每点限制都等于 $1$ 的上同调类。
 
-- (2) $B = B_1 \cup B_2$，其中 $B_1, B_2$ 是开子集，
-  且 $E|_{B_1}$ 和 $E|_{B_2}$ 是平凡丛。
-  记 $E_1 = p^{-1}(B_1)$，及 $E_2 = p^{-1}(B_2)$。
-  考虑相对上同调的 Mayer–Vietoris 正合列
-  \[
-  \cdots \to H^q(\mathrm{D}(E),\ \mathrm{S}(E))
-  \xrightarrow{\alpha} H^q(\mathrm{D}(E_1),\ \mathrm{S}(E_1))
-  \oplus H^q(\mathrm{D}(E_2),\ \mathrm{S}(E_2)) \\[6pt]
-  \hspace{12em}
-  \xrightarrow{\beta} H^q(\mathrm{D}(E_1 \cap E_2),\ \mathrm{S}(E_1 \cap E_2)) \to \cdots.
-  \]
-  由情况 (1)，存在 Thom 类 $u_i \in H^n(\mathrm{D}(E_i),\ \mathrm{S}(E_i))$ $(i=1,2)$。
-  这两个 Thom 类限制在 $E_1 \cap E_2$ 上也是 Thom 类，从而由唯一性，它们的限制相等。
-  因此，它们可以粘成 $E$ 上的上同调类。严格地说，我们有 $\beta(u_1, u_2) = 0$，
-  从而存在 $u \in H^n(\mathrm{D}(E),\ \mathrm{S}(E))$，使得 $\alpha(u) = (u_1, u_2)$。
+(2) $B = B_1 \cup B_2$，其中 $B_1, B_2$ 是开子集，
+    且 $E|_{B_1}$ 和 $E|_{B_2}$ 是平凡丛。
+    记 $E_1 = p^{-1}(B_1)$，及 $E_2 = p^{-1}(B_2)$。
+    考虑相对上同调的 Mayer–Vietoris 正合列
+    \[
+    \cdots \to H^q(\mathrm{D}(E),\ \mathrm{S}(E))
+    \xrightarrow{\alpha} H^q(\mathrm{D}(E_1),\ \mathrm{S}(E_1))
+    \oplus H^q(\mathrm{D}(E_2),\ \mathrm{S}(E_2)) \\[6pt]
+    \hspace{12em}
+    \xrightarrow{\beta} H^q(\mathrm{D}(E_1 \cap E_2),\ \mathrm{S}(E_1 \cap E_2)) \to \cdots.
+    \]
+    由情况 (1)，存在 Thom 类 $u_i \in H^n(\mathrm{D}(E_i),\ \mathrm{S}(E_i))$ $(i=1,2)$。
+    这两个 Thom 类限制在 $E_1 \cap E_2$ 上也是 Thom 类，从而由唯一性，它们的限制相等。
+    因此，它们可以粘成 $E$ 上的上同调类。严格地说，我们有 $\beta(u_1, u_2) = 0$，
+    从而存在 $u \in H^n(\mathrm{D}(E),\ \mathrm{S}(E))$，使得 $\alpha(u) = (u_1, u_2)$。
 
-  再证明唯一性。只需证明 $\alpha$ 是单射，
-  这是因为正合列的前一项是
-  \[
-  H^{n - 1} (\mathrm{D}(E_1 \cap E_2),\ \mathrm{S}(E_1 \cap E_2)) \simeq H^{-1}(B) \simeq 0.
-  \]
+    再证明唯一性。只需证明 $\alpha$ 是单射，
+    这是因为正合列的前一项是
+    \[
+    H^{n - 1} (\mathrm{D}(E_1 \cap E_2),\ \mathrm{S}(E_1 \cap E_2)) \simeq H^{-1}(B) \simeq 0.
+    \]
 
-- (3) $B = B_1 \cup B_2 \cup B_3$，其中 $B_i$ 是开子集，
-  且 $E|_{B_i}$ 是平凡丛。对 $B_1$ 和 $B_2 \cup B_3$ 使用 (2) 的论述，
-  就完成了证明。
+(3) $B = B_1 \cup B_2 \cup B_3$，其中 $B_i$ 是开子集，
+    且 $E|_{B_i}$ 是平凡丛。对 $B_1$ 和 $B_2 \cup B_3$ 使用 (2) 的论述，
+    就完成了证明。
 
-- ($n$) $B = B_1 \cup \cdots \cup B_n$，其中 $B_i$ 是开子集，
-  且 $E|_{B_i}$ 是平凡丛。证明和 (3) 一样。
+($n$) $B = B_1 \cup \cdots \cup B_n$，其中 $B_i$ 是开子集，
+      且 $E|_{B_i}$ 是平凡丛。证明和 (3) 一样。
 
 - $\cdots \cdots \cdots \cdots$
 
-- ($\infty$) $B = B_1 \cup B_2 \cup \cdots$，其中 $B_i$ 是开子集，
-  且 $E|_{B_i}$ 是平凡丛。这时，我们想把无穷多个开子集上的上同调类拼起来。
-  这看起来很直观。为了严格证明它，
-  我们使用 Mayer–Vietoris 序列的推广：Čech 上同调到普通上同调的谱序列
-  \[
-  E_1^{p, q} = \check{C}^p (\mathscr{B}, \mathscr{H}^q) \ \Rightarrow \ H^{p + q} (\mathrm{D}(E),\ \mathrm{S}(E);\ R),
-  \]
-  其中 $\mathscr{B}$ 是开覆盖 $\{B_i\}$，
-  而 $\mathscr{H}^q$ 是 $B$ 上的预层，定义为
-  \[
-  \mathscr{H}^q(U) = H^q(\mathrm{D}(E|_U),\ \mathrm{S}(E|_U);\ R) \quad (U \subset B).
-  \]
-  事实上，$E_1^{p, q}$ 只有在 $q \geq n$ 时非零，
-  而 $B_i$ 上的 Thom 类构成的元素 $\{u_i\}$ 在第 $(0, n)$ 格，
-  而且 $d\{u_i\} = 0$。因此，元素 $\{u_i\}$ 被保留在谱序列的每一页中，
-  最后成为 $H^n(\mathrm{D}(E),\ \mathrm{S}(E))$ 的一个元素 $u$。
-  这就是 Thom 类。
+($\infty$) $B = B_1 \cup B_2 \cup \cdots$，其中 $B_i$ 是开子集，
+           且 $E|_{B_i}$ 是平凡丛。这时，我们想把无穷多个开子集上的上同调类拼起来。
+           这看起来很直观。为了严格证明它，
+           我们使用 Mayer–Vietoris 序列的推广：Čech 上同调到普通上同调的谱序列
+           \[
+           E_1^{p, q} = \check{C}^p (\mathscr{B}, \mathscr{H}^q) \ \Rightarrow \ H^{p + q} (\mathrm{D}(E),\ \mathrm{S}(E);\ R),
+           \]
+           其中 $\mathscr{B}$ 是开覆盖 $\{B_i\}$，
+           而 $\mathscr{H}^q$ 是 $B$ 上的预层，定义为
+           \[
+           \mathscr{H}^q(U) = H^q(\mathrm{D}(E|_U),\ \mathrm{S}(E|_U);\ R) \quad (U \subset B).
+           \]
+           事实上，$E_1^{p, q}$ 只有在 $q \geq n$ 时非零，
+           而 $B_i$ 上的 Thom 类构成的元素 $\{u_i\}$ 在第 $(0, n)$ 格，
+           而且 $d\{u_i\} = 0$。因此，元素 $\{u_i\}$ 被保留在谱序列的每一页中，
+           最后成为 $H^n(\mathrm{D}(E),\ \mathrm{S}(E))$ 的一个元素 $u$。
+           这就是 Thom 类。
 
 :::
 

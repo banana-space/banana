@@ -28,17 +28,15 @@ title: '由 \(m\) 个 \(n\) 元 \(\leq 1\) 次方程作成的方程组 (4)'
 \(A\) 有一个行列式非零的 \(r\) 级子阵，
 但没有行列式非零的 \(r+1\) 级子阵。
 
-(1)
-若 \(G\) 也没有行列式非零的 \(r+1\) 级子阵，
-则 \(AX = B\) 有解。
-进一步地，若 \(r < n\)，
-则 \(AX = B\) 的解不唯一；
-若 \(r = n\)，
-则 \(AX = B\) 的解唯一。
+(1) 若 \(G\) 也没有行列式非零的 \(r+1\) 级子阵，
+    则 \(AX = B\) 有解。
+    进一步地，若 \(r < n\)，
+    则 \(AX = B\) 的解不唯一；
+    若 \(r = n\)，
+    则 \(AX = B\) 的解唯一。
 
-(2)
-若 \(G\) 有一个行列式非零的 \(r+1\) 级子阵，
-则 \(AX = B\) 无解。
+(2) 若 \(G\) 有一个行列式非零的 \(r+1\) 级子阵，
+    则 \(AX = B\) 无解。
 :::
 
 本节，我们作定量的讨论：
@@ -154,210 +152,206 @@ title: '由 \(m\) 个 \(n\) 元 \(\leq 1\) 次方程作成的方程组 (4)'
 列 \(1\)、\(2\)、\(\dots\)、\(n\)
 分别是 \(u_1\)、\(u_2\)、\(\dots\)、\(u_n\)。
 
-(1)
-设 \(c_{j_{r+1}}\)、\(\dots\)、\(c_{j_n}\)
-是 \(n-r\) 个常数。
-作 \(n \times 1\) 阵 \(C\)，其中，
-\[
-\begin{aligned}
-  [C]_{j_k,1} =
-  \begin{dcases}
-    \frac{\det {(T\{k,V\})}}{\det {(T)}}
-    + \sum_{r < \ell \leqslant n}
-    {c_{j_\ell}
-    \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}},
-    & k \leqslant r; \\
-    c_{j_k},
-    & k > r.
-  \end{dcases}
-\end{aligned}
-\]
+(1) 设 \(c_{j_{r+1}}\)、\(\dots\)、\(c_{j_n}\)
+    是 \(n-r\) 个常数。
+    作 \(n \times 1\) 阵 \(C\)，其中，
+    \[
+        \begin{aligned}
+          [C]_{j_k,1} =
+          \begin{dcases}
+            \frac{\det {(T\{k,V\})}}{\det {(T)}}
+        + \sum_{r < \ell \leqslant n}
+        {c_{j_\ell}
+        \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}},
+        & k \leqslant r; \\
+        c_{j_k},
+        & k > r.
+      \end{dcases}
+    \end{aligned}
+    \]
 其中，\(T\{k,Y\}\) 是以 \(r \times 1\) 阵 \(Y\)
 代 \(T\) 的列 \(k\) 后得到的阵。
 则 \(UC = V\)。
 
-(2)
-若 \(n \times 1\) 阵 \(D\) 适合 \(UD = V\)，
-则存在 \(n-r\) 个数
-\(c_{j_{r+1}}\)、\(\dots\)、\(c_{j_n}\)，
-使
-\[
-\begin{aligned}
-  [D]_{j_k,1} =
-  \begin{dcases}
-    \frac{\det {(T\{k,V\})}}{\det {(T)}}
-    + \sum_{r < \ell \leqslant n}
-    {c_{j_\ell}
-    \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}},
-    & k \leqslant r; \\
-    c_{j_k},
-    & k > r.
-  \end{dcases}
-\end{aligned}
-\]
+(2) 若 \(n \times 1\) 阵 \(D\) 适合 \(UD = V\)，
+    则存在 \(n-r\) 个数
+    \(c_{j_{r+1}}\)、\(\dots\)、\(c_{j_n}\)，
+    使
+    \[
+        \begin{aligned}
+          [D]_{j_k,1} =
+          \begin{dcases}
+            \frac{\det {(T\{k,V\})}}{\det {(T)}}
+        + \sum_{r < \ell \leqslant n}
+        {c_{j_\ell}
+        \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}},
+        & k \leqslant r; \\
+        c_{j_k},
+        & k > r.
+      \end{dcases}
+    \end{aligned}
+    \]
 或者，\(UX = V\) 的每个解
 都可被 (1) 中的公式表示。
 :::
 
 ::: proof
-(1)
-我们可改写方程组 \(UX = V\) 为
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} x_{j_\ell}}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} x_{j_\ell}},
-\end{aligned}
-\]
-其中，\(p = 1\)、\(2\)、\(\dots\)、\(r\)，
-下同。
-考虑
-由 \(r\) 个 \(r\) 元 \({\leqslant} 1\) 次方程作成的方程组
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} y_\ell}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} c_{j_\ell}}.
-\end{aligned}
-\]
-利用阵等式，我们可写
-\[
-\begin{aligned}
-  T
-  \begin{bmatrix}
-    y_1    \\
-    y_2    \\
-    \vdots \\
-    y_r    \\
-  \end{bmatrix}
-  =
-  V -
-  \sum_{r < \ell \leqslant n}
-  {c_{j_\ell} u_{j_\ell}}.
-\end{aligned}
-\]
-因为 \(\det {(T)} \neq 0\)，
-故，由 Cramer 公式，
-存在 \(r\) 个数
-\(c_{j_1}\)、\(c_{j_2}\)、\(\dots\)、\(c_{j_r}\)，
-使
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} c_{j_\ell}}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} c_{j_\ell}},
-\end{aligned}
-\]
-其中，
-\[
-\begin{aligned}
-  c_{j_k}
-  = {} &
-  (\det {(T)})^{-1}
-  \det {
-    \left(
-      T\left\{
-        k,
-        V -
+(1) 我们可改写方程组 \(UX = V\) 为
+    \[
+        \begin{aligned}
+          \sum_{\ell = 1}^{r}
+          {[U]_{p,j_\ell} x_{j_\ell}}
+          = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} x_{j_\ell}},
+    \end{aligned}
+    \]
+    其中，\(p = 1\)、\(2\)、\(\dots\)、\(r\)，
+    下同。
+    考虑
+    由 \(r\) 个 \(r\) 元 \({\leqslant} 1\) 次方程作成的方程组
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{r}
+      {[U]_{p,j_\ell} y_\ell}
+      = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} c_{j_\ell}}.
+    \end{aligned}
+    \]
+    利用阵等式，我们可写
+    \[
+    \begin{aligned}
+      T
+      \begin{bmatrix}
+        y_1    \\
+        y_2    \\
+        \vdots \\
+        y_r    \\
+      \end{bmatrix}
+      =
+      V -
+      \sum_{r < \ell \leqslant n}
+      {c_{j_\ell} u_{j_\ell}}.
+    \end{aligned}
+    \]
+    因为 \(\det {(T)} \neq 0\)，
+    故，由 Cramer 公式，
+    存在 \(r\) 个数
+    \(c_{j_1}\)、\(c_{j_2}\)、\(\dots\)、\(c_{j_r}\)，
+    使
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{r}
+      {[U]_{p,j_\ell} c_{j_\ell}}
+      = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} c_{j_\ell}},
+    \end{aligned}
+    \]
+    其中，
+    \[
+    \begin{aligned}
+      c_{j_k}
+      = {} &
+      (\det {(T)})^{-1}
+      \det {
+        \left(
+          T\left\{
+            k,
+            V -
+            \sum_{r < \ell \leqslant n}
+            {c_{j_\ell} u_{j_\ell}}
+          \right\}
+        \right)
+      }
+      \\
+      = {} &
+      (\det {(T)})^{-1}
+      \left(
+        \det {(T\{k,V\})}
+        -
         \sum_{r < \ell \leqslant n}
-        {c_{j_\ell} u_{j_\ell}}
-      \right\}
-    \right)
-  }
-  \\
-  = {} &
-  (\det {(T)})^{-1}
-  \left(
-    \det {(T\{k,V\})}
-    -
-    \sum_{r < \ell \leqslant n}
+        {c_{j_\ell}
+          \det {(T\{k,u_{j_\ell}\})}
+        }
+      \right)
+      \\
+      = {} &
+      \frac{\det {(T\{k,V\})}}{\det {(T)}}
+      + \sum_{r < \ell \leqslant n}
+      {c_{j_\ell}
+      \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
+    \end{aligned}
+    \]
+    从而
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{n}
+      {[U]_{p,j_\ell} c_{j_\ell}}
+      = [V]_{p,1}.
+    \end{aligned}
+    \]
+    注意，\([C]_{j_k,1} = c_{j_k}\)。
+    所以，\(UC = V\)。
+
+(2) 设 \(D\) 适合 \(UD = V\)。
+    则
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{n}
+      {[U]_{p,j_\ell} [D]_{j_\ell,1}}
+      = [V]_{p,1}.
+    \end{aligned}
+    \]
+    从而
+    \[
+        \begin{aligned}
+          \sum_{\ell = 1}^{r}
+          {[U]_{p,j_\ell} [D]_{j_\ell,1}}
+          = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} [D]_{j_\ell,1}}.
+    \end{aligned}
+    \]
+
+    取 \(c_{j_\ell} = [D]_{j_\ell,1}\)，
+    \(\ell > r\)。
+    考虑方程组
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{r}
+      {[U]_{p,j_\ell} y_\ell}
+      = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} c_{j_\ell}}.
+    \end{aligned}
+    \]
+    由 (1)，我们知道
+    \[
+    \begin{aligned}
+      y_k =
+      \frac{\det {(T\{k,V\})}}{\det {(T)}}
+      + \sum_{r < \ell \leqslant n}
+      {c_{j_\ell}
+      \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}
+    \end{aligned}
+    \]
+    （其中，\(k = 1\)、\(2\)、\(\dots\)、\(r\)，下同）
+    是一个解；
+    另一方面，
+    \(y_k = [D]_{j_k,1}\) 也是一个解。
+    因为 \(\det {(T)} \neq 0\)，
+    故，由 Cramer 公式，
+    这 \(2\) 个解应是相同的，
+    即
+    \[
+    [D]_{j_k,1} =
+    \frac{\det {(T\{k,V\})}}{\det {(T)}}
+    + \sum_{r < \ell \leqslant n}
     {c_{j_\ell}
-      \det {(T\{k,u_{j_\ell}\})}
-    }
-  \right)
-  \\
-  = {} &
-  \frac{\det {(T\{k,V\})}}{\det {(T)}}
-  + \sum_{r < \ell \leqslant n}
-  {c_{j_\ell}
-  \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{n}
-  {[U]_{p,j_\ell} c_{j_\ell}}
-  = [V]_{p,1}.
-\end{aligned}
-\]
-注意，\([C]_{j_k,1} = c_{j_k}\)。
-所以，\(UC = V\)。
-
-(2)
-设 \(D\) 适合 \(UD = V\)。
-则
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{n}
-  {[U]_{p,j_\ell} [D]_{j_\ell,1}}
-  = [V]_{p,1}.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} [D]_{j_\ell,1}}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} [D]_{j_\ell,1}}.
-\end{aligned}
-\]
-
-取 \(c_{j_\ell} = [D]_{j_\ell,1}\)，
-\(\ell > r\)。
-考虑方程组
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} y_\ell}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} c_{j_\ell}}.
-\end{aligned}
-\]
-由 (1)，我们知道
-\[
-\begin{aligned}
-  y_k =
-  \frac{\det {(T\{k,V\})}}{\det {(T)}}
-  + \sum_{r < \ell \leqslant n}
-  {c_{j_\ell}
-  \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}
-\end{aligned}
-\]
-（其中，\(k = 1\)、\(2\)、\(\dots\)、\(r\)，下同）
-是一个解；
-另一方面，
-\(y_k = [D]_{j_k,1}\) 也是一个解。
-因为 \(\det {(T)} \neq 0\)，
-故，由 Cramer 公式，
-这 \(2\) 个解应是相同的，
-即
-\[
-[D]_{j_k,1} =
-\frac{\det {(T\{k,V\})}}{\det {(T)}}
-+ \sum_{r < \ell \leqslant n}
-{c_{j_\ell}
-\frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
-\]
+    \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
+    \]
 :::
 
 注意，当 \(r = n\) 时，
@@ -436,38 +430,33 @@ title: '由 \(m\) 个 \(n\) 元 \(\leq 1\) 次方程作成的方程组 (4)'
 但 \(G\) 没有行列式非零的 \(s+1\) 级子阵。
 设 \(X\) 是未知的 \(n \times 1\) 阵。
 
-(1)
-因为 \(A\) 是 \(G\) 的子阵，
-故 \(A\) 的子阵也是 \(G\) 的子阵。
-则 \(s = r\) 或 \(s > r\)。
+(1) 因为 \(A\) 是 \(G\) 的子阵，
+    故 \(A\) 的子阵也是 \(G\) 的子阵。
+    则 \(s = r\) 或 \(s > r\)。
 
-(2)
-若 \(s > r\)，则 \(AX = B\) 无解；
-也就是，若 \(AX = B\) 有解，则 \(s = r\)。
+(2) 若 \(s > r\)，则 \(AX = B\) 无解；
+    也就是，若 \(AX = B\) 有解，则 \(s = r\)。
 
-(3)
-若 \(s = r\)，则 \(AX = B\) 有解；
-也就是，若 \(AX = B\) 无解，则 \(s > r\)。
+(3) 若 \(s = r\)，则 \(AX = B\) 有解；
+    也就是，若 \(AX = B\) 无解，则 \(s > r\)。
 
-(4)
-设 \(s = r\)。
-则 \(AX = B\) 有解。
-若 \(r = n\)，则 \(AX = B\) 的解唯一；
-若 \(r < n\)，则 \(AX = B\) 的解不唯一。
+(4) 设 \(s = r\)。
+    则 \(AX = B\) 有解。
+    若 \(r = n\)，则 \(AX = B\) 的解唯一；
+    若 \(r < n\)，则 \(AX = B\) 的解不唯一。
 
-(5)
-设 \(A \neq 0\)。
-设 \(A\) 有一个行列式非零的 \(r\) 级子阵
-\[
-\begin{aligned}
-  T = A\genfrac{\{}{\}}{0pt}{0}{i_1,\dots,i_r}{j_1,\dots,j_r}
-\end{aligned}
-\]
-（其中，\(1 \leqslant i_1 < \dots < i_r \leqslant m\)，
-且 \(1 \leqslant j_1 < \dots < j_r \leqslant n\)），
-但 \(G\) 没有行列式非零的 \(r+1\) 级子阵。
-则 \(s = r\)。
-则 \(AX = B\) 有解。
+(5) 设 \(A \neq 0\)。
+    设 \(A\) 有一个行列式非零的 \(r\) 级子阵
+    \[
+    \begin{aligned}
+      T = A\genfrac{\{}{\}}{0pt}{0}{i_1,\dots,i_r}{j_1,\dots,j_r}
+    \end{aligned}
+    \]
+    （其中，\(1 \leqslant i_1 < \dots < i_r \leqslant m\)，
+    且 \(1 \leqslant j_1 < \dots < j_r \leqslant n\)），
+    但 \(G\) 没有行列式非零的 \(r+1\) 级子阵。
+    则 \(s = r\)。
+    则 \(AX = B\) 有解。
 
 记 \(r \times n\) 阵
 \[

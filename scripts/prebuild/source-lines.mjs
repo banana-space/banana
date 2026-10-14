@@ -1,4 +1,4 @@
-import { blankLineAt, readMath } from '../shared/scan.mjs';
+import { blankLineAt, labelledMarkerSource, readMath } from '../shared/scan.mjs';
 
 // Source-line marks for the online editor's preview (never in builds): the start of each source line of
 // the previewed page carries its line number, so that the editor can tell where preview text comes from.
@@ -12,6 +12,9 @@ const DIGIT_ZERO = 0xE010;
 export const encodeLine = line => MARK_OPEN + [...String(line)].map(digit => String.fromCharCode(DIGIT_ZERO + Number(digit))).join('') + MARK_CLOSE;
 export const markPattern = /\uE000([\uE010-\uE019]+)\u2E3D/g;
 export const decodeLine = digits => Number([...digits].map(char => char.charCodeAt(0) - DIGIT_ZERO).join(''));
+
+// Indentation, quote and list markers (labelled ones too: (a), iv)), a task box, a footnote's label, and an item's {@label}.
+const linePrefix = new RegExp(String.raw`^\s*(?:>\s*)*(?:(?:(?:[-*+]|\d+[.)]|${labelledMarkerSource})\s+)+(?:\[[ xX]\]\s+)?|\[\^[^\]]+\]:\s*)?(?:\{@[^}\s]*\}\s*)?`);
 
 /**
  * The body with a mark at the start of each line that holds running text: after the indentation, list
@@ -33,8 +36,7 @@ export function markSourceLines(body, lineOffset = 0) {
       || /^([-*_])(\s*\1){2,}\s*$/.test(rest) || /^(=+|-+)\s*$/.test(rest)
       || /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?\s*$/.test(rest)
       || /^(\$\$|\\\[|\\begin\b)/.test(rest) || /^\[(?!\^)[^\]]+\]:/.test(rest)) return line;
-    // After indentation, quote and list markers, a task box, a footnote's label, and an item's {@label}.
-    const prefix = line.match(/^\s*(?:>\s*)*(?:(?:[-*+]|\d+[.)])\s+(?:\[[ xX]\]\s+)?|\[\^[^\]]+\]:\s*)?(?:\{@[^}\s]*\}\s*)?/)[0];
+    const prefix = line.match(linePrefix)[0];
     const text = line.slice(prefix.length);
     if (!text || /^(\$\$|\\\[|\\begin\b|:::|#{1,6}\s|!\[|<[A-Za-z/])/.test(text)) return line;
     return prefix + encodeLine(lineOffset + i + 1) + text;

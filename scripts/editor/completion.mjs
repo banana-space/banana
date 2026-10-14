@@ -15,7 +15,10 @@
 // they are needed.
 import { snippetCompletion, startCompletion } from '@codemirror/autocomplete';
 import { syntaxTree } from '@codemirror/language';
-import { escaped, readMath, readTag } from '../shared/scan.mjs';
+import { escaped, labelledMarkerSource, readMath, readTag } from '../shared/scan.mjs';
+
+// A list item's line that declares a label: the label, and the start of the item's text.
+const itemLabel = new RegExp(String.raw`^\s*(?:>\s*)*(?:(?:[-*+]|\d+[.)]|${labelledMarkerSource})\s+)+\{@([^}\s]+)\}\s*(.*)$`);
 
 /**
  * The completion sources, for autocompletion({ override }). namesURL: the build's file of names; text(key):
@@ -444,7 +447,7 @@ export function declaredLabels(text) {
     let match;
     if ((match = line.match(/^(#{1,6})\s+(.*?)\s*\{@([^}\s]+)\}\s*\*?\s*$/))) add(match[3], match[2]);
     else if ((match = line.match(/^\s*(?:>\s*)*:::\s*(-?[\w-]+\*?)(?:\s*\[([^\]]*)\])?\s*\{@([^}\s]+)\}/))) add(match[3], match[2] ? `${match[1]} [${match[2]}]` : match[1]);
-    else if ((match = line.match(/^\s*(?:>\s*)*(?:[-*+]|\d+[.)])\s+\{@([^}\s]+)\}\s*(.*)$/))) add(match[1], match[2].slice(0, 20));
+    else if ((match = line.match(itemLabel))) add(match[1], match[2].slice(0, 20));
   }
   function add(name, detail) {
     if (seen.has(name)) return;

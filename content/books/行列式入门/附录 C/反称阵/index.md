@@ -69,126 +69,118 @@ title: 反称阵
 设 \(k\) 是数。
 设 \(X\) 是 \(n \times m\) 阵。
 
-(1)
-\(n\) 级阵 \(0\) 是反称阵。
+(1) \(n\) 级阵 \(0\) 是反称阵。
 
-(2)
-\(A + B\) 是反称阵。
+(2) \(A + B\) 是反称阵。
 
-(3)
-\(kA\) 是反称阵；
-特别地，\((-1)A = -A = A^{\mathrm{T}}\) 也是反称阵。
+(3) \(kA\) 是反称阵；
+    特别地，\((-1)A = -A = A^{\mathrm{T}}\) 也是反称阵。
 
-(4)
-\(X^{\mathrm{T}} A X\) 是反称阵。
+(4) \(X^{\mathrm{T}} A X\) 是反称阵。
 :::
 
 ::: proof
-(1)
-\(0^{\mathrm{T}} = 0 = -0\)，
-且 \([0]_{i,i} = 0\)。
+(1) \(0^{\mathrm{T}} = 0 = -0\)，
+    且 \([0]_{i,i} = 0\)。
 
-(2)
-由转置的性质，
-\((A + B)^{\mathrm{T}} = A^{\mathrm{T}} + B^{\mathrm{T}}
-  = (-A) + (-B) = -(A + B)\)。
-再注意，
-\[
-\begin{aligned}
-  [A + B]_{i,i} = [A]_{i,i} + [B]_{i,i} = 0 + 0 = 0.
-\end{aligned}
-\]
+(2) 由转置的性质，
+    \((A + B)^{\mathrm{T}} = A^{\mathrm{T}} + B^{\mathrm{T}}
+      = (-A) + (-B) = -(A + B)\)。
+    再注意，
+    \[
+    \begin{aligned}
+      [A + B]_{i,i} = [A]_{i,i} + [B]_{i,i} = 0 + 0 = 0.
+    \end{aligned}
+    \]
 
-(3)
-由转置的性质，
-\((kA)^{\mathrm{T}} = kA^{\mathrm{T}} = k(-A) = -(kA)\)。
-再注意，
-\[
-\begin{aligned}
-  [kA]_{i,i} = k [A]_{i,i} = k 0 = 0.
-\end{aligned}
-\]
+(3) 由转置的性质，
+    \((kA)^{\mathrm{T}} = kA^{\mathrm{T}} = k(-A) = -(kA)\)。
+    再注意，
+    \[
+    \begin{aligned}
+      [kA]_{i,i} = k [A]_{i,i} = k 0 = 0.
+    \end{aligned}
+    \]
 
-(4)
-\(X\) 是 \(n \times m\) 的，则 \(AX\) 是 \(n \times m\) 的；
-\(X^{\mathrm{T}}\) 是 \(m \times n\) 的，
-则 \(X^{\mathrm{T}} A X\) 是 \(m \times m\) 的。
-由转置的性质，
-\[
-\begin{aligned}
-  (X^{\mathrm{T}} A X)^{\mathrm{T}}
-  = X^{\mathrm{T}} A^{\mathrm{T}} (X^{\mathrm{T}})^{\mathrm{T}}
-  = X^{\mathrm{T}} (-A) X
-  = -(X^{\mathrm{T}} A X).
-\end{aligned}
-\]
-由阵的积的定义，
-\[
-\begin{aligned}
-  &
-  [X^{\mathrm{T}} A X]_{i,i}
-  \\
-  = {} &
-  [X^{\mathrm{T}} (A X)]_{i,i}
-  \\
-  = {} &
-  \sum_{\ell = 1}^{n}
-  {[X^{\mathrm{T}}]_{i,\ell} [A X]_{\ell,i}}
-  \\
-  = {} &
-  \sum_{\ell = 1}^{n}
-  {[X]_{\ell,i} [A X]_{\ell,i}}
-  \\
-  = {} &
-  \sum_{\ell = 1}^{n}
-  {
-    [X]_{\ell,i}
-    \left(\sum_{k = 1}^{n} [A]_{\ell,k} [X]_{k,i}\right)
-  }
-  \\
-  = {} &
-  \sum_{\ell = 1}^{n}
-  \sum_{k = 1}^{n}
-  {[X]_{\ell,i} [A]_{\ell,k} [X]_{k,i}}
-  \\
-  = {} &
-  \sum_{\ell, k = 1}^{n}
-  {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
-  \\
-  = {} & \hphantom{{} + {}}
-  \sum_{1 \leqslant \ell = k \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
-  +
-  \sum_{1 \leqslant \ell < k \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
-  \\
-  & +
-  \sum_{1 \leqslant k < \ell \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
-  \\
-  = {} & \hphantom{{} + {}}
-  \sum_{1 \leqslant \ell = k \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i}\, 0}
-  +
-  \sum_{1 \leqslant \ell < k \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
-  \\
-  & +
-  \sum_{1 \leqslant \ell < k \leqslant n}
-  {[X]_{k,i} [X]_{\ell,i} [A]_{k,\ell}}
-  \\
-  = {} &
-  0 +
-  \sum_{1 \leqslant \ell < k \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i} ([A]_{\ell,k} + [A]_{k,\ell})}
-  \\
-  = {} &
-  \sum_{1 \leqslant \ell < k \leqslant n}
-  {[X]_{\ell,i} [X]_{k,i}\, 0}
-  \\
-  = {} &
-  0.
-\end{aligned}
-\]
-于是，\(X^{\mathrm{T}} A X\) 是一个 \(m\) 级反称阵。
+(4) \(X\) 是 \(n \times m\) 的，则 \(AX\) 是 \(n \times m\) 的；
+    \(X^{\mathrm{T}}\) 是 \(m \times n\) 的，
+    则 \(X^{\mathrm{T}} A X\) 是 \(m \times m\) 的。
+    由转置的性质，
+    \[
+    \begin{aligned}
+      (X^{\mathrm{T}} A X)^{\mathrm{T}}
+      = X^{\mathrm{T}} A^{\mathrm{T}} (X^{\mathrm{T}})^{\mathrm{T}}
+      = X^{\mathrm{T}} (-A) X
+      = -(X^{\mathrm{T}} A X).
+    \end{aligned}
+    \]
+    由阵的积的定义，
+    \[
+    \begin{aligned}
+      &
+      [X^{\mathrm{T}} A X]_{i,i}
+      \\
+      = {} &
+      [X^{\mathrm{T}} (A X)]_{i,i}
+      \\
+      = {} &
+      \sum_{\ell = 1}^{n}
+      {[X^{\mathrm{T}}]_{i,\ell} [A X]_{\ell,i}}
+      \\
+      = {} &
+      \sum_{\ell = 1}^{n}
+      {[X]_{\ell,i} [A X]_{\ell,i}}
+      \\
+      = {} &
+      \sum_{\ell = 1}^{n}
+      {
+        [X]_{\ell,i}
+        \left(\sum_{k = 1}^{n} [A]_{\ell,k} [X]_{k,i}\right)
+      }
+      \\
+      = {} &
+      \sum_{\ell = 1}^{n}
+      \sum_{k = 1}^{n}
+      {[X]_{\ell,i} [A]_{\ell,k} [X]_{k,i}}
+      \\
+      = {} &
+      \sum_{\ell, k = 1}^{n}
+      {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
+      \\
+      = {} & \hphantom{{} + {}}
+      \sum_{1 \leqslant \ell = k \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
+      +
+      \sum_{1 \leqslant \ell < k \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
+      \\
+      & +
+      \sum_{1 \leqslant k < \ell \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
+      \\
+      = {} & \hphantom{{} + {}}
+      \sum_{1 \leqslant \ell = k \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i}\, 0}
+      +
+      \sum_{1 \leqslant \ell < k \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i} [A]_{\ell,k}}
+      \\
+      & +
+      \sum_{1 \leqslant \ell < k \leqslant n}
+      {[X]_{k,i} [X]_{\ell,i} [A]_{k,\ell}}
+      \\
+      = {} &
+      0 +
+      \sum_{1 \leqslant \ell < k \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i} ([A]_{\ell,k} + [A]_{k,\ell})}
+      \\
+      = {} &
+      \sum_{1 \leqslant \ell < k \leqslant n}
+      {[X]_{\ell,i} [X]_{k,i}\, 0}
+      \\
+      = {} &
+      0.
+    \end{aligned}
+    \]
+    于是，\(X^{\mathrm{T}} A X\) 是一个 \(m\) 级反称阵。
 :::

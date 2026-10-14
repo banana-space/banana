@@ -711,30 +711,26 @@ title: 杂例
 设 \(m\) 是非负整数。
 可以用数学归纳法证明：
 
-(1)
-\((kA)^m = k^m A^m\)。
-（用 \((k A) (\ell B) = (k \ell) (A B)\)，
-若 \(A\)、\(B\) 都是 \(n\) 级阵，
-且 \(k\)、\(\ell\) 是数。）
+(1) \((kA)^m = k^m A^m\)。
+    （用 \((k A) (\ell B) = (k \ell) (A B)\)，
+    若 \(A\)、\(B\) 都是 \(n\) 级阵，
+    且 \(k\)、\(\ell\) 是数。）
 
-(2)
-\(\det {(A^m)} = (\det {(A)})^m\)。
-（用 \(\det {(AB)} = \det {(A)} \det {(B)}\)，
-若 \(A\)、\(B\) 都是 \(n\) 级阵。）
+(2) \(\det {(A^m)} = (\det {(A)})^m\)。
+    （用 \(\det {(AB)} = \det {(A)} \det {(B)}\)，
+    若 \(A\)、\(B\) 都是 \(n\) 级阵。）
 
-(3)
-\((A^m)^{\mathrm{T}} = (A^{\mathrm{T}})^m\)。
-（用 \((BA)^{\mathrm{T}} = A^{\mathrm{T}} B^{\mathrm{T}}\)，
-若 \(A\)、\(B\) 都是 \(n\) 级阵；
-见“转置的性质”。）
+(3) \((A^m)^{\mathrm{T}} = (A^{\mathrm{T}})^m\)。
+    （用 \((BA)^{\mathrm{T}} = A^{\mathrm{T}} B^{\mathrm{T}}\)，
+    若 \(A\)、\(B\) 都是 \(n\) 级阵；
+    见“转置的性质”。）
 
-(4)
-\(\operatorname{adj} {(A^m)}
-  = (\operatorname{adj} {(A)})^m\)。
-（用 \(\operatorname{adj} {(BA)}
-  = \operatorname{adj} {(A)} \operatorname{adj} {(B)}\)，
-若 \(A\)、\(B\) 都是 \(n\) 级阵；
-见“古伴的性质 (3)”。）
+(4) \(\operatorname{adj} {(A^m)}
+      = (\operatorname{adj} {(A)})^m\)。
+    （用 \(\operatorname{adj} {(BA)}
+      = \operatorname{adj} {(A)} \operatorname{adj} {(B)}\)，
+    若 \(A\)、\(B\) 都是 \(n\) 级阵；
+    见“古伴的性质 (3)”。）
 
 我在此证明 (3)，并留 (1) (2) (4) 为您的习题。
 
@@ -1221,56 +1217,53 @@ title: 杂例
 ::: theorem
 设 \(A\) 是 \(n\) 级阵。
 
-(1)
-存在跟 \(A\) 的元有关的数
-\(c_0\)、\(c_1\)、\(\dots\)、\(c_n\)，
-使对任何数 \(x\)，
-\[
-\begin{aligned}
-  \det {(xI - A)} = c_0 x^n + c_1 x^{n-1} + \dots + c_n,
-\end{aligned}
-\]
-其中，\(c_0 = 1\)，
-且 \(c_n = (-1)^n \det {(A)}\)。
-更具体地，
-\(1 \leqslant k \leqslant n\) 时，
-\[
-\begin{aligned}
-  c_k
-  = {} &
-  (-1)^k
-  \sum_{1 \leqslant j_1 < \dots < j_k \leqslant n}
-  \det {\left(
-      A \genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_k}{j_1,\dots,j_k}
-  \right)}.
-\end{aligned}
-\]
+(1) 存在跟 \(A\) 的元有关的数
+    \(c_0\)、\(c_1\)、\(\dots\)、\(c_n\)，
+    使对任何数 \(x\)，
+    \[
+    \begin{aligned}
+      \det {(xI - A)} = c_0 x^n + c_1 x^{n-1} + \dots + c_n,
+    \end{aligned}
+    \]
+    其中，\(c_0 = 1\)，
+    且 \(c_n = (-1)^n \det {(A)}\)。
+    更具体地，
+    \(1 \leqslant k \leqslant n\) 时，
+    \[
+    \begin{aligned}
+      c_k
+      = {} &
+      (-1)^k
+      \sum_{1 \leqslant j_1 < \dots < j_k \leqslant n}
+      \det {\left(
+          A \genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_k}{j_1,\dots,j_k}
+      \right)}.
+    \end{aligned}
+    \]
 
-(2)
-用 \(A\) 的一些非负整数次方的数乘的和，
-我们可如此表示 \(-A\) 的古伴：
-\[
-\begin{aligned}
-  \operatorname{adj} {(-A)}
-  = c_0 A^{n-1} + c_1 A^{n-2} + \dots + c_{n-1} I.
-\end{aligned}
-\]
-则 \(A\) 的古伴
-\[
-\begin{aligned}
-  \operatorname{adj} {(A)}
-  = (-1)^{n-1} \operatorname{adj} {(-A)}
-  = (-1)^{n-1} (c_0 A^{n-1} + c_1 A^{n-2} + \dots + c_{n-1} I).
-\end{aligned}
-\]
+(2) 用 \(A\) 的一些非负整数次方的数乘的和，
+    我们可如此表示 \(-A\) 的古伴：
+    \[
+    \begin{aligned}
+      \operatorname{adj} {(-A)}
+      = c_0 A^{n-1} + c_1 A^{n-2} + \dots + c_{n-1} I.
+    \end{aligned}
+    \]
+    则 \(A\) 的古伴
+    \[
+    \begin{aligned}
+      \operatorname{adj} {(A)}
+      = (-1)^{n-1} \operatorname{adj} {(-A)}
+      = (-1)^{n-1} (c_0 A^{n-1} + c_1 A^{n-2} + \dots + c_{n-1} I).
+    \end{aligned}
+    \]
 
-(3)
-（Cayley–Hamilton 定理）
-\[
-\begin{aligned}
-  c_0 A^{n} + c_1 A^{n-1} + \dots + c_{n} I = 0.
-\end{aligned}
-\]
+(3) （Cayley–Hamilton 定理）
+    \[
+    \begin{aligned}
+      c_0 A^{n} + c_1 A^{n-1} + \dots + c_{n} I = 0.
+    \end{aligned}
+    \]
 :::
 
 ::: example
@@ -2768,93 +2761,89 @@ title: 杂例
 且 \(D\) 是 \(m \times n\) 阵。
 则：
 
-(1)
-\(\operatorname{tr} {(A + B)}
-  = \operatorname{tr} {(A)} + \operatorname{tr} {(B)}\)。
-注意，
-\[
-\begin{aligned}
-  \operatorname{tr} {(A + B)}
-  = {} &
-  \sum_{k = 1}^{n} {[A + B]_{k,k}}
-  \\
-  = {} &
-  \sum_{k = 1}^{n} {([A]_{k,k} + [B]_{k,k})}
-  \\
-  = {} &
-  \sum_{k = 1}^{n} {[A]_{k,k}}
-  + \sum_{k = 1}^{n} {[B]_{k,k}}
-  \\
-  = {} &
-  \operatorname{tr} {(A)}
-  + \operatorname{tr} {(B)}.
-\end{aligned}
-\]
+(1) \(\operatorname{tr} {(A + B)}
+      = \operatorname{tr} {(A)} + \operatorname{tr} {(B)}\)。
+    注意，
+    \[
+        \begin{aligned}
+          \operatorname{tr} {(A + B)}
+          = {} &
+          \sum_{k = 1}^{n} {[A + B]_{k,k}}
+          \\
+          = {} &
+          \sum_{k = 1}^{n} {([A]_{k,k} + [B]_{k,k})}
+          \\
+          = {} &
+          \sum_{k = 1}^{n} {[A]_{k,k}}
+      + \sum_{k = 1}^{n} {[B]_{k,k}}
+      \\
+      = {} &
+      \operatorname{tr} {(A)}
+      + \operatorname{tr} {(B)}.
+    \end{aligned}
+    \]
 
-(2)
-\(\operatorname{tr} {(s A)} = s \operatorname{tr} {(A)}\)。
-注意，
-\[
-\begin{aligned}
-  \operatorname{tr} {(s A)}
-  = \sum_{k = 1}^{n} {[s A]_{k,k}}
-  = \sum_{k = 1}^{n} {s\, [A]_{k,k}}
-  = s \sum_{k = 1}^{n} {[A]_{k,k}}
-  = s \operatorname{tr} {(A)}.
-\end{aligned}
-\]
+(2) \(\operatorname{tr} {(s A)} = s \operatorname{tr} {(A)}\)。
+    注意，
+    \[
+    \begin{aligned}
+      \operatorname{tr} {(s A)}
+      = \sum_{k = 1}^{n} {[s A]_{k,k}}
+      = \sum_{k = 1}^{n} {s\, [A]_{k,k}}
+      = s \sum_{k = 1}^{n} {[A]_{k,k}}
+      = s \operatorname{tr} {(A)}.
+    \end{aligned}
+    \]
 
-(3)
-\(\operatorname{tr} {(A^{\mathrm{T}})} = \operatorname{tr} {(A)}\)。
-注意，
-\[
-\begin{aligned}
-  \operatorname{tr} {(A^{\mathrm{T}})}
-  = \sum_{k = 1}^{n} {[A^{\mathrm{T}}]_{k,k}}
-  = \sum_{k = 1}^{n} {[A]_{k,k}}
-  = \operatorname{tr} {(A)}.
-\end{aligned}
-\]
+(3) \(\operatorname{tr} {(A^{\mathrm{T}})} = \operatorname{tr} {(A)}\)。
+    注意，
+    \[
+    \begin{aligned}
+      \operatorname{tr} {(A^{\mathrm{T}})}
+      = \sum_{k = 1}^{n} {[A^{\mathrm{T}}]_{k,k}}
+      = \sum_{k = 1}^{n} {[A]_{k,k}}
+      = \operatorname{tr} {(A)}.
+    \end{aligned}
+    \]
 
-(4)
-\(\operatorname{tr} {(C D)} = \operatorname{tr} {(D C)}\)。
-注意，
-\[
-\begin{aligned}
-  \operatorname{tr} {(C D)}
-  = {} &
-  \sum_{k = 1}^{n} {[C D]_{k,k}}
-  \\
-  = {} &
-  \sum_{k = 1}^{n} {
-    \sum_{\ell = 1}^{m} {
-      [C]_{k,\ell} [D]_{\ell,k}
-    }
-  }
-  \\
-  = {} &
-  \sum_{\ell = 1}^{m} {
-    \sum_{k = 1}^{n} {
-      [C]_{k,\ell} [D]_{\ell,k}
-    }
-  }
-  \\
-  = {} &
-  \sum_{\ell = 1}^{m} {
-    \sum_{k = 1}^{n} {
-      [D]_{\ell,k} [C]_{k,\ell}
-    }
-  }
-  \\
-  = {} &
-  \sum_{\ell = 1}^{m} {[D C]_{\ell,\ell}}
-  \\
-  = {} &
-  \operatorname{tr} {(D C)}.
-\end{aligned}
-\]
-（其实，此事是 @emp:sum-of-principal-minors-of-AB-and-that-of-BA
-的一个特别的情形。）
+(4) \(\operatorname{tr} {(C D)} = \operatorname{tr} {(D C)}\)。
+    注意，
+    \[
+    \begin{aligned}
+      \operatorname{tr} {(C D)}
+      = {} &
+      \sum_{k = 1}^{n} {[C D]_{k,k}}
+      \\
+      = {} &
+      \sum_{k = 1}^{n} {
+        \sum_{\ell = 1}^{m} {
+          [C]_{k,\ell} [D]_{\ell,k}
+        }
+      }
+      \\
+      = {} &
+      \sum_{\ell = 1}^{m} {
+        \sum_{k = 1}^{n} {
+          [C]_{k,\ell} [D]_{\ell,k}
+        }
+      }
+      \\
+      = {} &
+      \sum_{\ell = 1}^{m} {
+        \sum_{k = 1}^{n} {
+          [D]_{\ell,k} [C]_{k,\ell}
+        }
+      }
+      \\
+      = {} &
+      \sum_{\ell = 1}^{m} {[D C]_{\ell,\ell}}
+      \\
+      = {} &
+      \operatorname{tr} {(D C)}.
+    \end{aligned}
+    \]
+    （其实，此事是 @emp:sum-of-principal-minors-of-AB-and-that-of-BA
+    的一个特别的情形。）
 
 值得提，当 \(n \geqslant 2\) 时，
 \(\operatorname{tr} {(A B)}

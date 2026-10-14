@@ -54,12 +54,12 @@ $H_2(M,\partial M;\mathbb Z)$ 中的像。这定义了一个映射
 ::: theorem [Thurston]
 映射 $\xi$ 具有如下性质：
 
-- (i) 齐次性：
-  对任意整数 $n$ 和 $\sigma\in H_2(M,\partial M;\mathbb Z),$ 有 $\xi(n\sigma)=|n|\xi(\sigma)$。
+(i) 齐次性：
+    对任意整数 $n$ 和 $\sigma\in H_2(M,\partial M;\mathbb Z),$ 有 $\xi(n\sigma)=|n|\xi(\sigma)$。
 
-- (ii) 次可加性：
-  对任意 $\sigma_1,\sigma_2 \in H_2(M,\partial M;\mathbb Z),$ 有
-  $\xi(\sigma_1+\sigma_2)\leqslant \xi(\sigma_1)+\xi(\sigma_2)$。
+(ii) 次可加性：
+     对任意 $\sigma_1,\sigma_2 \in H_2(M,\partial M;\mathbb Z),$ 有
+     $\xi(\sigma_1+\sigma_2)\leqslant \xi(\sigma_1)+\xi(\sigma_2)$。
 :::
 
 最后，因为齐次性，映射 $\xi$ 可以定义到任何有理系数的同调类上，进而由于次可加性，

@@ -14,19 +14,19 @@ categories: [同调代数]
 ::: definition [Abel 范畴]
 称[[加性范畴]] $\mathcal{C}$ 为 **Abel 范畴**，指它满足公理
 
-- (AB1)
-  $\mathcal{C}$ 的每个态射都具有[[核 (代数)|核]]与[[余核]]。
+(AB1)
+      $\mathcal{C}$ 的每个态射都具有[[核 (代数)|核]]与[[余核]]。
 
-- (AB2)
-  $\mathcal{C}$ 中的每个[[单射 (范畴论)|单射]]都是[[正规态射]]
-  （即，等于某个态射的[[核 (代数)|核]]）；
-  $\mathcal{C}$ 中的每个[[满射 (范畴论)|满射]]都是[[余正规态射]]
-  （即，等于某个态射的[[余核]]）。
+(AB2)
+      $\mathcal{C}$ 中的每个[[单射 (范畴论)|单射]]都是[[正规态射]]
+      （即，等于某个态射的[[核 (代数)|核]]）；
+      $\mathcal{C}$ 中的每个[[满射 (范畴论)|满射]]都是[[余正规态射]]
+      （即，等于某个态射的[[余核]]）。
 
 :::
 
 ::: remark
-(AB2) 有以下几种等价表述：
+(AB2\) 有以下几种等价表述：
 
 - $\mathcal{C}$ 中的每个单射都是它的余核的核；
   $\mathcal{C}$ 中的每个满射都是它的核的余核。
@@ -45,21 +45,21 @@ categories: [同调代数]
 [[Grothendieck]] 在其 *Tohoku* 文中引入。
 
 ::: definition [Grothendieck 公理]
-- (AB3) $\mathcal{C}$ [[余完备]]。
+(AB3) $\mathcal{C}$ [[余完备]]。
 
-- (AB4) $\mathcal{C}$ 余完备，
-  且无穷[[直和]][[正合函子|正合]]。
+(AB4) $\mathcal{C}$ 余完备，
+      且无穷[[直和]][[正合函子|正合]]。
 
-- (AB5) $\mathcal{C}$ 余完备，且[[滤余极限]][[正合函子|正合]]。
+(AB5) $\mathcal{C}$ 余完备，且[[滤余极限]][[正合函子|正合]]。
 
-- (AB6) $\mathcal{C}$ 余完备，且对任意 $c\in\mathcal{C}$
-  及其一些子对象 $(c^j)_{j\in J}$，以及对每个 $j\in J$，
-  $c^j$ 的一[[滤族]]的子对象 $(c^j_i)_{i\in I_j}$，下式两边存在且相等：
-  $$
-  \bigcap_{j\in J}\bigcup_{i\in I_j}c^j_i
-  =\bigcup_{(i_j)\in\prod_{j\in J}I_j}\bigcap_{j\in J}
-  c^j_{i_j}.
-  $$
+(AB6) $\mathcal{C}$ 余完备，且对任意 $c\in\mathcal{C}$
+      及其一些子对象 $(c^j)_{j\in J}$，以及对每个 $j\in J$，
+      $c^j$ 的一[[滤族]]的子对象 $(c^j_i)_{i\in I_j}$，下式两边存在且相等：
+      $$
+      \bigcap_{j\in J}\bigcup_{i\in I_j}c^j_i
+      =\bigcup_{(i_j)\in\prod_{j\in J}I_j}\bigcap_{j\in J}
+      c^j_{i_j}.
+      $$
 
 称 $\mathcal{C}$ 满足 (AB$n$*) 意思是 $\mathcal{C}^\mathrm{op}$
 满足 (AB$n$)。

@@ -280,86 +280,86 @@ $F$是可除环，即对任意非零的$a\in F$，存在$b\in F$，使得$a b=ba
 
 Artin-Schreier理论是对循环扩张的Kummer理论的补充，它研究域特征为$p$且Galois群为$p$-阶循环群的情况。
 
-- A) $K$是特征为$p$的域，$a\in K$，$P(X)=X^p-X-a$，$L$是$P$在$K$上的分裂域。
+A) $K$是特征为$p$的域，$a\in K$，$P(X)=X^p-X-a$，$L$是$P$在$K$上的分裂域。
 
-  1. 证明，如果$x\in L$是$P$的根，那么，
-     \[
-     P(X)=\big(X-x\big)\big(X-(x+1)\big)\cdots \big(X-(x+p-1)\big).
-     \]
+   1. 证明，如果$x\in L$是$P$的根，那么，
+   \[
+   P(X)=\big(X-x\big)\big(X-(x+1)\big)\cdots \big(X-(x+p-1)\big).
+   \]
 
-  2. 证明，$P$在$K[X]$中或者不可约或者可以写成一次因式的乘积。
+   2. 证明，$P$在$K[X]$中或者不可约或者可以写成一次因式的乘积。
 
-  3. 假设$P$在$K[X]$中不可约，$x\in L$为$P$的一个根。证明，以下映射
-     \[
-     {\rm Gal}(
-       {L/K}
-     )\longrightarrow \mathbb{F}_p, \ \ g\mapsto g(x)-x
-     \]
-     是群同构。特别地，${\rm Gal}(
-  {L/K}
+   3. 假设$P$在$K[X]$中不可约，$x\in L$为$P$的一个根。证明，以下映射
+   \[
+   {\rm Gal}(
+     {L/K}
+   )\longrightarrow \mathbb{F}_p, \ \ g\mapsto g(x)-x
+   \]
+   是群同构。特别地，${\rm Gal}(
+   {L/K}
 )\simeq
-  {\mathbb{Z}/p\mathbb{Z}}
+   {\mathbb{Z}/p\mathbb{Z}}
 $。
 
-- B) $K$是特征为$p$的域，$
-  {L/K}
+B) $K$是特征为$p$的域，$
+   {L/K}
 $是Galois扩张并且${\rm Gal}(
-  {L/K}
+   {L/K}
 )\simeq
-  {\mathbb{Z}/p\mathbb{Z}}
+   {\mathbb{Z}/p\mathbb{Z}}
 $，$\sigma$是${\rm Gal}(
-  {L/K}
+   {L/K}
 )$的一个生成元。
 
-  1. 证明，存在$y \in L$，使得$\sum_{k=0}^{p-1}\sigma^k(y)=-1$。
+   1. 证明，存在$y \in L$，使得$\sum_{k=0}^{p-1}\sigma^k(y)=-1$。
 
-  2. 令$x=\sum_{k=0}^{p-1}k\sigma^k(y)$，证明，$\sigma(x)=x+1$。
+   2. 令$x=\sum_{k=0}^{p-1}k\sigma^k(y)$，证明，$\sigma(x)=x+1$。
 
-  3. 证明，$P(X)=\prod_{k=0}^{p-1}\big(X-\sigma^k(x)\big)$是$x$的极小多项式并且$a=x^p-x\in K$。
+   3. 证明，$P(X)=\prod_{k=0}^{p-1}\big(X-\sigma^k(x)\big)$是$x$的极小多项式并且$a=x^p-x\in K$。
 
-  4. 证明，$L$是$X^p-X-a$在$K$上的分裂域。
+   4. 证明，$L$是$X^p-X-a$在$K$上的分裂域。
 
-  利用以上的Artin-Schreier理论，即A)+B)，
-  我们展示$p^{m-1}$阶的循环扩张与$p^{m}$阶的循环扩张之间的关系（$m\geqslant 2$）。
-  从而，我们可以递归地研究阶为$p$的幂的循环扩张（总假设$K$的特征为$p$）。
+   利用以上的Artin-Schreier理论，即A)+B)，
+   我们展示$p^{m-1}$阶的循环扩张与$p^{m}$阶的循环扩张之间的关系（$m\geqslant 2$）。
+   从而，我们可以递归地研究阶为$p$的幂的循环扩张（总假设$K$的特征为$p$）。
 
-- C) $K$是特征为$p$的域，$
-  {L/K}
+C) $K$是特征为$p$的域，$
+   {L/K}
 $是阶为$p^m$的循环扩张，$\sigma$是${\rm Gal}(
-  {L/K}
+   {L/K}
 )$的一个生成元，$\tau=\sigma^{p^{m-1}}$，$M=L^{\langle \tau\rangle}$。
 
-  1. 证明，存在$\lambda \in M$，$P(X)=X^p-X-\lambda$在$L$中有根$\theta$并且$L=M(\theta)$，
-     $\tau(\theta)=\theta+1$。
+   1. 证明，存在$\lambda \in M$，$P(X)=X^p-X-\lambda$在$L$中有根$\theta$并且$L=M(\theta)$，
+   $\tau(\theta)=\theta+1$。
 
-  2. 证明，存在$\beta\in M$，使得$\sigma(\theta)=\theta+\beta$。
+   2. 证明，存在$\beta\in M$，使得$\sigma(\theta)=\theta+\beta$。
 
-  3. 证明，$K(\theta)=L$。
+   3. 证明，$K(\theta)=L$。
 
-  4. 证明，$\sigma(\lambda)-\lambda=\beta^p-\beta$并且${\rm Tr}_{_{
-  {M/K}
+   4. 证明，$\sigma(\lambda)-\lambda=\beta^p-\beta$并且${\rm Tr}_{_{
+   {M/K}
 }}(\beta)=1$。
 
-- D) $K$是特征为$p$的域，$
-  {M/K}
+D) $K$是特征为$p$的域，$
+   {M/K}
 $是阶为$p^{m-1}$的循环扩张（$m\geqslant 2$），$\sigma$是${\rm Gal}(
-  {M/K}
+   {M/K}
 )$的一个生成元。假设$\beta\in M$并且${\rm Tr}_{_{
-  {M/K}
+   {M/K}
 }}(\beta)=1$。[^1]
 
-  1. 证明，存在$\lambda \in M$，使得$\sigma(\lambda)-\lambda=\beta^p-\beta$。
-     （提示：使用Hilbert 90）
+   1. 证明，存在$\lambda \in M$，使得$\sigma(\lambda)-\lambda=\beta^p-\beta$。
+   （提示：使用Hilbert 90）
 
-  2. $P(X)=X^p-X-\lambda$是$M[X]$中的不可约多项式。
+   2. $P(X)=X^p-X-\lambda$是$M[X]$中的不可约多项式。
 
-  3. 令$L$为$P(X)$对$M$的分裂域，$\theta$为$P$在$L$中的一个根。
-     证明，$
-  {L/K}
+   3. 令$L$为$P(X)$对$M$的分裂域，$\theta$为$P$在$L$中的一个根。
+   证明，$
+   {L/K}
 $是阶为$p^m$的循环扩张并且存在$\sigma$在$L$上的延拓$\overline{\sigma}\in {\rm Gal}(
-  {L/K}
+   {L/K}
 )$使得$\overline{\sigma}$生成了${\rm Gal}(
-  {L/K}
+   {L/K}
 )$并且$\overline{\sigma}(\theta)=\theta+\beta$。
 
 ## 正十七边形的具体构造

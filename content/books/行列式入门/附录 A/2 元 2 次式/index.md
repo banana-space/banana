@@ -190,200 +190,194 @@ title: '\(2\) 元 \(2\) 次式'
 \]
 我们分类讨论。
 
-(1)
-\(A = B = C = 0\)。
-则
-\[
-\begin{aligned}
-  f(x, y)
-  = 2Dx + 2Ey + F
-  = (0x + 0y + 1)(2Dx + 2Ey + F).
-\end{aligned}
-\]
+(1) \(A = B = C = 0\)。
+    则
+    \[
+    \begin{aligned}
+      f(x, y)
+      = 2Dx + 2Ey + F
+      = (0x + 0y + 1)(2Dx + 2Ey + F).
+    \end{aligned}
+    \]
 
-(2)
-\(A = C = 0\)，但 \(B \neq 0\)。
-则
-\[
-\begin{aligned}
-  f(x, y)
-  = {} & 2Bxy + 2Dx + 2Ey + F                                                               \\
-  = {} & \frac{2}{B}(Bx \cdot By + D \cdot Bx + E \cdot By) + F                             \\
-  = {} & \frac{2}{B}(Bx \cdot By + D \cdot Bx + E \cdot By + DE - DE) + F                   \\
-  = {} & \frac{2}{B}(Bx \cdot By + D \cdot Bx + E \cdot By + DE) - \frac{2}{B} \cdot DE + F \\
-  = {} & \frac{2}{B}(Bx + E)(By + D) - \frac{2ED - FB}{B}                                   \\
-  = {} & \left(1x + 0y + \frac{E}{B}\right)(0x + 2By + 2D) - \frac{2BED - FB^2}{B^2}.
-\end{aligned}
-\]
-因为 \(\Delta = 0\)，且 \(A = C = 0\)，故
-\[
-\begin{aligned}
-  \Delta = 0 + 2BED - (0 + 0 + FB^2) = 2BED - FB^2 = 0.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  f(x, y) = \left(1x + 0y + \frac{E}{B}\right)(0x + 2By + 2D).
-\end{aligned}
-\]
+(2) \(A = C = 0\)，但 \(B \neq 0\)。
+    则
+    \[
+    \begin{aligned}
+      f(x, y)
+      = {} & 2Bxy + 2Dx + 2Ey + F                                                               \\
+      = {} & \frac{2}{B}(Bx \cdot By + D \cdot Bx + E \cdot By) + F                             \\
+      = {} & \frac{2}{B}(Bx \cdot By + D \cdot Bx + E \cdot By + DE - DE) + F                   \\
+      = {} & \frac{2}{B}(Bx \cdot By + D \cdot Bx + E \cdot By + DE) - \frac{2}{B} \cdot DE + F \\
+      = {} & \frac{2}{B}(Bx + E)(By + D) - \frac{2ED - FB}{B}                                   \\
+      = {} & \left(1x + 0y + \frac{E}{B}\right)(0x + 2By + 2D) - \frac{2BED - FB^2}{B^2}.
+    \end{aligned}
+    \]
+    因为 \(\Delta = 0\)，且 \(A = C = 0\)，故
+    \[
+    \begin{aligned}
+      \Delta = 0 + 2BED - (0 + 0 + FB^2) = 2BED - FB^2 = 0.
+    \end{aligned}
+    \]
+    从而
+    \[
+    \begin{aligned}
+      f(x, y) = \left(1x + 0y + \frac{E}{B}\right)(0x + 2By + 2D).
+    \end{aligned}
+    \]
 
-(3)
-\(A \neq 0\)。
-则
-\[
-\begin{aligned}
-  &
-  f(x, y)
-  \\
-  = {} &
-  Ax^2 + 2(By + D)x + (Cy^2 + 2Ey + F)
-  \\
-  = {} &
-  \frac{(Ax + By + D)^2 - (By + D)^2}{A} + (Cy^2 + 2Ey + F)
-  \\
-  = {} &
-  \frac{1}{A} (Ax + By + D)^2 + \frac{1}{A}((AC - B^2)y^2 + 2(AE - BD)y) + \frac{AF - D^2}{A}.
-\end{aligned}
-\]
-我们要进一步地分类讨论。
+(3) \(A \neq 0\)。
+    则
+    \[
+    \begin{aligned}
+      &
+      f(x, y)
+      \\
+      = {} &
+      Ax^2 + 2(By + D)x + (Cy^2 + 2Ey + F)
+      \\
+      = {} &
+      \frac{(Ax + By + D)^2 - (By + D)^2}{A} + (Cy^2 + 2Ey + F)
+      \\
+      = {} &
+      \frac{1}{A} (Ax + By + D)^2 + \frac{1}{A}((AC - B^2)y^2 + 2(AE - BD)y) + \frac{AF - D^2}{A}.
+    \end{aligned}
+    \]
+    我们要进一步地分类讨论。
 
-(3.1)
-\(AC - B^2 = 0\)。
-此时，\(C = B^2 / A\)。
-故
-\[
-\begin{aligned}
-  \Delta
-  = {} &
-  A \cdot \frac{B^2}{A} \cdot F + 2BED - AE^2
-  - \frac{B^2 D^2}{A} - FB^2
-  \\
-  = {} &
-  {-} \frac{1}{A} (A^2 E^2 - 2AE BD + B^2 D^2)
-  \\
-  = {} &
-  {-} \frac{1}{A} (AE - BD)^2.
-\end{aligned}
-\]
-因为 \(\Delta = 0\)，
-故 \(AE - BD = 0\)。
-从而
-\[
-\begin{aligned}
-  f(x, y) = \frac{(Ax + By + D)^2 - (D^2 - AF)}{A}.
-\end{aligned}
-\]
-设复数 \(d\) 适合 \(d^2 = D^2 - AF\)。
-则
-\[
-\begin{aligned}
-  f(x, y) = \frac{1}{A} (Ax + By + D + d)(Ax + By + D - d);
-\end{aligned}
-\]
-也就是，
-\[
-\begin{aligned}
-  f(x, y) = \left( 1x + \frac{B}{A} y + \frac{D+d}{A} \right) (Ax + By + (D - d)).
-\end{aligned}
-\]
+(\(3.1\)) \(AC - B^2 = 0\)。
+                此时，\(C = B^2 / A\)。
+                故
+                \[
+                \begin{aligned}
+                  \Delta
+                  = {} &
+                  A \cdot \frac{B^2}{A} \cdot F + 2BED - AE^2
+                        - \frac{B^2 D^2}{A} - FB^2
+                        \\
+                        = {} &
+                        {-} \frac{1}{A} (A^2 E^2 - 2AE BD + B^2 D^2)
+                        \\
+                        = {} &
+                        {-} \frac{1}{A} (AE - BD)^2.
+                      \end{aligned}
+                \]
+          因为 \(\Delta = 0\)，
+          故 \(AE - BD = 0\)。
+          从而
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{(Ax + By + D)^2 - (D^2 - AF)}{A}.
+          \end{aligned}
+          \]
+          设复数 \(d\) 适合 \(d^2 = D^2 - AF\)。
+          则
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{1}{A} (Ax + By + D + d)(Ax + By + D - d);
+          \end{aligned}
+          \]
+          也就是，
+          \[
+          \begin{aligned}
+            f(x, y) = \left( 1x + \frac{B}{A} y + \frac{D+d}{A} \right) (Ax + By + (D - d)).
+          \end{aligned}
+          \]
 
-(3.2)
-\(AC - B^2 \neq 0\)。
-此时
-\[
-\begin{aligned}
-  & (AC - B^2) y^2 + 2(AE - BD)y
-  \\
-  = {} & \frac{1}{AC - B^2} ((AC - B^2)y + (AE - BD))^2 - \frac{(AE - BD)^2}{AC - B^2}.
-\end{aligned}
-\]
-所以
-\[
-\begin{aligned}
-  f(x, y)
-  = {} &
-  \hphantom{{} + {}}
-  \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}
-  \\
-  &
-  + \frac{AF - D^2}{A} - \frac{(AE - BD)^2}{A(AC - B^2)};
-\end{aligned}
-\]
-也就是，
-\[
-\begin{aligned}
-  f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)} + \frac{\Delta}{AC - B^2}.
-\end{aligned}
-\]
-因为 \(\Delta = 0\)，故
-\[
-\begin{aligned}
-  f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}.
-\end{aligned}
-\]
-设复数 \(e\) 适合 \(e^2 = B^2 - AC\)。
-设 \(f = (BD-AE)/e\)。
-则
-\[
-\begin{aligned}
-  f(x, y)
-  = {} & \frac{(Ax + By + D)^2}{A} - \frac{(e^2 y + ef)^2}{Ae^2}                   \\
-  = {} & \frac{(Ax + By + D)^2}{A} - \frac{(ey + f)^2}{A}                          \\
-  = {} & \frac{1}{A}(Ax + By + D + ey + f)(Ax + By + D - ey - f)                   \\
-  = {} & \left( 1x + \frac{B+e}{A}y + \frac{D+f}{A} \right) (Ax + (B-e)y + (D-f)).
-\end{aligned}
-\]
+(\(3.2\)) \(AC - B^2 \neq 0\)。
+                此时
+                \[
+                \begin{aligned}
+                  & (AC - B^2) y^2 + 2(AE - BD)y
+                  \\
+                  = {} & \frac{1}{AC - B^2} ((AC - B^2)y + (AE - BD))^2 - \frac{(AE - BD)^2}{AC - B^2}.
+                \end{aligned}
+                \]
+                所以
+                \[
+                \begin{aligned}
+                  f(x, y)
+                  = {} &
+                  \hphantom{{} + {}}
+                  \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}
+                  \\
+                  &
+                        + \frac{AF - D^2}{A} - \frac{(AE - BD)^2}{A(AC - B^2)};
+                      \end{aligned}
+                \]
+          也就是，
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)} + \frac{\Delta}{AC - B^2}.
+          \end{aligned}
+          \]
+          因为 \(\Delta = 0\)，故
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}.
+          \end{aligned}
+          \]
+          设复数 \(e\) 适合 \(e^2 = B^2 - AC\)。
+          设 \(f = (BD-AE)/e\)。
+          则
+          \[
+          \begin{aligned}
+            f(x, y)
+            = {} & \frac{(Ax + By + D)^2}{A} - \frac{(e^2 y + ef)^2}{Ae^2}                   \\
+            = {} & \frac{(Ax + By + D)^2}{A} - \frac{(ey + f)^2}{A}                          \\
+            = {} & \frac{1}{A}(Ax + By + D + ey + f)(Ax + By + D - ey - f)                   \\
+            = {} & \left( 1x + \frac{B+e}{A}y + \frac{D+f}{A} \right) (Ax + (B-e)y + (D-f)).
+          \end{aligned}
+          \]
 
-(4)
-\(C \neq 0\)。
-则
-\[
-\begin{aligned}
-  f(x, y) = Cy^2 + 2Byx + Ax^2 + 2Ey + 2Dx + F.
-\end{aligned}
-\]
-考虑 \(2\) 元 \({\leqslant} 2\) 次式
-\[
-\begin{aligned}
-  g(x, y) = Cx^2 + 2Bxy + Ay^2 + 2Ex + 2Dy + F.
-\end{aligned}
-\]
-注意，对任何复数对 \((z, w)\)，
-\[
-\begin{aligned}
-  g(z, w) = f(w, z).
-\end{aligned}
-\]
-我们计算 \(g(x, y)\) 的判别式：
-\[
-\begin{aligned}
-  \Delta'
-  = {} &
-   \det
-  \begin{bmatrix}
-    C & B & E \\
-    B & A & D \\
-    E & D & F \\
-  \end{bmatrix}                     \\
-  = {} & CAF + 2BDE - (CD^2 + AE^2 + FB^2) \\
-  = {} & ACF + 2BED - (AE^2 + CD^2 + FB^2) \\
-  = {} & \Delta.
-\end{aligned}
-\]
-从而，由 (3)，
-存在复数
-\(a_1\)、\(a_2\)、\(a_3\)、\(a_4\)、\(a_5\)、\(a_6\)
-使
-\[
-\begin{aligned}
-  g(x, y) = (a_1 x + a_2 y + a_3) (a_4 x + a_5 y + a_6).
-\end{aligned}
-\]
-所以
-\[
-f(x, y) = g(y, x) = (a_2 x + a_1 y + a_3) (a_5 x + a_4 y + a_6).
-\]
+(4) \(C \neq 0\)。
+    则
+    \[
+    \begin{aligned}
+      f(x, y) = Cy^2 + 2Byx + Ax^2 + 2Ey + 2Dx + F.
+    \end{aligned}
+    \]
+    考虑 \(2\) 元 \({\leqslant} 2\) 次式
+    \[
+    \begin{aligned}
+      g(x, y) = Cx^2 + 2Bxy + Ay^2 + 2Ex + 2Dy + F.
+    \end{aligned}
+    \]
+    注意，对任何复数对 \((z, w)\)，
+    \[
+    \begin{aligned}
+      g(z, w) = f(w, z).
+    \end{aligned}
+    \]
+    我们计算 \(g(x, y)\) 的判别式：
+    \[
+    \begin{aligned}
+      \Delta'
+      = {} &
+       \det
+      \begin{bmatrix}
+        C & B & E \\
+        B & A & D \\
+        E & D & F \\
+      \end{bmatrix}                     \\
+      = {} & CAF + 2BDE - (CD^2 + AE^2 + FB^2) \\
+      = {} & ACF + 2BED - (AE^2 + CD^2 + FB^2) \\
+      = {} & \Delta.
+    \end{aligned}
+    \]
+    从而，由 (3)，
+    存在复数
+    \(a_1\)、\(a_2\)、\(a_3\)、\(a_4\)、\(a_5\)、\(a_6\)
+    使
+    \[
+    \begin{aligned}
+      g(x, y) = (a_1 x + a_2 y + a_3) (a_4 x + a_5 y + a_6).
+    \end{aligned}
+    \]
+    所以
+    \[
+    f(x, y) = g(y, x) = (a_2 x + a_1 y + a_3) (a_5 x + a_4 y + a_6).
+    \]
 :::
 
 综上，我们得到本章的重要的定理：

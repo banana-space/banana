@@ -60,15 +60,22 @@ article .theorem-proof {
       display: inline;
     }
 
+    // In a list ending the proof: its last item, followed down nested lists that end their items; the QED goes
+    // after the item's last paragraph (on that line) or display formula, or after the item itself when its
+    // text is not in one.
+    $last-item: "> :last-child:is(ul, ol) li:last-child:not(li:not(:last-child) *):not(li > :not(:last-child) *):not(:has(> :is(ul, ol):last-child))";
+
     > :last-child:not(ul):not(ol):not(blockquote)::after,
-    > :last-child:is(ul, ol)>li:last-child::after,
+    #{$last-item}:not(:has(> :is(p, .math-display):last-child))::after,
+    #{$last-item}>:is(p, .math-display):last-child::after,
     >blockquote:last-child>p:last-child::after {
       content: "\00a0□";
       float: right;
       white-space: nowrap;
     }
 
-    >.math-display:last-child {
+    >.math-display:last-child,
+    #{$last-item}>.math-display:last-child {
       position: relative;
       padding-right: 1.5em;
 
@@ -77,6 +84,8 @@ article .theorem-proof {
         right: 0;
         top: 50%;
         transform: translateY(-50%);
+        // No taller than a one-line formula, which would scroll otherwise.
+        line-height: 1;
       }
     }
   }

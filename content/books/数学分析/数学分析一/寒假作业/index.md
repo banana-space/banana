@@ -14,26 +14,26 @@ $f\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathbb{R}_{\geqslant 0}$ 是连续
 并且对任意的 $x\geqslant 0$，都有
 $f'(x)>0$。我们用 $g(x)$ 表示 $f^{-1}(x)$，即 $f$ 的反函数。
 
-- A1) 证明，对任意的 $a\geqslant 0$，我们有
-  \[
-  af(a)=\int_0^af(x)dx+\int_0^{f(a)} g(y)dy.
-  \]
+A1) 证明，对任意的 $a\geqslant 0$，我们有
+    \[
+    af(a)=\int_0^af(x)dx+\int_0^{f(a)} g(y)dy.
+    \]
 
-- A2) 证明Young不等式：对任意的 $a,b\geqslant 0$，我们有
-  \[
-  ab\leqslant\int_0^af(x)dx+\int_0^{b} g(y)dy.
-  \]
+A2) 证明Young不等式：对任意的 $a,b\geqslant 0$，我们有
+    \[
+    ab\leqslant\int_0^af(x)dx+\int_0^{b} g(y)dy.
+    \]
 
-- A3) 假设 $f\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathbb{R}_{\geqslant 0}$
-  是连续严格递增的函数，
-  并且 $f(0)=0$，$\displaystyle \lim_{x\rightarrow\infty} f(x)=+\infty$。试重新证明A2)中的不等式。
+A3) 假设 $f\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathbb{R}_{\geqslant 0}$
+    是连续严格递增的函数，
+    并且 $f(0)=0$，$\displaystyle \lim_{x\rightarrow\infty} f(x)=+\infty$。试重新证明A2)中的不等式。
 
-- A4) 假设 $a,b\geqslant 0$，$p>1$，$q>1$ 并且 $\dfrac{1}{p}+\dfrac{1}{q}=1$。
-  证明Hölder不等式并确定取等号的条件：
-  \[
-  ab\leqslant \frac{a^p}{p}+\frac{b^q}{q}.
-  \]
-  （提示：考虑函数 $f(x)=x^{p-1}$）
+A4) 假设 $a,b\geqslant 0$，$p>1$，$q>1$ 并且 $\dfrac{1}{p}+\dfrac{1}{q}=1$。
+    证明Hölder不等式并确定取等号的条件：
+    \[
+    ab\leqslant \frac{a^p}{p}+\frac{b^q}{q}.
+    \]
+    （提示：考虑函数 $f(x)=x^{p-1}$）
 
 ## 题目B（一个Sobolev不等式）
 
@@ -50,45 +50,45 @@ Sobolev不等式的一个重要的观点就是
   \left(\int_a^b |f(x)|^2dx\right)^{\frac{1}{2}} \left(\int_a^b |g(x)|^2dx\right)^{\frac{1}{2}}.
   \]
 
-- B2) 证明，对任意的 $\varepsilon>0$，存在常数 $C_{\varepsilon}>0$，
-  使得对任意的 $f\in C^{1}\bigl([a,b]\bigr)$，对任意的 $x\in[a,b]$，我们都有
-  \[
-  \bigl|f(x)^2-f(a)^2\bigr|\leqslant C_{\varepsilon}\int_{a}^b f(x)^2dx+\varepsilon \int_{a}^b f'(x)^2dx.
-  \]
+B2) 证明，对任意的 $\varepsilon>0$，存在常数 $C_{\varepsilon}>0$，
+    使得对任意的 $f\in C^{1}\bigl([a,b]\bigr)$，对任意的 $x\in[a,b]$，我们都有
+    \[
+    \bigl|f(x)^2-f(a)^2\bigr|\leqslant C_{\varepsilon}\int_{a}^b f(x)^2dx+\varepsilon \int_{a}^b f'(x)^2dx.
+    \]
 
-- B3) 证明，对任意的 $\varepsilon>0$，存在常数 $D_{\varepsilon}>0$，
-  使得对任意的 $f\in C^{1}\bigl([a,b]\bigr)$，我们都有
-  \[
-  \sup_{x\in [a,b]}|f(x)|^2 \leqslant D_{\varepsilon}\int_{a}^b f(x)^2dx+\varepsilon \int_{a}^b f'(x)^2dx.
-  \]
+B3) 证明，对任意的 $\varepsilon>0$，存在常数 $D_{\varepsilon}>0$，
+    使得对任意的 $f\in C^{1}\bigl([a,b]\bigr)$，我们都有
+    \[
+    \sup_{x\in [a,b]}|f(x)|^2 \leqslant D_{\varepsilon}\int_{a}^b f(x)^2dx+\varepsilon \int_{a}^b f'(x)^2dx.
+    \]
 
 ## 题目C（Wirtinger不等式）
 
 令 $E=\bigl\{f\in C^1\bigl([0,1]\bigr)\bigm| f(0)=f(1)=0\bigr\}$。
 
-- C1) 对任意的 $f\in E$，我们定义反常积分
-  \[
-  \mathbf{I}_1=\int_0^1 \frac{f(x)f'(x)}{\tan(\pi x)}dx,
-  \ \ \mathbf{I}_2=\int_0^1 \frac{f(x)^2}{\tan^2(\pi x)}(1+\tan^2(\pi x))dx.
-  \]
-  证明，上述反常积分收敛并确定它们的比值。
+C1) 对任意的 $f\in E$，我们定义反常积分
+    \[
+    \mathbf{I}_1=\int_0^1 \frac{f(x)f'(x)}{\tan(\pi x)}dx,
+    \ \ \mathbf{I}_2=\int_0^1 \frac{f(x)^2}{\tan^2(\pi x)}(1+\tan^2(\pi x))dx.
+    \]
+    证明，上述反常积分收敛并确定它们的比值。
 
-- C2) 证明（Wirtinger不等式），对任意的 $f\in E$，我们有
-  \[
-  \int_0^1f(x)^2dx\leqslant \pi^{-2}\int_0^1f'(x)^2 dx.
-  \]
+C2) 证明（Wirtinger不等式），对任意的 $f\in E$，我们有
+    \[
+    \int_0^1f(x)^2dx\leqslant \pi^{-2}\int_0^1f'(x)^2 dx.
+    \]
 
-- C3) 试找出所有的 $f\in E$，使得上面的不等式取等号。
+C3) 试找出所有的 $f\in E$，使得上面的不等式取等号。
 
-- C4) 假设 $f\in \mathcal{R}\bigl([0,2\pi]\bigr)$，
-  试找出 $A\in \mathbb{R}$，使得积分 $\displaystyle\int_0^{2\pi}|f(x)-A|^2dx$ 最小。
+C4) 假设 $f\in \mathcal{R}\bigl([0,2\pi]\bigr)$，
+    试找出 $A\in \mathbb{R}$，使得积分 $\displaystyle\int_0^{2\pi}|f(x)-A|^2dx$ 最小。
 
-- C5) 证明另一种版本的Wirtinger不等式，对任意的 $f\in C^1([0,2\pi])$，
-  如果 $f(0)=f(2\pi)$ 并且 $\displaystyle\int_0^{2\pi}f(x)dx=0$，那么
-  \[
-  \int_0^{2\pi}f(x)^2dx\leqslant \int_0^{2\pi}f'(x)^2 dx,
-  \]
-  并且等号成立当且仅当 $f$ 是 $\sin x$ 和 $\cos x$ 的一个线性组合。
+C5) 证明另一种版本的Wirtinger不等式，对任意的 $f\in C^1([0,2\pi])$，
+    如果 $f(0)=f(2\pi)$ 并且 $\displaystyle\int_0^{2\pi}f(x)dx=0$，那么
+    \[
+    \int_0^{2\pi}f(x)^2dx\leqslant \int_0^{2\pi}f'(x)^2 dx,
+    \]
+    并且等号成立当且仅当 $f$ 是 $\sin x$ 和 $\cos x$ 的一个线性组合。
 
 - C6*)（等周不等式的证明）
   假设 $\gamma\colon [0,2\pi]\rightarrow \mathbb{R}^2$ 是一条 $C^1$ 的闭曲线
@@ -109,44 +109,44 @@ Sobolev不等式的一个重要的观点就是
 $P_n(x)=\dfrac{1}{2^n n!}\left(\dfrac{d}{dx}\right)^n\left((x^2-1)^n\right)$。
 为了方便起见，我们令 $P_0(x)\equiv 1$。
 
-- D1) 证明，任意给定连续函数 $\varphi(x)\in C([-1,1])$，
-  对任意的 $\varepsilon>0$，存在正整数 $N$ 和实数 $c_1,c_2,\cdots, c_N$，使得
-  \[
-  \|\varphi(x)-\sum_{k=1}^Nc_kP_k(x)\|_{\infty}<\varepsilon.
-  \]
+D1) 证明，任意给定连续函数 $\varphi(x)\in C([-1,1])$，
+    对任意的 $\varepsilon>0$，存在正整数 $N$ 和实数 $c_1,c_2,\cdots, c_N$，使得
+    \[
+    \|\varphi(x)-\sum_{k=1}^Nc_kP_k(x)\|_{\infty}<\varepsilon.
+    \]
 
-- D2) 证明，对任意的 $n\geqslant 1$，$P_n(x)$ 满足下面的微分方程：
-  \[
-  (1-x^2)f''-2xf'+n(n+1)f=0.
-  \]
+D2) 证明，对任意的 $n\geqslant 1$，$P_n(x)$ 满足下面的微分方程：
+    \[
+    (1-x^2)f''-2xf'+n(n+1)f=0.
+    \]
 
-- D3) 证明，对任意的 $n, m\geqslant 1$，我们有
-  \[
-  \int_{-1}^1P_n(x)P_m(x)dx=\begin{cases}
-  0, \ \ &m\neq n;\\ \frac{2}{2n+1}, \ \ &m= n.
-  \end{cases}
-  \]
+D3) 证明，对任意的 $n, m\geqslant 1$，我们有
+    \[
+    \int_{-1}^1P_n(x)P_m(x)dx=\begin{cases}
+    0, \ \ &m\neq n;\\ \frac{2}{2n+1}, \ \ &m= n.
+    \end{cases}
+    \]
 
-- D4) 给定 $n\geqslant 1$。证明，如果 $Q(x)$ 是次数不超过 $n-1$ 的多项式，那么
-  \[
-  \int_{-1}^1 Q(x)P_n(x)dx= 0.
-  \]
+D4) 给定 $n\geqslant 1$。证明，如果 $Q(x)$ 是次数不超过 $n-1$ 的多项式，那么
+    \[
+    \int_{-1}^1 Q(x)P_n(x)dx= 0.
+    \]
 
-- D5) 证明，对任意的 $n\geqslant 1$，$P_n(x)$ 恰有 $n$ 个实数根并且悉数落在 $(-1,1)$ 上。
-  我们将这些根记作 $x^{(n)}_1<x^{(n)}_2<\cdots<x^{(n)}_n$。
+D5) 证明，对任意的 $n\geqslant 1$，$P_n(x)$ 恰有 $n$ 个实数根并且悉数落在 $(-1,1)$ 上。
+    我们将这些根记作 $x^{(n)}_1<x^{(n)}_2<\cdots<x^{(n)}_n$。
 
-- D6) 证明，对任意的 $n\geqslant 1$，
-  存在实数 $\alpha^{(n)}_1,\alpha^{(n)}_2,\cdots,\alpha^{(n)}_n$，
-  使得对任意的次数不超过 $2n-1$ 的多项式 $Q(x)$，我们都有
-  \[
-  \int_{-1}^1Q(x)dx=\sum_{i=1}^n\alpha^{(n)}_i Q(x^{(n)}_i).
-  \]
+D6) 证明，对任意的 $n\geqslant 1$，
+    存在实数 $\alpha^{(n)}_1,\alpha^{(n)}_2,\cdots,\alpha^{(n)}_n$，
+    使得对任意的次数不超过 $2n-1$ 的多项式 $Q(x)$，我们都有
+    \[
+    \int_{-1}^1Q(x)dx=\sum_{i=1}^n\alpha^{(n)}_i Q(x^{(n)}_i).
+    \]
 
-- D7) Gauss对积分的一个逼近公式：对任意的连续函数 $\varphi(x)\in C([-1,1])$，我们令
-  \[
-  G_n(\varphi)=\sum_{i=1}^n\alpha^{(n)}_i \varphi(x^{(n)}_i).
-  \]
-  证明，$\displaystyle\lim_{n\rightarrow \infty}G_n(\varphi)=\int_{-1}^1\varphi(x)dx$。
+D7) Gauss对积分的一个逼近公式：对任意的连续函数 $\varphi(x)\in C([-1,1])$，我们令
+    \[
+    G_n(\varphi)=\sum_{i=1}^n\alpha^{(n)}_i \varphi(x^{(n)}_i).
+    \]
+    证明，$\displaystyle\lim_{n\rightarrow \infty}G_n(\varphi)=\int_{-1}^1\varphi(x)dx$。
 
 ## 题目E（等分布问题）
 
@@ -163,50 +163,50 @@ S_n([a,b])=\Bigl|\bigl\{x_k\bigm|  k\leqslant n, x_k \in [a,b]\bigr\}\Bigr|.
 \]
 我们就称数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上**等分布**。
 
-- E1) 证明，如果数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布，
-  那么 $\{x_k\}_{k\geqslant 1}$ 是 $[0,1]$ 的稠密子集。
+E1) 证明，如果数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布，
+    那么 $\{x_k\}_{k\geqslant 1}$ 是 $[0,1]$ 的稠密子集。
 
-- E2) 试构造 $[0,1]$ 的稠密子集 $\{x_k\}_{k\geqslant 1}$，
-  使得数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上不是等分布的。
+E2) 试构造 $[0,1]$ 的稠密子集 $\{x_k\}_{k\geqslant 1}$，
+    使得数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上不是等分布的。
 
-- E3) 任意给定数列 $\{x_k\}_{k\geqslant 1}\subset [0,1]$，我们令
-  \[
-  D_n=\sup_{0\leqslant a<b \leqslant 1}\Bigl|\frac{S_n([a,b])}{n}-(b-a)\Bigr|,
-  \ \  D^*_n=\sup_{0<b<1}\Bigl|\frac{S_n([0,b])}{n}-b\Bigr|.
-  \]
-  证明，$D_n^*\leqslant D_n \leqslant 2D_n^*$。
+E3) 任意给定数列 $\{x_k\}_{k\geqslant 1}\subset [0,1]$，我们令
+    \[
+    D_n=\sup_{0\leqslant a<b \leqslant 1}\Bigl|\frac{S_n([a,b])}{n}-(b-a)\Bigr|,
+    \ \  D^*_n=\sup_{0<b<1}\Bigl|\frac{S_n([0,b])}{n}-b\Bigr|.
+    \]
+    证明，$D_n^*\leqslant D_n \leqslant 2D_n^*$。
 
-- E4) 证明，数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布当且仅当
-  $\displaystyle \lim_{n\rightarrow \infty} D_n^*=0$。
+E4) 证明，数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布当且仅当
+    $\displaystyle \lim_{n\rightarrow \infty} D_n^*=0$。
 
-- E5) 证明，数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布
-  当且仅当对任意的连续函数 $f\in C\bigl([0,1]\bigr)$，我们都有
-  \[
-  \lim_{n\rightarrow \infty}\frac{1}{n}\sum_{k=1}^n f(x_k)=\int_{0}^1 f(x)dx.
-  \]
-  （提示：试用连续函数逼近 $\mathbf{1}_{[a,b]}$）
+E5) 证明，数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布
+    当且仅当对任意的连续函数 $f\in C\bigl([0,1]\bigr)$，我们都有
+    \[
+    \lim_{n\rightarrow \infty}\frac{1}{n}\sum_{k=1}^n f(x_k)=\int_{0}^1 f(x)dx.
+    \]
+    （提示：试用连续函数逼近 $\mathbf{1}_{[a,b]}$）
 
-- E6) 证明Weyl判定准则：数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布
-  当且仅当对任意 $p\in \mathbb{Z}_{\geqslant 1}$，我们都有
-  \[
-  \lim_{n\rightarrow \infty}\frac{1}{n}\sum_{k=1}^n e^{2\pi ip x_k}=0.
-  \]
-  （提示：利用三角函数版本的Weierstrass–Stone定理）
+E6) 证明Weyl判定准则：数列 $\{x_k\}_{k\geqslant 1}$ 在 $[0,1]$ 上等分布
+    当且仅当对任意 $p\in \mathbb{Z}_{\geqslant 1}$，我们都有
+    \[
+    \lim_{n\rightarrow \infty}\frac{1}{n}\sum_{k=1}^n e^{2\pi ip x_k}=0.
+    \]
+    （提示：利用三角函数版本的Weierstrass–Stone定理）
 
-- E7) 假设 $\theta>0$ 是实数，$\{x\}$ 代表一个数的小数部分，
-  即 $\{x\}=x-\left\lfloor {x} \right\rfloor$。
-  那么，数列 $\bigl\{\{n\theta\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$ 上等分布
-  当且仅当 $\theta$ 是无理数。
+E7) 假设 $\theta>0$ 是实数，$\{x\}$ 代表一个数的小数部分，
+    即 $\{x\}=x-\left\lfloor {x} \right\rfloor$。
+    那么，数列 $\bigl\{\{n\theta\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$ 上等分布
+    当且仅当 $\theta$ 是无理数。
 
-- E8) 证明，数列 $\{\xi_n\}_{n\geqslant 1}
-  =\bigl\{\{\sqrt{n}\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$ 上是等分布的。
+E8) 证明，数列 $\{\xi_n\}_{n\geqslant 1}
+    =\bigl\{\{\sqrt{n}\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$ 上是等分布的。
 
-- E9) 任给实数 $a\neq 0$，$\sigma \in (0,1)$。证明，
-  数列 $\{\xi_n\}_{n\geqslant 1}=\bigl\{\{a n^\sigma\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$
-  上是等分布的。
+E9) 任给实数 $a\neq 0$，$\sigma \in (0,1)$。证明，
+    数列 $\{\xi_n\}_{n\geqslant 1}=\bigl\{\{a n^\sigma\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$
+    上是等分布的。
 
-- E10) 证明，对任意的 $a\in \mathbb{R}$，数列 $\{\xi_n\}_{n\geqslant 1}
-  =\bigl\{\{a \log n\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$ 上不是等分布的。
+E10) 证明，对任意的 $a\in \mathbb{R}$，数列 $\{\xi_n\}_{n\geqslant 1}
+     =\bigl\{\{a \log n\}\bigr\}_{n\geqslant 1}$ 在 $[0,1]$ 上不是等分布的。
 
 ## 题目F（平面闭曲线的环绕数）
 
@@ -222,41 +222,42 @@ $E=\{f\colon \mathbb{R}\rightarrow \mathbb{C}^\times\bigm| \text{$f$ 连续可�
 d(f)=\frac{1}{2\pi i}\int_0^{2\pi}\frac{f'(t)}{f(t)}dt.
 \]
 
-- F1) 证明 $d(f)$ 是良好定义的并且对下面这一族曲线
-  \[
-  f_n\colon  \mathbb{R} \rightarrow \mathbb{C}^\times,  \ \ x \mapsto f_n(x)=e^{inx}
-  \]
-  计算其环绕数 $d(f_n)$（直观上，上述曲线是用 $[0,2\pi]$ 区间将单位圆周绕 $n$ 圈，
-  其中 $n$ 的正负与绕的方向相关）。
+F1) 证明 $d(f)$ 是良好定义的并且对下面这一族曲线
+    \[
+    f_n\colon  \mathbb{R} \rightarrow \mathbb{C}^\times,  \ \ x \mapsto f_n(x)=e^{inx}
+    \]
+    计算其环绕数 $d(f_n)$（直观上，上述曲线是用 $[0,2\pi]$ 区间将单位圆周绕 $n$ 圈，
+    其中 $n$ 的正负与绕的方向相关）。
 
-- F2) 试用 $\mathbb{C}$ 上的极坐标系来写下 $d(f)$ 的定义
-  （即将 $f(t)$ 写为 $\rho(t)e^{i\theta(t)}$），这个计算给出了 $d(f)$ 的直观含义。
+F2) 试用 $\mathbb{C}$ 上的极坐标系来写下 $d(f)$ 的定义
+    （即将 $f(t)$ 写为 $\rho(t)e^{i\theta(t)}$），这个计算给出了 $d(f)$ 的直观含义。
 
-- F3) 利用函数 $\psi(t)=\exp\left(\int_0^{t}\frac{f'(s)}{f(s)}ds\right)$
-  证明 $d(f)$ 是整数。（提示：证明 $\psi$ 与 $f$ 解同一个1阶常微分方程）
+F3) 利用函数 $\psi(t)=\exp\left(\int_0^{t}\frac{f'(s)}{f(s)}ds\right)$
+    证明 $d(f)$ 是整数。（提示：证明 $\psi$ 与 $f$ 解同一个1阶常微分方程）
 
-- F4) 证明，对任意的 $f\in E$，存在 $\varepsilon>0$，
-  对任意的 $g\in E$，如果 $\|f-g\|_\infty<\varepsilon$，那么 $d(g)=d(f)$。
+F4) 证明，对任意的 $f\in E$，存在 $\varepsilon>0$，
+    对任意的 $g\in E$，如果 $\|f-g\|_\infty<\varepsilon$，那么 $d(g)=d(f)$。
 
-- F5) 你是否可以利用F4)的结论对于函数 $f\colon \mathbb{R}\rightarrow \mathbb{C}^\times$，
-  其中 $f$ 连续并且以 $2\pi$ 为周期来定义 $d(f)$？（提示：可以利用三角函数的Weierstrass–Stone定理）
+F5) 你是否可以利用F4)的结论对于函数 $f\colon \mathbb{R}\rightarrow \mathbb{C}^\times$，
+    其中 $f$ 连续并且以 $2\pi$ 为周期来定义 $d(f)$？（提示：
+    可以利用三角函数的Weierstrass–Stone定理）
 
-- F6) 证明同伦不变性：假设 $F(t,\tau)\colon \mathbb{R}\times [0,1]\rightarrow \mathbb{C}^\times$
-  是连续映射并且使得对任意的 $\tau\in [0,1]$，$F(\cdot,\tau)\in E$，那么
-  \[
-  d\bigl(F(x,0)\bigr)=d\bigl(F(x,1)\bigr).
-  \]
+F6) 证明同伦不变性：假设 $F(t,\tau)\colon \mathbb{R}\times [0,1]\rightarrow \mathbb{C}^\times$
+    是连续映射并且使得对任意的 $\tau\in [0,1]$，$F(\cdot,\tau)\in E$，那么
+    \[
+    d\bigl(F(x,0)\bigr)=d\bigl(F(x,1)\bigr).
+    \]
 
-- F7) 假设 $P(x)=x^n+c_{n-1}x^{n-1}+\cdots+c_1x+c_0$ 是一个 $n$ 次的首一复系数多项式，
-  假设 $P(0)\neq 0$，证明，存在 $\varepsilon_0>0$，
-  使得对任意的 $\varepsilon \in (0,\varepsilon_0)$，
-  函数 $f_\varepsilon(x)=P(\varepsilon e^{\pi i x}) \in E$ 并计算 $d(f_\varepsilon)$。
+F7) 假设 $P(x)=x^n+c_{n-1}x^{n-1}+\cdots+c_1x+c_0$ 是一个 $n$ 次的首一复系数多项式，
+    假设 $P(0)\neq 0$，证明，存在 $\varepsilon_0>0$，
+    使得对任意的 $\varepsilon \in (0,\varepsilon_0)$，
+    函数 $f_\varepsilon(x)=P(\varepsilon e^{\pi i x}) \in E$ 并计算 $d(f_\varepsilon)$。
 
-- F8) 假设 $P(x)=x^n+c_{n-1}x^{n-1}+\cdots+c_1x+c_0$ 是一个 $n$ 次的首一复系数多项式，
-  假设 $P(0)\neq 0$，证明，存在 $R_0>0$，使得对任意的 $R\in (R_0,\infty)$，
-  函数 $f_R(x)=P(R e^{\pi i x}) \in E$ 并计算 $d(f_R)$。
+F8) 假设 $P(x)=x^n+c_{n-1}x^{n-1}+\cdots+c_1x+c_0$ 是一个 $n$ 次的首一复系数多项式，
+    假设 $P(0)\neq 0$，证明，存在 $R_0>0$，使得对任意的 $R\in (R_0,\infty)$，
+    函数 $f_R(x)=P(R e^{\pi i x}) \in E$ 并计算 $d(f_R)$。
 
-- F9) 证明代数基本定理：对任意 $n$ 次的复系数多项式 $P(x)$，它至少有一个根。（提示：反证法）
+F9) 证明代数基本定理：对任意 $n$ 次的复系数多项式 $P(x)$，它至少有一个根。（提示：反证法）
 
 ## 题目G（另一个处处连续处处不可微的函数：Bolzano曲线）
 
@@ -274,26 +275,26 @@ f_{n+1}\left(\frac{k}{3^n}+\frac{2}{3^{n+1}}\right)
 \]
 并且 $f_{n+1}$ 在形如 $\left[\frac{k}{3^{n+1}},\frac{k+1}{3^{n+1}}\right]$ 的区间上是线性函数。
 
-- G1) 证明，对任意的 $n\geqslant 0$，对任意的 $0\leqslant x,y \leqslant 1$，我们都有
-  \[
-  \bigl|f_n(x)-f_n(y)\bigr|\leqslant 2^n|x-y|.
-  \]
+G1) 证明，对任意的 $n\geqslant 0$，对任意的 $0\leqslant x,y \leqslant 1$，我们都有
+    \[
+    \bigl|f_n(x)-f_n(y)\bigr|\leqslant 2^n|x-y|.
+    \]
 
-- G2) 证明，对任意的 $n\geqslant 0$，对任意的 $0\leqslant x \leqslant 1$，我们都有
-  \[
-  \bigl|f_{n+1}(x)-f_n(x)\bigr|\leqslant \frac{2^n}{3^{n+1}}.
-  \]
+G2) 证明，对任意的 $n\geqslant 0$，对任意的 $0\leqslant x \leqslant 1$，我们都有
+    \[
+    \bigl|f_{n+1}(x)-f_n(x)\bigr|\leqslant \frac{2^n}{3^{n+1}}.
+    \]
 
-- G3) 证明，函数列 $\{f_n\}_{n\geqslant 0}$ 在 $[0,1]$ 上一致收敛到某个连续函数 $f\in C([0,1])$。
+G3) 证明，函数列 $\{f_n\}_{n\geqslant 0}$ 在 $[0,1]$ 上一致收敛到某个连续函数 $f\in C([0,1])$。
 
-- G4) 证明，对任意的 $n\geqslant 1$，对任意的 $0\leqslant k \leqslant 3^n$，
-  我们有 $f\left(\dfrac{k}{3^n}\right)=f_n\left(\dfrac{k}{3^n}\right)$。
+G4) 证明，对任意的 $n\geqslant 1$，对任意的 $0\leqslant k \leqslant 3^n$，
+    我们有 $f\left(\dfrac{k}{3^n}\right)=f_n\left(\dfrac{k}{3^n}\right)$。
 
-- G5) 证明，对任意的 $n\geqslant 1$，对任意的 $0\leqslant k \leqslant 3^n$，
-  $f$ 在 $\dfrac{k}{3^n}$ 处不可微。
+G5) 证明，对任意的 $n\geqslant 1$，对任意的 $0\leqslant k \leqslant 3^n$，
+    $f$ 在 $\dfrac{k}{3^n}$ 处不可微。
 
-- G6) 证明，$f$ 在 $[0,1]$ 上处处不可微。
-  （提示：考虑函数 $(h,k)\mapsto \dfrac{f(x+h)-f(x-k)}{h+k}$）
+G6) 证明，$f$ 在 $[0,1]$ 上处处不可微。
+    （提示：考虑函数 $(h,k)\mapsto \dfrac{f(x+h)-f(x-k)}{h+k}$）
 
 ## 题目H
 
@@ -304,17 +305,17 @@ f_{n+1}\left(\frac{k}{3^n}+\frac{2}{3^{n+1}}\right)
 \]
 收敛。
 
-- H1) 是否对任意的 $x_0\in [a,b]$，级数 $\displaystyle\sum_{n=1}^\infty |f_n(x_0)|$ 收敛？
+H1) 是否对任意的 $x_0\in [a,b]$，级数 $\displaystyle\sum_{n=1}^\infty |f_n(x_0)|$ 收敛？
 
-- H2) 令
-  $E=\Bigl\{x_0\in [a,b]\Bigm| \text{级数 $\displaystyle\sum_{n=1}^\infty |f_n(x_0)|$ 收敛}\Bigr\}$。
-  证明，$E\subset [a,b]$ 是稠密的。
+H2) 令
+    $E=\Bigl\{x_0\in [a,b]\Bigm| \text{级数 $\displaystyle\sum_{n=1}^\infty |f_n(x_0)|$ 收敛}\Bigr\}$。
+    证明，$E\subset [a,b]$ 是稠密的。
 
-- H3) 令
-  $F=\Bigl\{x_0\in [a,b]\Bigm| \text{级数 $\displaystyle\sum_{n=1}^\infty |f_n(x_0)|$ 发散}\Bigr\}$。
-  试构造 $[a,b]$ 上的连续函数列 $\{f_n\}_{n\geqslant 1}\subset C([a,b])$
-  使得级数 $\displaystyle \sum_{n=1}^\infty \left(\int_a^b|f_n(x)|dx\right)$ 收敛
-  并且 $F\subset [a,b]$ 是稠密的。
+H3) 令
+    $F=\Bigl\{x_0\in [a,b]\Bigm| \text{级数 $\displaystyle\sum_{n=1}^\infty |f_n(x_0)|$ 发散}\Bigr\}$。
+    试构造 $[a,b]$ 上的连续函数列 $\{f_n\}_{n\geqslant 1}\subset C([a,b])$
+    使得级数 $\displaystyle \sum_{n=1}^\infty \left(\int_a^b|f_n(x)|dx\right)$ 收敛
+    并且 $F\subset [a,b]$ 是稠密的。
 
 ## 题目I
 
@@ -471,20 +472,20 @@ f_{n+1}\left(\frac{k}{3^n}+\frac{2}{3^{n+1}}\right)
 令 $E$ 是由 $\bigl\{\cos(\omega x), \sin(\omega x)\bigm| \omega \in \mathbb{R}\bigr\}$
 所生成的 $\mathbb{R}$-线性空间，很明显，$E\subset C(\mathbb{R})$ 是线性子空间。
 
-- J1) 令
-  $F=\bigl\{f\in C(\mathbb{R})\bigm| \text{存在 $\{f_n\}_{n\geqslant 1}$ 使得 $f_n$ 一致收敛到 $f$}\bigr\}$
-  （即 $F$ 为 $E$ 在 $(C(\mathbb{R}),\|\cdot\|_\infty)$ 中的闭包），
-  证明，$F$ 是 $\mathbb{R}$-线性空间并且对任意的 $f,g\in F$，它们的乘积 $f\cdot g\in F$。
+J1) 令
+    $F=\bigl\{f\in C(\mathbb{R})\bigm| \text{存在 $\{f_n\}_{n\geqslant 1}$ 使得 $f_n$ 一致收敛到 $f$}\bigr\}$
+    （即 $F$ 为 $E$ 在 $(C(\mathbb{R}),\|\cdot\|_\infty)$ 中的闭包），
+    证明，$F$ 是 $\mathbb{R}$-线性空间并且对任意的 $f,g\in F$，它们的乘积 $f\cdot g\in F$。
 
-- J2) 如果 $\varphi \in C(\mathbb{R})$，$f\in F$，证明，$\varphi\circ f \in F$。
+J2) 如果 $\varphi \in C(\mathbb{R})$，$f\in F$，证明，$\varphi\circ f \in F$。
 
-- J3) 任意给定 $\omega\in \mathbb{R}$ 和 $f\in F$，证明，如下的极限存在
-  \[
-  \widetilde{f}(\omega)=\lim_{T\rightarrow \infty}\frac{1}{2T}\int_{-T}^T e^{-i\omega x}f(x)dx.
-  \]
+J3) 任意给定 $\omega\in \mathbb{R}$ 和 $f\in F$，证明，如下的极限存在
+    \[
+    \widetilde{f}(\omega)=\lim_{T\rightarrow \infty}\frac{1}{2T}\int_{-T}^T e^{-i\omega x}f(x)dx.
+    \]
 
-- J4) 任意给定 $f\in F$，证明，除了至多可数个可能的 $\omega\in \mathbb{R}$ 以外，
-  我们有 $\widetilde{f}(\omega)=0$。
+J4) 任意给定 $f\in F$，证明，除了至多可数个可能的 $\omega\in \mathbb{R}$ 以外，
+    我们有 $\widetilde{f}(\omega)=0$。
 
 ## 题目K（Korovkin定理）
 
@@ -492,17 +493,17 @@ $E=C([0,1])$。考虑 $\mathbb{R}$-线性映射 $T\colon E\rightarrow E$：
 如果对任意的 $[0,1]$ 上的连续正函数 $f\geqslant 0$（即在每个点的取值都是非负的），
 $Tf$ 也是正函数，我们就称 $T$ 是一个**正算子**。
 
-- K1) 假设 $T\colon E\rightarrow E$ 是正算子。
-  证明，存在常数 $C$，使得对任意的 $f\in E$，我们都有
-  \[
-  \|Tf\|_\infty \leqslant C \|f\|_\infty.
-  \]
+K1) 假设 $T\colon E\rightarrow E$ 是正算子。
+    证明，存在常数 $C$，使得对任意的 $f\in E$，我们都有
+    \[
+    \|Tf\|_\infty \leqslant C \|f\|_\infty.
+    \]
 
-- K2) 给定 $f\in E$。证明，对任意的 $\varepsilon>0$，
-  存在常数 $C_\varepsilon$，使得对任意的 $x,y\in [0,1]$，我们有
-  \[
-  |f(x)-f(y)|\leqslant \varepsilon +C_\varepsilon (x-y)^2.
-  \]
+K2) 给定 $f\in E$。证明，对任意的 $\varepsilon>0$，
+    存在常数 $C_\varepsilon$，使得对任意的 $x,y\in [0,1]$，我们有
+    \[
+    |f(x)-f(y)|\leqslant \varepsilon +C_\varepsilon (x-y)^2.
+    \]
 
 - K3)（Korovkin）对于 $n\in \mathbb{Z}_{\geqslant 0}$，
   $P_n(x)=x^n$ 是一族 $E$ 中的正函数。假设 $T_n$ 是一族 $E$ 上的正算子。
@@ -522,17 +523,17 @@ $Tf$ 也是正函数，我们就称 $T$ 是一个**正算子**。
 对于任意的 $x\in \mathbb{R}$，
 我们令 $f(x)=\displaystyle \lim_{n\rightarrow \infty}\sum_{k=-n}^n \frac{1}{x+k}$。
 
-- L1) 证明，$f$ 在 $\mathbb{R}-\mathbb{Z}$ 上是良好定义的。
+L1) 证明，$f$ 在 $\mathbb{R}-\mathbb{Z}$ 上是良好定义的。
 
-- L2) 证明，对任意的 $x\in \mathbb{R}-\mathbb{Z}$，
-  我们有 $f(-x)=-f(x)$，$f(x+1)=f(x)$；
-  对任意的 $\mathbb{R}-\dfrac{1}{2}\mathbb{Z}$，
-  我们有 $2f(2x)=f(x)+f\left(x+\dfrac{1}{2}\right)$。
+L2) 证明，对任意的 $x\in \mathbb{R}-\mathbb{Z}$，
+    我们有 $f(-x)=-f(x)$，$f(x+1)=f(x)$；
+    对任意的 $\mathbb{R}-\dfrac{1}{2}\mathbb{Z}$，
+    我们有 $2f(2x)=f(x)+f\left(x+\dfrac{1}{2}\right)$。
 
-- L3) 证明，函数 $x\mapsto f(x)-\pi \cot(\pi x)$
-  可以在 $x\in \mathbb{Z}$ 处定义从而可以被视作是 $\mathbb{R}$ 上的函数。
+L3) 证明，函数 $x\mapsto f(x)-\pi \cot(\pi x)$
+    可以在 $x\in \mathbb{Z}$ 处定义从而可以被视作是 $\mathbb{R}$ 上的函数。
 
-- L4) 证明，对于 $x\notin \mathbb{Z}$，我们有 $ f(x)\equiv \pi \cot(\pi x)$。
+L4) 证明，对于 $x\notin \mathbb{Z}$，我们有 $ f(x)\equiv \pi \cot(\pi x)$。
 
 ## 题目M（一个一致收敛的判定准则）
 
@@ -540,15 +541,15 @@ $Tf$ 也是正函数，我们就称 $T$ 是一个**正算子**。
 它们满足如下的条件：对任意的收敛的数列 $\{x_n\}_{n\geqslant 1}\subset [0,1]$，
 数列 $\{f_n(x_n)\}_{n\geqslant 1}$ 也收敛。
 
-- M1) 证明，存在 $[0,1]$ 上定义的函数 $f\colon [0,1]\rightarrow \mathbb{R}$，
-  使得对每个点 $x\in [0,1]$，$\displaystyle \lim_{n\rightarrow \infty}f_n(x)=f(x)$。
+M1) 证明，存在 $[0,1]$ 上定义的函数 $f\colon [0,1]\rightarrow \mathbb{R}$，
+    使得对每个点 $x\in [0,1]$，$\displaystyle \lim_{n\rightarrow \infty}f_n(x)=f(x)$。
 
-- M2) 证明，$f$ 是连续函数。
+M2) 证明，$f$ 是连续函数。
 
-- M3) 证明，$f_n$ 一致收敛到 $f$，即
-  \[
-  \lim_{n\rightarrow \infty} \sup_{x\in[0,1]}|f_n(x)-f(x)|=0.
-  \]
+M3) 证明，$f_n$ 一致收敛到 $f$，即
+    \[
+    \lim_{n\rightarrow \infty} \sup_{x\in[0,1]}|f_n(x)-f(x)|=0.
+    \]
 
 ## 题目N（Paul Lévy，万有弦定理）
 
@@ -557,23 +558,23 @@ $Tf$ 也是正函数，我们就称 $T$ 是一个**正算子**。
 \Lambda(f)=\bigl\{\sigma \in [0,1]\bigm|  \text{存在 $x\in [0,1]$，使得 $f(x+\sigma)=f(x)$}\bigr\}.
 \]
 
-- N1) 证明，$\displaystyle \bigcap_{f\in E}\Lambda(f)$ 是紧集并且
-  \[
-  \{0\}\cup \bigl\{\frac{1}{n}\bigm| n \in \mathbb{Z}_{\geqslant 1}\bigr\}
-  \subset \bigcap_{f\in E}\Lambda(f).
-  \]
+N1) 证明，$\displaystyle \bigcap_{f\in E}\Lambda(f)$ 是紧集并且
+    \[
+    \{0\}\cup \bigl\{\frac{1}{n}\bigm| n \in \mathbb{Z}_{\geqslant 1}\bigr\}
+    \subset \bigcap_{f\in E}\Lambda(f).
+    \]
 
-- N2) 证明，对任意的 $f\in E$，存在 $\varepsilon>0$，使得
-  \[
-  [0,\varepsilon]\cup \bigl\{\frac{1}{n}\bigm| n \in \mathbb{Z}_{\geqslant 1}\bigr\}
-  \subset \Lambda(f).
-  \]
+N2) 证明，对任意的 $f\in E$，存在 $\varepsilon>0$，使得
+    \[
+    [0,\varepsilon]\cup \bigl\{\frac{1}{n}\bigm| n \in \mathbb{Z}_{\geqslant 1}\bigr\}
+    \subset \Lambda(f).
+    \]
 
-- N3) 证明，
-  \[
-  \{0\}\cup \bigl\{\frac{1}{n}\bigm| n \in \mathbb{Z}_{\geqslant 1}\bigr\}
-  =\bigcap_{f\in E}\Lambda(f).
-  \]
+N3) 证明，
+    \[
+    \{0\}\cup \bigl\{\frac{1}{n}\bigm| n \in \mathbb{Z}_{\geqslant 1}\bigr\}
+    =\bigcap_{f\in E}\Lambda(f).
+    \]
 
 - N4)（万有弦定理）考虑连续函数 $f\colon [a,b]\rightarrow \mathbb{R}$ 的图像
   $\Gamma_f=\bigl\{(x,f(x))\subset \mathbb{R}^2\bigm| x\in [a,b]\bigr\}$。
@@ -583,27 +584,27 @@ $Tf$ 也是正函数，我们就称 $T$ 是一个**正算子**。
   并且其长度恰好是 $\overline{AB}$ 长度的 $\dfrac{1}{n}$。
   如果 $n\geqslant 1$ 不是整数，结论是否成立？
 
-- N5) 司马迁参加100米赛跑，成绩是10秒。证明，能够找到连续的5秒，他恰好跑了50米。
-  （我们假设人类的运动是连续的）
+N5) 司马迁参加100米赛跑，成绩是10秒。证明，能够找到连续的5秒，他恰好跑了50米。
+    （我们假设人类的运动是连续的）
 
 ## 题目O（除法定理）
 
 假设 $f\in C^\infty(\mathbb{R})$ 并且 $f(0)=0$。
 
-- O1) 证明，函数
-  \[
-  g\colon \mathbb{R}\rightarrow \mathbb{R}, \ \  x\mapsto g(x)
-  =\begin{cases}\frac{f(x)}{x},  \ \  &x\neq 0; \\
-  f'(0), \ \ &x=0.
-  \end{cases}
-  \]
-  是 $\mathbb{R}$ 上的光滑函数。
+O1) 证明，函数
+    \[
+    g\colon \mathbb{R}\rightarrow \mathbb{R}, \ \  x\mapsto g(x)
+    =\begin{cases}\frac{f(x)}{x},  \ \  &x\neq 0; \\
+    f'(0), \ \ &x=0.
+    \end{cases}
+    \]
+    是 $\mathbb{R}$ 上的光滑函数。
 
-- O2) 假设对任意的 $x\neq 0$，$f(x)>0$ 并且假设 $f''(0)\neq 0$。
-  证明，存在光滑函数 $g\in C^\infty(\mathbb{R})$，使得
-  \[
-  g^2=f.
-  \]
+O2) 假设对任意的 $x\neq 0$，$f(x)>0$ 并且假设 $f''(0)\neq 0$。
+    证明，存在光滑函数 $g\in C^\infty(\mathbb{R})$，使得
+    \[
+    g^2=f.
+    \]
 
 ## 题目P
 
@@ -637,29 +638,29 @@ f^{(n)}(x_n)=0.
 
 假设 $(X,d)$ 是紧的距离空间，映射 $f\colon X\rightarrow X$。
 
-- S1) 如果 $f$ 是等距映射，即对任意的 $x,y\in X$，我们都有 $d(f(x),f(y))=d(x,y)$。证明，$f$ 是双射。
+S1) 如果 $f$ 是等距映射，即对任意的 $x,y\in X$，我们都有 $d(f(x),f(y))=d(x,y)$。证明，$f$ 是双射。
 
-- S2) 如果对任意的 $x,y\in X$，我们都有 $d(f(x),f(y))\geqslant d(x,y)$。证明，$f$ 是等距映射。
+S2) 如果对任意的 $x,y\in X$，我们都有 $d(f(x),f(y))\geqslant d(x,y)$。证明，$f$ 是等距映射。
 
-- S3) 如果对任意的 $x,y\in X$，我们都有 $d(f(x),f(y))\leqslant d(x,y)$ 并且 $f$ 是满射。
-  证明，$f$ 是等距映射。
+S3) 如果对任意的 $x,y\in X$，我们都有 $d(f(x),f(y))\leqslant d(x,y)$ 并且 $f$ 是满射。
+    证明，$f$ 是等距映射。
 
 ## 题目T（不动点定理的变体）
 
 假设 $(X,d)$ 是完备的距离空间，映射 $f\colon X\rightarrow X$。
 
-- T1) 如果 $(X,d)$ 是紧的并且对任意的 $x\neq y\in X$，都有 $d(f(x),f(y))<d(x,y)$。
-  证明，$f$ 具有唯一的不动点。
+T1) 如果 $(X,d)$ 是紧的并且对任意的 $x\neq y\in X$，都有 $d(f(x),f(y))<d(x,y)$。
+    证明，$f$ 具有唯一的不动点。
 
-- T2) 当 $X$ 非紧的时候，试举出T1)的一个反例。
+T2) 当 $X$ 非紧的时候，试举出T1)的一个反例。
 
-- T3) $\omega\colon [0,\infty) \rightarrow \mathbb{R}$ 是一个右连续的函数，
-  其中 $\omega(0)=0$ 并且当 $t>0$ 时，$0\leqslant \omega(t)<t$。
-  假设对任意的 $x,y\in X$，有
-  \[
-  d(f(x),f(y))\leqslant \omega(d(x,y)).
-  \]
-  证明，$f$ 具有唯一的不动点。
+T3) $\omega\colon [0,\infty) \rightarrow \mathbb{R}$ 是一个右连续的函数，
+    其中 $\omega(0)=0$ 并且当 $t>0$ 时，$0\leqslant \omega(t)<t$。
+    假设对任意的 $x,y\in X$，有
+    \[
+    d(f(x),f(y))\leqslant \omega(d(x,y)).
+    \]
+    证明，$f$ 具有唯一的不动点。
 
 ## 题目U（Hamilton–Cayley定理）
 
@@ -668,29 +669,29 @@ f^{(n)}(x_n)=0.
 P(X)=\operatorname{det}(X\mathbf{I}_n-A).
 \]
 
-- U1) 证明，如果 $A$ 可对角化，那么 $P(A)=0$ 是零矩阵（将多项式中的不定元 $X$ 换成 $A$）。
+U1) 证明，如果 $A$ 可对角化，那么 $P(A)=0$ 是零矩阵（将多项式中的不定元 $X$ 换成 $A$）。
 
-- U2) 证明，映射
-  \[
-  \mathbf{M}_n(\mathbb{C})\rightarrow \mathbf{M}_n(\mathbb{C}),  \ \ A\mapsto P(A),
-  \]
-  是连续映射。
+U2) 证明，映射
+    \[
+    \mathbf{M}_n(\mathbb{C})\rightarrow \mathbf{M}_n(\mathbb{C}),  \ \ A\mapsto P(A),
+    \]
+    是连续映射。
 
-- U3) 证明，对任意的 $A\in \mathbf{M}_n(\mathbb{C})$，
-  对任意的 $\varepsilon>0$，总存在 $B\in \mathbf{M}_n(\mathbb{C})$，使得
+U3) 证明，对任意的 $A\in \mathbf{M}_n(\mathbb{C})$，
+    对任意的 $\varepsilon>0$，总存在 $B\in \mathbf{M}_n(\mathbb{C})$，使得
 
-  - $\|B\|_{2}<\varepsilon$；
+    - $\|B\|_{2}<\varepsilon$；
 
-  - $A+B$ 可被对角化。
+    - $A+B$ 可被对角化。
 
-- U4) 证明Hamilton–Cayley定理：对任意的 $A\in  \mathbf{M}_n(\mathbb{C})$，我们有 $P(A)=0$。
+U4) 证明Hamilton–Cayley定理：对任意的 $A\in  \mathbf{M}_n(\mathbb{C})$，我们有 $P(A)=0$。
 
 ## 题目V
 
 考虑 $E=C(\mathbb{R})$，$F=C^\infty(\mathbb{R})$。
 
-- V1) 试找出所有的 $E$ 的 $\mathbb{R}$-线性子空间 $V$，
-  使得对任意的 $f_1,f_2\in V$，都有 $f_1f_2\in V$。
+V1) 试找出所有的 $E$ 的 $\mathbb{R}$-线性子空间 $V$，
+    使得对任意的 $f_1,f_2\in V$，都有 $f_1f_2\in V$。
 
 - V2)（求导数的平方根）求导数运算 $\dfrac{d}{dx}\colon F\rightarrow F$ 是线性映射。
   是否存在线性映射 $T\colon F\rightarrow F$，使得 $T\circ T=\dfrac{d}{dx}$？
@@ -702,30 +703,30 @@ P(X)=\operatorname{det}(X\mathbf{I}_n-A).
 I(t)=\int_0^te^{t-x}P(x)dx.
 \]
 
-- W1) 证明，$I(t)=\displaystyle e^t\sum_{i=0}^n P^{(i)}(0)-\sum_{i=0}^n P^{(i)}(t)$。
+W1) 证明，$I(t)=\displaystyle e^t\sum_{i=0}^n P^{(i)}(0)-\sum_{i=0}^n P^{(i)}(t)$。
 
-- W2) 假设存在整数 $a_0,a_1,\cdots,a_n$，$a_0\neq 0$，使得
-  \[
-  a_0+a_1 e +a_2 e^2+\cdots+a_n e^n=0.
-  \]
-  对于 $p\in \mathbb{Z}_{\geqslant 0}$，我们选取多项式
-  \[
-  P(X)=X^{p-1}(X-1)^p(X-2)^p\cdots(X-n)^p
-  \]
-  并定义
-  \[
-  J=a_0I(0)+a_1I(1)+\cdots+a_nI(n).
-  \]
-  证明，$J$ 是整数并且 $(p-1)!$ 整除 $J$。
+W2) 假设存在整数 $a_0,a_1,\cdots,a_n$，$a_0\neq 0$，使得
+    \[
+    a_0+a_1 e +a_2 e^2+\cdots+a_n e^n=0.
+    \]
+    对于 $p\in \mathbb{Z}_{\geqslant 0}$，我们选取多项式
+    \[
+    P(X)=X^{p-1}(X-1)^p(X-2)^p\cdots(X-n)^p
+    \]
+    并定义
+    \[
+    J=a_0I(0)+a_1I(1)+\cdots+a_nI(n).
+    \]
+    证明，$J$ 是整数并且 $(p-1)!$ 整除 $J$。
 
-- W3) 证明，如果 $p$ 是素数并且足够大，那么 $J\neq 0$。从而，$J\geqslant (p-1)!$
+W3) 证明，如果 $p$ 是素数并且足够大，那么 $J\neq 0$。从而，$J\geqslant (p-1)!$
 
-- W4) 证明，存在 $C>0$，使得对一切 $p\in \mathbb{Z}_{\geqslant 1}$，我们都有 $|J|\leqslant C^p$。
+W4) 证明，存在 $C>0$，使得对一切 $p\in \mathbb{Z}_{\geqslant 1}$，我们都有 $|J|\leqslant C^p$。
 
-- W5) 证明 $e$ 是超越数，即不存在整数 $a_0,a_1,\cdots,a_n$，$a_0\neq 0$，使得
-  \[
-  a_0+a_1 e +a_2 e^2+\cdots+a_n e^n=0.
-  \]
+W5) 证明 $e$ 是超越数，即不存在整数 $a_0,a_1,\cdots,a_n$，$a_0\neq 0$，使得
+    \[
+    a_0+a_1 e +a_2 e^2+\cdots+a_n e^n=0.
+    \]
 
 ## 题目X
 

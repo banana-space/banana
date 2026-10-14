@@ -80,42 +80,40 @@ title: Binet–Cauchy 公式（青春版）
 \(f(C) = \det {(BC)}\)，
 其中，\(C = [c_1, c_2, \dots, c_n]\) 是 \(n\) 级阵。
 
-(1)
-\(f\) 是多线性的。
-对任何不超过 \(n\) 的正整数 \(j\)，
-任何 \(n-1\) 个 \(n \times 1\) 阵
-\(c_1\)、\(\dots\)、\(c_{j-1}\)、
-\(c_{j+1}\)、\(\dots\)、\(c_n\)，
-任何 \(2\) 个 \(n \times 1\) 阵 \(x\)、\(y\)，
-任何 \(2\) 个数 \(s\)、\(t\)，
-\[
-\begin{aligned}
-  &
-  f([\dots, c_{j-1}, sx + ty, c_{j+1}, \dots])
-  \\
-  = {} &
-  \det {[\dots, Bc_{j-1}, B(sx + ty), Bc_{j+1}, \dots]}
-  \\
-  = {} &
-  \det {[\dots, Bc_{j-1}, sBx + tBy, Bc_{j+1}, \dots]}
-  \\
-  = {} &
-  s\det {[\dots, Bc_{j-1}, Bx, Bc_{j+1}, \dots]}
-  + t\det {[\dots, Bc_{j-1}, By, Bc_{j+1}, \dots]}
-  \\
-  = {} &
-  s f([\dots, c_{j-1}, x, c_{j+1}, \dots])
-  + t f([\dots, c_{j-1}, y, c_{j+1}, \dots]).
-\end{aligned}
-\]
+(1) \(f\) 是多线性的。
+    对任何不超过 \(n\) 的正整数 \(j\)，
+    任何 \(n-1\) 个 \(n \times 1\) 阵
+    \(c_1\)、\(\dots\)、\(c_{j-1}\)、
+    \(c_{j+1}\)、\(\dots\)、\(c_n\)，
+    任何 \(2\) 个 \(n \times 1\) 阵 \(x\)、\(y\)，
+    任何 \(2\) 个数 \(s\)、\(t\)，
+    \[
+        \begin{aligned}
+          &
+          f([\dots, c_{j-1}, sx + ty, c_{j+1}, \dots])
+          \\
+          = {} &
+          \det {[\dots, Bc_{j-1}, B(sx + ty), Bc_{j+1}, \dots]}
+          \\
+          = {} &
+          \det {[\dots, Bc_{j-1}, sBx + tBy, Bc_{j+1}, \dots]}
+          \\
+          = {} &
+          s\det {[\dots, Bc_{j-1}, Bx, Bc_{j+1}, \dots]}
+      + t\det {[\dots, Bc_{j-1}, By, Bc_{j+1}, \dots]}
+      \\
+      = {} &
+      s f([\dots, c_{j-1}, x, c_{j+1}, \dots])
+      + t f([\dots, c_{j-1}, y, c_{j+1}, \dots]).
+    \end{aligned}
+    \]
 我们用到了阵的运算的律与行列式的多线性。
 
-(2)
-\(f\) 是交错性的。
-因为若 \(c_1\)、\(c_2\)、\(\dots\)、\(c_n\) 中有 \(2\) 个相等，
-则 \(Bc_1\)、\(Bc_2\)、\(\dots\)、\(Bc_n\) 中也有 \(2\) 个相等。
-再利用行列式的交错性，
-\(f(C) = \det {(BC)} = 0\)。
+(2) \(f\) 是交错性的。
+    因为若 \(c_1\)、\(c_2\)、\(\dots\)、\(c_n\) 中有 \(2\) 个相等，
+    则 \(Bc_1\)、\(Bc_2\)、\(\dots\)、\(Bc_n\) 中也有 \(2\) 个相等。
+    再利用行列式的交错性，
+    \(f(C) = \det {(BC)} = 0\)。
 
 所以，对任何 \(n\) 级阵 \(A\)，
 \(f(A) = f(I) \det {(A)}\)。

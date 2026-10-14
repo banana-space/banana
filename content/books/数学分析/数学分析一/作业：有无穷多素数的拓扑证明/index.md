@@ -6,39 +6,39 @@ title: 作业：有无穷多素数的拓扑证明
 
 ### 习题A：连续，一致连续和一致收敛
 
-- A1) 证明，函数 $e^x$ 在 $\mathbb{R}$ 上不是一致连续的而在 $(-\infty,0]$ 上是一致连续的。
+A1) 证明，函数 $e^x$ 在 $\mathbb{R}$ 上不是一致连续的而在 $(-\infty,0]$ 上是一致连续的。
 
-- A2) 证明，
-  幂函数映射 $\mathbb{R}_{>0}\times \mathbb{R}, \ \ (x,\alpha)\mapsto x^\alpha$ 是
-  $\mathbb{R}_{>0}\times \mathbb{R}$ 上的连续函数。
+A2) 证明，
+    幂函数映射 $\mathbb{R}_{>0}\times \mathbb{R}, \ \ (x,\alpha)\mapsto x^\alpha$ 是
+    $\mathbb{R}_{>0}\times \mathbb{R}$ 上的连续函数。
 
-- A3) 证明，第九次课中定义的幂函数满足如下的性质：对任意 $x,y>0$ 和 $\alpha, \beta$，
-  我们有 $(xy)^\alpha=x^\alpha y^\alpha$，$(x^\alpha)^\beta=x^{\alpha \beta}$；$a^{\log_a x} =x$；
-  如果 $x>0$，$y>0$，那么 $a^{x+y}=a^x a^y$，$\log_a(x\cdot y)=\log_a(x)+\log_a(y)$。
+A3) 证明，第九次课中定义的幂函数满足如下的性质：对任意 $x,y>0$ 和 $\alpha, \beta$，
+    我们有 $(xy)^\alpha=x^\alpha y^\alpha$，$(x^\alpha)^\beta=x^{\alpha \beta}$；$a^{\log_a x} =x$；
+    如果 $x>0$，$y>0$，那么 $a^{x+y}=a^x a^y$，$\log_a(x\cdot y)=\log_a(x)+\log_a(y)$。
 
-- A4) 在 $[0,1)$ 区间上考虑连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$，其中 $f_n(x)=x^n$。
-  证明，对任意的 $a<1$，$\{f_n(x)\}_{n\geqslant 1}$ 在 $[0,a]$ 上一致收敛到 $0$ 这个函数；
-  但是 $\{f_n(x)\}_{n\geqslant 1}$ 在 $[0,1)$ 上不一致收敛。
+A4) 在 $[0,1)$ 区间上考虑连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$，其中 $f_n(x)=x^n$。
+    证明，对任意的 $a<1$，$\{f_n(x)\}_{n\geqslant 1}$ 在 $[0,a]$ 上一致收敛到 $0$ 这个函数；
+    但是 $\{f_n(x)\}_{n\geqslant 1}$ 在 $[0,1)$ 上不一致收敛。
 
-- A5) 在 $\mathbb{R}$ 上考虑连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$，
-  其中 $f_n(x)=\dfrac{nx}{1+n^2x^2}$。
-  证明，
-  $\{f_n(x)\}_{n\geqslant 1}$ 在 $\mathbb{R}$ 上逐点收敛到 $0$ 这个函数但是
-  $\{f_n(x)\}_{n\geqslant 1}$ 在 $\mathbb{R}$ 上不一致收敛。
+A5) 在 $\mathbb{R}$ 上考虑连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$，
+    其中 $f_n(x)=\dfrac{nx}{1+n^2x^2}$。
+    证明，
+    $\{f_n(x)\}_{n\geqslant 1}$ 在 $\mathbb{R}$ 上逐点收敛到 $0$ 这个函数但是
+    $\{f_n(x)\}_{n\geqslant 1}$ 在 $\mathbb{R}$ 上不一致收敛。
 
-- A6) 在 $\mathbb{R}$ 上考虑连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$，
-  其中 $f_n(x)=\begin{cases}\dfrac{nx^2}{1+nx}, \ &x>0;\\
+A6) 在 $\mathbb{R}$ 上考虑连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$，
+    其中 $f_n(x)=\begin{cases}\dfrac{nx^2}{1+nx}, \ &x>0;\\
 & \\
 \dfrac{nx^3}{1+nx^2}, \ &x\leqslant 0
 \end{cases}$。试研究 $\{f_n(x)\}_{n\geqslant 1}$ 在 $\mathbb{R}$ 上逐点收敛性和一致收敛性。
 
-- A7) 给定连续函数 $\varphi\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathbb{R}$，
-  满足 $\varphi(0)=0$，
-  $\displaystyle \lim_{x\rightarrow \infty}\varphi(x)=0$ 并且 $\varphi$ 不恒为零。
-  证明，
-  $\mathbb{R}_{\geqslant 0}$ 上的连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$ 和
-  $\{g_n(x)\}_{n\geqslant 1}$ 逐点收敛到 $0$ 这个函数但是不一致收敛，其中 $f_n(x)=\varphi(nx)$，
-  $g_n(x)=\varphi\left(\dfrac{x}{n}\right)$。
+A7) 给定连续函数 $\varphi\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathbb{R}$，
+    满足 $\varphi(0)=0$，
+    $\displaystyle \lim_{x\rightarrow \infty}\varphi(x)=0$ 并且 $\varphi$ 不恒为零。
+    证明，
+    $\mathbb{R}_{\geqslant 0}$ 上的连续函数的序列 $\{f_n(x)\}_{n\geqslant 1}$ 和
+    $\{g_n(x)\}_{n\geqslant 1}$ 逐点收敛到 $0$ 这个函数但是不一致收敛，其中 $f_n(x)=\varphi(nx)$，
+    $g_n(x)=\varphi\left(\dfrac{x}{n}\right)$。
 
 - A8)* （一致连续性的应用：积分的定义）$[a,b]$ 是有限闭区间，
   $f\in C\bigl([a,b]\bigr)$ 是实数值的函数。给定 $n\geqslant 1$，我们将 $[a,b]$ 均分为 $n$ 份：
@@ -85,80 +85,80 @@ title: 作业：有无穷多素数的拓扑证明
 
 研究下列函数 $f$ 在区间 $I$ 上的一致连续性：
 
-- B1) $f(x) = \sqrt[3]{x}$， $I = (0,\infty)$。
+B1) $f(x) = \sqrt[3]{x}$， $I = (0,\infty)$。
 
-- B2) $f(x) = \log x$，$I = (0,1)$。
+B2) $f(x) = \log x$，$I = (0,1)$。
 
-- B3) $f(x) = \cos\dfrac{1}{x}$，$I = (0,1)$。
+B3) $f(x) = \cos\dfrac{1}{x}$，$I = (0,1)$。
 
-- B4) $f(x) = x\cos\dfrac{1}{x}$，$I = (0,\infty)$。
+B4) $f(x) = x\cos\dfrac{1}{x}$，$I = (0,\infty)$。
 
 ### 习题C：极限存在性
 
 研究下列函数极限的存在性：
 
-- C1) $\displaystyle\lim_{x \to 1} \frac{\ln x}{(x-1)^\alpha}$，$\alpha > 0$。
+C1) $\displaystyle\lim_{x \to 1} \frac{\ln x}{(x-1)^\alpha}$，$\alpha > 0$。
 
-- C2) $\displaystyle \lim_{x \to 1} \frac{e^x - e}{(x-1)^\alpha}$，$\alpha > 0 $。
+C2) $\displaystyle \lim_{x \to 1} \frac{e^x - e}{(x-1)^\alpha}$，$\alpha > 0 $。
 
-- C3) $\displaystyle \lim_{x \to 1} \frac{x^x - 1}{(x-1)^\alpha}$，$\alpha > 0$。
+C3) $\displaystyle \lim_{x \to 1} \frac{x^x - 1}{(x-1)^\alpha}$，$\alpha > 0$。
 
-- C4) $\displaystyle \lim_{x\to 1} \frac{\sqrt[3]{1-\sqrt{x}}}{(x-1)^\alpha}$，$\alpha > 0$。
+C4) $\displaystyle \lim_{x\to 1} \frac{\sqrt[3]{1-\sqrt{x}}}{(x-1)^\alpha}$，$\alpha > 0$。
 
-- C5) $\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x^2}-1}{1-\cos x}$。
+C5) $\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x^2}-1}{1-\cos x}$。
 
-- C6) $\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x^4}-1}{1-\cos^2 x}$。
+C6) $\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x^4}-1}{1-\cos^2 x}$。
 
-- C7) $\displaystyle \lim_{x\to 1} \frac{(x-1)^\alpha}{\sin (\pi x)}$, $\alpha > 0$。
+C7) $\displaystyle \lim_{x\to 1} \frac{(x-1)^\alpha}{\sin (\pi x)}$, $\alpha > 0$。
 
 ### 习题D：和一致连续性相关的问题
 
-- D1) 如果连续函数 $f$ 在开区间（有限或无限）$I \subset \mathbb{R}$ 上是单调并且有界的，
-  那么 $f$ 在 $I$ 上一致连续。
+D1) 如果连续函数 $f$ 在开区间（有限或无限）$I \subset \mathbb{R}$ 上是单调并且有界的，
+    那么 $f$ 在 $I$ 上一致连续。
 
-- D2) $I$ 是长度有限的区间（不一定是闭的）。
-  证明，
-  $I$ 上的实值函数 $f$ 一致连续的*充分必要条件*是 $f$ 把Cauchy列映成Cauchy列（即如果
-  $\{x_n\}_{n \geqslant 1} \subset I$ 是Cauchy列，
-  那么 $\{f(x_n) \}_{n \geqslant 1}$ 也是Cauchy列）。
+D2) $I$ 是长度有限的区间（不一定是闭的）。
+    证明，
+    $I$ 上的实值函数 $f$ 一致连续的*充分必要条件*是 $f$ 把Cauchy列映成Cauchy列（即如果
+    $\{x_n\}_{n \geqslant 1} \subset I$ 是Cauchy列，
+    那么 $\{f(x_n) \}_{n \geqslant 1}$ 也是Cauchy列）。
 
-- D3) $f$ 在 $\mathbb{R}$ 上一致连续。
-  证明，存在 $a, b \in \mathbb{R}_{>0}$，使得对任意的 $x\in \mathbb{R}$，我们都有
-  \[
-  |f(x)| \leqslant a |x| + b.
-  \]
+D3) $f$ 在 $\mathbb{R}$ 上一致连续。
+    证明，存在 $a, b \in \mathbb{R}_{>0}$，使得对任意的 $x\in \mathbb{R}$，我们都有
+    \[
+    |f(x)| \leqslant a |x| + b.
+    \]
 
-- D4) 假设函数 $f$ 在 $[0,\infty)$ 上一致连续并且对任意的 $x \in [0,1]$，
-  我们都有 $\displaystyle \lim_{n \rightarrow +\infty}f(x+n) = 0$（这里 $n$ 是整数）。证明，
-  \[
-  \lim_{x \to +\infty}f(x) = 0.
-  \]
-  如果我们将条件减弱为 $f$ 在 $[0,\infty)$ 连续，结论是否依然成立？证明或举出反例。
+D4) 假设函数 $f$ 在 $[0,\infty)$ 上一致连续并且对任意的 $x \in [0,1]$，
+    我们都有 $\displaystyle \lim_{n \rightarrow +\infty}f(x+n) = 0$（这里 $n$ 是整数）。证明，
+    \[
+    \lim_{x \to +\infty}f(x) = 0.
+    \]
+    如果我们将条件减弱为 $f$ 在 $[0,\infty)$ 连续，结论是否依然成立？证明或举出反例。
 
-- D5) 假设 $X$ 是区间，$f\colon  X \rightarrow \mathbb{R}$ 是连续函数。
-  如果存在正常数 $L$，使得对任意的 $x, y \in X$，都有
-  \[
-  |f(x) - f(y)| \leqslant L|x-y|,
-  \]
-  我们就称 $f$ 在 $X$ 上满足Lipschitz条件。
+D5) 假设 $X$ 是区间，$f\colon  X \rightarrow \mathbb{R}$ 是连续函数。
+    如果存在正常数 $L$，使得对任意的 $x, y \in X$，都有
+    \[
+    |f(x) - f(y)| \leqslant L|x-y|,
+    \]
+    我们就称 $f$ 在 $X$ 上满足Lipschitz条件。
 
-  1. 证明，$f$ 在 $X$ 上满足Lipschitz条件是 $f$ 在 $X$ 一致连续的充分条件。
+    1. 证明，$f$ 在 $X$ 上满足Lipschitz条件是 $f$ 在 $X$ 一致连续的充分条件。
 
-  2. 判断上述条件是否是必要条件？证明或举出反例。
+    2. 判断上述条件是否是必要条件？证明或举出反例。
 
-  3. 假设 $f$ 在 $[a,+\infty)$ 上满足Lipschitz条件，其中 $a > 0$，
-     试证明 $\dfrac{f(x)}{x}$ 在 $[a,+\infty)$ 一致连续。
+    3. 假设 $f$ 在 $[a,+\infty)$ 上满足Lipschitz条件，其中 $a > 0$，
+       试证明 $\dfrac{f(x)}{x}$ 在 $[a,+\infty)$ 一致连续。
 
 ### 习题E：利用连续性研究方程根的存在性
 
-- E1) 证明，方程 $x^3+2x-1 = 0$ 在 $\mathbb{R}$ 上有唯一的根且此根在 $(0,1)$ 内。
+E1) 证明，方程 $x^3+2x-1 = 0$ 在 $\mathbb{R}$ 上有唯一的根且此根在 $(0,1)$ 内。
 
-- E2) 设 $0 \leqslant \lambda < 1$，$b>0$，试判断方程 $x - \lambda \sin x = b$ 的实根的存在性。
+E2) 设 $0 \leqslant \lambda < 1$，$b>0$，试判断方程 $x - \lambda \sin x = b$ 的实根的存在性。
 
-- E3) 证明，方程 $\sin x = \dfrac{1}{x}$ 有无穷多个实根。
+E3) 证明，方程 $\sin x = \dfrac{1}{x}$ 有无穷多个实根。
 
-- E4) 假设实数值函数 $f \in C([0,2])$ 并且 $f(0) = f(2)$。
-  证明，方程 $f(x) - f(x+1) = 0$ 在 $[0,1]$ 上有一个根。
+E4) 假设实数值函数 $f \in C([0,2])$ 并且 $f(0) = f(2)$。
+    证明，方程 $f(x) - f(x+1) = 0$ 在 $[0,1]$ 上有一个根。
 
 ### 习题F：计算极限
 

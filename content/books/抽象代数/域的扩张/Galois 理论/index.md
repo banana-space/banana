@@ -1696,12 +1696,12 @@ $，当${\mathbf{Gal}}\left(
   {L/K}
 \right)\rightarrow L^\times$。那么，如下两个陈述等价：
 
-- a) 对任意的$g,h\in {\mathbf{Gal}}\left(
-  {L/K}
+a) 对任意的$g,h\in {\mathbf{Gal}}\left(
+   {L/K}
 \right)$，$f(gh)=g(f(h))f(g)$；
 
-- b) 存在$x\in L$，使得对任意的$g\in {\mathbf{Gal}}\left(
-  {L/K}
+b) 存在$x\in L$，使得对任意的$g\in {\mathbf{Gal}}\left(
+   {L/K}
 \right)$，$f(g)=\frac{x}{g(x)}$。
 
 :::

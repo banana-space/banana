@@ -19,47 +19,45 @@ title: Binet–Cauchy 公式
 ::: theorem [Binet–Cauchy 公式]
 设 \(A\)、\(B\) 分别是 \(m \times n\)、\(n \times m\) 阵。
 
-(1)
-若 \(n > m\)，则 \(\det {(BA)} = 0\)。
+(1) 若 \(n > m\)，则 \(\det {(BA)} = 0\)。
 
-(2)
-若 \(n \leqslant m\)，
-则
-\[
-\begin{aligned}
-  & \det {(BA)}
-  \\
-  = {} & \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
-  {
-    \det {\left(
-        B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}
-    \right)}
-    \det {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
-    \right)}
-  }.
-\end{aligned}
-\]
-特别地，若 \(n = m\)，则因适合条件
-\(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)
-的 \(j_1\)、\(j_2\)、\(\dots\)、\(j_n\)，
-是，且只能是，
-\(1\)、\(2\)、\(\dots\)、\(n\)，
-故
-\[
-\begin{aligned}
-  \det {(BA)}
-  = {} &
-  \det {\left(
-      B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
-  \right)}
-  \det {\left(
-      A\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
-  \right)}
-  \\
-  = {} & \det {(B)} \det {(A)}.
-\end{aligned}
-\]
+(2) 若 \(n \leqslant m\)，
+    则
+    \[
+    \begin{aligned}
+      & \det {(BA)}
+      \\
+      = {} & \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
+      {
+        \det {\left(
+            B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}
+        \right)}
+        \det {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
+        \right)}
+      }.
+    \end{aligned}
+    \]
+    特别地，若 \(n = m\)，则因适合条件
+    \(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)
+    的 \(j_1\)、\(j_2\)、\(\dots\)、\(j_n\)，
+    是，且只能是，
+    \(1\)、\(2\)、\(\dots\)、\(n\)，
+    故
+    \[
+    \begin{aligned}
+      \det {(BA)}
+      = {} &
+      \det {\left(
+          B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
+      \right)}
+      \det {\left(
+          A\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
+      \right)}
+      \\
+      = {} & \det {(B)} \det {(A)}.
+    \end{aligned}
+    \]
 :::
 
 我用 \(2\) 个例助您理解，此定理在说何。
@@ -586,97 +584,95 @@ title: Binet–Cauchy 公式
 当 \(k_1\)、\(k_2\)、\(\dots\)、\(k_n\) 中有 \(2\) 个数相同时，
 \(f(k_1, k_2, \dots, k_n) = 0\)。
 
-(1)
-若 \(n > m\)，
-则在 \(k_1\)、\(k_2\)、\(\dots\)、\(k_n\)，
-总有 \(2\) 个数相同。
-所以，每项都是 \(0\)。
-故 \(\det {(BA)} = 0\)。
+(1) 若 \(n > m\)，
+    则在 \(k_1\)、\(k_2\)、\(\dots\)、\(k_n\)，
+    总有 \(2\) 个数相同。
+    所以，每项都是 \(0\)。
+    故 \(\det {(BA)} = 0\)。
 
-(2)
-若 \(n \leqslant m\)，
-那么 \(\det {(BA)}\) 等于
-\[
-\begin{aligned}
-  \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
-  {\sum_{\substack{
-        k_1, k_2, \dots, k_n\,\text{是} \\
-        j_1, j_2, \dots, j_n\,\text{的排列}
-    }}
-    {[A]_{k_1,1} [A]_{k_2,2} \dots [A]_{k_n,n}
-  \det {[b_{k_1}, b_{k_2}, \dots, b_{k_n}]}}}.
-\end{aligned}
-\]
-因为
-\(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)，
-且
-\(k_1\)、\(k_2\)、\(\dots\)、\(k_n\)
-是
-\(j_1\)、\(j_2\)、\(\dots\)、\(j_n\)
-的排列，
-故
-\[
-\begin{aligned}
-  \det {[b_{k_1}, b_{k_2}, \dots, b_{k_n}]}
-  = s(k_1, k_2, \dots, k_n)
-  \det {[b_{j_1}, b_{j_2}, \dots, b_{j_n}]},
-\end{aligned}
-\]
-从而 \(\det {(BA)}\) 等于
-\[
-\begin{aligned}
-  \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
-  {\det {[b_{j_1}, b_{j_2}, \dots, b_{j_n}]}}
-  \sum_{\substack{
-  k_1, k_2, \dots, k_n\,\text{是} \\
-      j_1, j_2, \dots, j_n\,\text{的排列}
-    }}
-  {s(k_1, k_2, \dots, k_n)\,
-    [A]_{k_1,1} [A]_{k_2,2} \dots [A]_{k_n,n}}.
-\end{aligned}
-\]
-注意，
-\[
-\begin{aligned}
-  &
-  \sum_{\substack{
+(2) 若 \(n \leqslant m\)，
+    那么 \(\det {(BA)}\) 等于
+    \[
+    \begin{aligned}
+      \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
+      {\sum_{\substack{
+            k_1, k_2, \dots, k_n\,\text{是} \\
+            j_1, j_2, \dots, j_n\,\text{的排列}
+        }}
+        {[A]_{k_1,1} [A]_{k_2,2} \dots [A]_{k_n,n}
+      \det {[b_{k_1}, b_{k_2}, \dots, b_{k_n}]}}}.
+    \end{aligned}
+    \]
+    因为
+    \(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)，
+    且
+    \(k_1\)、\(k_2\)、\(\dots\)、\(k_n\)
+    是
+    \(j_1\)、\(j_2\)、\(\dots\)、\(j_n\)
+    的排列，
+    故
+    \[
+    \begin{aligned}
+      \det {[b_{k_1}, b_{k_2}, \dots, b_{k_n}]}
+      = s(k_1, k_2, \dots, k_n)
+      \det {[b_{j_1}, b_{j_2}, \dots, b_{j_n}]},
+    \end{aligned}
+    \]
+    从而 \(\det {(BA)}\) 等于
+    \[
+    \begin{aligned}
+      \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
+      {\det {[b_{j_1}, b_{j_2}, \dots, b_{j_n}]}}
+      \sum_{\substack{
       k_1, k_2, \dots, k_n\,\text{是} \\
-      j_1, j_2, \dots, j_n\,\text{的排列}
-  }}
-  {s(k_1, k_2, \dots, k_n)\,
-  [A]_{k_1,1} [A]_{k_2,2} \dots [A]_{k_n,n}}
-  \\
-  = {} &
-  \det {\left(
-      A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
-  \right)}.
-\end{aligned}
-\]
-再注意，
-因为
-\(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)，
-故，
-由子阵的记号的定义，
-\[
-\begin{aligned}
-  [b_{j_1}, b_{j_2}, \dots, b_{j_n}]
-  = B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  & \det {(BA)}
-  \\
-  = {} & \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
-  {
-    \det {\left(
-        B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}
-    \right)}
-    \det {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
-    \right)}
-  }.
-\end{aligned}
-\]
+          j_1, j_2, \dots, j_n\,\text{的排列}
+        }}
+      {s(k_1, k_2, \dots, k_n)\,
+        [A]_{k_1,1} [A]_{k_2,2} \dots [A]_{k_n,n}}.
+    \end{aligned}
+    \]
+    注意，
+    \[
+    \begin{aligned}
+      &
+      \sum_{\substack{
+          k_1, k_2, \dots, k_n\,\text{是} \\
+          j_1, j_2, \dots, j_n\,\text{的排列}
+      }}
+      {s(k_1, k_2, \dots, k_n)\,
+      [A]_{k_1,1} [A]_{k_2,2} \dots [A]_{k_n,n}}
+      \\
+      = {} &
+      \det {\left(
+          A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
+      \right)}.
+    \end{aligned}
+    \]
+    再注意，
+    因为
+    \(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)，
+    故，
+    由子阵的记号的定义，
+    \[
+    \begin{aligned}
+      [b_{j_1}, b_{j_2}, \dots, b_{j_n}]
+      = B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}.
+    \end{aligned}
+    \]
+    从而
+    \[
+    \begin{aligned}
+      & \det {(BA)}
+      \\
+      = {} & \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
+      {
+        \det {\left(
+            B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}
+        \right)}
+        \det {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
+        \right)}
+      }.
+    \end{aligned}
+    \]
 :::

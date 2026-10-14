@@ -152,163 +152,153 @@ AB =
 设 \(x\) 是数。
 则：
 
-(1)
-（结合律）
-\((AB)C = A(BC)\)；
+(1) （结合律）
+    \((AB)C = A(BC)\)；
 
-(2)
-（分配律 1）
-\((A + D) B = AB + DB\)；
+(2) （分配律 1）
+    \((A + D) B = AB + DB\)；
 
-(3)
-（分配律 2）
-\(A (B + G) = AB + AG\)；
+(3) （分配律 2）
+    \(A (B + G) = AB + AG\)；
 
-(4)
-（单位阵的作用）
-\(I_m A = A = A I_s\)，
-其中，\(I_m\)、\(I_s\) 分别是 \(m\)、\(s\) 级单位阵；
+(4) （单位阵的作用）
+    \(I_m A = A = A I_s\)，
+    其中，\(I_m\)、\(I_s\) 分别是 \(m\)、\(s\) 级单位阵；
 
-(5)
-（阵的数乘与乘法）
-\((xA)B = x(AB) = A(xB)\)。
+(5) （阵的数乘与乘法）
+    \((xA)B = x(AB) = A(xB)\)。
 :::
 
 ::: proof
-(1)
-注意，\(AB\) 是 \(m \times n\) 阵，
-故 \((AB)C\) 是 \(m \times p\) 阵；
-注意，\(BC\) 是 \(s \times p\) 阵，
-故 \(A(BC)\) 也是 \(m \times p\) 阵。
-根据阵的积的定义，
-\[
-\begin{aligned}
-  [(AB)C]_{i,j}
-  = {} &
-  \sum_{\ell = 1}^{n} {[AB]_{i,\ell} [C]_{\ell,j}}
-  \\
-  = {} &
-  \sum_{\ell = 1}^{n} {
-    \left(\sum_{k = 1}^{s} {[A]_{i,k} [B]_{k,\ell}} \right)
-  [C]_{\ell,j} }
-  \\
-  = {} &
-  \sum_{\ell = 1}^{n} {
-    \sum_{k = 1}^{s} {
-  [A]_{i,k} [B]_{k,\ell} [C]_{\ell,j} }}
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {
-    \sum_{\ell = 1}^{n} {
-  [A]_{i,k} [B]_{k,\ell} [C]_{\ell,j}}}
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {
-    [A]_{i,k}
-    \left(
-      \sum_{\ell = 1}^{n} {[B]_{k,\ell} [C]_{\ell,j}}
-  \right) }
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {[A]_{i,k} [BC]_{k,j}}
-  \\
-  = {} &
-  [A(BC)]_{i,j}.
-\end{aligned}
-\]
+(1) 注意，\(AB\) 是 \(m \times n\) 阵，
+    故 \((AB)C\) 是 \(m \times p\) 阵；
+    注意，\(BC\) 是 \(s \times p\) 阵，
+    故 \(A(BC)\) 也是 \(m \times p\) 阵。
+    根据阵的积的定义，
+    \[
+    \begin{aligned}
+      [(AB)C]_{i,j}
+      = {} &
+      \sum_{\ell = 1}^{n} {[AB]_{i,\ell} [C]_{\ell,j}}
+      \\
+      = {} &
+      \sum_{\ell = 1}^{n} {
+        \left(\sum_{k = 1}^{s} {[A]_{i,k} [B]_{k,\ell}} \right)
+      [C]_{\ell,j} }
+      \\
+      = {} &
+      \sum_{\ell = 1}^{n} {
+        \sum_{k = 1}^{s} {
+      [A]_{i,k} [B]_{k,\ell} [C]_{\ell,j} }}
+      \\
+      = {} &
+      \sum_{k = 1}^{s} {
+        \sum_{\ell = 1}^{n} {
+      [A]_{i,k} [B]_{k,\ell} [C]_{\ell,j}}}
+      \\
+      = {} &
+      \sum_{k = 1}^{s} {
+        [A]_{i,k}
+        \left(
+          \sum_{\ell = 1}^{n} {[B]_{k,\ell} [C]_{\ell,j}}
+      \right) }
+      \\
+      = {} &
+      \sum_{k = 1}^{s} {[A]_{i,k} [BC]_{k,j}}
+      \\
+      = {} &
+      [A(BC)]_{i,j}.
+    \end{aligned}
+    \]
 
-(2)
-您还是要先说明，等式的 \(2\) 边的阵的尺寸都是 \(m \times n\)
-（我留它为您的习题）。
-根据阵的和与积的定义，
-\[
-\begin{aligned}
-  [(A + D)B]_{i,j}
-  = {} &
-  \sum_{k = 1}^{s} {[A + D]_{i,k} [B]_{k,j}}
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {([A]_{i,k} + [D]_{i,k})\, [B]_{k,j}}
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {([A]_{i,k} [B]_{k,j}
-  + [D]_{i,k} [B]_{k,j})}
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {[A]_{i,k} [B]_{k,j}}
-  +
-  \sum_{k = 1}^{s} {[D]_{i,k} [B]_{k,j}}
-  \\
-  = {} &
-  [AB]_{i,j} + [DB]_{i,j}
-  \\
-  = {} &
-  [AB + DB]_{i,j}.
-\end{aligned}
-\]
+(2) 您还是要先说明，等式的 \(2\) 边的阵的尺寸都是 \(m \times n\)
+    （我留它为您的习题）。
+    根据阵的和与积的定义，
+    \[
+        \begin{aligned}
+          [(A + D)B]_{i,j}
+          = {} &
+          \sum_{k = 1}^{s} {[A + D]_{i,k} [B]_{k,j}}
+          \\
+          = {} &
+          \sum_{k = 1}^{s} {([A]_{i,k} + [D]_{i,k})\, [B]_{k,j}}
+          \\
+          = {} &
+          \sum_{k = 1}^{s} {([A]_{i,k} [B]_{k,j}
+      + [D]_{i,k} [B]_{k,j})}
+      \\
+      = {} &
+      \sum_{k = 1}^{s} {[A]_{i,k} [B]_{k,j}}
+      +
+      \sum_{k = 1}^{s} {[D]_{i,k} [B]_{k,j}}
+      \\
+      = {} &
+      [AB]_{i,j} + [DB]_{i,j}
+      \\
+      = {} &
+      [AB + DB]_{i,j}.
+    \end{aligned}
+    \]
 
-(3)
-这跟分配律 1 的论证完全类似；
-我留它为您的习题。
+(3) 这跟分配律 1 的论证完全类似；
+    我留它为您的习题。
 
-(4)
-先证 \(I_m A = A\)。
-您还是要先说明，等式的 \(2\) 边的阵的尺寸都是 \(m \times s\)
-（我留它为您的习题）。
-回想，单位阵 \(I\) 的 \((i, j)\)-元是
-\(\delta(i, j)\)；
-具体地，\(i = j\) 时，它是 \(1\)，
-而 \(i \neq j\) 时，它是 \(0\)。
-根据阵的积的定义，
-\[
-\begin{aligned}
-  [I_m A]_{i,j}
-  = {} &
-  \sum_{u = 1}^{m} {[I_m]_{i,u} [A]_{u,j}}
-  \\
-  = {} &
-  \sum_{u = 1}^{m} {\delta(i, u)\, [A]_{u,j}}
-  \\
-  = {} &
-  \delta(i, i)\, [A]_{i,j}
-  + \sum_{\substack{1 \leqslant u \leqslant m \\ u \neq i}}
-  {\delta(i, u)\, [A]_{u,j}}
-  \\
-  = {} &
-  1\,[A]_{i,j}
-  + \sum_{\substack{1 \leqslant u \leqslant m \\ u \neq i}}
-  {0\,[A]_{u,j}}
-  \\
-  = {} & [A]_{i,j}.
-\end{aligned}
-\]
+(4) 先证 \(I_m A = A\)。
+    您还是要先说明，等式的 \(2\) 边的阵的尺寸都是 \(m \times s\)
+    （我留它为您的习题）。
+    回想，单位阵 \(I\) 的 \((i, j)\)-元是
+    \(\delta(i, j)\)；
+    具体地，\(i = j\) 时，它是 \(1\)，
+    而 \(i \neq j\) 时，它是 \(0\)。
+    根据阵的积的定义，
+    \[
+        \begin{aligned}
+          [I_m A]_{i,j}
+          = {} &
+          \sum_{u = 1}^{m} {[I_m]_{i,u} [A]_{u,j}}
+          \\
+          = {} &
+          \sum_{u = 1}^{m} {\delta(i, u)\, [A]_{u,j}}
+          \\
+          = {} &
+          \delta(i, i)\, [A]_{i,j}
+      + \sum_{\substack{1 \leqslant u \leqslant m \\ u \neq i}}
+      {\delta(i, u)\, [A]_{u,j}}
+      \\
+      = {} &
+      1\,[A]_{i,j}
+      + \sum_{\substack{1 \leqslant u \leqslant m \\ u \neq i}}
+      {0\,[A]_{u,j}}
+      \\
+      = {} & [A]_{i,j}.
+    \end{aligned}
+    \]
 请允许我留另一部分为您的习题。
 
-(5)
-先证 \((xA)B = x(AB)\)。
-您还是要先说明，等式的 \(2\) 边的阵的尺寸都是 \(m \times n\)
-（我留它为您的习题）。
-根据阵的数乘与阵的积的定义，
-\[
-\begin{aligned}
-  [(xA)B]_{i,j}
-  = {} &
-  \sum_{k = 1}^{s} {[xA]_{i,k} [B]_{k,j}}
-  \\
-  = {} &
-  \sum_{k = 1}^{s} {x[A]_{i,k} [B]_{k,j}}
-  \\
-  = {} &
-  x \sum_{k = 1}^{s} {[A]_{i,k} [B]_{k,j}}
-  \\
-  = {} &
-  x [AB]_{i,j}
-  \\
-  = {} &
-  [x(AB)]_{i,j}.
-\end{aligned}
-\]
-请允许我留另一部分为您的习题。
+(5) 先证 \((xA)B = x(AB)\)。
+    您还是要先说明，等式的 \(2\) 边的阵的尺寸都是 \(m \times n\)
+    （我留它为您的习题）。
+    根据阵的数乘与阵的积的定义，
+    \[
+    \begin{aligned}
+      [(xA)B]_{i,j}
+      = {} &
+      \sum_{k = 1}^{s} {[xA]_{i,k} [B]_{k,j}}
+      \\
+      = {} &
+      \sum_{k = 1}^{s} {x[A]_{i,k} [B]_{k,j}}
+      \\
+      = {} &
+      x \sum_{k = 1}^{s} {[A]_{i,k} [B]_{k,j}}
+      \\
+      = {} &
+      x [AB]_{i,j}
+      \\
+      = {} &
+      [x(AB)]_{i,j}.
+    \end{aligned}
+    \]
+    请允许我留另一部分为您的习题。
 :::
 
 由此，我们可简单地写 \((AB)C\) 或 \(A(BC)\) 为 \(ABC\)，
