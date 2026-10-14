@@ -66,13 +66,10 @@ function pageLink(pull, page, withBook = true) {
 }
 
 function stateLabel(pull) {
-  const state = pull.state === 'merged' ? 'merged' : pull.draft ? 'draft' : 'open';
+  // Merged and the site not yet rebuilt with it: publishing (live is null where the server cannot tell).
+  const state = pull.state === 'merged' ? (pull.live === false ? 'publishing' : 'merged') : pull.draft ? 'draft' : 'open';
   const label = element('span', `recent-state recent-state-${state}`, strings[state]);
-  // Merged, and the site not yet rebuilt with it (live is null where the server cannot tell).
-  if (pull.live === false) {
-    label.classList.add('is-publishing');
-    label.append(Object.assign(element('span', 'recent-publishing', strings.publishing), { title: strings.publishingHint }));
-  }
+  if (state === 'publishing') label.title = strings.publishingHint;
   return label;
 }
 
