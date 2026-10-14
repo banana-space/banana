@@ -1,5 +1,6 @@
 import { createProject } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { execFileSync, spawn } from 'node:child_process';
@@ -97,27 +98,52 @@ try {
   git('add', '-A');
   git('commit', '-q', '-m', 'deployed');
   pulls.find(pull => pull.number === 6).merge_commit_sha = git('rev-parse', 'HEAD');
-  // No token: the repository is public.
-  child = spawn(process.execPath, ['scripts/editor-api.mjs', '--port', '0', '--github-repo', 'owner/site', '--cacheDir', join(root, 'cache')], {
-    cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
-    env: { ...process.env, BANANA_GITHUB_API: githubOrigin, BANANA_GITHUB_TOKEN: '' },
-  });
-  child.stdout.on('data', data => { output += data; });
-  child.stderr.on('data', data => { output += data; });
-  const deadline = Date.now() + 60000;
-  while (!/listening on (http:\/\/\S+)\/api\//.test(output)) {
-    if (child.exitCode !== null || Date.now() > deadline) throw new Error(`editor-api 未启动：${output}`);
-    await delay(100);
+  /** Starts the editor API (no token: the repository is public). */
+  function start() {
+    output = '';
+    child = spawn(process.execPath, ['scripts/editor-api.mjs', '--port', '0', '--github-repo', 'owner/site', '--cacheDir', join(root, 'cache')], {
+      cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
+      env: { ...process.env, BANANA_GITHUB_API: githubOrigin, BANANA_GITHUB_TOKEN: '' },
+    });
+    child.stdout.on('data', data => { output += data; });
+    child.stderr.on('data', data => { output += data; });
   }
-  const base = output.match(/listening on (http:\/\/\S+)\/api\//)[1];
+  /** The editor API's address, once its log shows pattern. */
+  async function logged(pattern) {
+    const deadline = Date.now() + 60000;
+    while (!pattern.test(output)) {
+      if (child.exitCode !== null || Date.now() > deadline) throw new Error(`editor-api 未启动：${output}`);
+      await delay(20);
+    }
+    return output.match(pattern)[1];
+  }
+  async function stop() {
+    process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM');
+    await once(child, 'exit');
+  }
+  let base;
   const get = async path => {
     const response = await fetch(`${base}/api/${path}`);
-    return { status: response.status, json: await response.json() };
+    return { status: response.status, json: await response.json(), headers: response.headers };
   };
+
+  // While it starts (on the server about a minute after each deploy), the recent changes are answered once the
+  // prebuild has the site's pages; editing waits for the preview service.
+  start();
+  base = await logged(/starting: answering recent changes on (http:\/\/\S+)\/api\//);
+  const editing = get('source?path=wiki/甲/index.md');
+  const early = await get('recent-changes');
+  assert.equal(early.status, 200, JSON.stringify(early.json));
+  if (!/listening on/.test(output)) {
+    const answer = await editing;
+    assert.deepEqual([answer.status, answer.headers.get('retry-after')], [503, '5'], '启动期间编辑返回 503');
+  }
+  assert.equal(await logged(/listening on (http:\/\/\S+)\/api\//), base);
 
   // The list: closed pull requests left out, the editor's by their author, a fork's branch of the same name not.
   let { json } = await get('recent-changes');
   assert.equal(json.ok, true);
+  const json0 = json;
   const first = json.pulls.filter(pull => pull.number < 10);
   assert.deepEqual(first.map(pull => [pull.number, pull.state, pull.author, pull.editor]),
     [[9, 'open', 'octo', true], [8, 'open', 'hand', false], [7, 'open', 'evil', false], [6, 'merged', 'hubot', true], [4, 'merged', 'dev', false]]);
@@ -171,7 +197,32 @@ try {
   await diff(6, 'wiki/甲/index.md');
   assert.equal(requests.filter(path => path === '/pulls/6/files').length, before, '文件列表按提交缓存');
 
-  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存验证通过');
+  // What a commit fixes (its date, its files, where its branch left main) is kept on disk: after a restart (as after
+  // each deploy) the first load reads only the lists from GitHub.
+  const cacheFile = join(root, '.build/recent-changes.json');
+  const deadline = Date.now() + 10000;
+  while (!existsSync(cacheFile)) {
+    if (Date.now() > deadline) throw new Error('没有写入缓存文件');
+    await delay(100);
+  }
+  await delay(2500); // The last write of a burst.
+  await stop();
+  requests.length = 0;
+  start();
+  base = await logged(/listening on (http:\/\/\S+)\/api\//);
+  const again = (await get('recent-changes')).json;
+  assert.deepEqual(again.pulls.map(pull => [pull.number, pull.time]), json0.pulls.map(pull => [pull.number, pull.time]), '重启后结果相同');
+  await diff(6, 'wiki/甲/index.md');
+  // #4's commit cannot be read: a failure is not kept, and is asked again.
+  const failing = pulls.find(pull => pull.number === 4).head.sha;
+  assert.deepEqual(requests.filter(path => /^\/(commits|compare)\/|\/files$/.test(path)), [`/commits/${failing}`], '重启后不再读取提交、文件列表与分支起点');
+  await writeFile(cacheFile, '{broken');
+  await stop();
+  start();
+  base = await logged(/listening on (http:\/\/\S+)\/api\//);
+  assert.equal((await get('recent-changes')).json.pulls.length, json0.pulls.length, '缓存文件损坏时从头读取');
+
+  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过');
 } finally {
   if (child && child.exitCode === null) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}

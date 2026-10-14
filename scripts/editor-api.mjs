@@ -69,6 +69,8 @@ import katex from 'katex';
 // path 为 content/ 中的页面（可省略 content/ 前缀，可以是新页面；只能提交新的条目 wiki/<名称>/index.md，其他新页面返回 403）。
 // 错误时为 { ok: false, errors: [{ file, line, message }] }：预处理与 Hugo 错误为 422（Hugo 错误另带 log），
 // 未登录 401，请求过于频繁 429（带 Retry-After），排队超过 20 个 503。
+// 启动期间（预处理、Hugo 首次渲染与预热，正式部署中约一分钟）只回答登录与最近更改（后者在预处理完成后），其他请求返回 503
+// （带 Retry-After）；就绪时打印 listening on。
 const root = fileURLToPath(new URL('../', import.meta.url));
 const maxBody = 300 * 1024; // The largest page on the site is about 130 KB.
 const maxWaiting = 20;
@@ -115,7 +117,7 @@ const repository = env.BANANA_GITHUB_TOKEN && options.githubRepo
   : undefined;
 // Reading public pull requests needs no token; the bot's raises GitHub's rate limit.
 const recentPulls = options.githubRepo
-  ? recentPullRequests({ repo: options.githubRepo, token: env.BANANA_GITHUB_TOKEN, api: env.BANANA_GITHUB_API })
+  ? recentPullRequests({ repo: options.githubRepo, token: env.BANANA_GITHUB_TOKEN, api: env.BANANA_GITHUB_API, cacheFile: join(root, '.build/recent-changes.json') })
   : undefined;
 if (!login && !options.devUser) console.warn('[editor-api] GitHub login is not configured (BANANA_GITHUB_CLIENT_ID/SECRET): nobody can log in');
 if (!repository) console.warn('[editor-api] submitting is not configured (BANANA_GITHUB_TOKEN and --github-repo)');
@@ -318,6 +320,7 @@ const routes = {
   },
   'GET /api/recent-changes': async (_request, response, url) => {
     if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    await sourcesReady;
     const page = Number(url.searchParams.get('page') ?? 1);
     if (!Number.isInteger(page) || page < 1 || page > 100) throw new RequestError(400, 'page must be a number from 1 to 100');
     const { pulls, more } = await recentPulls.list(page).catch(githubFailed);
@@ -337,6 +340,7 @@ const routes = {
   },
   'GET /api/recent-changes/diff': async (_request, response, url) => {
     if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    await sourcesReady;
     const number = Number(url.searchParams.get('pr'));
     if (!Number.isInteger(number) || number < 1) throw new RequestError(400, 'pr must be a pull request number');
     const path = pagePath(url.searchParams.get('path'));
@@ -522,6 +526,7 @@ const server = createServer(async (request, response) => {
     const url = new URL(request.url, 'http://localhost');
     const route = routes[`${request.method} ${url.pathname}`];
     if (!route) throw new RequestError(Object.keys(routes).some(key => key.endsWith(` ${url.pathname}`)) ? 405 : 404, 'not found');
+    if (!started && !early.has(`${request.method} ${url.pathname}`)) throw new RequestError(503, 'the editor is starting; try again shortly', { headers: { 'Retry-After': '5' } });
     // Cookies authenticate requests, so a write must come from the site itself. Requests from
     // other sites carry their Origin; JSON bodies also need a preflight that is never granted.
     if (request.method === 'POST' && request.headers.origin && request.headers.origin !== publicOrigin) throw new RequestError(403, 'cross-site request refused');
@@ -538,8 +543,20 @@ const server = createServer(async (request, response) => {
 
 const stop = () => { service.close(); server.close(); process.exit(); };
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, stop);
+
+// Starting takes a while (on the server about a minute after each deploy: prebuild, Hugo's first render, the warm-up).
+// Meanwhile logging in and the recent changes are answered, the latter once the prebuild has the site's pages; the
+// rest is 503 until the preview service is ready, when "listening on" is logged.
+let started = false;
+const early = new Set(['GET /api/me', 'GET /api/auth/login', 'GET /api/auth/callback', 'POST /api/auth/logout', 'GET /api/recent-changes', 'GET /api/recent-changes/diff']);
+const sourcesReady = service.refresh();
+sourcesReady.catch(() => {}); // Reported below; the process exits.
+await new Promise((resolve, reject) => { server.once('error', reject); server.listen(options.port, options.bind, resolve); });
+const { address, port } = server.address();
+const apiURL = `http://${address.includes(':') ? `[${address}]` : address}:${port}/api/`;
+console.log(`[editor-api] starting: answering recent changes on ${apiURL}`);
 try {
-  await service.refresh();
+  await sourcesReady;
   const start = performance.now();
   await service.hugoReady();
   console.log(`hugo: rendered the site (${Math.round(performance.now() - start)} ms)`);
@@ -551,7 +568,5 @@ try {
   service.close();
   process.exit(1);
 }
-server.listen(options.port, options.bind, () => {
-  const { address, port } = server.address();
-  console.log(`[editor-api] listening on http://${address.includes(':') ? `[${address}]` : address}:${port}/api/`);
-});
+started = true;
+console.log(`[editor-api] listening on ${apiURL}`);
