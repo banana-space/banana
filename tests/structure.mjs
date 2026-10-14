@@ -355,7 +355,7 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
   assert.equal((labelled.match(/caption=KGEp/g) ?? []).length, 2, '@-a shows the label too');
   assert.equal(caption(transformDocument('iv) 甲\n\n    (a) {@y} 乙\n\n@y'), 'y'), 'iv (a)');
   assert.equal(caption(transformDocument('(2) 甲\n\n    1. {@z} 乙\n\n@z'), 'z'), '(2) 1');
-  for (const source of ['文字\n(3) 说凝聚', '(1\\) 与 (3) 之间', '(见下文) 文字', '(a b) 文字', '(1)文字', '12) 编号']) {
+  for (const source of ['文字\n(3) 说凝聚', '(1\\) 与 (3) 之间', '(见下文) 文字', '(a b) 文字', '(1)文字', '12) 编号', '(T2½) 文字', '(★) 文字', '(2$x$) 文字', '(3.1) 文字']) {
     assert.doesNotMatch(transformDocument(source), /_item-label/, source);
   }
   assert.match(transformDocument('(iiiiiiiiiiiiiiii) 甲\n              乙'), /^000000000\)    \{\{< _item-label >\}\}\(iiiiiiiiiiiiiiii\)\{\{< \/_item-label >\}\}甲\n {14}乙$/m, 'at most column 14');

@@ -245,14 +245,14 @@ title: '\(2\) 元 \(2\) 次式'
     \]
     我们要进一步地分类讨论。
 
-(3.1) \(AC - B^2 = 0\)。
+(\(3.1\)) \(AC - B^2 = 0\)。
       此时，\(C = B^2 / A\)。
       故
       \[
-            \begin{aligned}
-              \Delta
-              = {} &
-              A \cdot \frac{B^2}{A} \cdot F + 2BED - AE^2
+          \begin{aligned}
+            \Delta
+            = {} &
+            A \cdot \frac{B^2}{A} \cdot F + 2BED - AE^2
         - \frac{B^2 D^2}{A} - FB^2
         \\
         = {} &
@@ -284,7 +284,7 @@ title: '\(2\) 元 \(2\) 次式'
 \end{aligned}
 \]
 
-(3.2) \(AC - B^2 \neq 0\)。
+(\(3.2\)) \(AC - B^2 \neq 0\)。
       此时
       \[
       \begin{aligned}
@@ -295,13 +295,13 @@ title: '\(2\) 元 \(2\) 次式'
       \]
       所以
       \[
-            \begin{aligned}
-              f(x, y)
-              = {} &
-              \hphantom{{} + {}}
-              \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}
-              \\
-              &
+          \begin{aligned}
+            f(x, y)
+            = {} &
+            \hphantom{{} + {}}
+            \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}
+            \\
+            &
         + \frac{AF - D^2}{A} - \frac{(AE - BD)^2}{A(AC - B^2)};
       \end{aligned}
       \]

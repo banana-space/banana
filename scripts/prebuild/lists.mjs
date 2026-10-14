@@ -171,7 +171,7 @@ export function parseLists(source) {
     for (let parent = node.parent; parent; parent = parent.parent) {
       if (parent.type === 'item' && parent.parent.listType === 'ordered') path.unshift(ordinals.get(parent));
     }
-    // 只有编号项目时为“第 2.1 项”的编号；有标签时为各层写法，以空格连接：2 (a)、(2) i。
+    // 只有编号项目时为编号 2.1；有标签时为各层写法，以空格连接：2 (a)、(2) i。
     const reference = path.every(part => typeof part === 'number')
       ? { number: path.join('.') }
       : { caption: path.map(part => typeof part === 'number' ? String(part) : part.parenthesized ? `(${part.label})` : part.label).join(' ') };

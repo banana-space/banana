@@ -93,12 +93,11 @@ export function readMath(text, start) {
 }
 
 // A labelled list item's marker (scripts/prebuild/lists.mjs): "(label)" or "label)", then whitespace or the
-// line's end. In parentheses, a label is text without whitespace, CJK characters, brackets, braces, "<>", "@",
-// "\", "`" and "$", with at most one formula ($…$ or \(…\)) in it: (a), (iii), (A1), (T2½), (★), ($\ast$).
-// Bare, letters and digits (not digits alone: "1)" is CommonMark's) and primes: a), iv), A1), 1′). A
-// backslash before ")" keeps a line text: "(1\) 与 (3) 之间".
-const labelChar = '[^\\s()\\[\\]{}<>@\\\\`$\\u2e80-\\u9fff\\uac00-\\ud7af\\uf900-\\ufaff\\ufe30-\\ufe4f\\uff00-\\uffef]';
-export const labelledMarkerSource = `(?:\\((?:${labelChar}*(?:\\$[^$\\n]+\\$|\\\\\\((?:[^\\n\\\\]|\\\\[^)])*\\\\\\))${labelChar}*|${labelChar}+)\\)|(?![0-9]+\\))[A-Za-z0-9]+['′]*\\))(?=[ \\t]|$)`;
+// line's end. A label is letters and digits, then maybe primes: (a), (iii), (A1), (2'), a), iv), A1), 1′) (not
+// digits alone without the parenthesis: "1)" is CommonMark's); or, in parentheses, one formula ($…$ or \(…\)):
+// ($\ast$), ($T_{2\frac12}$). A backslash before ")" keeps a line text: "(1\) 与 (3) 之间".
+const labelWord = "[A-Za-z0-9]+['′]*";
+export const labelledMarkerSource = `(?:\\((?:${labelWord}|\\$[^$\\n]+\\$|\\\\\\((?:[^\\n\\\\]|\\\\[^)])*\\\\\\))\\)|(?![0-9]+\\))${labelWord}\\))(?=[ \\t]|$)`;
 const labelledMarker = new RegExp(`^${labelledMarkerSource}`);
 
 /**

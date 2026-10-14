@@ -195,7 +195,7 @@ proof_title_separator:
 reference_equation:
   other: ({{ .Number }})
 reference_item:
-  other: 第 {{ .Number }} 项
+  other: "{{ .Number }}"
 reference_section:
   other: 第 {{ .Number }} 节
 
