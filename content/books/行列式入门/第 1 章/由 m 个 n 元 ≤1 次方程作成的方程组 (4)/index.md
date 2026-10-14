@@ -206,94 +206,94 @@ title: '由 \(m\) 个 \(n\) 元 \(\leq 1\) 次方程作成的方程组 (4)'
       {[U]_{p,j_\ell} x_{j_\ell}},
     \end{aligned}
     \]
-其中，\(p = 1\)、\(2\)、\(\dots\)、\(r\)，
-下同。
-考虑
-由 \(r\) 个 \(r\) 元 \({\leqslant} 1\) 次方程作成的方程组
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} y_\ell}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} c_{j_\ell}}.
-\end{aligned}
-\]
-利用阵等式，我们可写
-\[
-\begin{aligned}
-  T
-  \begin{bmatrix}
-    y_1    \\
-    y_2    \\
-    \vdots \\
-    y_r    \\
-  \end{bmatrix}
-  =
-  V -
-  \sum_{r < \ell \leqslant n}
-  {c_{j_\ell} u_{j_\ell}}.
-\end{aligned}
-\]
-因为 \(\det {(T)} \neq 0\)，
-故，由 Cramer 公式，
-存在 \(r\) 个数
-\(c_{j_1}\)、\(c_{j_2}\)、\(\dots\)、\(c_{j_r}\)，
-使
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} c_{j_\ell}}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} c_{j_\ell}},
-\end{aligned}
-\]
-其中，
-\[
-\begin{aligned}
-  c_{j_k}
-  = {} &
-  (\det {(T)})^{-1}
-  \det {
-    \left(
-      T\left\{
-        k,
-        V -
+    其中，\(p = 1\)、\(2\)、\(\dots\)、\(r\)，
+    下同。
+    考虑
+    由 \(r\) 个 \(r\) 元 \({\leqslant} 1\) 次方程作成的方程组
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{r}
+      {[U]_{p,j_\ell} y_\ell}
+      = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} c_{j_\ell}}.
+    \end{aligned}
+    \]
+    利用阵等式，我们可写
+    \[
+    \begin{aligned}
+      T
+      \begin{bmatrix}
+        y_1    \\
+        y_2    \\
+        \vdots \\
+        y_r    \\
+      \end{bmatrix}
+      =
+      V -
+      \sum_{r < \ell \leqslant n}
+      {c_{j_\ell} u_{j_\ell}}.
+    \end{aligned}
+    \]
+    因为 \(\det {(T)} \neq 0\)，
+    故，由 Cramer 公式，
+    存在 \(r\) 个数
+    \(c_{j_1}\)、\(c_{j_2}\)、\(\dots\)、\(c_{j_r}\)，
+    使
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{r}
+      {[U]_{p,j_\ell} c_{j_\ell}}
+      = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} c_{j_\ell}},
+    \end{aligned}
+    \]
+    其中，
+    \[
+    \begin{aligned}
+      c_{j_k}
+      = {} &
+      (\det {(T)})^{-1}
+      \det {
+        \left(
+          T\left\{
+            k,
+            V -
+            \sum_{r < \ell \leqslant n}
+            {c_{j_\ell} u_{j_\ell}}
+          \right\}
+        \right)
+      }
+      \\
+      = {} &
+      (\det {(T)})^{-1}
+      \left(
+        \det {(T\{k,V\})}
+        -
         \sum_{r < \ell \leqslant n}
-        {c_{j_\ell} u_{j_\ell}}
-      \right\}
-    \right)
-  }
-  \\
-  = {} &
-  (\det {(T)})^{-1}
-  \left(
-    \det {(T\{k,V\})}
-    -
-    \sum_{r < \ell \leqslant n}
-    {c_{j_\ell}
-      \det {(T\{k,u_{j_\ell}\})}
-    }
-  \right)
-  \\
-  = {} &
-  \frac{\det {(T\{k,V\})}}{\det {(T)}}
-  + \sum_{r < \ell \leqslant n}
-  {c_{j_\ell}
-  \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{n}
-  {[U]_{p,j_\ell} c_{j_\ell}}
-  = [V]_{p,1}.
-\end{aligned}
-\]
-注意，\([C]_{j_k,1} = c_{j_k}\)。
-所以，\(UC = V\)。
+        {c_{j_\ell}
+          \det {(T\{k,u_{j_\ell}\})}
+        }
+      \right)
+      \\
+      = {} &
+      \frac{\det {(T\{k,V\})}}{\det {(T)}}
+      + \sum_{r < \ell \leqslant n}
+      {c_{j_\ell}
+      \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
+    \end{aligned}
+    \]
+    从而
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{n}
+      {[U]_{p,j_\ell} c_{j_\ell}}
+      = [V]_{p,1}.
+    \end{aligned}
+    \]
+    注意，\([C]_{j_k,1} = c_{j_k}\)。
+    所以，\(UC = V\)。
 
 (2) 设 \(D\) 适合 \(UD = V\)。
     则
@@ -315,43 +315,43 @@ title: '由 \(m\) 个 \(n\) 元 \(\leq 1\) 次方程作成的方程组 (4)'
     \end{aligned}
     \]
 
-取 \(c_{j_\ell} = [D]_{j_\ell,1}\)，
-\(\ell > r\)。
-考虑方程组
-\[
-\begin{aligned}
-  \sum_{\ell = 1}^{r}
-  {[U]_{p,j_\ell} y_\ell}
-  = [V]_{p,1}
-  - \sum_{r < \ell \leqslant n}
-  {[U]_{p,j_\ell} c_{j_\ell}}.
-\end{aligned}
-\]
-由 (1)，我们知道
-\[
-\begin{aligned}
-  y_k =
-  \frac{\det {(T\{k,V\})}}{\det {(T)}}
-  + \sum_{r < \ell \leqslant n}
-  {c_{j_\ell}
-  \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}
-\end{aligned}
-\]
-（其中，\(k = 1\)、\(2\)、\(\dots\)、\(r\)，下同）
-是一个解；
-另一方面，
-\(y_k = [D]_{j_k,1}\) 也是一个解。
-因为 \(\det {(T)} \neq 0\)，
-故，由 Cramer 公式，
-这 \(2\) 个解应是相同的，
-即
-\[
-[D]_{j_k,1} =
-\frac{\det {(T\{k,V\})}}{\det {(T)}}
-+ \sum_{r < \ell \leqslant n}
-{c_{j_\ell}
-\frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
-\]
+    取 \(c_{j_\ell} = [D]_{j_\ell,1}\)，
+    \(\ell > r\)。
+    考虑方程组
+    \[
+    \begin{aligned}
+      \sum_{\ell = 1}^{r}
+      {[U]_{p,j_\ell} y_\ell}
+      = [V]_{p,1}
+      - \sum_{r < \ell \leqslant n}
+      {[U]_{p,j_\ell} c_{j_\ell}}.
+    \end{aligned}
+    \]
+    由 (1)，我们知道
+    \[
+    \begin{aligned}
+      y_k =
+      \frac{\det {(T\{k,V\})}}{\det {(T)}}
+      + \sum_{r < \ell \leqslant n}
+      {c_{j_\ell}
+      \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}
+    \end{aligned}
+    \]
+    （其中，\(k = 1\)、\(2\)、\(\dots\)、\(r\)，下同）
+    是一个解；
+    另一方面，
+    \(y_k = [D]_{j_k,1}\) 也是一个解。
+    因为 \(\det {(T)} \neq 0\)，
+    故，由 Cramer 公式，
+    这 \(2\) 个解应是相同的，
+    即
+    \[
+    [D]_{j_k,1} =
+    \frac{\det {(T\{k,V\})}}{\det {(T)}}
+    + \sum_{r < \ell \leqslant n}
+    {c_{j_\ell}
+    \frac{-\det {(T\{k,u_{j_\ell}\})}}{\det {(T)}}}.
+    \]
 :::
 
 注意，当 \(r = n\) 时，

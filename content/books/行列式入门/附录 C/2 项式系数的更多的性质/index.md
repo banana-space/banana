@@ -1936,27 +1936,27 @@ P P^{\mathrm{T}} =
     则 \(b_i = c_i\)，
     \(i = 0\)、\(1\)、\(\dots\)、\(n\)。
 
-由此，(1) 的系数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\) 是唯一的。
-设数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)、
-\(c_0\)、\(c_1\)、\(\dots\)、\(c_n\) 适合，
-对任何数 \(x\)，
-\[
-\begin{aligned}
-  f(x)
-  = {} &
-  b_0 \dbinom{x-x_0}{0}
-  + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}
-  \\
-  = {} &
-  c_0 \dbinom{x-x_0}{0}
-  + c_1 \dbinom{x-x_0}{1} + \dots + c_n \dbinom{x-x_0}{n}.
-\end{aligned}
-\]
-那么，我们取 \(x\) 为 \(x_0 + t_0 + i\)，
-\(i = 0\)、\(1\)、\(\dots\)、\(n\)，
-即得 (2) 的条件的 \(n + 1\) 个等式；
-由此，每个 \(b_i - c_i = 0\)，
-即 \(b_i = c_i\)。
+    由此，(1) 的系数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\) 是唯一的。
+    设数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)、
+    \(c_0\)、\(c_1\)、\(\dots\)、\(c_n\) 适合，
+    对任何数 \(x\)，
+    \[
+    \begin{aligned}
+      f(x)
+      = {} &
+      b_0 \dbinom{x-x_0}{0}
+      + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}
+      \\
+      = {} &
+      c_0 \dbinom{x-x_0}{0}
+      + c_1 \dbinom{x-x_0}{1} + \dots + c_n \dbinom{x-x_0}{n}.
+    \end{aligned}
+    \]
+    那么，我们取 \(x\) 为 \(x_0 + t_0 + i\)，
+    \(i = 0\)、\(1\)、\(\dots\)、\(n\)，
+    即得 (2) 的条件的 \(n + 1\) 个等式；
+    由此，每个 \(b_i - c_i = 0\)，
+    即 \(b_i = c_i\)。
 :::
 
 ::: theorem

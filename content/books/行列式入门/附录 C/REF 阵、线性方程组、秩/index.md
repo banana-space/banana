@@ -1135,30 +1135,29 @@ G =
 (2) 倍加不改变秩。
     注意，\(A'\) 有 \(r\) 个非零行。
 
-(3\) (4)
-若 \([G']_{r+1,n+1} \neq 0\)，
-则 \(G'\) 有 \(r + 1\) 个非零行。
-则 \(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)。
+(3) (4) 若 \([G']_{r+1,n+1} \neq 0\)，
+        则 \(G'\) 有 \(r + 1\) 个非零行。
+        则 \(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)。
 
-若 \([G']_{r+1,n+1} = 0\)
-（或“\([G']_{r+1,n+1}\)”不出现），
-则 \(G'\) 有 \(r\) 个非零行。
-则 \(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)。
+        若 \([G']_{r+1,n+1} = 0\)
+        （或“\([G']_{r+1,n+1}\)”不出现），
+        则 \(G'\) 有 \(r\) 个非零行。
+        则 \(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)。
 
-若
-\(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)，
-则 \([G']_{r+1,n+1}\) 不能是 \(0\)
-（若不然，则
-\(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)；
-这是矛盾）。
+        若
+        \(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)，
+        则 \([G']_{r+1,n+1}\) 不能是 \(0\)
+        （若不然，则
+        \(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)；
+        这是矛盾）。
 
-若
-\(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)，
-则“\([G']_{r+1,n+1}\)”不出现，
-或 \([G']_{r+1,n+1} = 0\)
-（若不然，则
-\(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)；
-这是矛盾）。
+        若
+        \(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)，
+        则“\([G']_{r+1,n+1}\)”不出现，
+        或 \([G']_{r+1,n+1} = 0\)
+        （若不然，则
+        \(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)；
+        这是矛盾）。
 :::
 
 结合前面的讨论，我们注意，
