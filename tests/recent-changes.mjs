@@ -15,6 +15,7 @@ const files = new Map([ // "commit:path" -> text
 ]);
 const at = (sha, path, text) => files.set(`${sha}:${path}`, text);
 const pulls = [];
+const committed = number => `2026-09-${String(number % 28 + 1).padStart(2, '0')}T23:30:00Z`;
 function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, closed = false, changed, title }) {
   const head = String(number).padStart(40, 'b');
   for (const [path, text] of Object.entries(changed)) if (text !== null) at(head, path, text);
@@ -62,6 +63,13 @@ const github = createServer((request, response) => {
     if (!pull) return reply(404, { message: 'Not Found' });
     const { files: changed, ...rest } = pull;
     return reply(200, found[2] ? (Number(url.searchParams.get('page')) > 1 ? [] : changed) : rest);
+  }
+  // The latest commit's date: written in the night, merged the next morning. #4's is missing.
+  found = path.match(/^\/commits\/(\w+)$/);
+  if (found) {
+    const pull = pulls.find(pull => pull.head.sha === found[1]);
+    if (!pull || pull.number === 4) return reply(404, { message: 'Not Found' });
+    return reply(200, { sha: found[1], commit: { committer: { date: committed(pull.number) } } });
   }
   found = path.match(/^\/compare\/(\w+)\.\.\.(\w+)$/);
   if (found) return reply(200, { merge_base_commit: { sha: found[1] } });
@@ -120,6 +128,11 @@ try {
   assert.equal(byHandNew.namesPage, false);
   assert.deepEqual(merged.pages.map(page => [page.title, page.url, page.status]), [['甲', '/wiki/甲/', 'modified']]);
   assert.deepEqual([code.pages, code.otherFiles], [[], 2], '只改网站代码（与讲义列表）的 PR');
+  assert.deepEqual(first.map(pull => [pull.time, pull.merged]), [
+    [committed(9), null], [committed(8), null], [committed(7), null],
+    [committed(6), pulls.find(pull => pull.number === 6).merged_at],
+    [pulls.find(pull => pull.number === 4).merged_at, pulls.find(pull => pull.number === 4).merged_at],
+  ], '时间是最新提交的时间，不是合并的时间；读不到提交时退回合并的时间');
   assert.deepEqual(first.map(pull => pull.live), [null, null, null, true, false], '已合并的 PR 是否已在网站上：部署的提交包含合并提交');
 
   // Pages of 30: the next page continues, the last says there is no more.
@@ -142,6 +155,7 @@ try {
   assert.deepEqual([json.before, json.after], [files.get(`${main}:content/wiki/甲/index.md`), page('甲', '甲的新正文。')]);
   assert.deepEqual(json.edit, { path: 'wiki/甲/index.md' }, '已合并：编辑网站上的版本');
   assert.equal(json.pull.live, true);
+  assert.equal(json.pull.time, committed(6));
   assert.equal('mergeCommit' in json.pull, false);
   assert.deepEqual([json.pull.number, json.pull.state, json.pull.author, json.pull.namesPage], [6, 'merged', 'hubot', true]);
 
@@ -157,7 +171,7 @@ try {
   await diff(6, 'wiki/甲/index.md');
   assert.equal(requests.filter(path => path === '/pulls/6/files').length, before, '文件列表按提交缓存');
 
-  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存验证通过');
+  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存验证通过');
 } finally {
   if (child && child.exitCode === null) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}
