@@ -170,9 +170,12 @@
   }
 }
 
+// Above what follows them in the navigation bar: the breadcrumbs' formulas are positioned (KaTeX) and would
+// otherwise show through.
 .header-toc-panel,
 .navigation-menu-panel {
   position: absolute;
+  z-index: 1;
   right: 2.4rem;
   top: 100%;
   width: 34rem;
