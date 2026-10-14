@@ -6,6 +6,7 @@ import { parse, stringify } from 'yaml';
 import { JSDOM } from 'jsdom';
 import { createProject, buildProject } from './helpers/project.mjs';
 import { numbering, defaultNumbering, pageNumbering } from '../scripts/prebuild/numbering.mjs';
+import { characterCount } from '../scripts/prebuild/collections.mjs';
 
 const root = await createProject('collections');
 const write = async (file, text) => { await mkdir(join(root, file, '..'), { recursive: true }); await writeFile(join(root, file), text); };
@@ -14,6 +15,8 @@ const generated = async file => parse((await readFile(join(root, '.build/content
 const html = file => readFile(join(root, 'public', file, 'index.html'), 'utf8');
 const config = {
   title: '测试讲义',
+  authors: ['甲', '乙'],
+  description: '测试用的 $\\infty$ 讲义。',
   referenceFormat: { 1: '第 {number} 章', 2: '第 {number} 节', default: '{number}' },
   numbering: { headings: { depth: 2 } },
   contents: [
@@ -43,6 +46,19 @@ try {
   const rootMeta = await generated('books/test/_index.md');
   assert.equal(rootMeta.title, '测试讲义');
   assert.equal(rootMeta.gitLastmod, undefined);
+  // Card fields from collection.yaml, and the generated page count (the draft chapter is not counted).
+  assert.deepEqual([rootMeta.description, rootMeta.collectionAuthors, rootMeta.collectionPages], ['测试用的 ∞ 讲义。', ['甲', '乙'], 5]);
+  assert.ok(rootMeta.collectionCharacters > 0);
+  const items = new JSDOM(await html('books')).window.document.querySelectorAll('.book-item');
+  assert.equal(items.length, 1);
+  assert.equal(items[0].querySelector('.book-item-title a').textContent, '测试讲义');
+  assert.equal(items[0].querySelectorAll('.book-item-description .katex').length, 1);
+  assert.equal(items[0].querySelector('.book-item-meta').textContent, '甲、乙 · 5 个页面 · 1 千字');
+  // 字数: CJK characters and punctuation, Western words and numbers, one per inline formula; not code, display math or markup.
+  assert.equal(characterCount('设 $X$ 是 Galois 理论的空间。'), 10);
+  assert.equal(characterCount('Hello world 2024'), 3);
+  assert.equal(characterCount('```bibliography\na: {title: 很多字}\n```\n$$x^2$$\n\\begin{align*}\na &= b\n\\end{align*}\n两字'), 2);
+  assert.equal(characterCount('::: theorem {@thm:a}\n定理\n:::\n[链接](https://example.org) <span>字</span>'), 5);
   assert.equal((await generated('books/test/first/_index.md')).title, 'first');
   assert.equal((await generated('books/test/first/one/index.md')).collectionNumber, '1.1');
   const one = await html('books/test/first/one');
@@ -178,6 +194,25 @@ try {
   await rm(join(root, 'content/books/test/orphan'), { recursive: true });
   await write(marker, stringify({ ...config, level: 'chapter' }));
   assert.throws(() => buildProject(root), /未知字段 level/);
+  await write(marker, stringify({ ...config, authors: [] }));
+  assert.throws(() => buildProject(root), /authors 必须是非空字符串或字符串列表/);
+  await write(marker, stringify(config));
+  // books.yaml groups and orders the lecture index; every book must be listed exactly once.
+  await write('content/books/second/collection.yaml', 'title: 另一讲义\ncontents:\n  - page: start\n');
+  await write('content/books/second/start/index.md', source('开始', '正文'));
+  await write('content/books/books.yaml', stringify({ groups: [{ title: '甲组', books: ['second'] }, { title: '乙组', books: ['test'] }] }));
+  buildProject(root);
+  const index = new JSDOM(await html('books')).window.document;
+  assert.deepEqual([...index.querySelectorAll('.book-group')].map(group => [group.querySelector('h2').textContent, [...group.querySelectorAll('.book-item-title')].map(title => title.textContent)]), [['甲组', ['另一讲义']], ['乙组', ['测试讲义']]]);
+  await assert.rejects(readFile(join(root, 'public/books/books.yaml')), /ENOENT/);
+  await write('content/books/books.yaml', stringify({ groups: [{ title: '甲组', books: ['second'] }] }));
+  assert.throws(() => buildProject(root), /讲义未列入 groups：test/);
+  await write('content/books/books.yaml', stringify({ groups: [{ title: '甲组', books: ['second', 'test', 'second'] }] }));
+  assert.throws(() => buildProject(root), /讲义重复：second/);
+  await write('content/books/books.yaml', stringify({ groups: [{ title: '甲组', books: ['second', 'test', 'plain'] }] }));
+  assert.throws(() => buildProject(root), /不是 books 下的讲义：plain/);
+  await rm(join(root, 'content/books/books.yaml'));
+  await rm(join(root, 'content/books/second'), { recursive: true });
   await write(marker, stringify(config));
   await write('content/projects/manual/start/index.md', source('开始', '正文', 'categories: [数学]\n'));
   assert.throws(() => buildProject(root), /categories 仅用于 wiki/);

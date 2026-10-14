@@ -13,6 +13,77 @@ const mapping = value => value && typeof value === 'object' && !Array.isArray(va
 const maxDate = values => values.filter(Boolean).sort((a, b) => Date.parse(b) - Date.parse(a))[0];
 const fail = (file, message) => { throw new Error(`${file}: 书册：${message}`); };
 
+// Optional fields describing the collection on the /books/ cards; see docs/collections.md.
+const cardFields = ['description', 'authors'];
+const nonEmpty = value => typeof value === 'string' && value.trim() !== '';
+
+function cardMetadata(config, file) {
+  const card = {};
+  if (config.description !== undefined) {
+    // One line of text and inline math, like a title: plain text for the page description, parts for the card.
+    const description = pageName(config.description, file, 'description', { typeset: true });
+    card.description = description.name;
+    card.collectionDescriptionParts = description.parts;
+  }
+  if (config.authors !== undefined) {
+    const authors = Array.isArray(config.authors) ? config.authors : [config.authors];
+    if (!authors.length || !authors.every(nonEmpty)) fail(file, 'authors 必须是非空字符串或字符串列表');
+    card.collectionAuthors = authors.map(author => author.trim());
+  }
+  return card;
+}
+
+/**
+ * Characters for the lecture index's 字数, counted the way word processors count Chinese text:
+ * each CJK character or full-width punctuation mark, and each run of other letters and digits (a
+ * Western word or a number), counts once; an inline formula counts as one word. Code blocks
+ * (bibliographies, TikZ), display math, labels, environment fences, link targets and HTML tags do not count.
+ */
+export function characterCount(markdown) {
+  const text = markdown
+    .replace(/^[ \t]*(`{3,}|~{3,})[^\n]*\n[\s\S]*?^[ \t]*\1[ \t]*$/gm, ' ')
+    .replace(/\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\begin\{([a-zA-Z]+\*?)\}[\s\S]*?\\end\{\1\}/g, ' ')
+    .replace(/(?<!\\)\$(?:\\.|[^$\\\n])+\$|\\\([\s\S]*?\\\)/g, ' x ')
+    .replace(/\{@[^}\n]*\}|^[ \t]*:{3,}.*$|<[^>\n]+>/gm, ' ')
+    .replace(/\]\([^)\n]*\)/g, ']');
+  return text.match(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\u3000-\u303f\uff01-\uff60\u2018\u2019\u201c\u201d\u2014\u2026]|[^\s\p{P}\p{S}\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]+/gu)?.length ?? 0;
+}
+
+/**
+ * The order and grouping of the lecture index from content/books/books.yaml, as groups of
+ * content-relative collection paths. Every collection under books/ must be listed exactly once.
+ * Without the file, undefined: the index lists all collections by title.
+ */
+export async function lectureGroups(source, collections) {
+  const file = join(source, 'books', 'books.yaml');
+  const text = await readFile(file, 'utf8').catch(error => { if (error.code !== 'ENOENT') throw error; });
+  if (text === undefined) return undefined;
+  const document = parseDocument(text);
+  if (document.errors.length) fail(file, document.errors[0].message);
+  const config = document.toJS();
+  if (!mapping(config) || Object.keys(config).some(field => field !== 'groups') || !Array.isArray(config.groups)) fail(file, '配置必须只有 groups 列表');
+  const books = new Set(collections.map(record => record.collectionPath).filter(path => path.startsWith('books/') && path.split('/').length === 2));
+  const listed = new Set();
+  const groups = config.groups.map(group => {
+    if (!mapping(group) || Object.keys(group).some(field => !['title', 'books'].includes(field))) fail(file, 'groups 的项目只能有 title 和 books');
+    if (!nonEmpty(group.title)) fail(file, 'title 必须是非空字符串');
+    if (!Array.isArray(group.books) || !group.books.length) fail(file, `${group.title}：books 必须是非空列表`);
+    return {
+      title: group.title.trim(),
+      books: group.books.map(name => {
+        const path = `books/${typeof name === 'string' ? name.trim() : ''}`;
+        if (!books.has(path)) fail(file, `不是 books 下的讲义：${name}`);
+        if (listed.has(path)) fail(file, `讲义重复：${name}`);
+        listed.add(path);
+        return path;
+      }),
+    };
+  });
+  const missing = [...books].filter(path => !listed.has(path));
+  if (missing.length) fail(file, `讲义未列入 groups：${missing.map(path => path.slice('books/'.length)).join('、')}`);
+  return groups;
+}
+
 /** Discover roots by marker, independent of help/books names. */
 export async function discoverCollections(source) {
   const roots = [];
@@ -54,7 +125,8 @@ export async function prepareCollections({ source, records, dates, normalize, ro
     if (document.errors.length) fail(file, document.errors[0].message);
     const config = document.toJS();
     if (!mapping(config)) fail(file, '配置必须是字段映射');
-    for (const field of Object.keys(config)) if (!['title', 'sort', 'search', 'contents', 'numbering', 'referenceFormat'].includes(field)) fail(file, `未知字段 ${field}`);
+    for (const field of Object.keys(config)) if (!['title', 'sort', 'search', 'contents', 'numbering', 'referenceFormat', ...cardFields].includes(field)) fail(file, `未知字段 ${field}`);
+    const card = cardMetadata(config, file);
     if (!Array.isArray(config.contents)) fail(file, 'contents 必须是列表');
     if (config.title !== undefined) pageName(config.title, file, 'title');
     const defaults = numbering(config.numbering ?? {}, defaultNumbering, file);
@@ -94,6 +166,9 @@ export async function prepareCollections({ source, records, dates, normalize, ro
     if (config.search !== undefined && config.search !== false) throw new Error(t('build_search_config', { File: file }));
     if (config.search === false) root.metadata.search = false;
     if (config.sort !== undefined && root.metadata.sort === undefined) root.metadata.sort = normalizeReading(config.sort, file);
+    if (card.description !== undefined && root.metadata.description === undefined) root.metadata.description = card.description;
+    delete card.description;
+    Object.assign(root.metadata, card);
     const used = new Set([root.relative]);
     const all = [root];
     async function tree(entries, parentPath, ancestry = []) {
@@ -195,6 +270,9 @@ export async function prepareCollections({ source, records, dates, normalize, ro
       record.transformed = record.finish();
     }
     for (const record of all) if (!record.visible) record.transformed = '';
+    // Shown on the lecture index cards.
+    root.metadata.collectionPages = reading.length - 1;
+    root.metadata.collectionCharacters = reading.reduce((sum, record) => sum + characterCount(record.body), 0);
     root.referenceRegistry = context.labels; // The collection's labels, for the editor's completion.
     configs.push(root);
   }

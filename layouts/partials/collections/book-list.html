@@ -1,0 +1,31 @@
+{{- /*
+  The books of the lecture index (/books/), one item each: the title, then the authors and the generated
+  page and character counts, then the description. Authors and description are optional collection.yaml
+  fields; the description may contain inline math. Styled like the recent changes.
+*/ -}}
+<ul class="book-list">
+  {{ range . }}
+    <li class="book-item">
+      <h3 class="book-item-title"><a href="{{ .RelPermalink }}">{{ partial "display-title.html" . }}</a></h3>
+      {{ $meta := slice }}
+      {{ with .Params.collectionAuthors }}{{ $meta = $meta | append (delimit . (i18n "book_author_separator")) }}{{ end }}
+      {{ with .Params.collectionPages }}{{ $meta = $meta | append (i18n "book_pages" .) }}{{ end }}
+      {{ with .Params.collectionCharacters }}
+        {{/* Nearest whole 千字 below 9500 characters (at least 1), nearest whole 万字 from there. */}}
+        {{ if ge . 9500 }}
+          {{ $meta = $meta | append (i18n "book_characters_wan" (int (math.Round (div . 10000.0)))) }}
+        {{ else }}
+          {{ $meta = $meta | append (i18n "book_characters_qian" (int (math.Max 1 (math.Round (div . 1000.0))))) }}
+        {{ end }}
+      {{ end }}
+      {{ with $meta }}<p class="book-item-meta">{{ delimit . " · " }}</p>{{ end }}
+      {{ with .Params.collectionDescriptionParts }}
+        <p class="book-item-description">
+          {{- range . -}}{{- if isset . "tex" -}}{{- partial "math.html" (dict "tex" .tex) -}}{{- else -}}{{- .text -}}{{- end -}}{{- end -}}
+        </p>
+      {{ else }}
+        {{ with .Description }}<p class="book-item-description">{{ . }}</p>{{ end }}
+      {{ end }}
+    </li>
+  {{ end }}
+</ul>

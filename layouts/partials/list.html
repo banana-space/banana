@@ -42,13 +42,28 @@
   {{/* Longer lists of articles are grouped by letter; short ones stay a plain list. */}}
   {{ if and (gt (len $pages) 10) (or $isCategory (and (eq .Kind "section") (eq .Section "wiki"))) }}
   {{ partial "letter-groups.html" (dict "pages" $pages "paginator" $paginator "level" (cond $isCategory 3 2)) }}
+  {{ else if .Params.lectureIndex }}
+  {{/* Grouped and ordered by content/books/books.yaml when it exists; otherwise all books by title. */}}
+  {{ with .Params.lectureGroups }}
+    {{ range . }}
+      {{ $books := slice }}
+      {{ range .books }}{{ with site.GetPage (printf "/%s" .) }}{{ $books = $books | append . }}{{ end }}{{ end }}
+      {{ if $books }}
+      <section class="book-group">
+        <h2 class="book-group-title">{{ .title }}</h2>
+        {{ partial "collections/book-list.html" $books }}
+      </section>
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    {{ partial "collections/book-list.html" $paginator.Pages }}
+  {{ end }}
   {{ else }}
   <ul>
     {{ range $paginator.Pages }}
       <li>
         <a class="article-item" href="{{ .RelPermalink }}">
           <span class="title">{{ partial "display-title.html" . }}</span>
-          {{ if $.Params.lectureIndex }}{{ with .Description }}<span class="collection-description">{{ . }}</span>{{ end }}{{ end }}
         </a>
       </li>
     {{ end }}

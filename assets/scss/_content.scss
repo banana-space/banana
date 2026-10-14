@@ -182,9 +182,8 @@ article {
     border: 0.15em solid #d0d8dc;
   }
 }
-
-// 翻页列表与分类树也是 section.list 的直接子元素，不用项目符号（见 _pagination.scss、_taxonomies.scss）。
-section.list > ul:not(.pagination, .category-tree) {
+// 翻页列表、分类树与讲义列表也是 section.list 的直接子元素，不用项目符号（见 _pagination.scss、_taxonomies.scss、_collections.scss）。
+section.list > ul:not(.pagination, .category-tree, .book-list) {
   list-style: disc;
   padding-left: 1.5em;
 

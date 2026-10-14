@@ -12,7 +12,7 @@ import { eachLimit, publishContent } from './publish.mjs';
 import { categoryTree } from './categories.mjs';
 import { gitDates } from './git-dates.mjs';
 import { defaultNumbering, numbering, pageNumbering } from './numbering.mjs';
-import { discoverCollections, isPublished, prepareCollections } from './collections.mjs';
+import { discoverCollections, isPublished, lectureGroups, prepareCollections } from './collections.mjs';
 import { componentLoader } from './components.mjs';
 import { markPattern, markSourceLines } from './source-lines.mjs';
 import { pageURL } from '../shared/pages.mjs';
@@ -208,6 +208,9 @@ export async function prebuild({ destination: generated = `${root}.build/content
       records.set(record.relative, record);
       await normalize(record);
     }
+    const groups = await lectureGroups(source, collections);
+    files.delete('books/books.yaml');
+    if (groups && records.has('books/_index.md')) records.get('books/_index.md').metadata.lectureGroups = groups;
     return true;
   }, source));
   /** The generated page: final metadata and transformed body (unless the body is not wanted). Runs once per record. */

@@ -125,11 +125,92 @@
   }
 }
 
-.collection-description {
-  display: block;
+// The lecture index (/books/): groups of books, one item each; see partials/collections/book-list.html.
+// Laid out like the recent changes (_recent-changes.scss): items divided by rules, which reach a little
+// into the margins; the whole item is the title's link.
+// Narrow screens have a 1.6rem gutter (_base.scss), so the bleed is smaller there.
+$book-item-bleed: 1.5rem;
+$book-item-bleed-narrow: 1.2rem;
+
+.book-group {
+  margin-top: 3.2rem;
+}
+
+.book-group-title {
+  margin: 0 0 1.4rem;
+  font-size: 2rem;
+  line-height: 2.8rem;
+}
+
+.book-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-item {
+  position: relative;
+  margin: 0 (-$book-item-bleed);
+  padding: 1.2rem $book-item-bleed;
+  border-bottom: 1.5px solid rgba($border-color, .6);
+  transition: background-color .15s ease;
+
+  // The hover background is a rounded block per group.
+  &:first-child {
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+  }
+
+  @media (max-width: $search-breakpoint) {
+    margin: 0 (-$book-item-bleed-narrow);
+    padding-left: $book-item-bleed-narrow;
+    padding-right: $book-item-bleed-narrow;
+  }
+
+  &:hover,
+  &:focus-within {
+    background: $alt-bg-color;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  // The title's link covers the item.
+  .book-item-title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.book-item-title {
+  // Static, unlike other headings: the link's overlay then covers the item.
+  position: static;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.4rem;
+}
+
+.book-item-description {
+  margin: .2rem 0 0;
+  color: #4b4f53;
+  font-size: 1.45rem;
+  line-height: 2.3rem;
+}
+
+.book-item-meta {
+  margin: .2rem 0 0;
   color: $muted-color;
-  font-size: 1.4rem;
-  margin: .4rem 0 1.2rem;
+  font-size: 1.3rem;
+  line-height: 2.2rem;
 }
 
 @media (min-width: $collection-sidebar-breakpoint) {
