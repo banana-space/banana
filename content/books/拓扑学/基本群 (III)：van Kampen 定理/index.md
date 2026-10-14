@@ -135,10 +135,10 @@ u\colon \pi_1(X,x_0) \cong \frac{\pi_1(U_1,x_0) \ast \pi_1(U_2,x_0)}
 其中 \(G\) 是群，\(b_i\) 是群同态。它们满足：\(b_1\circ a_1=b_2\circ a_2\)，
 以及下述泛性质。
 
-- (PO) 若同态 \(\phi_1\colon G_1 \to G'\)
-  \(\phi_2 \colon G_2 \to G'\)
-  满足 \(\phi_1\circ a_1 = \phi_2\circ a_2\)，则存在唯一
-  同态 \(\phi\colon G \to G'\)，使得 \(\phi_i = \phi\circ b_i\)。
+(PO) 若同态 \(\phi_1\colon G_1 \to G'\)
+     \(\phi_2 \colon G_2 \to G'\)
+     满足 \(\phi_1\circ a_1 = \phi_2\circ a_2\)，则存在唯一
+     同态 \(\phi\colon G \to G'\)，使得 \(\phi_i = \phi\circ b_i\)。
 
 换言之，下面的图表可以被唯一的虚箭头变成交换图：
 \[

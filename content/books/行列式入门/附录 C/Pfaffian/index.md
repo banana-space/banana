@@ -574,56 +574,53 @@ title: pfaffian
 我们作一个小结。
 
 ::: theorem
-(1)
-设 \(A\)、\(D\) 是 \(n\) 级与 \(t\) 级反称阵。
-则
-\[
-\begin{aligned}
-  \operatorname{pf} {
-    \begin{bmatrix}
-      A & 0 \\
-      0 & D
-    \end{bmatrix}
-  }
-  = \operatorname{pf} {(A)} \operatorname{pf} {(D)}.
-\end{aligned}
-\]
+(1) 设 \(A\)、\(D\) 是 \(n\) 级与 \(t\) 级反称阵。
+    则
+    \[
+    \begin{aligned}
+      \operatorname{pf} {
+        \begin{bmatrix}
+          A & 0 \\
+          0 & D
+        \end{bmatrix}
+      }
+      = \operatorname{pf} {(A)} \operatorname{pf} {(D)}.
+    \end{aligned}
+    \]
 
-(2)
-设 \(A\) 是 \(m\) 级阵。
-则
-\[
-\begin{aligned}
-  \operatorname{pf} {
-    \begin{bmatrix}
-      0               & A \\
-      -A^{\mathrm{T}} & 0 \\
-    \end{bmatrix}
-  } = (-1)^{m(m-1)/2} \det {(A)}.
-\end{aligned}
-\]
-特别地，取 \(A = I_m\)，即知
-\(K_m =
-    \begin{bmatrix}
-      0    & I_m \\
-      -I_m & 0   \\
-  \end{bmatrix}\)
-的 pfaffian 是 \((-1)^{m(m-1)/2}\)。
+(2) 设 \(A\) 是 \(m\) 级阵。
+    则
+    \[
+    \begin{aligned}
+      \operatorname{pf} {
+        \begin{bmatrix}
+          0               & A \\
+          -A^{\mathrm{T}} & 0 \\
+        \end{bmatrix}
+      } = (-1)^{m(m-1)/2} \det {(A)}.
+    \end{aligned}
+    \]
+    特别地，取 \(A = I_m\)，即知
+    \(K_m =
+        \begin{bmatrix}
+          0    & I_m \\
+          -I_m & 0   \\
+      \end{bmatrix}\)
+    的 pfaffian 是 \((-1)^{m(m-1)/2}\)。
 
-(3)
-\[
-\begin{aligned}
-  \operatorname{pf} {
-    \begin{bmatrix}
-      0      & b_1    & 0      & 0      & \cdots & 0      & 0      \\
-      -b_1   & 0      & 0      & 0      & \cdots & 0      & 0      \\
-      0      & 0      & 0      & b_2    & \cdots & 0      & 0      \\
-      0      & 0      & -b_2   & 0      & \cdots & 0      & 0      \\
-      \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
-      0      & 0      & 0      & 0      & \cdots & 0      & b_m    \\
-      0      & 0      & 0      & 0      & \cdots & -b_m   & 0      \\
-    \end{bmatrix}
-  } = b_1 b_2 \dots b_m.
-\end{aligned}
-\]
+(3) \[
+    \begin{aligned}
+      \operatorname{pf} {
+        \begin{bmatrix}
+          0      & b_1    & 0      & 0      & \cdots & 0      & 0      \\
+          -b_1   & 0      & 0      & 0      & \cdots & 0      & 0      \\
+          0      & 0      & 0      & b_2    & \cdots & 0      & 0      \\
+          0      & 0      & -b_2   & 0      & \cdots & 0      & 0      \\
+          \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+          0      & 0      & 0      & 0      & \cdots & 0      & b_m    \\
+          0      & 0      & 0      & 0      & \cdots & -b_m   & 0      \\
+        \end{bmatrix}
+      } = b_1 b_2 \dots b_m.
+    \end{aligned}
+    \]
 :::

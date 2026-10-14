@@ -47,25 +47,25 @@ title: 习题
    \end{aligned}
    \]
 
-3. - (a) 说明对$m\times n$矩阵$A$作的三种初等行变换均可以写成对$A$左乘一个$m$阶方阵$P$
-     $$
-     A\to PA
-     $$
-     写出三种初等行变换对应的矩阵$P$并计算其行列式$\det P$。
+3. (a) 说明对$m\times n$矩阵$A$作的三种初等行变换均可以写成对$A$左乘一个$m$阶方阵$P$
+       $$
+       A\to PA
+       $$
+       写出三种初等行变换对应的矩阵$P$并计算其行列式$\det P$。
 
-   - (b) 和初等行变换类似，我们可以定义矩阵的三种初等列变换为
+   (b) 和初等行变换类似，我们可以定义矩阵的三种初等列变换为
 
-     - i. 交换两列：将矩阵的两列交换位置
+       - i. 交换两列：将矩阵的两列交换位置
 
-     - ii. 将矩阵中的一列乘以一个非零常数
+       - ii. 将矩阵中的一列乘以一个非零常数
 
-     - iii. 将矩阵的一列乘以一个数加到另一列
+       - iii. 将矩阵的一列乘以一个数加到另一列
 
-     说明对$m\times n$矩阵$A$作的三种初等列变换均可以写成对$A$右乘一个$n$阶方阵$Q$
-     $$
-     A\to AQ
-     $$
-     写出三种初等列变换对应的矩阵$Q$并计算其行列式$\det Q$。
+       说明对$m\times n$矩阵$A$作的三种初等列变换均可以写成对$A$右乘一个$n$阶方阵$Q$
+       $$
+       A\to AQ
+       $$
+       写出三种初等列变换对应的矩阵$Q$并计算其行列式$\det Q$。
 
 4. 设$A$是如下分块上三角形式
    $$
@@ -126,42 +126,42 @@ title: 习题
 I_m & A \\ B & I_n
 \end{bmatrix}$，这里$I_m$是$m$阶单位阵，$I_n$是$n$阶单位阵。
 
-   - (a) 证明
-     \[
-     \begin{aligned}
-     &\begin{bmatrix}
-     I_m & 0\\
-     -B & I_n
-     \end{bmatrix}\begin{bmatrix}
-     I_m & A \\ B & I_n
-     \end{bmatrix}=\begin{bmatrix}
-     I_m & A \\ 0 & I_n-BA
-     \end{bmatrix}\\
-     &\begin{bmatrix}
-     I_m & -A\\
-     0 & I_n
-     \end{bmatrix}\begin{bmatrix}
-     I_m & A \\ B & I_n
-     \end{bmatrix}=\begin{bmatrix}
-     I_m-AB & 0 \\ B & I_n
-     \end{bmatrix}
-     \end{aligned}
-     \]
+   (a) 证明
+       \[
+       \begin{aligned}
+       &\begin{bmatrix}
+       I_m & 0\\
+       -B & I_n
+       \end{bmatrix}\begin{bmatrix}
+       I_m & A \\ B & I_n
+       \end{bmatrix}=\begin{bmatrix}
+       I_m & A \\ 0 & I_n-BA
+       \end{bmatrix}\\
+       &\begin{bmatrix}
+       I_m & -A\\
+       0 & I_n
+       \end{bmatrix}\begin{bmatrix}
+       I_m & A \\ B & I_n
+       \end{bmatrix}=\begin{bmatrix}
+       I_m-AB & 0 \\ B & I_n
+       \end{bmatrix}
+       \end{aligned}
+       \]
 
-   - (b) 证明
-     $$
-     \det (I_m-AB)=\det (I_n-BA)
-     $$
+   (b) 证明
+       $$
+       \det (I_m-AB)=\det (I_n-BA)
+       $$
 
-   - (c) 计算行列式
-     $$
-     \begin{vmatrix}
-      1+ a_1b_1 & a_1 b_2 &\cdots & a_1b_n\\
-      a_2b_1 & 1+ a_2b_2 &\cdots & a_2b_n\\
-      \cdots & \cdots & \cdots& \cdots\\
-      a_n b_1 & a_n b_2 & \cdots & 1+a_nb_n
-     \end{vmatrix}
-     $$
+   (c) 计算行列式
+       $$
+       \begin{vmatrix}
+        1+ a_1b_1 & a_1 b_2 &\cdots & a_1b_n\\
+        a_2b_1 & 1+ a_2b_2 &\cdots & a_2b_n\\
+        \cdots & \cdots & \cdots& \cdots\\
+        a_n b_1 & a_n b_2 & \cdots & 1+a_nb_n
+       \end{vmatrix}
+       $$
 
 10. 求下列矩阵的逆
     \[

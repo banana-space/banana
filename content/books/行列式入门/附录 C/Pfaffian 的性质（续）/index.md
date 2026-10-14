@@ -323,59 +323,57 @@ A E(n; p, q; s) )}
 \(f(C) = \operatorname{pf} {(C^{\mathrm{T}} A C)}\)，
 其中，\(C\) 是 \(n\) 级阵。
 
-(1)
-\(f\) 适合倍加不变性。
-（见“用行列式的性质确定行列式”。）
-设 \(E = E(n; p, q; s)\)
-（\(p \neq q\)）。
-则加 \(C\) 的列 \(p\) 的 \(s\) 倍于列 \(q\)，
-且不改变别的列，
-得阵 \(C E\)。
-则
-\[
-\begin{aligned}
-  f(C E)
-  = {} &
-  \operatorname{pf} {((C E)^{\mathrm{T}} A (C E))}
-  \\
-  = {} &
-  \operatorname{pf}
-  {(E^{\mathrm{T}} (C^{\mathrm{T}} A C) E)}
-  \\
-  = {} &
-  \operatorname{pf}
-  {(C^{\mathrm{T}} A C)}
-  \\
-  = {} &
-  f(C).
-\end{aligned}
-\]
+(1) \(f\) 适合倍加不变性。
+    （见“用行列式的性质确定行列式”。）
+    设 \(E = E(n; p, q; s)\)
+    （\(p \neq q\)）。
+    则加 \(C\) 的列 \(p\) 的 \(s\) 倍于列 \(q\)，
+    且不改变别的列，
+    得阵 \(C E\)。
+    则
+    \[
+    \begin{aligned}
+      f(C E)
+      = {} &
+      \operatorname{pf} {((C E)^{\mathrm{T}} A (C E))}
+      \\
+      = {} &
+      \operatorname{pf}
+      {(E^{\mathrm{T}} (C^{\mathrm{T}} A C) E)}
+      \\
+      = {} &
+      \operatorname{pf}
+      {(C^{\mathrm{T}} A C)}
+      \\
+      = {} &
+      f(C).
+    \end{aligned}
+    \]
 
-(2)
-\(f\) 适合多齐性。
-设 \(M = M(n; q; s)\)。
-则以数 \(s\) 乘 \(C\) 的列 \(q\)，
-且不改变别的列，
-得阵 \(C M\)。
-则
-\[
-\begin{aligned}
-  f(C M)
-  = {} &
-  \operatorname{pf} {((C M)^{\mathrm{T}} A (C M))}
-  \\
-  = {} &
-  \operatorname{pf}
-  {(M^{\mathrm{T}} (C^{\mathrm{T}} A C) M)}
-  \\
-  = {} &
-  s \operatorname{pf}
-  {(C^{\mathrm{T}} A C)}
-  \\
-  = {} &
-  s f(C).
-\end{aligned}
-\]
+(2) \(f\) 适合多齐性。
+    设 \(M = M(n; q; s)\)。
+    则以数 \(s\) 乘 \(C\) 的列 \(q\)，
+    且不改变别的列，
+    得阵 \(C M\)。
+    则
+    \[
+    \begin{aligned}
+      f(C M)
+      = {} &
+      \operatorname{pf} {((C M)^{\mathrm{T}} A (C M))}
+      \\
+      = {} &
+      \operatorname{pf}
+      {(M^{\mathrm{T}} (C^{\mathrm{T}} A C) M)}
+      \\
+      = {} &
+      s \operatorname{pf}
+      {(C^{\mathrm{T}} A C)}
+      \\
+      = {} &
+      s f(C).
+    \end{aligned}
+    \]
 
 所以，对任何 \(n\) 级阵 \(P\)，
 \[

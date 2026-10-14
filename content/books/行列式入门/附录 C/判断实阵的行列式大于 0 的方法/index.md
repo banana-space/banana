@@ -389,25 +389,23 @@ title: '判断实阵的行列式大于 \(0\) 的方法'
 > 对任何适合如下条件的 \(n\) 级实阵 \(A\)，
 > \(\det {(A)} > 0\)：
 >
-> > (1)
-> > 对任何不超过 \(n\) 的正整数 \(i\)，
-> > \([A]_{i,i} > 0\)；
+> > (1) 对任何不超过 \(n\) 的正整数 \(i\)，
+> >     \([A]_{i,i} > 0\)；
 > >
-> > (2)
-> > 对任何不超过 \(n\)，且不等的正整数 \(j\)、\(k\)，
-> > \[
-> > \begin{aligned}
-> >   [A]_{j,j}\,[A]_{k,k} >
-> >   \Bigg(
-> >     \sum_{\substack{1 \leqslant p \leqslant n \\
-> >     p \neq j}} {|[A]_{j,p}|}
-> >   \Bigg)
-> >   \Bigg(
-> >     \sum_{\substack{1 \leqslant q \leqslant n \\
-> >     q \neq k}} {|[A]_{k,q}|}
-> >   \Bigg).
-> > \end{aligned}
-> > \]
+> > (2) 对任何不超过 \(n\)，且不等的正整数 \(j\)、\(k\)，
+> >     \[
+> >     \begin{aligned}
+> >       [A]_{j,j}\,[A]_{k,k} >
+> >       \Bigg(
+> >         \sum_{\substack{1 \leqslant p \leqslant n \\
+> >         p \neq j}} {|[A]_{j,p}|}
+> >       \Bigg)
+> >       \Bigg(
+> >         \sum_{\substack{1 \leqslant q \leqslant n \\
+> >         q \neq k}} {|[A]_{k,q}|}
+> >       \Bigg).
+> >     \end{aligned}
+> >     \]
 
 我们用数学归纳法证明，
 对任何高于 \(1\) 的正整数 \(n\)，

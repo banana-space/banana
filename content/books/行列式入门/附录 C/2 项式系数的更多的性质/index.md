@@ -1253,86 +1253,78 @@ g_n - h_n = g_{n-1} - h_{n-1} = \dots = g_1 - h_1 = 0.
 \]
 则：
 
-(1)
-若 \(i < j\)，则 \([T(x; h; s)]_{i,j} = 0\)。
+(1) 若 \(i < j\)，则 \([T(x; h; s)]_{i,j} = 0\)。
 
-(2)
-\(\det {(T(x; h; s))} = 1\)。
+(2) \(\det {(T(x; h; s))} = 1\)。
 
-(3)
-\(T(x; h; s) T(y; h; s) = T(x + y; h; s)\)。
+(3) \(T(x; h; s) T(y; h; s) = T(x + y; h; s)\)。
 
-(4)
-\(T(0; h; s) = I_s\)。
+(4) \(T(0; h; s) = I_s\)。
 :::
 
 ::: proof
-(1)
-注意，若 \(i < j\)，则 \(i - 1 < j - 1\)。
-则 \(\dbinom{i-1}{j-1} = 0\)。
-则 \([T(x; h; s)]_{i,j} = 0\)。
+(1) 注意，若 \(i < j\)，则 \(i - 1 < j - 1\)。
+    则 \(\dbinom{i-1}{j-1} = 0\)。
+    则 \([T(x; h; s)]_{i,j} = 0\)。
 
-(2)
-由 (1)，
-\(\det {(T(x; h; s))}
-  = [T(x; h; s)]_{1,1} [T(x; h; s)]_{2,2} \dots [T(x; h; s)]_{s,s}\)。
-注意，
-\[
-\begin{aligned}
-  [T(x; h; s)]_{i,i}
-  = \dbinom{i-1}{i-1} \operatorname{fa} {(x, 0; h)}
-  = 1 \cdot 1 = 1.
-\end{aligned}
-\]
-则 \(\det {(T(x; h; s))} = 1^s = 1\)。
+(2) 由 (1)，
+    \(\det {(T(x; h; s))}
+      = [T(x; h; s)]_{1,1} [T(x; h; s)]_{2,2} \dots [T(x; h; s)]_{s,s}\)。
+    注意，
+    \[
+    \begin{aligned}
+      [T(x; h; s)]_{i,i}
+      = \dbinom{i-1}{i-1} \operatorname{fa} {(x, 0; h)}
+      = 1 \cdot 1 = 1.
+    \end{aligned}
+    \]
+    则 \(\det {(T(x; h; s))} = 1^s = 1\)。
 
-(3)
-注意，
-\[
-\begin{aligned}
-  &
-  [T(x; h; s) T(y; h; s)]_{i,j}
-  \\
-  = {} &
-  \sum_{1 \leqslant u \leqslant s} {[T(x; h; s)]_{i,u} [T(y; h; s)]_{u,j}}
-  \\
-  = {} &
-  \sum_{1 \leqslant u \leqslant s}
-  {\dbinom{i-1}{u-1} \operatorname{fa} {(x, i - u; h)}
-  \dbinom{u-1}{j-1} \operatorname{fa} {(y, u - j; h)}}
-  \\
-  = {} &
-  \sum_{1 \leqslant u \leqslant s}
-  {\dbinom{i-1}{u-1} \operatorname{fa} {(x, (i-1) - (u-1); h)}
-  \dbinom{u-1}{j-1} \operatorname{fa} {(y, (u-1) - (j-1); h)}}
-  \\
-  = {} &
-  \sum_{0 \leqslant v \leqslant s-1}
-  {\dbinom{i-1}{v} \operatorname{fa} {(x, (i-1) - v; h)}
-  \dbinom{v}{j-1} \operatorname{fa} {(y, v - (j-1); h)}}
-  \\
-  = {} &
-  \dbinom{i-1}{j-1} \operatorname{fa} {(x + y, (i-1) - (j-1); h)}
-  \\
-  = {} &
-  [T(x + y; h; s)]_{i,j}.
-\end{aligned}
-\]
+(3) 注意，
+    \[
+    \begin{aligned}
+      &
+      [T(x; h; s) T(y; h; s)]_{i,j}
+      \\
+      = {} &
+      \sum_{1 \leqslant u \leqslant s} {[T(x; h; s)]_{i,u} [T(y; h; s)]_{u,j}}
+      \\
+      = {} &
+      \sum_{1 \leqslant u \leqslant s}
+      {\dbinom{i-1}{u-1} \operatorname{fa} {(x, i - u; h)}
+      \dbinom{u-1}{j-1} \operatorname{fa} {(y, u - j; h)}}
+      \\
+      = {} &
+      \sum_{1 \leqslant u \leqslant s}
+      {\dbinom{i-1}{u-1} \operatorname{fa} {(x, (i-1) - (u-1); h)}
+      \dbinom{u-1}{j-1} \operatorname{fa} {(y, (u-1) - (j-1); h)}}
+      \\
+      = {} &
+      \sum_{0 \leqslant v \leqslant s-1}
+      {\dbinom{i-1}{v} \operatorname{fa} {(x, (i-1) - v; h)}
+      \dbinom{v}{j-1} \operatorname{fa} {(y, v - (j-1); h)}}
+      \\
+      = {} &
+      \dbinom{i-1}{j-1} \operatorname{fa} {(x + y, (i-1) - (j-1); h)}
+      \\
+      = {} &
+      [T(x + y; h; s)]_{i,j}.
+    \end{aligned}
+    \]
 
-(4)
-注意，
-\[
-\begin{aligned}
-  [T(0; h; s)]_{i,j}
-  = \dbinom{i-1}{j-1} \operatorname{fa} {(0, i-j; h)}.
-\end{aligned}
-\]
-若 \(i < j\)，则 \(\dbinom{i-1}{j-1} = 0\)；
-若 \(i > j\)，则 \(\operatorname{fa} {(0, i-j; h)} = 0\)；
-若 \(i = j\)，则 \(\dbinom{i-1}{j-1} = 1\)，
-且 \(\operatorname{fa} {(0, i-j; h)} = 1\)。
-故 \([T(0; h; s)]_{i,j} = \delta(i, j) = [I_s]_{i,j}\)。
-则 \(T(0; h; s) = I_s\)。
+(4) 注意，
+    \[
+    \begin{aligned}
+      [T(0; h; s)]_{i,j}
+      = \dbinom{i-1}{j-1} \operatorname{fa} {(0, i-j; h)}.
+    \end{aligned}
+    \]
+    若 \(i < j\)，则 \(\dbinom{i-1}{j-1} = 0\)；
+    若 \(i > j\)，则 \(\operatorname{fa} {(0, i-j; h)} = 0\)；
+    若 \(i = j\)，则 \(\dbinom{i-1}{j-1} = 1\)，
+    且 \(\operatorname{fa} {(0, i-j; h)} = 1\)。
+    故 \([T(0; h; s)]_{i,j} = \delta(i, j) = [I_s]_{i,j}\)。
+    则 \(T(0; h; s) = I_s\)。
 :::
 
 ::: theorem
@@ -1681,17 +1673,15 @@ P P^{\mathrm{T}} =
 \end{alignedat}
 ```
 
-(1)
-若 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
-都是 \(0\)，
-则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)
-也都是 \(0\)。
+(1) 若 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
+    都是 \(0\)，
+    则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)
+    也都是 \(0\)。
 
-(2)
-若 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
-都是整数，
-则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)
-也都是整数。
+(2) 若 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
+    都是整数，
+    则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)
+    也都是整数。
 :::
 
 ::: proof [证 1]
@@ -1713,32 +1703,29 @@ P P^{\mathrm{T}} =
 其中，\((P(n+1; t_0)) \{\ell+1, V\}\)
 是以 \(V\) 代 \(P(n+1; t_0)\) 的列 \(\ell+1\) 后得到的阵。
 
-(1)
-若 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是 \(0\)，
-则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的列 \(\ell+1\) 是 \(0\)。
-则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的行列式是 \(0\)。
-则 \(u_\ell = 0\)，
-\(\ell = 0\)、\(1\)、\(\dots\)、\(n\)。
+(1) 若 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是 \(0\)，
+    则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的列 \(\ell+1\) 是 \(0\)。
+    则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的行列式是 \(0\)。
+    则 \(u_\ell = 0\)，
+    \(\ell = 0\)、\(1\)、\(\dots\)、\(n\)。
 
-(2)
-若 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是整数，
-则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的元全是整数。
-则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的行列式是整数。
-则 \(u_\ell\) 是整数，
-\(\ell = 0\)、\(1\)、\(\dots\)、\(n\)。
+(2) 若 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是整数，
+    则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的元全是整数。
+    则 \((P(n+1; t_0)) \{\ell+1, V\}\) 的行列式是整数。
+    则 \(u_\ell\) 是整数，
+    \(\ell = 0\)、\(1\)、\(\dots\)、\(n\)。
 :::
 
 ::: proof [证 2]
-(1)
-作命题 \(A(n)\)：
-若数 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)、
-\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
-适合
-式 @eq:ff-system-of-linear-equations-with-binomial-coefficients，
-且 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是 \(0\)，
-则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\) 也都是 \(0\)。
-我们用数学归纳法证明，对任何非负整数 \(n\)，
-\(A(n)\) 是对的。
+(1) 作命题 \(A(n)\)：
+    若数 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)、
+    \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
+    适合
+    式 @eq:ff-system-of-linear-equations-with-binomial-coefficients，
+    且 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是 \(0\)，
+    则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\) 也都是 \(0\)。
+    我们用数学归纳法证明，对任何非负整数 \(n\)，
+    \(A(n)\) 是对的。
 
 \(A(0)\) 是对的。
 此时，式 @eq:ff-system-of-linear-equations-with-binomial-coefficients
@@ -1776,16 +1763,15 @@ P P^{\mathrm{T}} =
 所以，\(A(n)\) 是对的。
 由数学归纳法，待证的命题成立。
 
-(2)
-作命题 \(B(n)\)：
-若数 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)、
-\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
-适合
-式 @eq:ff-system-of-linear-equations-with-binomial-coefficients，
-且 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是整数，
-则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\) 也都是整数。
-我们用数学归纳法证明，对任何非负整数 \(n\)，
-\(B(n)\) 是对的。
+(2) 作命题 \(B(n)\)：
+    若数 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)、
+    \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\)
+    适合
+    式 @eq:ff-system-of-linear-equations-with-binomial-coefficients，
+    且 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是整数，
+    则 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\) 也都是整数。
+    我们用数学归纳法证明，对任何非负整数 \(n\)，
+    \(B(n)\) 是对的。
 
 \(B(0)\) 是对的。
 此时，式 @eq:ff-system-of-linear-equations-with-binomial-coefficients
@@ -1844,54 +1830,51 @@ P P^{\mathrm{T}} =
 \end{aligned}
 \]
 
-(1)
-存在数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)，
-使对任何数 \(x\)，
-\[
-\begin{aligned}
-  f(x) = b_0 \dbinom{x-x_0}{0}
-  + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
-\end{aligned}
-\]
+(1) 存在数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)，
+    使对任何数 \(x\)，
+    \[
+        \begin{aligned}
+          f(x) = b_0 \dbinom{x-x_0}{0}
+      + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
+    \end{aligned}
+    \]
 
-(2)
-设 \(t_0\) 是数。
-若数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)、
-\(c_0\)、\(c_1\)、\(\dots\)、\(c_n\)
-适合，
-对 \(i = 0\)、\(1\)、\(\dots\)、\(n\)，
-\[
-\begin{aligned}
-  &
-  b_0 \dbinom{t_0+i}{0} + b_1 \dbinom{t_0+i}{1}
-  + \dots + b_n \dbinom{t_0+i}{n},
-  \\
-  = {} &
-  c_0 \dbinom{t_0+i}{0} + c_1 \dbinom{t_0+i}{1}
-  + \dots + c_n \dbinom{t_0+i}{n},
-\end{aligned}
-\]
+(2) 设 \(t_0\) 是数。
+    若数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)、
+    \(c_0\)、\(c_1\)、\(\dots\)、\(c_n\)
+    适合，
+    对 \(i = 0\)、\(1\)、\(\dots\)、\(n\)，
+    \[
+        \begin{aligned}
+          &
+          b_0 \dbinom{t_0+i}{0} + b_1 \dbinom{t_0+i}{1}
+      + \dots + b_n \dbinom{t_0+i}{n},
+      \\
+      = {} &
+      c_0 \dbinom{t_0+i}{0} + c_1 \dbinom{t_0+i}{1}
+      + \dots + c_n \dbinom{t_0+i}{n},
+    \end{aligned}
+    \]
 则 \(b_i = c_i\)，\(i = 0\)，\(1\)，\(\dots\)，\(n\)。
 进一步地，(1) 的系数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\) 是唯一的。
 :::
 
 ::: proof
-(1)
-作命题 \(P(n)\)：
-对任何次不高于 \(n\) 的整式
-\[
-\begin{aligned}
-  f(x) = a_0 + a_1 x + \dots + a_n x^n,
-\end{aligned}
-\]
-存在数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)，
-使对任何数 \(x\)，
-\[
-\begin{aligned}
-  f(x) = b_0 \dbinom{x-x_0}{0}
-  + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
-\end{aligned}
-\]
+(1) 作命题 \(P(n)\)：
+    对任何次不高于 \(n\) 的整式
+    \[
+    \begin{aligned}
+      f(x) = a_0 + a_1 x + \dots + a_n x^n,
+    \end{aligned}
+    \]
+    存在数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)，
+    使对任何数 \(x\)，
+    \[
+        \begin{aligned}
+          f(x) = b_0 \dbinom{x-x_0}{0}
+      + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
+    \end{aligned}
+    \]
 我们用数学归纳法证明，对任何非负整数 \(n\)，\(P(n)\) 是对的。
 
 首先，注意，\(a_0 = a_0 \cdot 1 = a_0 \dbinom{x - x_0}{0}\)。
@@ -1929,16 +1912,15 @@ P P^{\mathrm{T}} =
 则 \(P(n)\) 是对的。
 由数学归纳法，待证的命题成立。
 
-(2)
-注意，对 \(i = 0\)、\(\dots\)、\(n\)，
-\[
-\begin{aligned}
-  (b_0 - c_0) \dbinom{t_0+i}{0}
-  + (b_1 - c_1) \dbinom{t_0+i}{1}
-  + \dots
-  + (b_n - c_n) \dbinom{t_0+i}{n} = 0.
-\end{aligned}
-\]
+(2) 注意，对 \(i = 0\)、\(\dots\)、\(n\)，
+    \[
+        \begin{aligned}
+          (b_0 - c_0) \dbinom{t_0+i}{0}
+      + (b_1 - c_1) \dbinom{t_0+i}{1}
+      + \dots
+      + (b_n - c_n) \dbinom{t_0+i}{n} = 0.
+    \end{aligned}
+    \]
 记 \(d_i = b_i - c_i\)。
 则
 \[
@@ -2133,24 +2115,22 @@ g(0) = b_0 \dbinom{0}{1} + b_1 \dbinom{0}{2}
 ::: definition
 设 \(f(x)\) 是整式。
 
-(1)
-定义 \(f(x)\) 的**差分** \(∆ f (x)\)
-为整式 \(f(x + 1) - f(x)\)。
+(1) 定义 \(f(x)\) 的**差分** \(∆ f (x)\)
+    为整式 \(f(x + 1) - f(x)\)。
 
-(2)
-设 \(k\) 是非负整数。
-定义 \(f(x)\) 的 **\(k\) 级差分**
-\[
-\begin{aligned}
-  ∆^k f (x) =
-  \begin{cases}
-    f(x), & k = 0; \\
-    ∆ (∆^{k-1} f (x)), & k \geqslant 1.
-  \end{cases}
-\end{aligned}
-\]
-通俗地，\(f(x)\) 的 \(0\) 级差分是 \(f(x)\)，
-且 \(f(x)\) 的 \(k\) 级差分是 \(f(x)\) 的 \(k-1\) 级差分的差分。
+(2) 设 \(k\) 是非负整数。
+    定义 \(f(x)\) 的 **\(k\) 级差分**
+    \[
+    \begin{aligned}
+      ∆^k f (x) =
+      \begin{cases}
+        f(x), & k = 0; \\
+        ∆ (∆^{k-1} f (x)), & k \geqslant 1.
+      \end{cases}
+    \end{aligned}
+    \]
+    通俗地，\(f(x)\) 的 \(0\) 级差分是 \(f(x)\)，
+    且 \(f(x)\) 的 \(k\) 级差分是 \(f(x)\) 的 \(k-1\) 级差分的差分。
 :::
 
 注意，\(f(x)\) 的 \(1\) 级差分是 \(f(x)\) 的差分。

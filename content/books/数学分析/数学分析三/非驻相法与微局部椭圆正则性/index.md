@@ -683,25 +683,25 @@ I(\xi)&=\left\langle (Pu)(x), e^{-ix\cdot \xi }a_k(x,\xi)\right\rangle\\
 振幅函数$a_k(x,\xi)$以及被作用函数$f(x)=\varphi\cdot Pu(x)$，
 我们来验证它们满足上次证明的非驻相法的引理所要求的基本数据的条件：
 
-- (a) $\phi(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$是实值的，
-  变量$\xi$是$1$次齐次的并且当$\xi\neq 0$时，有$\nabla_x \phi(x,\xi)\neq 0$。
+(a) $\phi(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$是实值的，
+    变量$\xi$是$1$次齐次的并且当$\xi\neq 0$时，有$\nabla_x \phi(x,\xi)\neq 0$。
 
-- (b) 按照构造，$b_j(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$，
-  所以，$a_k(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$。
-  另外，$a_k(x,\xi)$是一些次数不超过$-m-k$的齐次函数的和，并且当$x\notin K'$时，$a_k(x,\xi)=0$。
-  类似于上面对$J(\xi)$的估计，取$N_0=-m$，使得对任意的多重指标$\alpha$，存在常数$C_\alpha$，
-  使得对任意的$(x,\xi)\in \mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})$，我们都有
-  \[
-  \left|\partial^\alpha_x a_k(x,\xi)\right|\leqslant C_\alpha \left(1+|\xi|\right)^{N_0}.
-  \]
+(b) 按照构造，$b_j(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$，
+    所以，$a_k(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$。
+    另外，$a_k(x,\xi)$是一些次数不超过$-m-k$的齐次函数的和，并且当$x\notin K'$时，$a_k(x,\xi)=0$。
+    类似于上面对$J(\xi)$的估计，取$N_0=-m$，使得对任意的多重指标$\alpha$，存在常数$C_\alpha$，
+    使得对任意的$(x,\xi)\in \mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})$，我们都有
+    \[
+    \left|\partial^\alpha_x a_k(x,\xi)\right|\leqslant C_\alpha \left(1+|\xi|\right)^{N_0}.
+    \]
 
-- (c) 很明显，${\rm supp}(f)\subset K$。又因为$(x_0,\xi_0)\notin WF(Pu)$，
-  根据我们已知的条件，对任意的$N\geqslant 1$，存在常数$C_N$，
-  使得对任意的$\xi \in \Gamma(\xi_0,\beta)$，都有
-  \[
-  \left|\widehat{f}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
-  \]
-  这里，$\eta_0=\dfrac{\xi_0}{|\xi_0|}$，$\alpha_0=\beta$。
+(c) 很明显，${\rm supp}(f)\subset K$。又因为$(x_0,\xi_0)\notin WF(Pu)$，
+    根据我们已知的条件，对任意的$N\geqslant 1$，存在常数$C_N$，
+    使得对任意的$\xi \in \Gamma(\xi_0,\beta)$，都有
+    \[
+    \left|\widehat{f}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
+    \]
+    这里，$\eta_0=\dfrac{\xi_0}{|\xi_0|}$，$\alpha_0=\beta$。
 
 现在我们任意选定$\alpha_1=\beta'<\beta=\alpha_0$，$\Gamma_0=\Gamma(\xi_0,\beta')$。
 我们只要验证非驻相法的引理的条件即可，即证明对任意的$(x,\xi)\in K \times \Gamma_0$，我们都有

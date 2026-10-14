@@ -317,14 +317,14 @@ $x+y=2z$。*
 假设 $N$ 是奇数，$A\subset \{0,1,\cdots,N-1\}$，$|A| \geqslant \delta N$ 并且 $N>33\delta^{-2}$。
 如果 $A$ 中不含三项等差数列，那么如下两种情形必居其一：
 
-- (a) 对任意的 $\varepsilon \leqslant \dfrac{\delta^2}{8}$，
-  $A$ 在 $ \{0,1,\cdots,N-1\}$ 中不是 $\varepsilon$-随机的；
+(a) 对任意的 $\varepsilon \leqslant \dfrac{\delta^2}{8}$，
+    $A$ 在 $ \{0,1,\cdots,N-1\}$ 中不是 $\varepsilon$-随机的；
 
-- (b) 存在一个长度至少是 $\dfrac{1}{3}N$ 的等差数列 $P$，使得
-  \[
-  |A\cap P|\geqslant \delta(1+\frac{1}{8})|P|.
-  \]
-  即 $A$ 在 $P$ 中密度比以前增长了至少 $\!12.5\%$。
+(b) 存在一个长度至少是 $\dfrac{1}{3}N$ 的等差数列 $P$，使得
+    \[
+    |A\cap P|\geqslant \delta(1+\frac{1}{8})|P|.
+    \]
+    即 $A$ 在 $P$ 中密度比以前增长了至少 $\!12.5\%$。
 
 :::
 
@@ -540,10 +540,10 @@ P_1=\{ \xi_1<\xi_2<\cdots<\xi_m\}, \ \ P_2=\{ \xi_{m+1}<\xi_{m+2}<\cdots<\xi_{m+
 假设 $A\subset \{0,1,\cdots,N-1\}$，$|A| \geqslant \delta N$ 并且 $N>33\delta^{-2}$。
 那么，如下两种情形必居其一：
 
-- (a) $A$ 中含三项等差数列；
+(a) $A$ 中含三项等差数列；
 
-- (b) 存在一个长度至少是 $\dfrac{\delta^2}{256}\sqrt{N}$ 的等差数列 $P$，
-  使得 $\displaystyle |A\cap P|\geqslant (\delta+\frac{\delta^2}{64})|P|$。
+(b) 存在一个长度至少是 $\dfrac{\delta^2}{256}\sqrt{N}$ 的等差数列 $P$，
+    使得 $\displaystyle |A\cap P|\geqslant (\delta+\frac{\delta^2}{64})|P|$。
 
 :::
 

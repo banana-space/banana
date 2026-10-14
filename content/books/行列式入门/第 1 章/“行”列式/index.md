@@ -382,60 +382,58 @@ title: “行”列式
 ::: theorem
 设定义在全体 \(n\) 级阵上的函数 \(f\) 适合：
 
-(1)
-（多线性）
-对任何不超过 \(n\) 的正整数 \(i\)，
-任何 \(n-1\) 个 \(1 \times n\) 阵
-\(a_1\)、\(\dots\)、\(a_{i-1}\)、
-\(a_{i+1}\)、\(\dots\)、\(a_n\)，
-任何 \(2\) 个 \(1 \times n\) 阵 \(x\)、\(y\)，
-任何 \(2\) 个数 \(s\)、\(t\)，
-\[
-\begin{aligned}
-  f
-  {\left(
-      \begin{bmatrix}
-        a_1     \\
-        \vdots  \\
-        a_{i-1} \\
-        sx + ty \\
-        a_{i+1} \\
-        \vdots  \\
-        a_{n}   \\
-  \end{bmatrix}\right)}
-  =
-  s
-  f
-  {\left(
-      \begin{bmatrix}
-        a_1     \\
-        \vdots  \\
-        a_{i-1} \\
-        x       \\
-        a_{i+1} \\
-        \vdots  \\
-        a_{n}   \\
-  \end{bmatrix}\right)}
-  +
-  t
-  f
-  {\left(
-      \begin{bmatrix}
-        a_1     \\
-        \vdots  \\
-        a_{i-1} \\
-        y       \\
-        a_{i+1} \\
-        \vdots  \\
-        a_{n}   \\
-  \end{bmatrix}\right)}.
-\end{aligned}
-\]
+(1) （多线性）
+    对任何不超过 \(n\) 的正整数 \(i\)，
+    任何 \(n-1\) 个 \(1 \times n\) 阵
+    \(a_1\)、\(\dots\)、\(a_{i-1}\)、
+    \(a_{i+1}\)、\(\dots\)、\(a_n\)，
+    任何 \(2\) 个 \(1 \times n\) 阵 \(x\)、\(y\)，
+    任何 \(2\) 个数 \(s\)、\(t\)，
+    \[
+    \begin{aligned}
+      f
+      {\left(
+          \begin{bmatrix}
+            a_1     \\
+            \vdots  \\
+            a_{i-1} \\
+            sx + ty \\
+            a_{i+1} \\
+            \vdots  \\
+            a_{n}   \\
+      \end{bmatrix}\right)}
+      =
+      s
+      f
+      {\left(
+          \begin{bmatrix}
+            a_1     \\
+            \vdots  \\
+            a_{i-1} \\
+            x       \\
+            a_{i+1} \\
+            \vdots  \\
+            a_{n}   \\
+      \end{bmatrix}\right)}
+      +
+      t
+      f
+      {\left(
+          \begin{bmatrix}
+            a_1     \\
+            \vdots  \\
+            a_{i-1} \\
+            y       \\
+            a_{i+1} \\
+            \vdots  \\
+            a_{n}   \\
+      \end{bmatrix}\right)}.
+    \end{aligned}
+    \]
 
-(2)
-（交错性）
-若 \(n\) 级阵 \(A\) 有 \(2\) 行相同，
-则 \(f(A) = 0\)。
+(2) （交错性）
+    若 \(n\) 级阵 \(A\) 有 \(2\) 行相同，
+    则 \(f(A) = 0\)。
 
 那么，对任何 \(n\) 级阵 \(A\)，
 \(f(A) = f(I) \det {(A)}\)。
@@ -460,63 +458,60 @@ title: “行”列式
 （自然地，若 \(A\) 是 \(n\) 级阵，
 则 \(f(A)\) 是 \(A\) 的一个行列式）：
 
-(1)
-（规范性）
-若 \(I\) 是 \(n\) 级单位阵，
-则 \(f(I) = 1\)。
+(1) （规范性）
+    若 \(I\) 是 \(n\) 级单位阵，
+    则 \(f(I) = 1\)。
 
-(2)
-（多线性）
-对任何不超过 \(n\) 的正整数 \(i\)，
-任何 \(n-1\) 个 \(1 \times n\) 阵
-\(a_1\)、\(\dots\)、\(a_{i-1}\)、
-\(a_{i+1}\)、\(\dots\)、\(a_n\)，
-任何 \(2\) 个 \(1 \times n\) 阵 \(x\)、\(y\)，
-任何 \(2\) 个数 \(s\)、\(t\)，
-\[
-\begin{aligned}
-  f
-  {\left(
-      \begin{bmatrix}
-        a_1     \\
-        \vdots  \\
-        a_{i-1} \\
-        sx + ty \\
-        a_{i+1} \\
-        \vdots  \\
-        a_{n}   \\
-  \end{bmatrix}\right)}
-  =
-  s
-  f
-  {\left(
-      \begin{bmatrix}
-        a_1     \\
-        \vdots  \\
-        a_{i-1} \\
-        x       \\
-        a_{i+1} \\
-        \vdots  \\
-        a_{n}   \\
-  \end{bmatrix}\right)}
-  +
-  t
-  f
-  {\left(
-      \begin{bmatrix}
-        a_1     \\
-        \vdots  \\
-        a_{i-1} \\
-        y       \\
-        a_{i+1} \\
-        \vdots  \\
-        a_{n}   \\
-  \end{bmatrix}\right)}.
-\end{aligned}
-\]
+(2) （多线性）
+    对任何不超过 \(n\) 的正整数 \(i\)，
+    任何 \(n-1\) 个 \(1 \times n\) 阵
+    \(a_1\)、\(\dots\)、\(a_{i-1}\)、
+    \(a_{i+1}\)、\(\dots\)、\(a_n\)，
+    任何 \(2\) 个 \(1 \times n\) 阵 \(x\)、\(y\)，
+    任何 \(2\) 个数 \(s\)、\(t\)，
+    \[
+    \begin{aligned}
+      f
+      {\left(
+          \begin{bmatrix}
+            a_1     \\
+            \vdots  \\
+            a_{i-1} \\
+            sx + ty \\
+            a_{i+1} \\
+            \vdots  \\
+            a_{n}   \\
+      \end{bmatrix}\right)}
+      =
+      s
+      f
+      {\left(
+          \begin{bmatrix}
+            a_1     \\
+            \vdots  \\
+            a_{i-1} \\
+            x       \\
+            a_{i+1} \\
+            \vdots  \\
+            a_{n}   \\
+      \end{bmatrix}\right)}
+      +
+      t
+      f
+      {\left(
+          \begin{bmatrix}
+            a_1     \\
+            \vdots  \\
+            a_{i-1} \\
+            y       \\
+            a_{i+1} \\
+            \vdots  \\
+            a_{n}   \\
+      \end{bmatrix}\right)}.
+    \end{aligned}
+    \]
 
-(3)
-（交错性）
-若 \(n\) 级阵 \(A\) 有 \(2\) 行相同，
-则 \(f(A) = 0\)。
+(3) （交错性）
+    若 \(n\) 级阵 \(A\) 有 \(2\) 行相同，
+    则 \(f(A) = 0\)。
 :::

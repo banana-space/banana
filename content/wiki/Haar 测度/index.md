@@ -33,20 +33,20 @@ Haar 测度可以认为是在局部紧拓扑群上自然的测度，
 右 Haar 测度也如此。不过左 Haar 测度和右 Haar 测度未必相差常数倍。
 
 ::: example
-- (a) $\mathbb{R}^{n}$ 上的 Lebesgue 测度是左 Haar 测度，
-  同时也是右 Haar 测度。
+(a) $\mathbb{R}^{n}$ 上的 Lebesgue 测度是左 Haar 测度，
+    同时也是右 Haar 测度。
 
-- (b) 为群 $G$ 装备[[离散拓扑]]（全体子集均为开集），此时[[计数测度]]
-  同样也既是左 Haar 测度又是右 Haar 测度。
+(b) 为群 $G$ 装备[[离散拓扑]]（全体子集均为开集），此时[[计数测度]]
+    同样也既是左 Haar 测度又是右 Haar 测度。
 
-- (c) 令 $\mathbb{T}$ 为全体模长为 $1$ 的复数，装备它作为
-  $\mathbb{C}$ 的子空间所继承的拓扑，以乘法为群运算，那么
-  $\mathbb{T}$ 是一个紧致拓扑群；考虑
-  $\mathscr{B}\bigl([0,2\pi)\bigr)$ 上的 Lebesgue 测度
-  $\lambda$，定义函数 $f\colon[0,2\pi)\to\mathbb{T},
-  f(\theta)=\mathrm{e}^{\mathrm{i}\theta}$，此时
-  $\lambda\circ f^{-1}$ 是 $\mathbb{T}$ 上的左 Haar 测度，
-  也是右 Haar 测度。
+(c) 令 $\mathbb{T}$ 为全体模长为 $1$ 的复数，装备它作为
+    $\mathbb{C}$ 的子空间所继承的拓扑，以乘法为群运算，那么
+    $\mathbb{T}$ 是一个紧致拓扑群；考虑
+    $\mathscr{B}\bigl([0,2\pi)\bigr)$ 上的 Lebesgue 测度
+    $\lambda$，定义函数 $f\colon[0,2\pi)\to\mathbb{T},
+    f(\theta)=\mathrm{e}^{\mathrm{i}\theta}$，此时
+    $\lambda\circ f^{-1}$ 是 $\mathbb{T}$ 上的左 Haar 测度，
+    也是右 Haar 测度。
 
 :::
 
@@ -80,20 +80,20 @@ h(K)=\frac{\#(K\colon U)}{\#(K_{0}\colon U)}
 对任意的 $U\in\mathscr{U}$，
 $K,K_{1},K_{2}\in\mathscr{C}$ 和 $x\in G$，我们有
 
-- (a) $0\le h_{U}(K)\le\#(K:K_{0})$
+(a) $0\le h_{U}(K)\le\#(K:K_{0})$
 
-- (b) $h_{U}(K_{0})=1$
+(b) $h_{U}(K_{0})=1$
 
-- (c) $h_{U}(xK)=h_{U}(K)$
+(c) $h_{U}(xK)=h_{U}(K)$
 
-- (d) 若 $K_{1}\subseteq K_{2}$，
-  则$h_{U}(K_{1})\le h_{U}(K_{2})$
+(d) 若 $K_{1}\subseteq K_{2}$，
+    则$h_{U}(K_{1})\le h_{U}(K_{2})$
 
-- (e) $h_{U}(K_{1}\cup K_{2})\le h_{U}
-  (K_{1})+h_{U}(K_{2})$
+(e) $h_{U}(K_{1}\cup K_{2})\le h_{U}
+    (K_{1})+h_{U}(K_{2})$
 
-- (f) 若 $K_{1}U^{-1}\cap K_{2}U^{-1}=\varnothing$，则
-  $h_{U}(K_{1}\cup K_{2})=h_{U}(K_{1})+h_{U}(K_{2})$
+(f) 若 $K_{1}U^{-1}\cap K_{2}U^{-1}=\varnothing$，则
+    $h_{U}(K_{1}\cup K_{2})=h_{U}(K_{1})+h_{U}(K_{2})$
 
 :::
 
@@ -142,23 +142,23 @@ $h_{\bullet}\in\bigcap_{V\in\mathscr{U}}S(V)$，这就是我们所需要的。
 对任意的 $x\in G$，$K,K_{1},K_{2}\in\mathscr{C}$，函数
 $h_{\bullet}$ 满足
 
-- (a) $0\le h_{\bullet}(K)$
+(a) $0\le h_{\bullet}(K)$
 
-- (b) $h_{\bullet}(\varnothing)=0$
+(b) $h_{\bullet}(\varnothing)=0$
 
-- (c) $h_{\bullet}(K_{0})=1$
+(c) $h_{\bullet}(K_{0})=1$
 
-- (d) $h_{\bullet}(xK)=h_{\bullet}(K)$
+(d) $h_{\bullet}(xK)=h_{\bullet}(K)$
 
-- (e) 若 $K_{1}\subseteq K_{2}$，则
-  $h_{\bullet}(K_{1})\le h_{\bullet}(K_{2})$
+(e) 若 $K_{1}\subseteq K_{2}$，则
+    $h_{\bullet}(K_{1})\le h_{\bullet}(K_{2})$
 
-- (f) $h_{\bullet}(K_{1}\cup K_{2})\le h_{\bullet}
-  (K_{1})+h_{\bullet}(K_{2})$
+(f) $h_{\bullet}(K_{1}\cup K_{2})\le h_{\bullet}
+    (K_{1})+h_{\bullet}(K_{2})$
 
-- (g) 若 $K_{1}\cap K_{2}=\varnothing$，那么
-  $h_{\bullet}(K_{1}\cup K_{2})= h_{\bullet}
-  (K_{1})+h_{\bullet}(K_{2})$
+(g) 若 $K_{1}\cap K_{2}=\varnothing$，那么
+    $h_{\bullet}(K_{1}\cup K_{2})= h_{\bullet}
+    (K_{1})+h_{\bullet}(K_{2})$
 
 :::
 
@@ -173,7 +173,7 @@ h\mapsto h(K_{1})+h(K_{2})-h(K_{1}\cup K_{2})
 非负的，从而在每个闭集 $S(V)$ 上是非负的；特别地，在点
 $h_{\bullet}$ 处非负，于是我们证明了 (f)。
 
-(a) 是显然的，(b)(c)(d)(e) 可仿照上述过程进行证明，现在
+(a\) 是显然的，(b)(c)(d)(e) 可仿照上述过程进行证明，现在
 让我们来看 (g)。假设 $K_{1},K_{2}$ 是 $G$ 的两个紧致子集，
 那么有开集 $U_{1},U_{2}$ 使得 $K_{1}\subseteq U_{1}
 ,K_{2}\subseteq U_{2}$，同时有 $e$ 的邻域 $V_{1},V_{2}$

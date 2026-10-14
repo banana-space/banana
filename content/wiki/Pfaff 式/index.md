@@ -210,28 +210,26 @@ $C$ 的 Pfaff 式等于 $A$ 的 Pfaff 式。
 设 $A$ 是 $\ell$ 级交错阵。
 设 $P$ 是 $n \times \ell$ 阵。
 
-(1)
-若 $n > \ell$，
-则 $\operatorname{pf} (P A P^{\mathrm{t}}) = 0$。
+(1) 若 $n > \ell$，
+    则 $\operatorname{pf} (P A P^{\mathrm{t}}) = 0$。
 
-(2)
-若 $n \leq \ell$，
-则
-\[
-\operatorname{pf} (P A P^{\mathrm{t}})
-=
-\sum_{1 \leq j_1 < j_2 < \dots < j_{n} \leq \ell}
-{\det \left(
-    P\binom{1,2,\dots,n}{j_1,j_2,\dots,j_{n}}
-    \right)
-  \operatorname{pf} \left(
-    A\binom{j_1,j_2,\dots,j_{n}}{j_1,j_2,\dots,j_{n}}
-    \right)},
-\]
-其中，$P\binom{i_1,\dots,i_k}{j_1,\dots,j_k}$
-是由 $P$ 的行 $i_1$、$\dots$、$i_k$
-与列 $j_1$、$\dots$、$j_k$
-的交叉处的元按原次序作成的 $k \times k$ 矩阵（子矩阵）。
+(2) 若 $n \leq \ell$，
+    则
+    \[
+    \operatorname{pf} (P A P^{\mathrm{t}})
+    =
+    \sum_{1 \leq j_1 < j_2 < \dots < j_{n} \leq \ell}
+    {\det \left(
+        P\binom{1,2,\dots,n}{j_1,j_2,\dots,j_{n}}
+        \right)
+      \operatorname{pf} \left(
+        A\binom{j_1,j_2,\dots,j_{n}}{j_1,j_2,\dots,j_{n}}
+        \right)},
+    \]
+    其中，$P\binom{i_1,\dots,i_k}{j_1,\dots,j_k}$
+    是由 $P$ 的行 $i_1$、$\dots$、$i_k$
+    与列 $j_1$、$\dots$、$j_k$
+    的交叉处的元按原次序作成的 $k \times k$ 矩阵（子矩阵）。
 
 特别地，若 $n = \ell$，
 则因满足条件

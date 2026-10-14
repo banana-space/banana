@@ -38,29 +38,30 @@ $\sigma$-有限的。
     \]
     Fubini定理的哪个条件没有被满足？
 
-- A3) 假设 $f$ 和 $g$ 是 $\mathbb{R}^1$
-  上的局部上Riemann可积（即在每个闭区间上面都可积）的实值函数。对任意的 $x \in \mathbb{R}$，我们定义
-  \[
-  F(x)=\int_{0}^x f(s)ds, \ \  G(x)=\int_{0}^x g(s)ds.
-  \]
-  证明，对任意的 $a<b$，我们都有
-  \[
-  F(b)G(b)=F(a)G(a)+\int_a^bF(t)g(t)dt+\int_a^b G(t)f(t)dt.
-  \]
-
-- A4) 假设 $(X,\mathcal{A},\mu)$ 和 $(Y,\mathcal{B},\nu)$ 是测度空间并且 $\mu$ 和 $\nu$ 是
-  $\sigma$-有限的。
-
-  - 证明，集合 $D_\mu=\{x\in X\mid\mu(\{x\})>0\}$ 是可数的。
-
-  - 证明，
-    集合 $\Delta=\{(x,y)\in \mathbb{R}^1\times \mathbb{R}^1\mid x=y\}\subset X\times Y$ 是
-    $\mathcal{A}\otimes \mathcal{B}$-可测的。
-
-  - 证明如下的公式
+A3) 假设 $f$ 和 $g$ 是 $\mathbb{R}^1$
+    上的局部上Riemann可积（即在每个闭区间上面都可积）的实值函数。
+    对任意的 $x \in \mathbb{R}$，我们定义
     \[
-    \mu\otimes \nu(\Delta)=\sum_{x\in D_\mu }\mu(\{x\})\nu(\{x\}).
+    F(x)=\int_{0}^x f(s)ds, \ \  G(x)=\int_{0}^x g(s)ds.
     \]
+    证明，对任意的 $a<b$，我们都有
+    \[
+    F(b)G(b)=F(a)G(a)+\int_a^bF(t)g(t)dt+\int_a^b G(t)f(t)dt.
+    \]
+
+A4) 假设 $(X,\mathcal{A},\mu)$ 和 $(Y,\mathcal{B},\nu)$ 是测度空间并且 $\mu$ 和 $\nu$ 是
+    $\sigma$-有限的。
+
+    - 证明，集合 $D_\mu=\{x\in X\mid\mu(\{x\})>0\}$ 是可数的。
+
+    - 证明，
+      集合 $\Delta=\{(x,y)\in \mathbb{R}^1\times \mathbb{R}^1\mid x=y\}\subset X\times Y$ 是
+      $\mathcal{A}\otimes \mathcal{B}$-可测的。
+
+    - 证明如下的公式
+      \[
+      \mu\otimes \nu(\Delta)=\sum_{x\in D_\mu }\mu(\{x\})\nu(\{x\}).
+      \]
 
 - A5)（Archimedes，公元前三世纪）假设 $\Gamma$ 是 $y=-cx^2$ 在平面上所定义的抛物线，其中 $c>0$。
   $A,B\in \Gamma$ 是给定的两点，$AB$ 是这两点所连的线段（我们称它为 $\Gamma$ 的一条弦）。
@@ -136,13 +137,13 @@ $\sigma$-有限的。
 
 计算下列集合的体积：
 
-- D1) $n$ 维单形
-  $\{ (x_1,\cdots,x_n) \in \mathbb{R}^n \mid x_1,\cdots,x_n \geqslant 0, x_1 + \cdots x_n \leqslant a  \}, a > 0$。
+D1) $n$ 维单形
+    $\{ (x_1,\cdots,x_n) \in \mathbb{R}^n \mid x_1,\cdots,x_n \geqslant 0, x_1 + \cdots x_n \leqslant a  \}, a > 0$。
 
-- D2) 心脏线 $\{ (x,y) \in \mathbb{R}^2 \mid (x^2 + y^2)^2 + 4ax(x^2 + y^2) - 4a^2y^2=0 \}$
-  围成的区域面积。
+D2) 心脏线 $\{ (x,y) \in \mathbb{R}^2 \mid (x^2 + y^2)^2 + 4ax(x^2 + y^2) - 4a^2y^2=0 \}$
+    围成的区域面积。
 
-- D3) 球体 $x^2 + y^2 + z^2 \leqslant a^2$ 被圆柱体 $x^2 + y^2 = ax$ 截下的立体的体积。
+D3) 球体 $x^2 + y^2 + z^2 \leqslant a^2$ 被圆柱体 $x^2 + y^2 = ax$ 截下的立体的体积。
 
 ::: -remark [寄语]
 I never failed in mathematics. Before I was fifteen I had mastered differential and integral calculus.

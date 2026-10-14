@@ -385,82 +385,78 @@ notices:
 :::
 
 ::: theorem
-(1)
-设 \(f(x) = (x - c) q(x)\)。
-则 \(\mathrm{D} f(c) = q(c)\)。
+(1) 设 \(f(x) = (x - c) q(x)\)。
+    则 \(\mathrm{D} f(c) = q(c)\)。
 
-(2)
-设 \(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)。
-对不超过 \(n\) 的正整数 \(i\)，记
-\[
-\begin{aligned}
-  L_i (x) = \prod_{\substack{1 \leqslant j \leqslant n \\ j \neq i}}
-  {(x_i - x_j)}.
-\end{aligned}
-\]
-则
-\[
-\begin{aligned}
-  \mathrm{D} f(x) = a_0
-  \sum_{1 \leqslant v \leqslant n} {L_v (x)},
-\end{aligned}
-\]
-且对不超过 \(n\) 的正整数 \(i\)，
-\(\mathrm{D} f(x_i) = a_0 L_i (x_i)\)。
+(2) 设 \(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)。
+    对不超过 \(n\) 的正整数 \(i\)，记
+    \[
+    \begin{aligned}
+      L_i (x) = \prod_{\substack{1 \leqslant j \leqslant n \\ j \neq i}}
+      {(x_i - x_j)}.
+    \end{aligned}
+    \]
+    则
+    \[
+    \begin{aligned}
+      \mathrm{D} f(x) = a_0
+      \sum_{1 \leqslant v \leqslant n} {L_v (x)},
+    \end{aligned}
+    \]
+    且对不超过 \(n\) 的正整数 \(i\)，
+    \(\mathrm{D} f(x_i) = a_0 L_i (x_i)\)。
 :::
 
 ::: proof
-(1)
-注意，
-\[
-\begin{aligned}
-  \mathrm{D} f(x)
-  = \mathrm{D} (x - c) q(x) + (x - c) \mathrm{D} q(x)
-  = q(x) + (x - c) \mathrm{D} q(x).
-\end{aligned}
-\]
-代 \(x\) 以 \(c\)，得
-\[
-\begin{aligned}
-  \mathrm{D} f(c)
-  = q(c) + (c - c) \mathrm{D} q(c)
-  = q(c).
-\end{aligned}
-\]
+(1) 注意，
+    \[
+    \begin{aligned}
+      \mathrm{D} f(x)
+      = \mathrm{D} (x - c) q(x) + (x - c) \mathrm{D} q(x)
+      = q(x) + (x - c) \mathrm{D} q(x).
+    \end{aligned}
+    \]
+    代 \(x\) 以 \(c\)，得
+    \[
+    \begin{aligned}
+      \mathrm{D} f(c)
+      = q(c) + (c - c) \mathrm{D} q(c)
+      = q(c).
+    \end{aligned}
+    \]
 
-(2)
-取 \(p_0 (x) = a_0\)，
-且 \(p_i (x) = x - x_i\)
-（\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
-则 \(f(x) = p_0 (x) p_1 (x) \dots p_n (x)\)。
-注意，\(\mathrm{D} p_0 (x) = 0\)，
-且 \(\mathrm{D} p_i (x) = 1\)
-（\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
-由上个定理，
-\[
-\begin{aligned}
-  \mathrm{D} f(x)
-  = {} &
-  (\mathrm{D} p_0 (x)) p_1 (x) \dots p_n (x)
-  + p_0 (x) (\mathrm{D} p_1 (x)) \dots p_n (x)
-  \\
-  &
-  \quad
-  + \dots
-  + p_0 (x) p_1 (x) \dots (\mathrm{D} p_n (x)).
-  \\
-  = {} &
-  0
-  + a_0 \prod_{\substack{1 \leqslant j \leqslant n \\ j \neq 1}}
-  {(x - x_j)}
-  + \dots
-  + a_0 \prod_{\substack{1 \leqslant j \leqslant n \\ j \neq n}}
-  {(x - x_j)}
-  \\
-  = {} &
-  a_0 \sum_{1 \leqslant v \leqslant n} {L_v (x)}.
-\end{aligned}
-\]
+(2) 取 \(p_0 (x) = a_0\)，
+    且 \(p_i (x) = x - x_i\)
+    （\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
+    则 \(f(x) = p_0 (x) p_1 (x) \dots p_n (x)\)。
+    注意，\(\mathrm{D} p_0 (x) = 0\)，
+    且 \(\mathrm{D} p_i (x) = 1\)
+    （\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
+    由上个定理，
+    \[
+        \begin{aligned}
+          \mathrm{D} f(x)
+          = {} &
+          (\mathrm{D} p_0 (x)) p_1 (x) \dots p_n (x)
+      + p_0 (x) (\mathrm{D} p_1 (x)) \dots p_n (x)
+      \\
+      &
+      \quad
+      + \dots
+      + p_0 (x) p_1 (x) \dots (\mathrm{D} p_n (x)).
+      \\
+      = {} &
+      0
+      + a_0 \prod_{\substack{1 \leqslant j \leqslant n \\ j \neq 1}}
+      {(x - x_j)}
+      + \dots
+      + a_0 \prod_{\substack{1 \leqslant j \leqslant n \\ j \neq n}}
+      {(x - x_j)}
+      \\
+      = {} &
+      a_0 \sum_{1 \leqslant v \leqslant n} {L_v (x)}.
+    \end{aligned}
+    \]
 最后，注意，若 \(i \neq v\)，则 \(L_v (x_i) = 0\)。
 则由上式，\(\mathrm{D} f(x_i) = a_0 L_i (x_i)\)。
 :::
@@ -578,28 +574,24 @@ notices:
 设 \(f(x) = a_0 x^n + a_1 x^{n-1} + \dots + a_n\)
 （\(a_0 \neq 0\)）是 \(n\) 次整式。
 
-(1)
-若存在数 \(d\)，与 \(n-1\) 次整式 \(p(x)\)，
-使 \(f(x) = (x - d) p(x)\)，
-则 \(f(d) = 0\)。
+(1) 若存在数 \(d\)，与 \(n-1\) 次整式 \(p(x)\)，
+    使 \(f(x) = (x - d) p(x)\)，
+    则 \(f(d) = 0\)。
 
-(2)
-若数 \(c\) 适合，\(f(c) = 0\)，
-则存在 \(n-1\) 次整式 \(q(x)\)，
-使 \(f(x) = (x - c) q(x)\)。
+(2) 若数 \(c\) 适合，\(f(c) = 0\)，
+    则存在 \(n-1\) 次整式 \(q(x)\)，
+    使 \(f(x) = (x - c) q(x)\)。
 :::
 
 ::: proof
-(1)
-注意，\(f(d) = (d - d) p(d) = 0\, p(d) = 0\)。
+(1) 注意，\(f(d) = (d - d) p(d) = 0\, p(d) = 0\)。
 
-(2)
-由上个定理，存在 \(n-1\) 次整式 \(q(x)\)，使
-\[
-f(x) = (x - c) q(x) + f(c)
-= (x - c) q(x) + 0
-= (x - c) q(x).
-\]
+(2) 由上个定理，存在 \(n-1\) 次整式 \(q(x)\)，使
+    \[
+    f(x) = (x - c) q(x) + f(c)
+    = (x - c) q(x) + 0
+    = (x - c) q(x).
+    \]
 :::
 
 ::: theorem
@@ -792,69 +784,63 @@ f(x) = (x - c) q(x) + f(c)
 \end{aligned}
 \]
 
-(1)
-若 \(f(x) = b_0 x^n + b_1 x^{n-1} + \dots + b_n\)，
-则 \(b_0 = a_0\)，且若 \(1 \leqslant k \leqslant n\)，则
-\[
-\begin{aligned}
-  b_k = (-1)^k a_0 \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
-  {x_{\ell_1} \dots x_{\ell_k}}.
-\end{aligned}
-\]
+(1) 若 \(f(x) = b_0 x^n + b_1 x^{n-1} + \dots + b_n\)，
+    则 \(b_0 = a_0\)，且若 \(1 \leqslant k \leqslant n\)，则
+    \[
+    \begin{aligned}
+      b_k = (-1)^k a_0 \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
+      {x_{\ell_1} \dots x_{\ell_k}}.
+    \end{aligned}
+    \]
 
-(2)
-若 \(a_0 \neq 0\)，则 \(f(x)\) 是 \(n\) 次整式，
-且 \(x^n\) 项系数是 \(a_0\)。
+(2) 若 \(a_0 \neq 0\)，则 \(f(x)\) 是 \(n\) 次整式，
+    且 \(x^n\) 项系数是 \(a_0\)。
 
-(3)
-若数 \(c\) 是 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 的一个，
-则 \(f(c) = 0\)。
-反过来，若 \(a_0 \neq 0\)，
-且数 \(d\) 不等于 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\)，
-则 \(f(d) \neq 0\)。
+(3) 若数 \(c\) 是 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 的一个，
+    则 \(f(c) = 0\)。
+    反过来，若 \(a_0 \neq 0\)，
+    且数 \(d\) 不等于 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\)，
+    则 \(f(d) \neq 0\)。
 :::
 
 ::: proof
-(1)
-由上个定理，\(b_0 = a_0 \cdot 1 = a_0\)，
-且若 \(1 \leqslant k \leqslant n\)，则
-\[
-\begin{aligned}
-  b_k
-  = {} &
-  a_0
-  \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
-  {(-x_{\ell_1}) \dots (-x_{\ell_k})}
-  \\
-  = {} &
-  a_0
-  \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
-  {(-1)^k x_{\ell_1} \dots x_{\ell_k}}
-  \\
-  = {} &
-  a_0\, (-1)^k
-  \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
-  {x_{\ell_1} \dots x_{\ell_k}}
-  \\
-  = {} &
-  (-1)^k a_0
-  \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
-  {x_{\ell_1} \dots x_{\ell_k}}.
-\end{aligned}
-\]
+(1) 由上个定理，\(b_0 = a_0 \cdot 1 = a_0\)，
+    且若 \(1 \leqslant k \leqslant n\)，则
+    \[
+    \begin{aligned}
+      b_k
+      = {} &
+      a_0
+      \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
+      {(-x_{\ell_1}) \dots (-x_{\ell_k})}
+      \\
+      = {} &
+      a_0
+      \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
+      {(-1)^k x_{\ell_1} \dots x_{\ell_k}}
+      \\
+      = {} &
+      a_0\, (-1)^k
+      \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
+      {x_{\ell_1} \dots x_{\ell_k}}
+      \\
+      = {} &
+      (-1)^k a_0
+      \sum_{1 \leqslant \ell_1 < \dots < \ell_k \leqslant n}
+      {x_{\ell_1} \dots x_{\ell_k}}.
+    \end{aligned}
+    \]
 
-(2)
-由 (1)，\(f(x)\) 是次不高于 \(n\) 的整式，
-且 \(x^n\) 项系数 \(b_0 = a_0 \neq 0\)。
-则 \(f(x)\) 是 \(n\) 次整式。
+(2) 由 (1)，\(f(x)\) 是次不高于 \(n\) 的整式，
+    且 \(x^n\) 项系数 \(b_0 = a_0 \neq 0\)。
+    则 \(f(x)\) 是 \(n\) 次整式。
 
-(3)
-若数 \(c\) 是 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 的一个，
-则 \(c - x_1\)、\(c - x_2\)、\(\dots\)、\(c - x_n\) 的一个是 \(0\)。
-注意，任何数跟 \(0\) 的积是 \(0\)。
-反过来，若 \(a_0 \neq 0\)，
-且数 \(d\) 不等于 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\)，
-则 \(a_0\)、\(d - x_1\)、\(d - x_2\)、\(\dots\)、\(d - x_n\)
-都非零。
-注意，非零的数的积不是零。
+(3) 若数 \(c\) 是 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 的一个，
+    则 \(c - x_1\)、\(c - x_2\)、\(\dots\)、\(c - x_n\) 的一个是 \(0\)。
+    注意，任何数跟 \(0\) 的积是 \(0\)。
+    反过来，若 \(a_0 \neq 0\)，
+    且数 \(d\) 不等于 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\)，
+    则 \(a_0\)、\(d - x_1\)、\(d - x_2\)、\(\dots\)、\(d - x_n\)
+    都非零。
+    注意，非零的数的积不是零。
 :::

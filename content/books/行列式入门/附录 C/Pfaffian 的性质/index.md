@@ -149,13 +149,11 @@ title: pfaffian 的性质
             + t \operatorname{pf} {(B)}
         \)：
 >
-> (1)
-> \([A]_{i,j} = [B]_{i,j} = [C]_{i,j}\)，
-> 对任何不等于 \(q\)，且不超过 \(n\) 的正整数 \(i\)、\(j\)；
+> (1) \([A]_{i,j} = [B]_{i,j} = [C]_{i,j}\)，
+>     对任何不等于 \(q\)，且不超过 \(n\) 的正整数 \(i\)、\(j\)；
 >
-> (2)
-> \([C]_{i,j} = s[A]_{i,j} + t[B]_{i,j}\)，
-> 若 \(i = q\) 或 \(j = q\)。
+> (2) \([C]_{i,j} = s[A]_{i,j} + t[B]_{i,j}\)，
+>     若 \(i = q\) 或 \(j = q\)。
 
 再作命题 \(Q(n)\)：
 \(P(n-1)\) 与 \(P(n)\) 是对的。
@@ -244,17 +242,15 @@ title: pfaffian 的性质
 \(C({1,j}|{1,j})\)
 适合：
 
-(1\('\))
-\([A({1,j}|{1,j})]_{u,v}
-    = [B({1,j}|{1,j})]_{u,v}
-  = [C({1,j}|{1,j})]_{u,v}\)，
-对任何不等于 \(q' = q - \rho(q, 1) - \rho(q, j)
-  = q - 1 - \rho(q, j)\)，
-且不超过 \(n-2\) 的正整数 \(u\)、\(v\)；
+(1\('\)) \([A({1,j}|{1,j})]_{u,v}
+             = [B({1,j}|{1,j})]_{u,v}
+           = [C({1,j}|{1,j})]_{u,v}\)，
+         对任何不等于 \(q' = q - \rho(q, 1) - \rho(q, j)
+           = q - 1 - \rho(q, j)\)，
+         且不超过 \(n-2\) 的正整数 \(u\)、\(v\)；
 
-(2\('\))
-\([C({1,j}|{1,j})]_{u,v}
-    = s [A({1,j}|{1,j})]_{u,v}
+(2\('\)) \([C({1,j}|{1,j})]_{u,v}
+         = s [A({1,j}|{1,j})]_{u,v}
   + t [B({1,j}|{1,j})]_{u,v}\)，
 若 \(u = q'\) 或 \(v = q'\)。
 
@@ -536,198 +532,197 @@ title: pfaffian 的性质
 设交换 \(B\) 的行 \(p\)、\(q\)，且不改变别的行，得阵 \(C\)。
 我们分类讨论。
 
-(1)
-\(p = 1\)，且 \(q = 2\)。
-当 \(d_1 > 2\)，\(d_2 > 2\)，且 \(d_2 \neq d_1\) 时，
-\([A]_{2,d_2}\) 是 \(A({1,d_1}|{1,d_1})\)
-的 \((1, d_2 - 1 - \rho(d_2, d_1))\)-元。
-则
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(A)}
-  \\
-  = {} &
-  \sum_{2 \leqslant d_1 \leqslant n}
-  {
-    (-1)^{d_1} [A]_{1,d_1}
-    \operatorname{pf} {(A({1,d_1}|{1,d_1}))}
-  }
-  \\
-  = {} &
-  (-1)^{2} [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  +
-  \sum_{3 \leqslant d_1 \leqslant n}
-  {
-    (-1)^{d_1} [A]_{1,d_1}
-    \operatorname{pf} {(A({1,d_1}|{1,d_1}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant d_1 \leqslant n}
-  {
-    (-1)^{d_1} [A]_{1,d_1}
-    \sum_{\substack{3 \leqslant d_2 \leqslant n \\ d_2 \neq d_1}}
-    {
-      (-1)^{d_2 - 1 - \rho(d_2, d_1)}
-    }
-  }
-  \\
-  &
-  \qquad \qquad \qquad
-  \qquad \qquad \qquad
-  \cdot
-  [A]_{2,d_2}
-  \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant d_1 \leqslant n}
-  {
-    \sum_{\substack{3 \leqslant d_2 \leqslant n \\ d_2 \neq d_1}}
-    {
-      (-1)^{d_1}
-      [A]_{1,d_1}
-      (-1)^{d_2 - 1 - \rho(d_2, d_1)}
-    }
-  }
-  \\
-  &
-  \qquad \qquad \qquad
-  \qquad \qquad \qquad
-  \cdot
-  [A]_{2,d_2}
-  \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{\substack{3 \leqslant d_1, d_2 \leqslant n \\ d_2 \neq d_1}}
-  {
-    (-1)^{d_1 + d_2 - 1 - \rho(d_2, d_1)}
-    [A]_{1,d_1} [A]_{2,d_2}
-    \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant d_1 < d_2 \leqslant n}
-  {
-    (-1)^{d_1 + d_2 - 1 - \rho(d_2, d_1)}
-    [A]_{1,d_1} [A]_{2,d_2}
-    \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
-  }
-  \\
-  &
-  +
-  \sum_{3 \leqslant d_2 < d_1 \leqslant n}
-  {
-    (-1)^{d_1 + d_2 - 1 - \rho(d_2, d_1)}
-    [A]_{1,d_1} [A]_{2,d_2}
-    \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k - 1 - 1}
-    [A]_{1,j} [A]_{2,k}
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{k + j - 1}
-    [A]_{1,k} [A]_{2,j}
-    \operatorname{pf} {(A({1,2,k,j}|{1,2,k,j}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k}
-    [A]_{1,j} [A]_{2,k}
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k}
-    (-1) [A]_{1,k} [A]_{2,j}
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k}\,
-    ([A]_{1,j} [A]_{2,k} - [A]_{1,k} [A]_{2,j})
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k}
-    \det {
-      \begin{bmatrix}
-        [A]_{1,j} & [A]_{1,k} \\
-        [A]_{2,j} & [A]_{2,k} \\
-      \end{bmatrix}
-    }
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }.
-\end{aligned}
-\]
+(1) \(p = 1\)，且 \(q = 2\)。
+    当 \(d_1 > 2\)，\(d_2 > 2\)，且 \(d_2 \neq d_1\) 时，
+    \([A]_{2,d_2}\) 是 \(A({1,d_1}|{1,d_1})\)
+    的 \((1, d_2 - 1 - \rho(d_2, d_1))\)-元。
+    则
+    \[
+        \begin{aligned}
+          &
+          \operatorname{pf} {(A)}
+          \\
+          = {} &
+          \sum_{2 \leqslant d_1 \leqslant n}
+          {
+            (-1)^{d_1} [A]_{1,d_1}
+            \operatorname{pf} {(A({1,d_1}|{1,d_1}))}
+          }
+          \\
+          = {} &
+          (-1)^{2} [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          +
+          \sum_{3 \leqslant d_1 \leqslant n}
+          {
+            (-1)^{d_1} [A]_{1,d_1}
+            \operatorname{pf} {(A({1,d_1}|{1,d_1}))}
+          }
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          \\
+          &
+          +
+          \sum_{3 \leqslant d_1 \leqslant n}
+          {
+            (-1)^{d_1} [A]_{1,d_1}
+            \sum_{\substack{3 \leqslant d_2 \leqslant n \\ d_2 \neq d_1}}
+            {
+              (-1)^{d_2 - 1 - \rho(d_2, d_1)}
+            }
+          }
+          \\
+          &
+          \qquad \qquad \qquad
+          \qquad \qquad \qquad
+          \cdot
+          [A]_{2,d_2}
+          \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          \\
+          &
+          +
+          \sum_{3 \leqslant d_1 \leqslant n}
+          {
+            \sum_{\substack{3 \leqslant d_2 \leqslant n \\ d_2 \neq d_1}}
+            {
+              (-1)^{d_1}
+              [A]_{1,d_1}
+              (-1)^{d_2 - 1 - \rho(d_2, d_1)}
+            }
+          }
+          \\
+          &
+          \qquad \qquad \qquad
+          \qquad \qquad \qquad
+          \cdot
+          [A]_{2,d_2}
+          \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          \\
+          &
+          +
+          \sum_{\substack{3 \leqslant d_1, d_2 \leqslant n \\ d_2 \neq d_1}}
+          {
+            (-1)^{d_1 + d_2 - 1 - \rho(d_2, d_1)}
+            [A]_{1,d_1} [A]_{2,d_2}
+            \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
+          }
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          \\
+          &
+          +
+          \sum_{3 \leqslant d_1 < d_2 \leqslant n}
+          {
+            (-1)^{d_1 + d_2 - 1 - \rho(d_2, d_1)}
+            [A]_{1,d_1} [A]_{2,d_2}
+            \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
+          }
+          \\
+          &
+          +
+          \sum_{3 \leqslant d_2 < d_1 \leqslant n}
+          {
+            (-1)^{d_1 + d_2 - 1 - \rho(d_2, d_1)}
+            [A]_{1,d_1} [A]_{2,d_2}
+            \operatorname{pf} {(A({1,2,d_1,d_2}|{1,2,d_1,d_2}))}
+          }
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          \\
+          &
+          +
+          \sum_{3 \leqslant j < k \leqslant n}
+          {
+            (-1)^{j + k - 1 - 1}
+            [A]_{1,j} [A]_{2,k}
+            \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+          }
+          \\
+          &
+          +
+          \sum_{3 \leqslant j < k \leqslant n}
+          {
+            (-1)^{k + j - 1}
+            [A]_{1,k} [A]_{2,j}
+            \operatorname{pf} {(A({1,2,k,j}|{1,2,k,j}))}
+          }
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          [A]_{1,2}
+          \operatorname{pf} {(A({1,2}|{1,2}))}
+          \\
+          &
+          +
+          \sum_{3 \leqslant j < k \leqslant n}
+          {
+            (-1)^{j + k}
+            [A]_{1,j} [A]_{2,k}
+            \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+          }
+          \\
+          &
+          +
+          \sum_{3 \leqslant j < k \leqslant n}
+          {
+            (-1)^{j + k}
+        (-1) [A]_{1,k} [A]_{2,j}
+        \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+      }
+      \\
+      = {} &
+      \hphantom{{} + {}}
+      [A]_{1,2}
+      \operatorname{pf} {(A({1,2}|{1,2}))}
+      \\
+      &
+      +
+      \sum_{3 \leqslant j < k \leqslant n}
+      {
+        (-1)^{j + k}\,
+        ([A]_{1,j} [A]_{2,k} - [A]_{1,k} [A]_{2,j})
+        \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+      }
+      \\
+      = {} &
+      \hphantom{{} + {}}
+      [A]_{1,2}
+      \operatorname{pf} {(A({1,2}|{1,2}))}
+      \\
+      &
+      +
+      \sum_{3 \leqslant j < k \leqslant n}
+      {
+        (-1)^{j + k}
+        \det {
+          \begin{bmatrix}
+            [A]_{1,j} & [A]_{1,k} \\
+            [A]_{2,j} & [A]_{2,k} \\
+          \end{bmatrix}
+        }
+        \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+      }.
+    \end{aligned}
+    \]
 类似地，
 \[
 \begin{aligned}
@@ -787,116 +782,114 @@ title: pfaffian 的性质
 由此可见，\(\operatorname{pf} {(C)}
   = -\operatorname{pf} {(A)}\)。
 
-(2)
-\(2 \leqslant p = q - 1 \leqslant n - 1\)。
-则
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(A)}
-  \\
-  = {} &
-  \sum_{2 \leqslant j \leqslant n}
-  {
-    (-1)^{j} [A]_{1,j}
-    \operatorname{pf} {(A({1,j}|{1,j}))}
-  }
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  (-1)^{p} [A]_{1,p}
-  \operatorname{pf} {(A({1,p}|{1,p}))}
-  +
-  (-1)^{p+1} [A]_{1,p+1}
-  \operatorname{pf} {(A({1,p+1}|{1,p+1}))}
-  \\
-  &
-  +
-  \sum_{\substack{2 \leqslant j \leqslant n \\ j \neq p, p+1}}
-  {
-    (-1)^{j} [A]_{1,j}
-    \operatorname{pf} {(A({1,j}|{1,j}))}
-  }.
-\end{aligned}
-\]
-类似地，
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(C)}
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  (-1)^{p} [C]_{1,p}
-  \operatorname{pf} {(C({1,p}|{1,p}))}
-  +
-  (-1)^{p+1} [C]_{1,p+1}
-  \operatorname{pf} {(C({1,p+1}|{1,p+1}))}
-  \\
-  &
-  +
-  \sum_{\substack{2 \leqslant j \leqslant n \\ j \neq p, p+1}}
-  {
-    (-1)^{j} [C]_{1,j}
-    \operatorname{pf} {(C({1,j}|{1,j}))}
-  }.
-\end{aligned}
-\]
-注意，
-\([C]_{1,p} = [A]_{1,p+1}\)，
-\([C]_{1,p+1} = [A]_{1,p}\)，
-\(C({1,p}|{1,p}) = A({1,p+1}|{1,p+1})\)，
-且 \(C({1,p+1}|{1,p+1}) = A({1,p}|{1,p})\)；
-再注意，\(j \geqslant 2\)，\(j \neq p\)，且 \(j \neq p+1\) 时，
-\([C]_{1,j} = [A]_{1,j}\)，
-且 \(C({1,j}|{1,j})\)
-可被认为是交换
-\(A({1,j}|{1,j})\) 的列 \(p'\)、\(p'+1\)，
-并交换行 \(p'\)、\(p'+1\) 得到的反称阵
-（其中，\(p' = p - \rho(p, 1) - \rho(p, j)
-  = p - 1 - \rho(p, j)\)）。
-由假定，
-\(
-    \operatorname{pf} {(C({1,j}|{1,j}))}
-    = (-1) \operatorname{pf} {(A({1,j}|{1,j}))}
-  \)。
-故
-\[
-\begin{aligned}
-  &
-  \operatorname{pf} {(C)}
-  \\
-  = {} &
-  \hphantom{{} + {}}
-  (-1)^{p} [A]_{1,p+1}
-  \operatorname{pf} {(A({1,p+1}|{1,p+1}))}
-  +
-  (-1)^{p+1} [A]_{1,p}
-  \operatorname{pf} {(A({1,p}|{1,p}))}
-  \\
-  &
-  +
-  \sum_{\substack{2 \leqslant j \leqslant n \\ j \neq p, p+1}}
-  {
-    (-1)^{j} [A]_{1,j}
-    (-1) \operatorname{pf} {(A({1,j}|{1,j}))}
-  }.
-\end{aligned}
-\]
+(2) \(2 \leqslant p = q - 1 \leqslant n - 1\)。
+    则
+    \[
+    \begin{aligned}
+      &
+      \operatorname{pf} {(A)}
+      \\
+      = {} &
+      \sum_{2 \leqslant j \leqslant n}
+      {
+        (-1)^{j} [A]_{1,j}
+        \operatorname{pf} {(A({1,j}|{1,j}))}
+      }
+      \\
+      = {} &
+      \hphantom{{} + {}}
+      (-1)^{p} [A]_{1,p}
+      \operatorname{pf} {(A({1,p}|{1,p}))}
+      +
+      (-1)^{p+1} [A]_{1,p+1}
+      \operatorname{pf} {(A({1,p+1}|{1,p+1}))}
+      \\
+      &
+      +
+      \sum_{\substack{2 \leqslant j \leqslant n \\ j \neq p, p+1}}
+      {
+        (-1)^{j} [A]_{1,j}
+        \operatorname{pf} {(A({1,j}|{1,j}))}
+      }.
+    \end{aligned}
+    \]
+    类似地，
+    \[
+    \begin{aligned}
+      &
+      \operatorname{pf} {(C)}
+      \\
+      = {} &
+      \hphantom{{} + {}}
+      (-1)^{p} [C]_{1,p}
+      \operatorname{pf} {(C({1,p}|{1,p}))}
+      +
+      (-1)^{p+1} [C]_{1,p+1}
+      \operatorname{pf} {(C({1,p+1}|{1,p+1}))}
+      \\
+      &
+      +
+      \sum_{\substack{2 \leqslant j \leqslant n \\ j \neq p, p+1}}
+      {
+        (-1)^{j} [C]_{1,j}
+        \operatorname{pf} {(C({1,j}|{1,j}))}
+      }.
+    \end{aligned}
+    \]
+    注意，
+    \([C]_{1,p} = [A]_{1,p+1}\)，
+    \([C]_{1,p+1} = [A]_{1,p}\)，
+    \(C({1,p}|{1,p}) = A({1,p+1}|{1,p+1})\)，
+    且 \(C({1,p+1}|{1,p+1}) = A({1,p}|{1,p})\)；
+    再注意，\(j \geqslant 2\)，\(j \neq p\)，且 \(j \neq p+1\) 时，
+    \([C]_{1,j} = [A]_{1,j}\)，
+    且 \(C({1,j}|{1,j})\)
+    可被认为是交换
+    \(A({1,j}|{1,j})\) 的列 \(p'\)、\(p'+1\)，
+    并交换行 \(p'\)、\(p'+1\) 得到的反称阵
+    （其中，\(p' = p - \rho(p, 1) - \rho(p, j)
+      = p - 1 - \rho(p, j)\)）。
+    由假定，
+    \(
+        \operatorname{pf} {(C({1,j}|{1,j}))}
+        = (-1) \operatorname{pf} {(A({1,j}|{1,j}))}
+      \)。
+    故
+    \[
+        \begin{aligned}
+          &
+          \operatorname{pf} {(C)}
+          \\
+          = {} &
+          \hphantom{{} + {}}
+          (-1)^{p} [A]_{1,p+1}
+          \operatorname{pf} {(A({1,p+1}|{1,p+1}))}
+          +
+          (-1)^{p+1} [A]_{1,p}
+          \operatorname{pf} {(A({1,p}|{1,p}))}
+          \\
+          &
+          +
+          \sum_{\substack{2 \leqslant j \leqslant n \\ j \neq p, p+1}}
+          {
+            (-1)^{j} [A]_{1,j}
+        (-1) \operatorname{pf} {(A({1,j}|{1,j}))}
+      }.
+    \end{aligned}
+    \]
 由此可见，\(\operatorname{pf} {(C)}
   = -\operatorname{pf} {(A)}\)。
 
-(3)
-别的情形。
-不难看出，我们已证，
-若列 \(p\)、\(q\)（行 \(p\)、\(q\)）是相邻的
-（即 \(p = q - 1\)；
-注意，我们已约定 \(p < q\)），
-则 \(\operatorname{pf} {(C)}
-  = -\operatorname{pf} {(A)}\)。
-那么，别的情形自然是
-当列 \(p\)、\(q\)（行 \(p\)、\(q\)）不是相邻的时
-的情形。
+(3) 别的情形。
+    不难看出，我们已证，
+    若列 \(p\)、\(q\)（行 \(p\)、\(q\)）是相邻的
+    （即 \(p = q - 1\)；
+    注意，我们已约定 \(p < q\)），
+    则 \(\operatorname{pf} {(C)}
+      = -\operatorname{pf} {(A)}\)。
+    那么，别的情形自然是
+    当列 \(p\)、\(q\)（行 \(p\)、\(q\)）不是相邻的时
+    的情形。
 
 交换 \(A\) 的列 \(p\)、\(p+1\)，
 并交换行 \(p\)、\(p+1\)，
@@ -956,63 +949,61 @@ title: pfaffian 的性质
 无妨设 \(p < q\)。
 我们分类讨论。
 
-(1)
-\(p = 1\)，且 \(q = 2\)。
-则
-\[
-\begin{aligned}
-  \operatorname{pf} {(A)}
-  = {} &
-  \hphantom{{} + {}}
-  [A]_{1,2}
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k}
-    \det {
-      \begin{bmatrix}
-        [A]_{1,j} & [A]_{1,k} \\
-        [A]_{2,j} & [A]_{2,k} \\
-      \end{bmatrix}
-    }
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }.
-\end{aligned}
-\]
-因为 \(A\) 的列 \(1\)、\(2\) 相等，
-故 \(A\) 的行 \(1\)、\(2\) 也相等
-（注意，\(A\) 是反称阵），
-且 \([A]_{1,2} = [A]_{1,1} = 0\)。
-则
-\[
-\begin{aligned}
-  \operatorname{pf} {(A)}
-  = {} &
-  \hphantom{{} + {}}
-  0
-  \operatorname{pf} {(A({1,2}|{1,2}))}
-  \\
-  &
-  +
-  \sum_{3 \leqslant j < k \leqslant n}
-  {
-    (-1)^{j + k}
-    \,
-    0
-    \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
-  }
-  \\
-  = {} &
-  0.
-\end{aligned}
-\]
+(1) \(p = 1\)，且 \(q = 2\)。
+    则
+    \[
+    \begin{aligned}
+      \operatorname{pf} {(A)}
+      = {} &
+      \hphantom{{} + {}}
+      [A]_{1,2}
+      \operatorname{pf} {(A({1,2}|{1,2}))}
+      \\
+      &
+      +
+      \sum_{3 \leqslant j < k \leqslant n}
+      {
+        (-1)^{j + k}
+        \det {
+          \begin{bmatrix}
+            [A]_{1,j} & [A]_{1,k} \\
+            [A]_{2,j} & [A]_{2,k} \\
+          \end{bmatrix}
+        }
+        \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+      }.
+    \end{aligned}
+    \]
+    因为 \(A\) 的列 \(1\)、\(2\) 相等，
+    故 \(A\) 的行 \(1\)、\(2\) 也相等
+    （注意，\(A\) 是反称阵），
+    且 \([A]_{1,2} = [A]_{1,1} = 0\)。
+    则
+    \[
+    \begin{aligned}
+      \operatorname{pf} {(A)}
+      = {} &
+      \hphantom{{} + {}}
+      0
+      \operatorname{pf} {(A({1,2}|{1,2}))}
+      \\
+      &
+      +
+      \sum_{3 \leqslant j < k \leqslant n}
+      {
+        (-1)^{j + k}
+        \,
+        0
+        \operatorname{pf} {(A({1,2,j,k}|{1,2,j,k}))}
+      }
+      \\
+      = {} &
+      0.
+    \end{aligned}
+    \]
 
-(2)
-别的情形。
-我们先说明：
+(2) 别的情形。
+    我们先说明：
 
 设 \(A\) 是 \(n\) 级反称阵。
 设 \(p\)、\(q\) 是不超过 \(n\) 的正整数，且 \(p \neq q\)。
@@ -1092,39 +1083,36 @@ title: pfaffian 的性质
 若 \(q = v\)，且 \(p \neq u\)，
 则我们可验证，\(C\) 的列 \(u\)、\(p\) 相等。
 
-(2.1)
-\(1 = p < 2 < q\)。
-交换 \(A\) 的列 \(2\)、\(q\)，且不改变别的列，得阵 \(B_1\)。
-交换 \(B_1\) 的行 \(2\)、\(q\)，且不改变别的行，
-得反称阵 \(C_1\)。
-则 \(C_1\) 的列 \(1\)、\(2\) 相等，
-故 \(\operatorname{pf} {(C_1)} = 0\)。
-另一方面，\(\operatorname{pf} {(C_1)}
-  = -\operatorname{pf} {(A)}\)，
-故 \(\operatorname{pf} {(A)} = 0\)。
+(2.1) \(1 = p < 2 < q\)。
+      交换 \(A\) 的列 \(2\)、\(q\)，且不改变别的列，得阵 \(B_1\)。
+      交换 \(B_1\) 的行 \(2\)、\(q\)，且不改变别的行，
+      得反称阵 \(C_1\)。
+      则 \(C_1\) 的列 \(1\)、\(2\) 相等，
+      故 \(\operatorname{pf} {(C_1)} = 0\)。
+      另一方面，\(\operatorname{pf} {(C_1)}
+        = -\operatorname{pf} {(A)}\)，
+      故 \(\operatorname{pf} {(A)} = 0\)。
 
-(2.2)
-\(2 = p < q\)。
-交换 \(A\) 的列 \(1\)、\(q\)，且不改变别的列，得阵 \(B_2\)。
-交换 \(B_2\) 的行 \(1\)、\(q\)，且不改变别的行，
-得反称阵 \(C_2\)。
-则 \(C_2\) 的列 \(1\)、\(2\) 相等，
-故 \(\operatorname{pf} {(C_2)} = 0\)。
-另一方面，\(\operatorname{pf} {(C_2)}
-  = -\operatorname{pf} {(A)}\)，
-故 \(\operatorname{pf} {(A)} = 0\)。
+(2.2) \(2 = p < q\)。
+      交换 \(A\) 的列 \(1\)、\(q\)，且不改变别的列，得阵 \(B_2\)。
+      交换 \(B_2\) 的行 \(1\)、\(q\)，且不改变别的行，
+      得反称阵 \(C_2\)。
+      则 \(C_2\) 的列 \(1\)、\(2\) 相等，
+      故 \(\operatorname{pf} {(C_2)} = 0\)。
+      另一方面，\(\operatorname{pf} {(C_2)}
+        = -\operatorname{pf} {(A)}\)，
+      故 \(\operatorname{pf} {(A)} = 0\)。
 
-(2.3)
-\(2 < p < q\)。
-交换 \(A\) 的列 \(2\)、\(p\)，且不改变别的列，得阵 \(B_3\)。
-交换 \(B_3\) 的行 \(2\)、\(p\)，且不改变别的行，
-得反称阵 \(C_3\)。
-则 \(C_3\) 的列 \(2\)、\(q\) 相等，
-故 \(\operatorname{pf} {(C_3)} = 0\)
-（我们已证此情形）。
-另一方面，\(\operatorname{pf} {(C_3)}
-  = -\operatorname{pf} {(A)}\)，
-故 \(\operatorname{pf} {(A)} = 0\)。
+(2.3) \(2 < p < q\)。
+      交换 \(A\) 的列 \(2\)、\(p\)，且不改变别的列，得阵 \(B_3\)。
+      交换 \(B_3\) 的行 \(2\)、\(p\)，且不改变别的行，
+      得反称阵 \(C_3\)。
+      则 \(C_3\) 的列 \(2\)、\(q\) 相等，
+      故 \(\operatorname{pf} {(C_3)} = 0\)
+      （我们已证此情形）。
+      另一方面，\(\operatorname{pf} {(C_3)}
+        = -\operatorname{pf} {(A)}\)，
+      故 \(\operatorname{pf} {(A)} = 0\)。
 :::
 
 有了这些性质，我们可以证明
@@ -1195,13 +1183,11 @@ title: pfaffian 的性质
 且 \(G\) 的列 \(p\)、\(q\) 相等，
 且：
 
-(1)
-\([A]_{i,j} = [G]_{i,j} = [C]_{i,j}\)，
-对任何不等于 \(q\)，且不超过 \(n\) 的正整数 \(i\)、\(j\)；
+(1) \([A]_{i,j} = [G]_{i,j} = [C]_{i,j}\)，
+    对任何不等于 \(q\)，且不超过 \(n\) 的正整数 \(i\)、\(j\)；
 
-(2)
-\([C]_{i,j} = 1[A]_{i,j} + s[G]_{i,j}\)，
-若 \(i = q\) 或 \(j = q\)。
+(2) \([C]_{i,j} = 1[A]_{i,j} + s[G]_{i,j}\)，
+    若 \(i = q\) 或 \(j = q\)。
 
 所以，
 \[
@@ -1338,30 +1324,27 @@ title: pfaffian 的性质
   = (-1)^{i-1} \operatorname{pf} {(C)}\)。
 我们有如下发现。
 
-(1)
-\(A(i|i) = C(1|1)\)。
+(1) \(A(i|i) = C(1|1)\)。
 
-(2)
-当 \(j < i\) 时，
-\([A]_{i,j} = [C]_{1,j+1}\)；
-当 \(j > i\) 时，
-\([A]_{i,j} = [C]_{1,j}\)。
-于是，
-当 \(2 \leqslant j \leqslant i\) 时，
-\([C]_{1,j} = [A]_{i,j-1}\)；
-当 \(j > i\) 时，
-\([C]_{1,j} = [A]_{i,j}\)。
+(2) 当 \(j < i\) 时，
+    \([A]_{i,j} = [C]_{1,j+1}\)；
+    当 \(j > i\) 时，
+    \([A]_{i,j} = [C]_{1,j}\)。
+    于是，
+    当 \(2 \leqslant j \leqslant i\) 时，
+    \([C]_{1,j} = [A]_{i,j-1}\)；
+    当 \(j > i\) 时，
+    \([C]_{1,j} = [A]_{i,j}\)。
 
-(3)
-当 \(j < i\) 时，
-\(A({i,j}|{i,j}) = C({1,j+1}|{1,j+1})\)；
-当 \(j > i\) 时，
-\(A({i,j}|{i,j}) = C({1,j}|{1,j})\)。
-于是，
-当 \(2 \leqslant j \leqslant i\) 时，
-\(C({1,j}|{1,j}) = A({i,j-1}|{i,j-1})\)；
-当 \(j > i\) 时，
-\(C({1,j}|{1,j}) = A({i,j}|{i,j})\)。
+(3) 当 \(j < i\) 时，
+    \(A({i,j}|{i,j}) = C({1,j+1}|{1,j+1})\)；
+    当 \(j > i\) 时，
+    \(A({i,j}|{i,j}) = C({1,j}|{1,j})\)。
+    于是，
+    当 \(2 \leqslant j \leqslant i\) 时，
+    \(C({1,j}|{1,j}) = A({i,j-1}|{i,j-1})\)；
+    当 \(j > i\) 时，
+    \(C({1,j}|{1,j}) = A({i,j}|{i,j})\)。
 
 则
 \[

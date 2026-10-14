@@ -24,13 +24,13 @@ $A$ 是 $\operatorname{End}_k(E)$ 的子代数。
 令 $B=\operatorname{End}_A(E)$ 是 $A$ 的中心化子。
 假设 $A$ 是[[半单环|半单代数]]，则
 
-- (1) $A=\operatorname{End}_B(E)$。
+(1) $A=\operatorname{End}_B(E)$。
 
-- (2) $B$ 是半单的。
+(2) $B$ 是半单的。
 
-- (3) 作为 $A\otimes B$ 的表示，
-  $E$ 具有直和分解 $\bigoplus V_i\otimes W_i$，
-  其中 $V_i,W_i$ 分别跑遍 $A,B$ 的不可约表示。
+(3) 作为 $A\otimes B$ 的表示，
+    $E$ 具有直和分解 $\bigoplus V_i\otimes W_i$，
+    其中 $V_i,W_i$ 分别跑遍 $A,B$ 的不可约表示。
 
 :::
 

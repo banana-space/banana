@@ -158,31 +158,31 @@ $\varphi_n(t)\to\varphi(t)$在所有$\varphi$的连续点上成立。
 $(\Omega,\mathscr{F},\mathbb{P})$ 中的 $\mathscr{P}$ 值随机变量，
 则以下条件等价：
 
-- (1) $X_n\stackrel{d}{\longrightarrow} X$；
+(1) $X_n\stackrel{d}{\longrightarrow} X$；
 
-- (2) 对于任意$\mathscr{P}$上的有界一致连续函数$\varphi$，
-  $$
-  \lim_{n\to\infty}\mathbb{E}[\varphi(X_n)]
-  = \mathbb{E}[\varphi(X)];
-  $$
+(2) 对于任意$\mathscr{P}$上的有界一致连续函数$\varphi$，
+    $$
+    \lim_{n\to\infty}\mathbb{E}[\varphi(X_n)]
+    = \mathbb{E}[\varphi(X)];
+    $$
 
-- (3) 对于任意$\mathscr{P}$中开集$O$，
-  $$
-  \limsup_{n\to\infty}\mathbb{P}(X_n\in O)\leq
-  \mathbb{P}(X\in O) ;
-  $$
+(3) 对于任意$\mathscr{P}$中开集$O$，
+    $$
+    \limsup_{n\to\infty}\mathbb{P}(X_n\in O)\leq
+    \mathbb{P}(X\in O) ;
+    $$
 
-- (4) 对于任意$\mathscr{P}$中闭集$F$，
-  $$
-  \liminf_{n\to\infty}\mathbb{P}(X_n\in F)\geq
-  \mathbb{P}(X\in F) ;
-  $$
+(4) 对于任意$\mathscr{P}$中闭集$F$，
+    $$
+    \liminf_{n\to\infty}\mathbb{P}(X_n\in F)\geq
+    \mathbb{P}(X\in F) ;
+    $$
 
-- (5) 对于任意$\mathscr{P}$中满足$\mathbb{P}(X\in\partial G)=0$的 Borel 集 $G$，
-  $$
-  \lim_{n\to\infty}\mathbb{P}(X_n\in G)=
-  \mathbb{P}(X\in G) ;
-  $$
+(5) 对于任意$\mathscr{P}$中满足$\mathbb{P}(X\in\partial G)=0$的 Borel 集 $G$，
+    $$
+    \lim_{n\to\infty}\mathbb{P}(X_n\in G)=
+    \mathbb{P}(X\in G) ;
+    $$
 :::
 
 这一定理是对依分布收敛的泛函刻画，它指出依分布收敛是在“值域上的”收敛。

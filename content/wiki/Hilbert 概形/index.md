@@ -62,54 +62,54 @@ $X$ 的（相对于 $S$ 的）**Hilbert 概形**。
 
 几个例子：
 
-- (a) 设$C$是域$k$上的曲线，
-  则
-  \[
-  \underline{\mathrm{Hilb}}^m_{C/k}\cong S^mC:=\underbrace{C\times\cdots\times C}_m/\mathfrak{S}_m.
-  \]
-  若$C$光滑，则$\underline{\mathrm{Hilb}}^m_{C/k}$也光滑。证明见[@FGAexplained]的Theorem 7.2.3(1)
-  和Proposition 7.3.3。
+(a) 设$C$是域$k$上的曲线，
+    则
+    \[
+    \underline{\mathrm{Hilb}}^m_{C/k}\cong S^mC:=\underbrace{C\times\cdots\times C}_m/\mathfrak{S}_m.
+    \]
+    若$C$光滑，则$\underline{\mathrm{Hilb}}^m_{C/k}$也光滑。证明见[@FGAexplained]的Theorem 7.2.3(1)
+    和Proposition 7.3.3。
 
-- (b) 设$S$是域$k$上的光滑曲面，
-  则$\underline{\mathrm{Hilb}}^m_{S/k}$是$2m$维的光滑概形，
-  故$\underline{\mathrm{Hilb}}^m_{S/k}\to S^mS$是
-  奇点解消。注意到$S^mX$ 光滑当且仅当
-  $X$光滑且$\dim X=1$或$m<2$。证明见[@FGAexplained] Theorem 7.2.3(2)
-  和Theorem 7.3.4。
+(b) 设$S$是域$k$上的光滑曲面，
+    则$\underline{\mathrm{Hilb}}^m_{S/k}$是$2m$维的光滑概形，
+    故$\underline{\mathrm{Hilb}}^m_{S/k}\to S^mS$是
+    奇点解消。注意到$S^mX$ 光滑当且仅当
+    $X$光滑且$\dim X=1$或$m<2$。证明见[@FGAexplained] Theorem 7.2.3(2)
+    和Theorem 7.3.4。
 
-- (c) 设$X$是非奇异代数簇。则当$m\leq3$时
-  $\underline{\mathrm{Hilb}}^m_{X/k}$也非奇异。但是对任何非奇异$3$维代数簇，
-  概形$\underline{\mathrm{Hilb}}^4_{X/k}$均奇异。见[@FGAexplained]的Remark 7.2.5和7.2.6。
+(c) 设$X$是非奇异代数簇。则当$m\leq3$时
+    $\underline{\mathrm{Hilb}}^m_{X/k}$也非奇异。但是对任何非奇异$3$维代数簇，
+    概形$\underline{\mathrm{Hilb}}^4_{X/k}$均奇异。见[@FGAexplained]的Remark 7.2.5和7.2.6。
 
-- (d) 设$\mathscr{E}$是$S$上秩$m+1$的向量丛
-  且假设$P_d(n)=\binom{m+n}{m}-\binom{m+n-d}{m}$，则
-  \[
-  \underline{\mathrm{Hilb}}^{P_d}_{\mathbb{P}(\mathscr{E})/S}\cong\mathbb{P}((\mathrm{Sym}^d\mathscr{E})^{\vee}).
-  \]
+(d) 设$\mathscr{E}$是$S$上秩$m+1$的向量丛
+    且假设$P_d(n)=\binom{m+n}{m}-\binom{m+n-d}{m}$，则
+    \[
+    \underline{\mathrm{Hilb}}^{P_d}_{\mathbb{P}(\mathscr{E})/S}\cong\mathbb{P}((\mathrm{Sym}^d\mathscr{E})^{\vee}).
+    \]
 
 ## 性质
 
-- (a) 我们有 $\underline{\mathrm{Hilb}}^1_{X/S}=X/S$。
+(a) 我们有 $\underline{\mathrm{Hilb}}^1_{X/S}=X/S$。
 
-- (b) 考虑$Z\to S$，
-  我们有$\underline{\mathrm{Hilb}}_{X\times_SZ/Z}\cong\underline{\mathrm{Hilb}}_{X/S}\times_SZ$。
+(b) 考虑$Z\to S$，
+    我们有$\underline{\mathrm{Hilb}}_{X\times_SZ/Z}\cong\underline{\mathrm{Hilb}}_{X/S}\times_SZ$。
 
-- (c) **Hartshorne 连通定理**：对任何连通诺特概形$S$，
-  都有$\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n_S/S}$连通。
+(c) **Hartshorne 连通定理**：对任何连通诺特概形$S$，
+    都有$\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n_S/S}$连通。
 
-- (d) 设$X$是域$k$上的连通簇，
-  则$\underline{\mathrm{Hilb}}^n_{X/k}$也连通，其中$n > 0$。
+(d) 设$X$是域$k$上的连通簇，
+    则$\underline{\mathrm{Hilb}}^n_{X/k}$也连通，其中$n > 0$。
 
-- (e) **Murphy 定律**：Hilbert 概形的奇点之怪难以想象，准确点说，
-  对任意在$\mathbb{Z}$上的有限型概形$X$和点$x\in X$，都存在某个Hilbert概形和上面的一个点
-  $q\in\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n/k}$使得有同构：
-  \[
-  \widehat{\mathscr{O}}_{X,x}[[x_1,...,x_s]]\cong \widehat{\mathscr{O}}_{\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n/k},q}[[y_1,...,y_t]].
-  \]
-  见[@Vakil06]。
+(e) **Murphy 定律**：Hilbert 概形的奇点之怪难以想象，准确点说，
+    对任意在$\mathbb{Z}$上的有限型概形$X$和点$x\in X$，都存在某个Hilbert概形和上面的一个点
+    $q\in\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n/k}$使得有同构：
+    \[
+    \widehat{\mathscr{O}}_{X,x}[[x_1,...,x_s]]\cong \widehat{\mathscr{O}}_{\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n/k},q}[[y_1,...,y_t]].
+    \]
+    见[@Vakil06]。
 
-- (f) 论文[@SS20]内作者给出了$\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n/k}$何时光滑的
-  完全分类。
+(f) 论文[@SS20]内作者给出了$\underline{\mathrm{Hilb}}^P_{\mathbb{P}^n/k}$何时光滑的
+    完全分类。
 
 ## 参考文献
 

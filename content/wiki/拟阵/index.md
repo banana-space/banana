@@ -24,12 +24,12 @@ $\mathcal{I}$ 是 $E$ 的一族[[子集]]，
 其中元素称为**独立集**。
 满足以下条件：
 
-- (I1) $\varnothing \in \mathcal{I}$。
+(I1) $\varnothing \in \mathcal{I}$。
 
-- (I2) 独立集的子集是独立集。
+(I2) 独立集的子集是独立集。
 
-- (I3) 设 $A, B \in \mathcal{I}$，$|A|>|B|$，则存在
-  $x \in A$ 使得 $B \cup \{x\}$ 是独立集。
+(I3) 设 $A, B \in \mathcal{I}$，$|A|>|B|$，则存在
+     $x \in A$ 使得 $B \cup \{x\}$ 是独立集。
 
 :::
 
@@ -40,10 +40,10 @@ $\mathcal{B}$ 是 $E$ 的一族[[子集]]，
 其中元素称为此拟阵的**基**。
 满足以下条件：
 
-- (B1) $\mathcal{B}$非空。
+(B1) $\mathcal{B}$非空。
 
-- (B2) 设 $A, B \in \mathcal{B}$，$a \in A\setminus B$，
-  则存在 $b \in B$ 使得 $(A\setminus\{a\})\cup\{b\} \in \mathcal{B}$。
+(B2) 设 $A, B \in \mathcal{B}$，$a \in A\setminus B$，
+     则存在 $b \in B$ 使得 $(A\setminus\{a\})\cup\{b\} \in \mathcal{B}$。
 
 :::
 
@@ -53,9 +53,9 @@ $\mathcal{B}$ 是 $E$ 的一族[[子集]]，
 $r$ 是 $\operatorname{\mathcal{P}}(E) \to \mathbb{N}$ 的一个[[单调映射]]，称为**秩映射**。
 满足以下条件：
 
-- (R1) $r(A) \leq \operatorname{Card}(A)$。
+(R1) $r(A) \leq \operatorname{Card}(A)$。
 
-- (R2) $r(A \cup B) + r(A \cap B) \leq r(A) + r(B)$。
+(R2) $r(A \cup B) + r(A \cap B) \leq r(A) + r(B)$。
 
 :::
 

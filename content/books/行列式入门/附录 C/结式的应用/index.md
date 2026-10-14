@@ -50,32 +50,27 @@ notices:
 在本节，结式的以下的性质是重要的
 （设 @standing-assumption-of-resultant-banana 成立）：
 
-(1)
-若存在数 \(c\)，使 \(f(c) = 0 = g(c)\)，
-则 \(\det {(S(f, g; n, m))} = 0\)。
+(1) 若存在数 \(c\)，使 \(f(c) = 0 = g(c)\)，
+    则 \(\det {(S(f, g; n, m))} = 0\)。
 
-(2)
-若 \(a_0 = 0 = b_0\)，
-则 \(\det {(S(f, g; n, m))} = 0\)。
+(2) 若 \(a_0 = 0 = b_0\)，
+    则 \(\det {(S(f, g; n, m))} = 0\)。
 
-(3)
-\(\det {(S(g, f; m, n))} = (-1)^{m n} \det {(S(f, g; n, m))}\)。
+(3) \(\det {(S(g, f; m, n))} = (-1)^{m n} \det {(S(f, g; n, m))}\)。
 
-(4)
-若存在数 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\)，
-使对任何数 \(x\)，
-\(f(x) = a_0 (x - x_1) \dots (x - x_n)\)，
-则 \(\det {(S(f, g; n, m))} = a_0^m g(x_1) \dots g(x_n)\)；
-若存在数 \(y_1\)、\(y_2\)、\(\dots\)、\(y_m\)，
-使对任何数 \(x\)，
-\(g(x) = b_0 (x - y_1) \dots (x - y_m)\)，
-则 \(\det {(S(f, g; n, m))} = (-1)^{m n} b_0^n f(y_1) \dots f(y_m)\)。
+(4) 若存在数 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\)，
+    使对任何数 \(x\)，
+    \(f(x) = a_0 (x - x_1) \dots (x - x_n)\)，
+    则 \(\det {(S(f, g; n, m))} = a_0^m g(x_1) \dots g(x_n)\)；
+    若存在数 \(y_1\)、\(y_2\)、\(\dots\)、\(y_m\)，
+    使对任何数 \(x\)，
+    \(g(x) = b_0 (x - y_1) \dots (x - y_m)\)，
+    则 \(\det {(S(f, g; n, m))} = (-1)^{m n} b_0^n f(y_1) \dots f(y_m)\)。
 
-(5)
-若 \(\det {(S(f, g; n, m))} = 0\)，
-且 \(a_0\)、\(b_0\) 的一个非零
-（它们当然可以都非零），
-则存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
+(5) 若 \(\det {(S(f, g; n, m))} = 0\)，
+    且 \(a_0\)、\(b_0\) 的一个非零
+    （它们当然可以都非零），
+    则存在数 \(c\)，使 \(f(c) = 0 = g(c)\)。
 
 若数 \(c\) 适合 \(f(c) = 0\)，
 我们说，\(c\)（或 \(x = c\)）是 \(f(x) = 0\) 的一个解。
@@ -608,12 +603,10 @@ y p_2 (t) - q_2 (t) = 0.
 设 \(f(x)\) 是整式。
 设 \(c\) 是数。
 
-(1)
-若 \(f(c) = 0\)，则 \(c\) 是 \(f(x)\) 的一个**根**。
+(1) 若 \(f(c) = 0\)，则 \(c\) 是 \(f(x)\) 的一个**根**。
 
-(2)
-若 \(f(c) = 0\)，且 \(\mathrm{D} f(c) = 0\)，
-则 \(c\) 是 \(f(x)\) 的一个**重根**。
+(2) 若 \(f(c) = 0\)，且 \(\mathrm{D} f(c) = 0\)，
+    则 \(c\) 是 \(f(x)\) 的一个**重根**。
 :::
 
 ::: example
@@ -665,32 +658,28 @@ y p_2 (t) - q_2 (t) = 0.
 ::: theorem
 设 \(f(x)\) 是整式。
 
-(1)
-若数 \(c\) 是 \(f(x)\) 的重根，
-则存在整式 \(s(x)\)，
-使 \(f(x) = (x - c)^2 s(x)\)。
+(1) 若数 \(c\) 是 \(f(x)\) 的重根，
+    则存在整式 \(s(x)\)，
+    使 \(f(x) = (x - c)^2 s(x)\)。
 
-(2)
-若数 \(d\) 与整式 \(u(x)\) 适合，
-\(f(x) = (x - d)^2 u(x)\)，
-则 \(d\) 是 \(f(x)\) 的重根。
+(2) 若数 \(d\) 与整式 \(u(x)\) 适合，
+    \(f(x) = (x - d)^2 u(x)\)，
+    则 \(d\) 是 \(f(x)\) 的重根。
 :::
 
 ::: proof
-(1)
-因为 \(c\) 是 \(f(x)\) 的重根，
-故 \(c\) 是 \(f(x)\) 的根。
-则存在整式 \(q(x)\)，使 \(f(x) = (x - c) q(x)\)。
-注意，\(0 = \mathrm{D} f(c) = q(c)\)。
-则存在整式 \(s(x)\)，使 \(q(x) = (x - c) s(x)\)。
-故 \(f(x) = (x - c)^2 s(x)\)。
+(1) 因为 \(c\) 是 \(f(x)\) 的重根，
+    故 \(c\) 是 \(f(x)\) 的根。
+    则存在整式 \(q(x)\)，使 \(f(x) = (x - c) q(x)\)。
+    注意，\(0 = \mathrm{D} f(c) = q(c)\)。
+    则存在整式 \(s(x)\)，使 \(q(x) = (x - c) s(x)\)。
+    故 \(f(x) = (x - c)^2 s(x)\)。
 
-(2)
-记 \(v(x) = (x - d) u(x)\)。
-则 \(f(x) = (x - d) v(x)\)。
-则 \(f(d) = 0\)，
-且 \(\mathrm{D} f(d) = v(d) = 0\)。
-故 \(d\) 是 \(f(x)\) 的重根。
+(2) 记 \(v(x) = (x - d) u(x)\)。
+    则 \(f(x) = (x - d) v(x)\)。
+    则 \(f(d) = 0\)，
+    且 \(\mathrm{D} f(d) = v(d) = 0\)。
+    故 \(d\) 是 \(f(x)\) 的重根。
 :::
 
 我们讨论整式 \(f(x)\) 与它的 derivative \(\mathrm{D} f(x)\)
@@ -853,22 +842,19 @@ y p_2 (t) - q_2 (t) = 0.
 ::: definition
 设 \(f(x)\) 是整式。
 
-(1)
-若 \(f(x)\) 是 \(0\) 整式，
-则我们定义 \(f(x)\) 的**判别式**为 \(0\)。
+(1) 若 \(f(x)\) 是 \(0\) 整式，
+    则我们定义 \(f(x)\) 的**判别式**为 \(0\)。
 
-(2)
-若 \(f(x)\) 是非零常数 \(c\)，
-则我们定义 \(f(x)\) 的**判别式**为 \(c^{-2}\)。
+(2) 若 \(f(x)\) 是非零常数 \(c\)，
+    则我们定义 \(f(x)\) 的**判别式**为 \(c^{-2}\)。
 
-(3)
-在别的情形，我们可写
-\(f(x) = a_0 x^n + a_1 x^{n-1} + \dots + a_n\)
-（\(a_0 \neq 0\)，且 \(n \geqslant 1\)）。
-我们定义 \(f(x)\) 的**判别式**为
-\((-1)^{n (n-1)/2} \det {(T(f; n))}\)，
-其中，\(T(f; n)\) 是 \(2n-1\) 级阵，
-且它的元由式 @eq:soe11 确定。
+(3) 在别的情形，我们可写
+    \(f(x) = a_0 x^n + a_1 x^{n-1} + \dots + a_n\)
+    （\(a_0 \neq 0\)，且 \(n \geqslant 1\)）。
+    我们定义 \(f(x)\) 的**判别式**为
+    \((-1)^{n (n-1)/2} \det {(T(f; n))}\)，
+    其中，\(T(f; n)\) 是 \(2n-1\) 级阵，
+    且它的元由式 @eq:soe11 确定。
 :::
 
 由前面的计算与讨论，下面的结论是显然的。
@@ -884,17 +870,16 @@ y p_2 (t) - q_2 (t) = 0.
 \end{aligned}
 \]
 
-(1)
-\(f(x)\) 的判别式
-\[
-\begin{aligned}
-  (-1)^{n (n-1)/2} \det {(T(f; n))}
-  = a_0^{2n-2}
-  \prod_{1 \leqslant i < k \leqslant n} {(x_k - x_i)^2},
-\end{aligned}
-\]
-其中，\(T(f; n)\) 是 \(2n-1\) 级阵，
-且它的元由式 @eq:soe11 确定。
+(1) \(f(x)\) 的判别式
+    \[
+    \begin{aligned}
+      (-1)^{n (n-1)/2} \det {(T(f; n))}
+      = a_0^{2n-2}
+      \prod_{1 \leqslant i < k \leqslant n} {(x_k - x_i)^2},
+    \end{aligned}
+    \]
+    其中，\(T(f; n)\) 是 \(2n-1\) 级阵，
+    且它的元由式 @eq:soe11 确定。
 
 \(f(x)\) 的判别式
 是关于 \(a_0\)、\(a_1\)、\(\dots\)、\(a_n\) 的整式。
@@ -912,16 +897,14 @@ y p_2 (t) - q_2 (t) = 0.
 \end{aligned}
 \]
 
-(2)
-若 \(f(x)\) 有重根，
-则 \(f(x)\) 的判别式为 \(0\)；
-反过来，若 \(f(x)\) 的判别式为 \(0\)，
-则 \(f(x)\) 有重根。
+(2) 若 \(f(x)\) 有重根，
+    则 \(f(x)\) 的判别式为 \(0\)；
+    反过来，若 \(f(x)\) 的判别式为 \(0\)，
+    则 \(f(x)\) 有重根。
 
-(3)
-若 \(a_0\) 是实数，
-且 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是实数，
-则 \(f(x)\) 的判别式是非负数。
+(3) 若 \(a_0\) 是实数，
+    且 \(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是实数，
+    则 \(f(x)\) 的判别式是非负数。
 :::
 
 ::: example
@@ -1451,130 +1434,127 @@ y p_2 (t) - q_2 (t) = 0.
 若 \(k < 0\) 或 \(k > n\)，则 \(a_k = 0\)。
 设 \(z\) 是参数。
 
-(1)
-设 \(r\) 是数。
-作整式
-\[
-\begin{aligned}
-  h(x; z, r)
-  = g(z - r x)
-  = \sum_{k = 0}^{m} {b_k (z - r x)^{m-k}}
-  = \sum_{k = 0}^{m} {c_k (z, r) x^{m-k}},
-\end{aligned}
-\]
-其中，\(c_k (z, r)\) 是关于
-\(z\)、\(r\)、\(b_0\)、\(b_1\)、\(\dots\)、\(b_m\)
-的整式，
-且若 \(k < 0\) 或 \(k > m\)，
-则整式 \(c_k (z, r) = 0\)。
-作 \(f\) 与 \(h\) 的 Sylvester 阵 \(S(f, h; n, m)\)。
-它是 \(m + n\) 级阵，且
-\[
-\begin{aligned}
-  [S(f, h; n, m)]_{i,j} =
-  \begin{cases}
-    a_{i-j},            & j \leqslant m; \\
-    c_{i-(j-m)} (z, r), & j > m.
-  \end{cases}
-\end{aligned}
-\]
-则 \(f\) 与 \(h\) 的结式
-\[
-\begin{aligned}
-  \det {(S(f, h; n, m))}
-  = a_0^m b_0^n
-  \prod_{i = 1}^{n} \prod_{j = 1}^{m}
-  {(z - (y_j + r x_i))}
-\end{aligned}
-\]
-是一个关于 \(z\) 的 \(m n\) 次整式，
-且它的 \(z^{m n}\) 项系数是 \(a_0^m b_0^n\)，
-且它的全部的根是 \(y_j + r x_i\)，
-\(i = 1\)、\(\dots\)、\(n\)，
-且 \(j = 1\)、\(\dots\)、\(m\)。
+(1) 设 \(r\) 是数。
+    作整式
+    \[
+    \begin{aligned}
+      h(x; z, r)
+      = g(z - r x)
+      = \sum_{k = 0}^{m} {b_k (z - r x)^{m-k}}
+      = \sum_{k = 0}^{m} {c_k (z, r) x^{m-k}},
+    \end{aligned}
+    \]
+    其中，\(c_k (z, r)\) 是关于
+    \(z\)、\(r\)、\(b_0\)、\(b_1\)、\(\dots\)、\(b_m\)
+    的整式，
+    且若 \(k < 0\) 或 \(k > m\)，
+    则整式 \(c_k (z, r) = 0\)。
+    作 \(f\) 与 \(h\) 的 Sylvester 阵 \(S(f, h; n, m)\)。
+    它是 \(m + n\) 级阵，且
+    \[
+    \begin{aligned}
+      [S(f, h; n, m)]_{i,j} =
+      \begin{cases}
+        a_{i-j},            & j \leqslant m; \\
+        c_{i-(j-m)} (z, r), & j > m.
+      \end{cases}
+    \end{aligned}
+    \]
+    则 \(f\) 与 \(h\) 的结式
+    \[
+    \begin{aligned}
+      \det {(S(f, h; n, m))}
+      = a_0^m b_0^n
+      \prod_{i = 1}^{n} \prod_{j = 1}^{m}
+      {(z - (y_j + r x_i))}
+    \end{aligned}
+    \]
+    是一个关于 \(z\) 的 \(m n\) 次整式，
+    且它的 \(z^{m n}\) 项系数是 \(a_0^m b_0^n\)，
+    且它的全部的根是 \(y_j + r x_i\)，
+    \(i = 1\)、\(\dots\)、\(n\)，
+    且 \(j = 1\)、\(\dots\)、\(m\)。
 
-(2)
-作整式
-\[
-\begin{aligned}
-  p(x; z)
-  = x^m g\left(\frac{z}{x}\right)
-  = \sum_{\ell = 0}^{m} {(b_{m-\ell} z^\ell) x^{m-\ell}}
-  = \sum_{\ell = 0}^{m} {d_\ell (z) x^{m-\ell}},
-\end{aligned}
-\]
-其中，\(d_\ell (z)\) 是关于
-\(z\)、\(b_0\)、\(b_1\)、\(\dots\)、\(b_m\)
-的整式，
-且若 \(\ell < 0\) 或 \(\ell > m\)，
-则整式 \(d_\ell (z) = 0\)。
-作 \(f\) 与 \(p\) 的 Sylvester 阵 \(S(f, p; n, m)\)。
-它是 \(m + n\) 级阵，且
-\[
-\begin{aligned}
-  [S(f, p; n, m)]_{i,j} =
-  \begin{cases}
-    a_{i-j},         & j \leqslant m; \\
-    d_{i-(j-m)} (z), & j > m.
-  \end{cases}
-\end{aligned}
-\]
-则 \(f\) 与 \(p\) 的结式
-\[
-\begin{aligned}
-  \det {(S(f, p; n, m))}
-  = a_0^m b_0^n
-  \prod_{i = 1}^{n} \prod_{j = 1}^{m}
-  {(z - x_i y_j)}
-\end{aligned}
-\]
-是一个关于 \(z\) 的 \(m n\) 次整式，
-且它的 \(z^{m n}\) 项系数是 \(a_0^m b_0^n\)，
-且它的全部的根是 \(x_i y_j\)，
-\(i = 1\)、\(\dots\)、\(n\)，
-且 \(j = 1\)、\(\dots\)、\(m\)。
+(2) 作整式
+    \[
+    \begin{aligned}
+      p(x; z)
+      = x^m g\left(\frac{z}{x}\right)
+      = \sum_{\ell = 0}^{m} {(b_{m-\ell} z^\ell) x^{m-\ell}}
+      = \sum_{\ell = 0}^{m} {d_\ell (z) x^{m-\ell}},
+    \end{aligned}
+    \]
+    其中，\(d_\ell (z)\) 是关于
+    \(z\)、\(b_0\)、\(b_1\)、\(\dots\)、\(b_m\)
+    的整式，
+    且若 \(\ell < 0\) 或 \(\ell > m\)，
+    则整式 \(d_\ell (z) = 0\)。
+    作 \(f\) 与 \(p\) 的 Sylvester 阵 \(S(f, p; n, m)\)。
+    它是 \(m + n\) 级阵，且
+    \[
+    \begin{aligned}
+      [S(f, p; n, m)]_{i,j} =
+      \begin{cases}
+        a_{i-j},         & j \leqslant m; \\
+        d_{i-(j-m)} (z), & j > m.
+      \end{cases}
+    \end{aligned}
+    \]
+    则 \(f\) 与 \(p\) 的结式
+    \[
+    \begin{aligned}
+      \det {(S(f, p; n, m))}
+      = a_0^m b_0^n
+      \prod_{i = 1}^{n} \prod_{j = 1}^{m}
+      {(z - x_i y_j)}
+    \end{aligned}
+    \]
+    是一个关于 \(z\) 的 \(m n\) 次整式，
+    且它的 \(z^{m n}\) 项系数是 \(a_0^m b_0^n\)，
+    且它的全部的根是 \(x_i y_j\)，
+    \(i = 1\)、\(\dots\)、\(n\)，
+    且 \(j = 1\)、\(\dots\)、\(m\)。
 
-(3)
-设 \(x_i \neq 0\)，\(i = 1\)，\(2\)，\(\dots\)，\(n\)。
-作整式
-\[
-\begin{aligned}
-  q(x; z)
-  = g (z x)
-  = \sum_{k = 0}^{m} (b_k z^{m-k}) x^{m-k}
-  = \sum_{k = 0}^{m} {e_k (z) x^{m-k}},
-\end{aligned}
-\]
-其中，\(e_k (z)\) 是关于
-\(z\)、\(b_0\)、\(b_1\)、\(\dots\)、\(b_m\)
-的整式，
-且若 \(k < 0\) 或 \(k > m\)，
-则整式 \(e_k (z) = 0\)。
-作 \(f\) 与 \(q\) 的 Sylvester 阵 \(S(f, q; n, m)\)。
-它是 \(m + n\) 级阵，且
-\[
-\begin{aligned}
-  [S(f, q; n, m)]_{i,j} =
-  \begin{cases}
-    a_{i-j},         & j \leqslant m; \\
-    e_{i-(j-m)} (z), & j > m.
-  \end{cases}
-\end{aligned}
-\]
-则 \(f\) 与 \(q\) 的结式
-\[
-\begin{aligned}
-  \det {(S(f, q; n, m))}
-  = (-1)^{m n} a_n^m b_0^n
-  \prod_{i = 1}^{n} \prod_{j = 1}^{m}
-  {\left( z - \frac{y_j}{x_i} \right)}
-\end{aligned}
-\]
-是一个关于 \(z\) 的 \(m n\) 次整式，
-且它的 \(z^{m n}\) 项系数是 \((-1)^{m n} a_n^m b_0^n\)，
-且它的全部的根是 \(y_j / x_i\)，
-\(i = 1\)、\(\dots\)、\(n\)，
-且 \(j = 1\)、\(\dots\)、\(m\)。
+(3) 设 \(x_i \neq 0\)，\(i = 1\)，\(2\)，\(\dots\)，\(n\)。
+    作整式
+    \[
+    \begin{aligned}
+      q(x; z)
+      = g (z x)
+      = \sum_{k = 0}^{m} (b_k z^{m-k}) x^{m-k}
+      = \sum_{k = 0}^{m} {e_k (z) x^{m-k}},
+    \end{aligned}
+    \]
+    其中，\(e_k (z)\) 是关于
+    \(z\)、\(b_0\)、\(b_1\)、\(\dots\)、\(b_m\)
+    的整式，
+    且若 \(k < 0\) 或 \(k > m\)，
+    则整式 \(e_k (z) = 0\)。
+    作 \(f\) 与 \(q\) 的 Sylvester 阵 \(S(f, q; n, m)\)。
+    它是 \(m + n\) 级阵，且
+    \[
+    \begin{aligned}
+      [S(f, q; n, m)]_{i,j} =
+      \begin{cases}
+        a_{i-j},         & j \leqslant m; \\
+        e_{i-(j-m)} (z), & j > m.
+      \end{cases}
+    \end{aligned}
+    \]
+    则 \(f\) 与 \(q\) 的结式
+    \[
+    \begin{aligned}
+      \det {(S(f, q; n, m))}
+      = (-1)^{m n} a_n^m b_0^n
+      \prod_{i = 1}^{n} \prod_{j = 1}^{m}
+      {\left( z - \frac{y_j}{x_i} \right)}
+    \end{aligned}
+    \]
+    是一个关于 \(z\) 的 \(m n\) 次整式，
+    且它的 \(z^{m n}\) 项系数是 \((-1)^{m n} a_n^m b_0^n\)，
+    且它的全部的根是 \(y_j / x_i\)，
+    \(i = 1\)、\(\dots\)、\(n\)，
+    且 \(j = 1\)、\(\dots\)、\(m\)。
 :::
 
 ::: example

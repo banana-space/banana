@@ -72,9 +72,9 @@ $\{a_n\}_{n\geqslant 1}$ 是复数的数列，我们假设对任意的 $n$，$a_
 $\{a_n\}_{n\geqslant 1}$ 是非负数的数列，即对任意的 $n$，$a_n\geqslant 0$。
 那么，如下两个命题是等价的：
 
-- (P) 无限乘积 $\displaystyle\prod_{n=1}^{\infty}(1+a_n)$ 收敛（极限必然不是零）；
+(P) 无限乘积 $\displaystyle\prod_{n=1}^{\infty}(1+a_n)$ 收敛（极限必然不是零）；
 
-- (S) 级数 $\displaystyle\sum_{n =1}^{\infty} a_n$ 收敛。
+(S) 级数 $\displaystyle\sum_{n =1}^{\infty} a_n$ 收敛。
 
 :::
 

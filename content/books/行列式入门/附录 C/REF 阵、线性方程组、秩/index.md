@@ -87,30 +87,27 @@ Tiānyī 记号来自中国 Vocaloid
 
 设存在不高于 \(m\) 的非负整数 \(r\)，使：
 
-(1)
-对任何不高于 \(r\) 的正整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)} < \infty;
-\end{aligned}
-\]
+(1) 对任何不高于 \(r\) 的正整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)} < \infty;
+    \end{aligned}
+    \]
 
-(2)
-对任何低于 \(r\) 的正整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)}
-  < \operatorname{pivot} {(A; i + 1)};
-\end{aligned}
-\]
+(2) 对任何低于 \(r\) 的正整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)}
+      < \operatorname{pivot} {(A; i + 1)};
+    \end{aligned}
+    \]
 
-(3)
-对任何高于 \(r\) 且不高于 \(m\) 的整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)} = \infty.
-\end{aligned}
-\]
+(3) 对任何高于 \(r\) 且不高于 \(m\) 的整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)} = \infty.
+    \end{aligned}
+    \]
 
 我们说，\(A\) 是 **REF**
 （<lang en>row-echelon form</lang>）**阵**。
@@ -839,17 +836,15 @@ G =
 由前面的讨论，方程组 @eq:sole-5
 与方程组 @eq:sole-4 有相同的解。
 
-(1)
-设 \(b'_{r+1} \neq 0\)。
-则方程组 @eq:sole-5 的方程
-“\(0 = b'_{r+1}\)”是矛盾。
-则方程组 @eq:sole-5 无解。
-则方程组 @eq:sole-4 也无解。
-（注意，此时 \(r < m\)。）
+(1) 设 \(b'_{r+1} \neq 0\)。
+    则方程组 @eq:sole-5 的方程
+    “\(0 = b'_{r+1}\)”是矛盾。
+    则方程组 @eq:sole-5 无解。
+    则方程组 @eq:sole-4 也无解。
+    （注意，此时 \(r < m\)。）
 
-(2)
-设 \(b'_{r+1} = 0\)（当 \(r < m\)），
-或“\(0 = b'_{r+1}\)”不出现（当 \(r = m\)）。
+(2) 设 \(b'_{r+1} = 0\)（当 \(r < m\)），
+    或“\(0 = b'_{r+1}\)”不出现（当 \(r = m\)）。
 
 若 \(r = n\)，
 则 \(k_i = i\)（\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
@@ -959,20 +954,18 @@ G =
 为方程组 @eq:sole-5，
 且它们有相同的解。
 
-(1)
-若 \(b'_{r+1} \neq 0\)，
-则方程组 @eq:sole-4 无解。
+(1) 若 \(b'_{r+1} \neq 0\)，
+    则方程组 @eq:sole-4 无解。
 
-(2)
-若 \(b'_{r+1} = 0\)
-（或“\(0 = b'_{r+1}\)”不出现），
-则方程组 @eq:sole-4 有解。
-进一步地，
-若 \(r = n\)，
-则方程组 @eq:sole-4 有唯一的解；
-若 \(r < n\)，
-则方程组 @eq:sole-4 有不唯一的解。
-（\(r > n\) 是不可能的。）
+(2) 若 \(b'_{r+1} = 0\)
+    （或“\(0 = b'_{r+1}\)”不出现），
+    则方程组 @eq:sole-4 有解。
+    进一步地，
+    若 \(r = n\)，
+    则方程组 @eq:sole-4 有唯一的解；
+    若 \(r < n\)，
+    则方程组 @eq:sole-4 有不唯一的解。
+    （\(r > n\) 是不可能的。）
 :::
 
 我们考虑 REF 阵的秩。
@@ -1051,62 +1044,57 @@ G =
 \end{aligned}
 \]
 
-(1)
-设用若干次行的倍加，
-我们可变 \(G\) 为 REF 阵
-\[
-\begin{aligned}
-  G' =
-  \begin{bmatrix}
-    {}         & [G']_{1,k_1} & \cdots & [G']_{1,k_2} & \cdots     & [G']_{1,k_r} & \cdots & [G']_{1,n+1}   \\
-    {}         & 0            & \cdots & [G']_{2,k_2} & \cdots     & [G']_{2,k_r} & \cdots & [G']_{2,n+1}   \\
-    \mathsf{O} & \vdots       & {}     & \vdots       & {}         & \vdots       & \cdots & \vdots         \\
-    {}         & 0            & \cdots & 0            & \cdots     & [G']_{r,k_r} & \cdots & [G']_{r,n+1}   \\
-    {}         & 0            & \cdots & 0            & \cdots     & 0            & \cdots & [G']_{r+1,n+1} \\
-    {}         & {}           & {}     & {}           & \mathsf{O} & {}           & {}     & {}             \\
-  \end{bmatrix},
-\end{aligned}
-\]
-其中，
-\(\mathsf{O}\) 表示可能出现的 \(0\)，
-\(1 \leqslant k_1 < k_2 < \dots < k_r \leqslant n\)，
-且 \(\operatorname{pivot} {(G'; i)} = k_i\)
-（\(i = 1\)、\(2\)、\(\dots\)、\(r\)）。
-（\([G']_{r+1,n+1}\) 可能不出现。）
-则由 \(G'\) 的前 \(n\) 列作成的
-\(m \times n\) 阵 \(A'\)
-也是 REF 阵，
-且这些行的倍加可变 \(A\) 为 \(A'\)。
+(1) 设用若干次行的倍加，
+    我们可变 \(G\) 为 REF 阵
+    \[
+    \begin{aligned}
+      G' =
+      \begin{bmatrix}
+        {}         & [G']_{1,k_1} & \cdots & [G']_{1,k_2} & \cdots     & [G']_{1,k_r} & \cdots & [G']_{1,n+1}   \\
+        {}         & 0            & \cdots & [G']_{2,k_2} & \cdots     & [G']_{2,k_r} & \cdots & [G']_{2,n+1}   \\
+        \mathsf{O} & \vdots       & {}     & \vdots       & {}         & \vdots       & \cdots & \vdots         \\
+        {}         & 0            & \cdots & 0            & \cdots     & [G']_{r,k_r} & \cdots & [G']_{r,n+1}   \\
+        {}         & 0            & \cdots & 0            & \cdots     & 0            & \cdots & [G']_{r+1,n+1} \\
+        {}         & {}           & {}     & {}           & \mathsf{O} & {}           & {}     & {}             \\
+      \end{bmatrix},
+    \end{aligned}
+    \]
+    其中，
+    \(\mathsf{O}\) 表示可能出现的 \(0\)，
+    \(1 \leqslant k_1 < k_2 < \dots < k_r \leqslant n\)，
+    且 \(\operatorname{pivot} {(G'; i)} = k_i\)
+    （\(i = 1\)、\(2\)、\(\dots\)、\(r\)）。
+    （\([G']_{r+1,n+1}\) 可能不出现。）
+    则由 \(G'\) 的前 \(n\) 列作成的
+    \(m \times n\) 阵 \(A'\)
+    也是 REF 阵，
+    且这些行的倍加可变 \(A\) 为 \(A'\)。
 
-(2)
-\(\operatorname{rank} {(A)}
-  = \operatorname{rank} {(A')} = r\)，
-且
-\(\operatorname{rank} {(G)} = \operatorname{rank} {(G')}\)。
+(2) \(\operatorname{rank} {(A)}
+      = \operatorname{rank} {(A')} = r\)，
+    且
+    \(\operatorname{rank} {(G)} = \operatorname{rank} {(G')}\)。
 
-(3)
-\([G']_{r+1,n+1} \neq 0\) 对应
-\(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)，
-即
-\(\operatorname{rank} {(G)} > \operatorname{rank} {(A)}\)。
+(3) \([G']_{r+1,n+1} \neq 0\) 对应
+    \(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)，
+    即
+    \(\operatorname{rank} {(G)} > \operatorname{rank} {(A)}\)。
 
-(4)
-\([G']_{r+1,n+1} = 0\)
-（或“\([G']_{r+1,n+1}\)”不出现）对应
-\(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)，
-即
-\(\operatorname{rank} {(G)} = \operatorname{rank} {(A)}\)。
+(4) \([G']_{r+1,n+1} = 0\)
+    （或“\([G']_{r+1,n+1}\)”不出现）对应
+    \(\operatorname{rank} {(G')} = \operatorname{rank} {(A')}\)，
+    即
+    \(\operatorname{rank} {(G)} = \operatorname{rank} {(A)}\)。
 :::
 
 ::: proof
-(1)
-设 \(A'\) 是由 \(G'\) 的前 \(n\) 列作成的 \(m \times n\) 阵。
-则
-\(\operatorname{pivot} {(A'; i)} = \operatorname{pivot} {(G'; i)}\)
-（\(i = 1\)、\(2\)、\(\dots\)、\(r\)），
-且对 \(i > r\)，
-\(A'\) 的行 \(i\) 是 \(0\)。
-则 \(A'\) 是 REF 阵。
+(1) 设 \(A'\) 是由 \(G'\) 的前 \(n\) 列作成的 \(m \times n\) 阵。
+    则
+    \(\operatorname{pivot} {(A'; i)} = \operatorname{pivot} {(G'; i)}\)
+    （\(i = 1\)、\(2\)、\(\dots\)、\(r\)），
+    且对 \(i > r\)，
+    \(A'\) 的行 \(i\) 是 \(0\)。
+    则 \(A'\) 是 REF 阵。
 
 设形如 \(E(m; p, q; s)\)（\(p \neq q\)）的阵
 \(E_1\)、\(E_2\)、\(\dots\)、\(E_w\) 使
@@ -1144,11 +1132,10 @@ G =
 \end{aligned}
 \]
 
-(2)
-倍加不改变秩。
-注意，\(A'\) 有 \(r\) 个非零行。
+(2) 倍加不改变秩。
+    注意，\(A'\) 有 \(r\) 个非零行。
 
-(3) (4)
+(3\) (4)
 若 \([G']_{r+1,n+1} \neq 0\)，
 则 \(G'\) 有 \(r + 1\) 个非零行。
 则 \(\operatorname{rank} {(G')} > \operatorname{rank} {(A')}\)。
@@ -1192,19 +1179,17 @@ G =
 \end{aligned}
 \]
 
-(1)
-若 \(\operatorname{rank} {(G)}
-  = \operatorname{rank} {(A)}\)，
-则线性方程组 \(A X = B\) 有解。
-进一步地，若 \(\operatorname{rank} {(A)} < n\)，
-则 \(AX = B\) 的解不唯一；
-若 \(\operatorname{rank} {(A)} = n\)，
-则 \(AX = B\) 的解唯一。
+(1) 若 \(\operatorname{rank} {(G)}
+      = \operatorname{rank} {(A)}\)，
+    则线性方程组 \(A X = B\) 有解。
+    进一步地，若 \(\operatorname{rank} {(A)} < n\)，
+    则 \(AX = B\) 的解不唯一；
+    若 \(\operatorname{rank} {(A)} = n\)，
+    则 \(AX = B\) 的解唯一。
 
-(2)
-若 \(\operatorname{rank} {(G)}
-  > \operatorname{rank} {(A)}\)，
-则线性方程组 \(A X = B\) 无解。
+(2) 若 \(\operatorname{rank} {(G)}
+      > \operatorname{rank} {(A)}\)，
+    则线性方程组 \(A X = B\) 无解。
 
 注意，\(\operatorname{rank} {(G)}\)
 不可能小于 \(\operatorname{rank} {(A)}\)。
@@ -1563,40 +1548,36 @@ G =
 设 \(A\) 是 \(m \times n\) 阵。
 设存在不高于 \(m\) 的非负整数 \(r\)，使：
 
-(1)
-对任何不高于 \(r\) 的正整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)} < \infty;
-\end{aligned}
-\]
+(1) 对任何不高于 \(r\) 的正整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)} < \infty;
+    \end{aligned}
+    \]
 
-(2)
-对任何低于 \(r\) 的正整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)}
-  < \operatorname{pivot} {(A; i + 1)};
-\end{aligned}
-\]
+(2) 对任何低于 \(r\) 的正整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)}
+      < \operatorname{pivot} {(A; i + 1)};
+    \end{aligned}
+    \]
 
-(3)
-对任何高于 \(r\) 且不高于 \(m\) 的整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)} = \infty;
-\end{aligned}
-\]
+(3) 对任何高于 \(r\) 且不高于 \(m\) 的整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)} = \infty;
+    \end{aligned}
+    \]
 
-(4)
-对任何不高于 \(r\) 的正整数 \(i\)，
-与任何不等于 \(i\)，
-且不高于 \(m\) 的正整数 \(\ell\)，
-\[
-\begin{aligned}
-  [A]_{\ell,\operatorname{pivot} {(A; i)}} = 0.
-\end{aligned}
-\]
+(4) 对任何不高于 \(r\) 的正整数 \(i\)，
+    与任何不等于 \(i\)，
+    且不高于 \(m\) 的正整数 \(\ell\)，
+    \[
+    \begin{aligned}
+      [A]_{\ell,\operatorname{pivot} {(A; i)}} = 0.
+    \end{aligned}
+    \]
 
 我们说，\(A\) 是 **SREF**
 （<lang en>special row-echelon form</lang>）**阵**。
@@ -2061,24 +2042,22 @@ G =
 \end{aligned}
 \]
 
-(1)
-（Cramer 公式，2）
-若 \(\det {(A)} \neq 0\)，
-则方程组 @eq:sole-10 有唯一的解
-\[
-\begin{aligned}
-  x_i = \frac{\det {(A \{i, B\})}}{\det {(A)}},
-  \quad
-  \text{\(i = 1\), \(2\), \(\dots\), \(n\)},
-\end{aligned}
-\]
-其中，\(A \{i, B\}\) 是
-以 \(B\) 代阵 \(A\) 的列 \(i\) 后得到的阵。
+(1) （Cramer 公式，2）
+    若 \(\det {(A)} \neq 0\)，
+    则方程组 @eq:sole-10 有唯一的解
+    \[
+    \begin{aligned}
+      x_i = \frac{\det {(A \{i, B\})}}{\det {(A)}},
+      \quad
+      \text{\(i = 1\), \(2\), \(\dots\), \(n\)},
+    \end{aligned}
+    \]
+    其中，\(A \{i, B\}\) 是
+    以 \(B\) 代阵 \(A\) 的列 \(i\) 后得到的阵。
 
-(2)
-若 \(\det {(A)} = 0\)，
-则方程组 @eq:sole-10 要么无解，
-要么有不唯一的解。
+(2) 若 \(\det {(A)} = 0\)，
+    则方程组 @eq:sole-10 要么无解，
+    要么有不唯一的解。
 :::
 
 ::: proof
@@ -2214,37 +2193,36 @@ G =
 好的。
 我们已好地准备。
 
-(1)
-若 \(\det {(A)} \neq 0\)，
-则因为我们可用行的倍加，
-变 \(A\) 为 \(A'\)，
-\(\det {(A')} = \det {(A)} \neq 0\)。
-则 \(r = n\)。
-则 \(k_i = i\)（\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
-则 \(G'\) 形如
-\[
-\begin{aligned}
-  \begin{bmatrix}
-    a'_{1,1} & 0        & \cdots & 0        & b'_1   \\
-    0        & a'_{2,2} & \cdots & 0        & b'_2   \\
-    \vdots   & \vdots   & {}     & \vdots   & \vdots \\
-    0        & 0        & \cdots & a'_{n,n} & b'_n   \\
-  \end{bmatrix},
-\end{aligned}
-\]
-且方程组 @eq:sole-11 形如
-\[
-\left\{
-\begin{aligned}
-  a'_{1,1} x_1 & = b'_1, \\
-  a'_{2,2} x_2 & = b'_2, \\
-  & \dots, \\
-  a'_{n,n} x_n & = b'_n,
-\end{aligned}
-\right.
-\]
-其中，\(a'_{i,i} \neq 0\)。
-则方程组 @eq:sole-11 有唯一的解
+(1) 若 \(\det {(A)} \neq 0\)，
+    则因为我们可用行的倍加，
+    变 \(A\) 为 \(A'\)，
+    \(\det {(A')} = \det {(A)} \neq 0\)。
+    则 \(r = n\)。
+    则 \(k_i = i\)（\(i = 1\)、\(2\)、\(\dots\)、\(n\)）。
+    则 \(G'\) 形如
+    \[
+    \begin{aligned}
+      \begin{bmatrix}
+        a'_{1,1} & 0        & \cdots & 0        & b'_1   \\
+        0        & a'_{2,2} & \cdots & 0        & b'_2   \\
+        \vdots   & \vdots   & {}     & \vdots   & \vdots \\
+        0        & 0        & \cdots & a'_{n,n} & b'_n   \\
+      \end{bmatrix},
+    \end{aligned}
+    \]
+    且方程组 @eq:sole-11 形如
+    \[
+    \left\{
+    \begin{aligned}
+      a'_{1,1} x_1 & = b'_1, \\
+      a'_{2,2} x_2 & = b'_2, \\
+      & \dots, \\
+      a'_{n,n} x_n & = b'_n,
+    \end{aligned}
+    \right.
+    \]
+    其中，\(a'_{i,i} \neq 0\)。
+    则方程组 @eq:sole-11 有唯一的解
 
 ```math {@eq:sole-10-solutions}
 x_i = \frac{b'_i}{a'_{i,i}},
@@ -2326,10 +2304,9 @@ x_i = \frac{b'_i}{a'_{i,i}},
 \end{aligned}
 \]
 
-(2)
-若 \(\det {(A)} = 0\)，
-则 \(\det {(A')} = \det {(A)} = 0\)。
-则 \(r < n\)。
+(2) 若 \(\det {(A)} = 0\)，
+    则 \(\det {(A')} = \det {(A)} = 0\)。
+    则 \(r < n\)。
 
 若 \(b'_{r,n+1} \neq 0\)，
 则方程组 @eq:sole-11 无解。
@@ -2844,43 +2821,39 @@ SREF 阵是 REF 阵，
 设 \(A\) 是 \(m \times n\) 阵。
 设存在不高于 \(m\) 的非负整数 \(r\)，使：
 
-(1)
-对任何不高于 \(r\) 的正整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)} < \infty;
-\end{aligned}
-\]
+(1) 对任何不高于 \(r\) 的正整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)} < \infty;
+    \end{aligned}
+    \]
 
-(2)
-对任何低于 \(r\) 的正整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)}
-  < \operatorname{pivot} {(A; i + 1)};
-\end{aligned}
-\]
+(2) 对任何低于 \(r\) 的正整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)}
+      < \operatorname{pivot} {(A; i + 1)};
+    \end{aligned}
+    \]
 
-(3)
-对任何高于 \(r\) 且不高于 \(m\) 的整数 \(i\)，
-\[
-\begin{aligned}
-  \operatorname{pivot} {(A; i)} = \infty;
-\end{aligned}
-\]
+(3) 对任何高于 \(r\) 且不高于 \(m\) 的整数 \(i\)，
+    \[
+    \begin{aligned}
+      \operatorname{pivot} {(A; i)} = \infty;
+    \end{aligned}
+    \]
 
-(4)
-对任何不高于 \(r\) 的正整数 \(i\)，
-与任何不高于 \(m\) 的正整数 \(\ell\)，
-\[
-\begin{aligned}
-  [A]_{\ell,\operatorname{pivot} {(A; i)}} =
-  \begin{cases}
-    0, & \ell \neq i; \\
-    1, & \ell = i.
-  \end{cases}
-\end{aligned}
-\]
+(4) 对任何不高于 \(r\) 的正整数 \(i\)，
+    与任何不高于 \(m\) 的正整数 \(\ell\)，
+    \[
+    \begin{aligned}
+      [A]_{\ell,\operatorname{pivot} {(A; i)}} =
+      \begin{cases}
+        0, & \ell \neq i; \\
+        1, & \ell = i.
+      \end{cases}
+    \end{aligned}
+    \]
 
 我们说，\(A\) 是 **RREF**
 （<lang en>reduced row-echelon form</lang>）**阵**。

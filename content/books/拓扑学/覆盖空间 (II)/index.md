@@ -38,17 +38,17 @@ notices:
 是群 \(G\) 在 \(X\) 上的连续作用
 （按照惯例，\(\mu(g,x)\) 用毗联 \(g\cdot x\)代表）。并且它满足如下性质：
 
-- (T) 对任何 \(b \in B\)，存在 \(b\) 的邻域 \(U\)，
-  以及 \(U\) 上空间的同构：
-  \[
-  \varphi\colon (U \times_B X, \mathrm{pr}_1) \xrightarrow{\sim} (U \times G, \mathrm{pr}_1),
-  \quad
-  \varphi(b,x) = (b, u(b,x)),
-  \]
-  它满足
-  \[
-  u(g \cdot (b,x)) = g \cdot u (b,x).
-  \]
+(T) 对任何 \(b \in B\)，存在 \(b\) 的邻域 \(U\)，
+    以及 \(U\) 上空间的同构：
+    \[
+    \varphi\colon (U \times_B X, \mathrm{pr}_1) \xrightarrow{\sim} (U \times G, \mathrm{pr}_1),
+    \quad
+    \varphi(b,x) = (b, u(b,x)),
+    \]
+    它满足
+    \[
+    u(g \cdot (b,x)) = g \cdot u (b,x).
+    \]
 
 容易验证（通过局部的考虑），\(G\backslash X \cong B\)。
 

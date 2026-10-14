@@ -504,48 +504,48 @@ $S = \left(
 为 $\mathsf{Cat}^{\mathrm{rex}}$ 中的序列，
 考虑以下条件：
 
-- (1) $S$ 为余纤维列，
-  $\mathcal{C}$ 和 $\mathcal{D}$ 带终对象，
-  $i$ 全忠实且保持终对象，
-  其像关于收缩封闭。
+(1) $S$ 为余纤维列，
+    $\mathcal{C}$ 和 $\mathcal{D}$ 带终对象，
+    $i$ 全忠实且保持终对象，
+    其像关于收缩封闭。
 
-- (2) $S$ 为 Verdier 序列
-  （@def-Verdier-Rex）。
+(2) $S$ 为 Verdier 序列
+    （@def-Verdier-Rex）。
 
-- (2${}'$) $S$ 为余纤维列，
-  $i$ 全忠实，
-  $i_+$ 的像关于收缩封闭，
-  且 $\mathsf{Ind}(i)$ 为强左伴随
-  （即其右伴随还具有右伴随）。
+(2${}'$) $S$ 为余纤维列，
+         $i$ 全忠实，
+         $i_+$ 的像关于收缩封闭，
+         且 $\mathsf{Ind}(i)$ 为强左伴随
+         （即其右伴随还具有右伴随）。
 
-- (3) $S_+ = \left(
-          \mathcal{C}_+ \xrightarrow{i_+}
-          \mathcal{D}_+ \xrightarrow{p_+}
-          \mathcal{E}_+
-        \right)$
-  为余纤维列，
-  且 $i_+$ 全忠实，其像关于收缩封闭。
+(3) $S_+ = \left(
+        \mathcal{C}_+ \xrightarrow{i_+}
+        \mathcal{D}_+ \xrightarrow{p_+}
+        \mathcal{E}_+
+      \right)$
+    为余纤维列，
+    且 $i_+$ 全忠实，其像关于收缩封闭。
 
-- (4) $\mathsf{SW}(S) = \left(
-          \mathsf{SW}(\mathcal{C}) \to
-          \mathsf{SW}(\mathcal{D}) \to
-          \mathsf{SW}(\mathcal{E})
-        \right)$
-  为 $\mathsf{Cat}^{\mathrm{ex}}$ 中的 Verdier 序列。
+(4) $\mathsf{SW}(S) = \left(
+        \mathsf{SW}(\mathcal{C}) \to
+        \mathsf{SW}(\mathcal{D}) \to
+        \mathsf{SW}(\mathcal{E})
+      \right)$
+    为 $\mathsf{Cat}^{\mathrm{ex}}$ 中的 Verdier 序列。
 
-- (5) $\mathrm{k}(S) = \left(
-          \mathrm{k}(\mathcal{C}) \to
-          \mathrm{k}(\mathcal{D}) \to
-          \mathrm{k}(\mathcal{E})
-        \right)$
-  为 $\mathsf{Sp}_{\geq 0}$ 中的纤维列。
+(5) $\mathrm{k}(S) = \left(
+        \mathrm{k}(\mathcal{C}) \to
+        \mathrm{k}(\mathcal{D}) \to
+        \mathrm{k}(\mathcal{E})
+      \right)$
+    为 $\mathsf{Sp}_{\geq 0}$ 中的纤维列。
 
-- (6) $\mathrm{K}(S) = \left(
-          \mathrm{K}(\mathcal{C}) \to
-          \mathrm{K}(\mathcal{D}) \to
-          \mathrm{K}(\mathcal{E})
-        \right)$
-  为 $\mathsf{Sp}$ 中的纤维列。
+(6) $\mathrm{K}(S) = \left(
+        \mathrm{K}(\mathcal{C}) \to
+        \mathrm{K}(\mathcal{D}) \to
+        \mathrm{K}(\mathcal{E})
+      \right)$
+    为 $\mathsf{Sp}$ 中的纤维列。
 
 则有蕴含关系：
 \[

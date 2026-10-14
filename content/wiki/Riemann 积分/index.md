@@ -30,9 +30,9 @@ notices:
 ::: definition [一般集合的分割] {@def-partition-of-set}
 对任一[[集合]]$A$，和一个指标集$I$，若存在一列集合$\{A_{\alpha}\}_{\alpha\in I}$满足：
 
-- (i) $\forall \alpha,\beta\in I, A_{\alpha}\cap A_{\beta}=\varnothing$，即它们两两不交；
+(i) $\forall \alpha,\beta\in I, A_{\alpha}\cap A_{\beta}=\varnothing$，即它们两两不交；
 
-- (ii) $\displaystyle\bigcup_{\alpha\in I}A_{\alpha}=A$。
+(ii) $\displaystyle\bigcup_{\alpha\in I}A_{\alpha}=A$。
 
 那么我们称集类$\mathscr{A}=\{A_{\alpha}:\alpha\in I\}$为集合$A$的一个**分割**。
 :::

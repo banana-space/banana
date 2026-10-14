@@ -26,14 +26,14 @@ notices:
 
 5. （$\mathfrak{A}_5$的自同构群）令 $G=\mathfrak{A}_5$。
 
-   - a) 假设 $x=(12)(34)\in G$，$y\in G$ 是一个 $3$ 阶元。
-     证明，$xy$ 的阶为 $5$ 当且仅当 $y$ 的两个不动点一个在 $\{1,2\}$ 中并且另一个在 $\{3,4\}$ 中。
+   a) 假设 $x=(12)(34)\in G$，$y\in G$ 是一个 $3$ 阶元。
+      证明，$xy$ 的阶为 $5$ 当且仅当 $y$ 的两个不动点一个在 $\{1,2\}$ 中并且另一个在 $\{3,4\}$ 中。
 
-   - b) 令 $X=\{(u,v)\in G\times G\big|u,v,uv~\text{的阶分别为}~2,3,5\}$，证明，$|X|=120$。
+   b) 令 $X=\{(u,v)\in G\times G\big|u,v,uv~\text{的阶分别为}~2,3,5\}$，证明，$|X|=120$。
 
-   - c) $\mathbf{Aut}(G)$ 作用在 $X$ 上，证明，这个作用是自由的。
-     据此，$|\mathbf{Aut}(G)|\leqslant 120$。
-     由于 $\mathbf{Aut}(G)$ 包含 $\mathfrak{S}_5$，从而 $\mathbf{Aut}(G)=\mathfrak{S}_5$。
+   c) $\mathbf{Aut}(G)$ 作用在 $X$ 上，证明，这个作用是自由的。
+      据此，$|\mathbf{Aut}(G)|\leqslant 120$。
+      由于 $\mathbf{Aut}(G)$ 包含 $\mathfrak{S}_5$，从而 $\mathbf{Aut}(G)=\mathfrak{S}_5$。
 
 6. （$\mathfrak{A}_4$的自同构群）用$(2,3,3)$（元素的阶）替换$(2,3,5)$，
    试用类似的方法证明$\mathbf{Aut}(\mathfrak{A_4})=\mathfrak{S}_4$。

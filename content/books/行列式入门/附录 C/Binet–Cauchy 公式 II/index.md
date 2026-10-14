@@ -8,14 +8,12 @@ title: Binet–Cauchy 公式
 我用完全展开行列式的公式证明了它。
 这个证法：
 
-(1)
-用简单的记号；
+(1) 用简单的记号；
 
-(2)
-使您方便地对比选学内容
-“Binet–Cauchy 公式”
-与必学内容
-“Binet–Cauchy 公式（青春版）”。
+(2) 使您方便地对比选学内容
+    “Binet–Cauchy 公式”
+    与必学内容
+    “Binet–Cauchy 公式（青春版）”。
 
 当然，此证法的一个大的缺点是
 用到了完全展开。
@@ -60,96 +58,91 @@ title: Binet–Cauchy 公式
 ::: theorem [Binet–Cauchy 公式]
 设 \(A\)、\(B\) 分别是 \(m \times n\)、\(n \times m\) 阵。
 
-(1)
-若 \(n > m\)，则 \(\det {(BA)} = 0\)。
+(1) 若 \(n > m\)，则 \(\det {(BA)} = 0\)。
 
-(2)
-若 \(n \leqslant m\)，
-则
-\[
-\begin{aligned}
-  & \det {(BA)}
-  \\
-  = {} & \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
-  {
-    \det {\left(
-        B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}
-    \right)}
-    \det {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
-    \right)}
-  }.
-\end{aligned}
-\]
-特别地，若 \(n = m\)，则因适合条件
-\(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)
-的 \(j_1\)、\(j_2\)、\(\dots\)、\(j_n\)，
-是，且只能是，
-\(1\)、\(2\)、\(\dots\)、\(n\)，
-故
-\[
-\begin{aligned}
-  \det {(BA)}
-  = {} &
-  \det {\left(
-      B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
-  \right)}
-  \det {\left(
-      A\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
-  \right)}
-  \\
-  = {} & \det {(B)} \det {(A)}.
-\end{aligned}
-\]
+(2) 若 \(n \leqslant m\)，
+    则
+    \[
+    \begin{aligned}
+      & \det {(BA)}
+      \\
+      = {} & \sum_{1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m}
+      {
+        \det {\left(
+            B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{j_1, j_2, \dots, j_n}
+        \right)}
+        \det {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1, j_2, \dots, j_n}{1, 2, \dots, n}
+        \right)}
+      }.
+    \end{aligned}
+    \]
+    特别地，若 \(n = m\)，则因适合条件
+    \(1 \leqslant j_1 < j_2 < \dots < j_n \leqslant m\)
+    的 \(j_1\)、\(j_2\)、\(\dots\)、\(j_n\)，
+    是，且只能是，
+    \(1\)、\(2\)、\(\dots\)、\(n\)，
+    故
+    \[
+    \begin{aligned}
+      \det {(BA)}
+      = {} &
+      \det {\left(
+          B\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
+      \right)}
+      \det {\left(
+          A\genfrac{\{}{\}}{0pt}{0}{1, 2, \dots, n}{1, 2, \dots, n}
+      \right)}
+      \\
+      = {} & \det {(B)} \det {(A)}.
+    \end{aligned}
+    \]
 :::
 
 有几件事，其值得提。
 
-(1)
-若一个方阵有一行的元全为 \(0\)，
-则它的行列式为 \(0\)。
+(1) 若一个方阵有一行的元全为 \(0\)，
+    则它的行列式为 \(0\)。
 
 可以直接用定义（按列 \(1\) 展开行列式）论证此事；
 可用按一行展开行列式的公式论证此事；
 当然，也可利用（关于行的）多线性论证此事。
 我就不在这儿证了。
 
-(2)
-若加一个阵的一列的倍于另一列，则行列式不变。
+(2) 若加一个阵的一列的倍于另一列，则行列式不变。
 
 这就是我在前面提的行列式的一个性质。
 
-(3)
-设 \(A\)、\(B\)、\(C\)、\(D\)
-分别是 \(m \times s\)、\(n \times s\)、
-\(m \times t\)、\(n \times t\) 阵。
-那么，
-\[
-\begin{aligned}
-  \begin{bmatrix}
-    A & C \\
-    B & D \\
-  \end{bmatrix}
-\end{aligned}
-\]
-表示一个 \((m + n) \times (s + t)\)-阵 \(M\)，
-且对任何不超过 \(m + n\) 的正整数 \(i\)
-与不超过 \(s + t\) 的正整数 \(j\)，
-\[
-\begin{aligned}
-  [M]_{i,j} =
-  \begin{cases}
-    [A]_{i,j},
-    & \text{\(i \leqslant m\), 且 \(j \leqslant s\)}; \\
-    [B]_{i-m,j},
-    & \text{\(i > m\), 且 \(j \leqslant s\)};    \\
-    [C]_{i,j-s},
-    & \text{\(i \leqslant m\), 且 \(j > s\)};    \\
-    [D]_{i-m,j-s},
-    & \text{\(i > m\), 且 \(j > s\)}.
-  \end{cases}
-\end{aligned}
-\]
+(3) 设 \(A\)、\(B\)、\(C\)、\(D\)
+    分别是 \(m \times s\)、\(n \times s\)、
+    \(m \times t\)、\(n \times t\) 阵。
+    那么，
+    \[
+    \begin{aligned}
+      \begin{bmatrix}
+        A & C \\
+        B & D \\
+      \end{bmatrix}
+    \end{aligned}
+    \]
+    表示一个 \((m + n) \times (s + t)\)-阵 \(M\)，
+    且对任何不超过 \(m + n\) 的正整数 \(i\)
+    与不超过 \(s + t\) 的正整数 \(j\)，
+    \[
+    \begin{aligned}
+      [M]_{i,j} =
+      \begin{cases}
+        [A]_{i,j},
+        & \text{\(i \leqslant m\), 且 \(j \leqslant s\)}; \\
+        [B]_{i-m,j},
+        & \text{\(i > m\), 且 \(j \leqslant s\)};    \\
+        [C]_{i,j-s},
+        & \text{\(i \leqslant m\), 且 \(j > s\)};    \\
+        [D]_{i-m,j-s},
+        & \text{\(i > m\), 且 \(j > s\)}.
+      \end{cases}
+    \end{aligned}
+    \]
 
 这是我们在第 1 章，节 31 见过的记号。
 现在，我要进一步地发展此记号。
@@ -704,36 +697,34 @@ title: Binet–Cauchy 公式
 且 \(D\) 是 \(k \times s\) 的。
 则
 
-(1)
-若 \(k > s\)，则 \(\det {(DC)} = 0\)。
+(1) 若 \(k > s\)，则 \(\det {(DC)} = 0\)。
 
-(2)
-若 \(k \leqslant s\)，则
-\[
-\begin{aligned}
-  & \det {(DC)}
-  \\
-  = {} & \sum_{1 \leqslant j_1 < \dots < j_k \leqslant s}
-  {
-    \det {\left(
-        D\genfrac{\{}{\}}{0pt}{0}{1, \dots, k}{j_1, \dots, j_k}
-    \right)}
-    \det {\left(
-        C\genfrac{\{}{\}}{0pt}{0}{j_1, \dots, j_k}{1, \dots, k}
-    \right)}
-  }
-  \\
-  = {} & \sum_{1 \leqslant j_1 < \dots < j_k \leqslant s}
-  {
-    \det {\left(
-        B\genfrac{\{}{\}}{0pt}{0}{i_1, \dots, i_k}{j_1, \dots, j_k}
-    \right)}
-    \det {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1, \dots, j_k}{\ell_1, \dots, \ell_k}
-    \right)}
-  }.
-\end{aligned}
-\]
+(2) 若 \(k \leqslant s\)，则
+    \[
+    \begin{aligned}
+      & \det {(DC)}
+      \\
+      = {} & \sum_{1 \leqslant j_1 < \dots < j_k \leqslant s}
+      {
+        \det {\left(
+            D\genfrac{\{}{\}}{0pt}{0}{1, \dots, k}{j_1, \dots, j_k}
+        \right)}
+        \det {\left(
+            C\genfrac{\{}{\}}{0pt}{0}{j_1, \dots, j_k}{1, \dots, k}
+        \right)}
+      }
+      \\
+      = {} & \sum_{1 \leqslant j_1 < \dots < j_k \leqslant s}
+      {
+        \det {\left(
+            B\genfrac{\{}{\}}{0pt}{0}{i_1, \dots, i_k}{j_1, \dots, j_k}
+        \right)}
+        \det {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1, \dots, j_k}{\ell_1, \dots, \ell_k}
+        \right)}
+      }.
+    \end{aligned}
+    \]
 
 综上，
 
@@ -743,35 +734,33 @@ title: Binet–Cauchy 公式
 设 \(1 \leqslant i_1 < \dots < i_k \leqslant m\)；
 设 \(1 \leqslant \ell_1 < \dots < \ell_k \leqslant n\)。
 
-(1)
-若 \(k > s\)，则
-\[
-\begin{aligned}
-  \det {\left(
-      (BA)\genfrac{\{}{\}}{0pt}{0}{i_1,\dots,i_k}{\ell_1,\dots,\ell_k}
-  \right)} = 0.
-\end{aligned}
-\]
+(1) 若 \(k > s\)，则
+    \[
+    \begin{aligned}
+      \det {\left(
+          (BA)\genfrac{\{}{\}}{0pt}{0}{i_1,\dots,i_k}{\ell_1,\dots,\ell_k}
+      \right)} = 0.
+    \end{aligned}
+    \]
 
-(2)
-若 \(k \leqslant s\)，则
-\[
-\begin{aligned}
-  & \det {\left(
-      (BA)\genfrac{\{}{\}}{0pt}{0}{i_1,\dots,i_k}{\ell_1,\dots,\ell_k}
-  \right)}
-  \\
-  = {} & \sum_{1 \leqslant j_1 < \dots < j_k \leqslant s}
-  {
-    \det {\left(
-        B\genfrac{\{}{\}}{0pt}{0}{i_1, \dots, i_k}{j_1, \dots, j_k}
-    \right)}
-    \det {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1, \dots, j_k}{\ell_1, \dots, \ell_k}
-    \right)}
-  }.
-\end{aligned}
-\]
+(2) 若 \(k \leqslant s\)，则
+    \[
+    \begin{aligned}
+      & \det {\left(
+          (BA)\genfrac{\{}{\}}{0pt}{0}{i_1,\dots,i_k}{\ell_1,\dots,\ell_k}
+      \right)}
+      \\
+      = {} & \sum_{1 \leqslant j_1 < \dots < j_k \leqslant s}
+      {
+        \det {\left(
+            B\genfrac{\{}{\}}{0pt}{0}{i_1, \dots, i_k}{j_1, \dots, j_k}
+        \right)}
+        \det {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1, \dots, j_k}{\ell_1, \dots, \ell_k}
+        \right)}
+      }.
+    \end{aligned}
+    \]
 :::
 
 可视此事为 Binet–Cauchy 公式的一个推广：

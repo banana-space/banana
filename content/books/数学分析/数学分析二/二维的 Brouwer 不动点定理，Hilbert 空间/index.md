@@ -105,49 +105,49 @@ I&=\oint_{\partial D} (uv_x-vu_x) dx+(uv_y-vu_y)dy\\
 
 首先回忆两个抽象的空间的概念：
 
-- a) $X$ 为 $\mathbb{C}$-线性空间，如果它配备了某个范数
-  \[
-  \|\cdot\|\colon X\rightarrow \mathbb{R}_{\geqslant 0},
-  \]
-  （即对任意的 $x\in X$，$\|x\|=0$ 当且仅当 $x=0$；
-  对任意的 $\lambda\in \mathbb{C}$，$\|\lambda x\|=|\lambda|\|x\|$；
-  对任意的 $x,y\in X$，有 $\|x+y\|\leqslant \|x\|+\|y\|$。）
+a) $X$ 为 $\mathbb{C}$-线性空间，如果它配备了某个范数
+   \[
+   \|\cdot\|\colon X\rightarrow \mathbb{R}_{\geqslant 0},
+   \]
+   （即对任意的 $x\in X$，$\|x\|=0$ 当且仅当 $x=0$；
+   对任意的 $\lambda\in \mathbb{C}$，$\|\lambda x\|=|\lambda|\|x\|$；
+   对任意的 $x,y\in X$，有 $\|x+y\|\leqslant \|x\|+\|y\|$。）
 
-  我们称 $(X,\|\cdot\|)$ 是**赋范线性空间**。此时，对任意的 $x,y\in X$，
-  我们可以用 $d(x,y)=\|x-y\|$ 作为 $X$ 上的距离函数，从而使得 $X$ 成为距离空间。
-  如果 $X$ 在这个距离下是完备的（即Cauchy列必收敛），
-  我们就称 $(X,\|\cdot\|)$ 是**完备赋范线性空间**（也叫做Banach空间）。
+   我们称 $(X,\|\cdot\|)$ 是**赋范线性空间**。此时，对任意的 $x,y\in X$，
+   我们可以用 $d(x,y)=\|x-y\|$ 作为 $X$ 上的距离函数，从而使得 $X$ 成为距离空间。
+   如果 $X$ 在这个距离下是完备的（即Cauchy列必收敛），
+   我们就称 $(X,\|\cdot\|)$ 是**完备赋范线性空间**（也叫做Banach空间）。
 
-- b) $X$ 为 $\mathbb{C}$-线性空间，如果它拥有二次型
-  \[
-  \langle\cdot,\cdot \rangle\colon X\times X\rightarrow \mathbb{C},
-  \]
-  满足
+b) $X$ 为 $\mathbb{C}$-线性空间，如果它拥有二次型
+   \[
+   \langle\cdot,\cdot \rangle\colon X\times X\rightarrow \mathbb{C},
+   \]
+   满足
 
-  - 1\) 对任意的 $\mu,\nu\in \mathbb{C}$ 和 $x,y,z\in X$，我们有
-    \[
-    \langle \mu x+\nu y,z\rangle=\mu \langle x,z\rangle+\nu\langle y,z\rangle.
-    \]
+   - 1\) 对任意的 $\mu,\nu\in \mathbb{C}$ 和 $x,y,z\in X$，我们有
+     \[
+     \langle \mu x+\nu y,z\rangle=\mu \langle x,z\rangle+\nu\langle y,z\rangle.
+     \]
 
-  - 2\) 对任意的 $x,y\in X$，我们有
-    \[
-    \langle x,y\rangle=\overline{\langle y,x\rangle}.
-    \]
+   - 2\) 对任意的 $x,y\in X$，我们有
+     \[
+     \langle x,y\rangle=\overline{\langle y,x\rangle}.
+     \]
 
-  - 3\) 对任意的 $x\in X$，
-    \[
-    \langle x,x\rangle\geqslant 0,
-    \]
-    并且 $\langle x,x\rangle=0$ 当且仅当 $x=0$。
+   - 3\) 对任意的 $x\in X$，
+     \[
+     \langle x,x\rangle\geqslant 0,
+     \]
+     并且 $\langle x,x\rangle=0$ 当且仅当 $x=0$。
 
-  我们就称 $(X,\langle \cdot,\cdot\rangle)$ 是**内积空间**，
-  其中二次型 $\langle\cdot,\cdot \rangle$ 被称作是内积。很容易验证，映射
-  \[
-  \|\cdot\|\colon X\rightarrow \mathbb{R}_{\geqslant 0},
-  \ \ x\mapsto \sqrt{\langle x,x\rangle}
-  \]
-  是一个范数（由内积定义的范数），从而，内积空间一定是赋范线性空间。
-  我们把完备的内积空间称作是**Hilbert空间**。
+   我们就称 $(X,\langle \cdot,\cdot\rangle)$ 是**内积空间**，
+   其中二次型 $\langle\cdot,\cdot \rangle$ 被称作是内积。很容易验证，映射
+   \[
+   \|\cdot\|\colon X\rightarrow \mathbb{R}_{\geqslant 0},
+   \ \ x\mapsto \sqrt{\langle x,x\rangle}
+   \]
+   是一个范数（由内积定义的范数），从而，内积空间一定是赋范线性空间。
+   我们把完备的内积空间称作是**Hilbert空间**。
 
 ::: remark*
 我们注意到，在内积空间中，对任意的 $x,y\in X$，我们都有

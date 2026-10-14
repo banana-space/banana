@@ -607,45 +607,46 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
   我们选取相函数$\phi(1,x,\xi)$，振幅函数$a_k(1,x,\xi)$以及被作用函数$f(x)=\chi\cdot u(x)$，
   我们来验证它们满足非驻相法引理的基本数据的条件：
 
-  - (a) $\phi(1,x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$
-    是实值的，变量$\xi$是1次齐次的并且当$\xi\neq 0$时，有$\nabla_x \phi(1,x,\xi)\neq 0$：
+  (a) $\phi(1,x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$
+      是实值的，变量$\xi$是1次齐次的并且当$\xi\neq 0$时，有$\nabla_x \phi(1,x,\xi)\neq 0$：
 
-    为了说明后者，我们用$\phi(t,x,\xi)$满足的方程：
-    \[
-    \begin{cases}
-    &\dfrac{\partial \phi}{\partial s}(s,x,\xi)=-p_m\left(x,\nabla_x\phi(s,x,\xi)\right),\\
-    &\phi(0,x,\xi)=x\cdot \xi,
-    \end{cases}
-    \]
-    其中$|\xi|=1$。对$x$求导数，我们就有
-    \[
-    \begin{aligned}
-    \frac{\partial^2 \phi}{\partial  s\partial x}(s,x,\xi) =-\frac{\partial p_m}{\partial x}(x,\nabla_x\phi(s,x,\xi))-\underbrace{\frac{\partial p_m}{\partial \xi}(x,\nabla_x\phi(s,x,\xi))}_{F(s,x,\xi)}\frac{\partial^2 \phi}{\partial x^2}(s,x,\xi).
-    \end{aligned}
-    \]
-    所以，
-    \[
-    \begin{aligned}
-    \left|\left(\frac{\partial  }{\partial s}+F\frac{\partial }{\partial x}\right)\frac{\partial \phi}{\partial x}\right|=\left|-\frac{\partial p_m}{\partial x}(x,\nabla_x\phi(s,x,\xi))\right|\leqslant C \left|\frac{\partial \phi}{\partial x}\right|^m.\end{aligned}
-    \]
-    如果$\nabla_x \phi(1,x,\xi)= 0$，上述微分不等式表明$\nabla_x \phi(0,x,\xi)= \xi=0$，矛盾！
+      为了说明后者，我们用$\phi(t,x,\xi)$满足的方程：
+      \[
+      \begin{cases}
+      &\dfrac{\partial \phi}{\partial s}(s,x,\xi)=-p_m\left(x,\nabla_x\phi(s,x,\xi)\right),\\
+      &\phi(0,x,\xi)=x\cdot \xi,
+      \end{cases}
+      \]
+      其中$|\xi|=1$。对$x$求导数，我们就有
+      \[
+      \begin{aligned}
+      \frac{\partial^2 \phi}{\partial  s\partial x}(s,x,\xi) =-\frac{\partial p_m}{\partial x}(x,\nabla_x\phi(s,x,\xi))-\underbrace{\frac{\partial p_m}{\partial \xi}(x,\nabla_x\phi(s,x,\xi))}_{F(s,x,\xi)}\frac{\partial^2 \phi}{\partial x^2}(s,x,\xi).
+      \end{aligned}
+      \]
+      所以，
+      \[
+      \begin{aligned}
+      \left|\left(\frac{\partial  }{\partial s}+F\frac{\partial }{\partial x}\right)\frac{\partial \phi}{\partial x}\right|=\left|-\frac{\partial p_m}{\partial x}(x,\nabla_x\phi(s,x,\xi))\right|\leqslant C \left|\frac{\partial \phi}{\partial x}\right|^m.\end{aligned}
+      \]
+      如果$\nabla_x \phi(1,x,\xi)= 0$，上述微分不等式表明$\nabla_x \phi(0,x,\xi)= \xi=0$，矛盾！
 
-    上面的推理对于$t\neq 1$也成立。
+      上面的推理对于$t\neq 1$也成立。
 
-  - (b) 按照构造，对于任意的$t$，$b_j(t,x,\xi)$光滑，所以$a_k(t,x,\xi)$也光滑。
-    另外，$a_k(t,x,\xi)$是一些次数不超过$0$的齐次函数的和，利用紧性，使得对任意的多重指标$\alpha$，
-    存在常数$C_\alpha$，我们都有
-    \[
-    \left|\partial^\alpha_x a_k(t,x,\xi)\right|\leqslant C_\alpha.
-    \]
+  (b) 按照构造，对于任意的$t$，$b_j(t,x,\xi)$光滑，所以$a_k(t,x,\xi)$也光滑。
+      另外，$a_k(t,x,\xi)$是一些次数不超过$0$的齐次函数的和，利用紧性，
+      使得对任意的多重指标$\alpha$，
+      存在常数$C_\alpha$，我们都有
+      \[
+      \left|\partial^\alpha_x a_k(t,x,\xi)\right|\leqslant C_\alpha.
+      \]
 
-  - (c) 由于$(x(1),\xi(1))\notin WF(u)$，对任意的$N\geqslant 1$，存在常数$C_N$，
-    使得对任意的$\xi \in \Gamma(\xi(1),\beta)$，都有
-    我们就有
-    \[
-    \left|\widehat{f}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
-    \]
-    这里，$\eta_0=\dfrac{\xi(1)}{|\xi(1)|}$。
+  (c) 由于$(x(1),\xi(1))\notin WF(u)$，对任意的$N\geqslant 1$，存在常数$C_N$，
+      使得对任意的$\xi \in \Gamma(\xi(1),\beta)$，都有
+      我们就有
+      \[
+      \left|\widehat{f}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
+      \]
+      这里，$\eta_0=\dfrac{\xi(1)}{|\xi(1)|}$。
 
   根据 @lem:172 以及连续性，对任意的$(x,\xi)\in B(x(1),r_0)\times \Gamma(\xi(1),\alpha_0)$，我们有
   \[

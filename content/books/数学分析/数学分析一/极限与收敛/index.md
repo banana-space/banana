@@ -354,38 +354,38 @@ $\displaystyle\lim_{n\rightarrow \infty}y_n=y$。
 ::: remark*
 我们对命题本身稍加解释：
 
-- a) 在命题的 ${\rm 5)}$ 中出现的“对足够大的 $n$”的讲法，指的是“存在 $N$，使得 $n\geqslant N$ 时”，
-  我们将经常使用这种分析中的“黑话”。
+a) 在命题的 ${\rm 5)}$ 中出现的“对足够大的 $n$”的讲法，指的是“存在 $N$，使得 $n\geqslant N$ 时”，
+   我们将经常使用这种分析中的“黑话”。
 
-- b) 命题 ${\rm 1)}$ 的等号左边说我们先逐项求和然后取极限，右边我们可以先求极限再求和，
-  所以交换了求和和取极限这两种操作之后，我们得到了同样的结果。
-  其他几个命题都是将极限符号和四则运算可以交换。
-  在数学和物理的很多分支中，两种操作的顺序是否可交换的是很重要的，
-  比如说在线性代数里两个矩阵的乘积何时可交换是很核心的话题，时空的弯曲与此有关，
-  量子力学中的Heisenberg测不准原理也是。
+b) 命题 ${\rm 1)}$ 的等号左边说我们先逐项求和然后取极限，右边我们可以先求极限再求和，
+   所以交换了求和和取极限这两种操作之后，我们得到了同样的结果。
+   其他几个命题都是将极限符号和四则运算可以交换。
+   在数学和物理的很多分支中，两种操作的顺序是否可交换的是很重要的，
+   比如说在线性代数里两个矩阵的乘积何时可交换是很核心的话题，时空的弯曲与此有关，
+   量子力学中的Heisenberg测不准原理也是。
 
-- c) 命题的 ${\rm 5)}$ 说的是 $\lim$ 与 $\leqslant$ 可以交换。
-  如果我们要求对足够大的 $n$，有 $x_n<y_n$，那么取极限之后 $x< y$ 未必成立（试举一个反例，
-  举反例是很重要的练习，尤其是接触新概念时，这不失为理解抽象概念的最好方式之一），
-  即严格大小关系和极限不交换。
-  另外，将 $\leqslant$ 换成 $\geqslant$ 结论也成立，
-  课程后面这种平行的命题我们一般只选择证明其中的一条。
+c) 命题的 ${\rm 5)}$ 说的是 $\lim$ 与 $\leqslant$ 可以交换。
+   如果我们要求对足够大的 $n$，有 $x_n<y_n$，那么取极限之后 $x< y$ 未必成立（试举一个反例，
+   举反例是很重要的练习，尤其是接触新概念时，这不失为理解抽象概念的最好方式之一），
+   即严格大小关系和极限不交换。
+   另外，将 $\leqslant$ 换成 $\geqslant$ 结论也成立，
+   课程后面这种平行的命题我们一般只选择证明其中的一条。
 
-- d) 在命题的 ${\rm 3)}$ 的证明中，
-  我们不需要区别 $\varepsilon$ 和 $2C\varepsilon$ 或者 $10000\varepsilon$，
-  这是因为 $\varepsilon$ 可以任意选取。这是数学分析的行规：$\varepsilon\approx10000\varepsilon$。
+d) 在命题的 ${\rm 3)}$ 的证明中，
+   我们不需要区别 $\varepsilon$ 和 $2C\varepsilon$ 或者 $10000\varepsilon$，
+   这是因为 $\varepsilon$ 可以任意选取。这是数学分析的行规：$\varepsilon\approx10000\varepsilon$。
 
-- e) 这个性质最重要的应用是用于计算！通过交换极限和四则运算，
-  很多复杂极限问题可以化成简单的四则运算问题（四则运算我们更熟悉）。
-  比如说，我们要计算 $\displaystyle\lim_{n\rightarrow \infty} \dfrac{n^2+3n+2}{n^2+1}$，
-  我们可以按照下面的步骤来做：
-  \[
-  \begin{aligned}
-  \lim_{n\rightarrow \infty} \dfrac{n^2+3n+2}{n^2+1}&=\lim_{n\rightarrow \infty} \dfrac{1+\dfrac{3}{n}+\dfrac{2}{n^2}}{1+\dfrac{1}{n^2}}\\
-  &= \dfrac{\displaystyle\lim_{n\rightarrow \infty}\left(1+\frac{3}{n}+\frac{2}{n^2}\right)}{\displaystyle\lim_{n\rightarrow \infty}\left(1+\frac{1}{n^2}\right)}\\
-  &=\dfrac{\displaystyle\lim_{n\rightarrow \infty} 1+\displaystyle\lim_{n\rightarrow \infty} \frac{3}{n}+\displaystyle\lim_{n\rightarrow \infty} \frac{2}{n^2}}{\displaystyle\lim_{n\rightarrow \infty} 1+\displaystyle\lim_{n\rightarrow \infty} \frac{1}{n^2}}=\frac{1+0+0}{1+0}=1.
-  \end{aligned}
-  \]
+e) 这个性质最重要的应用是用于计算！通过交换极限和四则运算，
+   很多复杂极限问题可以化成简单的四则运算问题（四则运算我们更熟悉）。
+   比如说，我们要计算 $\displaystyle\lim_{n\rightarrow \infty} \dfrac{n^2+3n+2}{n^2+1}$，
+   我们可以按照下面的步骤来做：
+   \[
+   \begin{aligned}
+   \lim_{n\rightarrow \infty} \dfrac{n^2+3n+2}{n^2+1}&=\lim_{n\rightarrow \infty} \dfrac{1+\dfrac{3}{n}+\dfrac{2}{n^2}}{1+\dfrac{1}{n^2}}\\
+   &= \dfrac{\displaystyle\lim_{n\rightarrow \infty}\left(1+\frac{3}{n}+\frac{2}{n^2}\right)}{\displaystyle\lim_{n\rightarrow \infty}\left(1+\frac{1}{n^2}\right)}\\
+   &=\dfrac{\displaystyle\lim_{n\rightarrow \infty} 1+\displaystyle\lim_{n\rightarrow \infty} \frac{3}{n}+\displaystyle\lim_{n\rightarrow \infty} \frac{2}{n^2}}{\displaystyle\lim_{n\rightarrow \infty} 1+\displaystyle\lim_{n\rightarrow \infty} \frac{1}{n^2}}=\frac{1+0+0}{1+0}=1.
+   \end{aligned}
+   \]
 
 :::
 

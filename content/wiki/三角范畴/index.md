@@ -40,83 +40,83 @@ notices:
 
 它们满足以下公理：
 
-- (**TR1**)
+(**TR1**)
 
-  - 正合三角被[[同构]]保持：
-    同构于正合三角的三角也是正合三角。
+          - 正合三角被[[同构]]保持：
+            同构于正合三角的三角也是正合三角。
 
-  - 对任何 $X \in \mathcal{C}$，
-    \[
-    X \xrightarrow{\mathbb{1}_X}
-    X \longrightarrow
-    0 \longrightarrow
-    X [1]
-    \]
-    是正合三角。
+          - 对任何 $X \in \mathcal{C}$，
+            \[
+            X \xrightarrow{\mathbb{1}_X}
+            X \longrightarrow
+            0 \longrightarrow
+            X [1]
+            \]
+            是正合三角。
 
-  - 对 $\mathcal{C}$ 中任何态射 $f \colon X \to Y$，
-    都存在正合三角
-    \[
-    X \xrightarrow{f}
-    Y \longrightarrow
-    Z \longrightarrow
-    X [1].
-    \]
+          - 对 $\mathcal{C}$ 中任何态射 $f \colon X \to Y$，
+            都存在正合三角
+            \[
+            X \xrightarrow{f}
+            Y \longrightarrow
+            Z \longrightarrow
+            X [1].
+            \]
 
-- (**TR2**)
-  三角
-  \[
-  X \xrightarrow{f}
-  Y \xrightarrow{g}
-  Z \xrightarrow{h}
-  X [1]
-  \]
-  是正合三角，当且仅当
-  \[
-  Y \xrightarrow{g}
-  Z \xrightarrow{h}
-  X [1] \xrightarrow{-f[1]}
-  Y [1]
-  \]
-  是正合三角。
+(**TR2**)
+          三角
+          \[
+          X \xrightarrow{f}
+          Y \xrightarrow{g}
+          Z \xrightarrow{h}
+          X [1]
+          \]
+          是正合三角，当且仅当
+          \[
+          Y \xrightarrow{g}
+          Z \xrightarrow{h}
+          X [1] \xrightarrow{-f[1]}
+          Y [1]
+          \]
+          是正合三角。
 
-- (**TR3**)
-  给定正合三角
-  \[
-  \begin{gathered}
-    X \xrightarrow{f}
-    Y \xrightarrow{g}
-    Z \xrightarrow{h}
-    X [1], \\
-    X' \xrightarrow{f'}
-    Y' \xrightarrow{g'}
-    Z' \xrightarrow{h'}
-    X' [1],
-  \end{gathered}
-  \]
-  及交换图表
-  \[
-  \begin{tikzcd}
-    X \ar[r, "f"] \ar[d, "a"'] &
-    Y \ar[d, "b"] \\
-    X' \ar[r, "f'"] &
-    Y' \rlap{ ,}
-  \end{tikzcd}
-  \]
-  存在（不一定唯一的）态射 $c \colon Z \to Z'$，使图表
-  \[
-  \begin{tikzcd}
-    X \ar[r, "f"] \ar[d, "a"] &
-    Y \ar[r, "g"] \ar[d, "b"] &
-    Z \ar[r, "h"] \ar[d, "c"] &
-    X [1] \ar[d, "{a[1]}"] \\
-    X' \ar[r, "f'"] &
-    Y' \ar[r, "g'"] &
-    Z' \ar[r, "h'"] &
-    X' [1]
-  \end{tikzcd}
-  \]
-  交换。
+(**TR3**)
+          给定正合三角
+          \[
+          \begin{gathered}
+            X \xrightarrow{f}
+            Y \xrightarrow{g}
+            Z \xrightarrow{h}
+            X [1], \\
+            X' \xrightarrow{f'}
+            Y' \xrightarrow{g'}
+            Z' \xrightarrow{h'}
+            X' [1],
+          \end{gathered}
+          \]
+          及交换图表
+          \[
+          \begin{tikzcd}
+            X \ar[r, "f"] \ar[d, "a"'] &
+            Y \ar[d, "b"] \\
+            X' \ar[r, "f'"] &
+            Y' \rlap{ ,}
+          \end{tikzcd}
+          \]
+          存在（不一定唯一的）态射 $c \colon Z \to Z'$，使图表
+          \[
+          \begin{tikzcd}
+            X \ar[r, "f"] \ar[d, "a"] &
+            Y \ar[r, "g"] \ar[d, "b"] &
+            Z \ar[r, "h"] \ar[d, "c"] &
+            X [1] \ar[d, "{a[1]}"] \\
+            X' \ar[r, "f'"] &
+            Y' \ar[r, "g'"] &
+            Z' \ar[r, "h'"] &
+            X' [1]
+          \end{tikzcd}
+          \]
+          交换。
 
 - （**TR4**，**八面体公理**）
   给定正合三角

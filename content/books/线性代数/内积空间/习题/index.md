@@ -54,11 +54,11 @@ $。
     其内积为$\langle A,B \rangle=\text{Tr} (A^T B)$。
     对于如下$V$的子空间$U$，计算$U$的正交补$U^{\perp}$以及正交投影$p_{U}:V\to U$。
 
-    - (a) $U=\text{Span}\{I_n\}$是由单位方阵张成的子空间
+    (a) $U=\text{Span}\{I_n\}$是由单位方阵张成的子空间
 
-    - (b) $U$ 是由所有对角方阵构成的线性子空间
+    (b) $U$ 是由所有对角方阵构成的线性子空间
 
-    - (c) $U$ 是由所有上三角方阵构成的线性子空间
+    (c) $U$ 是由所有上三角方阵构成的线性子空间
 
 11. 设$(V,\langle \cdot,\cdot\rangle)$是$n$维欧几里得空间，$U$是$V$的线性子空间。
     证明$(U^{\perp})^{\perp}=U$。
@@ -89,14 +89,14 @@ $。
 
 15. 设$\lambda_0$是$n$阶正交方阵$A$的一个特征值（可能是复数）。
 
-    - (a) 证明$|\lambda_0|=1$。
+    (a) 证明$|\lambda_0|=1$。
 
-    - (b) 假设$\lambda_0\notin \mathbb{R} $，
-      $\vec{z}\in \mathbb{C} ^n$是$\lambda_0$的一个复特征向量。
-      记$\vec{z}=\vec{x}+i\vec{y}$，这里$\vec{x},\vec{y}\in \mathbb{R} ^n$。证明
-      $$
-      \vec{x}\perp \vec{y}\quad \text{并且}\quad \|\vec{x}\|=\|\vec{y}\|
-      $$
+    (b) 假设$\lambda_0\notin \mathbb{R} $，
+        $\vec{z}\in \mathbb{C} ^n$是$\lambda_0$的一个复特征向量。
+        记$\vec{z}=\vec{x}+i\vec{y}$，这里$\vec{x},\vec{y}\in \mathbb{R} ^n$。证明
+        $$
+        \vec{x}\perp \vec{y}\quad \text{并且}\quad \|\vec{x}\|=\|\vec{y}\|
+        $$
 
 16. 判断如下实对称方阵是否是正定方阵或者半正定方阵。
     \[
@@ -192,9 +192,9 @@ c & d
 
 23. 证明矩阵范数的如下两个性质：
 
-    - (a) 三角不等式：$\|A+B\|\leq \|A\|+\|B\|$
+    (a) 三角不等式：$\|A+B\|\leq \|A\|+\|B\|$
 
-    - (b) 乘积性质：$\|AB\|\leq \|A\|\|B\|$
+    (b) 乘积性质：$\|AB\|\leq \|A\|\|B\|$
 
 24. 设$A$是一个$n$阶正定方阵。证明$\lim\limits_{t\to +\infty}e^{-tA}=0$。
 
@@ -248,11 +248,11 @@ c & d
     $$
     证明$\varphi$满足如下性质：
 
-    - (a) $\varphi(A_1A_2)=\varphi(A_1)\varphi(A_2)$，$\varphi(\bar A^T)=\varphi(A)^T$
+    (a) $\varphi(A_1A_2)=\varphi(A_1)\varphi(A_2)$，$\varphi(\bar A^T)=\varphi(A)^T$
 
-    - (b) $A$是厄米方阵当且仅当$\varphi(A)$是对称方阵
+    (b) $A$是厄米方阵当且仅当$\varphi(A)$是对称方阵
 
-    - (c) $A$是酉方阵当且仅当$\varphi(A)$是正交方阵
+    (c) $A$是酉方阵当且仅当$\varphi(A)$是正交方阵
 
 31. 设$n$阶复方阵$A$有如下分块结构
     $$

@@ -21,13 +21,13 @@ $\mathbb{R}$ 是一个集合，我们假设 $x$、$y$、$z$ 等都是它的元�
 
 ## (F) 域公理：$\mathbb{R}$ 是一个域
 
-- (F1) 加法结合律：$x + (y + z) = (x + y) + z$。
+(F1) 加法结合律：$x + (y + z) = (x + y) + z$。
 
-- (F2) 加法交换律：$x + y = y + x$。
+(F2) 加法交换律：$x + y = y + x$。
 
-- (F3) 存在加法单位元：存在 $0 \in \mathbb{R}$，使得对任意 $x \in \mathbb{R}$，$0 + x = x$ 成立。
+(F3) 存在加法单位元：存在 $0 \in \mathbb{R}$，使得对任意 $x \in \mathbb{R}$，$0 + x = x$ 成立。
 
-- (F4) 加法逆元的存在性：对任意 $x \in \mathbb{R}$，存在 $-x \in \mathbb{R}$，使得 $x + (-x) = 0$。
+(F4) 加法逆元的存在性：对任意 $x \in \mathbb{R}$，存在 $-x \in \mathbb{R}$，使得 $x + (-x) = 0$。
 
 ::: exercise*
 证明，加法逆元 $-x$ 是唯一的，即如果 $x' \in \mathbb{R}$ 也满足 $x + x' = 0$，那么 $x' = -x$。
@@ -38,15 +38,15 @@ $\mathbb{R}$ 是一个集合，我们假设 $x$、$y$、$z$ 等都是它的元�
 我们强调 *$-x$ 目前只是一个记号*。根据俗套的约定，我们把 $x + (-y)$ 简写成 $x - y$。
 :::
 
-- (F5) 乘法结合律：$x \cdot (y \cdot z) = (x \cdot y) \cdot z$。
+(F5) 乘法结合律：$x \cdot (y \cdot z) = (x \cdot y) \cdot z$。
 
-- (F6) 乘法交换律：$x \cdot y = y \cdot x$。
+(F6) 乘法交换律：$x \cdot y = y \cdot x$。
 
-- (F7) 存在乘法单位元：存在 $1 \in \mathbb{R}$，使得 $1 \neq 0$ 并且对任意 $x \in \mathbb{R}$，
-  $1 \cdot x = x$ 成立。我们还要求 $1 \neq 0$，从而 $\mathbb{R}$ 中至少有两个元素。
+(F7) 存在乘法单位元：存在 $1 \in \mathbb{R}$，使得 $1 \neq 0$ 并且对任意 $x \in \mathbb{R}$，
+     $1 \cdot x = x$ 成立。我们还要求 $1 \neq 0$，从而 $\mathbb{R}$ 中至少有两个元素。
 
-- (F8) 乘法逆元的存在性：对任意 $x\in \mathbb{R}-\{0\}$，存在 $x^{-1} \in \mathbb{R}$，
-  使得 $x \cdot x^{-1} = 1$。
+(F8) 乘法逆元的存在性：对任意 $x\in \mathbb{R}-\{0\}$，存在 $x^{-1} \in \mathbb{R}$，
+     使得 $x \cdot x^{-1} = 1$。
 
 ::: exercise*
 证明，$x \neq 0$ 乘法逆元 $x^{-1}$ 是唯一的，即若 $x'\in \mathbb{R}$ 也满足 $x\cdot x'=1$，
@@ -60,7 +60,7 @@ $\mathbb{R}$ 是一个集合，我们假设 $x$、$y$、$z$ 等都是它的元�
 另外，有时候我们还省略掉 $\cdot$ 把 $x\cdot y$ 写成 $xy$。
 :::
 
-- (F9) 乘法分配律：$x \cdot (y + z) = x \cdot y + x\cdot z$。
+(F9) 乘法分配律：$x \cdot (y + z) = x \cdot y + x\cdot z$。
 
 ::: remark*
 假定 (F1)–(F7) 以及 (F9) 这八条，我们就称 $(\mathbb{R}, +, \cdot)$ 是一个（交换）环；
@@ -119,12 +119,12 @@ $$
 
 ## (O) 序公理：$\mathbb{R}$ 是有序域
 
-- (O1) 序的传递性：$x\leqslant y,\ y\leqslant z\Rightarrow x \leqslant z$。
+(O1) 序的传递性：$x\leqslant y,\ y\leqslant z\Rightarrow x \leqslant z$。
 
-- (O2) 序可以决定元素：$x\leqslant y,\ y\leqslant x\Rightarrow x=y$。
+(O2) 序可以决定元素：$x\leqslant y,\ y\leqslant x\Rightarrow x=y$。
 
-- (O3) 全序关系：对任意的 $x$ 和 $y$，$x\leqslant y$ 或者 $y\leqslant x$，
-  二者必居其一（可以都成立）。
+(O3) 全序关系：对任意的 $x$ 和 $y$，$x\leqslant y$ 或者 $y\leqslant x$，
+     二者必居其一（可以都成立）。
 
 ::: remark*
 我们给出大于号和小于号的定义：如果 $x\leqslant y$ 且 $x\neq y$，我们就说 $x<y$；
@@ -172,9 +172,9 @@ x<y, \ \ x=y, \ \ x>y.
 它们目前完全不具有具体的含义。
 :::
 
-- (O4) 与加法相容：$x\leqslant y \Rightarrow x+z\leqslant y+z$。
+(O4) 与加法相容：$x\leqslant y \Rightarrow x+z\leqslant y+z$。
 
-- (O5) 与乘法相容：$x\geqslant 0,\ y\geqslant 0 \Rightarrow xy\geqslant 0$。
+(O5) 与乘法相容：$x\geqslant 0,\ y\geqslant 0 \Rightarrow xy\geqslant 0$。
 
 ## (A) Archimedes 公理：$\mathbb{R}$ 是 Archimedes 有序域
 

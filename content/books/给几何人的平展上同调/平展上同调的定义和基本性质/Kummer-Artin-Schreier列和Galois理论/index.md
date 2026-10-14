@@ -41,14 +41,14 @@ E^{\times n}\cap F^{\times}/F^{\times n}\cong \operatorname{Hom}(G,\mu_n(F)).
 
 另外，这些还满足：
 
-- (a) 对上述对应$E\leftrightsquigarrow\Delta$诱导出完美对：
-  \[
-  \operatorname{Gal}(E/F)\times\Delta/F^{\times n}\to\mu_n(F),\quad (\sigma,\bar{a})\mapsto\sigma\sqrt[n]{a}/\sqrt[n]{a}
-  \]
-  且$[E:F]=(\Delta:F^{\times n})$。
+(a) 对上述对应$E\leftrightsquigarrow\Delta$诱导出完美对：
+    \[
+    \operatorname{Gal}(E/F)\times\Delta/F^{\times n}\to\mu_n(F),\quad (\sigma,\bar{a})\mapsto\sigma\sqrt[n]{a}/\sqrt[n]{a}
+    \]
+    且$[E:F]=(\Delta:F^{\times n})$。
 
-- (b) 对于上述对应$E\leftrightsquigarrow\Delta$和$E'\leftrightsquigarrow\Delta'$，
-  我们有$E\cap E'\leftrightsquigarrow\Delta\cap\Delta'$和$EE'\leftrightsquigarrow\Delta\Delta'$。
+(b) 对于上述对应$E\leftrightsquigarrow\Delta$和$E'\leftrightsquigarrow\Delta'$，
+    我们有$E\cap E'\leftrightsquigarrow\Delta\cap\Delta'$和$EE'\leftrightsquigarrow\Delta\Delta'$。
 
 :::
 
