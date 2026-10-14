@@ -584,6 +584,14 @@ guides:
   other: 指南
 help:
   other: 帮助
+book_pages:
+  other: "{{ . }} 个页面"
+book_characters_qian:
+  other: "{{ . }} 千字"
+book_characters_wan:
+  other: "{{ . }} 万字"
+book_author_separator:
+  other: "、"
 collection_open:
   other: 打开章节目录
 collection_close:

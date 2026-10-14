@@ -1,3 +1,5 @@
+authors: 于品
+description: 2018 年秋季学期起三学期的课程讲义，共三册。
 # 原讲义的页内各节不编号（\nosectionnumbers）；三册是不编号的分组，讲次连续编号，与原讲义一致。
 numbering:
   headings: false
