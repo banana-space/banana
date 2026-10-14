@@ -1727,41 +1727,41 @@ P P^{\mathrm{T}} =
     我们用数学归纳法证明，对任何非负整数 \(n\)，
     \(A(n)\) 是对的。
 
-\(A(0)\) 是对的。
-此时，式 @eq:ff-system-of-linear-equations-with-binomial-coefficients
-就是 \(u_0 = v_0\)。
-于是，若 \(v_0 = 0\)，则 \(u_0 = 0\)。
+    \(A(0)\) 是对的。
+    此时，式 @eq:ff-system-of-linear-equations-with-binomial-coefficients
+    就是 \(u_0 = v_0\)。
+    于是，若 \(v_0 = 0\)，则 \(u_0 = 0\)。
 
-设 \(A(n-1)\) 是对的。
-我们由此证明，\(A(n)\) 是对的。
-我们加第 \(n\) 个等式的 \(-1\) 倍到第 \(n+1\) 个等式，
-加第 \(n-1\) 个等式的 \(-1\) 倍到第 \(n\) 个等式，
-……
-加第 \(2\) 个等式的 \(-1\) 倍到第 \(1\) 个等式，
-并注意式 @eq:ff-identity-of-Yang-Hui，
-得
+    设 \(A(n-1)\) 是对的。
+    我们由此证明，\(A(n)\) 是对的。
+    我们加第 \(n\) 个等式的 \(-1\) 倍到第 \(n+1\) 个等式，
+    加第 \(n-1\) 个等式的 \(-1\) 倍到第 \(n\) 个等式，
+    ……
+    加第 \(2\) 个等式的 \(-1\) 倍到第 \(1\) 个等式，
+    并注意式 @eq:ff-identity-of-Yang-Hui，
+    得
 
-```math {@eq:ff-equivalent-system}
-\begin{alignedat}{7}
-    u_0 & {} +  {} & \dbinom{t_0}{1} u_1     & {} + {} & \dots & {} + {} & \dbinom{t_0}{n} u_n       & {} = v_0,           \\
-    {}  & {} {} {} & \dbinom{t_0}{0} u_1     & {} + {} & \dots & {} + {} & \dbinom{t_0}{n-1} u_n     & {} = v_1 - v_0,     \\
-    {}  &          &                         &         &       &         &                           & \dots,              \\
-    {}  & {} {} {} & \dbinom{t_0+n-1}{0} u_1 & {} + {} & \dots & {} + {} & \dbinom{t_0+n-1}{n-1} u_n & {} = v_n - v_{n-1}.
-\end{alignedat}
-```
+    ```math {@eq:ff-equivalent-system}
+    \begin{alignedat}{7}
+        u_0 & {} +  {} & \dbinom{t_0}{1} u_1     & {} + {} & \dots & {} + {} & \dbinom{t_0}{n} u_n       & {} = v_0,           \\
+        {}  & {} {} {} & \dbinom{t_0}{0} u_1     & {} + {} & \dots & {} + {} & \dbinom{t_0}{n-1} u_n     & {} = v_1 - v_0,     \\
+        {}  &          &                         &         &       &         &                           & \dots,              \\
+        {}  & {} {} {} & \dbinom{t_0+n-1}{0} u_1 & {} + {} & \dots & {} + {} & \dbinom{t_0+n-1}{n-1} u_n & {} = v_n - v_{n-1}.
+    \end{alignedat}
+    ```
 
-注意，若 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是 \(0\)，
-则 \(v_n - v_{n-1}\)、\(\dots\)、\(v_1 - v_0\) 都是 \(0\)。
-对式 @eq:ff-equivalent-system 的后 \(n\) 个等式，
-由假定，\(u_1\)、\(\dots\)、\(u_n\) 都是 \(0\)。
-则
-\[
-\begin{aligned}
-  u_0 = v_0 - \dbinom{t_0}{1} u_1 - \dots - \dbinom{t_0}{n} u_n = 0.
-\end{aligned}
-\]
-所以，\(A(n)\) 是对的。
-由数学归纳法，待证的命题成立。
+    注意，若 \(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是 \(0\)，
+    则 \(v_n - v_{n-1}\)、\(\dots\)、\(v_1 - v_0\) 都是 \(0\)。
+    对式 @eq:ff-equivalent-system 的后 \(n\) 个等式，
+    由假定，\(u_1\)、\(\dots\)、\(u_n\) 都是 \(0\)。
+    则
+    \[
+    \begin{aligned}
+      u_0 = v_0 - \dbinom{t_0}{1} u_1 - \dots - \dbinom{t_0}{n} u_n = 0.
+    \end{aligned}
+    \]
+    所以，\(A(n)\) 是对的。
+    由数学归纳法，待证的命题成立。
 
 (2) 作命题 \(B(n)\)：
     若数 \(u_0\)、\(u_1\)、\(\dots\)、\(u_n\)、
@@ -1773,33 +1773,33 @@ P P^{\mathrm{T}} =
     我们用数学归纳法证明，对任何非负整数 \(n\)，
     \(B(n)\) 是对的。
 
-\(B(0)\) 是对的。
-此时，式 @eq:ff-system-of-linear-equations-with-binomial-coefficients
-就是 \(u_0 = v_0\)。
-于是，若 \(v_0\) 是整数，则 \(u_0\) 也是整数。
+    \(B(0)\) 是对的。
+    此时，式 @eq:ff-system-of-linear-equations-with-binomial-coefficients
+    就是 \(u_0 = v_0\)。
+    于是，若 \(v_0\) 是整数，则 \(u_0\) 也是整数。
 
-设 \(B(n-1)\) 是对的。
-我们由此证明，\(B(n)\) 是对的。
-我们加第 \(n\) 个等式的 \(-1\) 倍到第 \(n+1\) 个等式，
-加第 \(n-1\) 个等式的 \(-1\) 倍到第 \(n\) 个等式，
-……
-加第 \(2\) 个等式的 \(-1\) 倍到第 \(1\) 个等式，
-并注意式 @eq:ff-identity-of-Yang-Hui，
-得式 @eq:ff-equivalent-system。
-注意，若 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是整数，
-则 \(t_0\)、\(v_n - v_{n-1}\)、\(\dots\)、\(v_1 - v_0\) 都是整数。
-对式 @eq:ff-equivalent-system 的后 \(n\) 个等式，
-由假定，\(u_1\)、\(\dots\)、\(u_n\) 都是整数。
-则
-\[
-\begin{aligned}
-  u_0 = v_0 - \dbinom{t_0}{1} u_1 - \dots - \dbinom{t_0}{n} u_n
-\end{aligned}
-\]
-也是整数
-（注意，每个 \(\dbinom{t_0}{j}\) 是整数）。
-所以，\(B(n)\) 是对的。
-由数学归纳法，待证的命题成立。
+    设 \(B(n-1)\) 是对的。
+    我们由此证明，\(B(n)\) 是对的。
+    我们加第 \(n\) 个等式的 \(-1\) 倍到第 \(n+1\) 个等式，
+    加第 \(n-1\) 个等式的 \(-1\) 倍到第 \(n\) 个等式，
+    ……
+    加第 \(2\) 个等式的 \(-1\) 倍到第 \(1\) 个等式，
+    并注意式 @eq:ff-identity-of-Yang-Hui，
+    得式 @eq:ff-equivalent-system。
+    注意，若 \(t_0\)、\(v_0\)、\(v_1\)、\(\dots\)、\(v_n\) 都是整数，
+    则 \(t_0\)、\(v_n - v_{n-1}\)、\(\dots\)、\(v_1 - v_0\) 都是整数。
+    对式 @eq:ff-equivalent-system 的后 \(n\) 个等式，
+    由假定，\(u_1\)、\(\dots\)、\(u_n\) 都是整数。
+    则
+    \[
+    \begin{aligned}
+      u_0 = v_0 - \dbinom{t_0}{1} u_1 - \dots - \dbinom{t_0}{n} u_n
+    \end{aligned}
+    \]
+    也是整数
+    （注意，每个 \(\dbinom{t_0}{j}\) 是整数）。
+    所以，\(B(n)\) 是对的。
+    由数学归纳法，待证的命题成立。
 :::
 
 回想，对任何整数 \(m\)，\(n\)，
@@ -1855,8 +1855,8 @@ P P^{\mathrm{T}} =
       + \dots + c_n \dbinom{t_0+i}{n},
     \end{aligned}
     \]
-则 \(b_i = c_i\)，\(i = 0\)，\(1\)，\(\dots\)，\(n\)。
-进一步地，(1) 的系数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\) 是唯一的。
+    则 \(b_i = c_i\)，\(i = 0\)，\(1\)，\(\dots\)，\(n\)。
+    进一步地，(1) 的系数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\) 是唯一的。
 :::
 
 ::: proof
@@ -1875,42 +1875,42 @@ P P^{\mathrm{T}} =
       + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
     \end{aligned}
     \]
-我们用数学归纳法证明，对任何非负整数 \(n\)，\(P(n)\) 是对的。
+    我们用数学归纳法证明，对任何非负整数 \(n\)，\(P(n)\) 是对的。
 
-首先，注意，\(a_0 = a_0 \cdot 1 = a_0 \dbinom{x - x_0}{0}\)。
-则 \(P(0)\) 是对的。
+    首先，注意，\(a_0 = a_0 \cdot 1 = a_0 \dbinom{x - x_0}{0}\)。
+    则 \(P(0)\) 是对的。
 
-我们设 \(P(n-1)\) 是对的。
-我们由此证明，\(P(n)\) 是对的。
-任取次不高于 \(n\) 的整式
-\[
-\begin{aligned}
-  f(x) = a_0 + a_1 x + \dots + a_n x^n.
-\end{aligned}
-\]
-注意，整式 \(\dbinom{x - x_0}{n}\) 是 \(n\) 次整式，
-且它的 \(x^n\) 项的系数是 \(1/n!\)。
-于是，\(f(x) - a_n n! \dbinom{x - x_0}{n}\)
-是次不高于 \(n-1\) 的整式。
-由假定，存在数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_{n-1}\)，
-使对任何数 \(x\)，
-\[
-\begin{aligned}
-  f(x) - a_n n! \dbinom{x - x_0}{n}
-  = b_0 \dbinom{x-x_0}{0} + b_1 \dbinom{x-x_0}{1}
-  + \dots + b_{n-1} \dbinom{x-x_0}{n-1}.
-\end{aligned}
-\]
-取 \(b_n = a_n n!\)。
-则对任何数 \(x\)，
-\[
-\begin{aligned}
-  f(x) = b_0 \dbinom{x-x_0}{0}
-  + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
-\end{aligned}
-\]
-则 \(P(n)\) 是对的。
-由数学归纳法，待证的命题成立。
+    我们设 \(P(n-1)\) 是对的。
+    我们由此证明，\(P(n)\) 是对的。
+    任取次不高于 \(n\) 的整式
+    \[
+    \begin{aligned}
+      f(x) = a_0 + a_1 x + \dots + a_n x^n.
+    \end{aligned}
+    \]
+    注意，整式 \(\dbinom{x - x_0}{n}\) 是 \(n\) 次整式，
+    且它的 \(x^n\) 项的系数是 \(1/n!\)。
+    于是，\(f(x) - a_n n! \dbinom{x - x_0}{n}\)
+    是次不高于 \(n-1\) 的整式。
+    由假定，存在数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_{n-1}\)，
+    使对任何数 \(x\)，
+    \[
+    \begin{aligned}
+      f(x) - a_n n! \dbinom{x - x_0}{n}
+      = b_0 \dbinom{x-x_0}{0} + b_1 \dbinom{x-x_0}{1}
+      + \dots + b_{n-1} \dbinom{x-x_0}{n-1}.
+    \end{aligned}
+    \]
+    取 \(b_n = a_n n!\)。
+    则对任何数 \(x\)，
+    \[
+    \begin{aligned}
+      f(x) = b_0 \dbinom{x-x_0}{0}
+      + b_1 \dbinom{x-x_0}{1} + \dots + b_n \dbinom{x-x_0}{n}.
+    \end{aligned}
+    \]
+    则 \(P(n)\) 是对的。
+    由数学归纳法，待证的命题成立。
 
 (2) 注意，对 \(i = 0\)、\(\dots\)、\(n\)，
     \[
@@ -1921,20 +1921,20 @@ P P^{\mathrm{T}} =
       + (b_n - c_n) \dbinom{t_0+i}{n} = 0.
     \end{aligned}
     \]
-记 \(d_i = b_i - c_i\)。
-则
-\[
-\begin{alignedat}{7}
-  \dbinom{t_0}{0} d_0   & {} + {} & \dbinom{t_0}{1} d_1   & {} + {} & \dots & {} + {} & \dbinom{t_0}{n} d_n   & {} = 0, \\
-  \dbinom{t_0+1}{0} d_0 & {} + {} & \dbinom{t_0+1}{1} d_1 & {} + {} & \dots & {} + {} & \dbinom{t_0+1}{n} d_n & {} = 0, \\
-  {}                    &         &                       &         &       &         &                       & \dots,  \\
-  \dbinom{t_0+n}{0} d_0 & {} + {} & \dbinom{t_0+n}{1} d_1 & {} + {} & \dots & {} + {} & \dbinom{t_0+n}{n} d_n & {} = 0.
-\end{alignedat}
-\]
-则 \(d_0\)、\(d_1\)、\(\dots\)、\(d_n\)
-都是 \(0\)。
-则 \(b_i = c_i\)，
-\(i = 0\)、\(1\)、\(\dots\)、\(n\)。
+    记 \(d_i = b_i - c_i\)。
+    则
+    \[
+    \begin{alignedat}{7}
+      \dbinom{t_0}{0} d_0   & {} + {} & \dbinom{t_0}{1} d_1   & {} + {} & \dots & {} + {} & \dbinom{t_0}{n} d_n   & {} = 0, \\
+      \dbinom{t_0+1}{0} d_0 & {} + {} & \dbinom{t_0+1}{1} d_1 & {} + {} & \dots & {} + {} & \dbinom{t_0+1}{n} d_n & {} = 0, \\
+      {}                    &         &                       &         &       &         &                       & \dots,  \\
+      \dbinom{t_0+n}{0} d_0 & {} + {} & \dbinom{t_0+n}{1} d_1 & {} + {} & \dots & {} + {} & \dbinom{t_0+n}{n} d_n & {} = 0.
+    \end{alignedat}
+    \]
+    则 \(d_0\)、\(d_1\)、\(\dots\)、\(d_n\)
+    都是 \(0\)。
+    则 \(b_i = c_i\)，
+    \(i = 0\)、\(1\)、\(\dots\)、\(n\)。
 
 由此，(1) 的系数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\) 是唯一的。
 设数 \(b_0\)、\(b_1\)、\(\dots\)、\(b_n\)、

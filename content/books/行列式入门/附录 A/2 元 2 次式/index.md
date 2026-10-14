@@ -246,89 +246,89 @@ title: '\(2\) 元 \(2\) 次式'
     我们要进一步地分类讨论。
 
 (\(3.1\)) \(AC - B^2 = 0\)。
-      此时，\(C = B^2 / A\)。
-      故
-      \[
+                此时，\(C = B^2 / A\)。
+                故
+                \[
+                \begin{aligned}
+                  \Delta
+                  = {} &
+                  A \cdot \frac{B^2}{A} \cdot F + 2BED - AE^2
+                        - \frac{B^2 D^2}{A} - FB^2
+                        \\
+                        = {} &
+                        {-} \frac{1}{A} (A^2 E^2 - 2AE BD + B^2 D^2)
+                        \\
+                        = {} &
+                        {-} \frac{1}{A} (AE - BD)^2.
+                      \end{aligned}
+                \]
+          因为 \(\Delta = 0\)，
+          故 \(AE - BD = 0\)。
+          从而
+          \[
           \begin{aligned}
-            \Delta
-            = {} &
-            A \cdot \frac{B^2}{A} \cdot F + 2BED - AE^2
-        - \frac{B^2 D^2}{A} - FB^2
-        \\
-        = {} &
-        {-} \frac{1}{A} (A^2 E^2 - 2AE BD + B^2 D^2)
-        \\
-        = {} &
-        {-} \frac{1}{A} (AE - BD)^2.
-      \end{aligned}
-      \]
-因为 \(\Delta = 0\)，
-故 \(AE - BD = 0\)。
-从而
-\[
-\begin{aligned}
-  f(x, y) = \frac{(Ax + By + D)^2 - (D^2 - AF)}{A}.
-\end{aligned}
-\]
-设复数 \(d\) 适合 \(d^2 = D^2 - AF\)。
-则
-\[
-\begin{aligned}
-  f(x, y) = \frac{1}{A} (Ax + By + D + d)(Ax + By + D - d);
-\end{aligned}
-\]
-也就是，
-\[
-\begin{aligned}
-  f(x, y) = \left( 1x + \frac{B}{A} y + \frac{D+d}{A} \right) (Ax + By + (D - d)).
-\end{aligned}
-\]
+            f(x, y) = \frac{(Ax + By + D)^2 - (D^2 - AF)}{A}.
+          \end{aligned}
+          \]
+          设复数 \(d\) 适合 \(d^2 = D^2 - AF\)。
+          则
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{1}{A} (Ax + By + D + d)(Ax + By + D - d);
+          \end{aligned}
+          \]
+          也就是，
+          \[
+          \begin{aligned}
+            f(x, y) = \left( 1x + \frac{B}{A} y + \frac{D+d}{A} \right) (Ax + By + (D - d)).
+          \end{aligned}
+          \]
 
 (\(3.2\)) \(AC - B^2 \neq 0\)。
-      此时
-      \[
-      \begin{aligned}
-        & (AC - B^2) y^2 + 2(AE - BD)y
-        \\
-        = {} & \frac{1}{AC - B^2} ((AC - B^2)y + (AE - BD))^2 - \frac{(AE - BD)^2}{AC - B^2}.
-      \end{aligned}
-      \]
-      所以
-      \[
+                此时
+                \[
+                \begin{aligned}
+                  & (AC - B^2) y^2 + 2(AE - BD)y
+                  \\
+                  = {} & \frac{1}{AC - B^2} ((AC - B^2)y + (AE - BD))^2 - \frac{(AE - BD)^2}{AC - B^2}.
+                \end{aligned}
+                \]
+                所以
+                \[
+                \begin{aligned}
+                  f(x, y)
+                  = {} &
+                  \hphantom{{} + {}}
+                  \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}
+                  \\
+                  &
+                        + \frac{AF - D^2}{A} - \frac{(AE - BD)^2}{A(AC - B^2)};
+                      \end{aligned}
+                \]
+          也就是，
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)} + \frac{\Delta}{AC - B^2}.
+          \end{aligned}
+          \]
+          因为 \(\Delta = 0\)，故
+          \[
+          \begin{aligned}
+            f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}.
+          \end{aligned}
+          \]
+          设复数 \(e\) 适合 \(e^2 = B^2 - AC\)。
+          设 \(f = (BD-AE)/e\)。
+          则
+          \[
           \begin{aligned}
             f(x, y)
-            = {} &
-            \hphantom{{} + {}}
-            \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}
-            \\
-            &
-        + \frac{AF - D^2}{A} - \frac{(AE - BD)^2}{A(AC - B^2)};
-      \end{aligned}
-      \]
-也就是，
-\[
-\begin{aligned}
-  f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)} + \frac{\Delta}{AC - B^2}.
-\end{aligned}
-\]
-因为 \(\Delta = 0\)，故
-\[
-\begin{aligned}
-  f(x, y) = \frac{(Ax + By + D)^2}{A} - \frac{((B^2 - AC)y + (BD - AE))^2}{A(B^2 - AC)}.
-\end{aligned}
-\]
-设复数 \(e\) 适合 \(e^2 = B^2 - AC\)。
-设 \(f = (BD-AE)/e\)。
-则
-\[
-\begin{aligned}
-  f(x, y)
-  = {} & \frac{(Ax + By + D)^2}{A} - \frac{(e^2 y + ef)^2}{Ae^2}                   \\
-  = {} & \frac{(Ax + By + D)^2}{A} - \frac{(ey + f)^2}{A}                          \\
-  = {} & \frac{1}{A}(Ax + By + D + ey + f)(Ax + By + D - ey - f)                   \\
-  = {} & \left( 1x + \frac{B+e}{A}y + \frac{D+f}{A} \right) (Ax + (B-e)y + (D-f)).
-\end{aligned}
-\]
+            = {} & \frac{(Ax + By + D)^2}{A} - \frac{(e^2 y + ef)^2}{Ae^2}                   \\
+            = {} & \frac{(Ax + By + D)^2}{A} - \frac{(ey + f)^2}{A}                          \\
+            = {} & \frac{1}{A}(Ax + By + D + ey + f)(Ax + By + D - ey - f)                   \\
+            = {} & \left( 1x + \frac{B+e}{A}y + \frac{D+f}{A} \right) (Ax + (B-e)y + (D-f)).
+          \end{aligned}
+          \]
 
 (4) \(C \neq 0\)。
     则

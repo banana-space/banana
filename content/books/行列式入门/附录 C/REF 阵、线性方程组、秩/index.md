@@ -1096,41 +1096,41 @@ G =
     \(A'\) 的行 \(i\) 是 \(0\)。
     则 \(A'\) 是 REF 阵。
 
-设形如 \(E(m; p, q; s)\)（\(p \neq q\)）的阵
-\(E_1\)、\(E_2\)、\(\dots\)、\(E_w\) 使
-\[
-\begin{aligned}
-  G' = E_w (\dots (E_2 (E_1 G))).
-\end{aligned}
-\]
-记 \(P = E_w \dots E_2 E_1\)。
-则 \(G' = P G\)。
-设 \(G\) 的列
-\(1\)、\(2\)、\(\dots\)、\(n\)、\(n+1\)
-是 \(g_1\)、\(g_2\)、\(\dots\)、\(g_n\)、\(g_{n+1}\)。
-注意，\(g_j\) 也是 \(A\) 的列 \(j\)
-（\(j = 1\)、\(2\)、\(\dots\)、\(n\)）。
-则
-\[
-\begin{aligned}
-  G' = [P g_1, P g_2, \dots, P g_n, P g_{n+1}].
-\end{aligned}
-\]
-则
-\[
-\begin{aligned}
-  A'
-  = [P g_1, P g_2, \dots, P g_n]
-  = P [g_1, g_2, \dots, g_n]
-  = P A.
-\end{aligned}
-\]
-则
-\[
-\begin{aligned}
-  A' = E_w (\dots (E_2 (E_1 A))).
-\end{aligned}
-\]
+    设形如 \(E(m; p, q; s)\)（\(p \neq q\)）的阵
+    \(E_1\)、\(E_2\)、\(\dots\)、\(E_w\) 使
+    \[
+    \begin{aligned}
+      G' = E_w (\dots (E_2 (E_1 G))).
+    \end{aligned}
+    \]
+    记 \(P = E_w \dots E_2 E_1\)。
+    则 \(G' = P G\)。
+    设 \(G\) 的列
+    \(1\)、\(2\)、\(\dots\)、\(n\)、\(n+1\)
+    是 \(g_1\)、\(g_2\)、\(\dots\)、\(g_n\)、\(g_{n+1}\)。
+    注意，\(g_j\) 也是 \(A\) 的列 \(j\)
+    （\(j = 1\)、\(2\)、\(\dots\)、\(n\)）。
+    则
+    \[
+    \begin{aligned}
+      G' = [P g_1, P g_2, \dots, P g_n, P g_{n+1}].
+    \end{aligned}
+    \]
+    则
+    \[
+    \begin{aligned}
+      A'
+      = [P g_1, P g_2, \dots, P g_n]
+      = P [g_1, g_2, \dots, g_n]
+      = P A.
+    \end{aligned}
+    \]
+    则
+    \[
+    \begin{aligned}
+      A' = E_w (\dots (E_2 (E_1 A))).
+    \end{aligned}
+    \]
 
 (2) 倍加不改变秩。
     注意，\(A'\) 有 \(r\) 个非零行。
@@ -2224,100 +2224,100 @@ G =
     其中，\(a'_{i,i} \neq 0\)。
     则方程组 @eq:sole-11 有唯一的解
 
-```math {@eq:sole-10-solutions}
-x_i = \frac{b'_i}{a'_{i,i}},
-\quad i = 1, 2, \dots, n.
-```
+    ```math {@eq:sole-10-solutions}
+    x_i = \frac{b'_i}{a'_{i,i}},
+    \quad i = 1, 2, \dots, n.
+    ```
 
-则方程组 @eq:sole-10 有唯一的解
-@eq:sole-10-solutions。
+    则方程组 @eq:sole-10 有唯一的解
+    @eq:sole-10-solutions。
 
-注意，
-\[
-\begin{aligned}
-  A' \{i, B'\}
-  = {} &
-  ([\dots, P g_{i-1}, P g_i, P g_{i+1}, \dots])
-  \{i, P B\}
-  \\
-  = {} &
-  [\dots, P g_{i-1}, P B, P g_{i+1}, \dots]
-  \\
-  = {} &
-  P [\dots, g_{i-1}, B, g_{i+1}, \dots]
-  \\
-  = {} &
-  P (A\{i, B\})
-  \\
-  = {} &
-  E_w (\dots (E_2 (E_1 (A\{i, B\})))).
-\end{aligned}
-\]
-则我们可用行的倍加，
-变 \(A\{i, B\}\) 为 \(A' \{i, B'\}\)。
-则
-\[
-\begin{aligned}
-  \frac{\det {(A\{i, B\})}}{\det {(A)}}
-  = \frac{\det {(A' \{i, B'\})}}{\det {(A')}}.
-\end{aligned}
-\]
-注意，对 \(A' \{i, B'\}\)（或 \(A'\)），
-若 \(j \neq i\)，
-则 \([A' \{i, B'\}]_{i,j} = 0\)
-（或 \([A']_{i,j} = 0\)）。
-则，按行 \(i\) 展开，
-\[
-\begin{aligned}
-  \frac{\det {(A' \{i, B'\})}}{\det {(A')}}
-  = {} &
-  \frac
-  {(-1)^{i+i} [A' \{i, B'\}]_{i,i}
-  \det {((A' \{i, B'\}) (i|i))}}
-  {(-1)^{i+i} [A']_{i,i}
-  \det {(A' (i|i))}}
-  \\
-  = {} &
-  \frac{[B']_{i,1} \det {((A' \{i, B'\}) (i|i))}}
-  {[A']_{i,i} \det {(A' (i|i))}}
-  \\
-  = {} &
-  \frac{b'_i \det {(A' (i|i))}}
-  {a'_{i,i} \det {(A' (i|i))}}
-  \\
-  = {} &
-  \frac{b'_i}{a'_{i,i}}
-  \\
-  = {} &
-  x_i.
-\end{aligned}
-\]
-则方程组 @eq:sole-10
-的唯一的解 @eq:sole-10-solutions 可被写为
-\[
-\begin{aligned}
-  x_i
-  = \frac{\det {(A' \{i, B'\})}}{\det {(A')}}
-  = \frac{\det {(A\{i, B\})}}{\det {(A)}},
-  \quad
-  i = 1, 2, \dots, n.
-\end{aligned}
-\]
+    注意，
+    \[
+    \begin{aligned}
+      A' \{i, B'\}
+      = {} &
+      ([\dots, P g_{i-1}, P g_i, P g_{i+1}, \dots])
+      \{i, P B\}
+      \\
+      = {} &
+      [\dots, P g_{i-1}, P B, P g_{i+1}, \dots]
+      \\
+      = {} &
+      P [\dots, g_{i-1}, B, g_{i+1}, \dots]
+      \\
+      = {} &
+      P (A\{i, B\})
+      \\
+      = {} &
+      E_w (\dots (E_2 (E_1 (A\{i, B\})))).
+    \end{aligned}
+    \]
+    则我们可用行的倍加，
+    变 \(A\{i, B\}\) 为 \(A' \{i, B'\}\)。
+    则
+    \[
+    \begin{aligned}
+      \frac{\det {(A\{i, B\})}}{\det {(A)}}
+      = \frac{\det {(A' \{i, B'\})}}{\det {(A')}}.
+    \end{aligned}
+    \]
+    注意，对 \(A' \{i, B'\}\)（或 \(A'\)），
+    若 \(j \neq i\)，
+    则 \([A' \{i, B'\}]_{i,j} = 0\)
+    （或 \([A']_{i,j} = 0\)）。
+    则，按行 \(i\) 展开，
+    \[
+    \begin{aligned}
+      \frac{\det {(A' \{i, B'\})}}{\det {(A')}}
+      = {} &
+      \frac
+      {(-1)^{i+i} [A' \{i, B'\}]_{i,i}
+      \det {((A' \{i, B'\}) (i|i))}}
+      {(-1)^{i+i} [A']_{i,i}
+      \det {(A' (i|i))}}
+      \\
+      = {} &
+      \frac{[B']_{i,1} \det {((A' \{i, B'\}) (i|i))}}
+      {[A']_{i,i} \det {(A' (i|i))}}
+      \\
+      = {} &
+      \frac{b'_i \det {(A' (i|i))}}
+      {a'_{i,i} \det {(A' (i|i))}}
+      \\
+      = {} &
+      \frac{b'_i}{a'_{i,i}}
+      \\
+      = {} &
+      x_i.
+    \end{aligned}
+    \]
+    则方程组 @eq:sole-10
+    的唯一的解 @eq:sole-10-solutions 可被写为
+    \[
+    \begin{aligned}
+      x_i
+      = \frac{\det {(A' \{i, B'\})}}{\det {(A')}}
+      = \frac{\det {(A\{i, B\})}}{\det {(A)}},
+      \quad
+      i = 1, 2, \dots, n.
+    \end{aligned}
+    \]
 
 (2) 若 \(\det {(A)} = 0\)，
     则 \(\det {(A')} = \det {(A)} = 0\)。
     则 \(r < n\)。
 
-若 \(b'_{r,n+1} \neq 0\)，
-则方程组 @eq:sole-11 无解。
-则方程组 @eq:sole-10 无解。
+    若 \(b'_{r,n+1} \neq 0\)，
+    则方程组 @eq:sole-11 无解。
+    则方程组 @eq:sole-10 无解。
 
-若 \(b'_{r,n+1} = 0\)，
-则方程组 @eq:sole-11 有解。
-则方程组 @eq:sole-10 有解。
-因为 \(r < n\)，
-方程组 @eq:sole-11 有不唯一的解。
-则方程组 @eq:sole-10 有不唯一的解。
+    若 \(b'_{r,n+1} = 0\)，
+    则方程组 @eq:sole-11 有解。
+    则方程组 @eq:sole-10 有解。
+    因为 \(r < n\)，
+    方程组 @eq:sole-11 有不唯一的解。
+    则方程组 @eq:sole-10 有不唯一的解。
 :::
 
 我们进一步地讨论 REF 阵。

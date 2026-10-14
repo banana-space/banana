@@ -613,45 +613,45 @@ title: 复数
      不能全是 \(0\)。
      则 \(\operatorname{rec} {(x)} \neq 0\)。
 
-我证 \(\operatorname{rec} {(x)} \cdot x = 1\)；
-我留另一部分为您的习题
-（注意，您能用交换律：\(
-      x \cdot \operatorname{rec} {(x)}
-      = \operatorname{rec} {(x)} \cdot x = 1
-  \)）。
-注意，
-\[
-\begin{aligned}
-  \operatorname{rec} {(x)} \cdot x
-  = {} &
-  \left( \frac{a}{a^2 + b^2}
-  + \mathrm{i} \frac{-b}{a^2 + b^2} \right)
-  (a + \mathrm{i} b)
-  \\
-  = {} &
-  \left(
-    \frac{a}{a^2 + b^2} a - \frac{-b}{a^2 + b^2} b
-  \right)
-  + \mathrm{i}
-  \left(
-    \frac{a}{a^2 + b^2} b + \frac{-b}{a^2 + b^2} a
-  \right)
-  \\
-  = {} &
-  \frac{a a - (-b) b}{a^2 + b^2}
-  + \mathrm{i} \frac{a b + (-b) a}{a^2 + b^2}
-  \\
-  = {} &
-  \frac{a^2 + b^2}{a^2 + b^2}
-  + \mathrm{i} \frac{a b - a b}{a^2 + b^2}
-  \\
-  = {} &
-  1 + \mathrm{i} 0
-  \\
-  = {} &
-  1.
-\end{aligned}
-\]
+     我证 \(\operatorname{rec} {(x)} \cdot x = 1\)；
+     我留另一部分为您的习题
+     （注意，您能用交换律：\(
+           x \cdot \operatorname{rec} {(x)}
+           = \operatorname{rec} {(x)} \cdot x = 1
+       \)）。
+     注意，
+     \[
+     \begin{aligned}
+       \operatorname{rec} {(x)} \cdot x
+       = {} &
+       \left( \frac{a}{a^2 + b^2}
+       + \mathrm{i} \frac{-b}{a^2 + b^2} \right)
+       (a + \mathrm{i} b)
+       \\
+       = {} &
+       \left(
+         \frac{a}{a^2 + b^2} a - \frac{-b}{a^2 + b^2} b
+       \right)
+       + \mathrm{i}
+       \left(
+         \frac{a}{a^2 + b^2} b + \frac{-b}{a^2 + b^2} a
+       \right)
+       \\
+       = {} &
+       \frac{a a - (-b) b}{a^2 + b^2}
+       + \mathrm{i} \frac{a b + (-b) a}{a^2 + b^2}
+       \\
+       = {} &
+       \frac{a^2 + b^2}{a^2 + b^2}
+       + \mathrm{i} \frac{a b - a b}{a^2 + b^2}
+       \\
+       = {} &
+       1 + \mathrm{i} 0
+       \\
+       = {} &
+       1.
+     \end{aligned}
+     \]
 
 (11) 我证 \(x (y + z) = x y + x z\)；
      我留另一部分为您的习题

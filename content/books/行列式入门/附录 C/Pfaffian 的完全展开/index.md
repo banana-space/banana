@@ -1078,84 +1078,84 @@ pfaffian 的完全展开有如下变体：
     \end{aligned}
     \]
 
-设
-\[
-\begin{aligned}
-  H(j_1, j_2, \dots, j_{2m}) =
-  A\genfrac{\{}{\}}{0pt}{0}{j_1,j_2,\dots,j_{2m}}{j_1,j_2,\dots,j_{2m}}.
-\end{aligned}
-\]
-不难看出，
-\([H(j_1, j_2, \dots, j_{2m})]_{u,v} = [A]_{j_u,j_v}\)。
-记 \(f(j_a) = a\)
-（\(a = 1\)、\(2\)、\(\dots\)、\(2m\)）。
-设 \(g_1\)、\(g_2\)、\(\dots\)、\(g_{2m}\)
-是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\)
-的一个排列。
-那么，\(f(g_1)\)、\(f(g_2)\)、\(\dots\)、\(f(g_{2m})\)
-是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列。
-反过来，若 \(w_1\)、\(w_2\)、\(\dots\)、\(w_{2m}\)
-是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列，
-则 \(j_{w_1}\)、\(j_{w_2}\)、\(\dots\)、\(j_{w_{2m}}\)
-是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\) 的一个排列。
-并且，若 \(g_a < g_b\)，则 \(f(g_a) < f(g_b)\)。
-反过来，若 \(f(g_a) < f(g_b)\)，则 \(g_a < g_b\)。
-从而
-\(\operatorname{sgn} {(g_b - g_a)}
-  = \operatorname{sgn} {(f(g_b) - f(g_a))}\)。
-则
-\(s(g_1, g_2, \dots, g_{2m})
-  = s(f(g_1), f(g_2), \dots, f(g_{2m}))\)。
-故
-\[
-\begin{aligned}
-  &
-  \frac{1}{2^m m!}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  s(r_1, t_1, \dots, r_m, t_m)\,
-  [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
-  \\
-  = {} &
-  \frac{1}{2^m m!}
-  \sum_{\substack{
-      r_1, t_1, \dots, r_m, t_m\,\text{是} \\
-      j_1, \dots, j_{2m}\,\text{的排列}
-  }}
-  s(f(r_1), f(t_1), \dots, f(r_m), f(t_m))
-  \\
-  &
-  \quad \quad \quad \quad \quad \quad \quad \quad
-  \cdot
-  [H(j_1, \dots, j_{2m})]_{f(r_1),f(t_1)}
-  \dots
-  [H(j_1, \dots, j_{2m})]_{f(r_m),f(t_m)}
-  \\
-  = {} &
-  \operatorname{pf} {(H(j_1, \dots, j_{2m}))}
-  \\
-  = {} &
-  \operatorname{pf} {\left(
-      A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
-  \right)}.
-\end{aligned}
-\]
-从而
-\[
-\begin{aligned}
-  \operatorname{pf} {(P A P^{\mathrm{T}})}
-  = {} &
-  \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
-  {\det {\left(
-        P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
-    \right)}
-    \operatorname{pf} {\left(
-        A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
-  \right)}}.
-\end{aligned}
-\]
+    设
+    \[
+    \begin{aligned}
+      H(j_1, j_2, \dots, j_{2m}) =
+      A\genfrac{\{}{\}}{0pt}{0}{j_1,j_2,\dots,j_{2m}}{j_1,j_2,\dots,j_{2m}}.
+    \end{aligned}
+    \]
+    不难看出，
+    \([H(j_1, j_2, \dots, j_{2m})]_{u,v} = [A]_{j_u,j_v}\)。
+    记 \(f(j_a) = a\)
+    （\(a = 1\)、\(2\)、\(\dots\)、\(2m\)）。
+    设 \(g_1\)、\(g_2\)、\(\dots\)、\(g_{2m}\)
+    是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\)
+    的一个排列。
+    那么，\(f(g_1)\)、\(f(g_2)\)、\(\dots\)、\(f(g_{2m})\)
+    是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列。
+    反过来，若 \(w_1\)、\(w_2\)、\(\dots\)、\(w_{2m}\)
+    是 \(1\)、\(2\)、\(\dots\)、\(2m\) 的一个排列，
+    则 \(j_{w_1}\)、\(j_{w_2}\)、\(\dots\)、\(j_{w_{2m}}\)
+    是 \(j_1\)、\(j_2\)、\(\dots\)、\(j_{2m}\) 的一个排列。
+    并且，若 \(g_a < g_b\)，则 \(f(g_a) < f(g_b)\)。
+    反过来，若 \(f(g_a) < f(g_b)\)，则 \(g_a < g_b\)。
+    从而
+    \(\operatorname{sgn} {(g_b - g_a)}
+      = \operatorname{sgn} {(f(g_b) - f(g_a))}\)。
+    则
+    \(s(g_1, g_2, \dots, g_{2m})
+      = s(f(g_1), f(g_2), \dots, f(g_{2m}))\)。
+    故
+    \[
+    \begin{aligned}
+      &
+      \frac{1}{2^m m!}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      s(r_1, t_1, \dots, r_m, t_m)\,
+      [A]_{r_1,t_1} \dots [A]_{r_m,t_m}
+      \\
+      = {} &
+      \frac{1}{2^m m!}
+      \sum_{\substack{
+          r_1, t_1, \dots, r_m, t_m\,\text{是} \\
+          j_1, \dots, j_{2m}\,\text{的排列}
+      }}
+      s(f(r_1), f(t_1), \dots, f(r_m), f(t_m))
+      \\
+      &
+      \quad \quad \quad \quad \quad \quad \quad \quad
+      \cdot
+      [H(j_1, \dots, j_{2m})]_{f(r_1),f(t_1)}
+      \dots
+      [H(j_1, \dots, j_{2m})]_{f(r_m),f(t_m)}
+      \\
+      = {} &
+      \operatorname{pf} {(H(j_1, \dots, j_{2m}))}
+      \\
+      = {} &
+      \operatorname{pf} {\left(
+          A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
+      \right)}.
+    \end{aligned}
+    \]
+    从而
+    \[
+    \begin{aligned}
+      \operatorname{pf} {(P A P^{\mathrm{T}})}
+      = {} &
+      \sum_{1 \leqslant j_1 < \dots < j_{2m} \leqslant \ell}
+      {\det {\left(
+            P\genfrac{\{}{\}}{0pt}{0}{1,\dots,2m}{j_1,\dots,j_{2m}}
+        \right)}
+        \operatorname{pf} {\left(
+            A\genfrac{\{}{\}}{0pt}{0}{j_1,\dots,j_{2m}}{j_1,\dots,j_{2m}}
+      \right)}}.
+    \end{aligned}
+    \]
 :::
 
 ::: theorem

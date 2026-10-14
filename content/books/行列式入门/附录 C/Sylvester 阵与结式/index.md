@@ -756,27 +756,27 @@ notices:
     则这是平凡地对的
     （见 @emp:morniszero）。
 
-设 \(m \geqslant 1\) 且 \(n \geqslant 1\)。
-对 \(S(g, f; m, n)\)，
-交换列 \(n + 1\) 与列 \(n\)，
-再交换新的阵的列 \(n\) 与列 \(n - 1\)，
-……
-再交换新的阵的列 \(2\) 与列 \(1\)，
-我们作了 \(n\) 次相邻的列的交换，
-使 \(S(g, f; m, n)\) 的列 \(n + 1\) 到列 \(1\)，
-且别的列的相对位置不变。
-类似地，我们也可使这个阵的
-列 \(n + 2\)、\(\dots\)、\(n + m\)
-分别地到
-列 \(2\)、\(\dots\)、\(m\)。
-则 \(S(g, f; m, n)\) 的列 \(1\)、\(\dots\)、\(n\)
-分别地到
-列 \(m + 1\)、\(\dots\)、\(m + n\)。
-则 \(n \cdot m\) 次相邻的列的交换
-变 \(S(g, f; m, n)\) 为 \(S(f, g; n, m)\)。
-则
-\(\det {(S(g, f; m, n))}
-  = (-1)^{m n} \det {(S(f, g; n, m))}\)。
+    设 \(m \geqslant 1\) 且 \(n \geqslant 1\)。
+    对 \(S(g, f; m, n)\)，
+    交换列 \(n + 1\) 与列 \(n\)，
+    再交换新的阵的列 \(n\) 与列 \(n - 1\)，
+    ……
+    再交换新的阵的列 \(2\) 与列 \(1\)，
+    我们作了 \(n\) 次相邻的列的交换，
+    使 \(S(g, f; m, n)\) 的列 \(n + 1\) 到列 \(1\)，
+    且别的列的相对位置不变。
+    类似地，我们也可使这个阵的
+    列 \(n + 2\)、\(\dots\)、\(n + m\)
+    分别地到
+    列 \(2\)、\(\dots\)、\(m\)。
+    则 \(S(g, f; m, n)\) 的列 \(1\)、\(\dots\)、\(n\)
+    分别地到
+    列 \(m + 1\)、\(\dots\)、\(m + n\)。
+    则 \(n \cdot m\) 次相邻的列的交换
+    变 \(S(g, f; m, n)\) 为 \(S(f, g; n, m)\)。
+    则
+    \(\det {(S(g, f; m, n))}
+      = (-1)^{m n} \det {(S(f, g; n, m))}\)。
 :::
 
 ::: theorem {@thm:resultant-recursive}
@@ -1023,59 +1023,59 @@ notices:
     @thm:resultant-Bézout），
     但我们现在别地证它。
 
-若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
+    若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
 
-若 \(a_0 \neq 0\)，则我们可写
-\(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
-其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
-因为 \(f(c) = 0\)，
-\(a_0\)、\(c - x_1\)、\(c - x_2\)、\(\dots\)、\(c - x_n\)
-的一个是 \(0\)。
-因为 \(a_0 \neq 0\)，
-某 \(c - x_i\) 是 \(0\)。
-则 \(c\) 等于此 \(x_i\)。
-则
-\(\det {(S(f, g; n, m))}
-  = a_0^m g(x_1) g(x_2) \dots g(x_n) = 0\)，
-因为 \(g(x_i) = g(c) = 0\)。
+    若 \(a_0 \neq 0\)，则我们可写
+    \(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
+    其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
+    因为 \(f(c) = 0\)，
+    \(a_0\)、\(c - x_1\)、\(c - x_2\)、\(\dots\)、\(c - x_n\)
+    的一个是 \(0\)。
+    因为 \(a_0 \neq 0\)，
+    某 \(c - x_i\) 是 \(0\)。
+    则 \(c\) 等于此 \(x_i\)。
+    则
+    \(\det {(S(f, g; n, m))}
+      = a_0^m g(x_1) g(x_2) \dots g(x_n) = 0\)，
+    因为 \(g(x_i) = g(c) = 0\)。
 
-若 \(b_0 \neq 0\)，您可类似地证它：
-注意，
+    若 \(b_0 \neq 0\)，您可类似地证它：
+    注意，
 
-```math {@eq:resultant-in-terms-of-roots-of-g}
-\det {(S(f, g; n, m))}
-= (-1)^{m n} b_0^n f(y_1) f(y_2) \dots f(y_m),
-```
+    ```math {@eq:resultant-in-terms-of-roots-of-g}
+    \det {(S(f, g; n, m))}
+    = (-1)^{m n} b_0^n f(y_1) f(y_2) \dots f(y_m),
+    ```
 
-其中，
+    其中，
 
-```math {@eq:roots-of-g}
-g(x) = b_0 (x - y_1) (x - y_2) \dots (x - y_m).
-```
+    ```math {@eq:roots-of-g}
+    g(x) = b_0 (x - y_1) (x - y_2) \dots (x - y_m).
+    ```
 
 (2) 若 \(a_0 = 0 = b_0\)，则 \(\det {(S(f, g; n, m))} = 0\)。
 
-若 \(a_0 \neq 0\)，则我们可写
-\(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
-其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
-注意，
-\(f(x_1)\)、\(f(x_2)\)、\(\dots\)、\(f(x_n)\) 都是 \(0\)。
-则
-\[
-\begin{aligned}
-  0
-  = \det {(S(f, g; n, m))}
-  = a_0^m g(x_1) g(x_2) \dots g(x_n).
-\end{aligned}
-\]
-因为 \(a_0 \neq 0\)，
-我们说，
-在 \(g(x_1)\)、\(g(x_2)\)、\(\dots\)、\(g(x_n)\)，
-\(0\) 存在。
+    若 \(a_0 \neq 0\)，则我们可写
+    \(f(x) = a_0 (x - x_1) (x - x_2) \dots (x - x_n)\)，
+    其中，\(x_1\)、\(x_2\)、\(\dots\)、\(x_n\) 是数。
+    注意，
+    \(f(x_1)\)、\(f(x_2)\)、\(\dots\)、\(f(x_n)\) 都是 \(0\)。
+    则
+    \[
+    \begin{aligned}
+      0
+      = \det {(S(f, g; n, m))}
+      = a_0^m g(x_1) g(x_2) \dots g(x_n).
+    \end{aligned}
+    \]
+    因为 \(a_0 \neq 0\)，
+    我们说，
+    在 \(g(x_1)\)、\(g(x_2)\)、\(\dots\)、\(g(x_n)\)，
+    \(0\) 存在。
 
-若 \(b_0 \neq 0\)，您可类似地证它：
-注意式 @eq:resultant-in-terms-of-roots-of-g，
-若式 @eq:roots-of-g。
+    若 \(b_0 \neq 0\)，您可类似地证它：
+    注意式 @eq:resultant-in-terms-of-roots-of-g，
+    若式 @eq:roots-of-g。
 :::
 
 ::: theorem

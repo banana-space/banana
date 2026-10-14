@@ -457,8 +457,8 @@ notices:
       a_0 \sum_{1 \leqslant v \leqslant n} {L_v (x)}.
     \end{aligned}
     \]
-最后，注意，若 \(i \neq v\)，则 \(L_v (x_i) = 0\)。
-则由上式，\(\mathrm{D} f(x_i) = a_0 L_i (x_i)\)。
+    最后，注意，若 \(i \neq v\)，则 \(L_v (x_i) = 0\)。
+    则由上式，\(\mathrm{D} f(x_i) = a_0 L_i (x_i)\)。
 :::
 
 最后，我们以整式的几个性质结束本节。
