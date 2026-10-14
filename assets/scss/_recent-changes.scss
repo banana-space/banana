@@ -261,6 +261,31 @@ $recent-time-width: 5.2rem;
   color: $recent-merged-color;
 }
 
+// Merged, not yet on the site: the dot pulses until the site is rebuilt with it.
+.recent-state.is-publishing::before {
+  animation: recent-publishing 1.6s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes recent-publishing {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.recent-publishing {
+  margin-left: 0.6rem;
+  padding: 0 0.6rem;
+  border-radius: 0.4rem;
+  background: rgba($recent-merged-color, 0.1);
+  font-size: 1.15rem;
+  font-weight: 400;
+  cursor: help;
+}
+
 .recent-pull {
   &,
   &:hover,
@@ -592,6 +617,10 @@ $recent-time-width: 5.2rem;
   margin: 0.8rem 0 0;
   color: $recent-open-color;
   font-size: 1.35rem;
+}
+
+.diff-note.is-publishing {
+  color: $recent-merged-color;
 }
 
 .diff-actions {

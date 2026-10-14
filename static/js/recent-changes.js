@@ -67,7 +67,13 @@ function pageLink(pull, page, withBook = true) {
 
 function stateLabel(pull) {
   const state = pull.state === 'merged' ? 'merged' : pull.draft ? 'draft' : 'open';
-  return element('span', `recent-state recent-state-${state}`, strings[state]);
+  const label = element('span', `recent-state recent-state-${state}`, strings[state]);
+  // Merged, and the site not yet rebuilt with it (live is null where the server cannot tell).
+  if (pull.live === false) {
+    label.classList.add('is-publishing');
+    label.append(Object.assign(element('span', 'recent-publishing', strings.publishing), { title: strings.publishingHint }));
+  }
+  return label;
 }
 
 /** Who and which pull request, as one link to the pull request. */

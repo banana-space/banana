@@ -29,16 +29,26 @@ function header(pull, page, edit) {
   if (page.status === 'renamed' && page.previous) title.append(element('span', 'recent-badge', fill(strings.renamed, { name: page.previous.replace(/\/_?index\.md$/, '').split('/').at(-1) })));
 
   const state = pull.state === 'merged' ? 'merged' : pull.draft ? 'draft' : 'open';
+  const stateLabel = element('span', `recent-state recent-state-${state}`, strings[state]);
+  // Merged, and the site not yet rebuilt with it.
+  if (pull.live === false) {
+    stateLabel.classList.add('is-publishing');
+    stateLabel.append(Object.assign(element('span', 'recent-publishing', strings.publishing), { title: strings.publishingHint }));
+  }
   const time = new Date(pull.time), pad = value => String(value).padStart(2, '0');
   const pullLink = element('a', 'recent-pull', element('span', 'recent-author', pull.author), element('span', 'recent-pull-number', `#${pull.number}`));
   Object.assign(pullLink, { href: pull.url, target: '_blank', rel: 'noopener' });
   const when = element('time', 'diff-time', `${time.getFullYear()}-${pad(time.getMonth() + 1)}-${pad(time.getDate())} ${pad(time.getHours())}:${pad(time.getMinutes())}`);
   when.dateTime = pull.time;
   root.querySelector('.diff-meta').append(...[
-    element('span', `recent-state recent-state-${state}`, strings[state]), pullLink,
+    stateLabel, pullLink,
     pull.namesPage ? null : element('span', 'recent-pull-summary', pull.title), when,
   ].filter(Boolean));
   if (pull.state === 'open') Object.assign(root.querySelector('.diff-note'), { hidden: false, textContent: strings.openNote });
+  if (pull.live === false) {
+    Object.assign(root.querySelector('.diff-note'), { hidden: false, textContent: strings.publishingNote });
+    root.querySelector('.diff-note').classList.add('is-publishing');
+  }
 
   if (page.url) Object.assign(root.querySelector('.diff-view-page'), { hidden: false, href: page.url });
   // The server decides which version the editor opens (an open pull request's own, for one the editor can add to).

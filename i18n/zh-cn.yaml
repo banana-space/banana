@@ -696,6 +696,10 @@ recent_changes_draft:
   other: 草稿
 recent_changes_merged:
   other: 已合并
+recent_changes_publishing:
+  other: 发布中
+recent_changes_publishing_hint:
+  other: 已合并，网站通常在合并后十分钟内更新
 recent_changes_added:
   other: 新页面
 recent_changes_removed:
@@ -728,6 +732,8 @@ diff_error:
   other: 暂时无法读取这项修改，请稍后再试．
 diff_missing:
   other: 没有找到这项修改：链接可能有误，或者 PR 已经关闭．
+diff_publishing_note:
+  other: 这项修改已经合并，网站更新后（通常在合并后十分钟内）出现在网站上．
 diff_view_page:
   other: 查看页面
 diff_edit_page:
