@@ -1,0 +1,17 @@
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Disallow: /edit/
+Disallow: /api/
+Disallow: /legacy/
+Disallow: /w/
+Allow: /
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: Bytespider
+Disallow: /
+
+Sitemap: https://bananaspace.org/sitemap.xml
