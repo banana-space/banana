@@ -701,7 +701,7 @@ recent_changes_merged:
 recent_changes_publishing:
   other: 发布中
 recent_changes_publishing_hint:
-  other: 已合并，网站通常在合并后十分钟内更新
+  other: 已审阅，将在几分钟后发布到网站
 recent_changes_added:
   other: 新页面
 recent_changes_removed:

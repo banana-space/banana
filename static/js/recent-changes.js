@@ -237,7 +237,7 @@ controls.addEventListener('click', event => {
 controls.querySelector('[data-show="site"]').addEventListener('change', event => { state.site = event.target.checked; render(); });
 
 /**
- * The next page of pull requests. GitHub orders them by their last update, the list by when they were merged, so a
+ * The next page of pull requests. GitHub orders them by their last update, the list by their latest commit, so a
  * later page can hold a change that belongs among those already shown: the whole list is sorted again.
  */
 async function loadMore() {
