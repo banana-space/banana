@@ -743,7 +743,7 @@ diff_open_note:
 recent_changes_show_site:
   other: 显示只修改网站代码的 PR
 
-# 页面历史（layouts/_default/history.html 与 static/js/history.js）；{title}、{name} 由脚本填入
+# 页面历史（layouts/_default/history.html 与 static/js/history.js）；{title}、{name}、{count} 由脚本填入
 history_link:
   other: 页面历史
 history_page_title:
@@ -767,7 +767,13 @@ history_created:
 history_legacy:
   other: 旧站的编辑记录
 history_legacy_note:
-  other: 页面迁移之前在旧站（MediaWiki）上的修订．编辑摘要已去掉其中的 wiki 标记．
+  other: 以下是基于 MediaWiki 的旧版网站上的编辑记录．
+history_legacy_show:
+  other: 显示 {count} 项编辑记录
+history_show_more:
+  other: 显示更多
+history_back:
+  other: 页面历史
 history_minor:
   other: 小
 history_minor_hint:

@@ -70,6 +70,12 @@ function show(before, after) {
 
 async function load() {
   const params = new URLSearchParams(location.search);
+  // Opened from a page's history: back to it rather than to the recent changes.
+  if (params.get('history')) {
+    const back = root.querySelector('.diff-back');
+    back.href = `${config.history}?${new URLSearchParams({ path: params.get('history') })}`;
+    back.querySelector('.diff-back-text').textContent = strings.historyBack;
+  }
   status.textContent = strings.loading;
   try {
     const response = await fetch(`${config.api}?${new URLSearchParams({ pr: params.get('pr') ?? '', path: params.get('path') ?? '' })}`, { headers: { Accept: 'application/json' } });

@@ -59,7 +59,8 @@ function row(className, time, head, meta) {
 /** A pull request: its title links to its change of this page; who and which pull request, to GitHub. */
 function pullRow(pull, path) {
   const state = pull.state === 'open' ? (pull.draft ? 'draft' : 'open') : pull.live === false ? 'publishing' : 'merged';
-  const title = link(`${config.diff}?${new URLSearchParams({ pr: pull.number, path: pull.path ?? path })}`, 'recent-pull-title', pull.title);
+  // The diff page's back link returns here (history: the page's path now, which a rename may have changed).
+  const title = link(`${config.diff}?${new URLSearchParams({ pr: pull.number, path: pull.path ?? path, history: path })}`, 'recent-pull-title', pull.title);
   const by = external(link(pull.url ?? `${config.repository}/pull/${pull.number}`, 'recent-pull',
     element('span', 'recent-author', pull.author ?? ''), element('span', 'recent-pull-number', `#${pull.number}`)));
   return row(`recent-item-${pull.state === 'open' ? 'open' : 'merged'}`, pull.time,
@@ -67,15 +68,22 @@ function pullRow(pull, path) {
     element('div', 'recent-meta', stateLabel(state), by, diffStat(pull.additions ?? pull.add, pull.deletions ?? pull.del)));
 }
 
-/** A commit made on the branch itself, not through a pull request: to GitHub. */
+/**
+ * A commit made on the branch itself, not through a pull request: to GitHub. The first commit, which imported the
+ * site, is the site's own: no author or commit shown.
+ */
 function commitRow(change, withLegacy) {
-  const title = change.import ? (withLegacy ? strings.imported : strings.created) : change.title;
+  if (change.import) {
+    // Its line count is the converted page, not a change of it, where the legacy site's history comes before.
+    return row('recent-item-merged history-import', change.time,
+      element('div', 'recent-head', element('span', 'recent-pull-title', withLegacy ? strings.imported : strings.created)),
+      element('div', 'recent-meta', stateLabel('merged'), withLegacy ? null : diffStat(change.add, change.del)));
+  }
   const by = external(link(`${config.repository}/commit/${change.commit}`, 'recent-pull',
     element('span', 'recent-author', change.author ?? ''), element('span', 'recent-pull-number', change.commit.slice(0, 7))));
-  return row(`recent-item-merged${change.import ? ' history-import' : ''}`, change.time,
-    element('div', 'recent-head', element('span', 'recent-pull-title', title), change.import ? null : badges(change)),
-    // The import's line count is the converted page, not a change of it.
-    element('div', 'recent-meta', stateLabel('merged'), by, change.import && withLegacy ? null : diffStat(change.add, change.del)));
+  return row('recent-item-merged', change.time,
+    element('div', 'recent-head', element('span', 'recent-pull-title', change.title), badges(change)),
+    element('div', 'recent-meta', stateLabel('merged'), by, diffStat(change.add, change.del)));
 }
 
 /** A revision on the legacy site: its summary (plain text), who, and how many lines. */
@@ -103,18 +111,43 @@ function header(data, path) {
   root.querySelector('.history-header').hidden = false;
 }
 
+/** Rows shown at a time: the first of the changes, and of the legacy site's once it is opened; more on request. */
+const pageSize = 30;
+const shown = { changes: pageSize, legacy: 0 };
+
+function moreButton(onClick) {
+  const button = element('button', 'recent-changes-more', strings.showMore);
+  button.type = 'button';
+  button.addEventListener('click', onClick);
+  return button;
+}
+
+/** Rows for the entries up to the number shown, and a button for the next ones while there are more. */
+function paged(entries, toRow, key, rerender) {
+  const items = element('ol', 'recent-items history-items', ...entries.slice(0, shown[key]).map(toRow));
+  return [items, entries.length > shown[key] && moreButton(() => { shown[key] += pageSize; rerender(); })];
+}
+
 function render(data, pending) {
+  const rerender = () => render(data, pending);
   const known = new Set(data.changes.map(change => change.pr).filter(Boolean));
-  const items = element('ol', 'recent-items history-items',
-    ...pending.filter(pull => !known.has(pull.number)).map(pull => pullRow(pull, data.path)),
-    ...data.changes.map(change => change.pr ? pullRow({ ...change, number: change.pr, state: 'merged' }, data.path) : commitRow(change, data.legacy.length > 0)));
-  list.replaceChildren(items);
-  if (data.legacy.length) {
-    list.append(element('section', 'history-legacy',
-      element('h2', 'history-legacy-title', strings.legacy),
-      element('p', 'history-legacy-note', strings.legacyNote),
-      element('ol', 'recent-items history-items', ...data.legacy.map(legacyRow))));
-  }
+  const entries = [...pending.filter(pull => !known.has(pull.number)), ...data.changes];
+  const toRow = change => change.commit ? commitRow(change, data.legacy.length > 0)
+    : pullRow(change.pr ? { ...change, number: change.pr, state: 'merged' } : change, data.path);
+  list.replaceChildren(...paged(entries, toRow, 'changes', rerender).filter(Boolean));
+  if (!data.legacy.length) return;
+  // The legacy site's history, folded at first: a page can have hundreds of revisions there.
+  const open = shown.legacy > 0;
+  const toggle = element('button', 'recent-expand history-legacy-toggle', open ? strings.hide : fill(strings.legacyShow, { count: data.legacy.length }));
+  toggle.type = 'button';
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.addEventListener('click', () => { shown.legacy = open ? 0 : pageSize; rerender(); });
+  const section = element('section', 'history-legacy',
+    element('h2', 'history-legacy-title', strings.legacy),
+    element('p', 'history-legacy-note', strings.legacyNote, ' ', toggle));
+  // Built only when opened.
+  if (open) section.append(...paged(data.legacy, legacyRow, 'legacy', rerender).filter(Boolean));
+  list.append(section);
 }
 
 async function load() {
