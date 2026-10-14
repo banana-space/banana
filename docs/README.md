@@ -28,5 +28,6 @@
 
 - **界面文字**：`i18n/zh-cn.yaml`，由 Hugo 与 Node 共用。`build_`、`serve_` 开头的键用于构建提示，使用简单的 `{{ .Name }}` 参数；界面键可以使用 Hugo 的模板语法。
 - **修改时间**：取源文件最近一次 Git 提交的提交者日期，未提交的修改不影响它；部署时须保留 Git 历史。指南与讲义使用整组的日期，见 [指南与讲义](collections.md#发布与修改时间)。
+- **页面历史**（`/history/?path=<页面>`，页面底部“页面历史”）：prebuild 从 Git 历史（`git log --first-parent`，跟随改名）读出修改每个页面的 PR 与提交，写到 `.build/history/<页面>.json`，由 Hugo 发布为 `/history/data/`（`scripts/prebuild/page-history.mjs`）；尚未出现在网站上的 PR 由页面从 `GET /api/page-history` 读取。从旧站迁移来的页面另列出旧站的修订：`legacy/history.json` 以导入提交（仓库的第一个提交）中的路径为键，记录每次修订的时间、用户、增删的行数与去掉 wiki 标记的编辑摘要（不含正文），由 MediaWiki 数据库一次性导出，不再改动；之后改名的页面沿 Git 历史找回导入时的路径。导入时合并的页面（如《行列式入门》附录 C 的“杂例”）与指南不带旧站的历史。
 - **部署**：`hugo.toml` 的 `baseURL` 是站点地址（支持子目录）。服务器上的部署见 [服务器部署](deploy.md)。
 - **示例页面**：`tests/fixtures/content/wiki/` 中的 [奇异上同调](../tests/fixtures/content/wiki/奇异上同调/index.md)、[组件示例](../tests/fixtures/content/wiki/components-example/index.md) 与 [TikZ 示例](../tests/fixtures/content/wiki/tikz-example/index.md)。

@@ -14,8 +14,7 @@ import { cookie, parseCookies, sign, verify } from './editor/session.mjs';
 import { blobId, githubLogin, githubRepository } from './editor/github.mjs';
 import { recentPullRequests } from './editor/recent-changes.mjs';
 import { defaultReading, normalizeReading, sortGroup } from './prebuild/reading.mjs';
-import { pageName } from './prebuild/names.mjs';
-import katex from 'katex';
+import { displayTitle } from './shared/display-title.mjs';
 
 // 在线编辑的接口（见 docs/preview.md）：常驻预览服务加一个只监听本机的 HTTP 服务，由 Apache 把
 // /api/ 反向代理过来。静态站点由 Apache 直接提供，预览页面中的地址都指向它。
@@ -58,6 +57,10 @@ import katex from 'katex';
 //                                          { ok, pull, page, before, after, edit }：该 PR 修改的一个页面在 PR 前后的全文（不存在时为 null），供 /diff/ 使用；
 //                                          edit 为编辑按钮打开的编辑器参数：在线编辑器开的未合并 PR 为 { path, pull }（编辑该 PR 的版本，
 //                                          页面在 PR 中新建时也是），否则网站上有此页面时为 { path }，不能在线编辑时为 null
+// GET  /api/page-history?path=<页面>       { ok, pulls }：修改该页面而尚未出现在网站上的 PR（待审阅的，以及已合并、编辑接口所在的提交
+//                                          还不包含的），供页面历史（/history/）补在构建时的历史之前；每项同 recent-changes，另有该页面在 PR
+//                                          中的 path、status、previous、additions、deletions。所有页面共用一份 PR 列表，每分钟至多向 GitHub
+//                                          读取一次；同一来源地址的请求限频（与 recent-changes/diff 一样，可以连续 20 次，之后每 2 秒一次）
 // POST /api/preview { path, text }          { ok, url, html, missingLinks, timings }（需登录）
 // POST /api/check   { path, text }          { ok, missingLinks }（需登录）
 // POST /api/submit  { path, text, original, message, pull }
@@ -210,27 +213,35 @@ function startSession(user) {
   return cookie('banana_session', value, { maxAge: sessionDays * 86400, secure });
 }
 
-// Per account and action, a token bucket: up to `burst` requests at once, then one per `interval`.
-// Opening a few pages in quick succession previews each at once; a steady stream is held to the interval.
+// Per account (or, for what needs no login, per client address) and action, a token bucket: up to `burst` requests at
+// once, then one per `interval`. Opening a few pages in quick succession previews each at once; a steady stream is held
+// to the interval.
 const limits = {
   preview: { interval: options.previewInterval * 1000, burst: 3 },
   check: { interval: options.previewInterval * 1000 / 3, burst: 1 },
   submit: { interval: options.previewInterval * 5000, burst: 1 },
+  // Answered from memory, but anyone may ask, and a crawler would ask for every page.
+  history: { interval: 2000, burst: 20 },
+  // Each new pull request and page is read from GitHub, whose limit the whole site shares.
+  diff: { interval: 2000, burst: 20 },
 };
-const buckets = new Map(); // "login\0action" -> { tokens, time }
-function throttle(user, action) {
-  const { interval, burst } = limits[action], key = `${user.login}\0${action}`, now = Date.now();
+const maxBuckets = 50000;
+const buckets = new Map(); // "login or address\0action" -> { tokens, time }
+function throttle(who, action) {
+  const { interval, burst } = limits[action], key = `${who}\0${action}`, now = Date.now();
   const bucket = buckets.get(key) ?? { tokens: burst, time: now };
   bucket.tokens = interval ? Math.min(burst, bucket.tokens + (now - bucket.time) / interval) : burst;
   bucket.time = now;
+  buckets.delete(key); // Most recently used last: when there are too many, the longest idle go first.
   if (bucket.tokens < 1) {
     const seconds = Math.ceil((1 - bucket.tokens) * interval / 1000);
     buckets.set(key, bucket);
-    console.log(`[editor-api] ${action} ${user.login} refused: too frequent, retry in ${seconds} s`);
+    console.log(`[editor-api] ${action} ${who} refused: too frequent, retry in ${seconds} s`);
     throw new RequestError(429, `too many requests; try again in ${seconds} s`, { headers: { 'Retry-After': String(seconds) } });
   }
   bucket.tokens -= 1;
   buckets.set(key, bucket);
+  while (buckets.size > maxBuckets) buckets.delete(buckets.keys().next().value);
 }
 // Forget accounts whose buckets have filled up again.
 setInterval(() => {
@@ -240,6 +251,22 @@ setInterval(() => {
     if (bucket.tokens + (now - bucket.time) / (interval || 1) >= burst) buckets.delete(key);
   }
 }, 60000).unref();
+
+/**
+ * Who sent a request that needs no login: the client's address as Apache passed it on (the last X-Forwarded-For entry,
+ * which Apache added; only believed from a proxy on this machine), an IPv6 address by its /64 network, which one
+ * client can fill.
+ */
+function client(request) {
+  const peer = request.socket.remoteAddress ?? '';
+  const local = peer === '::1' || peer.startsWith('127.') || peer.startsWith('::ffff:127.');
+  const forwarded = local ? request.headers['x-forwarded-for']?.split(',').at(-1).trim() : undefined;
+  const address = (forwarded || peer).replace(/^::ffff:(?=\d+\.)/, '');
+  if (!address.includes(':')) return address;
+  const [head, tail] = address.split('::'), part = text => text ? text.split(':') : [];
+  const groups = tail === undefined ? part(head) : [...part(head), ...Array(8 - part(head).length - part(tail).length).fill('0'), ...part(tail)];
+  return `${groups.slice(0, 4).join(':')}::/64`;
+}
 
 /**
  * Runs a service request for a page, answering preprocessing and Hugo errors with 422. What the editor
@@ -338,8 +365,9 @@ const routes = {
       }),
     }, { 'Cache-Control': 'public, max-age=60' });
   },
-  'GET /api/recent-changes/diff': async (_request, response, url) => {
+  'GET /api/recent-changes/diff': async (request, response, url) => {
     if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    throttle(client(request), 'diff');
     await sourcesReady;
     const number = Number(url.searchParams.get('pr'));
     if (!Number.isInteger(number) || number < 1) throw new RequestError(400, 'pr must be a pull request number');
@@ -358,8 +386,31 @@ const routes = {
     const { mergeCommit, ...shown } = pull;
     send(response, 200, { ok: true, pull: { ...shown, author: pull.author.login, live: await isLive(mergeCommit), namesPage: pull.title === page.title || pull.title === source }, page, before, after, edit }, { 'Cache-Control': 'public, max-age=60' });
   },
+  'GET /api/page-history': async (request, response, url) => {
+    if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    throttle(client(request), 'history');
+    const path = pagePath(url.searchParams.get('path'));
+    const file = `content/${path}`;
+    // Shared by every page and every client: GitHub is asked at most once a minute, however many ask here.
+    const [open, recent] = await Promise.all([recentPulls.open(), recentPulls.list(1)]).catch(githubFailed);
+    const merged = recent.pulls.filter(pull => pull.state === 'merged');
+    const live = await Promise.all(merged.map(pull => isLive(pull.mergeCommit)));
+    const pulls = [];
+    for (const pull of [...open, ...merged.filter((_, index) => live[index] === false)]) {
+      const change = pull.files.find(changed => changed.path === file || changed.previous === file);
+      if (!change) continue;
+      const { files, fileCount, truncated, author, mergeCommit, ...shown } = pull;
+      pulls.push({
+        ...shown, author: author.login, live: pull.state === 'merged' ? false : null,
+        path: change.path.replace(/^content\//, ''), status: change.status, previous: change.previous?.replace(/^content\//, '') ?? null,
+        additions: change.additions, deletions: change.deletions,
+      });
+    }
+    pulls.sort((a, b) => b.time.localeCompare(a.time));
+    send(response, 200, { ok: true, pulls }, { 'Cache-Control': 'public, max-age=60' });
+  },
   'POST /api/preview': queued(async (request, response, user) => {
-    throttle(user, 'preview');
+    throttle(user.login, 'preview');
     const { path, text } = await draft(request);
     const start = performance.now();
     const result = await serviceCall(response, 'preview', path, text);
@@ -369,14 +420,14 @@ const routes = {
     if (result) send(response, 200, { ok: true, ...result });
   }),
   'POST /api/check': queued(async (request, response, user) => {
-    throttle(user, 'check');
+    throttle(user.login, 'check');
     const { path, text } = await draft(request);
     const result = await serviceCall(response, 'check', path, text);
     if (result) send(response, 200, { ok: true, ...result });
   }),
   'POST /api/submit': queued(async (request, response, user) => {
     if (!repository) throw new RequestError(503, 'submitting is not configured');
-    throttle(user, 'submit');
+    throttle(user.login, 'submit');
     const { path, text, body } = await draft(request);
     if (body.original !== null && !(typeof body.original === 'string' && /^[0-9a-f]{40}$/.test(body.original))) throw new RequestError(400, 'original must be the blob id from /api/source, or null for a new page');
     if (body.original === null && !/^wiki\/[^/]+\/index\.md$/.test(path)) throw new RequestError(403, 'only entries (content/wiki/<name>/index.md) can be created online');
@@ -455,26 +506,6 @@ function frontMatterField(text, field) {
   } catch {}
 }
 const titleOf = text => frontMatterField(text, 'title');
-const escapeHTML = text => text.replace(/[&<>"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[char]);
-
-/**
- * A title as the site shows it: { title, titleHTML }, the plain text (formulas as text: (∞,1)-层) and the HTML with
- * formulas rendered by KaTeX, as layouts/partials/math.html renders them.
- */
-function displayTitle(title, path) {
-  try {
-    const { name, parts } = pageName(title, path, 'title', { typeset: true });
-    const html = parts.map(part => {
-      if (!Object.hasOwn(part, 'tex')) return escapeHTML(part.text);
-      const tex = part.tex.replace(/\\mathbb\s*\{\s*\\(Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)\s*\}/g, '\\mathbf{\\$1}').replace(/\\mathbb\s*(?:\{\s*1\s*\}|1)/g, '𝟙');
-      return `<span class="math-rendered">${katex.renderToString(tex, { output: 'htmlAndMathml', strict: 'ignore', throwOnError: false })}</span>`;
-    }).join('');
-    return { title: name, titleHTML: html };
-  } catch {
-    return { title, titleHTML: escapeHTML(title) };
-  }
-}
-
 /**
  * What a changed file in content/ is on the site: { path, title, url, status, previous, group }, or undefined for
  * files that are not pages (attachments, component definitions, the site's own pages). Titles and addresses are the
@@ -548,7 +579,7 @@ for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, stop);
 // Meanwhile logging in and the recent changes are answered, the latter once the prebuild has the site's pages; the
 // rest is 503 until the preview service is ready, when "listening on" is logged.
 let started = false;
-const early = new Set(['GET /api/me', 'GET /api/auth/login', 'GET /api/auth/callback', 'POST /api/auth/logout', 'GET /api/recent-changes', 'GET /api/recent-changes/diff']);
+const early = new Set(['GET /api/me', 'GET /api/auth/login', 'GET /api/auth/callback', 'POST /api/auth/logout', 'GET /api/recent-changes', 'GET /api/recent-changes/diff', 'GET /api/page-history']);
 const sourcesReady = service.refresh();
 sourcesReady.catch(() => {}); // Reported below; the process exits.
 await new Promise((resolve, reject) => { server.once('error', reject); server.listen(options.port, options.bind, resolve); });

@@ -23,6 +23,10 @@ target = 'assets/js/scripts'
 [[module.mounts]]
 source = 'static'
 target = 'static'
+# prebuild 写出的页面历史数据（scripts/prebuild/page-history.mjs），供 /history/ 读取。
+[[module.mounts]]
+source = '.build/history'
+target = 'static/history/data'
 [[module.mounts]]
 source = 'node_modules/katex/dist/fonts'
 target = 'static/katex/fonts'
@@ -48,6 +52,8 @@ category = 'categories'
 
 [params]
 description = '中文数学百科'
+# 站点仓库（GitHub 上的 owner/name）：页面历史链接到其中的 PR 与提交，prebuild 据此认出复刻中的分支的作者。
+repository = 'banana-space/banana'
 
 # use external CSS
 [markup.highlight]

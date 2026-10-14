@@ -248,12 +248,12 @@ try {
   });
   await until(async () => (await html('/wiki/live/')).includes('2025 年 7 月 10 日'), 'Git 提交后修改日期刷新');
   // After all these partial updates, the preview is what a full build makes of the same sources. Not compared:
-  // the search index and the sitemap (left to full builds) and earlier versions of fingerprinted files.
+  // the search index, the sitemap and the pages' histories (left to full builds) and earlier versions of fingerprinted files.
   const previewFiles = async () => {
     const result = new Map(), directory = join(root, '.build/preview');
     for (const entry of await readdir(directory, { recursive: true, withFileTypes: true })) {
       const path = join(entry.parentPath, entry.name).slice(directory.length);
-      if (entry.isFile() && !/^\/(?:pagefind\/|search-manifest\.json$|sitemap\.xml$|js\/editor-names\.)/.test(path)) result.set(path, await readFile(join(directory, path), 'utf8'));
+      if (entry.isFile() && !/^\/(?:pagefind\/|search-manifest\.json$|sitemap\.xml$|history\/data\/|js\/editor-names\.)/.test(path)) result.set(path, await readFile(join(directory, path), 'utf8'));
     }
     return result;
   };

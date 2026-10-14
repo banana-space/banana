@@ -1,6 +1,8 @@
 User-agent: *
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 Disallow: /edit/
+Disallow: /history/
+Disallow: /diff/
 Disallow: /api/
 Disallow: /legacy/
 Disallow: /w/

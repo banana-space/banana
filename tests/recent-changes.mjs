@@ -45,7 +45,7 @@ for (let number = 40; number < 70; number++) pull(number, { ref: `old-${number}`
 // A later page of GitHub's list holds older pull requests.
 pulls.sort((a, b) => (b.number < 10) - (a.number < 10) || b.number - a.number);
 
-const requests = [];
+const requests = [], listed = [];
 const github = createServer((request, response) => {
   const url = new URL(request.url, 'http://localhost');
   const reply = (status, value) => { response.writeHead(status, { 'Content-Type': 'application/json' }); response.end(JSON.stringify(value)); };
@@ -55,8 +55,11 @@ const github = createServer((request, response) => {
   requests.push(path);
   if (path === '/pulls') {
     const number = Number(url.searchParams.get('page') ?? 1), size = Number(url.searchParams.get('per_page'));
-    assert.equal(url.searchParams.get('state'), 'all');
-    return reply(200, pulls.slice((number - 1) * size, number * size).map(({ files: _, ...pull }) => pull));
+    const state = url.searchParams.get('state');
+    assert.ok(['all', 'open'].includes(state));
+    listed.push(state);
+    const shown = state === 'open' ? pulls.filter(pull => pull.state === 'open') : pulls;
+    return reply(200, shown.slice((number - 1) * size, number * size).map(({ files: _, ...pull }) => pull));
   }
   let found = path.match(/^\/pulls\/(\d+)(\/files)?$/);
   if (found) {
@@ -197,6 +200,37 @@ try {
   await diff(6, 'wiki/甲/index.md');
   assert.equal(requests.filter(path => path === '/pulls/6/files').length, before, '文件列表按提交缓存');
 
+  // A page's changes not yet on the site, for its history: open pull requests (also one renaming it), and merged ones
+  // the editor API's checkout does not have yet. Every page shares one list of open pull requests.
+  const history = (path, headers = {}) => fetch(`${base}/api/page-history?path=${encodeURIComponent(path)}`, { headers })
+    .then(async response => ({ status: response.status, json: await response.json(), headers: response.headers }));
+  listed.length = 0;
+  ({ json } = await history('wiki/甲/index.md'));
+  assert.equal(json.ok, true);
+  assert.deepEqual(json.pulls.filter(pull => pull.state === 'open').map(pull => [pull.number, pull.author, pull.path, pull.status]),
+    [[7, 'evil', 'wiki/甲/index.md', 'modified']], '待审阅的 PR（复刻中的也算）');
+  assert.ok(json.pulls.filter(pull => pull.state === 'merged').every(pull => pull.live === false && pull.number >= 40), '已合并而尚未发布的 PR；已发布的 #6 不在其中');
+  assert.ok(json.pulls.some(pull => pull.state === 'merged'));
+  assert.equal(json.pulls.some(pull => pull.number === 5), false, '关闭的 PR');
+  assert.deepEqual(Object.keys(json.pulls[0]).filter(key => ['files', 'mergeCommit', 'fileCount'].includes(key)), []);
+  ({ json } = await history('content/wiki/乙/index.md'));
+  assert.deepEqual(json.pulls.map(pull => [pull.number, pull.status, pull.additions, pull.deletions]), [[9, 'added', 1, 0]], '可带 content/ 前缀');
+  ({ json } = await history('wiki/没有/index.md'));
+  assert.deepEqual(json.pulls, []);
+  assert.equal(listed.filter(state => state === 'open').length, 1, '待审阅的 PR 列表由所有页面共用，一分钟内只读取一次');
+  assert.equal((await history('../x.md')).status, 400);
+
+  // Anyone may ask, so each address may ask 20 times at once and then once every 2 s; Apache's X-Forwarded-For says
+  // who asked.
+  const answers = [];
+  for (let i = 0; i < 22; i++) answers.push(await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7' }));
+  assert.deepEqual(answers.map(answer => answer.status).slice(19), [200, 429, 429], '同一地址连续请求时限频');
+  assert.equal(answers.at(-1).headers.get('retry-after'), '2');
+  assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7, 203.0.113.9' })).status, 200, '以 Apache 加上的最后一项为准');
+  for (let i = 0; i < 20; i++) await history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2::${i + 1}` });
+  assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:2:ffff::1' })).status, 429, 'IPv6 地址按 /64 网段限频');
+  assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:3::1' })).status, 200);
+
   // What a commit fixes (its date, its files, where its branch left main) is kept on disk: after a restart (as after
   // each deploy) the first load reads only the lists from GitHub.
   const cacheFile = join(root, '.build/recent-changes.json');
@@ -222,7 +256,7 @@ try {
   base = await logged(/listening on (http:\/\/\S+)\/api\//);
   assert.equal((await get('recent-changes')).json.pulls.length, json0.pulls.length, '缓存文件损坏时从头读取');
 
-  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过');
+  console.log('最近更改：PR 列表与分页、页面历史中尚未发布的修改与限频、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过');
 } finally {
   if (child && child.exitCode === null) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}

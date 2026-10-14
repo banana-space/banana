@@ -743,6 +743,40 @@ diff_open_note:
 recent_changes_show_site:
   other: 显示只修改网站代码的 PR
 
+# 页面历史（layouts/_default/history.html 与 static/js/history.js）；{title}、{name} 由脚本填入
+history_link:
+  other: 页面历史
+history_page_title:
+  other: 页面历史
+history_title:
+  other: "{{ .Title }} 的历史"
+history_error:
+  other: 暂时无法读取页面历史，请稍后再试．
+history_missing:
+  other: 没有找到这个页面的历史：链接可能有误，或者页面是新近建立的．
+history_pending_error:
+  other: 暂时无法读取尚待审阅的修改，以下只列出网站上已有的修改．
+history_noscript:
+  other: 页面历史需要启用 JavaScript．
+history_commit:
+  other: 提交
+history_imported:
+  other: 迁移到新网站
+history_created:
+  other: 随新网站建立
+history_legacy:
+  other: 旧站的编辑记录
+history_legacy_note:
+  other: 页面迁移之前在旧站（MediaWiki）上的修订．编辑摘要已去掉其中的 wiki 标记．
+history_minor:
+  other: 小
+history_minor_hint:
+  other: 小修改
+history_no_summary:
+  other: 无编辑摘要
+history_hidden_user:
+  other: 用户名已隐藏
+
 # 在线编辑（layouts/_default/editor.html 与 assets/js/editor/）；{name}、{number} 等由脚本填入
 edit_this_page:
   other: 编辑本页
