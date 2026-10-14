@@ -1,2 +1,7 @@
-{{- /* 标签列表项目的标签：(a)、iv)、($\ast$)（scripts/prebuild/structure.mjs 写在项目开头）。内容为行内 Markdown。 */ -}}
+{{- /* 标签列表项目的标签：(a)、iv)、($\ast$)（scripts/prebuild/structure.mjs 写在项目开头）。内容为行内 Markdown。
+  参数（可省略）：外层项目的标签写在嵌套项目的开头时（(3) (4) …），向外的层数。 */ -}}
+{{- with .Get 0 -}}
+<span class="item-label item-label-outer" style="--outer: {{ int . }}">{{ $.Inner | strings.TrimSpace | $.Page.RenderString }}</span>
+{{- else -}}
 <span class="item-label">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</span>
+{{- end -}}

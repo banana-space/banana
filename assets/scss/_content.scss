@@ -245,6 +245,20 @@ article {
     padding-right: 0.5em;
     white-space: nowrap;
   }
+
+  // An item whose text starts with a nested labelled list on its line ((3) (4) …): its label is written with the
+  // nested item's (item-label-outer), and stands --outer lists further left, at the item's own place.
+  li:has(> ol:first-child > li:first-child > .item-label-outer, > ol:first-child > li:first-child > p:first-child > .item-label-outer) {
+    list-style: none;
+  }
+
+  ol:has(> li > .item-label, > li > p:first-child > .item-label) {
+    padding-left: 2.5em;
+  }
+
+  .item-label-outer {
+    right: calc(100% + var(--outer) * 2.5em);
+  }
 }
 
 // Spoilers

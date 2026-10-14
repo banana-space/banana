@@ -359,6 +359,13 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
     assert.doesNotMatch(transformDocument(source), /_item-label/, source);
   }
   assert.match(transformDocument('(iiiiiiiiiiiiiiii) 甲\n              乙'), /^000000000\)    \{\{< _item-label >\}\}\(iiiiiiiiiiiiiiii\)\{\{< \/_item-label >\}\}甲\n {14}乙$/m, 'at most column 14');
+  // Alone on its line, a space after the marker (or Markdown reads it as text); on one line, nested lists, the
+  // outer labels written with the innermost item's, with how many lists out they are.
+  assert.match(transformDocument('A4)\n    甲'), /^00\) \{\{< _item-label >\}\}A4\)\{\{< \/_item-label >\}\}\n    甲$/m);
+  const chain = transformDocument('(3) (4) {@x} 甲\n\n(5) (a) (i)\n\n@x');
+  assert.match(chain, /^00\) 00\) \{\{< _item-label 1 >\}\}\(3\)\{\{< \/_item-label >\}\}\{\{< _item-label >\}\}\(4\)\{\{< \/_item-label >\}\}\{\{< _item-target/m);
+  assert.match(chain, /^00\) 00\) 00\) \{\{< _item-label 2 >\}\}\(5\)\{\{< \/_item-label >\}\}\{\{< _item-label 1 >\}\}\(a\)\{\{< \/_item-label >\}\}\{\{< _item-label >\}\}\(i\)/m);
+  assert.equal(caption(chain, 'x'), '(3) (4)');
   assert.match(transformDocument('1) 甲\n(a) 乙'), /^1\) 甲\n00\. \{\{< _item-label >\}\}\(a\)/m, 'a labelled item after 1) starts its own list');
   assert.throws(() => transformDocument('1) 甲\n(a) 乙\n2. 丙'), /标签列表项目/);
 }
@@ -389,7 +396,7 @@ try {
   await writeFile(join(starDirectory, 'index.md'), `---\ntitle: 星号和列表引用\n---\n${starFixture}`);
   const labelledDirectory = join(root, 'content/wiki/labelled-test');
   await mkdir(labelledDirectory, { recursive: true });
-  await writeFile(join(labelledDirectory, 'index.md'), `---\ntitle: 标签列表\n---\n设\n\n(a) {@la} 甲\n(b) 乙\n\n    第二段\n\n($\\ast$) 星\n\n1. 外\n\n   (i) {@li} 内\n\n由 @la、@li 与 @-la。\n`);
+  await writeFile(join(labelledDirectory, 'index.md'), `---\ntitle: 标签列表\n---\n设\n\n(a) {@la} 甲\n(b) 乙\n\n    第二段\n\n($\\ast$) 星\n\n1. 外\n\n   (i) {@li} 内\n\n由 @la、@li 与 @-la。\n\n(3) (4)\n        嵌套\n`);
   const build = () => buildProject(root);
   build();
   const html = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
@@ -443,6 +450,7 @@ try {
   assert.match(labelledHtml, /<span class="item-label">\(<span class="math-rendered"[^>]*data-tex="\\ast"/);
   assert.match(labelledHtml, /<ol>\s*<li>\s*<p>外<\/p>\s*<ol start="0">\s*<li><span class="item-label">\(i\)<\/span>/);
   assert.ok(labelledHtml.includes('由 <a href="#la">(a)</a>、<a href="#li">1 (i)</a> 与 <a href="#la">(a)</a>。'));
+  assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<ol start="0">\s*<li><span class="item-label item-label-outer" style="--outer: 1">\(3\)<\/span><span class="item-label">\(4\)<\/span>\s*嵌套/);
   const singular = await readFile(join(root, 'public/wiki/奇异上同调/index.html'), 'utf8');
   assert.match(singular, /theorem-title">定义 1\.1（奇异上链复形）/);
   assert.match(singular, /theorem-title">定义 1\.2（奇异闭上链, 奇异边界上链, 奇异上同调）/);

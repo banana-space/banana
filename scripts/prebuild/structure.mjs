@@ -565,10 +565,21 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
   if (stack.length) fail(t('build_environment_unclosed'), stack.at(-1).start);
   if (openTags.length) fail(t('build_tag_unclosed', { Name: openTags.at(-1).name }), openTags.at(-1).start);
   if (listProblems.length) fail(t(listProblems[0].key), listProblems[0].offset);
-  // 标签列表项目：标记写成 Hugo 的有序列表标记，标签显示在项目开头（_item-label）。
-  for (const marker of labelled) {
+  // 标签列表项目：标记写成 Hugo 的有序列表标记，标签显示在项目开头（_item-label）。一行中紧接的几个标签标记
+  // （(3) (4) …）是嵌套的列表：外层的标签写在最内层项目的开头（标记之间不能有文字），带上向外的层数。
+  const label = (marker, outer) => {
     const shown = marker.parenthesized ? `(${marker.label})` : `${marker.label})`;
-    edits.push({ start: marker.start, end: marker.end, output: () => `${marker.marker}{{< _item-label >}}${render(shown, marker.start)}{{< /_item-label >}}` });
+    return `{{< _item-label${outer ? ` ${outer}` : ''} >}}${render(shown, marker.start)}{{< /_item-label >}}`;
+  };
+  const sorted = [...labelled].sort((a, b) => a.start - b.start);
+  for (let i = 0; i < sorted.length;) {
+    let j = i;
+    while (j + 1 < sorted.length && sorted[j + 1].start === sorted[j].end) j++;
+    const chain = sorted.slice(i, j + 1);
+    chain.forEach((marker, k) => edits.push({ start: marker.start, end: marker.end, output: () => k < chain.length - 1 ? marker.marker
+      // Nothing after the marker on its line: a space before the labels, or the marker is text.
+      : marker.marker + (marker.marker.endsWith(' ') ? '' : ' ') + chain.map((outer, n) => label(outer, chain.length - 1 - n)).join('') }));
+    i = j + 1;
   }
   for (const item of items) {
     if (!item.id) fail(t('build_item_label_empty'), item.start);
