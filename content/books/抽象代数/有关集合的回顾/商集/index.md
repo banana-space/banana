@@ -5,13 +5,13 @@ title: 商集
 对于集合$A$，$A$上的一个**等价关系**指的是$A\times A$的子集$\mathcal{E}$，
 对于$(a,b)\in \mathcal{E}$，我们把它写成$a\sim b$（称作$a$和$b$等价），并且如下的性质成立：
 
-- 1)（自反性）对任意的$a\in A$，$a\sim a$（或者对任意的$a\in A$，$(a,a)\in \mathcal{E}$）；
+1) （自反性）对任意的$a\in A$，$a\sim a$（或者对任意的$a\in A$，$(a,a)\in \mathcal{E}$）；
 
-- 2)（对称性）如果$a\sim b$，那么，$b\sim a$（或者如果$(a,b)\in \mathcal{E}$，那么，
-  $(b,a)\in \mathcal{E}$）；
+2) （对称性）如果$a\sim b$，那么，$b\sim a$（或者如果$(a,b)\in \mathcal{E}$，那么，
+   $(b,a)\in \mathcal{E}$）；
 
-- 3)（传递性）如果$a\sim b$，$b\sim c$，那么，$a\sim c$（或者如果$(a,b),(b,c)\in \mathcal{E}$，
-  那么，$(a,c)\in \mathcal{E}$）。
+3) （传递性）如果$a\sim b$，$b\sim c$，那么，$a\sim c$（或者如果$(a,b),(b,c)\in \mathcal{E}$，
+   那么，$(a,c)\in \mathcal{E}$）。
 
 对任意的$a\in A$，令$\overline{a}$（或者$[a]$）表示
 \[

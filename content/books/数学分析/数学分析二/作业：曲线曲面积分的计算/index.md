@@ -47,12 +47,12 @@ A3) 假设 $n\geqslant 2$，$f\in C^\infty(\mathbb{R}^{n-1})$，
     \operatorname{det}\left(~^t{\rm Jac}(\Phi)\cdot {\rm Jac}(\Phi)\,\right)=1+|\nabla f|^2.
     \]
 
-- A4)（换元积分公式，
-  条件更弱）如果 $\Phi\colon\Omega_1\rightarrow \Omega_2$ 是同胚（即该映射及其逆都是连续的）并且
-  $\Phi$ 是连续可微的，对任意的可积函数 $f(y)\in L^1(\Omega_2, dy)$，我们有
-  \[
-  \int_{\Omega_2}f(y)dy = \int_{\Omega_1}\bigl(f\circ \Phi\bigr)(x)|J_\Phi(x)|dx.
-  \]
+A4) （换元积分公式，
+    条件更弱）如果 $\Phi\colon\Omega_1\rightarrow \Omega_2$ 是同胚（即该映射及其逆都是连续的）并且
+    $\Phi$ 是连续可微的，对任意的可积函数 $f(y)\in L^1(\Omega_2, dy)$，我们有
+    \[
+    \int_{\Omega_2}f(y)dy = \int_{\Omega_1}\bigl(f\circ \Phi\bigr)(x)|J_\Phi(x)|dx.
+    \]
 
 A5) 假设 $M\subset \mathbb{R}^{n}$ 是 $n-1$-维的子流形，考虑投影映射
     \[
@@ -75,17 +75,17 @@ A5) 假设 $M\subset \mathbb{R}^{n}$ 是 $n-1$-维的子流形，考虑投影映
     其中，$L_{x'}$ 与 $M$ 相切指的是存在 $p\in M$，
     使得 $p \in L_{x'}$ 并且 $T_p L_{x'} \subset T_p M$。
 
-- A6)（一个“扭曲”的Fubini）$\Omega\subset \mathbb{R}^n$ 是开集，
-  $F\colon U\rightarrow \mathbb{R}$ 是光滑映射。
-  假设对任意的 $x\in U$，$dF(x)\neq 0$（从而，$\Sigma_t=F^{-1}(t)$ 是余 $1$ 维子流形）。
+A6) （一个“扭曲”的Fubini）$\Omega\subset \mathbb{R}^n$ 是开集，
+    $F\colon U\rightarrow \mathbb{R}$ 是光滑映射。
+    假设对任意的 $x\in U$，$dF(x)\neq 0$（从而，$\Sigma_t=F^{-1}(t)$ 是余 $1$ 维子流形）。
 
-  ![](MathAnalysis_H0801.svg)
+    ![](MathAnalysis_H0801.svg)
 
-  那么，对任意的 $U$ 上的可积函数 $f$，我们有
-  \[
-  \int_\Omega f(x)dx = \int_\mathbb{R} \left(\int_{\Sigma_t}\frac{f}{|\nabla F|}d\sigma_t\right)dt,
-  \]
-  其中，$d\sigma_t$ 是 $\Sigma_t$ 上的子流形测度。
+    那么，对任意的 $U$ 上的可积函数 $f$，我们有
+    \[
+    \int_\Omega f(x)dx = \int_\mathbb{R} \left(\int_{\Sigma_t}\frac{f}{|\nabla F|}d\sigma_t\right)dt,
+    \]
+    其中，$d\sigma_t$ 是 $\Sigma_t$ 上的子流形测度。
 
 ### 积分的计算（换元积分公式）
 
@@ -171,20 +171,20 @@ B3) 假设 $\rho$ 是 $\mathbb{R}^3$ 上非负可积的函数（如果一个物�
 
     （\*请注意，后两问极其困难，请勿直接尝试）
 
-- B4)（Newton 壳层（shell）定理：关于球对称密度分布的引力）假设
-  \[
-  \begin{aligned}
-    \rho(x) = \begin{cases}
-    f(|x|), & r < |x| < R;\\
-    0, & |x| > R \text{~或~} |x| < r.
-    \end{cases}
-    \end{aligned}
-  \]
-  其中 $f$ 是在 $[r,R]$ 上定义的非负可积函数。证明：
+B4) （Newton 壳层（shell）定理：关于球对称密度分布的引力）假设
+    \[
+    \begin{aligned}
+      \rho(x) = \begin{cases}
+      f(|x|), & r < |x| < R;\\
+      0, & |x| > R \text{~或~} |x| < r.
+      \end{cases}
+      \end{aligned}
+    \]
+    其中 $f$ 是在 $[r,R]$ 上定义的非负可积函数。证明：
 
-  1. 对球外一点（$|x| > R$）产生的引力与球的所有质量集中于球心的质点产生的引力一样。
+    1. 对球外一点（$|x| > R$）产生的引力与球的所有质量集中于球心的质点产生的引力一样。
 
-  2. 球壳对球壳内任何一点（$|x| < r$）产生的引力（合力）为零。
+    2. 球壳对球壳内任何一点（$|x| < r$）产生的引力（合力）为零。
 
 ### 曲面／曲线／子流形上的积分计算
 

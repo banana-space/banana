@@ -6,25 +6,25 @@ title: 作业：素数的倒数和，Basel 问题的 Euler“证明”
 
 ### 习题A：连续函数的定义和基本性质
 
-- A1)（函数极限的Cauchy判别准则）给定函数
-  $f\colon (a,x_0)\cup (x_0,b)\rightarrow \mathbb{R}$。
-  那么，$f$ 在 $x_0$ 处有极限当且仅当对任意的 $\varepsilon>0$，
-  存在 $\delta>0$，使得对任意的 $x_1,x_2\in (x_0-\delta,x_0+\delta)$，
-  都有 $|f(x_1)-f(x_2)|<\varepsilon$。
+A1) （函数极限的Cauchy判别准则）给定函数
+    $f\colon (a,x_0)\cup (x_0,b)\rightarrow \mathbb{R}$。
+    那么，$f$ 在 $x_0$ 处有极限当且仅当对任意的 $\varepsilon>0$，
+    存在 $\delta>0$，使得对任意的 $x_1,x_2\in (x_0-\delta,x_0+\delta)$，
+    都有 $|f(x_1)-f(x_2)|<\varepsilon$。
 
 A2) 假设 $I$ 是一个非空的区间并且 $I$ 不是一个点，
     证明，$I$ 上的连续函数 $C(I)$ 所构成的 $\mathbb{R}$-线性空间是无限维的。
 
-- A3)（重要）假设 $(X,d_X)$ 和 $(Y,d_Y)$ 是距离空间，
-  $f\colon X\rightarrow Y$ 是映射。假设 $x_0\in X$，
-  如果对任意 $X$ 中的点列 $\{x_n\}_{n\geqslant 1}$，
-  $x_n\stackrel{d_X}{\longrightarrow}x_0$，
-  我们都有 $f(x_n)\stackrel{d_Y}{\longrightarrow}f(x_0)$，
-  我们就称 $f$ 在 $x_0$ 处是连续的。如果 $f$ 在一切 $x\in X$ 处均连续，
-  那么我们就称 $f$ 是距离空间之间的**连续映射**。
-  假设 $(X,d_X)$，$(Y,d_Y)$ 和 $(Z,d_Z)$ 是三个距离空间，
-  $f\colon X\rightarrow Y$，$g\colon Y\rightarrow Z$ 均为连续映射。
-  证明，它们的复合 $g\circ f\colon  X\rightarrow Z$ 也是连续映射。
+A3) （重要）假设 $(X,d_X)$ 和 $(Y,d_Y)$ 是距离空间，
+    $f\colon X\rightarrow Y$ 是映射。假设 $x_0\in X$，
+    如果对任意 $X$ 中的点列 $\{x_n\}_{n\geqslant 1}$，
+    $x_n\stackrel{d_X}{\longrightarrow}x_0$，
+    我们都有 $f(x_n)\stackrel{d_Y}{\longrightarrow}f(x_0)$，
+    我们就称 $f$ 在 $x_0$ 处是连续的。如果 $f$ 在一切 $x\in X$ 处均连续，
+    那么我们就称 $f$ 是距离空间之间的**连续映射**。
+    假设 $(X,d_X)$，$(Y,d_Y)$ 和 $(Z,d_Z)$ 是三个距离空间，
+    $f\colon X\rightarrow Y$，$g\colon Y\rightarrow Z$ 均为连续映射。
+    证明，它们的复合 $g\circ f\colon  X\rightarrow Z$ 也是连续映射。
 
 A4) 假设 $(X,d_X)$ 和 $(Y,d_Y)$ 是距离空间，$f\colon X\rightarrow Y$ 是连续映射。
     如果 $d'_X$ 是与 $d_X$ 等价的距离，$d'_Y$ 是与 $d_Y$ 等价的距离，
@@ -38,14 +38,14 @@ A5) 在 $\mathbb{R}^n$ 上我们配有常见的距离，比如说 $d_2$（请参
     其中 $f_i\colon X\rightarrow \mathbb{R}$ 是函数。
     证明，$f$ 是连续映射当且仅当对所有的 $i=1,\cdots,n$，$f_i$ 是连续函数。
 
-- A6)（重要）假设 $(X,d_X)$ 是距离空间，$(V,\|\cdot\|)$ 是赋范线性空间，
-  $f\colon X\rightarrow V$ 和 $g\colon X\rightarrow V$ 是连续映射。
-  证明，它们的和与差（自然的定义）$f\pm g\colon  X\rightarrow V$ 也是连续映射。
-  如果 $V=\mathbb{C}$（或者 $n\times n$ 的矩阵构成的赋范线性空间），
-  那么 $f\cdot g\colon X\rightarrow \mathbb{C}$ 是连续映射。
-  如果 $V=\mathbb{C}$ 并且对任意的 $x\in X$，$g(x)\neq 0$，
-  那么 $\dfrac{f}{g}\colon X\rightarrow \mathbb{C}$ 是连续映射。
-  你可以选择上面的一个情况来证明。
+A6) （重要）假设 $(X,d_X)$ 是距离空间，$(V,\|\cdot\|)$ 是赋范线性空间，
+    $f\colon X\rightarrow V$ 和 $g\colon X\rightarrow V$ 是连续映射。
+    证明，它们的和与差（自然的定义）$f\pm g\colon  X\rightarrow V$ 也是连续映射。
+    如果 $V=\mathbb{C}$（或者 $n\times n$ 的矩阵构成的赋范线性空间），
+    那么 $f\cdot g\colon X\rightarrow \mathbb{C}$ 是连续映射。
+    如果 $V=\mathbb{C}$ 并且对任意的 $x\in X$，$g(x)\neq 0$，
+    那么 $\dfrac{f}{g}\colon X\rightarrow \mathbb{C}$ 是连续映射。
+    你可以选择上面的一个情况来证明。
 
 A7) 试找出 $\mathbb{R}$ 上定义的函数
     \[

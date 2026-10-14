@@ -82,18 +82,18 @@ A10) 给定 $S\in \mathcal{A}(\mathbb{R}^n)$，$S$ 有多种方式写成两两�
      （这验证了课堂上关于 $m\colon\mathcal{A}(\mathbb{R}^n)\rightarrow [0,\infty]$
      是良好定义的论断）
 
-- A11)（经典必做题目）对任意正交矩阵 $R \in \mathbf{O}(n)$，我们定义 $\mathbb{R}^n$ 上的旋转变换：
-  \[
-  R\colon \mathbb{R}^n \rightarrow \mathbb{R}^n, \ \ x \mapsto R\cdot x.
-  \]
-  其中，$R\cdot x$ 是矩阵和列向量的乘法。
-  那么，我们有 $R_* m =m$，即对任意的 $A\in \mathcal{B}(\mathbb{R}^n)$，
-  我们有 $m\left(R(A)\right)= m(A)$。
+A11) （经典必做题目）对任意正交矩阵 $R \in \mathbf{O}(n)$，我们定义 $\mathbb{R}^n$ 上的旋转变换：
+     \[
+     R\colon \mathbb{R}^n \rightarrow \mathbb{R}^n, \ \ x \mapsto R\cdot x.
+     \]
+     其中，$R\cdot x$ 是矩阵和列向量的乘法。
+     那么，我们有 $R_* m =m$，即对任意的 $A\in \mathcal{B}(\mathbb{R}^n)$，
+     我们有 $m\left(R(A)\right)= m(A)$。
 
-- A12)（必须熟记的结论：
-  紧集的区间套原理）假设 $\{K_i\}_{i\geqslant 1}$ 是 $\mathbb{R}^n$ 中一列下降的紧集并且
-  $\displaystyle\cap_{i\geqslant 1}K_i=\emptyset$。
-  证明，存在 $i_0$，使得当 $i\geqslant i_0$ 时，$K_i=\emptyset$。
+A12) （必须熟记的结论：
+     紧集的区间套原理）假设 $\{K_i\}_{i\geqslant 1}$ 是 $\mathbb{R}^n$ 中一列下降的紧集并且
+     $\displaystyle\cap_{i\geqslant 1}K_i=\emptyset$。
+     证明，存在 $i_0$，使得当 $i\geqslant i_0$ 时，$K_i=\emptyset$。
 
 A13) 对于 $\mathbb{R}^n$，我们用Euclid距离所定义的拓扑。证明，
      \[
@@ -104,20 +104,20 @@ A13) 对于 $\mathbb{R}^n$，我们用Euclid距离所定义的拓扑。证明，
 
 证明如下关于可测函数的结论，其中我们假设 $ (X,\mathcal{A})$ 是可测空间。
 
-- B1)（可测函数的极限也可测）
-  给定实值可测函数的序列 $\{f_i\}_{i\geqslant 1}$，其中对于每个 $i$，
-  $f_i\colon X \rightarrow \mathbb{R}$ 是可测函数。
-  假设该序列逐点收敛，即对任意的 $x\in X$，
-  都有 $\displaystyle\lim_{i\rightarrow \infty}f_i(x) =f(x)$。
-  对任意的 $c\in \mathbb{R}$，$n\in \mathbb{Z}_{\geqslant 1}$，我们令
-  \[
-  U(c)=(c,\infty), \ \ U(c)_n =(c+\frac{1}{n},\infty).
-  \]
-  证明，
-  \[
-  f^{-1}(U(c))=\bigcup_{n=1}^\infty f^{-1}(U(c)_n)=\bigcup_{n=1}^{\infty}\bigcup_{m=1}^\infty \bigcap_{q\geqslant m} f_q^{-1}(U(c)_n),
-  \]
-  据此证明 $f$ 是可测的。
+B1) （可测函数的极限也可测）
+    给定实值可测函数的序列 $\{f_i\}_{i\geqslant 1}$，其中对于每个 $i$，
+    $f_i\colon X \rightarrow \mathbb{R}$ 是可测函数。
+    假设该序列逐点收敛，即对任意的 $x\in X$，
+    都有 $\displaystyle\lim_{i\rightarrow \infty}f_i(x) =f(x)$。
+    对任意的 $c\in \mathbb{R}$，$n\in \mathbb{Z}_{\geqslant 1}$，我们令
+    \[
+    U(c)=(c,\infty), \ \ U(c)_n =(c+\frac{1}{n},\infty).
+    \]
+    证明，
+    \[
+    f^{-1}(U(c))=\bigcup_{n=1}^\infty f^{-1}(U(c)_n)=\bigcup_{n=1}^{\infty}\bigcup_{m=1}^\infty \bigcap_{q\geqslant m} f_q^{-1}(U(c)_n),
+    \]
+    据此证明 $f$ 是可测的。
 
 B2) 我们在 $\mathbb{R}$ 配备Borel-代数。
     证明，如果 $f\colon\mathbb{R}\rightarrow \mathbb{R}$ 是单调函数，那么 $f$ 是可测的。
@@ -167,8 +167,8 @@ C5) 如果 $f\colon\mathbb{R}\rightarrow \mathbb{R}$ 是连续函数，
     我们用 $\Gamma_f =\{(x,y)\in \mathbb{R}^2\mid y = f(x)\}$ 表示它的图像。
     证明，$\Gamma_f$ 是 $\mathbb{R}^2$ 中的零测集。
 
-- C6)* 给定 $n$ 个变元的实系数非零多项式 $F(x_1,\cdots,x_n)$。
-  证明，$F^{-1}(0)$ 是 $\mathbb{R}^n$ 中的零测集。
+C6) \* 给定 $n$ 个变元的实系数非零多项式 $F(x_1,\cdots,x_n)$。
+    证明，$F^{-1}(0)$ 是 $\mathbb{R}^n$ 中的零测集。
 
 ## Carathéodory测度扩张定理应用举例：Stieltjes 测度的构造
 

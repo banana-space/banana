@@ -9,34 +9,34 @@ title: 作业：Archimedes 对抛物线面积的计算，Gauss 积分
 我们假设 $(X,\mathcal{A},\mu)$ 和 $(Y,\mathcal{B},\nu)$ 是测度空间并且 $\mu$ 和 $\nu$ 是
 $\sigma$-有限的。
 
-- A1)（Fubini定理的反例）函数 $f(x,y)$ 在 $[0,1]\times [0,1]$ 上定义：
-  \[
-  f(x,y)=\begin{cases}\frac{x^2-y^2}{(x^2+y^2)^2}, \ \  &(x,y)\neq (0,0);\\
-  0, \ \ &(x,y)= (0,0).
-  \end{cases}
-  \]
-  证明，
-  \[
-  \displaystyle \int_0^1 \left(\int_0^1 f(x,y)dy\right)dx\neq \int_0^1 \left(\int_0^1 f(x,y)dx \right)dy.
-  \]
-  Fubini定理的哪个条件没有被满足？
-
-- A2)（Fubini定理的反例）我们考虑测度空间 $([0,1],\mathcal{B},m)$（Borel代数加上Lebesgue测度）和
-  $([0,1],\mathcal{P}([0,1]), \mu)$，
-  其中 $\mathcal{P}([0,1])$ 是 $[0,1]$ 上所有的子集所构成的 $\sigma$-代数，
-  $\mu(A)$ 为 $A$ 中的元素个数。
-
-  - 证明，$([0,1],\mathcal{P}([0,1]), \mu)$ 是测度空间但不是 $\sigma$ 有限的。
-
-  - 我们考虑在 $[0,1]\times [0,1]$ 上定义的函数：
+A1) （Fubini定理的反例）函数 $f(x,y)$ 在 $[0,1]\times [0,1]$ 上定义：
     \[
-    f(x,y)=\mathbf{1}_{x=y}(x,y).
+    f(x,y)=\begin{cases}\frac{x^2-y^2}{(x^2+y^2)^2}, \ \  &(x,y)\neq (0,0);\\
+    0, \ \ &(x,y)= (0,0).
+    \end{cases}
     \]
     证明，
     \[
     \displaystyle \int_0^1 \left(\int_0^1 f(x,y)dy\right)dx\neq \int_0^1 \left(\int_0^1 f(x,y)dx \right)dy.
     \]
     Fubini定理的哪个条件没有被满足？
+
+A2) （Fubini定理的反例）我们考虑测度空间 $([0,1],\mathcal{B},m)$（Borel代数加上Lebesgue测度）和
+    $([0,1],\mathcal{P}([0,1]), \mu)$，
+    其中 $\mathcal{P}([0,1])$ 是 $[0,1]$ 上所有的子集所构成的 $\sigma$-代数，
+    $\mu(A)$ 为 $A$ 中的元素个数。
+
+    - 证明，$([0,1],\mathcal{P}([0,1]), \mu)$ 是测度空间但不是 $\sigma$ 有限的。
+
+    - 我们考虑在 $[0,1]\times [0,1]$ 上定义的函数：
+      \[
+      f(x,y)=\mathbf{1}_{x=y}(x,y).
+      \]
+      证明，
+      \[
+      \displaystyle \int_0^1 \left(\int_0^1 f(x,y)dy\right)dx\neq \int_0^1 \left(\int_0^1 f(x,y)dx \right)dy.
+      \]
+      Fubini定理的哪个条件没有被满足？
 
 A3) 假设 $f$ 和 $g$ 是 $\mathbb{R}^1$
     上的局部上Riemann可积（即在每个闭区间上面都可积）的实值函数。
@@ -63,31 +63,31 @@ A4) 假设 $(X,\mathcal{A},\mu)$ 和 $(Y,\mathcal{B},\nu)$ 是测度空间并且
       \mu\otimes \nu(\Delta)=\sum_{x\in D_\mu }\mu(\{x\})\nu(\{x\}).
       \]
 
-- A5)（Archimedes，公元前三世纪）假设 $\Gamma$ 是 $y=-cx^2$ 在平面上所定义的抛物线，其中 $c>0$。
-  $A,B\in \Gamma$ 是给定的两点，$AB$ 是这两点所连的线段（我们称它为 $\Gamma$ 的一条弦）。
+A5) （Archimedes，公元前三世纪）假设 $\Gamma$ 是 $y=-cx^2$ 在平面上所定义的抛物线，其中 $c>0$。
+    $A,B\in \Gamma$ 是给定的两点，$AB$ 是这两点所连的线段（我们称它为 $\Gamma$ 的一条弦）。
 
-  - 证明，$\Gamma$ 是 $\mathbb{R}^2$ 中的 $1$ 维光滑子流形。
-    进一步证明，存在唯一的点 $C\in \Gamma$，使得 $\Gamma$ 在 $C$ 处的切线与 $AB$ 平行。
+    - 证明，$\Gamma$ 是 $\mathbb{R}^2$ 中的 $1$ 维光滑子流形。
+      进一步证明，存在唯一的点 $C\in \Gamma$，使得 $\Gamma$ 在 $C$ 处的切线与 $AB$ 平行。
 
-  - 假设 $C$ 的坐标是 $(C_1,C_2)$，那么由 $x=C_1$ 定义的直线与 $AB$ 相交于 $AB$ 的中点。
+    - 假设 $C$ 的坐标是 $(C_1,C_2)$，那么由 $x=C_1$ 定义的直线与 $AB$ 相交于 $AB$ 的中点。
 
-  - 证明，由 $\Gamma$ 与 $AB$ 所围成的图形的面积是三角形 $ABC$ 面积的 $\dfrac{4}{3}$ 倍。
+    - 证明，由 $\Gamma$ 与 $AB$ 所围成的图形的面积是三角形 $ABC$ 面积的 $\dfrac{4}{3}$ 倍。
 
-- A6)（Gauss积分的计算）试计算下面的积分：
-  \[
-  \begin{aligned}
-  \bullet& ~\int_{x^2 + y^2 \leqslant R^2} e^{-(x^2+y^2)} dxdy, ~\text{其中}~R>0; \\
-  \bullet& ~ \int_{\mathbb{R}} e^{-ax^2 + bx +c} dx, ~\text{其中}~a > 0;\\
-      \bullet& ~\int_{\mathbb{R}^n} \exp(-\frac{1}{2} \sum_{i,j=1}^{n} A_{ij} x_i x_j) dx, ~\text{其中}~ A = (A_{ij})~\text{是 $n\times n$ 的正定（对称）矩阵};\\
-    \bullet& ~\int_{\mathbb{R}^n} \exp(-\frac{1}{2} \sum_{i,j=1}^{n} A_{ij} x_i x_j + \sum_{i=1}^{n} B_i x_i) dx, ~\text{其中}~A = (A_{ij})~\text{是 $n\times n$ 的正定（对称）矩阵.}
-  \end{aligned}
-  \]
+A6) （Gauss积分的计算）试计算下面的积分：
+    \[
+    \begin{aligned}
+    \bullet& ~\int_{x^2 + y^2 \leqslant R^2} e^{-(x^2+y^2)} dxdy, ~\text{其中}~R>0; \\
+    \bullet& ~ \int_{\mathbb{R}} e^{-ax^2 + bx +c} dx, ~\text{其中}~a > 0;\\
+        \bullet& ~\int_{\mathbb{R}^n} \exp(-\frac{1}{2} \sum_{i,j=1}^{n} A_{ij} x_i x_j) dx, ~\text{其中}~ A = (A_{ij})~\text{是 $n\times n$ 的正定（对称）矩阵};\\
+      \bullet& ~\int_{\mathbb{R}^n} \exp(-\frac{1}{2} \sum_{i,j=1}^{n} A_{ij} x_i x_j + \sum_{i=1}^{n} B_i x_i) dx, ~\text{其中}~A = (A_{ij})~\text{是 $n\times n$ 的正定（对称）矩阵.}
+    \end{aligned}
+    \]
 
-- A7)* 假设 $f\colon\mathbb{R}^n\rightarrow \mathbb{R}$ 是Borel-可测的函数，证明，
-  存在零测集（Lebesgue意义下）$N\subset \mathbb{R}$，使得对任意的 $y\notin N$，我们有
-  \[
-  m\left(\{x\in \mathbb{R}^n\mid f(x)=y\}\right)=0.
-  \]
+A7) \* 假设 $f\colon\mathbb{R}^n\rightarrow \mathbb{R}$ 是Borel-可测的函数，证明，
+    存在零测集（Lebesgue意义下）$N\subset \mathbb{R}$，使得对任意的 $y\notin N$，我们有
+    \[
+    m\left(\{x\in \mathbb{R}^n\mid f(x)=y\}\right)=0.
+    \]
 
 ## 积分的计算
 

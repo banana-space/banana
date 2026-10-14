@@ -26,21 +26,21 @@ A3) $\{x^{(k)}\}_{k\geqslant 1}$ 是 $\mathbb{R}^n$ 中的点列，其中，
     即对任意的 $i=1,2,\cdots,n$，$\{x^{(k)}_i\}_{k\geqslant 1}$ 在 $\mathbb{R}$ 中收敛。
     （你在作业中只需要对 $n=2$ 证明即可）
 
-- A4)（复数数列的四则运算）假设 $\{z_n\}_{n\geqslant 1}$ 和 $\{w_n\}_{n\geqslant 1}$
-  是两个收敛的复数的数列。证明（你在作业中只需要证明第三条即可），
+A4) （复数数列的四则运算）假设 $\{z_n\}_{n\geqslant 1}$ 和 $\{w_n\}_{n\geqslant 1}$
+    是两个收敛的复数的数列。证明（你在作业中只需要证明第三条即可），
 
-  - 数列 $\{z_n\pm w_n\}_{n\geqslant 1}$ 收敛并且
-    $\displaystyle\lim_{n\rightarrow \infty}(z_n\pm w_n)=\lim_{n\rightarrow \infty}z_n\pm \lim_{n\rightarrow \infty}w_n$；
+    - 数列 $\{z_n\pm w_n\}_{n\geqslant 1}$ 收敛并且
+      $\displaystyle\lim_{n\rightarrow \infty}(z_n\pm w_n)=\lim_{n\rightarrow \infty}z_n\pm \lim_{n\rightarrow \infty}w_n$；
 
-  - $\{z_n\cdot w_n\}_{n\geqslant 1}$ 收敛并且
-    $\displaystyle\lim_{n\rightarrow \infty}(z_n\cdot w_n)=\lim_{n\rightarrow \infty}z_n \cdot \lim_{n\rightarrow \infty}w_n$；
+    - $\{z_n\cdot w_n\}_{n\geqslant 1}$ 收敛并且
+      $\displaystyle\lim_{n\rightarrow \infty}(z_n\cdot w_n)=\lim_{n\rightarrow \infty}z_n \cdot \lim_{n\rightarrow \infty}w_n$；
 
-  - 如果 $\displaystyle\lim_{n\rightarrow \infty}w_n\neq 0$，
-    那么数列 $\{\dfrac{z_n}{w_n}\}_{n\geqslant N}$
-    收敛（$\displaystyle\lim_{n\rightarrow \infty}w_n \neq 0$ 表明存在 $N$，
-    使得当 $n \geqslant N$ 时，
-    $w_n\neq 0$）并且
-    $\displaystyle\lim_{n\rightarrow \infty}\dfrac{z_n}{w_n}=\dfrac{\displaystyle\lim_{n\rightarrow \infty}z_n}{\displaystyle\lim_{n\rightarrow \infty}w_n}$。
+    - 如果 $\displaystyle\lim_{n\rightarrow \infty}w_n\neq 0$，
+      那么数列 $\{\dfrac{z_n}{w_n}\}_{n\geqslant N}$
+      收敛（$\displaystyle\lim_{n\rightarrow \infty}w_n \neq 0$ 表明存在 $N$，
+      使得当 $n \geqslant N$ 时，
+      $w_n\neq 0$）并且
+      $\displaystyle\lim_{n\rightarrow \infty}\dfrac{z_n}{w_n}=\dfrac{\displaystyle\lim_{n\rightarrow \infty}z_n}{\displaystyle\lim_{n\rightarrow \infty}w_n}$。
 
 A5) 假设 $\{a_n\}_{n\geqslant 1}$ 是递减的正实数的数列并且
     $\displaystyle\lim_{n\rightarrow \infty}a_n=0$。证明，级数
@@ -72,11 +72,11 @@ A8) $\{a_n\}_{n\geqslant 1}$ 是复数的数列，我们假设对任意的 $n$�
 
 A9) 证明，函数 $\exp(x)$ 在 $\mathbb{R}$ 上是严格递增的。
 
-- A10)（基本的增长速度比较，记住）假设 $P(X)$ 是一个 $n$ 次多项式（实数系数），
-  $Q(X)$ 是一个 $m$ 次多项式（实数系数），$m>n$，证明：
-  \[
-  \lim_{k\rightarrow \infty}\frac{P(k)}{Q(k)}=0, \ \ \lim_{k\rightarrow \infty}\frac{Q(k)}{e^k}=0.
-  \]
+A10) （基本的增长速度比较，记住）假设 $P(X)$ 是一个 $n$ 次多项式（实数系数），
+     $Q(X)$ 是一个 $m$ 次多项式（实数系数），$m>n$，证明：
+     \[
+     \lim_{k\rightarrow \infty}\frac{P(k)}{Q(k)}=0, \ \ \lim_{k\rightarrow \infty}\frac{Q(k)}{e^k}=0.
+     \]
 
 ### 习题B：极限的计算
 

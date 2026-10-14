@@ -199,11 +199,11 @@ S6) 我们用 $\mathbf{P}^{(\ell)}$ 表示复系数的次数为 $\ell$ 的关于
     $P \in \mathbf{P}^{(\ell)}$ 和任意的 $g\in \mathbf{SO}(3)$，
     $g\bullet P \in \mathbf{P}^{(\ell)}$。
 
-- S7)\* 证明，对于 $\ell\geqslant 2$，由Laplace算子给出的映射
-  \[
-  \triangle\colon  \mathbf{P}^{(\ell)}\rightarrow \mathbf{P}^{(\ell-2)}
-  \]
-  是线性映射并且是满射。
+S7) \* 证明，对于 $\ell\geqslant 2$，由Laplace算子给出的映射
+    \[
+    \triangle\colon  \mathbf{P}^{(\ell)}\rightarrow \mathbf{P}^{(\ell-2)}
+    \]
+    是线性映射并且是满射。
 
 S8) 我们定义调和多项式的空间：
     \[
@@ -227,8 +227,8 @@ S9) 对任意的 $P\in \mathbf{P}^{(\ell)}$ 和非负整数 $k$，证明，
     \]
     （提示：利用齐次函数的Euler等式）
 
-- S10)\* 证明，如果 $P\in \mathbf{P}^{(\ell)}$ 并且 $r^2P\in \mathbf{H}^{(\ell+2)}$，那么 $P=0$。
-  （提示：考虑 $k_0$ 是使得 $r^{2k_0}$ 整除 $P$ 的最大整数）
+S10) \* 证明，如果 $P\in \mathbf{P}^{(\ell)}$ 并且 $r^2P\in \mathbf{H}^{(\ell+2)}$，那么 $P=0$。
+     （提示：考虑 $k_0$ 是使得 $r^{2k_0}$ 整除 $P$ 的最大整数）
 
 S11) 证明，$\mathbf{P}^{(\ell)}=\mathbf{H}^{(\ell)}\oplus r^2 \mathbf{P}^{(\ell-2)}$，
      $\mathbf{P}^{(\ell)}=\mathbf{H}^{(\ell)}\oplus r^2 \mathbf{H}^{(\ell-2)}\oplus  r^4 \mathbf{H}^{(\ell-4)}\oplus \cdots$。
@@ -310,11 +310,11 @@ S17) 证明，
      $-\triangle_{\mathbf{S}^2}\colon \mathbf{H}^{\ell}\rightarrow \mathbf{H}^{\ell}$ 并且
      $-\triangle_{\mathbf{S}^2}=\ell(\ell+1)\mathbf{Id}$。
 
-- S18)\* 证明，
-  $\operatorname{Span}\bigl\{\mathbf{H}^{\ell}\bigm| \ell =1,2,3, \cdots\bigr\}$ 在
-  $L^2(\mathbf{S}^2)$ 是稠密的。
+S18) \* 证明，
+     $\operatorname{Span}\bigl\{\mathbf{H}^{\ell}\bigm| \ell =1,2,3, \cdots\bigr\}$ 在
+     $L^2(\mathbf{S}^2)$ 是稠密的。
 
-  （提示：利用关于多项式（多元）的Stone–Weierstrass定理）
+     （提示：利用关于多项式（多元）的Stone–Weierstrass定理）
 
 ::: remark*
 上述表明，$L^2(\mathbf{S}^2)$ 可以写成直和（Hilbert空间意义下的）
@@ -374,10 +374,10 @@ S23) 证明，对任意的 $(\ell,m)\neq (\ell',m')$（$-\ell\leqslant m \leqsla
      $-\ell'\leqslant m' \leqslant \ell'$），函数 $Y_m^\ell$ 和 $Y_{m'}^{\ell'}$ 是垂直的，
      即 $(Y_m^\ell,Y_{m'}^{\ell'})=0$。
 
-- S24)\* 固定 $\ell$，证明，对任意的 $-\ell\leqslant m \leqslant \ell$，
-  $Y_m^\ell$ 的长度 $\sqrt{(Y_m^\ell,Y_{m}^{\ell})}$ 不依赖于 $m$。
+S24) \* 固定 $\ell$，证明，对任意的 $-\ell\leqslant m \leqslant \ell$，
+     $Y_m^\ell$ 的长度 $\sqrt{(Y_m^\ell,Y_{m}^{\ell})}$ 不依赖于 $m$。
 
-  （提示：利用S21)的结论）
+     （提示：利用S21)的结论）
 
 S25) 证明，对任意的 $\ell$ 和 $m$（$-\ell\leqslant m \leqslant \ell$），
      $(Y_m^\ell,Y_{m}^{\ell})=1$。

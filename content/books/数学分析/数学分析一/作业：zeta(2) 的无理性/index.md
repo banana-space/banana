@@ -14,13 +14,13 @@ A2) $\alpha\in \mathbb{R}_{\geqslant 0}$。
     证明，
     反常积分 $\displaystyle\int_{100}^\infty \dfrac{dx}{x\log^\alpha(x)}$ 收敛当且仅当 $\alpha>1$。
 
-- A3)（反常积分的控制判别法）$f$ 和 $F$ 在区间 $I$ 上定义，即 $f\colon I\rightarrow \mathbb{R}$，
-  $F\colon I\rightarrow \mathbb{R}$ 并且对任意的有界闭区间 $J\subset I$，
-  $f$ 和 $F$ 均为 $J$ 上的Riemann可积函数。假设对任意的 $x\in I$，我们都有
-  \[
-  \big|f(x)\big|\leqslant F(x).
-  \]
-  如果 $F$ 在区间 $I$ 上的反常积分收敛，那么 $f$ 在区间 $I$ 上的反常积分也收敛。
+A3) （反常积分的控制判别法）$f$ 和 $F$ 在区间 $I$ 上定义，即 $f\colon I\rightarrow \mathbb{R}$，
+    $F\colon I\rightarrow \mathbb{R}$ 并且对任意的有界闭区间 $J\subset I$，
+    $f$ 和 $F$ 均为 $J$ 上的Riemann可积函数。假设对任意的 $x\in I$，我们都有
+    \[
+    \big|f(x)\big|\leqslant F(x).
+    \]
+    如果 $F$ 在区间 $I$ 上的反常积分收敛，那么 $f$ 在区间 $I$ 上的反常积分也收敛。
 
 A4) 利用控制判别法，证明如下反常积分的收敛性：
     \[
@@ -41,31 +41,32 @@ A6) 利用积分的定义计算：
     \lim_{n\rightarrow \infty} \sum_{k=1}^n \frac{k^\alpha}{n^{\alpha+1}}, \ \alpha>-1.
     \]
 
-- A7)（$\dfrac{22}{7}$）计算 $\displaystyle \int_0^1 \frac{x^4(1-x)^4}{1+x^2}\;\mathrm{d}x$。
-  你是否能借此证明 $\pi=3.14...$，即给出 $\pi$ 到小数点两位的逼近。
+A7) （$\dfrac{22}{7}$）计算 $\displaystyle \int_0^1 \frac{x^4(1-x)^4}{1+x^2}\;\mathrm{d}x$。
+    你是否能借此证明 $\pi=3.14...$，即给出 $\pi$ 到小数点两位的逼近。
 
-- A8)（$\pi$ 是无理数）假定 $a,b$ 和 $n$ 是正整数，定义函数
-  \[
-  f_{a,b;n}(x)=\frac{x^n(a-bx)^n}{n!}.
-  \]
-
-  - 证明：对于 $k=0,1,2,\cdots,2n$，
-    函数 $f_{a,b;n}(x)$ 的 $k$ 阶导数 $f^{(k)}_{a,b;n}(x)$ 在 $x=0$ 和 $x=\dfrac{a}{b}$
-    处的取值都是整数。
-
-  - 假定圆周率 $\pi=\frac{a}{b}$ 是有理数，其中 $a$ 和 $b$ 是正整数。证明，对任意的正整数 $n$，积分
+A8) （$\pi$ 是无理数）假定 $a,b$ 和 $n$ 是正整数，定义函数
     \[
-    \int_{0}^\pi f_{a,b;n}(x)\sin(x)dx
+    f_{a,b;n}(x)=\frac{x^n(a-bx)^n}{n!}.
     \]
-    是整数。
 
-  - 证明：圆周率 $\pi$ 不是有理数。
+    - 证明：对于 $k=0,1,2,\cdots,2n$，
+      函数 $f_{a,b;n}(x)$ 的 $k$ 阶导数 $f^{(k)}_{a,b;n}(x)$ 在 $x=0$ 和 $x=\dfrac{a}{b}$
+      处的取值都是整数。
 
-- A9)（完成Wallis积分的渐近公式）利用第23次讲义中的知识，
-  对于Wallis积分 $\displaystyle I_n=\int_{0}^\frac{\pi}{2} \sin^n x dx$，证明，
-  \[
-  I_n\sim \sqrt{\dfrac{\pi}{2n}}.
-  \]
+    - 假定圆周率 $\pi=\frac{a}{b}$ 是有理数，其中 $a$ 和 $b$ 是正整数。
+      证明，对任意的正整数 $n$，积分
+      \[
+      \int_{0}^\pi f_{a,b;n}(x)\sin(x)dx
+      \]
+      是整数。
+
+    - 证明：圆周率 $\pi$ 不是有理数。
+
+A9) （完成Wallis积分的渐近公式）利用第23次讲义中的知识，
+    对于Wallis积分 $\displaystyle I_n=\int_{0}^\frac{\pi}{2} \sin^n x dx$，证明，
+    \[
+    I_n\sim \sqrt{\dfrac{\pi}{2n}}.
+    \]
 
 A10) 证明当年Leibniz用的面积公式：假设 $f\colon [0,1]\rightarrow [0,1]$ 是单调递增的双射，
      $g=f^{-1}\colon [0,1]\rightarrow [0,1]$ 是它的逆映射，并且 $f$ 和 $g$ 是连续可微的。那么，

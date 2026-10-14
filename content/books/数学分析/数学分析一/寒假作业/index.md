@@ -40,15 +40,15 @@ A4) 假设 $a,b\geqslant 0$，$p>1$，$q>1$ 并且 $\dfrac{1}{p}+\dfrac{1}{q}=1$
 Sobolev不等式的一个重要的观点就是
 用函数以及它的导数的积分来控制函数的最大值。在这个问题中，$[a,b]$ 是任意给定的有界闭区间。
 
-- B1)（Cauchy–Schwarz不等式）假设 $f,g\in \mathcal{R}([a,b])$，利用多项式
-  \[
-  P(t)=\int_{a}^b \bigl(f(x)+tg(x)\bigr)^2dx
-  \]
-  证明：
-  \[
-  \Bigl|\int_{a}^b f(x)g(x)dx\Bigr|\leqslant
-  \left(\int_a^b |f(x)|^2dx\right)^{\frac{1}{2}} \left(\int_a^b |g(x)|^2dx\right)^{\frac{1}{2}}.
-  \]
+B1) （Cauchy–Schwarz不等式）假设 $f,g\in \mathcal{R}([a,b])$，利用多项式
+    \[
+    P(t)=\int_{a}^b \bigl(f(x)+tg(x)\bigr)^2dx
+    \]
+    证明：
+    \[
+    \Bigl|\int_{a}^b f(x)g(x)dx\Bigr|\leqslant
+    \left(\int_a^b |f(x)|^2dx\right)^{\frac{1}{2}} \left(\int_a^b |g(x)|^2dx\right)^{\frac{1}{2}}.
+    \]
 
 B2) 证明，对任意的 $\varepsilon>0$，存在常数 $C_{\varepsilon}>0$，
     使得对任意的 $f\in C^{1}\bigl([a,b]\bigr)$，对任意的 $x\in[a,b]$，我们都有
@@ -505,18 +505,18 @@ K2) 给定 $f\in E$。证明，对任意的 $\varepsilon>0$，
     |f(x)-f(y)|\leqslant \varepsilon +C_\varepsilon (x-y)^2.
     \]
 
-- K3)（Korovkin）对于 $n\in \mathbb{Z}_{\geqslant 0}$，
-  $P_n(x)=x^n$ 是一族 $E$ 中的正函数。假设 $T_n$ 是一族 $E$ 上的正算子。
-  如果对任意的 $m\in \mathbb{Z}_{\geqslant 0}$，
-  函数序列 $\{T_n(P_m)\}_{n\geqslant 1}$ 在 $E$ 中一致收敛到 $P_m$，
-  证明，对任意的 $f\in E$，函数序列 $\{T_n(f)\}_{n\geqslant 1}$ 在 $E$ 中一致收敛到 $f$。
+K3) （Korovkin）对于 $n\in \mathbb{Z}_{\geqslant 0}$，
+    $P_n(x)=x^n$ 是一族 $E$ 中的正函数。假设 $T_n$ 是一族 $E$ 上的正算子。
+    如果对任意的 $m\in \mathbb{Z}_{\geqslant 0}$，
+    函数序列 $\{T_n(P_m)\}_{n\geqslant 1}$ 在 $E$ 中一致收敛到 $P_m$，
+    证明，对任意的 $f\in E$，函数序列 $\{T_n(f)\}_{n\geqslant 1}$ 在 $E$ 中一致收敛到 $f$。
 
-- K4)（应用：用Bernstein多项式一致逼近连续函数）对于 $f\in E=C([0,1])$，我们定义一族算子
-  \[
-  B_n\colon E\rightarrow E,  \ \ f\mapsto B_n(f)(x)
-  =\sum_{k=0}^n {n \choose k}f\left(\frac{k}{n}\right)x^k(1-x)^{n-k}.
-  \]
-  证明，函数序列 $\{B_n(f)\}_{n\geqslant 1}$ 在 $E$ 中一致收敛到 $f$。
+K4) （应用：用Bernstein多项式一致逼近连续函数）对于 $f\in E=C([0,1])$，我们定义一族算子
+    \[
+    B_n\colon E\rightarrow E,  \ \ f\mapsto B_n(f)(x)
+    =\sum_{k=0}^n {n \choose k}f\left(\frac{k}{n}\right)x^k(1-x)^{n-k}.
+    \]
+    证明，函数序列 $\{B_n(f)\}_{n\geqslant 1}$ 在 $E$ 中一致收敛到 $f$。
 
 ## 题目L（余切函数的Euler展开）
 
@@ -576,13 +576,13 @@ N3) 证明，
     =\bigcap_{f\in E}\Lambda(f).
     \]
 
-- N4)（万有弦定理）考虑连续函数 $f\colon [a,b]\rightarrow \mathbb{R}$ 的图像
-  $\Gamma_f=\bigl\{(x,f(x))\subset \mathbb{R}^2\bigm| x\in [a,b]\bigr\}$。
-  $\overline{AB}$ 是图像的两个端点 $A=(a,f(a))$ 和 $B=(b,f(b))$ 所连的线段，
-  证明，对任意的整数 $n\geqslant 1$，总存在 $c, d\in [a,b]$，
-  使得 $C=(c,f(c))$ 和 $D=(d,f(d))$ 所连的线段与 $\overline{AB}$ 平行
-  并且其长度恰好是 $\overline{AB}$ 长度的 $\dfrac{1}{n}$。
-  如果 $n\geqslant 1$ 不是整数，结论是否成立？
+N4) （万有弦定理）考虑连续函数 $f\colon [a,b]\rightarrow \mathbb{R}$ 的图像
+    $\Gamma_f=\bigl\{(x,f(x))\subset \mathbb{R}^2\bigm| x\in [a,b]\bigr\}$。
+    $\overline{AB}$ 是图像的两个端点 $A=(a,f(a))$ 和 $B=(b,f(b))$ 所连的线段，
+    证明，对任意的整数 $n\geqslant 1$，总存在 $c, d\in [a,b]$，
+    使得 $C=(c,f(c))$ 和 $D=(d,f(d))$ 所连的线段与 $\overline{AB}$ 平行
+    并且其长度恰好是 $\overline{AB}$ 长度的 $\dfrac{1}{n}$。
+    如果 $n\geqslant 1$ 不是整数，结论是否成立？
 
 N5) 司马迁参加100米赛跑，成绩是10秒。证明，能够找到连续的5秒，他恰好跑了50米。
     （我们假设人类的运动是连续的）
@@ -693,8 +693,8 @@ U4) 证明Hamilton–Cayley定理：对任意的 $A\in  \mathbf{M}_n(\mathbb{C})
 V1) 试找出所有的 $E$ 的 $\mathbb{R}$-线性子空间 $V$，
     使得对任意的 $f_1,f_2\in V$，都有 $f_1f_2\in V$。
 
-- V2)（求导数的平方根）求导数运算 $\dfrac{d}{dx}\colon F\rightarrow F$ 是线性映射。
-  是否存在线性映射 $T\colon F\rightarrow F$，使得 $T\circ T=\dfrac{d}{dx}$？
+V2) （求导数的平方根）求导数运算 $\dfrac{d}{dx}\colon F\rightarrow F$ 是线性映射。
+    是否存在线性映射 $T\colon F\rightarrow F$，使得 $T\circ T=\dfrac{d}{dx}$？
 
 ## 题目W（$e$ 的超越性）
 

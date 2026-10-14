@@ -131,7 +131,7 @@ C6) 计算如下的分布
 
 C7) 如果$\alpha=-2$，你是否可以定义出${\rm pf}\,x_+^{-2}$？
 
-- C8)（选做）如果$\alpha=-2,-3,-4,\cdots$，你能否对上述问题做出相应的改动和回答？
+C8) （选做）如果$\alpha=-2,-3,-4,\cdots$，你能否对上述问题做出相应的改动和回答？
 
 **习题D（关于分布的一个除法问题，$\div x$）。**
 
@@ -180,12 +180,12 @@ E1) 假设分布$u \in \mathcal{D}'(\mathbb{R}^2)$满足
     \langle u, \varphi \rangle = \left\langle v, \int_{\mathbb{R}}\varphi(x,y)dx\right\rangle.
     \]
 
-- E2)（正则性）假设分布$u \in \mathcal{D}'(\mathbb{R}^2)$满足
-  \[
-  \partial_x u \in C^0(\mathbb{R}^2), \ \ \partial_y u \in C^0(\mathbb{R}^2).
-  \]
-  也就是说，$\partial_x u$和$\partial_y u$分别对应着连续函数所定义的分布。
-  证明，$u \in C^1(\mathbb{R}^2)$。
+E2) （正则性）假设分布$u \in \mathcal{D}'(\mathbb{R}^2)$满足
+    \[
+    \partial_x u \in C^0(\mathbb{R}^2), \ \ \partial_y u \in C^0(\mathbb{R}^2).
+    \]
+    也就是说，$\partial_x u$和$\partial_y u$分别对应着连续函数所定义的分布。
+    证明，$u \in C^1(\mathbb{R}^2)$。
 
 **习题F（齐次分布）。**
 
@@ -229,11 +229,11 @@ F6) 任意给定试验函数$\varphi \in \mathcal{D}(\mathbb{R}^n)$，
     证明，当 $\lambda\rightarrow \lambda_0$ 时，
     上述函数在 $\mathcal{D}(\mathbb{R}^n)$ 中有极限并计算该极限。
 
-- F7)（齐次分布的Euler公式）任意给定$u\in \mathcal{D}'(\mathbb{R}^n)$，$d\in \mathbb{R}$。
-  证明，$u$是$d$次齐次分布当且仅当
-  \[
-  \sum_{k=1}^n x_k \cdot \frac{\partial u}{\partial x_k}\stackrel{\mathcal{D}'}{=} d \cdot u.
-  \]
+F7) （齐次分布的Euler公式）任意给定$u\in \mathcal{D}'(\mathbb{R}^n)$，$d\in \mathbb{R}$。
+    证明，$u$是$d$次齐次分布当且仅当
+    \[
+    \sum_{k=1}^n x_k \cdot \frac{\partial u}{\partial x_k}\stackrel{\mathcal{D}'}{=} d \cdot u.
+    \]
 
 F8) 试找出$\mathcal{D}'(\mathbb{R}^1)$中所有次数为$0$和$1$的齐次分布。
 

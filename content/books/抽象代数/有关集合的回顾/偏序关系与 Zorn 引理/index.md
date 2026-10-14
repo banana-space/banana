@@ -9,10 +9,10 @@ notices:
 对于集合$A$，$A$上的一个**序关系**指的是$A\times A$的子集$\mathcal{O}$，对于$(a,b)\in \mathcal{O}$，
 我们把它写成$a\preceq b$，并且如下的性质成立：
 
-- 1)（自反性）对任意的$a\in A$，$a\preceq a$（或者对任意的$a\in A$，$(a,a)\in \mathcal{O}$）；
+1) （自反性）对任意的$a\in A$，$a\preceq a$（或者对任意的$a\in A$，$(a,a)\in \mathcal{O}$）；
 
-- 2)（传递性）如果$a\preceq b$，$b\preceq c$，那么，
-  $a\preceq c$（或者如果$(a,b),(b,c)\in \mathcal{O}$，那么，$(a,c)\in \mathcal{O}$）。
+2) （传递性）如果$a\preceq b$，$b\preceq c$，那么，
+   $a\preceq c$（或者如果$(a,b),(b,c)\in \mathcal{O}$，那么，$(a,c)\in \mathcal{O}$）。
 
 - 3\) 对任意的$a,b\in A$，如果$a\preceq b$，$b\preceq a$，那么，
   $a=b$（或者如果$(a,b),(b,a)\in \mathcal{O}$，那么，$a=b$）。

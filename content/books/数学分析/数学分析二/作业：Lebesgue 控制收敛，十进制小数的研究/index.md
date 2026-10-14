@@ -8,28 +8,28 @@ notices:
 
 ## 课堂内容的补充与复习
 
-- A1)（积分与级数之间的关联）
-  考虑正整数集上的测度空间
-  $(\mathbb{Z}_{\geqslant 1},\mathcal{P}\left(\mathbb{Z}_{\geqslant 1}\right),\mu)$，
-  其中 $\mu$ 是数元素个数的测度：
-  \[
-  \mu(A)=|A|.
-  \]
-  考虑这个空间上复数值函数 $f(x)$。证明，$f$ 可积分当且仅当
-  \[
-  \sum_{n=1}^\infty |f(n)|<\infty
-  \]
-  并且此时
-  \[
-  \int_{\mathbb{Z}_{\geqslant 1}}fd\mu = \sum_{n=1}^\infty f(n).
-  \]
+A1) （积分与级数之间的关联）
+    考虑正整数集上的测度空间
+    $(\mathbb{Z}_{\geqslant 1},\mathcal{P}\left(\mathbb{Z}_{\geqslant 1}\right),\mu)$，
+    其中 $\mu$ 是数元素个数的测度：
+    \[
+    \mu(A)=|A|.
+    \]
+    考虑这个空间上复数值函数 $f(x)$。证明，$f$ 可积分当且仅当
+    \[
+    \sum_{n=1}^\infty |f(n)|<\infty
+    \]
+    并且此时
+    \[
+    \int_{\mathbb{Z}_{\geqslant 1}}fd\mu = \sum_{n=1}^\infty f(n).
+    \]
 
-- A2)（Beppo Levi定理的标准应用）
-  考虑测度空间 $(X,\mathcal{A},\mu)$ 上的正函数列 $\{g_i\}_{i\geqslant 1}$。
-  证明，函数级数 $\displaystyle \sum_{i=1}^\infty g_i$ 是 $X$ 上良好定义的可测正函数并且
-  \[
-  \int_X \sum_{i=1}^\infty g_i d\mu =  \sum_{i=1}^\infty \int_X g_i d\mu.
-  \]
+A2) （Beppo Levi定理的标准应用）
+    考虑测度空间 $(X,\mathcal{A},\mu)$ 上的正函数列 $\{g_i\}_{i\geqslant 1}$。
+    证明，函数级数 $\displaystyle \sum_{i=1}^\infty g_i$ 是 $X$ 上良好定义的可测正函数并且
+    \[
+    \int_X \sum_{i=1}^\infty g_i d\mu =  \sum_{i=1}^\infty \int_X g_i d\mu.
+    \]
 
 A3) 考虑 $\mathbb{R}$ 上的函数 $f(x)=\dfrac{\sin(x)}{x}$。证明，在Lebesgue的意义下，$f$ 不可积。
 
@@ -55,11 +55,11 @@ A5) $(X,\mathcal{A},\mu)$ 是测度空间，$Y\in \mathcal{A}$，
     \int_X \widehat{f}d\mu = \int_Y f d\mu\big|_Y.
     \]
 
-- A6)（Fatou引理中的不等式的等号未必能取到）试构造某个测度空间 $(X,\mathcal{A},\mu)$
-  上的可测正函数序列 $\{f_i\}_{i\geqslant 1}$，使得该序列逐点地收敛到 $f$ 但是
-  \[
-  \int_X f d\mu < \liminf_{i\rightarrow \infty}\int_X f_i d\mu.
-  \]
+A6) （Fatou引理中的不等式的等号未必能取到）试构造某个测度空间 $(X,\mathcal{A},\mu)$
+    上的可测正函数序列 $\{f_i\}_{i\geqslant 1}$，使得该序列逐点地收敛到 $f$ 但是
+    \[
+    \int_X f d\mu < \liminf_{i\rightarrow \infty}\int_X f_i d\mu.
+    \]
 
 A7) $(X,\mathcal{A},\mu)$ 是测度空间。
     证明，对任意可测函数 $f\colon X\rightarrow \mathbb{C}$，
@@ -143,37 +143,37 @@ C2) 如果 $g$ 是 $\mathbb{R}$ 上连续可微的函数，并且 $g$ 和 $g'$ �
 
 ### 问题D：Fourier变换初步
 
-- D1)（有限测度的 Fourier 变换）我们在 $\mathbb{R}$ 上取定 Borel-代数（由开集生成的
-  $\sigma$-代数）。
+D1) （有限测度的 Fourier 变换）我们在 $\mathbb{R}$ 上取定 Borel-代数（由开集生成的
+    $\sigma$-代数）。
 
-  - D1-1) 如果 $\mu$ 是一个有限测度（即 $\mu(\mathbb{R})<\infty$），那么
-    \[
-    \hat{\mu}(\xi)=\int_{\mathbb{R}}e^{-ix\xi}d\mu(x)
-    \]
-    定义了 $\mathbb{R}$ 上的一个连续有界的函数（称作是该有限测度的 Fourier 变换）。
+    - D1-1) 如果 $\mu$ 是一个有限测度（即 $\mu(\mathbb{R})<\infty$），那么
+      \[
+      \hat{\mu}(\xi)=\int_{\mathbb{R}}e^{-ix\xi}d\mu(x)
+      \]
+      定义了 $\mathbb{R}$ 上的一个连续有界的函数（称作是该有限测度的 Fourier 变换）。
 
-  - D1-2) 我们定义 Dirac 测度 $\delta_0$ 如下：对于 Borel-集 $A$，如果 $0\in A$，
-    则 $\delta_0(A)=1$；否则 $\delta_0(A)=0$。
-    证明，$\delta_0$ 是一个有限测度并计算它的 Fourier 变换。
+    - D1-2) 我们定义 Dirac 测度 $\delta_0$ 如下：对于 Borel-集 $A$，如果 $0\in A$，
+      则 $\delta_0(A)=1$；否则 $\delta_0(A)=0$。
+      证明，$\delta_0$ 是一个有限测度并计算它的 Fourier 变换。
 
-- D2)（可积函数的 Fourier 变换）$f$ 是 $\mathbb{R}$ 上的可积函数。
+D2) （可积函数的 Fourier 变换）$f$ 是 $\mathbb{R}$ 上的可积函数。
 
-  - D2-1) 对于 $\xi \in \mathbb{R}$，我们定义
-    \[
-    \hat{f}(\xi)=\int_{\mathbb{R}}e^{-ix\xi}f(x)dx.
-    \]
-    证明，上式定义了 $\mathbb{R}$ 上的一个连续有界的函数（称作是 $f$ 的 Fourier 变换）。
+    - D2-1) 对于 $\xi \in \mathbb{R}$，我们定义
+      \[
+      \hat{f}(\xi)=\int_{\mathbb{R}}e^{-ix\xi}f(x)dx.
+      \]
+      证明，上式定义了 $\mathbb{R}$ 上的一个连续有界的函数（称作是 $f$ 的 Fourier 变换）。
 
-  - D2-2) 如果 $g(x)=xf(x)$ 也是 $\mathbb{R}$ 上的可积函数，证明 $\hat{f}(\xi)$ 连续可微并且
-    \[
-    \frac{d}{d\xi}\hat{f}(\xi) =  -i\hat{g}(\xi).
-    \]
+    - D2-2) 如果 $g(x)=xf(x)$ 也是 $\mathbb{R}$ 上的可积函数，证明 $\hat{f}(\xi)$ 连续可微并且
+      \[
+      \frac{d}{d\xi}\hat{f}(\xi) =  -i\hat{g}(\xi).
+      \]
 
-  - D2-3)（Riemann–Lebesgue引理）证明，对任意的 $f\in \mathcal{L}^1(\mathbb{R},dx)$，我们都有
-    \[
-    \lim_{\xi\rightarrow \infty}\widehat{f}(\xi)=0.
-    \]
-    （提示：先对特殊的简单函数来证明）
+    - D2-3)（Riemann–Lebesgue引理）证明，对任意的 $f\in \mathcal{L}^1(\mathbb{R},dx)$，我们都有
+      \[
+      \lim_{\xi\rightarrow \infty}\widehat{f}(\xi)=0.
+      \]
+      （提示：先对特殊的简单函数来证明）
 
 ## 选做题：测度理论
 

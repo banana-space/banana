@@ -6,15 +6,15 @@ title: 作业：二平方和数的密度
 
 ### 习题A（Riemann积分的概念）
 
-- A1)（积分第一中值定理的一个变体）$f$ 是有界闭区间 $[a,b]$ 上的连续函数，
-  $g\in \mathcal{R}([a,b])$ 是Riemann可积的并且对任意的 $x\in [a,b]$，$g(x)> 0$。
-  证明，存在 $\xi\in (a,b)$，使得
-  \[
-  \displaystyle \int_a^b fg= f(\xi)\int_{a}^b g.
-  \]
+A1) （积分第一中值定理的一个变体）$f$ 是有界闭区间 $[a,b]$ 上的连续函数，
+    $g\in \mathcal{R}([a,b])$ 是Riemann可积的并且对任意的 $x\in [a,b]$，$g(x)> 0$。
+    证明，存在 $\xi\in (a,b)$，使得
+    \[
+    \displaystyle \int_a^b fg= f(\xi)\int_{a}^b g.
+    \]
 
-- A2)（单调函数是Riemann可积的）不用Lebesgue定理证明：
-  $f$ 是 $[a,b]$ 上的单调增函数，那么 $f\in \mathcal{R}(I)$。（提示：利用Darboux上下和）
+A2) （单调函数是Riemann可积的）不用Lebesgue定理证明：
+    $f$ 是 $[a,b]$ 上的单调增函数，那么 $f\in \mathcal{R}(I)$。（提示：利用Darboux上下和）
 
 A3) 证明，函数 $1_{\mathbb{Q}}(x) =
     \begin{cases}
@@ -92,9 +92,9 @@ C4) 设 $f\in C([0,1])$ 而且对任意满足 $g(0)=g(1)=0$ 的 $g\in C([0,1])$�
 C5) 设 $f\in C([0,1])$ 而且对任意 $n\in \mathbb{Z}_{\geqslant 0}$，
     都有 $\displaystyle \int_0^1 f(x)x^n dx = 0$。证明，$f(x) \equiv 0$。
 
-- C6)（Gronwall不等式）设 $\varphi \in C([0,T])$ 且对任意 $t \in [0,T]$，
-  有 $\displaystyle |\varphi(t)| \leqslant M + k\int_0^t |\varphi(s)|ds$，
-  其中 $M, k$ 为正实数。试证明，对任意 $t\in [0,T]$，$|\varphi(t)| \leqslant Me^{kt}$。
+C6) （Gronwall不等式）设 $\varphi \in C([0,T])$ 且对任意 $t \in [0,T]$，
+    有 $\displaystyle |\varphi(t)| \leqslant M + k\int_0^t |\varphi(s)|ds$，
+    其中 $M, k$ 为正实数。试证明，对任意 $t\in [0,T]$，$|\varphi(t)| \leqslant Me^{kt}$。
 
 C7) 假设 $a,b>0$，$f \in C([-a,b])$。如果对任意 $x\in (-a,b)$，
     $f(x)>0$ 并且 $\displaystyle \int_{-a}^b xf(x) = 0$。

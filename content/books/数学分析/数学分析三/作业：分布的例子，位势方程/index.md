@@ -74,31 +74,31 @@ A5) 对于任意的$f\in C^\infty(\Omega)$和$u\in \mathcal{D}'(\Omega)$，对�
     \partial_k(f\cdot u) \stackrel{\mathcal{D}'}{=} \partial_k f \cdot u+ f\cdot \partial_k u.
     \]
 
-- A6)（重要的计算，参考第五次课第一个定理的证明）
-  对任意的$\varphi \in \mathcal{D}(\mathbb{R}^n)$，对任意的$x_0,a \in \mathbb{R}^n$，
-  $\varepsilon \in (0,1)$，$|a|=1$，根据Taylor公式，我们有
-  \[
-  \varphi(x_0-y+\varepsilon a)-\varphi(x_0-y)=\varepsilon \sum_{j=1}^n a_j\partial_j\varphi(x_0-y)+\varepsilon^2 r(y,\varepsilon,a),
-  \]
-  其中，
-  \[
-  \displaystyle r(y,\varepsilon,a)=2\sum_{|\alpha|= 2} \frac{a^\alpha}{\alpha!} \int_{0}^1(1-t)\partial^{\alpha}\varphi(x_0-y+t\varepsilon a)dt.
-  \]
-  给定分布$u\in \mathcal{D}'(\mathbb{R}^n)$，通过对上面的式子作用，我们得到
-  \[
-  u*\varphi(x_0+\varepsilon a)-u*\varphi(x_0)-\varepsilon \sum_{j=1}^n a_ju*\partial_j\varphi(x_0)=\varepsilon^2\langle u, r(\cdot,\varepsilon,a)\rangle.
-  \]
-  证明，存在不依赖于$\varepsilon$的常数$C$，使得
-  \[
-  \big|\langle u, r(\cdot,\varepsilon,a)\rangle\big| \leqslant C.
-  \]
+A6) （重要的计算，参考第五次课第一个定理的证明）
+    对任意的$\varphi \in \mathcal{D}(\mathbb{R}^n)$，对任意的$x_0,a \in \mathbb{R}^n$，
+    $\varepsilon \in (0,1)$，$|a|=1$，根据Taylor公式，我们有
+    \[
+    \varphi(x_0-y+\varepsilon a)-\varphi(x_0-y)=\varepsilon \sum_{j=1}^n a_j\partial_j\varphi(x_0-y)+\varepsilon^2 r(y,\varepsilon,a),
+    \]
+    其中，
+    \[
+    \displaystyle r(y,\varepsilon,a)=2\sum_{|\alpha|= 2} \frac{a^\alpha}{\alpha!} \int_{0}^1(1-t)\partial^{\alpha}\varphi(x_0-y+t\varepsilon a)dt.
+    \]
+    给定分布$u\in \mathcal{D}'(\mathbb{R}^n)$，通过对上面的式子作用，我们得到
+    \[
+    u*\varphi(x_0+\varepsilon a)-u*\varphi(x_0)-\varepsilon \sum_{j=1}^n a_ju*\partial_j\varphi(x_0)=\varepsilon^2\langle u, r(\cdot,\varepsilon,a)\rangle.
+    \]
+    证明，存在不依赖于$\varepsilon$的常数$C$，使得
+    \[
+    \big|\langle u, r(\cdot,\varepsilon,a)\rangle\big| \leqslant C.
+    \]
 
-- A7)（重要）我们选取最心爱的截断函数$\chi$。
-  证明，当$\varepsilon\rightarrow 0$时，对任意的试验函数$\varphi \in \mathcal{D}(\mathbb{R}^n)$，
-  我们都有
-  \[
-  \chi_\varepsilon*  \varphi \stackrel{\mathcal{D}}{\longrightarrow}\varphi.
-  \]
+A7) （重要）我们选取最心爱的截断函数$\chi$。
+    证明，当$\varepsilon\rightarrow 0$时，对任意的试验函数$\varphi \in \mathcal{D}(\mathbb{R}^n)$，
+    我们都有
+    \[
+    \chi_\varepsilon*  \varphi \stackrel{\mathcal{D}}{\longrightarrow}\varphi.
+    \]
 
 A8) 假设$f$是$\mathbb{R}^n$上的光滑函数，$c\in \mathcal{E}'(\mathbb{R}^n)$，证明，函数
     \[
@@ -106,14 +106,14 @@ A8) 假设$f$是$\mathbb{R}^n$上的光滑函数，$c\in \mathcal{E}'(\mathbb{R}
     \]
     是光滑函数，其中，上面的配对是一个有紧支集的分布与一个光滑函数的配对。
 
-- A9)（重要）证明，$\mathbb{R}_t\times \mathbb{R}_x^n$上定义的函数
-  \[
-  E(t,x)=\frac{\mathbf{1}_{t>0}}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{|x|^2}{4t}},
-  \]
-  在$(t,x)=(0,0)$之外是光滑的并且满足
-  \[
-  (\partial_t -\triangle)(E(t,x))=0, \ \ \text{对任意的}~(t,x)\neq (0,0).
-  \]
+A9) （重要）证明，$\mathbb{R}_t\times \mathbb{R}_x^n$上定义的函数
+    \[
+    E(t,x)=\frac{\mathbf{1}_{t>0}}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{|x|^2}{4t}},
+    \]
+    在$(t,x)=(0,0)$之外是光滑的并且满足
+    \[
+    (\partial_t -\triangle)(E(t,x))=0, \ \ \text{对任意的}~(t,x)\neq (0,0).
+    \]
 
 A10) 利用卷积的连续性，重新证明（概念上更清晰简洁）关于分布的链式求导法则：
 
@@ -254,12 +254,12 @@ C5) 当$n\geqslant 3$时，我们用$\big|\mathbf{S}^{n-1}\big|$表示$\mathbf{S
     \partial_j E =\frac{x_j}{\big|\mathbf{S}^{n-1}\big||x|^n} \in  L_{\rm loc}^1(\mathbb{R}^n).
     \]
 
-- C6)（接C5)）证明，
-  \[
-  \triangle E \stackrel{\mathcal{D}'}=\delta_0
-  \]
+C6) （接C5)）证明，
+    \[
+    \triangle E \stackrel{\mathcal{D}'}=\delta_0
+    \]
 
-- C7)（作为常识）试计算（或者查出）$\big|\mathbf{S}^{n-1}\big|$的数值。
+C7) （作为常识）试计算（或者查出）$\big|\mathbf{S}^{n-1}\big|$的数值。
 
 在后面的习题中，我们假设$n=3$（这些结论对$n\geqslant 3$稍作明显的改动也成立，
 但是我们更关心具有物理意义的情形）。此时，$\triangle$的一个基本解可以写成：

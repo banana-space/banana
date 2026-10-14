@@ -76,50 +76,50 @@ R33) 证明Cauchy–Schwarz不等式：$f,g\in \mathcal{R}(A)$，我们有
 
      （以上R28)–R33)是对矩形上的积分理论的简单应用）
 
-- R34)（积分第一中值公式）$A$ 是一个可铺集（有限个内部不交的矩形的并集，
-  请参考题目 R2)）假设 $f$ 是 $A$ 上的Riemann可积的实值函数。令
-  \[
-  \displaystyle c=\inf_{x\in A}f(x), \ \ C=\sup_{x\in A}f(x).
-  \]
-  证明，存在 $\xi \in [c,C]$，使得
-  \[
-  \int_A f =\xi \cdot m(A).
-  \]
+R34) （积分第一中值公式）$A$ 是一个可铺集（有限个内部不交的矩形的并集，
+     请参考题目 R2)）假设 $f$ 是 $A$ 上的Riemann可积的实值函数。令
+     \[
+     \displaystyle c=\inf_{x\in A}f(x), \ \ C=\sup_{x\in A}f(x).
+     \]
+     证明，存在 $\xi \in [c,C]$，使得
+     \[
+     \int_A f =\xi \cdot m(A).
+     \]
 
-- R35)（一致收敛与Riemann积分可交换）给定 $A$ 上Riemann可积的函数列
-  $\{f_k\}_{k\geqslant 1}\subset \mathcal{R}(A)$，
-  假设 $\{f_k\}_{k\geqslant 1}$ 一致收敛到函数 $f\colon A\rightarrow \mathbb{C}$。
-  证明，$f\in \mathcal{R}(A)$ 并且
-  \[
-  \int_A f= \lim_{k\rightarrow \infty}\int_A f_k.
-  \]
+R35) （一致收敛与Riemann积分可交换）给定 $A$ 上Riemann可积的函数列
+     $\{f_k\}_{k\geqslant 1}\subset \mathcal{R}(A)$，
+     假设 $\{f_k\}_{k\geqslant 1}$ 一致收敛到函数 $f\colon A\rightarrow \mathbb{C}$。
+     证明，$f\in \mathcal{R}(A)$ 并且
+     \[
+     \int_A f= \lim_{k\rightarrow \infty}\int_A f_k.
+     \]
 
-- R36)（上下积分）给定实值有界函数 $f\colon A\rightarrow \mathbb{R}$，任意给定矩形 $P\supset A$，
-  我们考虑
-  \[
-  \begin{aligned}
-  \overline{\mathcal{E}_f}(P)&=\{\varphi \in \mathcal{E}(P)\mid\varphi(x)\geqslant \widetilde{f}(x)\}, \\
-  \underline{\mathcal{E}_f}(P)&=\{\varphi \in \mathcal{E}(P)\mid\varphi(x)\leqslant \widetilde{f}(x)\}.
-  \end{aligned}
-  \]
-  据此，我们定义
-  \[
-  \begin{aligned}
-  &\overline{\int}_{P}f=\inf_{\varphi \in \overline{\mathcal{E}_f}(P)}\int_P \varphi, \\
-  &\underline{\int}_{P}f=\sup_{\varphi \in \underline{\mathcal{E}_f}(P)}\int_P \varphi.
-  \end{aligned}
-  \]
-  证明，这两个数值不依赖于 $P$ 的选取。
-  （我们称之为有界函数 $f$ 的**上积分**和**下积分**并记作 $\displaystyle\overline{\int}_{A}f$ 和
-  $\displaystyle\underline{\int}_{A}f$）
+R36) （上下积分）给定实值有界函数 $f\colon A\rightarrow \mathbb{R}$，任意给定矩形 $P\supset A$，
+     我们考虑
+     \[
+     \begin{aligned}
+     \overline{\mathcal{E}_f}(P)&=\{\varphi \in \mathcal{E}(P)\mid\varphi(x)\geqslant \widetilde{f}(x)\}, \\
+     \underline{\mathcal{E}_f}(P)&=\{\varphi \in \mathcal{E}(P)\mid\varphi(x)\leqslant \widetilde{f}(x)\}.
+     \end{aligned}
+     \]
+     据此，我们定义
+     \[
+     \begin{aligned}
+     &\overline{\int}_{P}f=\inf_{\varphi \in \overline{\mathcal{E}_f}(P)}\int_P \varphi, \\
+     &\underline{\int}_{P}f=\sup_{\varphi \in \underline{\mathcal{E}_f}(P)}\int_P \varphi.
+     \end{aligned}
+     \]
+     证明，这两个数值不依赖于 $P$ 的选取。
+     （我们称之为有界函数 $f$ 的**上积分**和**下积分**并记作 $\displaystyle\overline{\int}_{A}f$ 和
+     $\displaystyle\underline{\int}_{A}f$）
 
-- R37)（上下积分刻画Riemann性）给定实值有界函数 $f\colon A\rightarrow \mathbb{R}$。
-  证明，
-  $f\in \mathcal{R}(A)$ 当且仅当
-  $\displaystyle\overline{\int}_{A}f=\displaystyle\underline{\int}_{A}f$。此时，我们还有
-  \[
-  \displaystyle\overline{\int}_{A}f=\displaystyle\underline{\int}_{A}f=\int_A f.
-  \]
+R37) （上下积分刻画Riemann性）给定实值有界函数 $f\colon A\rightarrow \mathbb{R}$。
+     证明，
+     $f\in \mathcal{R}(A)$ 当且仅当
+     $\displaystyle\overline{\int}_{A}f=\displaystyle\underline{\int}_{A}f$。此时，我们还有
+     \[
+     \displaystyle\overline{\int}_{A}f=\displaystyle\underline{\int}_{A}f=\int_A f.
+     \]
 
 ## 抽象可铺集
 
@@ -162,41 +162,41 @@ R40) $A\subset \mathbb{R}^n$ 是非空的有界集，我们强调它未必是抽
      （由此可见，$\overline{m}(A)$ 与Carathéodory测度扩张定理证明中的外测度类似，然而，
      可铺集只容许有限个矩形来覆盖，外测度容许有可数个）
 
-- R41)（抽象可铺集的测度刻画）$A$ 是抽象可铺的当且仅当对任意的 $\varepsilon>0$，
-  存在可铺集 $B$ 和 $C$，使得
-  \[
-  B\supset A\supset C, \ \ m(C)-m(B)<\varepsilon.
-  \]
-  （请与课程上关于在紧集上取值有限的测度的正则性定理比较）
+R41) （抽象可铺集的测度刻画）$A$ 是抽象可铺的当且仅当对任意的 $\varepsilon>0$，
+     存在可铺集 $B$ 和 $C$，使得
+     \[
+     B\supset A\supset C, \ \ m(C)-m(B)<\varepsilon.
+     \]
+     （请与课程上关于在紧集上取值有限的测度的正则性定理比较）
 
-- R42)（复习）$A$ 是 $\mathbb{R}^n$ 中的集合（未必有界），
-  我们定义 $A$ 的**内部**$\mathring{A}$ 和**闭包** $\overline{A}$ 为：
-  \[
-  \begin{aligned}
-  \mathring{A}&=\bigl\{x\in A\bigm|\text{存在 $\delta>0$，使得以 $x$ 为球心以 $\delta$ 为半径的小球落在 $A$ 中}\bigr\},\\
-  \overline{A}&=\bigl\{ x \in \mathbb{R}^n\bigm|\text{对任意的 $\delta>0$，使得以 $x$ 为球心以 $\delta$ 为半径的小球与 $A$ 的交非空}\bigr\}.
-  \end{aligned}
-  \]
-  证明，$\mathring{A}$ 是包含在 $A$ 中的最大的开集；
-  $\overline{A}$ 是包含 $A$ 的最小的闭集并且 $\overline{A}$ 恰为 $A$ 的聚点的集合。
+R42) （复习）$A$ 是 $\mathbb{R}^n$ 中的集合（未必有界），
+     我们定义 $A$ 的**内部**$\mathring{A}$ 和**闭包** $\overline{A}$ 为：
+     \[
+     \begin{aligned}
+     \mathring{A}&=\bigl\{x\in A\bigm|\text{存在 $\delta>0$，使得以 $x$ 为球心以 $\delta$ 为半径的小球落在 $A$ 中}\bigr\},\\
+     \overline{A}&=\bigl\{ x \in \mathbb{R}^n\bigm|\text{对任意的 $\delta>0$，使得以 $x$ 为球心以 $\delta$ 为半径的小球与 $A$ 的交非空}\bigr\}.
+     \end{aligned}
+     \]
+     证明，$\mathring{A}$ 是包含在 $A$ 中的最大的开集；
+     $\overline{A}$ 是包含 $A$ 的最小的闭集并且 $\overline{A}$ 恰为 $A$ 的聚点的集合。
 
 R43) $A$ 是 $\mathbb{R}^n$ 中的集合（未必有界），
      我们定义 $A$ 的**边界**为 $\partial A= \overline{A}-\mathring{A}$。
      根据上面的问题，$\partial A$ 是闭集。
      证明，$\mathbb{R}^n$ 上的函数 $\mathbf{1}_A$ 在每个 $x\in \mathbb{R}^n-\partial A$ 处是连续的。
 
-- R44)（抽象可铺集的拓扑刻画）$A$ 表示 $\mathbb{R}^n$ 中的一个非空的有界集。
-  证明，$A$ 是抽象可铺的当且仅当 $\partial A$ 是（Lebesgue测度）零测集。
+R44) （抽象可铺集的拓扑刻画）$A$ 表示 $\mathbb{R}^n$ 中的一个非空的有界集。
+     证明，$A$ 是抽象可铺的当且仅当 $\partial A$ 是（Lebesgue测度）零测集。
 
-- R45)（Riemann意义下的零测集）$A\subset \mathbb{R}^n$，如果对每个 $\varepsilon>0$，
-  总存在有限个矩形 $P_1,\cdots,P_{N(\varepsilon)}$，使得
-  \[
-  A\subset \bigcup_{1\leqslant i \leqslant N(\varepsilon)}P_i, \ \  \sum_{i=1}^{N(\varepsilon)}m(P_i)< \varepsilon,
-  \]
-  我们称 $A$ 是**在Riemann意义下的零测集**（简记为$\mathcal{R}$-零测集）。
-  证明，$\mathcal{R}$-零测集是有界的并且是Lebesgue意义下的零测集；
-  $\mathcal{R}$-零测集的子集是 $\mathcal{R}$-零测集；
-  有限个 $\mathcal{R}$-零测集的并也是 $\mathcal{R}$-零测集。
+R45) （Riemann意义下的零测集）$A\subset \mathbb{R}^n$，如果对每个 $\varepsilon>0$，
+     总存在有限个矩形 $P_1,\cdots,P_{N(\varepsilon)}$，使得
+     \[
+     A\subset \bigcup_{1\leqslant i \leqslant N(\varepsilon)}P_i, \ \  \sum_{i=1}^{N(\varepsilon)}m(P_i)< \varepsilon,
+     \]
+     我们称 $A$ 是**在Riemann意义下的零测集**（简记为$\mathcal{R}$-零测集）。
+     证明，$\mathcal{R}$-零测集是有界的并且是Lebesgue意义下的零测集；
+     $\mathcal{R}$-零测集的子集是 $\mathcal{R}$-零测集；
+     有限个 $\mathcal{R}$-零测集的并也是 $\mathcal{R}$-零测集。
 
 R46) 证明，$\mathcal{R}$-零测集的闭包是 $\mathcal{R}$-零测集。
      进一步证明，
@@ -218,8 +218,8 @@ R48) 证明，如下四个命题是等价的：
      （按照甲 $\Rightarrow$ 乙 $\Rightarrow$ 丙 $\Rightarrow$ 丁 $\Rightarrow$
      甲的顺序推理比较容易）
 
-- R49)（可铺集的刻画之三）$A$ 表示 $\mathbb{R}^n$ 中的一个非空的有界集。
-  证明，$A$ 是抽象可铺的当且仅当 $\partial A$ 是 $\mathcal{R}$-零测集。
+R49) （可铺集的刻画之三）$A$ 表示 $\mathbb{R}^n$ 中的一个非空的有界集。
+     证明，$A$ 是抽象可铺的当且仅当 $\partial A$ 是 $\mathcal{R}$-零测集。
 
 ::: -remark [寄语]
 In my opinion a mathematician, in so far as he is a mathematician, need not preoccupy himself with philosophy – an opinion, moreover, which has been expressed by many philosophers.

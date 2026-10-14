@@ -11,9 +11,9 @@ A2) $M\subset \mathbb{R}^n$ 是光滑子流形，
     $\varphi\colon \mathbb{R}^n \rightarrow \mathbb{R}^n$ 是微分同胚。
     证明，$M$ 在该映射下的像 $\varphi(M)$ 也是光滑子流形。
 
-- A3)（光滑超曲面的判定）假设 $f \colon \mathbb{R}^n\rightarrow \mathbb{R}$ 是光滑函数，
-  如果对于任意的 $x_0\in f^{-1}(0)$，存在某个 $i\leqslant n$（指标 $i$ 可能依赖于 $x_0$），
-  使得 $\dfrac{\partial f}{\partial x_i}(x_0)\neq 0$，那么 $f^{-1}(0)$ 是光滑超曲面。
+A3) （光滑超曲面的判定）假设 $f \colon \mathbb{R}^n\rightarrow \mathbb{R}$ 是光滑函数，
+    如果对于任意的 $x_0\in f^{-1}(0)$，存在某个 $i\leqslant n$（指标 $i$ 可能依赖于 $x_0$），
+    使得 $\dfrac{\partial f}{\partial x_i}(x_0)\neq 0$，那么 $f^{-1}(0)$ 是光滑超曲面。
 
 A4) 假设 $\Omega\subset \mathbb{R}^n$ 是开集，$f_1,\cdots,f_k$ 是给定的 $k$ 个光滑函数，
     其中 $k\leqslant n$。令
@@ -67,26 +67,26 @@ B2) $a$ 和 $b$ 是实数，我们定义映射
     \]
     证明：$f$ 是 $\mathbb{R}^2$ 到自身的微分同胚当且仅当 $ab\in (-1,1)$。
 
-- B3)（隐函数定理的经典练习）假设 $f\colon\mathbb{R}^n\rightarrow \mathbb{R}^n$ 是光滑映射，
-  $0$ 是 $f$ 的不动点，即 $f(0)=0$。假设 $1$ 不是 $f$ 在 $0$ 处的微分
-  \[
-  df(0)\colon\underbrace{T_{0}\mathbb{R}^n}_{\mathbb{R}^n}\longrightarrow \underbrace{T_{0}\mathbb{R}^n}_{\mathbb{R}^n}
-  \]
-  的特征值。
-
-  - 证明，$0$ 是一个孤立的不动点，即存在开集 $U$，使得 $0\in U$，
-    $f$ 在 $U$ 有且仅有 $0$ 为其不动点。
-
-  - 任意给定 $g\in C^1(\mathbb{R}^n,\mathbb{R}^n)$。对任意的 $\lambda\in \mathbb{R}$，我们定义映射
+B3) （隐函数定理的经典练习）假设 $f\colon\mathbb{R}^n\rightarrow \mathbb{R}^n$ 是光滑映射，
+    $0$ 是 $f$ 的不动点，即 $f(0)=0$。假设 $1$ 不是 $f$ 在 $0$ 处的微分
     \[
-    f_\lambda\colon \mathbb{R}^n\longrightarrow \mathbb{R}^n, \ \ x\mapsto f(x)+\lambda g(x),
+    df(0)\colon\underbrace{T_{0}\mathbb{R}^n}_{\mathbb{R}^n}\longrightarrow \underbrace{T_{0}\mathbb{R}^n}_{\mathbb{R}^n}
     \]
-    证明，存在 $\varepsilon>0$，存在 $0$ 在 $\mathbb{R}^n$ 的开邻域 $U$ 以及 $C^1$ 的映射
-    \[
-    \omega\colon(-\varepsilon, \varepsilon)\rightarrow U, \ \ \lambda \mapsto \omega(\lambda),
-    \]
-    使得对任意的 $\lambda \in (-\varepsilon, \varepsilon)$，
-    $f_\lambda$ 在 $U$ 中恰好有一个不动点 $\omega(\lambda)$。
+    的特征值。
+
+    - 证明，$0$ 是一个孤立的不动点，即存在开集 $U$，使得 $0\in U$，
+      $f$ 在 $U$ 有且仅有 $0$ 为其不动点。
+
+    - 任意给定 $g\in C^1(\mathbb{R}^n,\mathbb{R}^n)$。对任意的 $\lambda\in \mathbb{R}$，我们定义映射
+      \[
+      f_\lambda\colon \mathbb{R}^n\longrightarrow \mathbb{R}^n, \ \ x\mapsto f(x)+\lambda g(x),
+      \]
+      证明，存在 $\varepsilon>0$，存在 $0$ 在 $\mathbb{R}^n$ 的开邻域 $U$ 以及 $C^1$ 的映射
+      \[
+      \omega\colon(-\varepsilon, \varepsilon)\rightarrow U, \ \ \lambda \mapsto \omega(\lambda),
+      \]
+      使得对任意的 $\lambda \in (-\varepsilon, \varepsilon)$，
+      $f_\lambda$ 在 $U$ 中恰好有一个不动点 $\omega(\lambda)$。
 
 B4) 证明，对任意的 $t\in (-0.5,0.5)$，方程
     \[
@@ -126,11 +126,11 @@ B7) 证明，如下两个方程定义的集合 $\Sigma$
     \]
     是 $\mathbb{R}^4$ 中的光滑曲面。
 
-- B8)（承接上一问题）对哪一些 $t$（$t$ 固定），如下集合
-  \[
-  \Sigma_t=\bigl\{(x,y,z)\in \mathbb{R}^3\bigm|x^2+2y^2+3z^2+4t^2=4, \ x+y=z+t\bigr\}
-  \]
-  是 $\mathbb{R}^3$ 中的光滑曲线？（我们用时间把 $\Sigma$ 切成曲线“片”）
+B8) （承接上一问题）对哪一些 $t$（$t$ 固定），如下集合
+    \[
+    \Sigma_t=\bigl\{(x,y,z)\in \mathbb{R}^3\bigm|x^2+2y^2+3z^2+4t^2=4, \ x+y=z+t\bigr\}
+    \]
+    是 $\mathbb{R}^3$ 中的光滑曲线？（我们用时间把 $\Sigma$ 切成曲线“片”）
 
 ## C. 子流形上生活着很多曲线
 
@@ -173,19 +173,19 @@ D1) 对任意的 $c\in \mathbb{R}^{n}$，我们可以定义一个次数为 $n$ �
     \]
     是光滑的。
 
-- D2)（根对系数的光滑依赖性）考虑实系数多项式 $P(X)= X^n + c_1 X^{n-1} + \cdots + c_n$。
-  如果对 $(c^*_1, \cdots, c^*_n) \in \mathbb{R}^n$，
-  $P(X)$ 恰好有 $n$ 个两两不同的实根 $z_1(c^*_1,\cdots,c^*_n)<\cdots<z_n(c^*_1,\cdots,c^*_n)$。
-  证明，
-  存在 $(c^*_1, \cdots, c^*_n) \in \mathbb{R}^n$ 的开邻域 $\Omega$ 和 $\Omega$ 上的光滑函数
-  $z_1,\cdots, z_n$，使得对任意的 $(c_1,\cdots,c_n)\in \Omega$，我们有
-  \[
-  z_1(c_1,\cdots,c_n)< z_2(c_1,\cdots,c_n)<\cdots<z_n(c_1,\cdots,c_n)
-  \]
-  并且
-  \[
-  P_c(z_1(c_1,\cdots,c_n))=P_c(z_2(c_1,\cdots,c_n))=\cdots=P_c(z_n(c_1,\cdots,c_n))=0.
-  \]
+D2) （根对系数的光滑依赖性）考虑实系数多项式 $P(X)= X^n + c_1 X^{n-1} + \cdots + c_n$。
+    如果对 $(c^*_1, \cdots, c^*_n) \in \mathbb{R}^n$，
+    $P(X)$ 恰好有 $n$ 个两两不同的实根 $z_1(c^*_1,\cdots,c^*_n)<\cdots<z_n(c^*_1,\cdots,c^*_n)$。
+    证明，
+    存在 $(c^*_1, \cdots, c^*_n) \in \mathbb{R}^n$ 的开邻域 $\Omega$ 和 $\Omega$ 上的光滑函数
+    $z_1,\cdots, z_n$，使得对任意的 $(c_1,\cdots,c_n)\in \Omega$，我们有
+    \[
+    z_1(c_1,\cdots,c_n)< z_2(c_1,\cdots,c_n)<\cdots<z_n(c_1,\cdots,c_n)
+    \]
+    并且
+    \[
+    P_c(z_1(c_1,\cdots,c_n))=P_c(z_2(c_1,\cdots,c_n))=\cdots=P_c(z_n(c_1,\cdots,c_n))=0.
+    \]
 
 D3) 你是否能将上面的结论推广到复系数的多项式上去？
 

@@ -6,21 +6,21 @@ title: 作业：拓扑与连续性
 
 ### 习题A：距离空间上的拓扑与连续性
 
-- A1)（距离空间上的Heine定理）假设 $(X,d_X)$ 和 $(Y,d_Y)$ 是距离空间，
-  $f\colon X\rightarrow Y$ 是映射。我们有两种方式来定义连续映射（参见第3次作业题的A3)和第9次课）
+A1) （距离空间上的Heine定理）假设 $(X,d_X)$ 和 $(Y,d_Y)$ 是距离空间，
+    $f\colon X\rightarrow Y$ 是映射。我们有两种方式来定义连续映射（参见第3次作业题的A3)和第9次课）
 
-  - 假设 $x_0\in X$，如果对任意 $X$ 中的点列 $\{x_n\}_{n\geqslant 1}$，
-    $x_n\stackrel{d_X}{\longrightarrow}x_0$，
-    我们都有 $f(x_n)\stackrel{d_Y}{\longrightarrow}f(x_0)$，我们就称 $f$ 在 $x_0$ 处是连续的。
-    如果 $f$ 在一切 $x\in X$ 处均连续，那么我们就称 $f$ 是距离空间之间的**连续映射**。
+    - 假设 $x_0\in X$，如果对任意 $X$ 中的点列 $\{x_n\}_{n\geqslant 1}$，
+      $x_n\stackrel{d_X}{\longrightarrow}x_0$，
+      我们都有 $f(x_n)\stackrel{d_Y}{\longrightarrow}f(x_0)$，我们就称 $f$ 在 $x_0$ 处是连续的。
+      如果 $f$ 在一切 $x\in X$ 处均连续，那么我们就称 $f$ 是距离空间之间的**连续映射**。
 
-  - 假设 $x_0\in X$，$y_0=f(x_0)\in Y$。
-    如果对**任意的** $\varepsilon>0$，总存在 $\delta>0$，
-    使得对**任意**满足 $d_X(x,x_0)<\delta$ 的 $x \in X$，
-    都有 $d_Y\bigl(f(x),f(x_0)\bigr)<\varepsilon$，我们就称 $f$ 在 $x_0$ 处**连续**。
-    如果 $f$ 在 $X$ 的每个点处都连续，那么我们就称 $f$ 是**连续映射**。
+    - 假设 $x_0\in X$，$y_0=f(x_0)\in Y$。
+      如果对**任意的** $\varepsilon>0$，总存在 $\delta>0$，
+      使得对**任意**满足 $d_X(x,x_0)<\delta$ 的 $x \in X$，
+      都有 $d_Y\bigl(f(x),f(x_0)\bigr)<\varepsilon$，我们就称 $f$ 在 $x_0$ 处**连续**。
+      如果 $f$ 在 $X$ 的每个点处都连续，那么我们就称 $f$ 是**连续映射**。
 
-  证明，上面两个对连续映射的定义是等价的。
+    证明，上面两个对连续映射的定义是等价的。
 
 A2) $(X,d)$ 是距离空间。
     对任意的点 $x\in X$，$r>0$，
@@ -34,16 +34,17 @@ A2) $(X,d)$ 是距离空间。
     证明，$U\subset X$ 是开集当且仅当对任意的 $x\in U$，存在 $\delta_x>0$，
     使得 $B(x,\delta_x)\subset U$。
 
-- A3)（距离空间上的标准拓扑）我们用 $\mathcal{T}$ 表示距离空间 $(X,d)$ 上的开集的全体，其中，
-  我们规定 $\emptyset$ 和 $X$ 都是开集。证明，它们满足
+A3) （距离空间上的标准拓扑）我们用 $\mathcal{T}$ 表示距离空间 $(X,d)$ 上的开集的全体，其中，
+    我们规定 $\emptyset$ 和 $X$ 都是开集。证明，它们满足
 
-  - 1\) $\emptyset \in \mathcal{T}$，$X \in \mathcal{T}$。
+    - 1\) $\emptyset \in \mathcal{T}$，$X \in \mathcal{T}$。
 
-  - 2\) 对任意开集的集合 $\{U_{\alpha}\}_{\alpha \in \mathcal{A}}$，其中 $\mathcal{A}$ 为指标集合，
-    我们有 $\displaystyle\bigcup_{\alpha \in \mathcal{A}}U_\alpha \in \mathcal{T}$。
+    - 2\) 对任意开集的集合 $\{U_{\alpha}\}_{\alpha \in \mathcal{A}}$，
+      其中 $\mathcal{A}$ 为指标集合，
+      我们有 $\displaystyle\bigcup_{\alpha \in \mathcal{A}}U_\alpha \in \mathcal{T}$。
 
-  - 3\) 对任意有限个开集 $U_1,U_2,\cdots, U_m \in \mathcal{T}$，
-    我们有 $\displaystyle\bigcap_{1\leqslant i\leqslant m}U_i \in \mathcal{T}$。
+    - 3\) 对任意有限个开集 $U_1,U_2,\cdots, U_m \in \mathcal{T}$，
+      我们有 $\displaystyle\bigcap_{1\leqslant i\leqslant m}U_i \in \mathcal{T}$。
 
 A4) $(X,d)$ 是距离空间。如果 $F\subset X$ 的补集是开集，我们就称 $F$ 是**闭集**。
     证明，$F$ 是闭集当且仅当对任意点列 $\{x_n\}_{n\geqslant 1}\subset F$，
@@ -81,20 +82,21 @@ A7) $(X,d)$ 是距离空间，$A\subset X$ 是子集，
     证明，$\overline{A}=A'\cup A$。
     特别地，$F$ 是闭集当且仅当 $F$ 的聚点都在 $F$ 中，即 $F=F'\cup F=\overline{F}$。
 
-- A8)（距离空间的乘积与连续映射）假设 $(Y,d_Y)$ 和 $(Z,d_Z)$ 是距离空间，
-  我们定义 $Y\times Z$ 上的距离函数
-  \[
-  d_{Y\times Z}\colon \bigl(Y\times Z\bigr){ \times} \bigl(Y\times Z\bigr) \rightarrow \mathbb{R}_{\geqslant 0}, \ \ \bigl((y_1,z_1),(y_2,z_2)\bigr)\mapsto \sqrt{d_Y(y_1,y_2)^2+d_Z(z_1,z_2)^2}.
-  \]
-  证明，$d_{Y\times Z}$ 是 $Y\times Z$ 上的距离函数。证明，两个自然的投影映射是连续的：
-  \[
-  \pi_Y\colon  Y\times Z \rightarrow Y, \ (y,z)\mapsto y; \ \pi_Z\colon  Y\times Z \rightarrow Z, \ (y,z)\mapsto z.
-  \]
-  证明，
-  给定距离空间 $(X,d)$ 和 $(Y\times Z,d_{Y\times Z})$ 之间的映射 $F\colon  X\rightarrow Y\times Z$，
-  那么，
-  $F$ 连续当且仅当两个复合映射 $\pi_Y \circ F\colon  X\rightarrow Y$ 和
-  $\pi_Z \circ F\colon  X\rightarrow Z$ 都连续。
+A8) （距离空间的乘积与连续映射）假设 $(Y,d_Y)$ 和 $(Z,d_Z)$ 是距离空间，
+    我们定义 $Y\times Z$ 上的距离函数
+    \[
+    d_{Y\times Z}\colon \bigl(Y\times Z\bigr){ \times} \bigl(Y\times Z\bigr) \rightarrow \mathbb{R}_{\geqslant 0}, \ \ \bigl((y_1,z_1),(y_2,z_2)\bigr)\mapsto \sqrt{d_Y(y_1,y_2)^2+d_Z(z_1,z_2)^2}.
+    \]
+    证明，$d_{Y\times Z}$ 是 $Y\times Z$ 上的距离函数。证明，两个自然的投影映射是连续的：
+    \[
+    \pi_Y\colon  Y\times Z \rightarrow Y, \ (y,z)\mapsto y; \ \pi_Z\colon  Y\times Z \rightarrow Z, \ (y,z)\mapsto z.
+    \]
+    证明，
+    给定距离空间 $(X,d)$ 和 $(Y\times Z,d_{Y\times Z})$ 之间的映射
+    $F\colon  X\rightarrow Y\times Z$，
+    那么，
+    $F$ 连续当且仅当两个复合映射 $\pi_Y \circ F\colon  X\rightarrow Y$ 和
+    $\pi_Z \circ F\colon  X\rightarrow Z$ 都连续。
 
 A9) 证明，加法映射 $+$ 和乘法映射 $\times$ 都是连续映射，其中
     \[

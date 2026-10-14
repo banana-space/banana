@@ -46,14 +46,14 @@ A4) 证明，对每个 $A\in \mathcal{F}_\infty$，总存在 $n$ 和 $s_1,\cdots
 
 A5) 证明，$P$ 是 $\mathcal{F}_\infty$ 上的一个加性函数且全空间测度为 $1$（概率测度）。
 
-- A6)（非等概率分布，
-  用来模拟第 $k$ 次扔硬币正面朝上的概率是 $p_k$）对于每个 $k\in \mathbb{Z}_{>0}$，
-  我们给一个数 $0\leqslant p_k \leqslant 1$。
-  证明，存在唯一一个 $\mathcal{F}_\infty$ 上的加性函数 $\widetilde{P}$ 使得，
-  对 $s=(s_1,\cdots,s_n)$，我们有
-  \[
-  \widetilde{P}(C_s)=\prod_{k \leqslant n, \atop \\ s_k =1} p_k \prod_{k \leqslant n, \atop \\ s_k =0} (1-p_k).
-  \]
+A6) （非等概率分布，
+    用来模拟第 $k$ 次扔硬币正面朝上的概率是 $p_k$）对于每个 $k\in \mathbb{Z}_{>0}$，
+    我们给一个数 $0\leqslant p_k \leqslant 1$。
+    证明，存在唯一一个 $\mathcal{F}_\infty$ 上的加性函数 $\widetilde{P}$ 使得，
+    对 $s=(s_1,\cdots,s_n)$，我们有
+    \[
+    \widetilde{P}(C_s)=\prod_{k \leqslant n, \atop \\ s_k =1} p_k \prod_{k \leqslant n, \atop \\ s_k =0} (1-p_k).
+    \]
 
 A7) 我们定义 $\Omega$ 上的 Borel-代数
     $\mathcal{B}(\Omega) = \sigma(\mathcal{F}_\infty)$（我们后面会看到为什么叫它 Borel-代数）。

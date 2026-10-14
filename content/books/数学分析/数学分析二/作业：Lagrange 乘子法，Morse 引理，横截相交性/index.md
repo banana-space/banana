@@ -133,27 +133,27 @@ f(x) = f(\bar{x}) + \sum_{1\leqslant i,j\leqslant n}\frac{\partial^2 f}{\partial
 \]
 其中整数 $m$ 称为临界点 $\bar{x}$ 的**指标**。*
 
-- D1)（Hadamard 引理）$\Omega \subset \mathbb{R}^n$ 是凸的开集，$0 \in \Omega$，
-  函数 $f \in C^{\infty}(\Omega)$ 且 $f(0) = 0$。
-  证明，存在光滑函数 $g_i \in C^{\infty}(\Omega)$，使得对任意的 $(x_1,\cdots,x_n)\in \Omega$，都有
-  \[
-  f(x_1,\cdots,x_n) = \sum_{i=1}^{n} x_i g_i(x_1,\cdots,x_n)
-  \]
-  并且 $g_i(0) = \dfrac{\partial f}{\partial x_i}(0)$。
-  （提示：在射线 $t\mapsto (tx_1,\cdots,tx_n)$ 上对 $f$ 用Newton–Leibniz法则）
-
-- D2)（条件同上）如果 $f(0) = 0$ 并且 $0$ 是 $f$ 的非退化临界点，证明，
-  存在 $0$ 的开邻域 $U\subset \Omega$ 以及 $U$ 上 $n^2$ 个光滑函数
-  $h_{ij}$（$1 \leqslant i,j \leqslant n$），它们满足
-
-  - 对任意的指标 $i$ 和 $j$，$h_{ij} = h_{ji}$；
-
-  - 对任意的 $(x_1,\cdots,x_n)\in U$，矩阵 $\Big(h_{ij}(x_1,\cdots,x_n)\Big)$ 是可逆的；
-
-  - 对任意的 $(x_1,\cdots,x_n)\in U$，有
+D1) （Hadamard 引理）$\Omega \subset \mathbb{R}^n$ 是凸的开集，$0 \in \Omega$，
+    函数 $f \in C^{\infty}(\Omega)$ 且 $f(0) = 0$。
+    证明，存在光滑函数 $g_i \in C^{\infty}(\Omega)$，使得对任意的 $(x_1,\cdots,x_n)\in \Omega$，都有
     \[
-    f(x_1,\cdots, x_n) = \sum_{i,j=1}^{n} x_i x_j h_{ij}(x_1,\cdots,x_n).
+    f(x_1,\cdots,x_n) = \sum_{i=1}^{n} x_i g_i(x_1,\cdots,x_n)
     \]
+    并且 $g_i(0) = \dfrac{\partial f}{\partial x_i}(0)$。
+    （提示：在射线 $t\mapsto (tx_1,\cdots,tx_n)$ 上对 $f$ 用Newton–Leibniz法则）
+
+D2) （条件同上）如果 $f(0) = 0$ 并且 $0$ 是 $f$ 的非退化临界点，证明，
+    存在 $0$ 的开邻域 $U\subset \Omega$ 以及 $U$ 上 $n^2$ 个光滑函数
+    $h_{ij}$（$1 \leqslant i,j \leqslant n$），它们满足
+
+    - 对任意的指标 $i$ 和 $j$，$h_{ij} = h_{ji}$；
+
+    - 对任意的 $(x_1,\cdots,x_n)\in U$，矩阵 $\Big(h_{ij}(x_1,\cdots,x_n)\Big)$ 是可逆的；
+
+    - 对任意的 $(x_1,\cdots,x_n)\in U$，有
+      \[
+      f(x_1,\cdots, x_n) = \sum_{i,j=1}^{n} x_i x_j h_{ij}(x_1,\cdots,x_n).
+      \]
 
 D3) 证明，存在 $0$ 的邻域 $U_1\subset U$ 和 $V_1$（它的坐标用 $u_1,\cdots, u_n$），
     微分同胚 $\varphi_1\colon V_1\rightarrow U_1$，
@@ -163,17 +163,17 @@ D3) 证明，存在 $0$ 的邻域 $U_1\subset U$ 和 $V_1$（它的坐标用 $u_
     \]
     其中常数 $c_1 = 1$ 或者 $-1$ 并且 $H_{ij} = H_{ji}$。
 
-- D4)（用归纳法）对于 $r\leqslant n-1$，证明，
-  存在 $0$ 的邻域 $U_r\subset U$ 和 $V_r$（它的坐标用 $u_1,\cdots, u_n$），
-  微分同胚 $\varphi_r\colon V_r\rightarrow U_r$，
-  光滑函数 $H_{ij}$（$r+1 \leqslant i,j \leqslant n$），使得
-  \[
-  (f \circ \varphi_r)(u) = \sum_{k = 1}^{r} c_k (u_k)^2 + \sum_{i,j=r+1}^{n} u_i u_j H_{ij}(u), \quad u = (u_1,\cdots,u_n) \in U_r,
-  \]
-  其中 $c_i \in \{ \pm 1 \}$ 是常数并且 $H_{ij} = H_{ji}$。（这就证明了Morse引理）
+D4) （用归纳法）对于 $r\leqslant n-1$，证明，
+    存在 $0$ 的邻域 $U_r\subset U$ 和 $V_r$（它的坐标用 $u_1,\cdots, u_n$），
+    微分同胚 $\varphi_r\colon V_r\rightarrow U_r$，
+    光滑函数 $H_{ij}$（$r+1 \leqslant i,j \leqslant n$），使得
+    \[
+    (f \circ \varphi_r)(u) = \sum_{k = 1}^{r} c_k (u_k)^2 + \sum_{i,j=r+1}^{n} u_i u_j H_{ij}(u), \quad u = (u_1,\cdots,u_n) \in U_r,
+    \]
+    其中 $c_i \in \{ \pm 1 \}$ 是常数并且 $H_{ij} = H_{ji}$。（这就证明了Morse引理）
 
-- D5)（非退化临界点是孤立的）证明，如果 $\bar{x}$ 是 $f$ 的非退化临界点，
-  那么存在 $\bar{x}$ 的开邻域 $U$，使得 $\bar{x}$ 是 $f$ 在 $U$ 上唯一的临界点。
+D5) （非退化临界点是孤立的）证明，如果 $\bar{x}$ 是 $f$ 的非退化临界点，
+    那么存在 $\bar{x}$ 的开邻域 $U$，使得 $\bar{x}$ 是 $f$ 在 $U$ 上唯一的临界点。
 
 D6) $\bar{x}$ 是 $f$ 的非退化临界点。
     证明，
