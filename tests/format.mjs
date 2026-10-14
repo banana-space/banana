@@ -26,6 +26,12 @@ assert.equal(page('* 甲\n\n          code'), '- 甲\n\n          code', 'indent
 assert.equal(page('> * 甲\n>     乙'), '> - 甲\n>   乙');
 assert.equal(page('* 甲\n乙'), '- 甲\n乙', 'a lazy line');
 for (const kept of ['*强调*', '***', '* * *', '- 甲\n  乙', '```\n* 代码\n```', '\\[\n* x\n\\]']) assert.equal(page(kept), kept, kept);
+// Labelled list items ((a), iv), …): continuation lines at the item's text, at most at column 14.
+assert.equal(page('(a)   甲\n      乙\n(iii) 丙\n  丁\n\n      戊'), '(a) 甲\n    乙\n(iii) 丙\n  丁\n\n      戊', 'a lazy line stays');
+assert.equal(page('> (a) 甲\n>       乙'), '> (a) 甲\n>     乙');
+assert.equal(page('($\\mathrm{T}_{2}$) 甲\n                    乙'), '($\\mathrm{T}_{2}$) 甲\n              乙', 'at most column 14');
+assert.equal(page('(a) \\[x\\]\n(b) 乙'), '(a) \\[\n    x\n    \\]\n(b) 乙', 'a formula right after a label');
+for (const kept of ['甲\n(3) 乙', '(1\\) 与 (3)']) assert.equal(page(kept), kept, kept);
 
 // Display formulas on lines of their own, at the indentation of the line they start on.
 assert.equal(page('设\n\\[x\\]\n于是'), '设\n\\[\nx\n\\]\n于是');
@@ -58,6 +64,9 @@ assert.equal(page(`- ${sentence}${sentence}`), `- ${sentence}\n  ${sentence}`);
 assert.equal(page(`10. ${sentence}${sentence}`), `10. ${sentence}\n    ${sentence}`);
 assert.equal(page(`> - ${sentence}${sentence}`), `> - ${sentence}\n>   ${sentence}`);
 assert.equal(page(`[^1]: ${sentence}${sentence}`), `[^1]: ${sentence}\n    ${sentence}`);
+assert.equal(page(`(a) ${sentence}${sentence}`), `(a) ${sentence}\n    ${sentence}`);
+assert.equal(page(`- (iv) ${sentence}${sentence}`), `- (iv) ${sentence}\n       ${sentence}`);
+assert.equal(page(`(a) ${long('汉', 46)}，(b) 乙`), `(a) ${long('汉', 46)}，(b) 乙`, 'not before a label (a new item)');
 // Nowhere a break would change the page: inside atoms, next to emphasis markers, before what would start a
 // block, before code after punctuation (the typography leaves a space there), after a hard-break backslash.
 for (const kept of [

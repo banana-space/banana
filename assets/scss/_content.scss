@@ -231,6 +231,20 @@ article {
       list-style-type: circle;
     }
   }
+
+  // Labelled list items ((a), iv), (A1)): the label written at the item's start (_item-label) stands in the
+  // marker's place, right-aligned before the text; a long one reaches further left.
+  li:has(> .item-label:first-child, > p:first-child > .item-label:first-child) {
+    list-style: none;
+    position: relative;
+  }
+
+  .item-label {
+    position: absolute;
+    right: 100%;
+    padding-right: 0.5em;
+    white-space: nowrap;
+  }
 }
 
 // Spoilers

@@ -2,7 +2,8 @@
 // line breaks and indentation change, where they do not change the page:
 // - one blank line between the front matter and the body;
 // - unordered lists marked "-", one space after a list marker, and the lines continuing a list item at its text
-//   (two spaces after "-", three after "1."), what is indented further keeping its extra indentation;
+//   (two spaces after "-", three after "1.", four after "(a)", at most fourteen), what is indented further
+//   keeping its extra indentation;
 // - display formulas (\[ … \], $$ … $$) on lines of their own: their delimiters alone on a line, their lines
 //   at the indentation of the line they start on (the formula's own relative indentation kept);
 // - lines of paragraphs at most 100 columns wide (a CJK character counts two), broken where the rendered page
@@ -14,7 +15,7 @@ import { Parser } from 'commonmark';
 import { parseLists } from '../prebuild/lists.mjs';
 import { protectedToken, readMarkdownLink, readMath, readReference, readReferenceGroup, readWiki } from '../prebuild/markup.mjs';
 import { formulaRanges } from '../prebuild/source-lines.mjs';
-import { escaped, readTag } from '../shared/scan.mjs';
+import { escaped, labelledMarkerSource, readLabelledMarker, readTag } from '../shared/scan.mjs';
 
 export const maxWidth = 100;
 
@@ -40,6 +41,9 @@ export function formatMarkdown(source) {
   return head + body;
 }
 
+// A labelled list item's line: its marker, then the spaces after it.
+const labelledItem = new RegExp(`^ {0,3}(${labelledMarkerSource})( *)`);
+
 // What a line starts with before its text: indentation and quote markers.
 const containerPattern = /^[ \t]*(?:>[ \t]?)*[ \t]*/;
 // …and a list item's marker (with a task box) or a footnote's label.
@@ -53,6 +57,37 @@ function continuation(line) {
   return lead + ' '.repeat(marker.replace(/\[[ xX]\][ \t]+$/, '').length);
 }
 
+// Where a labelled list item's text is, from its marker's start: after the marker and a space, at most at
+// column fourteen (scripts/prebuild/lists.mjs).
+const labelledWidth = marker => Math.min([...marker].length + 1, 14);
+
+/**
+ * The markers of labelled list items ((a), iv), …), by the offset of their line: { from, to } in the line. Only
+ * those CommonMark reads as list items (scripts/prebuild/lists.mjs); a line can have more than one, the last
+ * kept.
+ */
+function labelledMarkers(body) {
+  const found = new Map();
+  for (const { start } of parseLists(body).labelled) {
+    const lineStart = body.lastIndexOf('\n', start - 1) + 1;
+    found.set(lineStart, { from: start - lineStart, to: readLabelledMarker(body, start).end - lineStart });
+  }
+  return found;
+}
+
+/**
+ * A line's prefix (indentation, quote and list markers) and the prefix for lines continuing its block: { lead,
+ * next }. labelled: the labelled list item's marker on the line ({ from, to }), if any.
+ */
+function prefixes(line, labelled) {
+  if (!labelled) return { lead: line.match(markerPattern)[0], next: continuation(line) };
+  const spaces = line.slice(labelled.to).match(/^[ \t]*/)[0].length;
+  return {
+    lead: line.slice(0, labelled.to + spaces),
+    next: line.slice(0, labelled.from).replace(/[^ \t>]/g, ' ') + ' '.repeat(labelledWidth(line.slice(labelled.from, labelled.to))),
+  };
+}
+
 /**
  * Lists: "*" items marked "-", one space after each marker, and each item's continuation lines at its text: they
  * keep their indentation beyond the least of them (a formula's relative indentation, a nested block's). Code
@@ -60,9 +95,17 @@ function continuation(line) {
  * marker's width, which keeps it code); lazy continuation lines and lines indented with tabs stay as they are.
  */
 function listLayout(body) {
-  // The block structure, formulas masked (their lines are not Markdown).
+  // The block structure, formulas masked (their lines are not Markdown), labelled list items' markers as
+  // CommonMark's (their width may differ: only the lines count).
   let masked = body;
   for (const { from, to } of formulaRanges(body)) masked = masked.slice(0, from) + body.slice(from, to).replace(/[^\n]/g, 'x') + masked.slice(to);
+  const { labelled } = parseLists(body);
+  for (const { start, end, marker } of [...labelled].reverse()) masked = masked.slice(0, start) + marker + masked.slice(end);
+  // Each labelled item's marker, by its line and column in masked.
+  const labelledAt = new Set(labelled.map(({ start }) => {
+    const lineStart = body.lastIndexOf('\n', start - 1) + 1;
+    return `${body.slice(0, lineStart).split('\n').length - 1}:${start - lineStart}`;
+  }));
   const parser = new Parser();
   parser.processInlines = () => {};
   const walker = parser.parse(masked).walker();
@@ -82,6 +125,7 @@ function listLayout(body) {
       const data = node._listData;
       container.width = data.markerOffset + data.padding; // Where its text is, from its container's.
       container.marker = data.type === 'bullet' ? '-' : null;
+      container.labelled = labelledAt.has(`${container.first}:${node.sourcepos[0][1] - 1}`);
     }
     containers.push(container);
   }
@@ -100,10 +144,10 @@ function listLayout(body) {
         prefix += quote[0];
         pos += quote[0].length;
       } else if (i === c.first) {
-        const item = rest.match(/^ {0,3}([-+*]|\d{1,9}[.)])( *)/);
+        const item = rest.match(c.labelled ? labelledItem : /^ {0,3}([-+*]|\d{1,9}[.)])( *)/);
         if (!item) return null;
         const marker = c.marker ?? item[1], text = rest.slice(item[0].length);
-        c.newWidth = marker.length + 1;
+        c.newWidth = c.labelled ? labelledWidth(marker) : marker.length + 1;
         // Five spaces or more: the item starts with indented code, whose indentation they are.
         prefix += !text ? marker : item[2].length >= 5 ? marker + item[2] : `${marker} `;
         pos += item[0].length;
@@ -141,6 +185,7 @@ function listLayout(body) {
 
 /** Display formulas on lines of their own, at the indentation of the line they start on. */
 function displayFormulas(body) {
+  const labelled = labelledMarkers(body);
   const formulas = formulaRanges(body).filter(({ from }) => body.startsWith('\\[', from) || body.startsWith('$$', from));
   for (const { from, to } of formulas.reverse()) {
     const lineStart = body.lastIndexOf('\n', from - 1) + 1;
@@ -148,7 +193,8 @@ function displayFormulas(body) {
     const before = body.slice(lineStart, from), after = body.slice(to, lineEnd);
     const line = body.slice(lineStart, body.indexOf('\n', lineStart) < 0 ? body.length : body.indexOf('\n', lineStart));
     // Not in headings, tables or environment fences (where lines cannot break), nor in link text.
-    const text = line.slice(line.match(markerPattern)[0].length);
+    const marked = prefixes(line, labelled.get(lineStart));
+    const text = line.slice(marked.lead.length);
     if (/^(?:#|\||:::)/.test(text) || /\[[^\]]*$/.test(before)) continue;
     const inner = body.slice(from + 2, to - 2);
     if (!inner.trim()) continue;
@@ -157,8 +203,9 @@ function displayFormulas(body) {
     const opener = before.match(/(?<!\\)[*_~]*$/)[0], closer = after.match(/^[*_~]*/)[0];
     const lead = before.slice(0, before.length - opener.length), tail = after.slice(closer.length);
     // Alone at the start of its line (after indentation, quote markers, a list marker): stays there.
-    const alone = markerPattern.exec(lead)[0].length === lead.length;
-    const base = alone ? continuation(lead) : continuation(line);
+    const here = labelled.get(lineStart);
+    const alone = here ? lead === marked.lead : markerPattern.exec(lead)[0].length === lead.length;
+    const base = here ? marked.next : alone ? continuation(lead) : continuation(line);
     const quotes = (base.match(/>/g) ?? []).length;
     const unquote = value => {
       let rest = value;
@@ -185,7 +232,8 @@ const closers = /[”’）」』】》〕〉)\]]/u;
 const han = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
 // What a continuation line may not start with: it would begin a block (a list item, a quote, a heading, a
 // rule or setext underline, a fence, a table, a footnote or link definition) or be read as a tag's line.
-const blockStart = /^(?:[-*+][ \t]|\d{1,9}[.)](?:[ \t]|$)|>|#|=+[ \t]*$|-+[ \t]*$|[*_]{3,}|`{3,}|~{3,}|:::|\||\[[^\]]*\]:|\$\$|\\\[)/;
+// A labelled list item's marker counts as well: in a list item it would start the next item.
+const blockStart = new RegExp(`^(?:[-*+][ \\t]|\\d{1,9}[.)](?:[ \\t]|$)|${labelledMarkerSource}|>|#|=+[ \\t]*$|-+[ \\t]*$|[*_]{3,}|\`{3,}|~{3,}|:::|\\||\\[[^\\]]*\\]:|\\$\\$|\\\\\\[)`);
 
 /** The places a paragraph line's text may break: [{ at, end, rank }] (text before at, after end; rank 1 best). */
 function breaks(text) {
@@ -241,9 +289,9 @@ function breaks(text) {
 }
 
 /** A paragraph line in lines at most maxWidth wide (as nearly as its places to break allow). */
-function wrapLine(line) {
+function wrapLine(line, labelled) {
   if (textWidth(line) <= maxWidth) return [line];
-  const prefix = line.match(markerPattern)[0], next = continuation(line);
+  const { lead: prefix, next } = prefixes(line, labelled);
   const text = line.slice(prefix.length), places = breaks(text);
   const lines = [];
   let start = 0, lead = prefix;
@@ -270,6 +318,7 @@ function wrapLine(line) {
 /** Long lines of paragraphs wrapped; not lines of display formulas, comments or tables. */
 function wrapParagraphs(body) {
   const { paragraphs, codeBlocks } = parseLists(body);
+  const labelled = labelledMarkers(body);
   // A footnote's text without spaces reads as a link definition to CommonMark: its line, too.
   const inside = (ranges, offset) => ranges.some(([from, to]) => offset >= from && offset < to);
   for (const match of body.matchAll(/^[ \t>]*\[\^[^\]\s]+\]:[^\n]*/gm)) {
@@ -291,7 +340,7 @@ function wrapParagraphs(body) {
       const lineStart = offset, lineEnd = offset + line.length;
       offset = lineEnd + 1;
       if (skipped.some(([from, to]) => from < lineEnd && to > lineStart)) return line;
-      return wrapLine(line).join('\n');
+      return wrapLine(line, labelled.get(lineStart)).join('\n');
     });
     result += body.slice(cursor, start) + wrapped.join('\n');
     cursor = end;

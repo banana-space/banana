@@ -8,6 +8,7 @@ import { t } from '../shared/i18n.mjs';
  */
 import { katexError } from './katex-check.mjs';
 import { authorTags, looksLikeTag, readTag } from './tags.mjs';
+import { labelledMarkerSource } from '../shared/scan.mjs';
 import { escaped, protectedToken, readMath, readMarkdownLink, readWiki, normalizeTarget, transformMarkup, typographer, validReferenceName, markdownText, unclosedProtected } from './markup.mjs';
 import { readBibliography, prepareBibliography, bibliographyMarkdown } from './bibliography.mjs';
 import { readTerms } from './terms.mjs';
@@ -27,6 +28,8 @@ for (const [kind, config] of Object.entries(environments)) {
 }
 const encode = value => Buffer.from(value).toString('base64');
 const headingParser = new Parser();
+// 以标签列表标记开头的行（容器标记之后）：Setext 标题的文字在此之前结束。
+const labelledLine = new RegExp(`^ {0,3}${labelledMarkerSource}`);
 
 /** 末尾星号可以紧贴标题，但 Markdown 强调的闭合星号仍属于标题文字。 */
 function stripHeadingStar(value) {
@@ -171,7 +174,7 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
   const text = source.replace(/\r\n/g, '\n');
   // checkMath: each formula checked with KaTeX (the online editor; see katex-check.mjs).
   const katexProblem = (tex, display) => { const error = katexError(tex, display); return error && t('build_katex', { Message: error }); };
-  const { items, codeBlocks, mathFences } = parseLists(text);
+  const { items, labelled, problems: listProblems, codeBlocks, mathFences } = parseLists(text);
   const blockCodeEnd = offset => codeBlocks.find(([start, end]) => offset >= start && offset < end)?.[1];
   const edits = []; // 不重叠替换区间，收集列表项目后按源文件顺序排序。
   const labels = new Map(); // 标签 -> 类型、编号、实际锚点与声明行号。
@@ -260,10 +263,12 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
    */
   function resolveReference(value, offset, customLabel) {
     // @-标签 只显示编号（“第一同构定理（@-x）”显示为“第一同构定理（1.2）”）。
-    const numberOnly = value.startsWith('-') && customLabel === undefined;
+    let numberOnly = value.startsWith('-') && customLabel === undefined;
     const name = labelName(numberOnly ? value.slice(1) : value, offset);
     const target = registry.get(name);
     if (!target) fail(t('build_label_missing', { Name: name }), offset);
+    // 标签列表项目的引用文字就是它的编号：(a)、2 (a)。
+    if (target.kind === 'item' && target.label !== undefined) numberOnly = false;
     // 标题标签与 HTML ID 独立：标题跳转到计算出的锚点，其他环境跳转到标签。
     const id = target.anchor ?? name;
     if (numberOnly) {
@@ -352,7 +357,7 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
       const current = text.slice(end).match(/^[^\n]*(?:\n|$)/)[0];
       const underline = current.trimEnd().match(/^ {0,3}(=+|-+)[ \t]*$/);
       if (underline && title.length) return { end: end + current.length, level: underline[1][0] === '=' ? 1 : 2, title: title.join(' ') };
-      if (!current.trim() || /^(?: {4}|\t| {0,3}(?:[#>~<]|`{3,}|\{\{[<%]|:::|[-+*]\s|\d+[.)]\s|\[.*\]:))/.test(current) || /^ {0,3}(?:[-*_][ \t]*){3,}$/.test(current.trimEnd())) break;
+      if (!current.trim() || /^(?: {4}|\t| {0,3}(?:[#>~<]|`{3,}|\{\{[<%]|:::|[-+*]\s|\d+[.)]\s|\[.*\]:))/.test(current) || labelledLine.test(current) || /^ {0,3}(?:[-*_][ \t]*){3,}$/.test(current.trimEnd())) break;
       // 跨行公式整体跳过，其中看似标题的文字也是 TeX。
       let crossesLine = false;
       for (let p = end; p < end + current.length; p++) {
@@ -559,9 +564,15 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
   }
   if (stack.length) fail(t('build_environment_unclosed'), stack.at(-1).start);
   if (openTags.length) fail(t('build_tag_unclosed', { Name: openTags.at(-1).name }), openTags.at(-1).start);
+  if (listProblems.length) fail(t(listProblems[0].key), listProblems[0].offset);
+  // 标签列表项目：标记写成 Hugo 的有序列表标记，标签显示在项目开头（_item-label）。
+  for (const marker of labelled) {
+    const shown = marker.parenthesized ? `(${marker.label})` : `${marker.label})`;
+    edits.push({ start: marker.start, end: marker.end, output: () => `${marker.marker}{{< _item-label >}}${render(shown, marker.start)}{{< /_item-label >}}` });
+  }
   for (const item of items) {
     if (!item.id) fail(t('build_item_label_empty'), item.start);
-    register(item.id, { name: 'reference_item', number: item.number, kind: 'item' }, item.start);
+    register(item.id, item.caption === undefined ? { name: 'reference_item', number: item.number, kind: 'item' } : { label: item.caption, kind: 'item' }, item.start);
     edits.push({ start: item.start, end: item.end, output: () => `{{< _item-target id="${encode(item.id.normalize('NFC'))}" >}}` });
   }
   edits.sort((a, b) => a.start - b.start);
