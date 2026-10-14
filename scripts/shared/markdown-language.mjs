@@ -8,6 +8,7 @@
 // - wiki links [[target|label]];
 // - references @label and {@label} (also the labels of headings, environments and list items);
 // - environment fences ::: name [title] {@label} and their closing :::;
+// - labelled list items (a), iv), (A1) …, as ordered lists;
 // - tags such as <see>, <lang en> and <person name="…">, on one line (HTML blocks are not parsed: a line
 //   starting with a tag is a paragraph's, as the build reads it);
 // - fenced code by its language: math and tikz as TeX, terms, bibliography and yaml as YAML, markdown as
@@ -19,7 +20,7 @@ import { Autolink, Strikethrough, TaskList } from '@lezer/markdown';
 import { LanguageSupport, StreamLanguage, ensureSyntaxTree, foldService } from '@codemirror/language';
 import { commonmarkLanguage, markdown } from '@codemirror/lang-markdown';
 import { yaml } from '@codemirror/lang-yaml';
-import { escaped, readMath, readTag, referenceStop, referenceTail } from './scan.mjs';
+import { escaped, labelledMarkerSource, readMath, readTag, referenceStop, referenceTail } from './scan.mjs';
 
 /** Highlighting tags of the dialect's own syntax. */
 export const bananaTags = {
@@ -317,6 +318,39 @@ const footnote = {
     return null;
   },
 };
+/**
+ * Labelled list items ((a), iv), (A1) …; scripts/prebuild/lists.mjs), read as CommonMark reads ordered lists: the
+ * item's text at the column after its marker (at most fourteen columns on), a new list not interrupting a
+ * paragraph, the next item of a list doing so.
+ */
+const labelledMarker = new RegExp(`^${labelledMarkerSource}`);
+const labelledSize = line => labelledMarker.exec(line.text.slice(line.pos))?.[0].length ?? -1;
+const inLabelledList = cx => cx.stack.some(block => block.type === cx.parser.getNodeType('LabelledList'));
+const labelledList = {
+  name: 'LabelledList',
+  before: 'OrderedList',
+  parse(cx, line) {
+    const size = labelledSize(line);
+    if (size < 0) return false;
+    if (cx.block.type !== cx.parser.getNodeType('LabelledList')) cx.startComposite('LabelledList', line.basePos);
+    // Where the item's text is (as lezer's lists: five spaces or more start indented code, one space on).
+    const after = line.pos + size, skipped = line.skipSpace(after);
+    const indentAfter = line.countIndent(after, line.pos, line.indent), indented = line.countIndent(skipped, after, indentAfter);
+    const base = Math.min(indented >= indentAfter + 5 || skipped === line.text.length ? indentAfter + 1 : indented, line.indent + 14);
+    cx.startComposite('LabelledItem', line.basePos, base - line.baseIndent);
+    // A formula in the label: ($\ast$).
+    const label = line.text.slice(line.pos, after), from = cx.lineStart + line.pos, children = [];
+    for (let i = 0; i < label.length; i++) {
+      const math = readMath(label, i);
+      if (math) { children.push(mathElement(cx, from + i, from + math.end, false, label.slice(i, math.end))); break; }
+    }
+    cx.addElement(cx.elt('ListMark', from, from + size, children));
+    line.moveBaseColumn(base);
+    return null;
+  },
+  endLeaf: (cx, line) => labelledSize(line) >= 0 && inLabelledList(cx),
+};
+
 /**
  * Brackets that are not a link: [text] without (url) or [label] after it is text in the build (shortcut
  * reference links have no definitions on this site), as are citation groups [@a, note] and an escaped
@@ -629,6 +663,23 @@ const dialect = {
       },
     },
     { name: 'FootnoteMark', style: tags.labelName },
+    {
+      // As lezer's ordered lists: blank lines, the list's next items and what is indented into an item.
+      name: 'LabelledList', block: true,
+      composite(cx, line) {
+        const block = cx.stack[line.depth];
+        if (line.pos === line.text.length || (block !== cx.block && line.indent >= cx.stack[line.depth + 1].value + line.baseIndent)) return true;
+        return line.indent < line.baseIndent + 4 && labelledSize(line) > 0;
+      },
+    },
+    {
+      name: 'LabelledItem', block: true,
+      composite(cx, line, value) {
+        if (line.indent < line.baseIndent + value && line.next > -1) return false;
+        line.moveBaseColumn(line.baseIndent + value);
+        return true;
+      },
+    },
     'PlainBracket',
     { name: 'EnvironmentMark', style: bananaTags.structure },
     { name: 'EnvironmentName', style: bananaTags.environmentName },
@@ -646,7 +697,7 @@ const dialect = {
   // A line starting with a tag (<align right>, <see>) is a paragraph's: as an HTML block it would hide the
   // Markdown that follows. (Comments are still read inline.)
   remove: ['HTMLBlock'],
-  parseBlock: [frontMatter, displayMath, environmentFence, footnote],
+  parseBlock: [frontMatter, displayMath, environmentFence, footnote, labelledList],
   wrap: parseMixed(node => node.name === 'MathContent' ? { parser: tex.parser }
     : node.name === 'CodeInfo' ? { parser: codeInfo.parser }
     : node.name === 'FrontMatterContent' ? { parser: yamlLanguage.parser } : null),

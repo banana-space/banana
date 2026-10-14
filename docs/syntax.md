@@ -329,7 +329,7 @@ a &= b + c \\
 - 标签列表与编号列表（`1.`、`1)`）是不同的列表；标签项目紧接编号项目而成为同一列表时，预处理改用另一种分隔符将两者分开，仍无法分开时报错。
 - 引用文字：只有编号项目的路径显示为“第 2.1 项”（`reference_item`）；含标签项目时，各层写作 `(a)`（括号标签）或 `a`（不带括号的标签去掉 `)`）、编号层写作数字，以空格连接，例如 `(a)`、`2 (a)`、`(2) i`。`@-标签` 对标签项目同样显示这些文字。
 
-实现：预处理（`scripts/prebuild/lists.mjs`）在 CommonMark 投影中把标签标记写成同样文字列的有序列表标记 `0)`、`00) ` 等（起始值不是 1，因此新列表不能打断段落），解析出的项目在交给 Hugo 的 Markdown 中同样替换，标签由 `_item-label` shortcode 输出在项目开头（`<span class="item-label">`），样式隐藏列表序号并把标签右对齐到原来序号的位置。标记的语法在 `scripts/shared/scan.mjs` 的 `labelledMarkerSource`。编辑器的语法高亮尚不识别标签列表。
+实现：预处理（`scripts/prebuild/lists.mjs`）在 CommonMark 投影中把标签标记写成同样文字列的有序列表标记 `0)`、`00) ` 等（起始值不是 1，因此新列表不能打断段落），解析出的项目在交给 Hugo 的 Markdown 中同样替换，标签由 `_item-label` shortcode 输出在项目开头（`<span class="item-label">`），样式隐藏列表序号并把标签右对齐到原来序号的位置。标记的语法在 `scripts/shared/scan.mjs` 的 `labelledMarkerSource`，编辑器的语法（`scripts/shared/markdown-language.mjs` 的 `labelledList`）按同样的规则读取。
 
 ## 标签与统一引用
 
