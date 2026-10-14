@@ -695,7 +695,11 @@ recent_changes_open:
 recent_changes_draft:
   other: 草稿
 recent_changes_merged:
-  other: 已合并
+  other: 已发布
+recent_changes_publishing:
+  other: 发布中
+recent_changes_publishing_hint:
+  other: 已合并，网站通常在合并后十分钟内更新
 recent_changes_added:
   other: 新页面
 recent_changes_removed:

@@ -2,7 +2,7 @@ import { createProject } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
-import { spawn } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
@@ -21,6 +21,8 @@ function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, 
   pulls.push({
     number, title, html_url: `https://github.example/owner/site/pull/${number}`, user: { login: user },
     state: merged || closed ? 'closed' : 'open', merged_at: merged ? `2026-10-0${number % 9 + 1}T08:00:00Z` : null,
+    // A commit the editor API's checkout does not have: merged, not yet deployed. #6's is set to the checkout's below.
+    merge_commit_sha: merged ? 'c'.repeat(40) : null,
     updated_at: `2026-10-1${number % 9}T08:00:00Z`, created_at: '2026-10-01T08:00:00Z', draft: false,
     base: { sha: main }, head: { sha: head, ref, repo: { full_name: fork ? 'fork/site' : 'Owner/Site' } },
     files: Object.entries(changed).map(([path, text]) => ({
@@ -35,7 +37,8 @@ pull(8, { ref: 'new-page', user: 'hand', title: '手写的新页面', changed: {
 pull(7, { ref: 'edit/evil/0123456789ab', fork: true, user: 'evil', title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '复刻中的修改。') } });
 pull(6, { ref: 'edit/hubot/fedcba987654', merged: true, title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '甲的新正文。') } });
 pull(5, { ref: 'closed', closed: true, title: '关闭的', changed: { 'content/wiki/甲/index.md': page('甲', '没有合并。') } });
-pull(4, { ref: 'site-code', user: 'dev', merged: true, title: '网站代码', changed: { 'scripts/x.mjs': 'x' } });
+// The list of books is the site's own page, not a book's.
+pull(4, { ref: 'site-code', user: 'dev', merged: true, title: '网站代码', changed: { 'scripts/x.mjs': 'x', 'content/books/_index.md': '---\ntitle: 讲义\n---\n' } });
 for (let number = 40; number < 70; number++) pull(number, { ref: `old-${number}`, merged: true, title: `旧 ${number}`, changed: { 'content/wiki/甲/index.md': page('甲', `旧 ${number}`) } });
 // A later page of GitHub's list holds older pull requests.
 pulls.sort((a, b) => (b.number < 10) - (a.number < 10) || b.number - a.number);
@@ -80,6 +83,12 @@ let child, output = '';
 try {
   await mkdir(join(root, 'content/wiki/甲'), { recursive: true });
   await writeFile(join(root, 'content/wiki/甲/index.md'), files.get(`${main}:content/wiki/甲/index.md`));
+  // The editor API runs in the deployed checkout: what its commit contains is on the site.
+  const git = (...args) => execFileSync('git', ['-c', 'user.name=test', '-c', 'user.email=test@example.org', ...args], { cwd: root, encoding: 'utf8' }).trim();
+  git('init', '-q');
+  git('add', '-A');
+  git('commit', '-q', '-m', 'deployed');
+  pulls.find(pull => pull.number === 6).merge_commit_sha = git('rev-parse', 'HEAD');
   // No token: the repository is public.
   child = spawn(process.execPath, ['scripts/editor-api.mjs', '--port', '0', '--github-repo', 'owner/site', '--cacheDir', join(root, 'cache')], {
     cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
@@ -110,7 +119,8 @@ try {
   assert.equal(bySomeoneNew.namesPage, true, '编辑器的 PR 以页面命名');
   assert.equal(byHandNew.namesPage, false);
   assert.deepEqual(merged.pages.map(page => [page.title, page.url, page.status]), [['甲', '/wiki/甲/', 'modified']]);
-  assert.deepEqual([code.pages, code.otherFiles], [[], 1], '只改网站代码的 PR');
+  assert.deepEqual([code.pages, code.otherFiles], [[], 2], '只改网站代码（与讲义列表）的 PR');
+  assert.deepEqual(first.map(pull => pull.live), [null, null, null, true, false], '已合并的 PR 是否已在网站上：部署的提交包含合并提交');
 
   // Pages of 30: the next page continues, the last says there is no more.
   assert.equal(json.more, true);
@@ -131,6 +141,8 @@ try {
   ({ json } = await diff(6, 'wiki/甲/index.md'));
   assert.deepEqual([json.before, json.after], [files.get(`${main}:content/wiki/甲/index.md`), page('甲', '甲的新正文。')]);
   assert.deepEqual(json.edit, { path: 'wiki/甲/index.md' }, '已合并：编辑网站上的版本');
+  assert.equal(json.pull.live, true);
+  assert.equal('mergeCommit' in json.pull, false);
   assert.deepEqual([json.pull.number, json.pull.state, json.pull.author, json.pull.namesPage], [6, 'merged', 'hubot', true]);
 
   // Pages a pull request does not change, closed pull requests and bad requests.
@@ -145,7 +157,7 @@ try {
   await diff(6, 'wiki/甲/index.md');
   assert.equal(requests.filter(path => path === '/pulls/6/files').length, before, '文件列表按提交缓存');
 
-  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存验证通过');
+  console.log('最近更改：PR 列表与分页、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存验证通过');
 } finally {
   if (child && child.exitCode === null) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}

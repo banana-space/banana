@@ -8,7 +8,8 @@ import { GitHubError } from './github.mjs';
  * repo is "owner/name". list(page) resolves to { pulls, more }: one page of the recent pull requests, most recently
  * updated first, each { number, url, title, state: 'open' | 'merged', draft, editor, author: { login }, time, created,
  * files: [{ path, status, previous, additions, deletions }], fileCount, truncated }; time is when the pull request
- * was merged, or for an open one when it was last updated; editor is whether the online editor opened it. diff(number, path) resolves to { pull, file, before,
+ * was merged, or for an open one when it was last updated; editor is whether the online editor opened it; mergeCommit is
+ * the commit a merged pull request made on the base branch. diff(number, path) resolves to { pull, file, before,
  * after }: the file's text where the pull request started from and in it (null where it does not exist).
  */
 export function recentPullRequests({ repo, token, api = 'https://api.github.com', perPage = 30, maxFiles = 1000, ttl = 60e3 }) {
@@ -65,6 +66,7 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
     number: pull.number, url: pull.html_url, title: pull.title,
     state: pull.merged_at ? 'merged' : 'open', draft: Boolean(pull.draft), editor: Boolean(editorLogin(pull)),
     author: { login: editorLogin(pull) || pull.user.login }, time: pull.merged_at ?? pull.updated_at, created: pull.created_at,
+    mergeCommit: pull.merged_at ? pull.merge_commit_sha ?? null : null,
   });
 
   /** One page of pull requests, by GitHub's order (most recently updated first). */

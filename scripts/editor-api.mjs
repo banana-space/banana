@@ -1,4 +1,6 @@
 import { createServer } from 'node:http';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { randomBytes } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -49,7 +51,8 @@ import katex from 'katex';
 //                                          url 为页面在站点上的地址（尚无此页面或未发布时为 null）
 // GET  /api/recent-changes?page=<n>       { ok, pulls: [{ number, url, title, state, draft, author, time, pages, otherFiles, additions, deletions, truncated, namesPage }], more }：
 //                                          站点仓库最近的 PR（待审阅与已合并）修改的页面，每页 30 个 PR，供 /recent-changes/ 使用
-//                                          （需 --github-repo，令牌可选）；pages 为 [{ path, title, titleHTML, url, status, previous, group, letter, sortKey }]，
+//                                          （需 --github-repo，令牌可选）；已合并的 PR 的 live 表示修改是否已在网站上（编辑接口所在的提交是否包含它），
+//                                          其他为 null；pages 为 [{ path, title, titleHTML, url, status, previous, group, letter, sortKey }]，
 //                                          title 为纯文本，titleHTML 中的公式已由 KaTeX 渲染；group 为 { kind, title, titleHTML }，letter 为列表中的字母分组（a–z 或 #）
 // GET  /api/recent-changes/diff?pr=<n>&path=<页面>
 //                                          { ok, pull, page, before, after, edit }：该 PR 修改的一个页面在 PR 前后的全文（不存在时为 null），供 /diff/ 使用；
@@ -318,14 +321,15 @@ const routes = {
     const page = Number(url.searchParams.get('page') ?? 1);
     if (!Number.isInteger(page) || page < 1 || page > 100) throw new RequestError(400, 'page must be a number from 1 to 100');
     const { pulls, more } = await recentPulls.list(page).catch(githubFailed);
+    const live = await Promise.all(pulls.map(pull => isLive(pull.mergeCommit)));
     send(response, 200, {
       ok: true, more,
-      pulls: pulls.map(({ files, fileCount, author, ...pull }) => {
+      pulls: pulls.map(({ files, fileCount, author, mergeCommit, ...pull }, index) => {
         const pages = files.map(changedPage).filter(Boolean);
         // The online editor names its pull requests after the page (its title as written, formulas in TeX).
         const namesPage = pages.some(page => page.title === pull.title || page.source === pull.title);
         return {
-          ...pull, author: author.login, pages: pages.map(({ source, ...page }) => page), otherFiles: fileCount - pages.length, namesPage,
+          ...pull, author: author.login, live: live[index], pages: pages.map(({ source, ...page }) => page), otherFiles: fileCount - pages.length, namesPage,
           additions: files.reduce((sum, file) => sum + file.additions, 0), deletions: files.reduce((sum, file) => sum + file.deletions, 0),
         };
       }),
@@ -347,7 +351,8 @@ const routes = {
     const edit = page.status === 'removed' ? null
       : pull.state === 'open' && pull.editor ? { path: page.path, pull: pull.number }
         : service.source(page.path) !== undefined ? { path: page.path } : null;
-    send(response, 200, { ok: true, pull: { ...pull, author: pull.author.login, namesPage: pull.title === page.title || pull.title === source }, page, before, after, edit }, { 'Cache-Control': 'public, max-age=60' });
+    const { mergeCommit, ...shown } = pull;
+    send(response, 200, { ok: true, pull: { ...shown, author: pull.author.login, live: await isLive(mergeCommit), namesPage: pull.title === page.title || pull.title === source }, page, before, after, edit }, { 'Cache-Control': 'public, max-age=60' });
   },
   'POST /api/preview': queued(async (request, response, user) => {
     throttle(user, 'preview');
@@ -410,6 +415,29 @@ const sameLogin = (a, b) => a.toLowerCase() === b.toLowerCase();
 /** The editor for a page, on a pull request of it (without a number, the editor offers the page's pull requests). */
 const editorURL = (path, number) => new URL(`edit/?${new URLSearchParams({ path, ...(number ? { pull: number } : {}) })}`, options.baseURL.replace(/\/?$/, '/')).href;
 
+/**
+ * Whether a merged pull request's change is on the site: the editor API runs in the deployed checkout (deploy/deploy.sh
+ * moves it to each published commit and restarts it), so its commit contains everything live. The site lags a merge by
+ * the next check and a build. null for an open pull request, or when this is not a Git checkout.
+ */
+const git = promisify(execFile);
+const checkout = git('git', ['rev-parse', 'HEAD'], { cwd: root }).then(() => true, () => false);
+const liveCommits = new Set();
+async function isLive(commit) {
+  if (!commit || !await checkout) return null;
+  if (liveCommits.has(commit)) return true;
+  try {
+    await git('git', ['merge-base', '--is-ancestor', commit, 'HEAD'], { cwd: root });
+    liveCommits.add(commit);
+    return true;
+  } catch (error) {
+    // 1: not an ancestor; 128: a commit this checkout has not fetched yet. Either way not deployed.
+    if (error.code === 1 || error.code === 128) return false;
+    console.error(`[editor-api] git merge-base: ${error.message}`);
+    return null;
+  }
+}
+
 function githubFailed(error) {
   console.error(`[editor-api] ${error.message}`);
   throw new RequestError(502, 'could not read pull requests from GitHub; try again later');
@@ -452,6 +480,8 @@ function changedPage(file) {
   const match = file.path.match(/^content\/((wiki|books|help)\/.+\.md)$/);
   if (!match) return;
   const path = match[1], parts = path.split('/');
+  // The lists of entries and of books (wiki/_index.md, books/_index.md) are the site's own pages, not in a book.
+  if (parts.length === 2 && parts[1] === '_index.md' && parts[0] !== 'help') return;
   const directory = parts.at(-1).match(/^_?index\.md$/) ? parts.at(-2) : parts.at(-1).replace(/\.md$/, '');
   const group = parts[0] === 'books'
     ? { kind: 'book', ...displayTitle(titleOf(service.source(`books/${parts[1]}/_index.md`)) ?? parts[1], `books/${parts[1]}/_index.md`) }

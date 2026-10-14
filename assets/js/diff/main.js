@@ -28,14 +28,17 @@ function header(pull, page, edit) {
   if (page.status === 'removed') title.append(element('span', 'recent-badge recent-badge-removed', strings.removed));
   if (page.status === 'renamed' && page.previous) title.append(element('span', 'recent-badge', fill(strings.renamed, { name: page.previous.replace(/\/_?index\.md$/, '').split('/').at(-1) })));
 
-  const state = pull.state === 'merged' ? 'merged' : pull.draft ? 'draft' : 'open';
+  // Merged and the site not yet rebuilt with it: publishing.
+  const state = pull.state === 'merged' ? (pull.live === false ? 'publishing' : 'merged') : pull.draft ? 'draft' : 'open';
+  const stateLabel = element('span', `recent-state recent-state-${state}`, strings[state]);
+  if (state === 'publishing') stateLabel.title = strings.publishingHint;
   const time = new Date(pull.time), pad = value => String(value).padStart(2, '0');
   const pullLink = element('a', 'recent-pull', element('span', 'recent-author', pull.author), element('span', 'recent-pull-number', `#${pull.number}`));
   Object.assign(pullLink, { href: pull.url, target: '_blank', rel: 'noopener' });
   const when = element('time', 'diff-time', `${time.getFullYear()}-${pad(time.getMonth() + 1)}-${pad(time.getDate())} ${pad(time.getHours())}:${pad(time.getMinutes())}`);
   when.dateTime = pull.time;
   root.querySelector('.diff-meta').append(...[
-    element('span', `recent-state recent-state-${state}`, strings[state]), pullLink,
+    stateLabel, pullLink,
     pull.namesPage ? null : element('span', 'recent-pull-summary', pull.title), when,
   ].filter(Boolean));
   if (pull.state === 'open') Object.assign(root.querySelector('.diff-note'), { hidden: false, textContent: strings.openNote });
