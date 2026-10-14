@@ -81,16 +81,16 @@ R61) 假设 $A\subset \mathbb{R}^n$ 是抽象可铺集。
      每个满足 $\mathring{A} \subset B \subset \overline{A}$ 的集合 $B$ 都是抽象可铺集并且
      $m(B)=m(A)$。
 
-- R62)（Chasles定理）给定有限个抽象可铺集 $A_1,\cdots, A_N\subset \mathbb{R}^n$，
-  其中对任意的 $i\neq j$，$A_i\cap A_j$ 是 $\mathcal{R}$-零测集，给定函数
-  \[
-  f\colon\displaystyle \bigcup_{i=1}^N A_i\rightarrow \mathbb{C}.
-  \]
-  证明，$f\in \mathcal{R}\left(\displaystyle\bigcup_{i=1}^N A_i\right)$ 当且仅当对每个 $i$，
-  我们都有 $f\in \mathcal{R}(A_i)$。如果上述成立，进一步证明
-  \[
-  \int_{\cup_{i\leqslant N} A_i}f=\sum_{i=1}^N \int_{A_i}f.
-  \]
+R62) （Chasles定理）给定有限个抽象可铺集 $A_1,\cdots, A_N\subset \mathbb{R}^n$，
+     其中对任意的 $i\neq j$，$A_i\cap A_j$ 是 $\mathcal{R}$-零测集，给定函数
+     \[
+     f\colon\displaystyle \bigcup_{i=1}^N A_i\rightarrow \mathbb{C}.
+     \]
+     证明，$f\in \mathcal{R}\left(\displaystyle\bigcup_{i=1}^N A_i\right)$ 当且仅当对每个 $i$，
+     我们都有 $f\in \mathcal{R}(A_i)$。如果上述成立，进一步证明
+     \[
+     \int_{\cup_{i\leqslant N} A_i}f=\sum_{i=1}^N \int_{A_i}f.
+     \]
 
 R63) 假设 $A\subset \mathbb{R}^n$ 是抽象可铺集，
      $A$ 上定义的有界函数 $f$ 在 $\mathring{A}$ 上连续。证明，$f$ 在 $A$ 上是Riemann-可积的。

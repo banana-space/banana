@@ -14,6 +14,8 @@ $search-divider: rgba($border-color, 0.6);
 .search-panel {
   display: none;
   position: absolute;
+  // Above the breadcrumbs below it in the navigation bar, whose formulas are positioned (KaTeX).
+  z-index: 1;
   top: calc(100% + 0.8rem);
   left: 0;
   width: 56rem;

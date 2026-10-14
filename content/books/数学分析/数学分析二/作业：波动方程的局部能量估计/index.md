@@ -4,12 +4,12 @@ title: 作业：波动方程的局部能量估计
 
 ## 课堂补充
 
-- A1)（闭子空间）$(H,\langle\cdot, \cdot \rangle)$ 是Hilbert空间，$V\subset H$
-  是其线性子空间。我们假设 $V$ 是 $H$ 中的闭集（相对于 $H$ 上由内积所定义的距离函数而言）。
-  证明，对任意的 $v_1,v_2\in V$，如果我们仍用 $\langle v_1,v_2\rangle$ 作为 $V$ 上的内积，
-  那么 $\bigl(V,\langle \cdot,\cdot\rangle\bigr)$ 是Hilbert空间。
+A1) （闭子空间）$(H,\langle\cdot, \cdot \rangle)$ 是Hilbert空间，$V\subset H$
+    是其线性子空间。我们假设 $V$ 是 $H$ 中的闭集（相对于 $H$ 上由内积所定义的距离函数而言）。
+    证明，对任意的 $v_1,v_2\in V$，如果我们仍用 $\langle v_1,v_2\rangle$ 作为 $V$ 上的内积，
+    那么 $\bigl(V,\langle \cdot,\cdot\rangle\bigr)$ 是Hilbert空间。
 
-  证明，对于 $H=L^2(\mathbb{R}^n)$，$V=C(\mathbb{R}^n)\cap L^2(\mathbb{R}^n)$ 不是闭子空间。
+    证明，对于 $H=L^2(\mathbb{R}^n)$，$V=C(\mathbb{R}^n)\cap L^2(\mathbb{R}^n)$ 不是闭子空间。
 
 A2) 给定 $L^2(X,\mathcal{A},\mu)$ 中的函数序列 $\{f_i\}_{i\geqslant 1}$，
     我们假设它们在 $L^2$ 范数下收敛到 $f$，即
@@ -36,15 +36,15 @@ A7) 假设 $(H,\langle\cdot, \cdot \rangle)$ 是Hilbert空间，$V\subset H$
 
 A8) 试证明，$L^2(\mathbb{R}^n)$ 是可分的。（可以参考讲义中的提示）
 
-- A9)（重要）假设 $f\in L^1(\mathbb{R}^n)$ 并且 $\displaystyle \int_{\mathbb{R}^n}f(x)dx=1$，
-  我们定义
-  \[
-  f_\varepsilon(x)=\frac{1}{\varepsilon^n}f\left(\frac{x}{\varepsilon}\right).
-  \]
-  证明，对任意的有紧支集的连续函数 $\varphi$，我们都有如下的一致收敛：
-  \[
-  f_\varepsilon*\varphi \rightarrow \varphi, \ \ \varepsilon \rightarrow 0.
-  \]
+A9) （重要）假设 $f\in L^1(\mathbb{R}^n)$ 并且 $\displaystyle \int_{\mathbb{R}^n}f(x)dx=1$，
+    我们定义
+    \[
+    f_\varepsilon(x)=\frac{1}{\varepsilon^n}f\left(\frac{x}{\varepsilon}\right).
+    \]
+    证明，对任意的有紧支集的连续函数 $\varphi$，我们都有如下的一致收敛：
+    \[
+    f_\varepsilon*\varphi \rightarrow \varphi, \ \ \varepsilon \rightarrow 0.
+    \]
 
 ## 控制收敛与Fubini定理的复习
 
@@ -137,9 +137,9 @@ D2) 对于 $i=1,2,3$，我们定义波动方程的动量函数
     P_i(t)=P_i(0).
     \]
 
-- D3)（解的唯一性）假设 $u(t,x)$ 和 $v(t,x)$ 都满足波动方程以及上面的假设。
-  证明，如果它们具有相同的初始值，即 $u_0(x)=v_0(x)$，$u_1(x)=v_1(x)$，
-  那么 $u(t,x)\equiv v(t,x)$。
+D3) （解的唯一性）假设 $u(t,x)$ 和 $v(t,x)$ 都满足波动方程以及上面的假设。
+    证明，如果它们具有相同的初始值，即 $u_0(x)=v_0(x)$，$u_1(x)=v_1(x)$，
+    那么 $u(t,x)\equiv v(t,x)$。
 
 D4) 任意给定 $R>0$，假设 $r\leqslant R$。
     我们在时空 $\mathbb{R}\times \mathbb{R}^3$ 中定义如下的几何对象：
@@ -165,26 +165,26 @@ D4) 任意给定 $R>0$，假设 $r\leqslant R$。
     作为传统的记号，我们记
     $|\mathbf{/}\!\!\!\!\nabla u|^2=|\nabla_{e_1} u|^2+|\nabla_{e_2} u|^2$。
 
-- D5)\*\* 我们定义局部能量
-  \[
-  E_{\rm loc}(t)=\displaystyle \frac{1}{2}\int_{\mathbf{B}_t} \Big|\frac{\partial u}{\partial t}(t,x)\Big|^2+|\nabla u (t,x)|^2 dx.
-  \]
-  证明，对任意的 $r\leqslant R$，我们都有
-  \[
-  E_{\rm loc}(0)=E_{\rm loc}(r)+\int_{\mathbf{C}_{0\leqslant t \leqslant r}} |\nabla_L u|^2+|\mathbf{/}\!\!\!\!\nabla u|^2 d\sigma.
-  \]
-  （提示：对 $\Box u=0$ 两边同时乘以 $ \dfrac{\partial u}{\partial t}$
-  并在区域 $\mathbf{D}_{0\leqslant t \leqslant r}$ 上积分，
-  你需要运用Stokes公式来得到边界上的积分）
+D5) \*\* 我们定义局部能量
+    \[
+    E_{\rm loc}(t)=\displaystyle \frac{1}{2}\int_{\mathbf{B}_t} \Big|\frac{\partial u}{\partial t}(t,x)\Big|^2+|\nabla u (t,x)|^2 dx.
+    \]
+    证明，对任意的 $r\leqslant R$，我们都有
+    \[
+    E_{\rm loc}(0)=E_{\rm loc}(r)+\int_{\mathbf{C}_{0\leqslant t \leqslant r}} |\nabla_L u|^2+|\mathbf{/}\!\!\!\!\nabla u|^2 d\sigma.
+    \]
+    （提示：对 $\Box u=0$ 两边同时乘以 $ \dfrac{\partial u}{\partial t}$
+    并在区域 $\mathbf{D}_{0\leqslant t \leqslant r}$ 上积分，
+    你需要运用Stokes公式来得到边界上的积分）
 
-- D6)\*（波方程的有限传播速度）我们现在只假设 $u(t,x)$ 是光滑的。证明，
-  如果 $u_0$ 和 $u_1$ 有紧支集，那么对任意的时刻 $t$，$u(t,x)$ 对 $x$ 有紧支集。
+D6) \*（波方程的有限传播速度）我们现在只假设 $u(t,x)$ 是光滑的。证明，
+    如果 $u_0$ 和 $u_1$ 有紧支集，那么对任意的时刻 $t$，$u(t,x)$ 对 $x$ 有紧支集。
 
-- D7)\* 假设 $u(t,x)$ 是光滑函数并且满足非线性波动方程
-  \[
-  -\frac{\partial^2}{\partial t^2}u+\triangle u = u^3.
-  \]
-  证明，如果 $u_0$ 和 $u_1$ 有紧支集，那么对任意的时刻 $t$，$u(t,x)$ 对 $x$ 有紧支集。
+D7) \* 假设 $u(t,x)$ 是光滑函数并且满足非线性波动方程
+    \[
+    -\frac{\partial^2}{\partial t^2}u+\triangle u = u^3.
+    \]
+    证明，如果 $u_0$ 和 $u_1$ 有紧支集，那么对任意的时刻 $t$，$u(t,x)$ 对 $x$ 有紧支集。
 
 ::: -remark [寄语]
 In order to solve this differential equation you look at it until a solution occurs to you.

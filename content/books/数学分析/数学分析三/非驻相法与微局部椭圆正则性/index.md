@@ -11,35 +11,35 @@ notices:
 
 给定如下的基本数据：
 
-- (a)（相函数）假设
-  $\phi(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$是实值函数，
-  使得
+(a) （相函数）假设
+    $\phi(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$是实值函数，
+    使得
 
-  - $\phi(x,\xi)$对变量$\xi$是$1$次齐次函数；
+    - $\phi(x,\xi)$对变量$\xi$是$1$次齐次函数；
 
-  - 对任意的$(x,\xi)\in \mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})$，$\xi\neq 0$，
-    我们有$\nabla_x \phi(x,\xi)\neq 0$（作为$n$-维的向量）。
+    - 对任意的$(x,\xi)\in \mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})$，$\xi\neq 0$，
+      我们有$\nabla_x \phi(x,\xi)\neq 0$（作为$n$-维的向量）。
 
-- (b)（振幅函数）假设
-  $a(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$，
-  使得存在$N_0\in \mathbb{R}$，使得对任意的多重指标$\alpha$，存在常数$C_\alpha$，
-  使得对任意的$(x,\xi)\in \mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})$，我们都有
-  \[
-  \left|\partial^\alpha_x a(x,\xi)\right|\leqslant C_\alpha \left(1+|\xi|\right)^{N_0}.
-  \]
+(b) （振幅函数）假设
+    $a(x,\xi)\in C^\infty\left(\mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})\right)$，
+    使得存在$N_0\in \mathbb{R}$，使得对任意的多重指标$\alpha$，存在常数$C_\alpha$，
+    使得对任意的$(x,\xi)\in \mathbb{R}_x^n\times (\mathbb{R}^n_\xi-\{0\})$，我们都有
+    \[
+    \left|\partial^\alpha_x a(x,\xi)\right|\leqslant C_\alpha \left(1+|\xi|\right)^{N_0}.
+    \]
 
-- (c)（被作用函数）假设$K\subset \mathbb{R}^n$是紧集，
-  $u\in \mathcal{E}'(\mathbb{R}^n)$使得${\rm supp}(u)\subset K$。
-  如果存在$\alpha_0>0$和$\eta_0\in \mathbf{S}^{n-1}$，使得对任意的$N\geqslant 1$，存在常数$C_N$，
-  使得对任意的$\xi \in \Gamma(\eta_0,\alpha_0)$，都有
-  我们就有
-  \[
-  \left|\widehat{u}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
-  \]
-  其中，锥型开集$\Gamma(\eta_0,\alpha_0)$的定义如下
-  \[
-  \Gamma(\eta_0,\alpha_0)=\big\{\xi\in \mathbb{R}^n-\{0\}\big|\left|\frac{\xi}{|\xi|}-\frac{\eta_0}{|\eta_0|}\right|<\alpha_0\big\}.
-  \]
+(c) （被作用函数）假设$K\subset \mathbb{R}^n$是紧集，
+    $u\in \mathcal{E}'(\mathbb{R}^n)$使得${\rm supp}(u)\subset K$。
+    如果存在$\alpha_0>0$和$\eta_0\in \mathbf{S}^{n-1}$，使得对任意的$N\geqslant 1$，存在常数$C_N$，
+    使得对任意的$\xi \in \Gamma(\eta_0,\alpha_0)$，都有
+    我们就有
+    \[
+    \left|\widehat{u}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
+    \]
+    其中，锥型开集$\Gamma(\eta_0,\alpha_0)$的定义如下
+    \[
+    \Gamma(\eta_0,\alpha_0)=\big\{\xi\in \mathbb{R}^n-\{0\}\big|\left|\frac{\xi}{|\xi|}-\frac{\eta_0}{|\eta_0|}\right|<\alpha_0\big\}.
+    \]
 
 我们想要定义积分
 \[

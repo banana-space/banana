@@ -8,7 +8,7 @@ import { t } from '../shared/i18n.mjs';
  */
 import { katexError } from './katex-check.mjs';
 import { authorTags, looksLikeTag, readTag } from './tags.mjs';
-import { labelledMarkerSource } from '../shared/scan.mjs';
+import { labelledMarkerSource, readLabelledMarker } from '../shared/scan.mjs';
 import { escaped, protectedToken, readMath, readMarkdownLink, readWiki, normalizeTarget, transformMarkup, typographer, validReferenceName, markdownText, unclosedProtected } from './markup.mjs';
 import { readBibliography, prepareBibliography, bibliographyMarkdown } from './bibliography.mjs';
 import { readTerms } from './terms.mjs';
@@ -567,24 +567,39 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
   if (listProblems.length) fail(t(listProblems[0].key), listProblems[0].offset);
   // 标签列表项目：标记写成 Hugo 的有序列表标记，标签显示在项目开头（_item-label）。一行中紧接的几个标签标记
   // （(3) (4) …）是嵌套的列表：外层的标签写在最内层项目的开头（标记之间不能有文字），带上向外的层数。
-  const label = (marker, outer) => {
+  // The labels are written in the text, on its baseline (_item-label); a label with no text on its line (before a
+  // display formula, a code block, a list, or nothing) stands beside the item instead (block="true"). A label
+  // alone on its line goes to the start of the text on the next line, when that line is a paragraph's.
+  const label = (marker, outer, block) => {
     const shown = marker.parenthesized ? `(${marker.label})` : `${marker.label})`;
-    return `{{< _item-label${outer ? ` ${outer}` : ''} >}}${render(shown, marker.start)}{{< /_item-label >}}`;
+    return `{{< _item-label${outer ? ` outer="${outer}"` : ''}${block ? ' block="true"' : ''} >}}${render(shown, marker.start)}{{< /_item-label >}}`;
   };
+  const blockStart = /^(?:\\\[|\$\$|`{3,}|~{3,}|:::|[-+*][ \t]|\d{1,9}[.)](?:[ \t]|$)|#|>|\||<|\{\{)/;
   const sorted = [...labelled].sort((a, b) => a.start - b.start);
   for (let i = 0; i < sorted.length;) {
     let j = i;
     while (j + 1 < sorted.length && sorted[j + 1].start === sorted[j].end) j++;
-    const chain = sorted.slice(i, j + 1);
+    const chain = sorted.slice(i, j + 1), last = chain.at(-1);
+    const labels = block => chain.map((outer, n) => label(outer, chain.length - 1 - n, block)).join('');
+    const lineEnd = text.indexOf('\n', last.end) < 0 ? text.length : text.indexOf('\n', last.end);
+    const rest = text.slice(last.end, lineEnd);
+    // Where the text of an item alone on its line starts: the next line's, after its indentation and quote marks.
+    const next = !rest.trim() && lineEnd < text.length ? lineEnd + 1 + text.slice(lineEnd + 1).match(/^[ \t>]*/)[0].length : -1;
+    const inline = rest.trim() ? !blockStart.test(rest)
+      : next >= 0 && next < text.length && text[next] !== '\n' && !blockStart.test(text.slice(next, next + 10)) && !readLabelledMarker(text, next);
+    const moved = inline && !rest.trim();
     chain.forEach((marker, k) => edits.push({ start: marker.start, end: marker.end, output: () => k < chain.length - 1 ? marker.marker
-      // Nothing after the marker on its line: a space before the labels, or the marker is text.
-      : marker.marker + (marker.marker.endsWith(' ') ? '' : ' ') + chain.map((outer, n) => label(outer, chain.length - 1 - n)).join('') }));
+      // Nothing after the marker on its line: a space after it, or the marker is text.
+      : marker.marker + (marker.marker.endsWith(' ') ? '' : ' ') + (moved ? '' : labels(!inline)) }));
+    if (moved) edits.push({ start: next, end: next, output: () => labels(false) });
     i = j + 1;
   }
   for (const item of items) {
     if (!item.id) fail(t('build_item_label_empty'), item.start);
     register(item.id, item.caption === undefined ? { name: 'reference_item', number: item.number, kind: 'item' } : { label: item.caption, kind: 'item' }, item.start);
-    edits.push({ start: item.start, end: item.end, output: () => `{{< _item-target id="${encode(item.id.normalize('NFC'))}" >}}` });
+    // The spaces after it too: the text starts right after the label.
+    const end = item.end + text.slice(item.end).match(/^[ \t]*/)[0].length;
+    edits.push({ start: item.start, end, output: () => `{{< _item-target id="${encode(item.id.normalize('NFC'))}" >}}` });
   }
   edits.sort((a, b) => a.start - b.start);
   if (context) context.bibliography.push(...bibliography);

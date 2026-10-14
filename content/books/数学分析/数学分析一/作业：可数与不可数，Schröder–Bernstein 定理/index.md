@@ -31,18 +31,18 @@ A4)
     证明，$(\mathbb{R}^n,d)$ 是度量空间。
     （我们默认开方运算和中学的一致，尽管我们现在没有定义开方运算）
 
-- A5)（重要）给定距离空间 $(X,d)$，$Y\subset X$ 是子集。
-  如果对任意的 $x\in X$ 和任意的 $\varepsilon>0$，都存在 $y\in Y$，使得 $d(y,x)<\varepsilon$，
-  我们就称 $Y$ 在 $X$ 中是**稠密的**。
-  证明，有理数在 $\mathbb{R}$ 中（距离函数由两个数的差的绝对值定义）是稠密的。
+A5) （重要）给定距离空间 $(X,d)$，$Y\subset X$ 是子集。
+    如果对任意的 $x\in X$ 和任意的 $\varepsilon>0$，都存在 $y\in Y$，使得 $d(y,x)<\varepsilon$，
+    我们就称 $Y$ 在 $X$ 中是**稠密的**。
+    证明，有理数在 $\mathbb{R}$ 中（距离函数由两个数的差的绝对值定义）是稠密的。
 
 A6) 对于 $(x,y)\in \mathbb{R}^2$，如果它的坐标 $x$ 和 $y$ 都是有理数，我们就称这个点是有理点。
     证明，$(\mathbb{R}^2,d)$（参见习题A4)）中的有理点是稠密的。
 
 A7) 证明，假定域公理 **(F)** 和序公理 **(O)**，确界原理可以推出Archimedes公理 **(A)**。
 
-- A8)（无理数的存在性）令 $X=\bigl\{x\in \mathbb Q\bigm|  x^2\leqslant 2\bigr\}$，
-  这是一个有界的集合。令 $\sqrt{2}=\sup X$。证明，$\sqrt{2}$ 不是有理数。
+A8) （无理数的存在性）令 $X=\bigl\{x\in \mathbb Q\bigm|  x^2\leqslant 2\bigr\}$，
+    这是一个有界的集合。令 $\sqrt{2}=\sup X$。证明，$\sqrt{2}$ 不是有理数。
 
 A9) 证明，每个开区间总包含无限多个无理数。
 
@@ -161,11 +161,11 @@ D6) 证明，如果 $X\cdot Y=\overline{0}$，那么 $X=\overline{0}$ 或者 $Y=
     那么 $X\cdot Y\geqslant \overline{0}$。
     （$\Rightarrow$(O5)）
 
-- D7)（技术工具）$X$ 是一个正的Dedekind分割。
-  证明，对任意的正整数 $n$，总存在 $x\in X$，$x' \in X'$，使得
-  \[
-  1<\frac{x'}{x}<1+\frac{1}{n}.
-  \]
+D7) （技术工具）$X$ 是一个正的Dedekind分割。
+    证明，对任意的正整数 $n$，总存在 $x\in X$，$x' \in X'$，使得
+    \[
+    1<\frac{x'}{x}<1+\frac{1}{n}.
+    \]
 
 D8) 证明，对任意的Dedekind分割 $X$ 和 $Y$，其中 $Y\neq \overline{0}$，存在唯一的Dedekind分割 $Z$，
     使得

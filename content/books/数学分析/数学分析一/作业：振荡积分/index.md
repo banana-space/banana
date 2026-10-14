@@ -39,11 +39,11 @@ A4) 假设 $f_1,f_2\in \mathcal{R}(I;\mu)$。
     \int_a^b f_1d\mu \leqslant \int_a^b f_2d\mu.
     \]
 
-- A5)（区间可加性）如果 $f\in \mathcal{R}([a,b];\mu)$，
-  那么对任意的 $c\in [a,b]$，$f$ 在 $[a,c]$ 和 $[c,b]$ 上的限制都是Stieltjes可积的并且
-  \[
-  \int_a^b f d\mu=\int_a^c f d\mu+\int_c^b fd\mu.
-  \]
+A5) （区间可加性）如果 $f\in \mathcal{R}([a,b];\mu)$，
+    那么对任意的 $c\in [a,b]$，$f$ 在 $[a,c]$ 和 $[c,b]$ 上的限制都是Stieltjes可积的并且
+    \[
+    \int_a^b f d\mu=\int_a^c f d\mu+\int_c^b fd\mu.
+    \]
 
 A6) 如果 $f,g\in  \mathcal{R}([a,b];\mu)$，
     那么 $f\cdot g\in  \mathcal{R}([a,b];\mu)$。
@@ -61,19 +61,19 @@ A7) 我们在区间 $[0,\infty)$ 定义Stieltjes积分：
     \int_1^\infty fd\mu = \sum_{n=1}^\infty \alpha_n f(n).
     \]
 
-- A8)（第一积分中值定理）$f, g\in \mathcal{R}([a,b];\mu)$ 是实值Riemann可积函数。
-  我们假设对任意的 $x\in [a,b]$，$g(x)\geqslant 0$。令
-  \[
-  m=\displaystyle \inf_{x\in I} f(x), \ \ M=\displaystyle \sup_{x\in I} f(x).
-  \]
-  那么，存在 $\ell \in [m,M]$，使得
-  \[
-  \int_a^b fgd\mu= \ell \int_{a}^b gd\mu.
-  \]
-  特别地，如果进一步要求 $f$ 是连续函数，那么存在 $\xi \in [a,b]$，使得
-  \[
-  \displaystyle \int_a^b fgd\mu= f(\xi) \int_{a}^b gd\mu.
-  \]
+A8) （第一积分中值定理）$f, g\in \mathcal{R}([a,b];\mu)$ 是实值Riemann可积函数。
+    我们假设对任意的 $x\in [a,b]$，$g(x)\geqslant 0$。令
+    \[
+    m=\displaystyle \inf_{x\in I} f(x), \ \ M=\displaystyle \sup_{x\in I} f(x).
+    \]
+    那么，存在 $\ell \in [m,M]$，使得
+    \[
+    \int_a^b fgd\mu= \ell \int_{a}^b gd\mu.
+    \]
+    特别地，如果进一步要求 $f$ 是连续函数，那么存在 $\xi \in [a,b]$，使得
+    \[
+    \displaystyle \int_a^b fgd\mu= f(\xi) \int_{a}^b gd\mu.
+    \]
 
 A9) 你是否可以构造一个Stieltjes积分来说明
     Abel求和法也是Stieltjes积分意义下的分部积分公式的特例？
@@ -82,18 +82,18 @@ A9) 你是否可以构造一个Stieltjes积分来说明
 
 以下记号中，$b$ 可以是 $\infty$。
 
-- B1)（Cauchy判别法）假设 $f\colon  [a,b) \to \mathbb{R}$，
-  对任意 $b^- < b$，$f$ 在 $[a,b^-]$ 上可积。
-  证明，反常积分 $\displaystyle \int_a^b f(x)dx$ 存在的充要条件是：
-  对任意 $\varepsilon > 0$，存在 $b(\varepsilon)  \in (a,b)$，
-  使得对任意 $b', b'' > b(\varepsilon)$，
-  $\displaystyle	\bigg|\int_{b'}^{b''} f(x)dx\bigg| < \varepsilon$。
+B1) （Cauchy判别法）假设 $f\colon  [a,b) \to \mathbb{R}$，
+    对任意 $b^- < b$，$f$ 在 $[a,b^-]$ 上可积。
+    证明，反常积分 $\displaystyle \int_a^b f(x)dx$ 存在的充要条件是：
+    对任意 $\varepsilon > 0$，存在 $b(\varepsilon)  \in (a,b)$，
+    使得对任意 $b', b'' > b(\varepsilon)$，
+    $\displaystyle	\bigg|\int_{b'}^{b''} f(x)dx\bigg| < \varepsilon$。
 
-- B2)（比较判别法，已经证明，可不交作业）如果 $|f|$ 在 $[a,b)$ 上反常可积，
-  就称积分 $\displaystyle \int_a^b f(x)dx$ **绝对收敛**。
-  证明，如果 $|f(x)| \leqslant F(x), x \in [a,b)$
-  并且 $\displaystyle\int_a^b F(x)dx$ 收敛，
-  那么积分 $\displaystyle\int_a^b |f(x)|dx$ 收敛。
+B2) （比较判别法，已经证明，可不交作业）如果 $|f|$ 在 $[a,b)$ 上反常可积，
+    就称积分 $\displaystyle \int_a^b f(x)dx$ **绝对收敛**。
+    证明，如果 $|f(x)| \leqslant F(x), x \in [a,b)$
+    并且 $\displaystyle\int_a^b F(x)dx$ 收敛，
+    那么积分 $\displaystyle\int_a^b |f(x)|dx$ 收敛。
 
 B3) 证明**Dirichlet判别法**：
     假设 $f,g\colon [a,\infty)\rightarrow \mathbb{R}$ 满足

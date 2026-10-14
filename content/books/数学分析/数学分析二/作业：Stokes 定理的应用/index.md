@@ -20,27 +20,27 @@ A1) 证明向量场的导数公式：假设 $X,Y$ 是 $\mathbb{R}^3$ 上的光�
     \end{aligned}
     \]
 
-- A2)（三维梯度、散度的几何定义）假设 $X,Y$ 是 $\mathbb{R}^3$ 上的光滑向量场，
-  $\varphi$ 是 $\mathbb{R}^3$ 上的光滑实值函数，
-  $B_{\varepsilon}(x)$ 为以 $x\in \mathbb{R}^3$ 为球心以 $\varepsilon>0$ 为半径的球。
+A2) （三维梯度、散度的几何定义）假设 $X,Y$ 是 $\mathbb{R}^3$ 上的光滑向量场，
+    $\varphi$ 是 $\mathbb{R}^3$ 上的光滑实值函数，
+    $B_{\varepsilon}(x)$ 为以 $x\in \mathbb{R}^3$ 为球心以 $\varepsilon>0$ 为半径的球。
 
-  1. 证明，
-     \[
-     \nabla \varphi(x) = \lim_{\varepsilon \to 0} \frac{1}{m(B_{\varepsilon}(x))} \int_{\partial B_{\varepsilon}(x)} \varphi \cdot \nu ~d\sigma.
-     \]
+    1. 证明，
+       \[
+       \nabla \varphi(x) = \lim_{\varepsilon \to 0} \frac{1}{m(B_{\varepsilon}(x))} \int_{\partial B_{\varepsilon}(x)} \varphi \cdot \nu ~d\sigma.
+       \]
 
-  2. 证明，
-     \[
-     {\rm div} (X) = \lim_{\varepsilon \to 0} \frac{1}{m(B_{\varepsilon}(x))} \int_{\partial B_{\varepsilon}(x)} X \cdot \nu ~d\sigma.
-     \]
+    2. 证明，
+       \[
+       {\rm div} (X) = \lim_{\varepsilon \to 0} \frac{1}{m(B_{\varepsilon}(x))} \int_{\partial B_{\varepsilon}(x)} X \cdot \nu ~d\sigma.
+       \]
 
-- A3)（二维旋度的几何定义）$D_{\varepsilon}(x)$ 表示以 $x\in \mathbb{R}^2$ 为圆心以 $\varepsilon>0$
-  为半径的圆盘，我们用 $\nu$ 表示其边界的单位法向量场。证明，
-  \[
-  \begin{aligned}
-      {\rm curl} (X) = \lim_{\varepsilon \to 0} \frac{1}{\sigma(D_{\varepsilon})} \oint_{\gamma} X \cdot d\gamma
-      \end{aligned}
-  \]
+A3) （二维旋度的几何定义）$D_{\varepsilon}(x)$ 表示以 $x\in \mathbb{R}^2$ 为圆心以 $\varepsilon>0$
+    为半径的圆盘，我们用 $\nu$ 表示其边界的单位法向量场。证明，
+    \[
+    \begin{aligned}
+        {\rm curl} (X) = \lim_{\varepsilon \to 0} \frac{1}{\sigma(D_{\varepsilon})} \oint_{\gamma} X \cdot d\gamma
+        \end{aligned}
+    \]
 
 A4) 令 $\Omega$ 为 $\mathbb{R}^3$ 中的有界光滑带边区域，
     $\nu$ 为 $\partial \Omega$ 的单位外法向量。对于任意的 $\mathbb{R}^3$ 中的光滑函数 $f$，证明，
@@ -50,59 +50,59 @@ A4) 令 $\Omega$ 为 $\mathbb{R}^3$ 中的有界光滑带边区域，
 
 ## Stokes公式相关问题
 
-- B1)（物理问题中，根据定义，我们写下一切都有定义）假设一个粒子 $P$ 从 $A$ 点运动到 $B$ 点，
-  它的运动轨迹（$\mathbb{R}^n$ 中）由参数曲线
-  \[
-  \gamma\colon[a,b] \rightarrow \mathbb{R}^n
-  \]
-  给出，其中 $\gamma(a)=A$，$\gamma(b)=B$。
-  粒子受到的力由向量场 $F(\gamma(t))$ 给出，
-  那么我们定义粒子 $P$ 在路径 $\gamma$ 上做的**功**由第二型曲线积分
-  \[
-  \displaystyle\int_{\gamma} F \cdot d\gamma
-  \]
-  给出。
+B1) （物理问题中，根据定义，我们写下一切都有定义）假设一个粒子 $P$ 从 $A$ 点运动到 $B$ 点，
+    它的运动轨迹（$\mathbb{R}^n$ 中）由参数曲线
+    \[
+    \gamma\colon[a,b] \rightarrow \mathbb{R}^n
+    \]
+    给出，其中 $\gamma(a)=A$，$\gamma(b)=B$。
+    粒子受到的力由向量场 $F(\gamma(t))$ 给出，
+    那么我们定义粒子 $P$ 在路径 $\gamma$ 上做的**功**由第二型曲线积分
+    \[
+    \displaystyle\int_{\gamma} F \cdot d\gamma
+    \]
+    给出。
 
-  1. 证明，做功与路径保定向的参数化无关，即若
-     \[
-     \tau\colon[a,b]\rightarrow [\tau(a),\tau(b)]
-     \]
-     是光滑函数并且对任意的 $ t \in [a,b]$，都有 $\tau'(t) > 0$，那么
-     \[
-     \begin{aligned}
-         \int_{\gamma} F \cdot d\gamma=\int_{\widetilde{\gamma}} F \cdot d\widetilde{\gamma}~\left(=\int_{\tau(a)}^{\tau(b)} F(\tilde{\gamma}(\tau)) \cdot \frac{d\tilde{\gamma}}{d\tau} d\tau\right)
-         \end{aligned}
-     \]
-     其中
-     \[
-     \tilde{\gamma} = \gamma \circ \tau^{-1}\colon[\tau(a),\tau(b)] \rightarrow \mathbb{R}^n.
-     \]
+    1. 证明，做功与路径保定向的参数化无关，即若
+       \[
+       \tau\colon[a,b]\rightarrow [\tau(a),\tau(b)]
+       \]
+       是光滑函数并且对任意的 $ t \in [a,b]$，都有 $\tau'(t) > 0$，那么
+       \[
+       \begin{aligned}
+           \int_{\gamma} F \cdot d\gamma=\int_{\widetilde{\gamma}} F \cdot d\widetilde{\gamma}~\left(=\int_{\tau(a)}^{\tau(b)} F(\tilde{\gamma}(\tau)) \cdot \frac{d\tilde{\gamma}}{d\tau} d\tau\right)
+           \end{aligned}
+       \]
+       其中
+       \[
+       \tilde{\gamma} = \gamma \circ \tau^{-1}\colon[\tau(a),\tau(b)] \rightarrow \mathbb{R}^n.
+       \]
 
-  2. 假设 $n=2$，我们给定 $\mathbb{R}^2-\{(0,0)\}$ 上一个力场
-     \[
-     F(x,y) = (-\frac{y}{x^2 + y^2}, \frac{x}{x^2+y^2}).
-     \]
-     试计算 $F$ 分别沿路径 $\gamma_1$ 和 $\gamma_2$ 所做的功，其中
-     \[
-     \begin{aligned}
-         &\gamma_1\colon[0,2\pi]\rightarrow \mathbb{R}^2-\{(0,0)\},  \ \ t\mapsto (\cos t, \sin t),\\
-         &\gamma_2\colon[0,2\pi]\rightarrow \mathbb{R}^2-\{(0,0)\}, \ \ t\mapsto (2+\cos t, \sin t).
-         \end{aligned}
-     \]
+    2. 假设 $n=2$，我们给定 $\mathbb{R}^2-\{(0,0)\}$ 上一个力场
+       \[
+       F(x,y) = (-\frac{y}{x^2 + y^2}, \frac{x}{x^2+y^2}).
+       \]
+       试计算 $F$ 分别沿路径 $\gamma_1$ 和 $\gamma_2$ 所做的功，其中
+       \[
+       \begin{aligned}
+           &\gamma_1\colon[0,2\pi]\rightarrow \mathbb{R}^2-\{(0,0)\},  \ \ t\mapsto (\cos t, \sin t),\\
+           &\gamma_2\colon[0,2\pi]\rightarrow \mathbb{R}^2-\{(0,0)\}, \ \ t\mapsto (2+\cos t, \sin t).
+           \end{aligned}
+       \]
 
-  3. 假设
-     \[
-     f\colon (0,+\infty)\rightarrow \mathbb{R}
-     \]
-     是光滑函数，对于 $x\in\mathbb{R}^3$，我们定义 $\mathbb{R}^3 - \{(0,0,0)\}$ 上的一个有心力场：
-     \[
-     F\colon\mathbb{R}^3 - \{(0,0,0)\}\rightarrow \mathbb{R}^3, \ \ x\mapsto f(|x|)x.
-     \]
-     任意给定光滑曲线
-     \[
-     \gamma\colon [0,1] \to \mathbb{R}^3 - \{(0,0,0)\}
-     \]
-     试计算 $F$ 沿 $\gamma$ 做的功。
+    3. 假设
+       \[
+       f\colon (0,+\infty)\rightarrow \mathbb{R}
+       \]
+       是光滑函数，对于 $x\in\mathbb{R}^3$，我们定义 $\mathbb{R}^3 - \{(0,0,0)\}$ 上的一个有心力场：
+       \[
+       F\colon\mathbb{R}^3 - \{(0,0,0)\}\rightarrow \mathbb{R}^3, \ \ x\mapsto f(|x|)x.
+       \]
+       任意给定光滑曲线
+       \[
+       \gamma\colon [0,1] \to \mathbb{R}^3 - \{(0,0,0)\}
+       \]
+       试计算 $F$ 沿 $\gamma$ 做的功。
 
 B2) $F$ 是区域 $U \subset \mathbb{R}^n$ 上的光滑向量场（力场），
     如果存在函数 $P \in C^{\infty}(U)$，使得 $F = -\nabla P$，

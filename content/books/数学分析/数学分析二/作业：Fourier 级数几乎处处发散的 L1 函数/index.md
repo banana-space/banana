@@ -20,28 +20,28 @@ A3) $f$ 是 $\mathbb{R}$ 上以 $2\pi$ 为周期的实值函数，它在 $[-\pi,
     $\displaystyle \sum_{k=1}^N \alpha_k \mathbf{1}_{[a_{k-1},a_k]}$ 的函数逼近，
     其中 $-\pi=a_0<a_1<\cdots<a_N=\pi$，$\alpha_1\leqslant \alpha_2\leqslant \cdots$）
 
-- A4)（Gibbs现象）我们定义墙头草形状的以 $2\pi$ 为周期的函数 $f$，其中，当 $x\in [0,2\pi)$ 时，
-  我们有
-  \[
-  f(x)=\begin{cases}0, \ \ &x=0;\\
-  \frac{\pi-x}{2}, \end{cases}
-  \]
+A4) （Gibbs现象）我们定义墙头草形状的以 $2\pi$ 为周期的函数 $f$，其中，当 $x\in [0,2\pi)$ 时，
+    我们有
+    \[
+    f(x)=\begin{cases}0, \ \ &x=0;\\
+    \frac{\pi-x}{2}, \end{cases}
+    \]
 
-  ![](MathAnalysis_H1201.svg)
+    ![](MathAnalysis_H1201.svg)
 
-  此时，在间断点 $0$ 处，我们有 $f_+(0)-f_-(0)=\pi$。证明，$f$ 的Fourier级数可以写为
-  \[
-  \sum_{k\neq 0}\frac{1}{2ik}e^{ik\cdot x}=\sum_{k=1}^\infty \frac{\sin(kx)}{k}.
-  \]
+    此时，在间断点 $0$ 处，我们有 $f_+(0)-f_-(0)=\pi$。证明，$f$ 的Fourier级数可以写为
+    \[
+    \sum_{k\neq 0}\frac{1}{2ik}e^{ik\cdot x}=\sum_{k=1}^\infty \frac{\sin(kx)}{k}.
+    \]
 
-  ![](MathAnalysis_H1202.png?width=500)
+    ![](MathAnalysis_H1202.png?width=500)
 
-  证明，对于部分和 $S_N(f)$，我们有
-  \[
-  \max_{x\in (0,\frac{\pi}{N}]}S_N(f)(x)-\frac{\pi}{2}=\int_0^\pi \frac{\sin(y)}{y}dy-\frac{\pi}{2}>0.
-  \]
-  这是分段 $C^1$ 函数在第一类间断点处Fourier系数收敛的典型行为，
-  Fourier级数在间断点处起伏的最大值接比间断本身（$f_+(0)-f_-(0)=\pi$）要大 $8.9\%$。
+    证明，对于部分和 $S_N(f)$，我们有
+    \[
+    \max_{x\in (0,\frac{\pi}{N}]}S_N(f)(x)-\frac{\pi}{2}=\int_0^\pi \frac{\sin(y)}{y}dy-\frac{\pi}{2}>0.
+    \]
+    这是分段 $C^1$ 函数在第一类间断点处Fourier系数收敛的典型行为，
+    Fourier级数在间断点处起伏的最大值接比间断本身（$f_+(0)-f_-(0)=\pi$）要大 $8.9\%$。
 
 A5) 假设 $f\in C(\mathbf{T})$，证明，级数
     \[

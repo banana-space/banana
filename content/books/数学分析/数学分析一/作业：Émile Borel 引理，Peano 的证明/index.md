@@ -15,23 +15,23 @@ A1) 设 $f$ 在点 $x$ 处有二阶导数。证明，下面的极限给出了二
       \end{aligned}
     \]
 
-- A2)（Taylor 展开式的唯一性，Peano余项）。
-  假设 $f$ 是在 $x_0$ 附近的函数，并且当 $x\rightarrow x_0$ 时，满足
-  \[
-  \begin{aligned}
-    f(x) &= a_0 + a_1 (x-x_0) + a_2 (x-x_0)^2 + \cdots + a_n (x-x_0)^n + o(|x-x_0|^n)\\
-    &= b_0 + b_1 (x-x_0) + b_2 (x-x_0)^2 + \cdots + b_n (x-x_0)^n + o(|x-x_0|^n)
-    \end{aligned}
-  \]
-  其中 $a_i, b_i, i=0,\cdots,n$ 是实数，那么，对任意的 $i$，我们都有 $a_i=b_i$。
+A2) （Taylor 展开式的唯一性，Peano余项）。
+    假设 $f$ 是在 $x_0$ 附近的函数，并且当 $x\rightarrow x_0$ 时，满足
+    \[
+    \begin{aligned}
+      f(x) &= a_0 + a_1 (x-x_0) + a_2 (x-x_0)^2 + \cdots + a_n (x-x_0)^n + o(|x-x_0|^n)\\
+      &= b_0 + b_1 (x-x_0) + b_2 (x-x_0)^2 + \cdots + b_n (x-x_0)^n + o(|x-x_0|^n)
+      \end{aligned}
+    \]
+    其中 $a_i, b_i, i=0,\cdots,n$ 是实数，那么，对任意的 $i$，我们都有 $a_i=b_i$。
 
 A3) 假设 $f$ 在 $0$ 处有 $n$ 阶导数。
     证明，如果 $f(x)$ 是偶函数（奇函数），
     $f$ 在 $0$ 处的Taylor展开式（Peano余项）中只有 $x$ 的偶次项（奇数项）。
 
-- A4)（Rolle定理的简单推广）设函数 $f$ 在有限或无穷的区间 $(a,b)$ 上可微并且
-  $\displaystyle\lim_{x \to a^+} f(x) = \lim_{x \to b^-} f(x)$。
-  证明，存在 $x_0 \in (a,b)$，使得 $f'(x_0) = 0$。
+A4) （Rolle定理的简单推广）设函数 $f$ 在有限或无穷的区间 $(a,b)$ 上可微并且
+    $\displaystyle\lim_{x \to a^+} f(x) = \lim_{x \to b^-} f(x)$。
+    证明，存在 $x_0 \in (a,b)$，使得 $f'(x_0) = 0$。
 
 A5) 设函数 $f \in C^0([a,b])$ 并且在 $(a,b)$ 上可微。
     证明，$f$ 在 $[a,b]$ 上严格递增的充分必要条件是对任意 $x\in (a,b)$，
@@ -100,8 +100,8 @@ D1) 证明，$f$ 在 $x_0$ 处取局部极大值的一个充分条件是：
     \end{cases}
     \]
 
-- D2)（最重要的判别方法，有很多应用）证明，如果 $f''(x_0)$ 存在并且 $f''(x_0) < 0$，
-  那么 $f$ 在 $x_0$ 处取局部极大值。
+D2) （最重要的判别方法，有很多应用）证明，如果 $f''(x_0)$ 存在并且 $f''(x_0) < 0$，
+    那么 $f$ 在 $x_0$ 处取局部极大值。
 
 D3) 假定 $f$ 在 $x_0$ 处有 $n$ 阶导数，
     $f'(x_0) = \cdots = f^{(n-1)}(x_0) = 0$ 并且 $f^{(n)}(x_0) \neq 0$，
@@ -174,10 +174,10 @@ F5) 我们假设函数级数 $\displaystyle \sum_{k=0}^\infty f'_k(x)$ 在 $I$ �
     设法将求和拆成
     $\displaystyle \sum_{k=0}^\infty = \sum_{k=0}^N+\displaystyle \sum_{k=N+1}^\infty$）
 
-- F6)（逐项求导定理）$I=[a,b]$ 是闭区间，$\{f_k\}_{k\geqslant 0}$ 是 $C^1(I)$ 的一列函数，
-  我们假设 $\displaystyle \sum_{k=0}^\infty f_k$ 在 $I$ 上逐点收敛。
-  如果函数级数 $\displaystyle \sum_{k=0}^\infty f'_k(x)$ 在 $I$ 上一致收敛，
-  那么 $f$ 是可导的并且 $f'(x)=\displaystyle \sum_{k=0}^\infty f'_k(x)$。
+F6) （逐项求导定理）$I=[a,b]$ 是闭区间，$\{f_k\}_{k\geqslant 0}$ 是 $C^1(I)$ 的一列函数，
+    我们假设 $\displaystyle \sum_{k=0}^\infty f_k$ 在 $I$ 上逐点收敛。
+    如果函数级数 $\displaystyle \sum_{k=0}^\infty f'_k(x)$ 在 $I$ 上一致收敛，
+    那么 $f$ 是可导的并且 $f'(x)=\displaystyle \sum_{k=0}^\infty f'_k(x)$。
 
 F7) 试利用逐项求导定理计算 $e^x$ 的导数。
 
@@ -193,9 +193,9 @@ F9) 证明，当 $k\geqslant 2n$ 时，我们有
     f_k^{(n)}(x)=a_k\sum_{\ell=0}^n{n \choose \ell}\frac{t_k^{n-\ell}}{(k-\ell)!}x^{k-\ell}\chi^{(n-\ell)}(t_k x).
     \]
 
-- F10)（Borel引理）任意给定一个数列 $\{a_k\}_{k\geqslant 0}$，证明，
-  存在 $\mathbb{R}$ 上的光滑函数 $f$，使得对任意的 $k\geqslant 0$，$f^{(k)}(0)=a_k$。
-  （提示：略难。）
+F10) （Borel引理）任意给定一个数列 $\{a_k\}_{k\geqslant 0}$，证明，
+     存在 $\mathbb{R}$ 上的光滑函数 $f$，使得对任意的 $k\geqslant 0$，$f^{(k)}(0)=a_k$。
+     （提示：略难。）
 
 第四部分：Peano对Borel引理的证明（选做部分，不交作业）
 

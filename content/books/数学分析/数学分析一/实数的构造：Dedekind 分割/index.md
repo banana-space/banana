@@ -63,21 +63,22 @@ b) 我们定义 $X_{\sqrt{2}}$ 如下：
 
 我们首先来验证这个序关系满足公理 (O1)、(O2) 和 (O3)：
 
-- (O3). $\leqslant$ 是一个全序关系，即对任意的 $X,Y\in \mathcal{R}$，
-  $X\subset Y$ 和 $Y\subset X$ 必居其一：
+(O3) $\leqslant$ 是一个全序关系，即对任意的 $X,Y\in \mathcal{R}$，
+     $X\subset Y$ 和 $Y\subset X$ 必居其一：
 
-  我们假设 $X\not\subset Y$，只要说明 $Y\subset X$ 即可。
-  根据假设，存在 $x\in X$，使得 $x\notin Y$，根据Dedekind分割的定义中的 2)，对任意的 $y\in Y$，
-  都有 $y<x$（否则 $x<y$，$y\in Y$，就可以推出 $x\in Y$，矛盾！），从而 $y\in X$（因为 $x\in X$），
-  所以 $Y\subset X$。
+     我们假设 $X\not\subset Y$，只要说明 $Y\subset X$ 即可。
+     根据假设，存在 $x\in X$，使得 $x\notin Y$，根据Dedekind分割的定义中的 2)，对任意的 $y\in Y$，
+     都有 $y<x$（否则 $x<y$，$y\in Y$，就可以推出 $x\in Y$，矛盾！），
+     从而 $y\in X$（因为 $x\in X$），
+     所以 $Y\subset X$。
 
-- (O1). 对任意的 $X,Y,Z\in \mathcal{R}$，如果 $X<Y$，$Y<Z$，那么 $X<Z$。
+(O1) 对任意的 $X,Y,Z\in \mathcal{R}$，如果 $X<Y$，$Y<Z$，那么 $X<Z$。
 
-  这就是集合包含关系的传递性的重新叙述。
+     这就是集合包含关系的传递性的重新叙述。
 
-- (O2). 对任意的 $X,Y\in \mathcal{R}$，$X<Y$，$X=Y$ 或者 $X>Y$ 三者恰有一种情形成立。
+(O2) 对任意的 $X,Y\in \mathcal{R}$，$X<Y$，$X=Y$ 或者 $X>Y$ 三者恰有一种情形成立。
 
-  用集合的包含关系来看，这是显然的。
+     用集合的包含关系来看，这是显然的。
 
 一个有趣的事情是，我们现在就可以证明确界原理了（只需要用到序的定义！）。为此，我们先做一番准备。
 假设 $\mathcal{X} \subset \mathcal{R}$（这是一个由若干Dedekind分割所组成的集合）有上界，

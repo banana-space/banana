@@ -27,13 +27,13 @@ notices:
 **习题A**  我们总假设$\Omega\subset \mathbb{R}^n$是开集，
 $x_0\in \Omega$是一个给定的点。如果不另加说明$f\colon\Omega\rightarrow \mathbb{R}$将代表一个函数。
 
-- A1)（微分的唯一性）考虑映射$f\colon\Omega\subset \mathbb{R}^n\rightarrow \mathbb{R}^m$。
-  假设存在两个线性映射$A_i\colon\mathbb{R}^n\rightarrow \mathbb{R}^m$（$i=1,2$），
-  使得对$i=1$和$2$和$v\rightarrow 0$时，都有
-  \[
-  f(x_0+v)=f(x_0)+A_i (v)+o(v).
-  \]
-  证明，$A_1=A_2$。
+A1) （微分的唯一性）考虑映射$f\colon\Omega\subset \mathbb{R}^n\rightarrow \mathbb{R}^m$。
+    假设存在两个线性映射$A_i\colon\mathbb{R}^n\rightarrow \mathbb{R}^m$（$i=1,2$），
+    使得对$i=1$和$2$和$v\rightarrow 0$时，都有
+    \[
+    f(x_0+v)=f(x_0)+A_i (v)+o(v).
+    \]
+    证明，$A_1=A_2$。
 
 A2) 假设$f$在$x_0\in \Omega$处可微，$x_1,\cdots, x_n$是$n$个坐标函数。
     证明，$df(x_0)=\displaystyle \sum_{i=1}^n \dfrac{\partial f}{\partial x_i}(x_0) dx_i(x_0)$。
@@ -82,14 +82,14 @@ A9) 考虑在$\mathbf{M}_n(\mathbb{R})$上定义的行列式函数
 
     （如果你可以证明$\operatorname{det}$是可微的，那么可以用上学期第6次作业的A9)）
 
-- A10)（偏导数的计算）计算下列函数的偏导数：
-  \[
-  \begin{aligned}
-  &&(1)\ &f(x,y) = e^{xy} \qquad &&(2)\ &f(x,y,z) = \log(x+y^2+z^3) \\
-  &&(3)\ &f(x,y,z) = x^{y^z} \ \ &&(4)\ &f(x,y) = x + y + \sqrt{x^2+y^2} \\
-  &&(5)\ &f(x,y) = e^{x+y^2} + \sin(x^2 y) \qquad &&(6)\ & f(x_1,x_2,x_3) = \tan\frac{x_1x_2}{x_3^2}
-  \end{aligned}
-  \]
+A10) （偏导数的计算）计算下列函数的偏导数：
+     \[
+     \begin{aligned}
+     &&(1)\ &f(x,y) = e^{xy} \qquad &&(2)\ &f(x,y,z) = \log(x+y^2+z^3) \\
+     &&(3)\ &f(x,y,z) = x^{y^z} \ \ &&(4)\ &f(x,y) = x + y + \sqrt{x^2+y^2} \\
+     &&(5)\ &f(x,y) = e^{x+y^2} + \sin(x^2 y) \qquad &&(6)\ & f(x_1,x_2,x_3) = \tan\frac{x_1x_2}{x_3^2}
+     \end{aligned}
+     \]
 
 ### 导数和微分的计算
 
@@ -166,8 +166,8 @@ D1) 证明，下面的函数$f\colon\mathbb{R}^n \rightarrow \mathbb{R}$是齐�
     \end{aligned}
     \]
 
-- D2)（Euler）假设$f$是可微的。证明：$f$是$k$次齐次函数当且仅当它满足Euler等式
-  $\displaystyle \sum_{i=1}^{n} x_i \frac{\partial f}{\partial x_i} = k f$。
+D2) （Euler）假设$f$是可微的。证明：$f$是$k$次齐次函数当且仅当它满足Euler等式
+    $\displaystyle \sum_{i=1}^{n} x_i \frac{\partial f}{\partial x_i} = k f$。
 
 D3) 假设可微函数$f$是$k$次齐次函数。
     证明，对任意$v\in \mathbb{R}^n$，$\nabla_v f$是$k-1$次齐次函数。

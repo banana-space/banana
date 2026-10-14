@@ -75,29 +75,29 @@ A8) 考虑$\mathbb{R}$上的分布$\displaystyle u=\sum_{n=0}^\infty c_n \delta_
 
 A9) 试找出一切$f\in L^1(\mathbb{R})$，使得$f*f=f$。
 
-- A10)（如果你不确定的话）试验证如下的初等不等式：
-  给定正整数$m$，存在常数$C_1$和$C_2$，使得对任意的$\xi\neq 0$，我们有
-  \[
-  C_1(1+|\xi|^2)^m\leqslant  \sum_{|\alpha|\leqslant m}|\xi^\alpha|^2 \leqslant C_2(1+|\xi|^2)^m,
-  \]
-  其中$|\xi^\alpha|=|\xi_1^{\alpha_1}\xi_2^{\alpha_2}\cdots \xi_n^{\alpha_n}|$。
-  这个不等式我们之后一直会引用。
+A10) （如果你不确定的话）试验证如下的初等不等式：
+     给定正整数$m$，存在常数$C_1$和$C_2$，使得对任意的$\xi\neq 0$，我们有
+     \[
+     C_1(1+|\xi|^2)^m\leqslant  \sum_{|\alpha|\leqslant m}|\xi^\alpha|^2 \leqslant C_2(1+|\xi|^2)^m,
+     \]
+     其中$|\xi^\alpha|=|\xi_1^{\alpha_1}\xi_2^{\alpha_2}\cdots \xi_n^{\alpha_n}|$。
+     这个不等式我们之后一直会引用。
 
-- A11)（某些分量的Fourier变换）证明，
-  \[
-  \mathcal{F}_{x\rightarrow \xi}\colon \mathcal{S}(\mathbb{R}_t^n\times \mathbb{R}_x^{m})\rightarrow \mathcal{S}(\mathbb{R}_t^n\times \mathbb{R}_x^{m}).
-  \]
-  是连续的线性同构并进一步证明：
-  \[
-  \mathcal{F}_{x\rightarrow \xi}\colon \mathcal{S}'(\mathbb{R}_t^m\times \mathbb{R}_x^{n})\rightarrow \mathcal{S}'(\mathbb{R}_t^m \times \mathbb{R}_x^{n}),
-  \]
-  是连续的线性同构。
+A11) （某些分量的Fourier变换）证明，
+     \[
+     \mathcal{F}_{x\rightarrow \xi}\colon \mathcal{S}(\mathbb{R}_t^n\times \mathbb{R}_x^{m})\rightarrow \mathcal{S}(\mathbb{R}_t^n\times \mathbb{R}_x^{m}).
+     \]
+     是连续的线性同构并进一步证明：
+     \[
+     \mathcal{F}_{x\rightarrow \xi}\colon \mathcal{S}'(\mathbb{R}_t^m\times \mathbb{R}_x^{n})\rightarrow \mathcal{S}'(\mathbb{R}_t^m \times \mathbb{R}_x^{n}),
+     \]
+     是连续的线性同构。
 
-- A12)（重要）试构造函数局部可积的$u\in H^{\frac{n}{2}}(\mathbb{R}^n)$，
-  使得$u \notin L^\infty(\mathbb{R}^n)$，即证明
-  \[
-  H^{\frac{n}{2}}(\mathbb{R}^n) \not\hookrightarrow L^\infty(\mathbb{R}^n).
-  \]
+A12) （重要）试构造函数局部可积的$u\in H^{\frac{n}{2}}(\mathbb{R}^n)$，
+     使得$u \notin L^\infty(\mathbb{R}^n)$，即证明
+     \[
+     H^{\frac{n}{2}}(\mathbb{R}^n) \not\hookrightarrow L^\infty(\mathbb{R}^n).
+     \]
 
 ## 习题B：Fourier变换的计算
 

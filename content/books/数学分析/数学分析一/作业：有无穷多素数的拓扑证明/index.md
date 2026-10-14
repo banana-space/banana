@@ -40,22 +40,22 @@ A7) 给定连续函数 $\varphi\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathb
     $\{g_n(x)\}_{n\geqslant 1}$ 逐点收敛到 $0$ 这个函数但是不一致收敛，其中 $f_n(x)=\varphi(nx)$，
     $g_n(x)=\varphi\left(\dfrac{x}{n}\right)$。
 
-- A8)* （一致连续性的应用：积分的定义）$[a,b]$ 是有限闭区间，
-  $f\in C\bigl([a,b]\bigr)$ 是实数值的函数。给定 $n\geqslant 1$，我们将 $[a,b]$ 均分为 $n$ 份：
-  \[
-  [a,b]=[a_1,b_1]\cup [a_2,b_2]\cup \cdots \cup [a_n,b_n],  \ \ a_1=a, b_k=a_{k+1}~(k=1,\cdots, n-1), b_n=b,
-  \]
-  其中对于 $k=1,2,\cdots,n$，$a_k=a+\dfrac{k-1}{n}(b-a)$。我们定义
-  \[
-  S_n=\sum_{k=1}^n \frac{b-a}{n}f(a_k).
-  \]
-  证明，$\{S_n\}_{n\geqslant 1}$ 收敛，
-  我们用 $\displaystyle \int_{a}^b f $ 这个符号来记极限
-  $\displaystyle \lim_{n\rightarrow \infty}S_n$。进一步证明，映射
-  \[
-  \int_{a}^b\colon  C\bigl([a,b]\bigr)\rightarrow \mathbb{R}, \ \ f\mapsto \int_{a}^b f
-  \]
-  是线性映射并且如果我们在 $C\bigl([a,b]\bigr)$ 用距离函数 $d_\infty$ 来考虑，那么这是连续映射。
+A8) \* （一致连续性的应用：积分的定义）$[a,b]$ 是有限闭区间，
+    $f\in C\bigl([a,b]\bigr)$ 是实数值的函数。给定 $n\geqslant 1$，我们将 $[a,b]$ 均分为 $n$ 份：
+    \[
+    [a,b]=[a_1,b_1]\cup [a_2,b_2]\cup \cdots \cup [a_n,b_n],  \ \ a_1=a, b_k=a_{k+1}~(k=1,\cdots, n-1), b_n=b,
+    \]
+    其中对于 $k=1,2,\cdots,n$，$a_k=a+\dfrac{k-1}{n}(b-a)$。我们定义
+    \[
+    S_n=\sum_{k=1}^n \frac{b-a}{n}f(a_k).
+    \]
+    证明，$\{S_n\}_{n\geqslant 1}$ 收敛，
+    我们用 $\displaystyle \int_{a}^b f $ 这个符号来记极限
+    $\displaystyle \lim_{n\rightarrow \infty}S_n$。进一步证明，映射
+    \[
+    \int_{a}^b\colon  C\bigl([a,b]\bigr)\rightarrow \mathbb{R}, \ \ f\mapsto \int_{a}^b f
+    \]
+    是线性映射并且如果我们在 $C\bigl([a,b]\bigr)$ 用距离函数 $d_\infty$ 来考虑，那么这是连续映射。
 
 ::: remark*
 和式 $S_n$ 直观上计算的是下图中阴影柱形表的面积：
@@ -71,15 +71,15 @@ A7) 给定连续函数 $\varphi\colon \mathbb{R}_{\geqslant 0}\rightarrow \mathb
 （提示：为了证明 $\{S_n\}_{n\geqslant 1}$ 是Cauchy列，
 我们可以将 $S_{n}$ 和 $S_m$ 都与 $S_{nm}$ 做比较）
 
-- A9)* 证明Cauchy的一个定理：任给函数 $f\colon  [a,+\infty) \to \mathbb{R}$，
-  我们假设 $f$ 任意闭子区间 $[a,b]$ 上有界（上界可能依赖于 $b$），
-  那么下面两个式子当等号右边极限存在时成立：
-  \[
-  \begin{aligned}
-  \lim_{x \to +\infty} \frac{f(x)}{x} &= \lim_{x \to + \infty} [f(x+1) - f(x)],\\
-  \lim_{x \to + \infty}  [f(x)]^{1/x} &= \lim_{x \to + \infty} \frac{f(x+1)}{f(x)},  \ \ \text{进一步假设对任意的 $x \in [a,\infty)$，$f(x) \geqslant c > 0$}.
-  \end{aligned}
-  \]
+A9) \* 证明Cauchy的一个定理：任给函数 $f\colon  [a,+\infty) \to \mathbb{R}$，
+    我们假设 $f$ 任意闭子区间 $[a,b]$ 上有界（上界可能依赖于 $b$），
+    那么下面两个式子当等号右边极限存在时成立：
+    \[
+    \begin{aligned}
+    \lim_{x \to +\infty} \frac{f(x)}{x} &= \lim_{x \to + \infty} [f(x+1) - f(x)],\\
+    \lim_{x \to + \infty}  [f(x)]^{1/x} &= \lim_{x \to + \infty} \frac{f(x+1)}{f(x)},  \ \ \text{进一步假设对任意的 $x \in [a,\infty)$，$f(x) \geqslant c > 0$}.
+    \end{aligned}
+    \]
 
 ### 习题B：一致连续性
 

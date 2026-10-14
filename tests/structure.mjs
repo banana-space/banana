@@ -346,7 +346,7 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
 {
   const caption = (html, id) => Buffer.from(decodeURIComponent(html.match(new RegExp(`reference:\\?id=${id}&caption=([^)&]*)`))[1]), 'base64').toString();
   const labelled = transformDocument("前文\n\n(a) {@a} 甲\n(b) 乙\n    续行\n\n1. 外\n\n   (i) {@i} 内\n\n(T2'') 撇\niv) {@iv} 四\n\n@a @i @iv @-a");
-  assert.match(labelled, /^00\) \{\{< _item-label >\}\}\(a\)\{\{< \/_item-label >\}\}\{\{< _item-target id="YQ==" >\}\} 甲$/m);
+  assert.match(labelled, /^00\) \{\{< _item-label >\}\}\(a\)\{\{< \/_item-label >\}\}\{\{< _item-target id="YQ==" >\}\}甲$/m, 'the spaces after a label declaration go too');
   assert.match(labelled, /^00\) \{\{< _item-label >\}\}\(b\)\{\{< \/_item-label >\}\}乙\n    续行$/m);
   assert.match(labelled, /^   00\) \{\{< _item-label >\}\}\(i\)/m);
   assert.match(labelled, /\(T2′′\)/, "' is a prime");
@@ -361,10 +361,14 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
   assert.match(transformDocument('(iiiiiiiiiiiiiiii) 甲\n              乙'), /^000000000\)    \{\{< _item-label >\}\}\(iiiiiiiiiiiiiiii\)\{\{< \/_item-label >\}\}甲\n {14}乙$/m, 'at most column 14');
   // Alone on its line, a space after the marker (or Markdown reads it as text); on one line, nested lists, the
   // outer labels written with the innermost item's, with how many lists out they are.
-  assert.match(transformDocument('A4)\n    甲'), /^00\) \{\{< _item-label >\}\}A4\)\{\{< \/_item-label >\}\}\n    甲$/m);
+  // Alone on its line: the label at the start of the next line's text, or (no text there: a display formula)
+  // beside the item.
+  assert.match(transformDocument('A4)\n    甲'), /^00\) \n    \{\{< _item-label >\}\}A4\)\{\{< \/_item-label >\}\}甲$/m);
+  assert.match(transformDocument('A4)\n    \\[x\\]'), /^00\) \{\{< _item-label block="true" >\}\}A4\)/m);
+  assert.match(transformDocument('(a) \\[x\\]'), /^00\) \{\{< _item-label block="true" >\}\}\(a\)/m);
   const chain = transformDocument('(3) (4) {@x} 甲\n\n(5) (a) (i)\n\n@x');
-  assert.match(chain, /^00\) 00\) \{\{< _item-label 1 >\}\}\(3\)\{\{< \/_item-label >\}\}\{\{< _item-label >\}\}\(4\)\{\{< \/_item-label >\}\}\{\{< _item-target/m);
-  assert.match(chain, /^00\) 00\) 00\) \{\{< _item-label 2 >\}\}\(5\)\{\{< \/_item-label >\}\}\{\{< _item-label 1 >\}\}\(a\)\{\{< \/_item-label >\}\}\{\{< _item-label >\}\}\(i\)/m);
+  assert.match(chain, /^00\) 00\) \{\{< _item-label outer="1" >\}\}\(3\)\{\{< \/_item-label >\}\}\{\{< _item-label >\}\}\(4\)\{\{< \/_item-label >\}\}\{\{< _item-target/m);
+  assert.match(chain, /^00\) 00\) 00\) \{\{< _item-label outer="2" block="true" >\}\}\(5\)\{\{< \/_item-label >\}\}\{\{< _item-label outer="1" block="true" >\}\}\(a\)\{\{< \/_item-label >\}\}\{\{< _item-label block="true" >\}\}\(i\)/m);
   assert.equal(caption(chain, 'x'), '(3) (4)');
   assert.match(transformDocument('1) 甲\n(a) 乙'), /^1\) 甲\n00\. \{\{< _item-label >\}\}\(a\)/m, 'a labelled item after 1) starts its own list');
   assert.throws(() => transformDocument('1) 甲\n(a) 乙\n2. 丙'), /标签列表项目/);
@@ -446,11 +450,11 @@ try {
   }
   assert.doesNotMatch(starHtml, /raw HTML omitted|reference:\?|\{@|::: theorem|定理 0\.1|\\tag\{0\.1\}/);
   const labelledHtml = await readFile(join(root, 'public/wiki/labelled-test/index.html'), 'utf8');
-  assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<p><span class="item-label">\(a\)<\/span>\s*<span id="la" class="item-target"><\/span>\s*甲<\/p>\s*<\/li>\s*<li>\s*<p><span class="item-label">\(b\)<\/span>\s*乙<\/p>\s*<p>第二段<\/p>/);
-  assert.match(labelledHtml, /<span class="item-label">\(<span class="math-rendered"[^>]*data-tex="\\ast"/);
-  assert.match(labelledHtml, /<ol>\s*<li>\s*<p>外<\/p>\s*<ol start="0">\s*<li><span class="item-label">\(i\)<\/span>/);
+  assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<p><span class="item-label" style="--outer: 0"><span>\(a\)<\/span><\/span><span id="la" class="item-target"><\/span>甲<\/p>\s*<\/li>\s*<li>\s*<p><span class="item-label" style="--outer: 0"><span>\(b\)<\/span><\/span>乙<\/p>\s*<p>第二段<\/p>/);
+  assert.match(labelledHtml, /<span class="item-label" style="--outer: 0"><span>\(<span class="math-rendered"[^>]*data-tex="\\ast"/);
+  assert.match(labelledHtml, /<ol>\s*<li>\s*<p>外<\/p>\s*<ol start="0">\s*<li><span class="item-label" style="--outer: 0"><span>\(i\)<\/span><\/span>/);
   assert.ok(labelledHtml.includes('由 <a href="#la">(a)</a>、<a href="#li">1 (i)</a> 与 <a href="#la">(a)</a>。'));
-  assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<ol start="0">\s*<li><span class="item-label item-label-outer" style="--outer: 1">\(3\)<\/span><span class="item-label">\(4\)<\/span>\s*嵌套/);
+  assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<ol start="0">\s*<li><span class="item-label item-label-outer" style="--outer: 1"><span>\(3\)<\/span><\/span><span class="item-label" style="--outer: 0"><span>\(4\)<\/span><\/span>嵌套/);
   const singular = await readFile(join(root, 'public/wiki/奇异上同调/index.html'), 'utf8');
   assert.match(singular, /theorem-title">定义 1\.1（奇异上链复形）/);
   assert.match(singular, /theorem-title">定义 1\.2（奇异闭上链, 奇异边界上链, 奇异上同调）/);

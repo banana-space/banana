@@ -53,26 +53,27 @@ A6) 对于Schwartz函数$\varphi \in \mathcal{S}(\mathbb{R}^n)$，
     \end{aligned}
     \]
 
-- A7)（平移不变算子与卷积）给定连续$\mathbb{C}$-线性映射（线性算子）
-  \[
-  T:C_0^\infty (\mathbb{R}^n) \rightarrow C_0^\infty (\mathbb{R}^n),
-  \]
-  其中，连续性指的是对任意的紧集$K\subset \mathbb{R}^n$，对任意的非负整数$p$，
-  存在紧集$L\subset \mathbb{R}^n$、非负整数$q$和常数$C>0$，
-  使得对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，我们都有
-  \[
-  \sup_{|\alpha|\leqslant p}\|\partial^\beta(T\varphi)\|_{L^\infty(K)}\leqslant  C\sup_{|\beta|\leqslant q}\|\partial^\beta \varphi\|_{L^\infty(L)}.
-  \]
-  我们假设$T$与$\mathbb{R}^n$上的平移算子交换，即对任意的$a \in \mathbb{R}^n$，
-  对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，我们都有
-  \[
-  T\left(\tau_a \varphi \right)=\tau_a\left(T(\varphi)\right).
-  \]
-  证明，存在$u\in \mathcal{E}'(\mathbb{R}^n)$，使得对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，
-  我们都有
-  \[
-  T(\varphi)=u*\varphi.
-  \]
+A7) （平移不变算子与卷积）给定连续$\mathbb{C}$-线性映射（线性算子）
+    \[
+    T:C_0^\infty (\mathbb{R}^n) \rightarrow C_0^\infty (\mathbb{R}^n),
+    \]
+    其中，连续性指的是对任意的紧集$K\subset \mathbb{R}^n$，对任意的非负整数$p$，
+    存在紧集$L\subset \mathbb{R}^n$、非负整数$q$和常数$C>0$，
+    使得对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，我们都有
+    \[
+    \sup_{|\alpha|\leqslant p}\|\partial^\beta(T\varphi)\|_{L^\infty(K)}\leqslant  C\sup_{|\beta|\leqslant q}\|\partial^\beta \varphi\|_{L^\infty(L)}.
+    \]
+    我们假设$T$与$\mathbb{R}^n$上的平移算子交换，即对任意的$a \in \mathbb{R}^n$，
+    对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，我们都有
+    \[
+    T\left(\tau_a \varphi \right)=\tau_a\left(T(\varphi)\right).
+    \]
+    证明，存在$u\in \mathcal{E}'(\mathbb{R}^n)$，
+    使得对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，
+    我们都有
+    \[
+    T(\varphi)=u*\varphi.
+    \]
 
 **习题B：一个分布的问题**
 

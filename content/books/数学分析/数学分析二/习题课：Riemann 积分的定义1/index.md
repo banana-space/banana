@@ -130,33 +130,34 @@ R9) 任给简单函数 $f\in \mathcal{E}(P)$，
     \int_P f = \sum_{Q\in P_{\sigma_1,\cdots,\sigma_n}} \int_{Q}f\big|_Q.
     \]
 
-- R10)（矩形区域上Riemann积分的定义）$f\colon P\rightarrow \mathbb{C}$
-  是映射（可以在赋范线性空间中取值）证明，下面的两个命题是等价的：
+R10) （矩形区域上Riemann积分的定义）$f\colon P\rightarrow \mathbb{C}$
+     是映射（可以在赋范线性空间中取值）证明，下面的两个命题是等价的：
 
-  - 1\) 对任意 $\varepsilon>0$，存在 $\Phi_\varepsilon,\Psi_\varepsilon \in \mathcal{E}(P)$，
-    使得对任意的 $x\in P$，有
-    \[
-    \displaystyle \big|f(x)-\Phi_\varepsilon(x)\big|\leqslant \Psi_\varepsilon(x)
-    \]
-    并且
-    \[
-    \displaystyle \int_{P}\Psi_\varepsilon \leqslant \varepsilon;
-    \]
+     - 1\) 对任意 $\varepsilon>0$，存在 $\Phi_\varepsilon,\Psi_\varepsilon \in \mathcal{E}(P)$，
+       使得对任意的 $x\in P$，有
+       \[
+       \displaystyle \big|f(x)-\Phi_\varepsilon(x)\big|\leqslant \Psi_\varepsilon(x)
+       \]
+       并且
+       \[
+       \displaystyle \int_{P}\Psi_\varepsilon \leqslant \varepsilon;
+       \]
 
-  - 2\) 存在函数序列 $\{\phi_k\}_{k\geqslant 1},\{\psi_k\}_{k\geqslant 1} \subset \mathcal{E}(P)$，
-    使得对任意的 $x\in P$，我们都有
-    \[
-    \displaystyle \big|f(x)-\phi_k(x)\big|\leqslant \psi_k(x)
-    \]
-    并且
-    \[
-    \displaystyle \lim_{k\rightarrow \infty}\int_{P}\psi_k=0.
-    \]
+     - 2\) 存在函数序列
+       $\{\phi_k\}_{k\geqslant 1},\{\psi_k\}_{k\geqslant 1} \subset \mathcal{E}(P)$，
+       使得对任意的 $x\in P$，我们都有
+       \[
+       \displaystyle \big|f(x)-\phi_k(x)\big|\leqslant \psi_k(x)
+       \]
+       并且
+       \[
+       \displaystyle \lim_{k\rightarrow \infty}\int_{P}\psi_k=0.
+       \]
 
-  如果一个函数 $f$ 满足上述条件之一，我们就称 $f$ 在 $P$ 上是**Riemann可积的**函数。
-  我们用 $\mathcal{R}(P)$ 表示 $P$ 上所有Riemann可积的函数。
+     如果一个函数 $f$ 满足上述条件之一，我们就称 $f$ 在 $P$ 上是**Riemann可积的**函数。
+     我们用 $\mathcal{R}(P)$ 表示 $P$ 上所有Riemann可积的函数。
 
-  （请与1维Riemann积分的定义做比较）
+     （请与1维Riemann积分的定义做比较）
 
 R11) 证明，如果 $f\in \mathcal{R}(P)$，那么 $f$ 是有界函数。
 
@@ -192,45 +193,46 @@ R15) 证明，对任意的 $f\in\mathcal{R}(P)$，我们有
      \displaystyle \int_P f\leqslant \int_P g.
      \]
 
-- R16)（区间可加性）任给函数 $f\colon P\rightarrow \mathbb{C}$ 和 $P$ 的分划
-  $P_{\sigma_1,\cdots,\sigma_n}$。证明，如下两个叙述是等价的：
+R16) （区间可加性）任给函数 $f\colon P\rightarrow \mathbb{C}$ 和 $P$ 的分划
+     $P_{\sigma_1,\cdots,\sigma_n}$。证明，如下两个叙述是等价的：
 
-  - $f\in \mathcal{R}(P)$；
+     - $f\in \mathcal{R}(P)$；
 
-  - 对每个 $Q\in P_{\sigma_1,\cdots,\sigma_n}$，$f$ 在 $Q$ 上的限制 $f\big|_Q \in \mathcal{R}(Q)$。
+     - 对每个 $Q\in P_{\sigma_1,\cdots,\sigma_n}$，
+       $f$ 在 $Q$ 上的限制 $f\big|_Q \in \mathcal{R}(Q)$。
 
-  如果上面之一成立，证明，
-  \[
-  \int_P f = \sum_{Q\in P_{\sigma_1,\cdots,\sigma_n}} \int_{Q}f\big|_Q.
-  \]
+     如果上面之一成立，证明，
+     \[
+     \int_P f = \sum_{Q\in P_{\sigma_1,\cdots,\sigma_n}} \int_{Q}f\big|_Q.
+     \]
 
-- R17)（Riemann和）任给 $P$ 的分划 $\sigma=P_{\sigma_1,\cdots,\sigma_n}$，
-  其中对任意的 $i\leqslant n$，$\sigma_i\in \mathcal{S}([a_i,b_i])$ 并且对应着
-  \[
-  a_i=a_{i,0}<a_{i,1}<\cdots<a_{i,n_i-1}<a_{i,n_i}=b_i.
-  \]
+R17) （Riemann和）任给 $P$ 的分划 $\sigma=P_{\sigma_1,\cdots,\sigma_n}$，
+     其中对任意的 $i\leqslant n$，$\sigma_i\in \mathcal{S}([a_i,b_i])$ 并且对应着
+     \[
+     a_i=a_{i,0}<a_{i,1}<\cdots<a_{i,n_i-1}<a_{i,n_i}=b_i.
+     \]
 
-  我们定义分划的 $\sigma$步长$|\sigma|$ 为
-  \[
-  |\sigma|=\displaystyle \sup_{1\leqslant i\leqslant n,\atop \\ 1\leqslant j \leqslant n_i}|a_{i, j-1}-a_{i,j}|.
-  \]
-  任给 $P$ 的分划 $\sigma$，我们在每个 $Q\in \sigma$ 中任意指定一个点 $\xi_Q \in Q$，据此，
-  我们定义**Riemann和**：
-  \[
-  S(f,\sigma,(\xi_Q)_{Q\in \sigma})=\sum_{Q\in \sigma}m(Q)f(\xi_Q).
-  \]
-  假设 $\{\sigma^{(\ell)}\}_{\ell\geqslant 1}$ 是 $P$ 的一列分划并且对每个 $\sigma^{(\ell)}$
-  都指定了一族 $(\xi_{Q})_{Q\in \sigma^{(\ell)}}$。
-  我们要求对任意的 $\ell$，$\sigma^{(\ell+1)}$ 是 $\sigma^{(\ell)}$ 的加细并且
-  \[
-  \displaystyle \lim_{\ell \rightarrow \infty} |\sigma^{(\ell)}|=0.
-  \]
-  证明，如果 $f\in \mathcal{R}(P)$，那么
-  \[
-  \lim_{\ell\rightarrow \infty}S(f,\sigma^{(\ell)},(\xi_Q)_{Q\in \sigma^{(\ell)}})=\int_P f.
-  \]
+     我们定义分划的 $\sigma$步长$|\sigma|$ 为
+     \[
+     |\sigma|=\displaystyle \sup_{1\leqslant i\leqslant n,\atop \\ 1\leqslant j \leqslant n_i}|a_{i, j-1}-a_{i,j}|.
+     \]
+     任给 $P$ 的分划 $\sigma$，我们在每个 $Q\in \sigma$ 中任意指定一个点 $\xi_Q \in Q$，据此，
+     我们定义**Riemann和**：
+     \[
+     S(f,\sigma,(\xi_Q)_{Q\in \sigma})=\sum_{Q\in \sigma}m(Q)f(\xi_Q).
+     \]
+     假设 $\{\sigma^{(\ell)}\}_{\ell\geqslant 1}$ 是 $P$ 的一列分划并且对每个 $\sigma^{(\ell)}$
+     都指定了一族 $(\xi_{Q})_{Q\in \sigma^{(\ell)}}$。
+     我们要求对任意的 $\ell$，$\sigma^{(\ell+1)}$ 是 $\sigma^{(\ell)}$ 的加细并且
+     \[
+     \displaystyle \lim_{\ell \rightarrow \infty} |\sigma^{(\ell)}|=0.
+     \]
+     证明，如果 $f\in \mathcal{R}(P)$，那么
+     \[
+     \lim_{\ell\rightarrow \infty}S(f,\sigma^{(\ell)},(\xi_Q)_{Q\in \sigma^{(\ell)}})=\int_P f.
+     \]
 
-  （传统上，更多的教科书用这种Riemann和或者下面的Darboux上下和来定义积分）
+     （传统上，更多的教科书用这种Riemann和或者下面的Darboux上下和来定义积分）
 
 R18) 假设 $f\colon P\rightarrow \mathbb{R}$ 是有界函数，我们定义
      \[
@@ -275,34 +277,35 @@ R19) 给定有界实值函数 $f\colon P\rightarrow \mathbb{R}$，$\sigma$ 是 $
      \overline{S}(f;\sigma)\leqslant \overline{S}(f;\sigma'), \ \ \underline{S}(f;\sigma)\geqslant \underline{S}(f;\sigma').
      \]
 
-- R20)（Darboux上（下）和的下（上）极限是上（下）积分）假设 $f\colon P\rightarrow \mathbb{R}$
-  是有界函数。定义
-  \[
-  \begin{aligned}
-  & \overline{D}(f)=\inf_{\sigma\in \mathcal{S}(P)} \overline{S}(f;\sigma), \\
-  &\underline{D}(f)=\sup_{\sigma\in \mathcal{S}(P)} \underline{S}(f;\sigma).
-  \end{aligned}
-  \]
-  证明，
-  \[
-  \overline{D}(f)=\overline{\int}_{Q} f, \ \ \underline{D}(f)=\underline{\int}_{Q}f.
-  \]
+R20) （Darboux上（下）和的下（上）极限是上（下）积分）假设 $f\colon P\rightarrow \mathbb{R}$
+     是有界函数。定义
+     \[
+     \begin{aligned}
+     & \overline{D}(f)=\inf_{\sigma\in \mathcal{S}(P)} \overline{S}(f;\sigma), \\
+     &\underline{D}(f)=\sup_{\sigma\in \mathcal{S}(P)} \underline{S}(f;\sigma).
+     \end{aligned}
+     \]
+     证明，
+     \[
+     \overline{D}(f)=\overline{\int}_{Q} f, \ \ \underline{D}(f)=\underline{\int}_{Q}f.
+     \]
 
-- R21)（矩形上实值Riemann可积函数的刻画）给定实值函数 $f\colon Q\rightarrow \mathbb{R}$。
-  证明，如下四条性质是等价的：
+R21) （矩形上实值Riemann可积函数的刻画）给定实值函数 $f\colon Q\rightarrow \mathbb{R}$。
+     证明，如下四条性质是等价的：
 
-  - 甲) $f\in \mathcal{R}(Q)$；
+     - 甲) $f\in \mathcal{R}(Q)$；
 
-  - 乙) 存在常数 $\mathbf{I}$，对任意的 $\varepsilon>0$，存在 $\delta>0$，
-    使得对任意满足 $|\sigma|<\delta$ 的分划 $\sigma$，对任意的 $\xi_Q \in Q$，其中 $Q\in \sigma$，
-    我们都有
-    \[
-    \big|S(f,\sigma,(\xi_Q)_{Q\in \sigma})-\mathbf{I}\big|<\varepsilon.
-    \]
+     - 乙) 存在常数 $\mathbf{I}$，对任意的 $\varepsilon>0$，存在 $\delta>0$，
+       使得对任意满足 $|\sigma|<\delta$ 的分划 $\sigma$，对任意的 $\xi_Q \in Q$，
+       其中 $Q\in \sigma$，
+       我们都有
+       \[
+       \big|S(f,\sigma,(\xi_Q)_{Q\in \sigma})-\mathbf{I}\big|<\varepsilon.
+       \]
 
-  - 丙) $f$ 是有界函数并且 $\underline{D}(f)=\overline{D}(f)$；
+     - 丙) $f$ 是有界函数并且 $\underline{D}(f)=\overline{D}(f)$；
 
-  - 丁) $f$ 是有界函数并且 $\displaystyle\underline{\int}_P f=\overline{\int}_P f$。
+     - 丁) $f$ 是有界函数并且 $\displaystyle\underline{\int}_P f=\overline{\int}_P f$。
 
 R22) 证明，如果R21)中某一条件成立，那么
      \[

@@ -52,16 +52,17 @@ A7) $f\in C([a,b])$。
     假设对任意的 $x\in I$，我们都有 $f(x)\geqslant 0$ 并且存在点 $x_0 \in I$ 使得 $f(x_0) > 0$。
     证明，$\displaystyle\int_a^b f > 0$。
 
-- A8)（不定积分的分部积分公式：对计算不定积分有用）假设 $f,g\in C^1(I)$，那么，我们有
-  \[
-  \int f'\cdot g=f\cdot g-\int f\cdot g'.
-  \]
+A8) （不定积分的分部积分公式：对计算不定积分有用）假设 $f,g\in C^1(I)$，那么，我们有
+    \[
+    \int f'\cdot g=f\cdot g-\int f\cdot g'.
+    \]
 
-- A9)（不定积分的变量替换公式：
-  对计算不定积分有用）假设 $\Phi\colon \mathbb{R}\rightarrow \mathbb{R}$ 可微，$f$ 是连续函数，那么
-  \[
-  \int (f\circ \Phi)\Phi'=\int f.
-  \]
+A9) （不定积分的变量替换公式：
+    对计算不定积分有用）假设 $\Phi\colon \mathbb{R}\rightarrow \mathbb{R}$ 可微，$f$ 是连续函数，
+    那么
+    \[
+    \int (f\circ \Phi)\Phi'=\int f.
+    \]
 
 ### 习题B：不定积分的计算
 
@@ -103,12 +104,12 @@ $\|f\|_\infty=\displaystyle \sup_{x\in [a,b]}|f(x)|$）。
 
 ### 第一部分：Dini定理及应用
 
-- W1)（Dini定理）假设 $K\subset \mathbb{R}^n$ 是紧子集，
-  $f_n\colon K\rightarrow \mathbb{R}$ 是一列*连续*函数，
-  它们逐点地收敛到*连续*函数 $f\colon K\rightarrow \mathbb{R}$，即对每个 $x\in K$，
-  我们都有 $\displaystyle \lim_{n\rightarrow \infty}f_n(x)=f(x)$。
-  证明，如果 $\{f_n\}_{n\geqslant 1}$ 是上升的函数列（即对任意 $x\in K$ 和 $n$，
-  我们都有 $f_n(x)\leqslant f_{n+1}(x)$），那么 $f_n$ 一致收敛到 $f$。（参考荆公子的某次习题课）
+W1) （Dini定理）假设 $K\subset \mathbb{R}^n$ 是紧子集，
+    $f_n\colon K\rightarrow \mathbb{R}$ 是一列*连续*函数，
+    它们逐点地收敛到*连续*函数 $f\colon K\rightarrow \mathbb{R}$，即对每个 $x\in K$，
+    我们都有 $\displaystyle \lim_{n\rightarrow \infty}f_n(x)=f(x)$。
+    证明，如果 $\{f_n\}_{n\geqslant 1}$ 是上升的函数列（即对任意 $x\in K$ 和 $n$，
+    我们都有 $f_n(x)\leqslant f_{n+1}(x)$），那么 $f_n$ 一致收敛到 $f$。（参考荆公子的某次习题课）
 
 W2) 考虑区间 $I=[-1,1]$。我们通过归纳的方式定义一族多项式函数：
     \[
@@ -137,8 +138,8 @@ W5) 任意给定 $f\in C([0,1])$，
     |f(x)-B_{f,n}(x)|\leqslant \sum_{k=0}^n \bigl|f(x)-f\bigl(\frac{k}{n}\bigr)\bigr|p_{n,k}(x).
     \]
 
-- W6)（用Bernstein多项式逼近连续函数）任意给定 $f\in C([0,1])$，证明，对任意 $\varepsilon>0$，
-  总存在 $n$，使得 $\|f-B_{f,n}\|_\infty <\varepsilon$。
+W6) （用Bernstein多项式逼近连续函数）任意给定 $f\in C([0,1])$，证明，对任意 $\varepsilon>0$，
+    总存在 $n$，使得 $\|f-B_{f,n}\|_\infty <\varepsilon$。
 
 ::: remark*
 用概率论的观点，$x\in [0,1]$ 给定，
@@ -205,8 +206,8 @@ W12) 我们现在假设 $\mathcal{A}\subset C(K)$ 是 $\wedge\vee$-封闭的，
 W13) 证明，如果子代数 $\mathcal{A}\subset C(K)$ 是能够区分点的，
      $\wedge\vee$-封闭的并且包含所有的常数值函数，那么 $\mathcal{A}\subset C(K)$ 是稠密的。
 
-- W14)（Weierstraß–Stone定理）如果 $\mathcal{A}\subset C(K)$ 是一个能区分点的子代数并且包含常值函数
-  $1$，那么 $\mathcal{A}\subset C(K)$ 是稠密的。
+W14) （Weierstraß–Stone定理）如果 $\mathcal{A}\subset C(K)$ 是一个能区分点的子代数并且包含常值函数
+     $1$，那么 $\mathcal{A}\subset C(K)$ 是稠密的。
 
 ::: remark*
 我们还有一种复值函数的Weierstraß–Stone定理，在很多的场合有着重要的应用，有兴趣的同学可以自己查阅。

@@ -81,9 +81,9 @@ A8) 如果函数 $f$ 在点 $x_0$ 处的导数 $>0$，不能推出存在该点�
     证明，$f$ 在 $0$ 处导数存在且大于零，但是对任意的 $\varepsilon>0$，
     $f$ 在 $(-\varepsilon,\varepsilon)$ 上的限制都不是单调函数。
 
-- A9)（重要）$\mathbf{I}_n$ 是 $n\times n$ 的单位矩阵，$A\in \mathbf{M}_n(\mathbb{R})$，
-  计算 $\dfrac{d}{dx}\Big|_{x=0}\operatorname{det} (\mathbf{I}+xA)$，
-  即 $\operatorname{det} (\mathbf{I}+xA)$ 在 $x=0$ 处的导数。
+A9) （重要）$\mathbf{I}_n$ 是 $n\times n$ 的单位矩阵，$A\in \mathbf{M}_n(\mathbb{R})$，
+    计算 $\dfrac{d}{dx}\Big|_{x=0}\operatorname{det} (\mathbf{I}+xA)$，
+    即 $\operatorname{det} (\mathbf{I}+xA)$ 在 $x=0$ 处的导数。
 
 A10) 证明，（可微的）奇函数的导数是偶函数，（可微的）偶函数的导数是奇函数。
 
@@ -286,63 +286,63 @@ T10) 证明，我们有如下的函数方程：
      \end{cases}
      \]
 
-- T11)（Takagi函数图像的自相似性）令
-  $\Gamma=\bigl\{(x,T(x))\mid 0\leqslant x\leqslant 1\bigr\}\subset \mathbb{R}^2$ 是 $T$ 在区间
-  $[0,1]$ 上的函数图像。
-  我们定义如下四个仿射变换 $\Phi_i\colon \mathbb{R}^2\rightarrow \mathbb{R}^2$：
-  \[
-  \begin{aligned}
-  \Phi_0 \left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)&= \left(\begin{array}{ccc}
-  \frac{1}{4} & 0  \\
-  \frac{1}{2} & \frac{1}{4}
-  \end{array} \right)\left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right), &&\Phi_1 \left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)= \left(\begin{array}{ccc}
-  \frac{1}{4} & 0  \\
-  0 & \frac{1}{4}
-  \end{array} \right)\left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)+\left(\begin{array}{ccc}
-  \frac{1}{4}  \\
-  \frac{1}{2}
-  \end{array}\right),\\
-  \Phi_2 \left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)&= \left(\begin{array}{ccc}
-  \frac{1}{4} & 0  \\
-  0 & \frac{1}{4}
-  \end{array} \right)\left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)+\left(\begin{array}{ccc}
-  \frac{1}{2}  \\
-  \frac{1}{2}
-  \end{array}\right),  &&\Phi_3 \left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)= \left(\begin{array}{ccc}
-  \frac{1}{4} & 0  \\
-  -\frac{1}{2} & \frac{1}{4}
-  \end{array} \right)\left(\begin{array}{ccc}
-  x  \\
-  y
-  \end{array} \right)+\left(\begin{array}{ccc}
-  \frac{3}{4}  \\
-  \frac{1}{2}
-  \end{array}\right).
-  \end{aligned}
-  \]
-  证明，$\Phi_i$ 恰好把 $\Gamma$ 变成 $T$ 在区间 $[\dfrac{i}{4},\dfrac{i+1}{4}]$ 上的图像，
-  其中 $i=0,1,2,3$。
+T11) （Takagi函数图像的自相似性）令
+     $\Gamma=\bigl\{(x,T(x))\mid 0\leqslant x\leqslant 1\bigr\}\subset \mathbb{R}^2$ 是 $T$ 在区间
+     $[0,1]$ 上的函数图像。
+     我们定义如下四个仿射变换 $\Phi_i\colon \mathbb{R}^2\rightarrow \mathbb{R}^2$：
+     \[
+     \begin{aligned}
+     \Phi_0 \left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)&= \left(\begin{array}{ccc}
+     \frac{1}{4} & 0  \\
+     \frac{1}{2} & \frac{1}{4}
+     \end{array} \right)\left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right), &&\Phi_1 \left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)= \left(\begin{array}{ccc}
+     \frac{1}{4} & 0  \\
+     0 & \frac{1}{4}
+     \end{array} \right)\left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)+\left(\begin{array}{ccc}
+     \frac{1}{4}  \\
+     \frac{1}{2}
+     \end{array}\right),\\
+     \Phi_2 \left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)&= \left(\begin{array}{ccc}
+     \frac{1}{4} & 0  \\
+     0 & \frac{1}{4}
+     \end{array} \right)\left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)+\left(\begin{array}{ccc}
+     \frac{1}{2}  \\
+     \frac{1}{2}
+     \end{array}\right),  &&\Phi_3 \left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)= \left(\begin{array}{ccc}
+     \frac{1}{4} & 0  \\
+     -\frac{1}{2} & \frac{1}{4}
+     \end{array} \right)\left(\begin{array}{ccc}
+     x  \\
+     y
+     \end{array} \right)+\left(\begin{array}{ccc}
+     \frac{3}{4}  \\
+     \frac{1}{2}
+     \end{array}\right).
+     \end{aligned}
+     \]
+     证明，$\Phi_i$ 恰好把 $\Gamma$ 变成 $T$ 在区间 $[\dfrac{i}{4},\dfrac{i+1}{4}]$ 上的图像，
+     其中 $i=0,1,2,3$。
 
 T12) 令 $S_0=\{(x,y)\in \mathbb{R}^2 \mid 0\leqslant x\leqslant 1, 0\leqslant y \leqslant 1\}$ 是
      $\mathbb{R}^2$ 上的闭方块。
@@ -356,12 +356,12 @@ T13) 证明，$\displaystyle\sup_{x\in \mathbb{R}}T(x) \leqslant \dfrac{2}{3}$�
 
 T14) 找一个 $c\in [0,1]$，使得 $T(c)=\dfrac{2}{3}$。
 
-- T15)（$T^{-1}(\dfrac{2}{3})$ 的Cantor集的结构）对于 $x\in [0,1]$，
-  假设 $x=\displaystyle\sum_{n=1}^\infty \frac{b_n}{4^n}$ 是 $x$ 的 $4$-进制展开，
-  其中 $b_n=0,1,2,3$。证明，
-  \[
-  \Bigl\{x\in [0,1]\bigm| T(x)=\dfrac{2}{3}\Bigr\}=\Bigl\{x\in [0,1]\bigm| x=\sum_{n=1}^\infty \frac{b_n}{4^n}, b_n\in \{1,2\}\Bigr\}.
-  \]
+T15) （$T^{-1}(\dfrac{2}{3})$ 的Cantor集的结构）对于 $x\in [0,1]$，
+     假设 $x=\displaystyle\sum_{n=1}^\infty \frac{b_n}{4^n}$ 是 $x$ 的 $4$-进制展开，
+     其中 $b_n=0,1,2,3$。证明，
+     \[
+     \Bigl\{x\in [0,1]\bigm| T(x)=\dfrac{2}{3}\Bigr\}=\Bigl\{x\in [0,1]\bigm| x=\sum_{n=1}^\infty \frac{b_n}{4^n}, b_n\in \{1,2\}\Bigr\}.
+     \]
 
 T16) 仿照T11)，
      研究 $\Phi_1$ 和 $\Phi_2$ 在集合 $\bigl\{(x,T(x))\bigm| x\in [0,1],T(x)=\dfrac{2}{3}\bigr\}$
