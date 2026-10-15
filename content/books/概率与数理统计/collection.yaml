@@ -1,0 +1,100 @@
+contents:
+  - page: 概率论的基本概念
+    children:
+      - page: 随机试验
+      - page: 集合论回顾
+      - page: 样本空间、事件与概率
+      - page: 概率的基本性质
+      - page: 古典概型
+      - page: 条件概率的初步介绍
+      - page: 事件的独立性
+      - page: 概率的连续性
+      - page: 习题
+  - page: 离散型随机变量
+    children:
+      - page: 随机变量的定义
+      - page: 离散型随机变量
+      - page: 离散型随机向量
+      - page: 随机变量的独立性
+      - page: 期望与方差
+      - page: 伯努利过程
+      - page: 习题
+  - page: 连续型随机变量
+    children:
+      - page: 连续型随机变量
+      - page: 连续型随机向量
+      - page: 连续型随机变量的独立性
+      - page: 连续型随机变量的期望
+      - page: 一般随机变量与分布函数
+      - page: 一般随机变量的期望
+      - page: 习题
+  - page: 随机变量的深入内容
+    children:
+      - page: 随机变量函数的分布
+      - page: 协方差与相关系数
+      - page: 矩与矩母函数
+      - page: 条件分布与条件期望
+      - page: 二维正态分布
+      - page: 习题
+  - page: 大数定律与中心极限定理
+    children:
+      - page: 几乎必然收敛与依概率收敛
+      - page: 大数定律
+      - page: 中心极限定理
+      - page: 一些定理的证明
+      - page: 习题
+  - page: 数理统计的基本概念
+    children:
+      - page: 总体、样本与统计量
+      - page: 重要抽样分布
+      - page: 相关定理的证明
+      - page: 习题
+  - page: 点估计
+    children:
+      - page: 点估计问题
+      - page: 点估计方法的评价
+      - page: 矩估计与最大似然估计
+      - page: 贝叶斯参数估计方法简介
+      - page: 习题
+  - page: 区间估计
+    children:
+      - page: 区间估计与置信区间
+      - page: 单个总体下的区间估计
+      - page: 两个总体下的区间估计
+      - page: 习题
+  - page: 假设检验
+    children:
+      - page: 假设检验的问题设定与流程
+      - page: 假设检验的Neyman-Pearson理论简介
+      - page: 单个总体下的假设检验
+      - page: 两个总体下的假设检验
+      - page: 一些非参数检验问题
+      - page: 习题
+  - page: 一元线性回归
+    children:
+      - page: 一元线性回归模型
+      - page: 未知参数的点估计
+      - page: 回归系数的区间估计与假设检验
+      - page: 因变量的点预测与区间预测
+      - page: 回归显著性检验
+      - page: 残差分析初步
+      - page: 习题
+  - page: 一些数学上的补充说明
+    number: A
+    children:
+      - page: 求和式
+      - page: Gamma函数以及涉及正态分布密度函数的积分
+      - page: 一些线性代数知识
+  - page: 一般情形的条件期望
+    number: B
+    children:
+      - page: 一般情形条件期望的定义
+      - page: 条件期望的性质
+      - page: 条件期望的计算
+  - page: 假设检验的补充证明
+    number: C
+    children:
+      - page: p值法与拒绝域法的等价性
+      - page: 显著性水平与第I类错误概率的关系
+  - page: 参考文献
+    number: false

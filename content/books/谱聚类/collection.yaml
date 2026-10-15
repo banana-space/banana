@@ -1,0 +1,12 @@
+contents:
+  - page: 聚类简介
+  - page: 从图的分割出发
+  - page: 谱聚类算法
+  - page: 随机游走观点
+  - page: 算法的稳定性
+  - page: 算法的相合性
+    children:
+      - page: 泛函分析基础
+      - page: 规范方法的收敛性
+      - page: 规范方法的收敛速度
+      - page: 非规范方法的收敛性
