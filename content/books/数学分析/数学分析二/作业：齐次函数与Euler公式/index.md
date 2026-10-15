@@ -266,7 +266,7 @@ T8) 给定$[\gamma_1],[\gamma_2]\in  T_p \Omega$，
     $f_*\colon T_p  \big(\mathbb{R}^n-\{0\}\big)\rightarrow  T_{f(p)} \big(\mathbb{R}^n-\{0\}\big)$
     保持角度。
 
-::: -remark [寄语]
+::: remark* (寄语)
 Pure mathematics is, in its way, the poetry of logical ideas.
 
 <align right>

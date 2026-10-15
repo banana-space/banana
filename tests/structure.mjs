@@ -374,14 +374,21 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
   assert.throws(() => transformDocument('1) 甲\n(a) 乙\n2. 丙'), /标签列表项目/);
 }
 assert.throws(() => transformDocument('::: theorem* [@self] {@self}\n内容\n:::\n\n@self'), /循环引用/);
-// ::: -remark [寄语]：只显示标题，不编号、不占计数器；引用显示标题。
+// 旧写法 -remark [寄语] 报错并给出新写法 remark* (寄语)。
+assert.throws(() => transformDocument('::: -remark [寄语]\n二\n:::'), /不再使用 - 前缀[\s\S]*remark\* \(寄语\)/);
+// ::: definition (条件)：自定的名称代替类型名称，编号、计数器与颜色仍按类型。
 {
-  const bare = transformDocument('::: remark\n一\n:::\n\n::: -remark [寄语] {@wisdom}\n二\n:::\n\n::: remark\n三\n:::\n\n见 @wisdom。');
-  assert.match(bare, /theorem-start kind="remark" group="remark" name="environment_remark" number="" title="[^"]+" bare="true"/);
-  assert.match(bare, /number="2" title="" id=""/, 'A bare environment takes no number');
-  assert.match(bare, /\(reference:\?id=wisdom&[^)]*caption=5a%2BE6K%2Bt\)/, 'References show the title');
-  assert.throws(() => transformDocument('::: -remark\n二\n:::'), /必须写标题/);
-  assert.throws(() => transformDocument('::: -remark* [寄语]\n二\n:::'), /不能与 \* 同用/);
+  const custom = transformDocument('::: theorem\n一\n:::\n\n::: definition (条件) [同分布] {@cond}\n二\n:::\n\n::: remark* (异议)\n三\n:::\n\n见 @cond。');
+  assert.match(custom, /kind="definition" group="definition" name="environment_custom" number="2" title="[^"]+" custom="5p2h5Lu2" id=/);
+  assert.match(custom, /kind="remark" group="remark" name="environment_custom" number="" title="" custom="5byC6K6u"/, 'A starred custom environment takes no number');
+  assert.match(custom, /\(reference:\?id=cond&name=environment_custom&number=2&custom=5p2h5Lu2\)/);
+  // 不编号的自定名称不占计数器；有标题时引用带标题。
+  const wisdom = transformDocument('::: remark\n一\n:::\n\n::: remark* (寄语) [给读者] {@wisdom}\n二\n:::\n\n::: remark\n三\n:::\n\n见 @wisdom。');
+  assert.match(wisdom, /name="environment_remark" number="2" title=""/, 'An unnumbered custom environment takes no number');
+  assert.match(wisdom, /\(reference:\?id=wisdom&name=environment_custom&number=&custom=5a%2BE6K%2Bt&title=[^)]+\)/);
+  for (const header of ['definition ()', 'definition ($x$)', 'definition (a[b])', 'proof (证)']) {
+    assert.throws(() => transformDocument(`::: ${header}\n二\n:::`), /圆括号中的名称/, header);
+  }
 }
 
 const root = await createProject('structure');
@@ -398,6 +405,9 @@ try {
   const starDirectory = join(root, 'content/wiki/star-test');
   await mkdir(starDirectory, { recursive: true });
   await writeFile(join(starDirectory, 'index.md'), `---\ntitle: 星号和列表引用\n---\n${starFixture}`);
+  const customDirectory = join(root, 'content/wiki/custom-test');
+  await mkdir(customDirectory, { recursive: true });
+  await writeFile(join(customDirectory, 'index.md'), '---\ntitle: 自定义名称\n---\n::: theorem\n甲\n:::\n\n::: definition (条件) [同分布] {@cond}\n乙\n:::\n\n::: remark* (异议) {@objection}\n丙\n:::\n\n见 @cond 与 @objection。\n');
   const labelledDirectory = join(root, 'content/wiki/labelled-test');
   await mkdir(labelledDirectory, { recursive: true });
   await writeFile(join(labelledDirectory, 'index.md'), `---\ntitle: 标签列表\n---\n设\n\n(a) {@la} 甲\n(b) 乙\n\n    第二段\n\n($\\ast$) 星\n\n1. 外\n\n   (i) {@li} 内\n\n由 @la、@li 与 @-la。\n\n(3) (4)\n        嵌套\n`);
@@ -418,6 +428,11 @@ try {
   assert.equal((html.match(/<div(?:\s|>)/g) ?? []).length, (html.match(/<\/div>/g) ?? []).length);
   assert.doesNotMatch(html, /raw HTML omitted|@@(?:math|displaymath|numberedmath):|::: theorem/);
   assert.equal(await readFile(join(directory, 'index.md'), 'utf8'), original);
+  const customHtml = await readFile(join(root, 'public/wiki/custom-test/index.html'), 'utf8');
+  assert.match(customHtml, /theorem-definition environment-definition" id="cond">\s*<p class="theorem-title">条件 2（同分布）<\/p>/);
+  assert.match(customHtml, /theorem-remark environment-remark" id="objection">\s*<p class="theorem-title">异议<\/p>/);
+  assert.match(customHtml, /href="#cond">条件 2<\/a>/);
+  assert.match(customHtml, /href="#objection">异议<\/a>/);
   const starHtml = await readFile(join(root, 'public/wiki/star-test/index.html'), 'utf8');
   assert.match(starHtml, /href="#intro">定理 1<\/a>/);
   assert.match(starHtml, /href="#named">定理（<strong>存在性<\/strong>与 <span class="math-rendered"/);

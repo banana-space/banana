@@ -246,7 +246,7 @@ C2) 计算下列的曲面积分：
     \int_\Sigma f(ax+by+cz)d\sigma=2\pi \int_{-1}^1f((a^2+b^2+c^2)^{\frac{1}{2}}t)dt.
     \]
 
-::: -remark [寄语]
+::: remark* (寄语)
 In my free time I do differential and integral calculus.
 
 <align right>

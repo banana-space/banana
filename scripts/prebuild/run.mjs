@@ -388,7 +388,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     const shown = target => {
       if (target.kind === 'bibliography') return plain(target.entry?.citationLabel);
       if (target.referenceText !== undefined) return plain(target.referenceText);
-      if (target.name) return t(target.name, { Number: target.number ?? '' }) + (target.title ? ` [${plain(target.title)}]` : '');
+      if (target.name) return t(target.name, { Number: target.number ?? '', Name: target.custom ?? '' }) + (target.title ? ` [${plain(target.title)}]` : '');
       return plain(target.label);
     };
     return [...registry]

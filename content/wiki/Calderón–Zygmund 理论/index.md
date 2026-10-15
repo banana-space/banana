@@ -85,7 +85,7 @@ Tf(x) = \int_{\mathbb{R}^d} K(x,y)f(y)\,dy
 在$(\operatorname{supp} f)^C$上几乎处处成立，即$T$在
 $(\operatorname{supp} f)^C$上的Schwartz核表示为$K(x,y)$。
 
-::: -remark [警告]
+::: remark* (警告)
 此处因为Schwartz核定理工作不完善，我们无法直接引用，
 因此可能出现一些定义上的问题。
 :::

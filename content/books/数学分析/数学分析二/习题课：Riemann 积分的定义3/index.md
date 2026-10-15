@@ -113,7 +113,7 @@ R66) 假设 $A\subset \mathbb{R}^n$ 是抽象可铺集，$f\in \mathcal{R}(A)$�
      \]
      其中后者是Lebesgue积分。
 
-::: -remark [寄语]
+::: remark* (寄语)
 One should never try to prove anything that is not almost obvious.
 
 <align right>

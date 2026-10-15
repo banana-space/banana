@@ -10,7 +10,7 @@ notices:
       - "“紧拓扑空间的无限乘积”一节中，超滤的定义似乎应要求 $\\mathfrak{F}'$ 严格包含 $\\mathfrak{F}$。"
 ---
 
-::: -remark [Bourbaki 的讣告里说]
+::: remark* (Bourbaki 的讣告里说)
 \(\ldots\) car « Dieu est le compactifié
 d'Alexandrov[^1] de l'univers » (*Groth*, IV, 22).
 :::

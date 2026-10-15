@@ -8,8 +8,9 @@ const run = promisify(execFile);
  * 每个页面的编辑历史，供页面历史（/history/?path=<页面>）使用：
  * - changes：合并进当前分支的 PR（及直接提交到分支的提交）中修改了它的那些，最新的在前，来自本地 Git 历史
  *   （git log --first-parent：每项是分支上的一次变化，与它的第一个父提交比较），跟随改名；
- * - legacy：从旧站迁移来的页面在旧站的修订，最新的在前（legacy/history.json，以导入提交中的路径为键，
- *   沿改名追溯到导入时的路径后取得）。旧站没有的页面（如帮助页面）为空。
+ * - legacy：从旧站迁移来的页面在旧站的修订，最新的在前（legacy/history.json，以页面导入时的路径为键，
+ *   沿改名追溯到导入时的路径后取得）。旧站没有的页面（如帮助页面）为空。页面须不晚于它的键首次出现在
+ *   legacy/history.json 的那次变化加入：网站的首次导入与之后迁移的讲义都是如此，此后以旧站用过的名字新建的页面不算。
  *
  * repository 为 GitHub 上的 owner/name，用来认出复刻中的分支的作者。返回 Map：仓库中的路径（content/…）
  * → { changes, legacy }，只含当前提交中存在的 content/ 中的 Markdown 文件；不是 Git 仓库时为空。
@@ -53,7 +54,7 @@ export async function pageHistories(root, { repository } = {}) {
   };
 
   // Newest first: each page's name at that point in history (renames are followed back to where the page began).
-  const histories = new Map(present.map(path => [path, { changes: [], legacy: [], origin: undefined }]));
+  const histories = new Map(present.map(path => [path, { changes: [], legacy: [], origin: undefined, added: undefined }]));
   const names = new Map(present.map(path => [path, path]));
   for (const commit of commits) {
     const pull = pullRequest(commit);
@@ -76,19 +77,31 @@ export async function pageHistories(root, { repository } = {}) {
       names.delete(change.path);
       if (change.status === 'renamed') names.set(change.previous, page);
       else if (change.status !== 'added') names.set(change.path, page);
-      else history.origin = change.path;
+      else { history.origin = change.path; history.added = commit.sha; }
     }
   }
 
   let legacy = {};
   try { legacy = JSON.parse(await readFile(`${top}/legacy/history.json`, 'utf8')); }
   catch (error) { if (error.code !== 'ENOENT') throw error; }
+  // Where each key of legacy/history.json first appeared, as a position on the branch (0 the newest). A page carries
+  // the legacy site's history only when it was added no later than its key: the import and books migrated after it
+  // (whose key comes with or after the page), not a page created later under a name the legacy site used.
+  const position = new Map((await git(['log', '--first-parent', '--format=%H', 'HEAD'])).split('\n').filter(Boolean).map((sha, k) => [sha, k]));
+  const appeared = new Map();
+  if (Object.keys(legacy).length) {
+    const changes = (await git(['log', '--first-parent', '--format=%H', 'HEAD', '--', 'legacy/history.json'])).split('\n').filter(Boolean);
+    for (const sha of changes.toReversed()) {
+      let then;
+      try { then = JSON.parse(await git(['show', `${sha}:legacy/history.json`])); } catch { continue; }
+      for (const key of Object.keys(then)) if (!appeared.has(key)) appeared.set(key, position.get(sha));
+    }
+  }
   for (const history of histories.values()) {
-    // Only a page that began in the import carries the legacy site's history; one created later under a name the
-    // legacy site used is a new page.
-    const imported = history.changes.at(-1)?.import;
-    if (imported && legacy[history.origin]) history.legacy = legacy[history.origin].toReversed();
+    const since = appeared.get(history.origin);
+    if (legacy[history.origin] && since !== undefined && position.get(history.added) >= since) history.legacy = legacy[history.origin].toReversed();
     delete history.origin;
+    delete history.added;
   }
   return histories;
 }

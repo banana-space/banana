@@ -165,7 +165,7 @@ $\mathsf{C}$ 关于 $\mathsf{W}$ 的**局部化**（localization）
 事实上，通过这一想法，
 可以给出 $\mathsf{C}[\mathsf{W}^{-1}]$ 的一个具体构造。
 
-::: definition [构造] {@constr-1-locn}
+::: definition (构造) {@constr-1-locn}
 设 $(\mathsf{C},\mathsf{W})$ 是弱等价范畴。
 定义范畴 $\mathsf{C}[\mathsf{W}^{-1}]$ 如下：
 其对象与 $\mathsf{C}$ 的对象相同，

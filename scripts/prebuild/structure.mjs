@@ -297,6 +297,7 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
     }
     // 定理/公式的 id 就是标签；默认名称由 Hugo 按页面语言翻译。
     const query = new URLSearchParams({ id, name: target.name, number: target.number });
+    if (target.custom) query.set('custom', encode(target.custom));
     if (target.page && target.page !== page?.key) query.set('page', target.page);
     if (target.referenceText !== undefined) query.set('caption', encode(markdownText(target.referenceText)));
     if (target.title) {
@@ -480,12 +481,16 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
       if (!open || open.fence !== fence[1]) fail(t('build_environment_fence'), i);
       edits.push({ start: i, end: i + fence[0].length, output: () => '\n{{< _theorem-end >}}\n\n' });
     } else {
-      // -remark [寄语]：只显示标题、不编号的环境（框的样式仍按类型）。
-      const type = header.match(/^(-)?([a-z]+)(\*)?(?:\s|$)/);
-      const kind = type?.[2];
-      const bare = Boolean(type?.[1]);
+      // definition (条件)：以“条件”代替类型名称显示，编号、计数器与颜色仍按类型；remark* (寄语) 不编号。
+      // 旧写法 -remark [寄语] 不再接受，报错时给出新写法。
+      if (/^-[a-z]/.test(header)) fail(t('build_environment_dash', { Header: header }), i);
+      const type = header.match(/^([a-z]+)(\*)?(?:[ \t]+\(([^()\n]*)\))?(?:\s|$)/);
+      const kind = type?.[1];
+      const custom = type?.[3]?.trim();
       if (!Object.hasOwn(environments, kind ?? '')) fail(t('build_environment_unknown', { Header: header }), i);
-      if (bare && (kind === 'proof' || type[3])) fail(t('build_environment_bare_form', { Header: header }), i);
+      if (custom !== undefined && (!custom || kind === 'proof' || /[$\\<>[\]{}]/.test(custom))) {
+        fail(t('build_environment_name', { Header: header }), i);
+      }
       if (kind === 'proof' && stack.length) fail(t('build_proof_position'), i);
       if (stack.some(open => open.kind === 'proof')) fail(t('build_proof_nested_environment'), i);
       const rest = header.slice(type[0].trimEnd().length).trim();
@@ -504,18 +509,17 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
         }
         k = end ?? k + 1;
       }
-      if (bare && !title.trim()) fail(t('build_environment_bare_title', { Header: header }), i);
       const { group, numbered = true } = environments[kind];
-      const name = `environment_${kind}`;
-      const number = numbered && !type[3] && !bare ? (numbers ? numbers.object('theorems') : objectNumber(++theorem)) : '';
+      const name = custom ? 'environment_custom' : `environment_${kind}`;
+      const number = numbered && !type[2] ? (numbers ? numbers.object('theorems') : objectNumber(++theorem)) : '';
       // 有标题的证明只显示标题：::: proof [@thm 的证明] 显示“定理 1 的证明”。
-      const titleOnly = bare || (kind === 'proof' && Boolean(title.trim()));
+      const titleOnly = kind === 'proof' && Boolean(title.trim());
       register(parsed.id, titleOnly ? { name, number, kind: 'environment', referenceText: title }
-        : { name, number, kind: 'environment', ...(!number && kind !== 'proof' && title ? { title } : {}) }, i);
+        : { name, number, kind: 'environment', ...(custom ? { custom } : {}), ...(!number && kind !== 'proof' && title ? { title } : {}) }, i);
       stack.push({ fence: fence[1], start: i, kind });
       edits.push({ start: i, end: i + fence[0].length, output: () => {
         const headingTitle = render(title, i + fence[0].indexOf('[') + 1);
-        return `\n{{< _theorem-start kind="${kind}" group="${group}" name="${name}" number="${number}" title="${encode(headingTitle)}"${titleOnly ? ' bare="true"' : ''} id="${encode(parsed.id)}" >}}\n\n`;
+        return `\n{{< _theorem-start kind="${kind}" group="${group}" name="${name}" number="${number}" title="${encode(headingTitle)}"${custom ? ` custom="${encode(custom)}"` : ''}${titleOnly ? ' bare="true"' : ''} id="${encode(parsed.id)}" >}}\n\n`;
       } });
     }
     return i + fence[0].length;

@@ -91,7 +91,7 @@ $$
 
 为操作方便，我们引入景 $\mathsf{CHaus}$ 的两个基。
 
-::: -remark [回忆]
+::: remark* (回忆)
 一个紧 Hausdorff 空间投射有限（即为有限离散空间之极限），
 当且仅当它全不连通（即连通分支为单点）。
 以 $\mathsf{ProFin}$ 记这样的空间之范畴。
@@ -109,7 +109,7 @@ $\mathsf{CHaus}$ 中极不连通的空间生成的完全子范畴记作 $\mathsf
 得一景。
 :::
 
-::: -remark [警告]
+::: remark* (警告)
 $\mathsf{ExDisc}$ 中无纤维积，甚至无乘积。
 以上定义实际上是在把覆盖筛定义为对某个覆盖
 $\{S_i\to T\}_{i=1}^n$，对每个 $i$ 都包含
@@ -119,7 +119,7 @@ $\operatorname{im}(h_{S_i}\to h_T)$ 的[[筛]]。
 显然，极不连通空间全不连通，且极不连通空间的有限无交并仍然极不连通。
 另外，存在足够多的极不连通空间：
 
-::: -remark [回忆]
+::: remark* (回忆)
 Stone–Čech 紧化指的是含入函子 $\mathsf{CHaus}\hookrightarrow\mathsf{Top}$
 之左伴随，由 Ти́хонов 定理易证其存在性。将其记为 $\beta$。
 :::
@@ -167,7 +167,7 @@ $Y\times_XZ$ 都拟紧。$\mathcal{C}$ 的拟紧、拟分离、拟紧拟分离�
 $\mathsf{qc}(\mathcal{C})$、$\mathsf{qs}(\mathcal{C})$、$\mathsf{qcqs}(\mathcal{C})$。
 :::
 
-::: -remark [警告]
+::: remark* (警告)
 这与拟紧拓扑空间的定义冲突。希望不会造成混淆。
 一般只在意象中使用以上定义，但 $\mathsf{Cond}$ 并不是意象，
 故我放松条件。

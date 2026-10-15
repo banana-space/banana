@@ -303,7 +303,7 @@ $\operatornamewithlimits{colim} \operatorname{Ext}^n(Y,A_i) \to \operatorname{Ex
 
 接下来我们不加证明地引用如下代数拓扑结论。
 
-::: -remark [回忆]
+::: remark* (回忆)
 存在一列有限生成交换群 $M_k$，满足以下条件：
 设 $P$ 是有限生成自由交换群，$n$ 是自然数，
 $K(P,n)$ 是分类空间，
@@ -312,7 +312,7 @@ $K(P,n)$ 是分类空间，
 $H_{n+i}(K(P,n),\mathbb{Z}) = P \otimes_{\mathbb{Z}} M_i$。
 :::
 
-::: -remark [回忆]
+::: remark* (回忆)
 设 $P$ 是交换群，$n$ 是自然数。
 考虑 $n$ 重杠构造的单纯几何实现 $|B^n P| \in s\mathsf{Ab}$。
 则它作为单纯集典范同伦等价于 $K(P,n)$。

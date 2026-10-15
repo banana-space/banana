@@ -237,7 +237,7 @@ F7) （齐次分布的Euler公式）任意给定$u\in \mathcal{D}'(\mathbb{R}^n)
 
 F8) 试找出$\mathcal{D}'(\mathbb{R}^1)$中所有次数为$0$和$1$的齐次分布。
 
-::: -remark [寄语]
+::: remark* (寄语)
 Je suis mathématicien. Les mathématiques ont rempli ma vie.
 
 <align right>

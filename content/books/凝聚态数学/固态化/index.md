@@ -146,7 +146,7 @@ $$
 即得欲证，其中第一个等式是因为 $\mathbb{R}^I$ 是 $\mathbb{R}$ 模，用伴随性。
 :::
 
-::: -remark [警告]
+::: remark* (警告)
 这是在 $\mathsf{CondAb}$ 中取 ${\operatorname{Hom}}$，与经典竞赛题
 $$
 {\operatorname{Hom}}_{\mathsf{Ab}}(\mathbb{Z}^\omega,\mathbb{Z})=\mathbb{Z}^{\oplus\omega}

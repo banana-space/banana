@@ -221,7 +221,7 @@ R48) 证明，如下四个命题是等价的：
 R49) （可铺集的刻画之三）$A$ 表示 $\mathbb{R}^n$ 中的一个非空的有界集。
      证明，$A$ 是抽象可铺的当且仅当 $\partial A$ 是 $\mathcal{R}$-零测集。
 
-::: -remark [寄语]
+::: remark* (寄语)
 In my opinion a mathematician, in so far as he is a mathematician, need not preoccupy himself with philosophy – an opinion, moreover, which has been expressed by many philosophers.
 
 <align right>

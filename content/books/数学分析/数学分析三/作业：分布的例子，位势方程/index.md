@@ -318,7 +318,7 @@ C13) 假定$u\in C^\infty(\mathbb{R}^3;\mathbb{R})$是实值函数。我们定�
      \]
      （提示：先在分布的意义下用$\sqrt{u^2+\varepsilon^2}$来逼近$u$）
 
-::: -remark [寄语]
+::: remark* (寄语)
 The topology in $C^\infty(X)$ is the inductive limit of the topology in $C_0^\infty(K)$
 when the compact set $K$ increases to $X$,
 so it is a LF topology[^1].

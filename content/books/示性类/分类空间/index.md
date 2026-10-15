@@ -300,7 +300,7 @@ $\mathrm{Bund}_{\textsf{C}} (X)$ 是 $\textsf{C}$-丛的同构类的集合。
 
 在说明分类空间的存在性之前，我们先指出关于仿紧空间的两个事实。
 
-::: proposition [事实] {@thm-1-paracompact}
+::: proposition (事实) {@thm-1-paracompact}
 设 $X$ 是仿紧空间，设 $\{ U_\alpha \}_{\alpha \in A}$
 是 $X$ 的一个开覆盖。
 

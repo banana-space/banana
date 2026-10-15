@@ -185,6 +185,9 @@ environment_remark:
   other: 注{{ with .Number }} {{ . }}{{ end }}
 environment_theorem:
   other: 定理{{ with .Number }} {{ . }}{{ end }}
+environment_custom:
+  # ::: definition (条件)：作者自定的名称，编号与颜色仍按类型。
+  other: "{{ .Name }}{{ with .Number }} {{ . }}{{ end }}"
 environment_title:
   other: "{{ .Caption }}（{{ .Title }}）"
 proof_heading:
@@ -304,10 +307,10 @@ build_duplicate_article:
   other: 条目名称重复：{{ .Name }}（{{ .FirstFile }}、{{ .File }}）
 build_environment_config:
   other: 定理环境配置无效：{{ .Kind }}
-build_environment_bare_form:
-  other: "环境 {{ .Header }}：- 前缀表示只显示标题、不编号，不能与 * 同用，也不能用于 proof"
-build_environment_bare_title:
-  other: "环境 {{ .Header }}：- 前缀的环境必须写标题，如 ::: -remark [寄语]"
+build_environment_dash:
+  other: "环境 {{ .Header }}：不再使用 - 前缀；自定的名称写在圆括号中，不编号时加 *，如 ::: remark* (寄语)"
+build_environment_name:
+  other: "环境 {{ .Header }}：圆括号中的名称只能是不含括号、公式与标记的文字，如 ::: definition (条件)，不能用于 proof"
 build_environment_fence:
   other: 定理环境的结束围栏不匹配
 build_environment_parameters:

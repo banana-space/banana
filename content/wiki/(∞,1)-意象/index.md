@@ -88,7 +88,7 @@ $\varphi_* \colon \mathcal{S} \to \mathcal{T}$，
 
 事实上，$(\infty,1)$-意象还可以自然地组织为 [[$(\infty,2)$-范畴]]，从而保留态射之间的自然变换信息。
 
-::: definition [构造]
+::: definition (构造)
 $\mathsf{Cat}_{\infty}$ 根据其上 $\times$ 与函子范畴的伴随关系充实于自身，
 因此升级为 $(\infty,2)$-范畴 $\mathbb{C}\mathsf{at}$，
 即令

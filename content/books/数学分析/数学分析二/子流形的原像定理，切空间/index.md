@@ -6,7 +6,7 @@ notices:
       - '“子流形的切空间”一节定理的证明第 2) 部分中，由 $T_pM\subset\bigcap\ker df_i$ 和 $\dim T_pM=d$ 比较维数时，似乎需要 $\dim \bigcap \ker df_i = d$（由 $df_i$ 线性无关得到），而不是 $\geqslant d$。'
 ---
 
-::: -remark [寄语]
+::: remark* (寄语)
 Equations are just the boring part of mathematics. I attempt to see things in terms of geometry.
 
 <align right>

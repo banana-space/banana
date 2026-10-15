@@ -24,7 +24,7 @@ $X_{\bullet}\colon \operatorname{N}(\mathbb{\Delta}^{\operatorname{op}})\to \mat
 
 此外有其变体：
 
-::: definition [变体：整体化]
+::: definition (变体) [整体化]
 令 $\mathcal{C}$ 为 $(\infty,1)$-范畴，
 $X^{\bullet}\colon \operatorname{N}(\mathbb{\Delta})\to \mathcal{C}$ 为余单纯对象，
 则称 $X\in \mathcal{C}$ 为 $X^{\bullet}$ 的**整体化**是指 $X$ 为 $X^{\bullet}$ 的[[极限]]。
@@ -46,7 +46,7 @@ $X_{\bullet} = \overline{X}_{\bullet}\mid_{\operatorname{N}(\mathbb{\Delta}^{\op
 是指其为 $\mathcal{C}$ 中的余极限图表。
 :::
 
-::: definition [变体]
+::: definition (变体)
 令 $\mathcal{C}$ 为 $(\infty,1)$-范畴且带有对象 $X$，
 且 $\overline{X}^{\bullet}$ 为 $\mathcal{C}$ 上使得 $\overline{X}^{-1} = X$
 且 $X^{\bullet} = \overline{X}^{\bullet}\mid_{\operatorname{N}(\mathbb{\Delta})}$ 的余增广单纯对象。
@@ -116,7 +116,7 @@ $Y_{\bullet} \colon \operatorname{N}(\mathbb{\Delta}^{\operatorname{op}}) \to \m
 [@Kerodon, [04QR](https://kerodon.net/tag/04QR)]
 :::
 
-::: remark [警告]
+::: remark (警告)
 只有在将 $S$ 视为 $\mathfrak{N}(\mathsf{Top})$ 时可以这么看，
 一般情况下不能将几何实现（单纯对象）与几何实现（单纯集）混为一谈，
 比如说将 $S$ 视为 $\operatorname{N}(\mathsf{Set})$ 中的单纯对象时，

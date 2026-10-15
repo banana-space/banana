@@ -18,7 +18,7 @@
   {{- $destination = printf "#%s" (urlquery $id) -}}
   {{- $caption = $query.Get "caption" -}}
   {{- with $query.Get "name" -}}
-    {{- $text = i18n . (dict "Number" ($query.Get "number")) -}}
+    {{- $text = i18n . (dict "Number" ($query.Get "number") "Name" ($query.Get "custom" | base64Decode)) -}}
   {{- end -}}
   {{- with $query.Get "title" -}}
     {{- $text = i18n "environment_title" (dict "Caption" $text "Title" (. | base64Decode | $.Page.RenderString (dict "display" "inline") | replaceRE "(?is)</?a\\b[^>]*>" "")) -}}

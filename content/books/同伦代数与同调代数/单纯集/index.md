@@ -216,7 +216,7 @@ $\operatorname{Sing} \colon \mathsf{Top} \to \mathsf{sSet}$，定义为
 
 事实上，上述情况是以下构造的特例。
 
-::: definition [构造] {@con-3-a}
+::: definition (构造) {@con-3-a}
 设 $\mathsf{C}$ 是余完备范畴。
 如果给定 $\mathsf{C}$ 中的一个余单纯对象 $\Delta^\bullet$，
 我们就能知道“$\Delta[n]$ 在 $\mathsf{C}$ 中应该长什么样子”，

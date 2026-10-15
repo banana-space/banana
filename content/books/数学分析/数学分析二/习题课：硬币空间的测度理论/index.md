@@ -8,7 +8,7 @@ notices:
       - 'B7) 中 $s=(s_1,s_2,\cdots,s_n)\in \{0,1\}^{\mathbb{Z}_{>0}}$ 似乎应为 $s\in \{0,1\}^n$。'
 ---
 
-::: -remark [寄语]
+::: remark* (寄语)
 Happy Hunger Games! And may the odds be ever in your favor.
 :::
 

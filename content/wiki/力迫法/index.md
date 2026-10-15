@@ -45,7 +45,7 @@ navboxes: [集合论]
 
 :::
 
-::: conjecture [期望：力迫法]
+::: conjecture (期望) [力迫法]
 如果存在条件$p$力迫句子$\sigma$，则理论$T\cup\{\sigma\}$与$T$等相容性。
 :::
 

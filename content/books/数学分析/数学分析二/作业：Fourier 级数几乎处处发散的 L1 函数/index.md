@@ -282,7 +282,7 @@ Lennart Carleson在1965年证明了一个著名的定理，这个定理完整地
 Lusin是Kolmogorov在莫斯科读大学时数学分析的老师。
 :::
 
-::: -remark [寄语]
+::: remark* (寄语)
 The purpose of computing is insight, not numbers.
 
 <align right>

@@ -259,7 +259,7 @@ F6) 证明，当 $n=2$ 并且 $\varepsilon=1$ 时，$A_{2,1}=\mathbb{R}$。
 
 F7) 证明，$A_1=\mathbb{R}$。
 
-::: -remark [寄语]
+::: remark* (寄语)
 When I was about thirteen, the library was going to get *Calculus for the Practical Man*. By this time I knew, from reading the encyclopedia, that calculus was an important and interesting subject, and I ought to learn it.
 
 <align right>

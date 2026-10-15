@@ -186,7 +186,7 @@ D7) \* 假设 $u(t,x)$ 是光滑函数并且满足非线性波动方程
     \]
     证明，如果 $u_0$ 和 $u_1$ 有紧支集，那么对任意的时刻 $t$，$u(t,x)$ 对 $x$ 有紧支集。
 
-::: -remark [寄语]
+::: remark* (寄语)
 In order to solve this differential equation you look at it until a solution occurs to you.
 
 <align right>

@@ -109,7 +109,7 @@ $\mathsf{Mod}(\mathcal{A})$ 和 $\mathsf{D}(\mathcal{A})$ 都有对称幺半结�
 记作 $-\otimes_\mathcal{A}-$ 与 $-\otimes_\mathcal{A}^L-$。
 依 @一般自由模，$\mathcal{A}[X]\otimes_\mathcal{A}^L\mathcal{A}[Y]=\mathcal{A}[X\times Y]$。
 
-::: -remark [警告]
+::: remark* (警告)
 一般情况下 $-\otimes_\mathcal{A}^L-$ 未必是 $-\otimes_\mathcal{A}-$ 的导出函子，
 因极不连通空间的乘积不再极不连通。不过对本节讨论的环这都是导出函子。
 这记号并不带来混淆，因为 $-\otimes_\mathcal{A}-$ 的导出函子没有意义。

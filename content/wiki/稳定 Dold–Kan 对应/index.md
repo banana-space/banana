@@ -66,7 +66,7 @@ $\mathsf{Fil}_{\geq 0}(\mathcal{C})$。
 
 反方向的构造需要经过链复形作为中间步骤。
 
-::: definition [构造：从滤链到链复形]
+::: definition (构造) [从滤链到链复形]
 令 $F_{\star}$ 为 $\mathcal{C}$ 中的非负滤链。
 对于 $s \geq 0$，定义 **$s$-分次对象**为
 \[
@@ -113,7 +113,7 @@ X_n \simeq \operatorname{N}_n(X_{\bullet}) \oplus \operatorname{D}_n(X_{\bullet}
 我们引入一个辅助指标范畴，将单纯对象和滤链“桥接”起来，
 然后通过一系列中间等价完成证明。
 
-::: definition [构造：辅助指标范畴]
+::: definition (构造) [辅助指标范畴]
 定义 $1$-范畴 $\mathcal{J}_+ \subset \mathbb{Z}_{\geq 0} \times \mathbb{\Delta}_+^{\mathrm{op}}$
 为由满足 $m \leq n$ 的二元组 $(n,[m])$ 所张成的全子范畴，
 其中 $\mathbb{\Delta}_+$ 为增广单纯范畴（即在 $\mathbb{\Delta}$ 中添加空对象 $[-1]$）。

@@ -1,4 +1,72 @@
 {
+"content/books/代数拓扑基础/CW 复形的同调/index.md": [
+  {"time":"2023-10-14T17:35:37Z","user":"Yao","add":842,"del":0,"comment":"创建页面"},
+  {"time":"2023-10-16T05:06:17Z","user":"Yao","add":36,"del":44,"minor":true},
+  {"time":"2023-11-07T09:04:58Z","user":"Solution","add":9,"del":9,"minor":true},
+  {"time":"2023-12-18T02:43:17Z","user":"Sesame","add":1,"del":1,"minor":true},
+  {"time":"2023-12-18T06:21:51Z","user":"Sesame","add":1,"del":1,"minor":true},
+  {"time":"2023-12-18T06:23:34Z","user":"Sesame","add":1,"del":1,"minor":true},
+  {"time":"2024-12-06T13:40:40Z","user":"Yao","add":10,"del":8,"minor":true}
+],
+"content/books/代数拓扑基础/_index.md": [
+  {"time":"2023-10-14T11:46:22Z","user":"Yao","add":52,"del":0,"comment":"创建页面"},
+  {"time":"2023-10-15T04:25:30Z","user":"Polonaiso","add":4,"del":4,"minor":true},
+  {"time":"2023-10-15T04:25:53Z","user":"Polonaiso","add":3,"del":3,"minor":true},
+  {"time":"2023-10-15T10:04:18Z","user":"Yao","add":11,"del":10,"minor":true},
+  {"time":"2023-10-16T14:15:31Z","user":"Yao","add":10,"del":9,"minor":true},
+  {"time":"2024-01-11T09:15:27Z","user":"Üç","add":2,"del":0}
+],
+"content/books/代数拓扑基础/上同调理论/index.md": [
+  {"time":"2023-10-15T05:03:38Z","user":"Yao","add":1050,"del":0,"comment":"创建页面"},
+  {"time":"2023-10-16T06:15:46Z","user":"Yao","add":114,"del":83,"minor":true},
+  {"time":"2023-11-07T09:24:20Z","user":"Solution","add":10,"del":9,"minor":true},
+  {"time":"2025-05-14T15:00:23Z","user":"Yao","add":4,"del":4,"minor":true}
+],
+"content/books/代数拓扑基础/单纯同调论/index.md": [
+  {"time":"2023-10-14T12:14:54Z","user":"Yao","add":1050,"del":0,"comment":"创建页面"},
+  {"time":"2023-10-15T14:18:49Z","user":"Yao","add":161,"del":156,"minor":true},
+  {"time":"2023-11-07T10:09:32Z","user":"Solution","add":49,"del":46,"minor":true},
+  {"time":"2023-11-07T21:01:30Z","user":"Solution","add":18,"del":12,"minor":true},
+  {"time":"2023-11-08T14:29:48Z","user":"Solution","add":8,"del":8,"minor":true},
+  {"time":"2023-11-24T10:40:36Z","user":"DingZJ","add":1,"del":1},
+  {"time":"2023-11-24T16:52:10Z","user":"Yao","add":2,"del":2,"minor":true},
+  {"time":"2023-12-17T18:50:36Z","user":"Yao","add":5,"del":4,"minor":true}
+],
+"content/books/代数拓扑基础/同调群的同伦不变性/index.md": [
+  {"time":"2023-10-14T14:36:10Z","user":"Yao","add":1357,"del":0,"comment":"创建页面"},
+  {"time":"2023-10-15T15:42:42Z","user":"Yao","add":150,"del":182,"minor":true},
+  {"time":"2023-10-16T08:10:59Z","user":"Yao","add":20,"del":17,"minor":true},
+  {"time":"2023-10-16T11:40:49Z","user":"Sesame","add":1,"del":1,"minor":true},
+  {"time":"2023-10-16T14:02:38Z","user":"Yao","add":6,"del":6,"minor":true},
+  {"time":"2023-11-07T08:32:13Z","user":"Solution","add":12,"del":11,"minor":true},
+  {"time":"2023-12-16T19:03:57Z","user":"Yao","add":15,"del":15,"minor":true},
+  {"time":"2023-12-17T09:50:54Z","user":"Sesame","add":1,"del":1,"minor":true}
+],
+"content/books/代数拓扑基础/奇异同调论/index.md": [
+  {"time":"2023-10-14T16:28:23Z","user":"Yao","add":1333,"del":0,"comment":"创建页面"},
+  {"time":"2023-10-15T16:39:56Z","user":"Yao","add":78,"del":104,"minor":true},
+  {"time":"2023-11-07T08:52:20Z","user":"Solution","add":16,"del":15,"minor":true},
+  {"time":"2023-12-17T10:56:15Z","user":"Sesame","add":1,"del":2,"minor":true},
+  {"time":"2023-12-17T11:44:42Z","user":"Sesame","add":1,"del":1,"minor":true},
+  {"time":"2023-12-17T12:34:48Z","user":"Sesame","add":1,"del":1,"minor":true},
+  {"time":"2023-12-17T18:33:54Z","user":"Yao","add":12,"del":5,"minor":true},
+  {"time":"2024-12-06T13:15:43Z","user":"Yao","add":6,"del":6,"minor":true},
+  {"time":"2025-12-26T05:43:03Z","user":"Isllier","add":1,"del":1}
+],
+"content/books/代数拓扑基础/附录/index.md": [
+  {"time":"2023-10-31T09:35:16Z","user":"Yao","add":63,"del":0,"comment":"创建页面"},
+  {"time":"2023-11-07T07:47:28Z","user":"Yao","add":44,"del":2},
+  {"time":"2023-11-12T17:53:14Z","user":"Yao","add":69,"del":1},
+  {"time":"2023-11-17T11:13:14Z","user":"Yao","add":133,"del":17},
+  {"time":"2023-11-22T20:04:46Z","user":"Yao","add":135,"del":5},
+  {"time":"2024-01-12T11:24:47Z","user":"Yao","add":13,"del":17,"minor":true},
+  {"time":"2024-10-26T08:16:49Z","user":"Yao","add":115,"del":48},
+  {"time":"2024-10-26T09:15:34Z","user":"Yao","add":20,"del":8},
+  {"time":"2024-10-26T16:55:21Z","user":"Yao","add":26,"del":23,"minor":true,"comment":"改正几处笔误，大概就写到这里了。"},
+  {"time":"2024-10-31T12:10:33Z","user":"Yao","add":10,"del":10,"minor":true,"comment":"改笔误如同秋风扫落叶，根本改不完"},
+  {"time":"2024-11-19T17:30:22Z","user":"Yao","add":2,"del":2,"minor":true,"comment":"箭头反了"},
+  {"time":"2026-01-26T13:50:41Z","user":"Yao","add":5,"del":5,"minor":true}
+],
 "content/books/凝聚态数学/_index.md": [
   {"time":"2021-04-30T09:55:46Z","user":"数学迷","add":10,"del":0,"comment":"创建页面"},
   {"time":"2021-04-30T10:10:26Z","user":"数学迷","add":1,"del":1},
@@ -2254,6 +2322,502 @@
   {"time":"2024-04-15T02:52:10Z","user":"Yao","add":1,"del":1,"minor":true,"comment":"撤销542957590 的版本24930"},
   {"time":"2025-08-05T05:47:33Z","user":"我是哆啦","add":1,"del":1,"comment":"修改了一处错误"},
   {"time":"2025-08-05T08:48:55Z","user":"我是哆啦","add":2,"del":2,"comment":"修改了一处小错误, 一处本质错误"}
+],
+"content/books/有限群的经典表示理论/_index.md": [
+  {"time":"2023-12-10T17:59:18Z","user":"Yao","add":5,"del":0,"comment":"创建页面"},
+  {"time":"2024-02-01T12:32:27Z","user":"Yao","add":2,"del":0,"minor":true}
+],
+"content/books/有限群的经典表示理论/前言/index.md": [
+  {"time":"2023-12-10T18:00:32Z","user":"Yao","add":744,"del":0,"comment":"创建页面"},
+  {"time":"2023-12-10T18:09:38Z","user":"Yao","add":35,"del":741,"comment":"修改页面内容为 “\\begin{center} \\textsize{30pt}{有限群的经典表示论初步} 戚天成\\\\ 复旦大学 数学科学学院\\\\ 2023年12月9日 \\end{center} \\qq…”"},
+  {"time":"2026-07-31T08:00:07Z","user":"Yao","add":9,"del":8,"minor":true}
+],
+"content/books/有限群的经典表示理论/基本概念/index.md": [
+  {"time":"2023-12-10T18:19:11Z","user":"Yao","add":739,"del":0,"comment":"创建页面"},
+  {"time":"2023-12-10T18:37:03Z","user":"Yao","add":18,"del":4,"minor":true},
+  {"time":"2023-12-11T04:14:07Z","user":"Yao","add":14,"del":14,"minor":true},
+  {"time":"2023-12-15T04:53:11Z","user":"Tison","add":2,"del":0},
+  {"time":"2023-12-15T04:54:11Z","user":"Tison","add":1,"del":1},
+  {"time":"2023-12-15T09:39:21Z","user":"Yao","add":13,"del":8,"minor":true},
+  {"time":"2023-12-24T09:18:04Z","user":"Tison","add":10,"del":1},
+  {"time":"2023-12-24T09:19:11Z","user":"Tison","add":6,"del":6},
+  {"time":"2023-12-24T09:21:31Z","user":"Tison","add":2,"del":2},
+  {"time":"2023-12-24T09:23:24Z","user":"Tison","add":1,"del":1},
+  {"time":"2023-12-24T09:38:38Z","user":"Tison","add":6,"del":0},
+  {"time":"2024-01-31T13:35:56Z","user":"Yao","add":14,"del":10,"minor":true},
+  {"time":"2026-07-30T14:31:00Z","user":"Yao","add":8,"del":8,"minor":true},
+  {"time":"2026-07-30T14:40:32Z","user":"Yao","add":10,"del":10,"minor":true}
+],
+"content/books/有限群的经典表示理论/特征标理论/index.md": [
+  {"time":"2023-12-10T18:22:56Z","user":"Yao","add":1367,"del":0,"comment":"创建页面"},
+  {"time":"2023-12-10T18:33:26Z","user":"Yao","add":6,"del":5,"minor":true},
+  {"time":"2023-12-10T18:42:45Z","user":"Yao","add":13,"del":14,"minor":true},
+  {"time":"2023-12-10T18:50:23Z","user":"Yao","add":5,"del":5,"minor":true},
+  {"time":"2023-12-11T04:22:40Z","user":"Yao","add":11,"del":10,"minor":true},
+  {"time":"2023-12-11T04:30:04Z","user":"Yao","add":4,"del":3,"minor":true},
+  {"time":"2023-12-22T09:58:45Z","user":"Tison","add":3,"del":1},
+  {"time":"2023-12-22T09:59:40Z","user":"Tison","add":1,"del":1},
+  {"time":"2023-12-24T09:03:21Z","user":"Tison","add":3,"del":0},
+  {"time":"2023-12-30T04:04:09Z","user":"Tison","add":1,"del":1},
+  {"time":"2023-12-30T10:15:32Z","user":"Yao","add":28,"del":27,"minor":true},
+  {"time":"2023-12-30T10:24:19Z","user":"Yao","add":5,"del":5,"minor":true},
+  {"time":"2024-01-15T11:23:29Z","user":"Tison","add":7,"del":0},
+  {"time":"2026-07-30T14:06:00Z","user":"Yao","add":53,"del":53,"minor":true},
+  {"time":"2026-07-30T14:22:47Z","user":"Yao","add":4,"del":4,"minor":true}
+],
+"content/books/概率与数理统计/_index.md": [
+  {"time":"2025-01-22T09:13:33Z","user":"Tyj518","add":5,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T09:19:06Z","user":"Tyj518","add":4,"del":1},
+  {"time":"2025-01-22T09:20:17Z","user":"Tyj518","add":2,"del":0},
+  {"time":"2025-01-22T09:24:05Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-22T09:44:53Z","user":"Tyj518","add":3,"del":3},
+  {"time":"2025-01-22T09:46:44Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义：概率与数理统计（PKU COE 2 班）”至“讲义:概率与数理统计(PKU COE 2 班)”"},
+  {"time":"2025-01-22T09:50:58Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义:概率与数理统计(PKU COE 2 班)”至“讲义:概率与数理统计(PKU-COE)”"},
+  {"time":"2025-01-22T10:25:27Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T11:54:48Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:01:43Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:15:00Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:41:58Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:51:09Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:52:41Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-22T12:57:00Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T13:11:52Z","user":"Tyj518","add":5,"del":2},
+  {"time":"2025-01-22T13:18:37Z","user":"Tyj518","add":20,"del":4},
+  {"time":"2025-01-22T13:29:08Z","user":"Tyj518","add":3,"del":3},
+  {"time":"2025-01-22T13:36:17Z","user":"Tyj518","add":2,"del":0},
+  {"time":"2025-01-22T13:36:53Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-22T13:57:45Z","user":"Tyj518","add":2,"del":0},
+  {"time":"2025-01-22T14:44:19Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-23T02:49:53Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-24T05:06:48Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-24T06:28:17Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-24T07:46:37Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-24T08:47:43Z","user":"Tyj518","add":17,"del":16},
+  {"time":"2025-01-24T09:46:56Z","user":"Tyj518","add":53,"del":9},
+  {"time":"2025-01-24T15:01:21Z","user":"Tyj518","add":3,"del":3},
+  {"time":"2025-01-25T07:31:53Z","user":"Tyj518","add":10,"del":10,"minor":true},
+  {"time":"2025-01-25T09:30:16Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-25T15:02:57Z","user":"Tyj518","add":2,"del":0,"minor":true},
+  {"time":"2025-01-26T09:41:54Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-27T12:23:32Z","user":"Tyj518","add":10,"del":10,"minor":true},
+  {"time":"2025-02-10T15:27:51Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一些数学上的补充说明/Gamma函数以及涉及正态分布密度函数的积分/index.md": [
+  {"time":"2025-01-24T09:30:40Z","user":"Tyj518","add":111,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一些数学上的补充说明/_index.md": [
+  {"time":"2025-01-24T05:35:06Z","user":"Tyj518","add":5,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一些数学上的补充说明/一些线性代数知识/index.md": [
+  {"time":"2025-01-24T09:55:17Z","user":"Tyj518","add":187,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一些数学上的补充说明/求和式/index.md": [
+  {"time":"2025-01-24T05:32:36Z","user":"Tyj518","add":442,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:14:30Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一元线性回归/_index.md": [
+  {"time":"2025-01-27T09:00:27Z","user":"Tyj518","add":9,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:27:27Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一元线性回归/一元线性回归模型/index.md": [
+  {"time":"2025-01-27T09:06:34Z","user":"Tyj518","add":82,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一元线性回归/习题/index.md": [
+  {"time":"2025-01-27T10:28:24Z","user":"Tyj518","add":71,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T13:56:47Z","user":"Tyj518","add":26,"del":0},
+  {"time":"2025-01-27T13:57:04Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一元线性回归/回归显著性检验/index.md": [
+  {"time":"2025-01-27T10:03:30Z","user":"Tyj518","add":169,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一元线性回归/回归系数的区间估计与假设检验/index.md": [
+  {"time":"2025-01-27T09:42:33Z","user":"Tyj518","add":454,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一元线性回归/因变量的点预测与区间预测/index.md": [
+  {"time":"2025-01-27T09:47:23Z","user":"Tyj518","add":97,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一元线性回归/未知参数的点估计/index.md": [
+  {"time":"2025-01-27T09:34:34Z","user":"Tyj518","add":548,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T09:42:58Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-27T09:43:27Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一元线性回归/残差分析初步/index.md": [
+  {"time":"2025-01-27T10:20:50Z","user":"Tyj518","add":137,"del":0,"comment":"创建页面"},
+  {"time":"2025-02-02T11:29:06Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一般情形的条件期望/_index.md": [
+  {"time":"2025-01-24T14:59:22Z","user":"Tyj518","add":79,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T15:00:08Z","user":"Tyj518","add":2,"del":2},
+  {"time":"2025-01-24T15:02:05Z","user":"Tyj518","add":1,"del":1}
+],
+"content/books/概率与数理统计/一般情形的条件期望/一般情形条件期望的定义/index.md": [
+  {"time":"2025-01-24T15:11:24Z","user":"Tyj518","add":184,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T14:59:58Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/一般情形的条件期望/条件期望的性质/index.md": [
+  {"time":"2025-01-25T14:55:56Z","user":"Tyj518","add":145,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/一般情形的条件期望/条件期望的计算/index.md": [
+  {"time":"2025-01-25T14:59:13Z","user":"Tyj518","add":99,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T15:00:58Z","user":"Tyj518","add":1,"del":1}
+],
+"content/books/概率与数理统计/假设检验/_index.md": [
+  {"time":"2025-01-26T09:41:26Z","user":"Tyj518","add":8,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:27:08Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验/一些非参数检验问题/index.md": [
+  {"time":"2025-01-27T08:05:16Z","user":"Tyj518","add":370,"del":0,"comment":"创建页面"},
+  {"time":"2025-02-10T16:31:10Z","user":"Tyj518","add":4,"del":4,"minor":true},
+  {"time":"2025-02-10T16:31:52Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-02-10T16:35:25Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验/两个总体下的假设检验/index.md": [
+  {"time":"2025-01-27T07:44:28Z","user":"Tyj518","add":380,"del":0,"comment":"创建页面"},
+  {"time":"2025-02-10T16:25:15Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-02-10T16:26:07Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验/习题/index.md": [
+  {"time":"2025-01-27T08:26:01Z","user":"Tyj518","add":130,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T13:27:28Z","user":"Tyj518","add":14,"del":0},
+  {"time":"2025-01-27T13:30:53Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-02-02T12:08:01Z","user":"Tyj518","add":31,"del":14},
+  {"time":"2025-02-02T12:09:00Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验/假设检验的Neyman-Pearson理论简介/index.md": [
+  {"time":"2025-01-26T13:51:40Z","user":"Tyj518","add":387,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-26T14:05:49Z","user":"Tyj518","add":102,"del":25},
+  {"time":"2025-01-27T06:17:11Z","user":"Tyj518","add":2,"del":2,"minor":true}
+],
+"content/books/概率与数理统计/假设检验/假设检验的问题设定与流程/index.md": [
+  {"time":"2025-01-26T13:27:09Z","user":"Tyj518","add":320,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T06:15:08Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-01-27T07:45:48Z","user":"Tyj518","add":3,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验/单个总体下的假设检验/index.md": [
+  {"time":"2025-01-27T07:20:33Z","user":"Tyj518","add":402,"del":0,"comment":"创建页面"},
+  {"time":"2025-02-10T16:21:51Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验的补充证明/_index.md": [
+  {"time":"2025-01-27T08:46:37Z","user":"Tyj518","add":4,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T08:47:09Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/假设检验的补充证明/p值法与拒绝域法的等价性/index.md": [
+  {"time":"2025-01-27T08:53:49Z","user":"Tyj518","add":188,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/假设检验的补充证明/显著性水平与第I类错误概率的关系/index.md": [
+  {"time":"2025-01-27T08:58:07Z","user":"Tyj518","add":176,"del":0,"comment":"创建页面"},
+  {"time":"2025-02-05T04:29:56Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/区间估计/_index.md": [
+  {"time":"2025-01-26T09:36:03Z","user":"Tyj518","add":289,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-26T09:38:20Z","user":"Tyj518","add":3,"del":289,"comment":"修改页面内容为 “\\begin{structure} \\subpage[8.1]{区间估计与置信区间} \\end{structure}”"},
+  {"time":"2025-01-26T09:39:50Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-27T12:26:49Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/区间估计/两个总体下的区间估计/index.md": [
+  {"time":"2025-01-26T12:52:10Z","user":"Tyj518","add":225,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/区间估计/习题/index.md": [
+  {"time":"2025-01-27T08:29:58Z","user":"Tyj518","add":27,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:37:30Z","user":"Tyj518","add":13,"del":0},
+  {"time":"2025-01-27T13:21:42Z","user":"Tyj518","add":27,"del":0},
+  {"time":"2025-01-27T13:22:15Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-02-04T04:13:53Z","user":"Tyj518","add":12,"del":0},
+  {"time":"2025-02-04T04:15:14Z","user":"Tyj518","add":2,"del":2,"minor":true}
+],
+"content/books/概率与数理统计/区间估计/区间估计与置信区间/index.md": [
+  {"time":"2025-01-26T09:38:30Z","user":"Tyj518","add":289,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/区间估计/单个总体下的区间估计/index.md": [
+  {"time":"2025-01-26T09:53:57Z","user":"Tyj518","add":273,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/参考文献/index.md": [
+  {"time":"2025-01-22T13:36:30Z","user":"Tyj518","add":4,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T13:40:47Z","user":"Tyj518","add":9,"del":0},
+  {"time":"2025-01-22T14:26:12Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-22T14:42:54Z","user":"Tyj518","add":3,"del":3},
+  {"time":"2025-01-24T05:31:57Z","user":"Tyj518","add":4,"del":1},
+  {"time":"2025-01-24T06:00:08Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-24T07:03:48Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-24T07:26:16Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-24T09:55:28Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-24T10:12:53Z","user":"Tyj518","add":9,"del":0},
+  {"time":"2025-01-24T15:11:20Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-24T15:12:52Z","user":"Tyj518","add":3,"del":3},
+  {"time":"2025-01-25T10:51:31Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-25T15:13:08Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-01-25T15:28:16Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-26T07:24:02Z","user":"Tyj518","add":9,"del":0},
+  {"time":"2025-01-26T07:51:57Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-27T06:37:30Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-27T07:42:27Z","user":"Tyj518","add":18,"del":0},
+  {"time":"2025-01-27T08:04:18Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-27T08:25:33Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-27T10:18:52Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-27T12:44:14Z","user":"Tyj518","add":3,"del":3,"minor":true},
+  {"time":"2025-01-27T13:03:35Z","user":"Tyj518","add":3,"del":0}
+],
+"content/books/概率与数理统计/大数定律与中心极限定理/_index.md": [
+  {"time":"2025-01-25T10:21:59Z","user":"Tyj518","add":7,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:25:42Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/大数定律与中心极限定理/一些定理的证明/index.md": [
+  {"time":"2025-01-25T11:04:53Z","user":"Tyj518","add":235,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T11:05:38Z","user":"Tyj518","add":2,"del":1}
+],
+"content/books/概率与数理统计/大数定律与中心极限定理/中心极限定理/index.md": [
+  {"time":"2025-01-25T10:52:07Z","user":"Tyj518","add":204,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/大数定律与中心极限定理/习题/index.md": [
+  {"time":"2025-01-25T11:14:26Z","user":"Tyj518","add":214,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/大数定律与中心极限定理/几乎必然收敛与依概率收敛/index.md": [
+  {"time":"2025-01-25T10:30:21Z","user":"Tyj518","add":77,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/大数定律与中心极限定理/大数定律/index.md": [
+  {"time":"2025-01-25T10:39:13Z","user":"Tyj518","add":195,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/数理统计的基本概念/_index.md": [
+  {"time":"2025-01-25T13:25:28Z","user":"Tyj518","add":15,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:26:01Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/数理统计的基本概念/习题/index.md": [
+  {"time":"2025-01-26T07:02:46Z","user":"Tyj518","add":93,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/数理统计的基本概念/总体、样本与统计量/index.md": [
+  {"time":"2025-01-25T13:43:33Z","user":"Tyj518","add":108,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/数理统计的基本概念/相关定理的证明/index.md": [
+  {"time":"2025-01-26T06:57:49Z","user":"Tyj518","add":203,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/数理统计的基本概念/重要抽样分布/index.md": [
+  {"time":"2025-01-25T14:21:04Z","user":"Tyj518","add":415,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T14:47:00Z","user":"Tyj518","add":14,"del":5},
+  {"time":"2025-01-25T14:48:00Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-25T14:48:37Z","user":"Tyj518","add":2,"del":0},
+  {"time":"2025-01-25T14:49:08Z","user":"Tyj518","add":1,"del":1}
+],
+"content/books/概率与数理统计/概率论的基本概念/_index.md": [
+  {"time":"2025-01-22T09:26:39Z","user":"Tyj518","add":6,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T09:28:38Z","user":"Tyj518","add":3,"del":3},
+  {"time":"2025-01-22T09:47:27Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义：概率与数理统计（PKU COE 2 班）/概率论的基本概念”至“讲义:概率与数理统计(PKU COE 2 班)/概率论的基本概念”"},
+  {"time":"2025-01-22T09:48:45Z","user":"Tyj518","add":0,"del":2},
+  {"time":"2025-01-22T09:55:19Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义:概率与数理统计(PKU COE 2 班)/概率论的基本概念”至“讲义:概率与数理统计(PKU-COE)/概率论的基本概念”"},
+  {"time":"2025-01-22T10:41:45Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T11:55:06Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:01:58Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:15:20Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:42:48Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:53:12Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-22T12:57:22Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-25T09:28:09Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-27T12:23:57Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/概率论的基本概念/习题/index.md": [
+  {"time":"2025-01-22T12:58:09Z","user":"Tyj518","add":135,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T13:07:23Z","user":"Tyj518","add":94,"del":36},
+  {"time":"2025-01-22T13:33:32Z","user":"Tyj518","add":6,"del":0},
+  {"time":"2025-01-22T13:35:07Z","user":"Tyj518","add":2,"del":2},
+  {"time":"2025-01-22T13:35:55Z","user":"Tyj518","add":0,"del":6},
+  {"time":"2025-01-22T14:29:20Z","user":"Tyj518","add":8,"del":2},
+  {"time":"2025-01-22T14:44:59Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2026-02-10T06:10:48Z","user":"Mathlover","add":1,"del":1}
+],
+"content/books/概率与数理统计/概率论的基本概念/事件的独立性/index.md": [
+  {"time":"2025-01-22T12:49:30Z","user":"Tyj518","add":168,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T14:33:13Z","user":"Tyj518","add":2,"del":0},
+  {"time":"2025-01-22T14:40:53Z","user":"Tyj518","add":1,"del":2},
+  {"time":"2025-01-22T14:42:12Z","user":"Tyj518","add":1,"del":2}
+],
+"content/books/概率与数理统计/概率论的基本概念/古典概型/index.md": [
+  {"time":"2025-01-22T12:10:10Z","user":"Tyj518","add":170,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T13:42:18Z","user":"Tyj518","add":2,"del":2},
+  {"time":"2025-01-22T13:44:49Z","user":"Tyj518","add":1,"del":1}
+],
+"content/books/概率与数理统计/概率论的基本概念/条件概率的初步介绍/index.md": [
+  {"time":"2025-01-22T12:20:02Z","user":"Tyj518","add":184,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T12:41:10Z","user":"Tyj518","add":293,"del":22}
+],
+"content/books/概率与数理统计/概率论的基本概念/样本空间、事件与概率/index.md": [
+  {"time":"2025-01-22T10:38:22Z","user":"Tyj518","add":158,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T11:53:30Z","user":"Tyj518","add":92,"del":0},
+  {"time":"2025-01-22T13:43:39Z","user":"Tyj518","add":3,"del":0},
+  {"time":"2025-01-23T02:41:57Z","user":"Tyj518","add":2,"del":4},
+  {"time":"2025-01-24T09:35:47Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-25T09:16:22Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-02-05T11:35:18Z","user":"Tyj518","add":4,"del":5,"minor":true}
+],
+"content/books/概率与数理统计/概率论的基本概念/概率的基本性质/index.md": [
+  {"time":"2025-01-22T12:00:09Z","user":"Tyj518","add":141,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T12:00:46Z","user":"Tyj518","add":2,"del":2}
+],
+"content/books/概率与数理统计/概率论的基本概念/概率的连续性/index.md": [
+  {"time":"2025-01-22T12:56:09Z","user":"Tyj518","add":120,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/概率论的基本概念/随机试验/index.md": [
+  {"time":"2025-01-22T09:21:57Z","user":"Tyj518","add":49,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T09:27:05Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义：概率与数理统计（PKU COE 2 班）/随机试验”至“讲义：概率与数理统计（PKU COE 2 班）/概率论的基本概念/随机试验”"},
+  {"time":"2025-01-22T09:28:00Z","user":"Tyj518","add":2,"del":0},
+  {"time":"2025-01-22T09:45:31Z","user":"Tyj518","add":0,"del":2},
+  {"time":"2025-01-22T09:48:15Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义：概率与数理统计（PKU COE 2 班）/概率论的基本概念/随机试验”至“讲义:概率与数理统计(PKU COE 2 班)/概率论的基本概念/随机试验”"},
+  {"time":"2025-01-22T09:52:13Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义:概率与数理统计(PKU COE 2 班)/概率论的基本概念/随机试验”至“讲义:概率与数理统计(PKU-COE)/概率论的基本概念/随机试验”"},
+  {"time":"2025-01-22T09:52:55Z","user":"Tyj518","add":0,"del":49,"comment":"清空页面"},
+  {"time":"2025-01-22T10:08:00Z","user":"Tyj518","add":95,"del":0},
+  {"time":"2025-01-22T13:22:59Z","user":"Tyj518","add":2,"del":1},
+  {"time":"2025-01-22T13:26:04Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-22T13:26:47Z","user":"Tyj518","add":1,"del":1}
+],
+"content/books/概率与数理统计/概率论的基本概念/集合论回顾/index.md": [
+  {"time":"2025-01-22T09:50:04Z","user":"Tyj518","add":6,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-22T09:58:40Z","user":"Tyj518","add":0,"del":0,"minor":true,"comment":"Tyj518移动页面“讲义:概率与数理统计(PKU COE 2 班)/概率论的基本概念/集合论回顾”至“讲义:概率与数理统计(PKU-COE)/概率论的基本概念/集合论回顾”"},
+  {"time":"2025-01-22T10:24:27Z","user":"Tyj518","add":208,"del":4},
+  {"time":"2025-01-22T13:23:31Z","user":"Tyj518","add":4,"del":0},
+  {"time":"2025-01-25T09:18:56Z","user":"Tyj518","add":5,"del":8,"minor":true},
+  {"time":"2025-02-05T11:25:02Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-02-05T11:25:59Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-02-05T11:31:13Z","user":"Tyj518","add":5,"del":3}
+],
+"content/books/概率与数理统计/点估计/_index.md": [
+  {"time":"2025-01-26T07:09:43Z","user":"Tyj518","add":58,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-27T12:26:30Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/点估计/习题/index.md": [
+  {"time":"2025-01-26T09:00:33Z","user":"Tyj518","add":181,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/点估计/点估计方法的评价/index.md": [
+  {"time":"2025-01-26T07:31:20Z","user":"Tyj518","add":272,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-26T07:32:20Z","user":"Tyj518","add":3,"del":0,"minor":true},
+  {"time":"2025-01-26T07:34:37Z","user":"Tyj518","add":12,"del":0}
+],
+"content/books/概率与数理统计/点估计/点估计问题/index.md": [
+  {"time":"2025-01-26T07:15:17Z","user":"Tyj518","add":90,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-26T07:15:40Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/点估计/矩估计与最大似然估计/index.md": [
+  {"time":"2025-01-26T07:53:03Z","user":"Tyj518","add":547,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/点估计/贝叶斯参数估计方法简介/index.md": [
+  {"time":"2025-01-26T08:02:11Z","user":"Tyj518","add":196,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/离散型随机变量/_index.md": [
+  {"time":"2025-01-23T02:33:09Z","user":"Tyj518","add":8,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T06:28:33Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-25T09:28:29Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-27T12:24:22Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/离散型随机变量/习题/index.md": [
+  {"time":"2025-01-24T07:28:07Z","user":"Tyj518","add":332,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/离散型随机变量/伯努利过程/index.md": [
+  {"time":"2025-01-24T06:24:05Z","user":"Tyj518","add":256,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T06:24:39Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-24T06:25:55Z","user":"Tyj518","add":2,"del":2},
+  {"time":"2025-01-25T09:27:17Z","user":"Tyj518","add":3,"del":3,"minor":true}
+],
+"content/books/概率与数理统计/离散型随机变量/期望与方差/index.md": [
+  {"time":"2025-01-24T06:06:13Z","user":"Tyj518","add":304,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T09:21:07Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/离散型随机变量/离散型随机变量/index.md": [
+  {"time":"2025-01-24T05:08:43Z","user":"Tyj518","add":420,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/离散型随机变量/离散型随机向量/index.md": [
+  {"time":"2025-01-24T05:45:27Z","user":"Tyj518","add":113,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/离散型随机变量/随机变量的定义/index.md": [
+  {"time":"2025-01-23T02:48:45Z","user":"Tyj518","add":161,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T09:18:01Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/离散型随机变量/随机变量的独立性/index.md": [
+  {"time":"2025-01-24T05:53:33Z","user":"Tyj518","add":202,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T07:47:03Z","user":"Tyj518","add":1,"del":0,"minor":true},
+  {"time":"2025-01-25T10:04:24Z","user":"Tyj518","add":6,"del":1},
+  {"time":"2025-01-25T10:06:45Z","user":"Tyj518","add":4,"del":3},
+  {"time":"2025-01-25T10:07:59Z","user":"Tyj518","add":2,"del":2,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/_index.md": [
+  {"time":"2025-01-24T07:46:04Z","user":"Tyj518","add":8,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T08:48:01Z","user":"Tyj518","add":1,"del":0},
+  {"time":"2025-01-25T09:28:48Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-27T12:24:44Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/一般随机变量与分布函数/index.md": [
+  {"time":"2025-01-24T08:32:57Z","user":"Tyj518","add":415,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T08:33:33Z","user":"Tyj518","add":2,"del":2},
+  {"time":"2025-01-25T09:23:18Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/一般随机变量的期望/index.md": [
+  {"time":"2025-01-24T08:46:43Z","user":"Tyj518","add":309,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T09:23:57Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-25T10:41:19Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/习题/index.md": [
+  {"time":"2025-01-24T09:26:44Z","user":"Tyj518","add":279,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T09:28:11Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-04-16T17:40:22Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/连续型随机变量/index.md": [
+  {"time":"2025-01-24T07:56:50Z","user":"Tyj518","add":216,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T09:22:13Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/连续型随机变量的期望/index.md": [
+  {"time":"2025-01-24T08:11:39Z","user":"Tyj518","add":177,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T09:22:54Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/连续型随机变量的独立性/index.md": [
+  {"time":"2025-01-24T08:02:41Z","user":"Tyj518","add":58,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T07:48:55Z","user":"Tyj518","add":9,"del":0},
+  {"time":"2025-01-25T09:37:43Z","user":"Tyj518","add":4,"del":5,"minor":true}
+],
+"content/books/概率与数理统计/连续型随机变量/连续型随机向量/index.md": [
+  {"time":"2025-01-24T08:00:55Z","user":"Tyj518","add":96,"del":0,"comment":"创建页面"}
+],
+"content/books/概率与数理统计/随机变量的深入内容/_index.md": [
+  {"time":"2025-01-24T09:57:15Z","user":"Tyj518","add":8,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T09:29:06Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-27T12:25:10Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/随机变量的深入内容/习题/index.md": [
+  {"time":"2025-01-24T12:12:44Z","user":"Tyj518","add":459,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T12:13:05Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-24T12:13:49Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-24T14:55:20Z","user":"Tyj518","add":5,"del":1}
+],
+"content/books/概率与数理统计/随机变量的深入内容/二维正态分布/index.md": [
+  {"time":"2025-01-24T11:45:30Z","user":"Tyj518","add":359,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T11:50:46Z","user":"Tyj518","add":92,"del":33},
+  {"time":"2025-01-24T11:53:21Z","user":"Tyj518","add":4,"del":3}
+],
+"content/books/概率与数理统计/随机变量的深入内容/协方差与相关系数/index.md": [
+  {"time":"2025-01-24T10:23:24Z","user":"Tyj518","add":391,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T07:28:34Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/随机变量的深入内容/条件分布与条件期望/index.md": [
+  {"time":"2025-01-24T11:40:19Z","user":"Tyj518","add":653,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T15:26:43Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-24T15:36:36Z","user":"Tyj518","add":32,"del":17},
+  {"time":"2025-01-24T15:38:51Z","user":"Tyj518","add":2,"del":2},
+  {"time":"2025-01-24T15:41:25Z","user":"Tyj518","add":10,"del":10},
+  {"time":"2025-01-24T15:43:58Z","user":"Tyj518","add":4,"del":4},
+  {"time":"2025-01-25T07:33:04Z","user":"Tyj518","add":2,"del":2,"minor":true},
+  {"time":"2025-01-25T08:48:16Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-25T09:13:16Z","user":"Tyj518","add":1,"del":0,"minor":true},
+  {"time":"2025-01-25T09:13:51Z","user":"Tyj518","add":1,"del":1},
+  {"time":"2025-01-25T09:15:38Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-01-25T09:26:06Z","user":"Tyj518","add":2,"del":2,"minor":true}
+],
+"content/books/概率与数理统计/随机变量的深入内容/矩与矩母函数/index.md": [
+  {"time":"2025-01-24T10:38:52Z","user":"Tyj518","add":338,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-24T11:27:38Z","user":"Tyj518","add":11,"del":6},
+  {"time":"2025-01-25T08:39:59Z","user":"Tyj518","add":7,"del":2,"minor":true},
+  {"time":"2025-01-25T08:46:19Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2025-04-16T18:41:07Z","user":"Tyj518","add":1,"del":1,"minor":true}
+],
+"content/books/概率与数理统计/随机变量的深入内容/随机变量函数的分布/index.md": [
+  {"time":"2025-01-24T10:14:56Z","user":"Tyj518","add":536,"del":0,"comment":"创建页面"},
+  {"time":"2025-01-25T07:26:29Z","user":"Tyj518","add":1,"del":1,"minor":true},
+  {"time":"2026-04-17T07:10:21Z","user":"Grace","add":1,"del":1},
+  {"time":"2026-04-17T07:13:42Z","user":"Grace","add":1,"del":1}
 ],
 "content/books/示性类/Dirac 算子/index.md": [
   {"time":"2021-02-20T14:38:10Z","user":"BCJ","add":486,"del":0,"comment":"创建页面"}
@@ -4809,6 +5373,349 @@
   {"time":"2025-07-25T12:20:01Z","user":"Septsea","add":1,"del":1,"minor":true},
   {"time":"2025-08-31T03:02:58Z","user":"Septsea","add":2,"del":2,"minor":true},
   {"time":"2026-08-27T07:49:33Z","user":"Septsea","add":45,"del":49,"minor":true}
+],
+"content/books/谱聚类/_index.md": [
+  {"time":"2021-02-26T02:21:02Z","user":"Zeibniz","add":9,"del":0,"comment":"创建页面"},
+  {"time":"2021-02-26T02:40:32Z","user":"Zeibniz","add":5,"del":1},
+  {"time":"2021-02-26T03:43:39Z","user":"Zeibniz","add":1,"del":0},
+  {"time":"2021-02-26T03:49:39Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类”至“用户:Zeibniz/讲义：谱聚类/preamble”"},
+  {"time":"2021-02-26T03:50:36Z","user":"Zeibniz","add":0,"del":1},
+  {"time":"2021-02-26T03:52:35Z","user":"Zeibniz","add":5,"del":0},
+  {"time":"2021-02-26T03:56:17Z","user":"Zeibniz","add":0,"del":4},
+  {"time":"2021-02-26T04:00:24Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/preamble”至“用户:Zeibniz/讲义：谱聚类”覆盖重定向"},
+  {"time":"2021-02-26T11:29:46Z","user":"Zeibniz","add":4,"del":0},
+  {"time":"2021-02-26T14:24:44Z","user":"Zeibniz","add":2,"del":0},
+  {"time":"2021-12-17T07:23:16Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类”至“讲义:谱聚类”：错置于用户页"},
+  {"time":"2021-12-17T07:28:32Z","user":"Zeibniz","add":1,"del":1}
+],
+"content/books/谱聚类/从图的分割出发/index.md": [
+  {"time":"2021-02-26T03:28:19Z","user":"Zeibniz","add":272,"del":0,"comment":"创建页面"},
+  {"time":"2021-02-26T03:30:20Z","user":"Zeibniz","add":4,"del":6},
+  {"time":"2021-02-26T03:41:31Z","user":"Zeibniz","add":0,"del":4},
+  {"time":"2021-02-26T03:49:40Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/从图的分割出发”至“用户:Zeibniz/讲义：谱聚类/preamble/从图的分割出发”"},
+  {"time":"2021-02-26T03:56:39Z","user":"Zeibniz","add":4,"del":0},
+  {"time":"2021-02-26T03:57:52Z","user":"Zeibniz","add":3,"del":3},
+  {"time":"2021-02-26T04:00:24Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/preamble/从图的分割出发”至“用户:Zeibniz/讲义：谱聚类/从图的分割出发”覆盖重定向"},
+  {"time":"2021-12-17T07:30:12Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/从图的分割出发”至“讲义:谱聚类/从图的分割出发”"},
+  {"time":"2021-12-17T08:00:39Z","user":"Zeibniz","add":4,"del":4},
+  {"time":"2022-10-03T13:23:25Z","user":"FR","add":1,"del":1}
+],
+"content/books/谱聚类/算法的相合性/_index.md": [
+  {"time":"2021-02-26T11:28:58Z","user":"Zeibniz","add":46,"del":0,"comment":"创建页面"},
+  {"time":"2021-12-17T07:31:03Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/算法的相合性”至“讲义:谱聚类/算法的相合性”"},
+  {"time":"2021-12-17T08:05:05Z","user":"Zeibniz","add":1,"del":1}
+],
+"content/books/谱聚类/算法的相合性/泛函分析基础/index.md": [
+  {"time":"2021-02-26T11:52:23Z","user":"Zeibniz","add":274,"del":0,"comment":"创建页面"},
+  {"time":"2021-02-26T13:19:51Z","user":"Zeibniz","add":95,"del":78},
+  {"time":"2021-02-26T13:20:38Z","user":"Zeibniz","add":1,"del":0},
+  {"time":"2021-12-17T07:32:14Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/算法的相合性/泛函分析基础”至“讲义:谱聚类/算法的相合性/泛函分析基础”"},
+  {"time":"2021-12-17T08:05:35Z","user":"Zeibniz","add":1,"del":1},
+  {"time":"2021-12-17T08:06:18Z","user":"Zeibniz","add":1,"del":1}
+],
+"content/books/谱聚类/算法的相合性/规范方法的收敛性/index.md": [
+  {"time":"2021-02-26T13:48:36Z","user":"Zeibniz","add":258,"del":0,"comment":"创建页面"},
+  {"time":"2021-12-17T07:32:45Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/算法的相合性/规范方法的收敛性”至“讲义:谱聚类/算法的相合性/规范方法的收敛性”"}
+],
+"content/books/谱聚类/算法的相合性/规范方法的收敛速度/index.md": [
+  {"time":"2021-02-26T13:56:22Z","user":"Zeibniz","add":77,"del":0,"comment":"创建页面"},
+  {"time":"2021-02-26T13:57:21Z","user":"Zeibniz","add":1,"del":2},
+  {"time":"2021-12-17T07:36:17Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/算法的相合性/规范方法的收敛速度”至“讲义:谱聚类/算法的相合性/规范方法的收敛速度”"},
+  {"time":"2021-12-17T08:08:04Z","user":"Zeibniz","add":1,"del":1}
+],
+"content/books/谱聚类/算法的相合性/非规范方法的收敛性/index.md": [
+  {"time":"2021-02-26T14:15:46Z","user":"Zeibniz","add":113,"del":0,"comment":"创建页面"},
+  {"time":"2021-12-17T07:35:46Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/算法的相合性/非规范方法的收敛性”至“讲义:谱聚类/算法的相合性/非规范方法的收敛性”"}
+],
+"content/books/谱聚类/算法的稳定性/index.md": [
+  {"time":"2021-02-26T11:20:39Z","user":"Zeibniz","add":82,"del":0,"comment":"创建页面"},
+  {"time":"2021-03-26T02:16:37Z","user":"Zeibniz","add":1,"del":1},
+  {"time":"2021-12-17T07:33:37Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/算法的稳定性”至“讲义:讲义：谱聚类/算法的稳定性”"},
+  {"time":"2021-12-17T07:33:51Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“讲义:讲义：谱聚类/算法的稳定性”至“讲义:谱聚类/算法的稳定性”"},
+  {"time":"2021-12-17T08:04:26Z","user":"Zeibniz","add":2,"del":2}
+],
+"content/books/谱聚类/聚类简介/index.md": [
+  {"time":"2021-02-26T02:39:10Z","user":"Zeibniz","add":67,"del":0,"comment":"创建页面"},
+  {"time":"2021-02-26T03:49:40Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/聚类简介”至“用户:Zeibniz/讲义：谱聚类/preamble/聚类简介”"},
+  {"time":"2021-02-26T04:00:25Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/preamble/聚类简介”至“用户:Zeibniz/讲义：谱聚类/聚类简介”覆盖重定向"},
+  {"time":"2021-12-17T07:26:54Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/聚类简介”至“讲义:谱聚类/聚类简介”"}
+],
+"content/books/谱聚类/谱聚类算法/index.md": [
+  {"time":"2021-02-26T04:12:24Z","user":"Zeibniz","add":83,"del":0,"comment":"创建页面"},
+  {"time":"2021-12-17T07:35:16Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/谱聚类算法”至“讲义:谱聚类/谱聚类算法”"},
+  {"time":"2021-12-17T08:02:27Z","user":"Zeibniz","add":3,"del":3}
+],
+"content/books/谱聚类/随机游走观点/index.md": [
+  {"time":"2021-02-26T04:17:09Z","user":"Zeibniz","add":122,"del":0,"comment":"创建页面"},
+  {"time":"2021-02-26T11:13:25Z","user":"Zeibniz","add":16,"del":15},
+  {"time":"2021-12-17T07:33:14Z","user":"Zeibniz","add":0,"del":0,"minor":true,"comment":"Zeibniz移动页面“用户:Zeibniz/讲义：谱聚类/随机游走观点”至“讲义:谱聚类/随机游走观点”"},
+  {"time":"2021-12-17T08:03:36Z","user":"Zeibniz","add":2,"del":2}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/ZF公理/index.md": [
+  {"time":"2024-06-29T04:27:32Z","user":"OperatorP","add":49,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/_index.md": [
+  {"time":"2024-06-29T04:27:14Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/作为数学基础的ZF/index.md": [
+  {"time":"2024-06-29T04:28:00Z","user":"OperatorP","add":665,"del":0,"comment":"创建页面"},
+  {"time":"2024-12-07T05:15:47Z","user":"Yao","add":1,"del":1,"minor":true}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/初等基数算术/index.md": [
+  {"time":"2024-06-29T04:31:40Z","user":"OperatorP","add":191,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/势与基数/index.md": [
+  {"time":"2024-06-29T04:30:13Z","user":"OperatorP","add":103,"del":0,"comment":"创建页面"},
+  {"time":"2024-12-07T05:00:45Z","user":"Yao","add":3,"del":3,"minor":true}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/大可数序数/index.md": [
+  {"time":"2024-06-29T04:30:34Z","user":"OperatorP","add":149,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/序数与序数算术/index.md": [
+  {"time":"2024-06-29T04:29:33Z","user":"OperatorP","add":368,"del":0,"comment":"创建页面"},
+  {"time":"2024-07-02T05:59:37Z","user":"Saury","add":1,"del":1}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/归纳与递归/index.md": [
+  {"time":"2024-06-29T04:28:47Z","user":"OperatorP","add":124,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/ZF集合论与ZFC集合论/选择公理/index.md": [
+  {"time":"2024-06-29T04:31:16Z","user":"OperatorP","add":70,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/_index.md": [
+  {"time":"2024-06-29T04:15:20Z","user":"OperatorP","add":52,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/_index.md": [
+  {"time":"2024-06-29T04:32:45Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/可度量化定理/index.md": [
+  {"time":"2024-06-29T04:34:43Z","user":"OperatorP","add":248,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/子空间、积空间与连续像的性质/index.md": [
+  {"time":"2024-06-29T04:34:10Z","user":"OperatorP","add":114,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/广义收敛：网/index.md": [
+  {"time":"2024-06-29T04:35:01Z","user":"OperatorP","add":110,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/拓扑空间性质的蕴含关系/index.md": [
+  {"time":"2024-06-29T04:33:51Z","user":"OperatorP","add":201,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/拓扑空间的常见性质/index.md": [
+  {"time":"2024-06-29T04:33:33Z","user":"OperatorP","add":104,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/拓扑空间的构造/index.md": [
+  {"time":"2024-06-29T04:33:12Z","user":"OperatorP","add":205,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一般拓扑学准备/紧致化/index.md": [
+  {"time":"2024-06-29T04:34:26Z","user":"OperatorP","add":120,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/Godel完备性定理/index.md": [
+  {"time":"2024-06-29T04:23:39Z","user":"OperatorP","add":142,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/_index.md": [
+  {"time":"2024-06-29T04:21:05Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/一阶逻辑的语义/index.md": [
+  {"time":"2024-06-29T04:22:50Z","user":"OperatorP","add":227,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/一阶逻辑的语法/index.md": [
+  {"time":"2024-06-29T04:22:16Z","user":"OperatorP","add":300,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/命题逻辑/index.md": [
+  {"time":"2024-06-29T04:21:41Z","user":"OperatorP","add":125,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/型与量词消去/index.md": [
+  {"time":"2024-06-29T04:26:25Z","user":"OperatorP","add":270,"del":0,"comment":"创建页面"},
+  {"time":"2024-12-29T02:45:43Z","user":"OperatorP","add":6,"del":31}
+],
+"content/books/集合论基础/一阶逻辑/泛代数概述/index.md": [
+  {"time":"2024-06-29T04:24:32Z","user":"OperatorP","add":137,"del":0,"comment":"创建页面"},
+  {"time":"2024-12-07T05:19:54Z","user":"Yao","add":1,"del":1,"minor":true}
+],
+"content/books/集合论基础/一阶逻辑/理论与模型/index.md": [
+  {"time":"2024-06-29T04:24:03Z","user":"OperatorP","add":103,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/一阶逻辑/紧致性定理的超积证明及其应用/index.md": [
+  {"time":"2024-06-29T04:25:43Z","user":"OperatorP","add":190,"del":0,"comment":"创建页面"},
+  {"time":"2025-11-30T05:44:42Z","user":"迷亭","add":1,"del":1,"minor":true,"comment":"typo"},
+  {"time":"2025-12-01T05:39:00Z","user":"迷亭","add":1,"del":1,"minor":true,"comment":"修正Łoś的名字"}
+],
+"content/books/集合论基础/初等描述集合论/Baire性质/index.md": [
+  {"time":"2024-06-29T04:40:21Z","user":"OperatorP","add":345,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/Borel集/index.md": [
+  {"time":"2024-06-29T04:38:52Z","user":"OperatorP","add":346,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/_index.md": [
+  {"time":"2024-06-29T04:38:30Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/完美性质/index.md": [
+  {"time":"2024-06-29T04:39:47Z","user":"OperatorP","add":304,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/对偶性质/index.md": [
+  {"time":"2024-06-29T04:41:07Z","user":"OperatorP","add":72,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/标准Borel空间/index.md": [
+  {"time":"2024-06-29T04:39:20Z","user":"OperatorP","add":333,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/测度空间/index.md": [
+  {"time":"2024-06-29T04:40:45Z","user":"OperatorP","add":156,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/游戏与决定性/index.md": [
+  {"time":"2024-06-29T04:41:22Z","user":"OperatorP","add":14,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/初等描述集合论/解析集/index.md": [
+  {"time":"2024-06-29T04:41:38Z","user":"OperatorP","add":60,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/Cantor空间与Baire空间/index.md": [
+  {"time":"2024-06-29T04:37:59Z","user":"OperatorP","add":87,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/Polish空间/index.md": [
+  {"time":"2024-06-29T04:37:06Z","user":"OperatorP","add":106,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/_index.md": [
+  {"time":"2024-06-29T04:35:19Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/度量空间/index.md": [
+  {"time":"2024-06-29T04:35:52Z","user":"OperatorP","add":261,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/无穷连通Hausdorff空间/index.md": [
+  {"time":"2024-06-29T04:35:32Z","user":"OperatorP","add":168,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/树状空间/index.md": [
+  {"time":"2024-06-29T04:37:26Z","user":"OperatorP","add":161,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/线性拓扑空间/index.md": [
+  {"time":"2024-06-29T04:36:17Z","user":"OperatorP","add":108,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/常见的拓扑空间/赋范线性空间/index.md": [
+  {"time":"2024-06-29T04:36:35Z","user":"OperatorP","add":79,"del":0,"comment":"创建页面"},
+  {"time":"2024-06-29T04:36:48Z","user":"OperatorP","add":0,"del":1,"minor":true}
+],
+"content/books/集合论基础/常见的拓扑空间/零维空间/index.md": [
+  {"time":"2024-06-29T04:37:45Z","user":"OperatorP","add":156,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/朴素逻辑/_index.md": [
+  {"time":"2024-06-29T04:17:01Z","user":"OperatorP","add":1,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/朴素逻辑/一阶语言/index.md": [
+  {"time":"2024-06-29T04:18:04Z","user":"OperatorP","add":121,"del":0,"comment":"创建页面"},
+  {"time":"2024-06-29T04:19:49Z","user":"OperatorP","add":1,"del":1,"minor":true}
+],
+"content/books/集合论基础/朴素逻辑/一阶语言中的证明/index.md": [
+  {"time":"2024-06-29T04:19:34Z","user":"OperatorP","add":163,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论基础/朴素逻辑/哲学注记/index.md": [
+  {"time":"2024-06-29T04:20:06Z","user":"OperatorP","add":32,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/KP与可计算性/KP的自增强/index.md": [
+  {"time":"2024-06-28T09:13:38Z","user":"OperatorP","add":117,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/KP与可计算性/_index.md": [
+  {"time":"2024-06-28T09:13:11Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/KP与可计算性/原始递归函数，集合版本/index.md": [
+  {"time":"2024-06-28T09:14:04Z","user":"OperatorP","add":172,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/KP与可计算性/容许性/index.md": [
+  {"time":"2024-06-28T09:14:19Z","user":"OperatorP","add":16,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/L及其推广/L/index.md": [
+  {"time":"2024-06-28T09:12:13Z","user":"OperatorP","add":126,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/L及其推广/L的推广/index.md": [
+  {"time":"2024-06-28T09:12:44Z","user":"OperatorP","add":147,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/L及其推广/_index.md": [
+  {"time":"2024-06-28T09:11:24Z","user":"OperatorP","add":16,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/_index.md": [
+  {"time":"2024-06-28T08:43:56Z","user":"OperatorP","add":39,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/世界与不可达/_index.md": [
+  {"time":"2024-06-28T09:14:44Z","user":"OperatorP","add":1,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/世界与不可达/不可达与提升/index.md": [
+  {"time":"2024-06-28T09:15:13Z","user":"OperatorP","add":98,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/世界与不可达/世界基数及其强化/index.md": [
+  {"time":"2024-06-28T09:14:58Z","user":"OperatorP","add":99,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/世界与不可达/提升基数的进一步性质/index.md": [
+  {"time":"2024-06-28T09:15:28Z","user":"OperatorP","add":16,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基本函数的递归/_index.md": [
+  {"time":"2024-06-28T09:07:22Z","user":"OperatorP","add":2,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基本函数的递归/第一基本递归/index.md": [
+  {"time":"2024-06-28T09:07:46Z","user":"OperatorP","add":177,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基本函数的递归/第二，第三和迭代基本递归/index.md": [
+  {"time":"2024-06-28T09:08:24Z","user":"OperatorP","add":134,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基本函数的递归/进程与节制/index.md": [
+  {"time":"2024-06-28T09:08:53Z","user":"OperatorP","add":159,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基本函数的递归/远见性/index.md": [
+  {"time":"2024-06-28T09:09:23Z","user":"OperatorP","add":132,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基础性与基本性/_index.md": [
+  {"time":"2024-06-28T08:57:56Z","user":"OperatorP","add":30,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基础性与基本性/可替性/index.md": [
+  {"time":"2024-06-28T08:58:22Z","user":"OperatorP","add":233,"del":0,"comment":"创建页面"},
+  {"time":"2024-06-28T09:01:24Z","user":"OperatorP","add":13,"del":14}
+],
+"content/books/集合论进阶 A：公理集合论基础/基础性与基本性/基本性/index.md": [
+  {"time":"2024-06-28T09:02:08Z","user":"OperatorP","add":195,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基础性与基本性/基础性/index.md": [
+  {"time":"2024-06-28T08:57:34Z","user":"OperatorP","add":116,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/基础性与基本性/扩展语言中的基础与基本/index.md": [
+  {"time":"2024-06-28T09:02:39Z","user":"OperatorP","add":144,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/自然数与有限性/ZF中的有限性/index.md": [
+  {"time":"2024-06-28T09:06:51Z","user":"OperatorP","add":236,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/自然数与有限性/_index.md": [
+  {"time":"2024-06-28T09:03:56Z","user":"OperatorP","add":1,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/自然数与有限性/从DB到DS/index.md": [
+  {"time":"2024-06-28T09:06:19Z","user":"OperatorP","add":168,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/自然数与有限性/标准有限性/index.md": [
+  {"time":"2024-06-28T09:05:32Z","user":"OperatorP","add":141,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/自然数与有限性/自然数与归纳法/index.md": [
+  {"time":"2024-06-28T09:04:28Z","user":"OperatorP","add":257,"del":0,"comment":"创建页面"},
+  {"time":"2024-06-28T09:05:02Z","user":"OperatorP","add":8,"del":8}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论公式形式化/_index.md": [
+  {"time":"2024-06-28T09:09:46Z","user":"OperatorP","add":10,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论公式形式化/公式，可证与满足/index.md": [
+  {"time":"2024-06-28T09:10:12Z","user":"OperatorP","add":188,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论公式形式化/分层真与正确基数/index.md": [
+  {"time":"2024-06-28T09:10:46Z","user":"OperatorP","add":131,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论公式形式化/反射原理/index.md": [
+  {"time":"2024-06-28T09:11:08Z","user":"OperatorP","add":83,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论语言及扩展/_index.md": [
+  {"time":"2024-06-28T09:03:23Z","user":"OperatorP","add":1,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论语言及扩展/压扁集论语言/index.md": [
+  {"time":"2024-06-28T08:56:04Z","user":"OperatorP","add":83,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论语言及扩展/回顾集论语言/index.md": [
+  {"time":"2024-06-28T08:54:39Z","user":"OperatorP","add":113,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论语言及扩展/常见定义速查/index.md": [
+  {"time":"2024-06-28T08:56:37Z","user":"OperatorP","add":120,"del":0,"comment":"创建页面"}
+],
+"content/books/集合论进阶 A：公理集合论基础/集论语言及扩展/扩展集论语言/index.md": [
+  {"time":"2024-06-28T08:55:42Z","user":"OperatorP","add":239,"del":0,"comment":"创建页面"}
 ],
 "content/wiki/! 模态/index.md": [
   {"time":"2023-10-03T15:46:15Z","user":"Ice1000","add":49,"del":0,"comment":"创建页面"},
