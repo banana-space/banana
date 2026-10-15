@@ -1,10 +1,5 @@
 ---
 title: '$L^2$ 与 $L^\infty$ 的完备性，卷积与逼近'
-notices:
-  - name: 问题
-    items:
-      - “偶数维球面上的切向量场”一节的证明中，“当 $r$ 足够小的时候”似乎应为 $t$；按 $\Phi_t(S_r)\subset \sqrt{1+t^2}S_r$，$\Phi_t(\Omega)$ 似乎应为 $\frac{1}{2}(1+t^2)< x_1^2+\cdots+x_n^2<2(1+t^2)$。
-      - “函数空间的完备性：继续”一节的注记中，所举的函数列 $f_n$ 在 $L^1([0,1])$ 中似乎也收敛到 $0$（$\|f_n\|_{L^1}=n^{-2}$），与“在 $L^1([0,1])$ 上不收敛”的说法不符。
 ---
 
 ## 多元微积分的应用举例：偶数维球面上的切向量场
@@ -59,23 +54,23 @@ m(\Phi_t(\Omega))=\int_{\Omega}|\operatorname{det}(\mathbf{I}+t \left(\frac{\par
 
 我们现在用反证法证明这个定理：如若不然，
 我们假设 $X(x)$ 是 $\mathbf{S}^{n-1}$ 上的一个处处非零的光滑向量场，其中 $n-1=2k$。
-通过考虑 $\dfrac{X(x)}{|X(x)|}$ 这个向量场，我们不妨假设 $V$ 在每个点处都是单位长度的。令
+通过考虑 $\dfrac{X(x)}{|X(x)|}$ 这个向量场，我们不妨假设 $X$ 在每个点处都是单位长度的。令
 \[
 \Omega=\bigl\{(x_1,\cdots,x_n)\in \mathbb{R}^n\big| \frac{1}{2}< x_1^2+\cdots+x_n^2<2\bigr\}.
 \]
 
 那么，
 \[
-\Omega=\bigcup_{\frac{1}{2}<r<2}S_r=\bigcup_{\frac{1}{2}<r<2}(r\mathbf{S}^{n-1}).
+\Omega=\bigcup_{\frac{1}{\sqrt{2}}<r<\sqrt{2}}S_r=\bigcup_{\frac{1}{\sqrt{2}}<r<\sqrt{2}}(r\mathbf{S}^{n-1}).
 \]
 我们定义 $\Omega$ 上的向量场为
 \[
 V(x)=|x|X\left(\frac{x}{|x|}\right)
 \]
-对任意的 $r$，我们知道 $\Phi_t(S_r)\subset \sqrt{1+t^2}S_r$，所以，当 $r$ 足够小的时候，
+对任意的 $r$，我们知道 $\Phi_t(S_r)\subset \sqrt{1+t^2}S_r$，所以，当 $t$ 足够小的时候，
 $\Phi_t$ 将 $\Omega$ 映射成了
 \[
-\Phi_t(\Omega)=\bigl\{(x_1,\cdots,x_n)\in \mathbb{R}^n\bigm| \frac{1}{2}t \sqrt{1+t^2}< x_1^2+\cdots+x_n^2<2t \sqrt{1+t^2}\bigr\}.
+\Phi_t(\Omega)=\bigl\{(x_1,\cdots,x_n)\in \mathbb{R}^n\bigm| \frac{1}{2}(1+t^2)< x_1^2+\cdots+x_n^2<2(1+t^2)\bigr\}.
 \]
 那么，根据Lebesgue测度在伸缩变换下的性质，我们有
 \[
@@ -179,10 +174,10 @@ f\colon X\rightarrow \mathbb{C}
 给定一个函数列 $\{f_i\}_{i\geqslant 1}$，在我们谈论它收敛到某个函数 $f$ 时，
 一定要事先界定用的哪个范数。不同的范数可能给出不同的结论，比如说，函数列
 \[
-f_n(x)=\begin{cases}\frac{1}{n}, \ \ & 0\leqslant x\leqslant \frac{1}{n},\\
+f_n(x)=\begin{cases}\sqrt{n}, \ \ & 0\leqslant x\leqslant \frac{1}{n},\\
 0, \ \ & \frac{1}{n}<x\leqslant 1\end{cases}
 \]
-它在 $L^2([0,1])$ 上收敛到 $0$，在 $L^1([0,1])$ 上不收敛。
+它在 $L^1([0,1])$ 上收敛到 $0$，在 $L^2([0,1])$ 上不收敛。
 
 另外，如果 $X$ 是有限维赋范线性空间，$X$ 上任意范数定义出的收敛性都是等价的。
 :::

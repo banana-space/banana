@@ -1,11 +1,5 @@
 ---
 title: Fourier 的 $L^2$ 理论
-notices:
-  - name: 问题
-    items:
-      - “前述定理的另一证明”一节第 2) 步的注中，由 $\chi_\varepsilon$ 的定义看，$\lambda$ 与 $\varepsilon$ 的关系似乎应为 $\lambda=\varepsilon^{-2}$；此外 $g_\lambda$ 与 $\mathbf{A}$、$\mathbf{B}$ 的系数（$\sqrt{\lambda/2\pi}$ 与 $\sqrt{\lambda}$）似乎不一致。
-      - “高维的Fourier级数”一节开头的条件 $i\leqslant 1$ 似乎应为 $1\leqslant i\leqslant n$；该节中 $\mathbf{T}^n$ 上的 Fourier 展开 $\sum_{k\in \mathbb{Z}}$ 似乎应对 $k\in\mathbb{Z}^n$ 求和；注记中 $L^1$ 函数的 Fourier 系数的积分区域 $\mathbb{R}^n$ 似乎应为 $[0,2\pi]^n$。
-      - “Fourier分析”一节定理的证明中，“为此，我们考虑函数”一句不完整；其后计算 $\widehat{g}(k)$ 的积分似乎缺少因子 $\frac{1}{2\pi}$。
 ---
 
 ## 前述定理的另一证明
@@ -92,7 +86,7 @@ f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
   \]
 
   **注。** 如果我们用 $\chi(x)=\dfrac{e^{-\frac{x^2}{2}}}{\sqrt{2\pi}}$，那么这个函数的积分是 $1$。
-  此时，我们可以令 $\lambda=\dfrac{1}{\sqrt{\varepsilon}}$，那么，利用 $\chi$ 是偶函数，我们有
+  此时，我们可以令 $\lambda=\dfrac{1}{\varepsilon^2}$，那么，利用 $\chi$ 是偶函数，我们有
   \[
   \begin{aligned}
   \chi_\varepsilon * f&=\sqrt{\frac{\lambda}{2\pi}}\int_{\mathbb{R}} e^{-\frac{\lambda y^2}{2}}f(x-y)dy\\
@@ -125,13 +119,13 @@ f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
 
   我们把积分砍成两块：
   \[
-  g_\lambda(x)= \underbrace{\sqrt{\lambda}\int_{|y|\leqslant \frac{\pi}{4}} e^{-\lambda(1-\cos(y))}f(x+y)dy}_{\mathbf{A}}+\underbrace{\sqrt{\lambda}\int_{\pi\geqslant |y|\geqslant \frac{\pi}{4}} e^{-\lambda(1-\cos(y))}f(x+y)dy}_{\mathbf{B}}.
+  g_\lambda(x)= \underbrace{\sqrt{\frac{\lambda}{2\pi}}\int_{|y|\leqslant \frac{\pi}{4}} e^{-\lambda(1-\cos(y))}f(x+y)dy}_{\mathbf{A}}+\underbrace{\sqrt{\frac{\lambda}{2\pi}}\int_{\pi\geqslant |y|\geqslant \frac{\pi}{4}} e^{-\lambda(1-\cos(y))}f(x+y)dy}_{\mathbf{B}}.
   \]
   我们首先来控制第二项，它与上面注解中的 $\mathbf{I}$ 类似：
   \[
   \begin{aligned}
-  |\mathbf{B}|&\leqslant \sqrt{\lambda}\int_{\pi\geqslant|y|\geqslant \frac{\pi}{4}} e^{-\lambda(1-\frac{\sqrt{2}}{2})}\|f\|_{L^\infty}dy\\
-  &=\frac{3\pi}{2}\sqrt{\lambda} e^{-\lambda(1-\frac{\sqrt{2}}{2})}\|f\|_{L^\infty}\rightarrow 0.
+  |\mathbf{B}|&\leqslant \sqrt{\frac{\lambda}{2\pi}}\int_{\pi\geqslant|y|\geqslant \frac{\pi}{4}} e^{-\lambda(1-\frac{\sqrt{2}}{2})}\|f\|_{L^\infty}dy\\
+  &=\frac{3\pi}{2}\sqrt{\frac{\lambda}{2\pi}} e^{-\lambda(1-\frac{\sqrt{2}}{2})}\|f\|_{L^\infty}\rightarrow 0.
   \end{aligned}
   \]
   很明显，上面的收敛是不依赖于 $x$ 的，所以是一致的。
@@ -141,14 +135,16 @@ f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
   \[
   \begin{aligned}
   \mathbf{A}&= \sqrt{\frac{\lambda}{2\pi}}\int_{|z|\leqslant z_0} e^{-\lambda z^2}\underbrace{f(x+y(z))y'(z)}_{F(z)}dz\\
-  &=\sqrt{\frac{\lambda}{2\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}F(z)dz,
+  &=\frac{1}{\sqrt{2}}\sqrt{\frac{\lambda}{\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}F(z)dz,
   \end{aligned}
   \]
-  其中 $F(z)$ 在 $|z|\geqslant z_0$ 处用 $0$ 来延拓。从而，我们有
+  其中 $F(z)$ 在 $|z|\geqslant z_0$ 处用 $0$ 来延拓。
+  由于 $1-\cos(y)=\dfrac{y^2}{2}+O(y^4)$，我们有 $y'(0)=\sqrt{2}$，从而 $F(0)=\sqrt{2}f(x)$；
+  另外，$\displaystyle\sqrt{\frac{\lambda}{\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}dz=1$。从而，我们有
   \[
   \begin{aligned}
-  \mathbf{A}-F(0)&=\sqrt{\frac{\lambda}{2\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz\\
-  &=\underbrace{\sqrt{\frac{\lambda}{2\pi}}\int_{|z|\leqslant \varepsilon} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz}_{\mathbf{C}}+\underbrace{\sqrt{\frac{\lambda}{2\pi}}\int_{|z|\geqslant \varepsilon} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz}_{\mathbf{II}}.
+  \mathbf{A}-f(x)&=\frac{1}{\sqrt{2}}\sqrt{\frac{\lambda}{\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz\\
+  &=\underbrace{\frac{1}{\sqrt{2}}\sqrt{\frac{\lambda}{\pi}}\int_{|z|\leqslant \varepsilon} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz}_{\mathbf{C}}+\underbrace{\frac{1}{\sqrt{2}}\sqrt{\frac{\lambda}{\pi}}\int_{|z|\geqslant \varepsilon} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz}_{\mathbf{II}}.
   \end{aligned}
   \]
   其中 $\varepsilon$ 是任意选取的。
@@ -158,14 +154,14 @@ f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
   这里要求我们选取足够小的 $\varepsilon$），我们有
   \[
   \begin{aligned}
-  \mathbf{C}&\leqslant \sqrt{\frac{\lambda}{2\pi}}\int_{|z|\leqslant \varepsilon} e^{-\lambda z^2} M |z| dz\\
-  &= \frac{M}{\sqrt{\lambda}} \underbrace{\sqrt{\frac{1}{2\pi}}\int_{|t|\leqslant \varepsilon} e^{-t^2} M |t| dt}_{\text{积分有限}}\rightarrow 0.
+  \mathbf{C}&\leqslant \frac{1}{\sqrt{2}}\sqrt{\frac{\lambda}{\pi}}\int_{|z|\leqslant \varepsilon} e^{-\lambda z^2} M |z| dz\\
+  &\leqslant \frac{M}{\sqrt{2\lambda}} \underbrace{\frac{1}{\sqrt{\pi}}\int_{\mathbb{R}} e^{-t^2} |t| dt}_{\text{积分有限}}\rightarrow 0.
   \end{aligned}
   \]
   所以也一致收敛到 $0$。从而，我们有如下的一致收敛：
   \[
   \begin{aligned}
-  \mathbf{A}\rightarrow F(0)=f(x).
+  \mathbf{A}\rightarrow f(x).
   \end{aligned}
   \]
 
@@ -196,7 +192,7 @@ f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
 
 假设 $f(x_1,x_2,\cdots,x_n)$ 是 $\mathbb{R}^n$ 上的连续函数，
 其中，我们在 $\mathbb{R}^n$ 上选好了坐标系统 $(x_1,\cdots,x_n)$。
-如果对任意的 $(x_1,x_2,\cdots,x_n)$ 和 $i\leqslant 1$，我们都有
+如果对任意的 $(x_1,x_2,\cdots,x_n)$ 和 $1\leqslant i\leqslant n$，我们都有
 \[
 f(x_1,\cdots,x_{i-1},x_i+2\pi,x_{i+1},\cdots,x_{n})=f(x_1,\cdots,x_{i-1},x_i,x_{i+1},\cdots,x_{n}),
 \]
@@ -231,7 +227,7 @@ q^*\colon C(\mathbf{T}^n)\longrightarrow C_{{\rm per},2\pi}(\mathbb{R}^n), \ \ \
 我们约定 $\mathbf{T}^n$ 上的测度为 $\mu=\dfrac{d\theta_1\cdots d\theta_n}{(2\pi)^n}$，
 这可以保证 $\mu(\mathbf{T}^n)=1$。
 
-类似地，$\mathbb{R}^n$ 以 $2\pi\mathbb{Z}$ 为周期的连续可微函数、光滑函数，每个周期上可积的函数、
+类似地，$\mathbb{R}^n$ 以 $2\pi\mathbb{Z}^n$ 为周期的连续可微函数、光滑函数，每个周期上可积的函数、
 在每个周期上平方可积的函数和 $L^\infty$ 的函数分别对应到 $\mathbf{T}^n$ 上的 $C^1(\mathbf{T}^n)$、
 $C^\infty(\mathbf{T}^n)$、$L^1(\mathbf{T}^n)$、$L^2(\mathbf{T}^n)$ 和 $L^\infty(\mathbf{T}^n)$。
 
@@ -241,7 +237,7 @@ $C^\infty(\mathbf{T}^n)$、$L^1(\mathbf{T}^n)$、$L^2(\mathbf{T}^n)$ 和 $L^\inf
 对任意的 $p=1$ 或 $2$，$C^\infty(\mathbf{T}^n)\subset L^p(\mathbf{T}^n)$ 是稠密的子空间。
 :::
 
-和 $1$ 维类似，平方可积的 $2\pi\mathbb{Z}$ 周期函数的Fourier级数理论具有干净的表达：
+和 $1$ 维类似，平方可积的 $2\pi\mathbb{Z}^n$ 周期函数的Fourier级数理论具有干净的表达：
 
 ::: theorem
 在 $L^2\bigl([0,2\pi]^n,\frac{dx_1\cdots dx_n}{(2\pi)^n}\bigr)$ 中，
@@ -259,7 +255,7 @@ k=(k_1,\cdots,k_n), \ \ x=(x_1,\cdots,x_n), \ \ k\cdot x =\displaystyle \sum_{i=
 \]
 那么，在 $L^2\bigl(\mathbf{T}^n\bigr)$ 中，我们有
 \[
-f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
+f(x)= \sum_{k\in \mathbb{Z}^n}\widehat{f}(k) e^{ik\cdot x}.
 \]
 其中，$\widehat{f}(k)\in\mathbb{C}$ 被称作是 $f$ 的**第 $k$ 个Fourier系数**。
 进一步，我们还有Bessel–Parseval等式（勾股定理）：
@@ -299,18 +295,18 @@ F(x_1)=0.
 
 如果我们知道函数 $f\in L^2(\mathbf{T}^n)$，那么，级数
 \[
-\sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}
+\sum_{k\in \mathbb{Z}^n}\widehat{f}(k) e^{ik\cdot x}
 \]
 在 $L^2$ 中收敛到 $f$。根据我们对 $L^2$ 完备性的证明，我们知道存在下列函数列的子序列：
 \[
-\{S_N = \sum_{k\in \mathbb{Z}, |k|\leqslant N}\widehat{f}(k) e^{ik\cdot x}\}_{N\geqslant 1},
+\{S_N = \sum_{k\in \mathbb{Z}^n, |k|\leqslant N}\widehat{f}(k) e^{ik\cdot x}\}_{N\geqslant 1},
 \]
 它几乎处处收敛到 $f$。然而，是否整个序列都几乎处处（不需要选取子序列）收敛到 $f$ 呢？
 这是Carleson证明的重要定理，他本人也因为这项工作获得了Abel奖。
 
 实际上，即使我们假设了 $f\in C(\mathbf{T}^n)\subset L^2(\mathbf{T}^n)$，我们也只能说
 \[
-\sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}
+\sum_{k\in \mathbb{Z}^n}\widehat{f}(k) e^{ik\cdot x}
 \]
 在 $L^2$ 中收敛到 $f$，这个级数不见得逐点收敛。
 这是Fourier级数的分析中重要的话题（我们将要学习），
@@ -318,7 +314,7 @@ F(x_1)=0.
 
 另外，对于 $f \in L^1\bigl(\mathbf{T}^n,\frac{dx}{(2\pi)^n}\bigr)$，它的Fourier系数
 \[
-\widehat{f}(k)=\int_{\mathbb{R}^n} f(x)e^{-ik \cdot x} \frac{dx}{(2\pi)^n},
+\widehat{f}(k)=\int_{[0,2\pi]^n} f(x)e^{-ik \cdot x} \frac{dx}{(2\pi)^n},
 \]
 仍然有定义（可积）。
 但是，在 $L^1\bigl(\mathbf{T}^n,\frac{dx}{(2\pi)^n}\bigr)$ 的意义下，我们却未必有
@@ -392,14 +388,12 @@ g(x)=\displaystyle \lim_{N\rightarrow \infty}S_N(x)=\lim_{N\rightarrow \infty} \
 以下只要证明 $f=g$ 即可。
 
 由于 $f$ 和 $g$ 都是连续函数（所以是 $L^2$ 的），根据 $L^2$ 的理论，
-只要验证它们具有相同的Fourier系数即可。为此，我们考虑函数
-
-我们计算 $g(x)$ 的Fourier系数：
+只要验证它们具有相同的Fourier系数即可。我们计算 $g(x)$ 的Fourier系数：
 \[
 \begin{aligned}
-\widehat{g}(k)&=\int_{0}^{2\pi} \left(\lim_{N\rightarrow \infty} \sum_{-N\leqslant \ell \leqslant N}\widehat{f}(\ell)e^{i\ell x} \right)e^{-ikx}dx\\
-&=\int_{0}^{2\pi} \lim_{N\rightarrow \infty} \sum_{-N\leqslant \ell \leqslant N}\widehat{f}(\ell)e^{-i(k-\ell) x} dx\\
-&=\lim_{N\rightarrow \infty} \int_{0}^{2\pi}  \sum_{-N\leqslant \ell \leqslant N}\widehat{f}(\ell)e^{-i(k-\ell) x} dx\\
+\widehat{g}(k)&=\int_{0}^{2\pi} \left(\lim_{N\rightarrow \infty} \sum_{-N\leqslant \ell \leqslant N}\widehat{f}(\ell)e^{i\ell x} \right)e^{-ikx}\frac{dx}{2\pi}\\
+&=\int_{0}^{2\pi} \lim_{N\rightarrow \infty} \sum_{-N\leqslant \ell \leqslant N}\widehat{f}(\ell)e^{-i(k-\ell) x} \frac{dx}{2\pi}\\
+&=\lim_{N\rightarrow \infty} \int_{0}^{2\pi}  \sum_{-N\leqslant \ell \leqslant N}\widehat{f}(\ell)e^{-i(k-\ell) x} \frac{dx}{2\pi}\\
 &=\lim_{N \rightarrow \infty \atop  N \geqslant |k|} \widehat{f}(k)= \widehat{f}(k).
 \end{aligned}
 \]

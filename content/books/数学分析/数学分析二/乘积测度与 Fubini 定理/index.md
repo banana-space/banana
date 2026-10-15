@@ -1,12 +1,5 @@
 ---
 title: 乘积测度与 Fubini 定理
-notices:
-  - name: 问题
-    items:
-      - 正函数版本 Fubini 定理的证明中，对 $Y$ 积分的 $d\mu(y)$ 似乎应为 $d\nu(y)$。
-      - '“积分的降维计算”中，$\Omega_{x_n}$ 的定义里 $(x_1,\cdots,x_{n})\in\mathbb{R}^{n-1}$ 似乎应为 $(x_1,\cdots,x_{n-1})$，“$\Omega_{x_n}\subset \mathbb{R}^n$ 上的可积函数”似乎应为 $\mathbb{R}^{n-1}$；证明中 $F$ 的定义域似乎应为 $\mathbb{R}^n$ 而不是 $\Omega$。'
-      - 第一个例子的第 2) 项中，积分上限 $3$ 似乎应为 $2$，结果似乎应为 $\frac{1}{2}e^4-e^2+\frac{1}{2}$。
-      - '“Archimedes的墓碑”中，2) 的 $m_3=m_2\otimes m_2$ 似乎应为 $m_2\otimes m_1$；3) 中 $\Omega_z$ 似乎应是 $\mathbb{R}^2$ 中半径为 $\sqrt{1-z^2}$ 的圆盘（而非球面），积分中的 $dxdy$、$dx$ 似乎应为 $dxdydz$、$dz$。'
 ---
 
 ## Fubini 定理
@@ -204,15 +197,15 @@ f =\displaystyle \sum_{i\leqslant n} \lambda_i \mathbf{1}_{{S_i}}
 根据 $f_i(x,y)$ 是 $\mathcal{B}$-可测的，所以 $y\mapsto f(x,y)$ 也是 $\mathcal{B}$-可测的。
 利用Beppo Levi定理，我们得到
 \[
-\int_{Y}f(x,y) d\nu(y) =\lim_{i\rightarrow \infty} \int_Y f_i(x,y) d\mu(y).
+\int_{Y}f(x,y) d\nu(y) =\lim_{i\rightarrow \infty} \int_Y f_i(x,y) d\nu(y).
 \]
-由于 $\displaystyle\int_Y f_i(x,y) d\mu(y)$ 是 $\mathcal{A}$-可测的，
-所以 $\displaystyle x\mapsto \int_Y f(x,y) d\mu(y)$ 是 $\mathcal{A}$-可测的，至此，
+由于 $\displaystyle\int_Y f_i(x,y) d\nu(y)$ 是 $\mathcal{A}$-可测的，
+所以 $\displaystyle x\mapsto \int_Y f(x,y) d\nu(y)$ 是 $\mathcal{A}$-可测的，至此，
 定理的第一部分中关于可测性的论断得到了证明。
 
 为了证明第二部分，我们可以将
 \[
-\int_{Y}f(x,y) d\nu(y) =\lim_{i\rightarrow \infty} \int_Y f_i(x,y) d\mu(y).
+\int_{Y}f(x,y) d\nu(y) =\lim_{i\rightarrow \infty} \int_Y f_i(x,y) d\nu(y).
 \]
 右端视作是为单调上升的（$X$ 上的）正函数列。
 由于要证明的等式对于 $f_i$ 是成立的，由Beppo Levi定理，当 $i\rightarrow \infty$ 时，我们就有
@@ -318,16 +311,16 @@ x\mapsto \int_{Y} f(x,y)d\nu(y)=\int_{Y} f^+(x,y)d\nu(y)-\int_{Y} f^-(x,y)d\nu(y
 如果不加说明，$\mathbb{R}^n$ 上的测度总是Lebesgue测度 $m$，我们还用 $dx_1\cdot dx_n$ 表示 $dm$。
 
 ::: corollary [积分的降维计算]
-给定 $\mathbb{R}^n$ 中的开集（或者闭集）$\Omega\subset \mathbb{R}^n$。
+给定 $\mathbb{R}^n$ 中的开集（或者闭集）$\Omega\subset \mathbb{R}^n$ 以及 $\Omega$ 上的可积函数 $f$。
 对任意的 $x_n \in \mathbb{R}$，我们定义 $x_n$ 对于在 $\Omega$ 的截面：
 \[
-\Omega_{x_n}=\bigl\{(x_1,\cdots,x_{n})\in\mathbb{R}^{n-1}\bigm| (x_1,\cdots,x_{n-1},x_n)\in \Omega\bigr\}.
+\Omega_{x_n}=\bigl\{(x_1,\cdots,x_{n-1})\in\mathbb{R}^{n-1}\bigm| (x_1,\cdots,x_{n-1},x_n)\in \Omega\bigr\}.
 \]
 那么，对每个几乎处处的 $x_n\in \mathbb{R}$，函数
 \[
 \Omega_{x_n} \rightarrow \mathbb{R}, \ \ (x_1,\cdots,x_{n-1})\mapsto f(x_1,\cdots, x_{n-1},x_n)
 \]
-是 $\Omega_{x_n}\subset \mathbb{R}^n$ 上的可积函数。我们还有如下的积分等式：
+是 $\Omega_{x_n}\subset \mathbb{R}^{n-1}$ 上的可积函数。我们还有如下的积分等式：
 \[
 \int_{\Omega}f(x_1,\cdots,x_{n-1},x_n)dx_1\cdots dx_n =\int_{\mathbb{R}} \left(\int_{\Omega_{x_n}} f(x_1,\cdots,x_{n-1},x_n)dx_1\cdots dx_{n-1}\right)dx_n,
 \]
@@ -342,7 +335,7 @@ x\mapsto \int_{Y} f(x,y)d\nu(y)=\int_{Y} f^+(x,y)d\nu(y)-\int_{Y} f^-(x,y)d\nu(y
 ::: proof
 我们定义 $\mathbb{R}^n$ 上的函数 $F$：
 \[
-F\colon\Omega \rightarrow \mathbb{R}, \ \ x \mapsto f(x)\mathbf{1}_{\Omega}(x).
+F\colon\mathbb{R}^n \rightarrow \mathbb{R}, \ \ x \mapsto f(x)\mathbf{1}_{\Omega}(x).
 \]
 由于 $|F(x)|\leqslant |f(x)|$，所以，$F$ 是可积的。
 我们对 $\mathbb{R}^n=\mathbb{R}^{n-1}\times \mathbb{R}^1$ 运用Fubini定理就给出了上述定理。
@@ -376,7 +369,7 @@ F\colon\Omega \rightarrow \mathbb{R}, \ \ x \mapsto f(x)\mathbf{1}_{\Omega}(x).
   \[
   \begin{aligned}
   \int_{[1,2]\times[0,2]} f(x,y)dxdy&=\int_{0}^2 y\left(\int_1^2 e^{xy} dx\right)dy\\
-  &=\int_{0}^3 e^{2y}-e^ydy=\frac{1}{2}e^{6y}+e^y-1.5.
+  &=\int_{0}^2 e^{2y}-e^ydy=\frac{1}{2}e^{4}-e^2+\frac{1}{2}.
   \end{aligned}
   \]
 
@@ -417,7 +410,7 @@ F\colon\Omega \rightarrow \mathbb{R}, \ \ x \mapsto f(x)\mathbf{1}_{\Omega}(x).
   的体积 $m_3\left(C\right)$。
 
   由于 $B(1)\subset \mathbb{R}^2$ 和 $[-1,1]\subset \mathbb{R}$ 都是Borel集，所以，
-  $C=B(1)\times [-1,1]$ 是 $\mathbb{R}^3$ 中的一个“矩形”，由于 $m_3=m_2\otimes m_2$，它的体积自然是
+  $C=B(1)\times [-1,1]$ 是 $\mathbb{R}^3$ 中的一个“矩形”，由于 $m_3=m_2\otimes m_1$，它的体积自然是
   \[
   m_3\left(C\right)=m_2\left(B(1)\right)m_1\left([-1,1]\right)=2\pi.
   \]
@@ -426,14 +419,14 @@ F\colon\Omega \rightarrow \mathbb{R}, \ \ x \mapsto f(x)\mathbf{1}_{\Omega}(x).
 
   对任意的 $|z|\leqslant 1$，我们有
   \[
-  \Omega_z=\bigl\{(x,y) \in \mathbb{R}\bigm| x^2+y^2\leqslant 1-z^2\bigr\}.
+  \Omega_z=\bigl\{(x,y) \in \mathbb{R}^2\bigm| x^2+y^2\leqslant 1-z^2\bigr\}.
   \]
-  这是一个半径为 $\sqrt{1-z^2}$ 的球面，它的面积是 $\pi(1-z^2)$。
+  这是一个半径为 $\sqrt{1-z^2}$ 的圆盘，它的面积是 $\pi(1-z^2)$。
   从而，
   \[
   \begin{aligned}
-  m_3\left(B(1)\right)&=\int_{\Omega}1 dxdy=\int_{-1}^1m_2(\Omega_z)dx\\
-  &=\pi\int_{-1}^1 1-z^2dx=\frac{4}{3}\pi.\end{aligned}
+  m_3\left(B(1)\right)&=\int_{\Omega}1 dxdydz=\int_{-1}^1m_2(\Omega_z)dz\\
+  &=\pi\int_{-1}^1 1-z^2dz=\frac{4}{3}\pi.\end{aligned}
   \]
 
 特别地，我们得到了

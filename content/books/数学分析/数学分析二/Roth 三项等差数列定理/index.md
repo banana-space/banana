@@ -1,11 +1,5 @@
 ---
 title: Roth 三项等差数列定理
-notices:
-  - name: 问题
-    items:
-      - Roth 定理的陈述中，上密度定义里的 $x\leqslant A$ 似乎应为 $x\leqslant n$。
-      - “离散集合 $\{0,1,2,\cdots,N-1\}$ 上的Fourier级数”一节中，标准正交基 $e^{i\frac{2\pi i}{N}kx}$ 似乎多了一个因子 $i$；性质 1) 中求和上限 $n-1$ 似乎应为 $N-1$；性质 3) 的计算中 $\frac{\widehat{k}(\ell)}{N}$ 似乎应为 $\frac{\overline{\widehat{g}(k)}}{N}$。
-      - “$A$ 不是相对随机分布的情形”一节末尾的引理中，$(\delta +\frac{1}{8})|P|$ 似乎应为 $(\delta +\frac{\varepsilon}{8})|P|$。
 ---
 
 ## Roth的三项等差数列定理：Fourier级数的另一个应用
@@ -15,7 +9,7 @@ notices:
 ::: theorem [Roth]
 任给自然数的集合 $A\subset \mathbb{Z}_{\geqslant 0}$，$A$ 在自然数中的**上密度**定义为
 \[
-\overline{\rho}(A)=\limsup_{n\rightarrow \infty}\frac{|\{x\in A\mid x\leqslant A\}|}{n}.
+\overline{\rho}(A)=\limsup_{n\rightarrow \infty}\frac{|\{x\in A\mid x\leqslant n\}|}{n}.
 \]
 如果 $\overline{\rho}(A)>0$，那么 $A$ 中一定包含 $3$ 项的等差数列，
 即存在 $x,y,z\in A$，使得 $y-x=z-y$。
@@ -51,7 +45,7 @@ N>e^{e^{C\delta^{-1}}},
 (f,g)=\frac{1}{N}\sum_{x=0}^{N-1}f(x)\overline{g(x)}.
 \]
 与Fourier级数类似，我们有一组标准正交基：
-$\bigl\{e^{i\frac{2\pi i}{N}kx}\bigm| k=0,1,\cdots,N-1\bigr\}$（请自己验证这一点）。
+$\bigl\{e^{\frac{2\pi i}{N}kx}\bigm| k=0,1,\cdots,N-1\bigr\}$（请自己验证这一点）。
 
 对任意的 $f\in L^2(\mathbf{T}_N)$，我们定义 $f$ 的Fourier变换：
 \[
@@ -72,7 +66,7 @@ f*g(x)=\sum_{y=0}^{N-1}f(x-y)g(y).
 
   实际上，上面的表达式可以写成
   \[
-  f=\sum_{k=0}^{n-1}\left(f,e^{i\frac{2\pi i}{N}kx}\right)e^{i\frac{2\pi i}{N}kx}.
+  f=\sum_{k=0}^{N-1}\left(f,e^{\frac{2\pi i}{N}kx}\right)e^{\frac{2\pi i}{N}kx}.
   \]
   这就是在内积空间中把向量用标准正交基来表示。
 
@@ -95,8 +89,8 @@ f*g(x)=\sum_{y=0}^{N-1}f(x-y)g(y).
   \[
   \begin{aligned}
   (f,g) &=\left(\sum_{k=0}^{N-1} \frac{\widehat{f}(k)}{N} e^{\frac{2\pi i }{N} k x},\sum_{\ell=0}^{N-1}\frac{\widehat{g}(\ell)}{N}e^{\frac{2\pi i }{N} \ell x}\right)\\
-  &=\sum_{k=0}^{N-1} \sum_{\ell=0}^{N-1} \frac{\widehat{f}(k)}{N}\frac{\widehat{g}(\ell)}{N} \underbrace{\left(e^{\frac{2\pi i }{N} k x},e^{\frac{2\pi i }{N} \ell x}\right)}_{\ell=k}\\
-  &=\sum_{k=0}^{N-1}\frac{\widehat{f}(k)}{N}\frac{\widehat{k}(\ell)}{N} \\
+  &=\sum_{k=0}^{N-1} \sum_{\ell=0}^{N-1} \frac{\widehat{f}(k)}{N}\frac{\overline{\widehat{g}(\ell)}}{N} \underbrace{\left(e^{\frac{2\pi i }{N} k x},e^{\frac{2\pi i }{N} \ell x}\right)}_{\ell=k}\\
+  &=\sum_{k=0}^{N-1}\frac{\widehat{f}(k)}{N}\frac{\overline{\widehat{g}(k)}}{N} \\
   &=\frac{1}{N}(\widehat{f},\widehat{g}).
   \end{aligned}
   \]
@@ -530,7 +524,7 @@ P_1=\{ \xi_1<\xi_2<\cdots<\xi_m\}, \ \ P_2=\{ \xi_{m+1}<\xi_{m+2}<\cdots<\xi_{m+
 如果有某个非零的频率 $k\neq 0$，使得 $|\widehat{\mathbf{1}_A}(k)|>\varepsilon N$，
 那么一定存在一个长度至少是 $\dfrac{\varepsilon}{32}\sqrt{N}$ 等差数列 $P$，使得
 \[
-|A\cap P|\geqslant (\delta +\frac{1}{8})|P|.
+|A\cap P|\geqslant (\delta +\frac{\varepsilon}{8})|P|.
 \]
 :::
 

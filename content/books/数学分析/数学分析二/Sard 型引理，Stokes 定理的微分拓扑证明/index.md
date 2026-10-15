@@ -1,9 +1,5 @@
 ---
 title: Sard 型引理，Stokes 定理的微分拓扑证明
-notices:
-  - name: 问题
-    items:
-      - “Stokes定理的另一个证明”一节中，$\int_{U_i}\varphi(b_{j}(x'),x')dx'$ 的计算结果 $\int_{\partial \Omega_{i,b_j}}\nu_1 fd\sigma$ 中的 $f$ 似乎应为 $\varphi$；在 $a_j(x')$ 处 $\nu_1<0$，因此 $\int_{U_i}\varphi(a_{j}(x'),x')dx'$ 似乎应等于 $-\int_{\partial \Omega_{i,a_j}}\nu_1 \varphi d\sigma$。
 ---
 
 ## Sard定理
@@ -336,10 +332,10 @@ $\nabla_{\frac{\partial}{\partial x_1}}f(a_j(x'))\neq 0$，$f(x',a_j(x'))=0$，
 \begin{aligned}
 &\ \ \ \int_{U_i}\left(\int_\mathbb{R} \mathbf{1}_\Omega(x_1,\cdots,x_n) \frac{\partial \varphi}{\partial x_1}(x_1,\cdots,x_n) \ dx_1 \right)dx_2\cdots dx_n\\
 &= \int_{U_i} \left(\int_{\mathbb{R}\cap L(x')} \frac{\partial \varphi}{\partial x_1}(x_1,\cdots,x_n) \ dx_1 \right)dx_2\cdots dx_n\\
-&=\sum_{j=1}^{k} \int_{U_i}\left(\int_{a_i(x')}^{b_i(x')} \frac{\partial \varphi}{\partial x_1}(x_1,x') \ dx_1 \right)dx'.
+&=\sum_{j=1}^{k} \int_{U_i}\left(\int_{a_j(x')}^{b_j(x')} \frac{\partial \varphi}{\partial x_1}(x_1,x') \ dx_1 \right)dx'.
 \end{aligned}
 \]
-在每个区间 $[a_i(x'),b_i(x')]$ 上用Newton–Leibniz法则，我们得到
+在每个区间 $[a_j(x'),b_j(x')]$ 上用Newton–Leibniz法则，我们得到
 \[
 \begin{aligned}
 &\ \ \ \int_{U_i}\left(\int_\mathbb{R} \mathbf{1}_\Omega(x_1,\cdots,x_n) \frac{\partial \varphi}{\partial x_1}(x_1,\cdots,x_n) \ dx_1 \right)dx_2\cdots dx_n\\
@@ -358,18 +354,18 @@ $x'\mapsto  b_j(x')$ 将 $\partial \Omega \cap \pi^{-1}(U_i)$ 的一部分 $\Ome
 \[
 \begin{aligned}
 \int_{U_i}\varphi(b_{j}(x'),x')dx'&=\int_{\partial \Omega_{i,b_j}}\frac{1}{\sqrt{1+|\nabla b_j|^2}}\varphi(b_{j}(x'),x')d\sigma\\
-&=\int_{\partial \Omega_{i,b_j}}\nu_1 fd\sigma.
+&=\int_{\partial \Omega_{i,b_j}}\nu_1 \varphi d\sigma.
 \end{aligned}
 \]
-类似地，
+类似地，由于在 $\partial \Omega_{i,a_j}$ 上外法向量指向 $x_1$ 减小的方向，即 $\nu_1=-\dfrac{1}{\sqrt{1+|\nabla a_j|^2}}<0$，我们有
 \[
 \begin{aligned}
-\int_{U_i}\varphi(a_{j}(x'),x')dx'&=\int_{\partial \Omega_{i,a_j}}\nu_1 \varphi d\sigma.
+\int_{U_i}\varphi(a_{j}(x'),x')dx'&=-\int_{\partial \Omega_{i,a_j}}\nu_1 \varphi d\sigma.
 \end{aligned}
 \]
 根据
 \[
-\partial \Omega \cap \pi^{-1}(U_i)=\bigcup_{i\leqslant k}\left( \partial \Omega_{i,a_j}\cup \partial \Omega_{i,b_j}\right),
+\partial \Omega \cap \pi^{-1}(U_i)=\bigcup_{j\leqslant k}\left( \partial \Omega_{i,a_j}\cup \partial \Omega_{i,b_j}\right),
 \]
 我们最终得到
 \[
