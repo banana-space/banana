@@ -497,7 +497,7 @@ const tag = {
   },
 };
 
-/** ::: name [title] {@label} and the closing :::, each a line of its own. */
+/** ::: name (custom name) [title] {@label} and the closing :::, each a line of its own. */
 const environmentStart = line => /^:::/.test(line.text.slice(line.pos));
 const environmentFence = {
   name: 'EnvironmentFence',
@@ -506,7 +506,8 @@ const environmentFence = {
     if (!environmentStart(line)) return false;
     const from = cx.lineStart + line.pos, rest = line.text.slice(line.pos), to = from + rest.trimEnd().length;
     const children = [cx.elt('EnvironmentMark', from, from + 3)];
-    const name = rest.match(/^:::\s*(-?[\w-]+\*?)/);
+    // The type with its custom name, if any (::: definition (条件)), coloured as one name.
+    const name = rest.match(/^:::\s*(-?[\w-]+\*?(?:[ \t]+\([^()\n]*\))?)/);
     let at = 3;
     if (name) {
       children.push(cx.elt('EnvironmentName', from + name[0].length - name[1].length, from + name[0].length));

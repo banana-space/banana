@@ -446,7 +446,7 @@ export function declaredLabels(text) {
     }
     let match;
     if ((match = line.match(/^(#{1,6})\s+(.*?)\s*\{@([^}\s]+)\}\s*\*?\s*$/))) add(match[3], match[2]);
-    else if ((match = line.match(/^\s*(?:>\s*)*:::\s*(-?[\w-]+\*?)(?:\s*\[([^\]]*)\])?\s*\{@([^}\s]+)\}/))) add(match[3], match[2] ? `${match[1]} [${match[2]}]` : match[1]);
+    else if ((match = line.match(/^\s*(?:>\s*)*:::\s*(-?[\w-]+\*?(?:[ \t]+\([^()\n]*\))?)(?:\s*\[([^\]]*)\])?\s*\{@([^}\s]+)\}/))) add(match[3], match[2] ? `${match[1]} [${match[2]}]` : match[1]);
     else if ((match = line.match(itemLabel))) add(match[1], match[2].slice(0, 20));
   }
   function add(name, detail) {

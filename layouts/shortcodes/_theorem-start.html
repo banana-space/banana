@@ -1,4 +1,4 @@
-{{- $caption := i18n (.Get "name") (dict "Number" (.Get "number")) -}}
+{{- $caption := i18n (.Get "name") (dict "Number" (.Get "number") "Name" (.Get "custom" | default "" | base64Decode)) -}}
 {{- $title := .Get "title" | base64Decode -}}
 {{- with $title -}}
   {{- $caption = i18n "environment_title" (dict "Caption" $caption "Title" .) -}}

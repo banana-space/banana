@@ -61,6 +61,8 @@ assert.deepEqual(classesOf(environment, 'thm:uct'), ['hl-reference']);
 assert.deepEqual(classesOf(environment, ':::'), ['hl-structure', 'hl-structure']);
 assert.ok(has(environment, 'InlineMath', '$x$'));
 assert.ok(has('::: -remark [寄语]\n正文\n:::\n', 'EnvironmentName', '-remark'));
+assert.ok(has('::: definition (条件) [同 $x$ 分布] {@c}\n正文\n:::\n', 'EnvironmentName', 'definition (条件)'));
+assert.ok(has('::: definition (条件) [同 $x$ 分布] {@c}\n正文\n:::\n', 'InlineMath', '$x$'));
 // A closing ::: right after a paragraph line ends the paragraph.
 assert.equal(nodes('正文。\n:::\n').filter(([name]) => name === 'EnvironmentFence').length, 1);
 
