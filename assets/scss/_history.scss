@@ -36,13 +36,9 @@ $history-time-width: 9.6rem;
   line-height: 1.8rem;
 }
 
+// A change's title links to its diff: a link as links are.
 .history-items a.recent-pull-title {
-  color: $fg-color;
-
-  &:hover,
-  &:focus {
-    color: $link-color;
-  }
+  color: $link-color;
 }
 
 .history-import .recent-pull-title {
