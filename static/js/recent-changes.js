@@ -22,6 +22,8 @@ function element(tag, className, ...children) {
   node.append(...children.filter(child => child !== undefined && child !== null && child !== false));
   return node;
 }
+/** Waiting for the API: a turning ring, with the loading text for screen readers. */
+const spinner = () => [element('span', 'loading-spinner'), element('span', 'sr-only', strings.loading)];
 function link(href, className, ...children) {
   const node = element('a', className, ...children);
   node.href = href;
@@ -245,7 +247,7 @@ siteToggle.addEventListener('change', event => { state.site = event.target.check
  */
 async function loadMore() {
   more.disabled = true;
-  more.textContent = strings.loading;
+  more.replaceChildren(...spinner());
   try {
     const response = await fetch(`${config.api}?page=${page + 1}`, { headers: { Accept: 'application/json' } });
     const body = await response.json();
@@ -272,5 +274,5 @@ async function loadMore() {
 }
 more.addEventListener('click', loadMore);
 
-status.textContent = strings.loading;
+status.replaceChildren(...spinner());
 await loadMore();

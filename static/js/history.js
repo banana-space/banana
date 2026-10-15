@@ -15,6 +15,8 @@ function element(tag, className, ...children) {
   node.append(...children.filter(child => child !== undefined && child !== null && child !== false));
   return node;
 }
+/** Waiting for the API: a turning ring, with the loading text for screen readers. */
+const spinner = () => [element('span', 'loading-spinner'), element('span', 'sr-only', strings.loading)];
 function link(href, className, ...children) {
   const node = element('a', className, ...children);
   node.href = href;
@@ -152,7 +154,7 @@ function render(data, pending) {
 
 async function load() {
   const path = (new URLSearchParams(location.search).get('path') ?? '').replace(/^content\//, '');
-  status.textContent = strings.loading;
+  status.replaceChildren(...spinner());
   // Not yet on the site: asked for alongside the page's history, and left out if it cannot be had.
   const pending = path ? fetch(`${config.api}?${new URLSearchParams({ path })}`, { headers: { Accept: 'application/json' } })
     .then(async response => {
@@ -170,8 +172,7 @@ async function load() {
     header(data, path);
     // What is on the site at once; the rest at the top once it comes (GitHub can take a while).
     render(data, []);
-    status.textContent = '';
-    try { render(data, await pending); }
+    try { render(data, await pending); status.textContent = ''; }
     catch (error) {
       console.error(error);
       status.textContent = strings.pendingError;

@@ -18,6 +18,8 @@ function element(tag, className, ...children) {
   node.append(...children.filter(child => child !== undefined && child !== null && child !== false));
   return node;
 }
+/** Waiting for the API: a turning ring, with the loading text for screen readers. */
+const spinner = () => [element('span', 'loading-spinner'), element('span', 'sr-only', strings.loading)];
 
 function header(pull, page, edit) {
   document.title = fill(strings.pageTitle, { title: page.title });
@@ -76,7 +78,7 @@ async function load() {
     back.href = `${config.history}?${new URLSearchParams({ path: params.get('history') })}`;
     back.querySelector('.diff-back-text').textContent = strings.historyBack;
   }
-  status.textContent = strings.loading;
+  status.replaceChildren(...spinner());
   try {
     const response = await fetch(`${config.api}?${new URLSearchParams({ pr: params.get('pr') ?? '', path: params.get('path') ?? '' })}`, { headers: { Accept: 'application/json' } });
     const body = await response.json().catch(() => ({}));
