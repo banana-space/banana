@@ -1,10 +1,5 @@
 ---
 title: 作业：Stokes 定理的应用
-notices:
-  - name: 问题
-    items:
-      - B2) 第 2 小题的能量表达式中的势能 $\Phi$ 似乎应为题设中的势函数 $P$。
-      - B5) 第 1 小题的面积公式中，绝对值似乎应加在整个积分外（并对 $\gamma$ 的定向作相应约定），而不是加在被积函数上。
 ---
 
 ## 课堂补充
@@ -125,7 +120,7 @@ B2) $F$ 是区域 $U \subset \mathbb{R}^n$ 上的光滑向量场（力场），
        即动能与势能之和为常数：
        \[
        \begin{aligned}
-       E(t) = \frac{1}{2}m|\dot{x}|^2 + \Phi(x(t)) =E(t_0).
+       E(t) = \frac{1}{2}m|\dot{x}|^2 + P(x(t)) =E(t_0).
        \end{aligned}
        \]
 
@@ -156,7 +151,6 @@ B3) $\Omega \subset \mathbb{R}^2$ 是有界光滑带边区域，
        其中 $\nu=(\nu_1,\nu_2)$。
 
 B4)
-
     1. 假设空间 $\mathbb{R}^3$ 有 $N$ 个点电荷，
        它们的位置和电量分别为 ${x_i} \in \mathbb{R}^3$ 和 $q_i\in \mathbb{R}$，其中 $i=1,\cdots,N$。
        根据Coulomb定律，它们在 $x\in \mathbb{R}^3$ 处产生的电场（向量场）为
@@ -176,7 +170,7 @@ B4)
     2. 假设 $\rho \in C^{\infty}(\mathbb{R}^3,\mathbb{R})$ 是电荷密度函数，根据Coulomb定律，
        它在 $x\in \mathbb{R}^3$ 处产生的电场（向量场）为（如果可积的话）
        \[
-       \displaystyle	E(x) = \frac{1}{4 \pi \varepsilon_0} \int_{\mathbb{R}^3} \frac{\rho(y)(x-y)}{|x-y|^3}dy.
+       \displaystyle E(x) = \frac{1}{4 \pi \varepsilon_0} \int_{\mathbb{R}^3} \frac{\rho(y)(x-y)}{|x-y|^3}dy.
        \]
 
        试证明 Gauss 定律：如果 $\Omega \subset \mathbb{R}^3$ 是有界光滑带边区域，
@@ -195,7 +189,6 @@ B4)
        是无旋的，即 $\nabla \times E = 0$。
 
 B5)
-
     1. （只用区域边界的信息来计算区域的面积）假设光滑闭曲线
        \[
        \gamma\colon [a,b] \to \mathbb{R}^2, t \mapsto (x(t),y(t))
@@ -203,11 +196,12 @@ B5)
        是有界光滑带边区域 $\Omega \subset \mathbb{R}^2$ 的边界。证明，$\Omega$ 的面积有如下表达式：
        \[
        \begin{aligned}
-       m(\Omega) = \frac{1}{2}\int_a^b \left|\operatorname{det} \begin{pmatrix}
+       m(\Omega) = \frac{1}{2}\left|\int_a^b \operatorname{det} \begin{pmatrix}
        x & y \\ x'(t) & y'(t)
-       \end{pmatrix}\right|dt
+       \end{pmatrix}dt\right|
        \end{aligned}
        \]
+       （如果 $\gamma$ 沿逆时针方向，即沿 $\partial\Omega$ 的正向，那么可以去掉绝对值。）
 
     2. 计算下列曲线围成的面积
        \[

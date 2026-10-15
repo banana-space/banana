@@ -1,10 +1,5 @@
 ---
 title: 作业：Fourier 级数的计算，三角函数与球谐函数
-notices:
-  - name: 问题
-    items:
-      - S18) 中的张成似乎应包括 $\ell=0$（常函数与所有 $\ell\geqslant 1$ 的 $\mathbf{H}^{\ell}$ 正交），与其后注记中从 $\ell=0$ 开始的直和一致。
-      - S18) 之后的注记中，$\mathbf{H}^{\ell}$ 的维数似乎应为 $2\ell+1$（见 S8)），而不是 $\ell(\ell+1)$。
 ---
 
 ## Fourier级数的计算
@@ -311,7 +306,7 @@ S17) 证明，
      $-\triangle_{\mathbf{S}^2}=\ell(\ell+1)\mathbf{Id}$。
 
 S18) \* 证明，
-     $\operatorname{Span}\bigl\{\mathbf{H}^{\ell}\bigm| \ell =1,2,3, \cdots\bigr\}$ 在
+     $\operatorname{Span}\bigl\{\mathbf{H}^{\ell}\bigm| \ell =0,1,2, \cdots\bigr\}$ 在
      $L^2(\mathbf{S}^2)$ 是稠密的。
 
      （提示：利用关于多项式（多元）的Stone–Weierstrass定理）
@@ -320,7 +315,7 @@ S18) \* 证明，
 上述表明，$L^2(\mathbf{S}^2)$ 可以写成直和（Hilbert空间意义下的）
 $\displaystyle L^2(\mathbf{S}^2)=\bigoplus_{\ell=0}^\infty \mathbf{H}^{\ell}$，
 其中，$\mathbf{H}^{\ell}$ 恰为 $-\triangle_{\mathbf{S}^2}$ 以 $\ell(\ell+1)$ 为特征值的特征子空间，
-它的维数是 $\ell(\ell+1)$。
+它的维数是 $2\ell+1$。
 以下，
 我们要在每个 $\mathbf{H}^\ell$ 中选取一组单位正交基
 $\bigl\{Y^\ell_m\mid m=-\ell, \cdots,-1,0,1, \cdots, \ell\bigr\}$，

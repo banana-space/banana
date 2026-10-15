@@ -1,10 +1,5 @@
 ---
 title: 习题课：Riemann 积分的定义1
-notices:
-  - name: 问题
-    items:
-      - R15) 中的“$f,g \in \mathcal{E}(P)$”似乎应为 $f,g \in \mathcal{R}(P)$。
-      - R20) 的结论中积分区域写作 $Q$，R21) 中函数定义在 $Q$ 上而上下积分写在 $P$ 上，似乎都应统一为矩形 $P$。
 ---
 
 我们在课上从测度的观点定义了积分，这次习题目的是尽可能还原历史Riemann积分的（严格）定义。
@@ -188,7 +183,7 @@ R15) 证明，对任意的 $f\in\mathcal{R}(P)$，我们有
      \[
      \displaystyle \Big|\int_P f \Big|\leqslant \int_P \big|f\big|.
      \]
-     如果 $f,g \in \mathcal{E}(P)$ 是实值的并且对任意的 $x\in P$，都有 $f(x)\leqslant g(x)$，那么
+     如果 $f,g \in \mathcal{R}(P)$ 是实值的并且对任意的 $x\in P$，都有 $f(x)\leqslant g(x)$，那么
      \[
      \displaystyle \int_P f\leqslant \int_P g.
      \]
@@ -287,13 +282,13 @@ R20) （Darboux上（下）和的下（上）极限是上（下）积分）假�
      \]
      证明，
      \[
-     \overline{D}(f)=\overline{\int}_{Q} f, \ \ \underline{D}(f)=\underline{\int}_{Q}f.
+     \overline{D}(f)=\overline{\int}_{P} f, \ \ \underline{D}(f)=\underline{\int}_{P}f.
      \]
 
-R21) （矩形上实值Riemann可积函数的刻画）给定实值函数 $f\colon Q\rightarrow \mathbb{R}$。
+R21) （矩形上实值Riemann可积函数的刻画）给定实值函数 $f\colon P\rightarrow \mathbb{R}$。
      证明，如下四条性质是等价的：
 
-     - 甲) $f\in \mathcal{R}(Q)$；
+     - 甲) $f\in \mathcal{R}(P)$；
 
      - 乙) 存在常数 $\mathbf{I}$，对任意的 $\varepsilon>0$，存在 $\delta>0$，
        使得对任意满足 $|\sigma|<\delta$ 的分划 $\sigma$，对任意的 $\xi_Q \in Q$，

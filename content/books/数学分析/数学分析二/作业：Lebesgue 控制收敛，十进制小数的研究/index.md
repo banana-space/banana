@@ -1,9 +1,5 @@
 ---
 title: 作业：Lebesgue 控制收敛，十进制小数的研究
-notices:
-  - name: 问题
-    items:
-      - 'A5) 中“对任意的 $A\cap Y\subset \mathcal{A}|_Y$”的 $\subset$ 似乎应为 $\in$。'
 ---
 
 ## 课堂内容的补充与复习
@@ -38,7 +34,7 @@ A4) $f$ 是测度空间 $(X,\mathcal{A},\mu)$ 上的简单函数。
 
 A5) $(X,\mathcal{A},\mu)$ 是测度空间，$Y\in \mathcal{A}$，
     我们定义 $\mathcal{A}\big|_Y = \{A\in \mathcal{A}\mid A\subset Y\}$。
-    对任意的 $A\cap Y\subset \mathcal{A}|_Y$，我们定义
+    对任意的 $A\cap Y\in \mathcal{A}|_Y$，我们定义
     \[
     \mu\big|_{Y}(A\cap Y)=\mu(A\cap Y).
     \]

@@ -1,11 +1,5 @@
 ---
 title: 作业：Lagrange 乘子法，Morse 引理，横截相交性
-notices:
-  - name: 问题
-    items:
-      - “B. Lagrange乘子法”一节 B1) 第 3 小题中，$n$ 元二次型的约束集合 $\mathbf{S}^2$ 似乎应为 $\mathbf{S}^{n-1}$。
-      - “B. Lagrange乘子法”一节 B4) 中，$\sum x_k\log x_k$ 是凸函数，在约束 $x_1+\cdots+x_n=a$ 下似乎应求最小值而不是最大值；B5) 的条件 $\alpha_1\alpha_2\cdots\alpha_n=1$ 似乎应为 $\alpha_1+\alpha_2+\cdots+\alpha_n=1$。
-      - “D. Morse引理”一节开头的 Taylor 展开中，二次项似乎缺少系数 $\frac{1}{2}$。
 ---
 
 ## A. 课堂相关
@@ -54,7 +48,7 @@ B1) 求下列函数的条件极值：
     2. $f(x) = \sin x \sin y \sin z$，$x + y + z = \pi/2, x,y,z > 0$。
 
     3. 二次型 $\displaystyle f(x) = \sum_{i,j=1}^{n} a_{ij} x_i x_j$，其中 $a_{ij} = a_{ji}$，
-       求 $f$ 在单位球面 $\mathbf{S}^2$ 上的极值。
+       求 $f$ 在单位球面 $\mathbf{S}^{n-1}$ 上的极值。
 
 B2) 求椭球 $\displaystyle
     \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1$ 的最大体积的内接长方体。
@@ -72,9 +66,9 @@ B4) 假定 $n\in \mathbb{Z}_{\geqslant 1}$ 和 $a\in \mathbb{R}_{>0}$ 是给定�
     \[
     f(x_1,\cdots,x_n)=\sum_{k\leqslant n}x_k\log x_k.
     \]
-    试求其最大值，其中，我们要求 $x_1+\cdots+x_n=a$。
+    试求其最小值，其中，我们要求 $x_1+\cdots+x_n=a$。
 
-B5) 给定 $n$ 个正实数 $\alpha_1,\cdots,\alpha_n$，它们满足 $\alpha_1\alpha_2\cdots\alpha_n=1$。
+B5) 给定 $n$ 个正实数 $\alpha_1,\cdots,\alpha_n$，它们满足 $\alpha_1+\alpha_2+\cdots+\alpha_n=1$。
     利用Lagrange乘子法证明：对任意的正实数 $x_1,\cdots,x_n$，我们都有
     \[
     \prod_{k=1}^nx_k^{\alpha_k}\leqslant \sum_{k=1}^n\alpha_k x_k.
@@ -119,7 +113,7 @@ $\nabla^2f(\bar{x}) = \left(\dfrac{\partial^2 f}{\partial x_i \partial x_j}(\bar
 是可逆的，我们就称 $\bar{x}$ 是一个**非退化的临界点**。
 在非退化临界点 $\bar{x}$ 附近 $f$ 有Taylor 展开
 \[
-f(x) = f(\bar{x}) + \sum_{1\leqslant i,j\leqslant n}\frac{\partial^2 f}{\partial x_i \partial x_j}(\bar{x})(x_i-\bar{x}_i)(x_j - \bar{x}_j) + o(|x-\bar{x}|^2).
+f(x) = f(\bar{x}) + \frac{1}{2}\sum_{1\leqslant i,j\leqslant n}\frac{\partial^2 f}{\partial x_i \partial x_j}(\bar{x})(x_i-\bar{x}_i)(x_j - \bar{x}_j) + o(|x-\bar{x}|^2).
 \]
 这个练习的目的是证明Morse引理，粗略的说，我们可以换一下坐标系，使得Hesse矩阵是对角的。
 引理的精确叙述如下：

@@ -1,9 +1,5 @@
 ---
 title: 二维的 Brouwer 不动点定理，Hilbert 空间
-notices:
-  - name: 问题
-    items:
-      - Brouwer 不动点定理的证明中，“用传统的第二型曲面积分的记法”似乎应为“第二型曲线积分”；最后一组等式的第二行由 Green 公式得到，积分区域似乎应为 $D$（二重积分）而不是 $\oint_{\partial D}$。
 ---
 
 ## 多元微积分的应用举例：二维的Brouwer不动点定理
@@ -56,7 +52,7 @@ F(x,y)=(u(x,y),v(x,y))\in \mathbb{R}^2.
 \[
 I=\oint_{\partial D} (u\nabla v -v\nabla u)\cdot \gamma'.
 \]
-用传统的第二型曲面积分的记法，我们还可以把它写成：
+用传统的第二型曲线积分的记法，我们还可以把它写成：
 \[
 I=\oint_{\partial D} (uv_x-vu_x) dx+(uv_y-vu_y)dy.
 \]
@@ -91,7 +87,7 @@ u_xv_y=u_yv_x.
 \[
 \begin{aligned}
 I&=\oint_{\partial D} (uv_x-vu_x) dx+(uv_y-vu_y)dy\\
-&=\oint_{\partial D} (uv_y-vu_y)_x-(uv_x-vu_x)_y dxdy\\
+&=\int_{D} (uv_y-vu_y)_x-(uv_x-vu_x)_y dxdy\\
 &=0,
 \end{aligned}
 \]
