@@ -234,7 +234,10 @@ controls.addEventListener('click', event => {
   for (const other of controls.querySelectorAll('[data-filter]')) other.setAttribute('aria-pressed', String(other === button));
   render();
 });
-controls.querySelector('[data-show="site"]').addEventListener('change', event => { state.site = event.target.checked; render(); });
+const siteToggle = controls.querySelector('[data-show="site"]');
+// A reload starts unchecked, as the list does (browsers may restore a checked box after a reload).
+siteToggle.checked = false;
+siteToggle.addEventListener('change', event => { state.site = event.target.checked; render(); });
 
 /**
  * The next page of pull requests. GitHub orders them by their last update, the list by their latest commit, so a

@@ -21,6 +21,7 @@ $font-path: "{{ "fonts/" | relURL }}";
 @import "terms";
 @import "editor";
 @import "recent-changes";
+@import "history";
 
 @import "collections";
 @import "print";

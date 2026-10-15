@@ -1,0 +1,94 @@
+// One page's history (/history/). Markup comes from static/js/history.js; rows are the recent changes' (.recent-item).
+
+$history-time-width: 9.6rem;
+
+.history-header[hidden] {
+  display: none;
+}
+
+// Prefixed to outweigh the site's header heading (margin: 0).
+.history-header .history-title {
+  margin: 1.6rem 0 1rem;
+}
+
+.history-title-suffix {
+  color: $muted-color;
+  font-weight: 400;
+}
+
+.history-items .recent-item {
+  grid-template-columns: $history-time-width minmax(0, 1fr);
+}
+
+.history-time {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.1rem;
+  color: $semi-light-text-color;
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 2.2rem;
+}
+
+.history-clock {
+  color: $muted-color;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+}
+
+// A change's title links to its diff: a link as links are.
+.history-items a.recent-pull-title {
+  color: $link-color;
+}
+
+.history-import .recent-pull-title {
+  color: $recent-text-color;
+}
+
+.history-legacy {
+  margin-top: 3.2rem;
+}
+
+.history-legacy-title {
+  margin: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1.5px solid $border-color;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+.history-legacy-note {
+  margin: 0.8rem 0 0;
+  color: $muted-color;
+  font-size: 1.3rem;
+}
+
+.history-summary {
+  color: $fg-color;
+  overflow-wrap: anywhere;
+
+  &.is-empty {
+    color: $muted-color;
+    font-style: italic;
+  }
+}
+
+.recent-author.is-hidden {
+  font-style: italic;
+}
+
+@media only screen and (max-width: 560px) {
+  .history-items .recent-item {
+    grid-template-columns: 8.4rem minmax(0, 1fr);
+  }
+
+  .history-time {
+    font-size: 1.2rem;
+  }
+}
+
+// The legacy site's history opens from the line below its heading (the note, once open).
+.history-legacy-toggle {
+  padding-left: 0;
+  font-size: 1.3rem;
+}

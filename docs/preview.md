@@ -169,6 +169,7 @@ postbuild 结果按 Hugo 输出的原始 HTML 缓存：书册整组重新渲染�
 - `POST /api/preview`，`{ path, text }`：`path` 为 `content/` 中的页面（可以是新页面），`text` 为完整源文本。返回 `{ ok, url, html, missingLinks, timings }`。
 - `POST /api/check`，同样的参数：只检查，返回 `{ ok, missingLinks }`。
 - `POST /api/submit`，`{ path, text, original, message, pull }`：检查通过后把文本用 `npm run format` 的规则排版（`scripts/format/markdown.mjs`，只改换行与缩进，页面不变）再提交，打开或更新该用户对该页的 PR，给出 `pull`（PR 编号）时添加到该页的这个 PR（可以是别人的；已不再打开时不写入，返回 410，带上是否已合并 `merged`，以及不带 `pull` 提交时的基础 `current` 与该用户自己的 PR `pull`），见下；返回 `{ ok, number, url, updated, original, text }`，`text` 是提交的（排版后的）文本，编辑器随即显示它（提交期间又有输入时保留输入）。
+- `GET /api/page-history?path=…`：修改该页面而尚未出现在网站上的 PR（待审阅的，以及已合并而编辑接口所在的提交还不包含的），供页面历史补在构建时写出的历史之前。不需要登录：所有页面共用一份待审阅 PR 的列表，每分钟至多向 GitHub 读取一次，每个来源地址（Apache 加在 `X-Forwarded-For` 最后的一项；IPv6 按 /64 网段）可以连续请求 20 次，之后每 2 秒一次。`/api/recent-changes` 与 `/api/recent-changes/diff` 同样按来源地址限频（各自计数）。
 - 登录：`GET /api/auth/login?return=…`、`GET /api/auth/callback`、`POST /api/auth/logout`、`GET /api/me`。
 - 错误返回 `{ ok: false, errors: [{ file, line, message }] }`：预处理与 Hugo 错误为 422（Hugo 错误另带 `log`），未登录 401，跨站请求 403，过于频繁 429（带 `Retry-After`），请求体超过 300 KiB 为 413，排队超过 20 个为 503。
 - `GET /api/health`：`{ ok, waiting }`。

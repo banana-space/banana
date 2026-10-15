@@ -11,6 +11,8 @@ import { transformDocument } from './structure.mjs';
 import { eachLimit, publishContent } from './publish.mjs';
 import { categoryTree } from './categories.mjs';
 import { gitDates } from './git-dates.mjs';
+import { pageHistories } from './page-history.mjs';
+import { titleHTML } from '../shared/display-title.mjs';
 import { defaultNumbering, numbering, pageNumbering } from './numbering.mjs';
 import { discoverCollections, isPublished, lectureGroups, prepareCollections } from './collections.mjs';
 import { componentLoader } from './components.mjs';
@@ -32,6 +34,8 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
  * - frontMatterOnly：所有页面（包括书册页面）只写 front matter，正文留空；update() 仍返回完整页面。
  *   供预览接口的 Hugo 使用：页面正文占它绝大部分内存，而渲染一个页面只需要其他页面的 front matter。
  * - publish：为 false 时不写入生成目录，由调用者用 files 发布（常驻预览服务要在 Hugo 监听时先知道哪些文件会变）。
+ * - history：页面历史的数据写入的目录（Hugo 将 .build/history 发布为 /history/data/），默认只有写入
+ *   默认生成目录的完整预处理才写；为 false 时不写。
  *
  * 返回 { errors, links, collections, update }：errors 为错误对象列表（仅 check 模式），
  * links 为转换过的页面中指向不存在条目的链接 { file, line, target }，
@@ -52,7 +56,8 @@ async function checkShortcodeTemplates(directory) {
   return new Set(names);
 }
 
-export async function prebuild({ destination: generated = `${root}.build/content`, pages, check = false, frontMatterOnly = false, publish = true } = {}) {
+export async function prebuild({ destination: generated = `${root}.build/content`, pages, check = false, frontMatterOnly = false, publish = true, history } = {}) {
+  history ??= generated === `${root}.build/content` && `${root}.build/history`;
   const errors = [];
   const attempt = async (action, file) => {
     if (!check) return action();
@@ -252,6 +257,25 @@ export async function prebuild({ destination: generated = `${root}.build/content
     categories.publish(files);
     if (publish) await publishContent(files, generated);
   });
+  if (!check && publish && history) await timer.time('page history', () => writePageHistories(history));
+
+  /**
+   * Each published page's history (page-history.mjs) as <content path>.json, with what the history page shows of
+   * the page itself: its title (plain and with formulas rendered) and address.
+   */
+  async function writePageHistories(destination) {
+    const repository = (await readFile(`${root}hugo.toml`, 'utf8')).match(/^repository\s*=\s*['"]([^'"]+)['"]/m)?.[1];
+    const histories = await pageHistories(root, { repository });
+    const output = new Map();
+    for (const [path, { changes, legacy }] of histories) {
+      const relative = path.slice('content/'.length), record = records.get(relative);
+      const url = record && !record.generated && files.has(relative) ? pageURL(relative, record.metadata) : undefined;
+      if (!url) continue;
+      const { title, titleParts } = record.metadata;
+      output.set(`${relative}.json`, { text: `${JSON.stringify({ path: relative, title, titleHTML: titleHTML(titleParts ?? [{ text: title }]), url, changes, legacy })}\n` });
+    }
+    await publishContent(output, destination);
+  }
   links.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line);
 
   /**

@@ -1,0 +1,48 @@
+{{ define "title" }}{{ i18n "history_page_title" }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+{{- /* One page's history (/history/?path=<page>): the changes merged into the site and the legacy site's revisions,
+  which prebuild writes to /history/data/<page>.json (scripts/prebuild/page-history.mjs), and before them the changes
+  not yet on the site, from /api/page-history. Rendered by static/js/history.js; rows share the recent changes' styles.
+  {title}, {name} and the like are filled in by the script. */ -}}
+{{- $strings := dict
+  "loading" (i18n "recent_changes_loading")
+  "error" (i18n "history_error")
+  "missing" (i18n "history_missing")
+  "pendingError" (i18n "history_pending_error")
+  "heading" (i18n "history_title" (dict "Title" "{title}"))
+  "pageTitle" (printf "%s - %s" (i18n "history_title" (dict "Title" "{title}")) site.Title)
+  "open" (i18n "recent_changes_open")
+  "draft" (i18n "recent_changes_draft")
+  "merged" (i18n "recent_changes_merged")
+  "publishing" (i18n "recent_changes_publishing")
+  "publishingHint" (i18n "recent_changes_publishing_hint")
+  "added" (i18n "recent_changes_added")
+  "removed" (i18n "recent_changes_removed")
+  "renamed" (i18n "recent_changes_renamed")
+  "commit" (i18n "history_commit")
+  "imported" (i18n "history_imported")
+  "created" (i18n "history_created")
+  "legacy" (i18n "history_legacy")
+  "legacyNote" (i18n "history_legacy_note")
+  "legacyShow" (i18n "history_legacy_show")
+  "hide" (i18n "recent_changes_hide_pages")
+  "showMore" (i18n "history_show_more")
+  "minor" (i18n "history_minor")
+  "minorHint" (i18n "history_minor_hint")
+  "noSummary" (i18n "history_no_summary")
+  "hiddenUser" (i18n "history_hidden_user")
+-}}
+<section class="container history-page">
+  <header class="history-header" hidden>
+    <h1 class="history-title"></h1>
+    <div class="diff-actions">
+      <a class="diff-action history-view-page">{{ partial "ui-icon.html" "view" }}{{ i18n "diff_view_page" }}</a>
+      <a class="diff-action history-edit-page" rel="nofollow">{{ partial "ui-icon.html" "edit" }}{{ i18n "diff_edit_page" }}</a>
+    </div>
+  </header>
+  <p class="recent-changes-status history-status" role="status"><noscript>{{ i18n "history_noscript" }}</noscript></p>
+  <div class="history-list"></div>
+</section>
+<script type="application/json" id="history-config">{{ dict "data" ("history/data/" | relURL) "api" ("api/page-history" | relURL) "diff" ("diff/" | relURL) "edit" ("edit/" | relURL) "repository" (printf "https://github.com/%s" site.Params.repository) "strings" $strings | jsonify | safeJS }}</script>
+<script type="module" src="{{ "js/history.js" | relURL }}"></script>
+{{ end }}

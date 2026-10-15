@@ -16,9 +16,10 @@ import { GitHubError } from './github.mjs';
  * request's latest commit was made (when the change was written, not when it was reviewed), merged when it was merged
  * (null while open); editor is whether the online editor opened it; mergeCommit is
  * the commit a merged pull request made on the base branch. diff(number, path) resolves to { pull, file, before,
- * after }: the file's text where the pull request started from and in it (null where it does not exist).
+ * after }: the file's text where the pull request started from and in it (null where it does not exist). open() resolves to
+ * every open pull request (at most maxOpen), as list's; it is read again at most once in ttl, whoever asks.
  */
-export function recentPullRequests({ repo, token, api = 'https://api.github.com', perPage = 30, maxFiles = 1000, ttl = 60e3, cacheFile }) {
+export function recentPullRequests({ repo, token, api = 'https://api.github.com', perPage = 30, maxFiles = 1000, maxOpen = 300, ttl = 60e3, cacheFile }) {
   async function request(path, { raw = false } = {}) {
     const response = await fetch(`${api}/repos/${repo}${path}`, {
       headers: {
@@ -126,19 +127,33 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
     mergeCommit: pull.merged_at ? pull.merge_commit_sha ?? null : null,
   });
 
-  /** One page of pull requests, by GitHub's order (most recently updated first). */
-  const list = (page = 1) => cachedPages(page, async () => {
-    const batch = await request(`/pulls?state=all&sort=updated&direction=desc&per_page=${perPage}&page=${page}`);
-    const pulls = batch.filter(pull => pull.state === 'open' || pull.merged_at);
+  /** Pull requests with their files: a few at a time, as the first load after a restart lists the files of each. */
+  async function withFiles(pulls) {
     const result = [];
-    // A few at a time: the first load after a restart lists the files of every pull request.
     for (let i = 0; i < pulls.length; i += 6) {
       result.push(...await Promise.all(pulls.slice(i, i + 6).map(async pull => {
         const { files, truncated } = await filesOf(pull);
         return { ...await summary(pull), files, fileCount: files.length, truncated };
       })));
     }
-    return { pulls: result, more: batch.length === perPage };
+    return result;
+  }
+
+  /** One page of pull requests, by GitHub's order (most recently updated first). */
+  const list = (page = 1) => cachedPages(page, async () => {
+    const batch = await request(`/pulls?state=all&sort=updated&direction=desc&per_page=${perPage}&page=${page}`);
+    return { pulls: await withFiles(batch.filter(pull => pull.state === 'open' || pull.merged_at)), more: batch.length === perPage };
+  }, ttl);
+
+  /** Every open pull request, most recently updated first. */
+  const open = () => cachedPages('open', async () => {
+    const pulls = [];
+    for (let page = 1; pulls.length < maxOpen; page++) {
+      const batch = await request(`/pulls?state=open&sort=updated&direction=desc&per_page=100&page=${page}`);
+      pulls.push(...batch);
+      if (batch.length < 100) break;
+    }
+    return withFiles(pulls.slice(0, maxOpen));
   }, ttl);
 
   /** A file at a commit, or null where it does not exist. */
@@ -158,5 +173,5 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
     ]);
     return { pull: await summary(pull), file, before, after };
   }
-  return { list, diff };
+  return { list, open, diff };
 }
