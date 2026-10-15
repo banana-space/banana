@@ -1,11 +1,18 @@
 ---
 title: 规范方法的收敛速度
+notices:
+  - name: 问题
+    items:
+      - 最后一段中 Gauss 相似度函数情形下特征函数的收敛速度 $O(1/n)$ 似乎应为 $O(1/\sqrt n)$。
 ---
+
 从上面的讨论我们已经知道，若 $\mu = 1-\lambda$ 是 $T = I-U'$ 的一个单特征值，
-则当 $n$ 足够大时，$\mu_n = 1-\lambda_n$ 也是 $T_n' = I - U_n'$ 的一个单特征值，从而关于 $\mu_n$ 的谱投影算子 $\text{Pr}_n$ 的像即为由其特征函数 $f_n$ 张成的一维线性空间。
+则当 $n$ 足够大时，$\mu_n = 1-\lambda_n$ 也是 $T_n' = I - U_n'$ 的一个单特征值，
+从而关于 $\mu_n$ 的谱投影算子 $\text{Pr}_n$ 的像即为由其特征函数 $f_n$ 张成的一维线性空间。
 设 $\|f_n\| = 1$，则它们的“极限函数”$f$ 也有 $\|f\| = 1.$
 
-我们的目标是估计 $\|a_nf_n - f\|$：为此令 $\text{Pr}_n f = c_nf_n$，则有 $a_n = \text{sgn}~c_n$，即 $c_n = a_n|c_n|$，从而
+我们的目标是估计 $\|a_nf_n - f\|$：为此令 $\text{Pr}_n f = c_nf_n$，则有 $a_n = \text{sgn}~c_n$，
+即 $c_n = a_n|c_n|$，从而
 
 ```math
 \begin{aligned}
@@ -19,14 +26,17 @@ title: 规范方法的收敛速度
 于是问题转化为估计 $\|f - \text{Pr}_nf\|$，而这可以利用如下定理得到：
 
 ::: theorem
-设 $(E,\|\cdot\|)$ 是 Banach 空间，$T_n'$ 和 $T$ 是其上的紧算子，并且 $T_n' \xrightarrow{cc} T.$  取 $\mu\in\sigma(T)\backslash\{0\}$ 的逼近序列 $\mu_n\in\sigma(T_n')\backslash\{0\}$，它们相应的谱投影算子为 $\text{Pr}_n.$  则存在只依赖于 $\mu$ 和 $\sigma(T)$ 的常数 $C>0$ 使得
+设 $(E,\|\cdot\|)$ 是 Banach 空间，$T_n'$ 和 $T$ 是其上的紧算子，
+并且 $T_n' \xrightarrow{cc} T.$  取 $\mu\in\sigma(T)\backslash\{0\}$ 的逼近序列
+$\mu_n\in\sigma(T_n')\backslash\{0\}$，
+它们相应的谱投影算子为 $\text{Pr}_n.$  则存在只依赖于 $\mu$ 和 $\sigma(T)$ 的常数 $C>0$ 使得
 $$
-    \|f - \text{Pr}_n f\| \le C\big(\|(T_n'-T)f\| + \|f\|\cdot\|(T-T_n')T_n'\|\big)
+\|f - \text{Pr}_n f\| \le C\big(\|(T_n'-T)f\| + \|f\|\cdot\|(T-T_n')T_n'\|\big)
 $$
 对 $\mu$ 的任意特征向量 $f\in E$ 成立。
 :::
 
-（详见文章 The Numerical Solution of the Eigenvalue Problem for Compact Integral Operators 中的定理3）
+（详见文章 The Numerical Solution of the Eigenvalue Problem for Compact Integral Operators [@atkinson67] 中的定理 3）
 
 根据这个定理，我们只需要估计 $\|(T_n'-T)f\|$ 和 $\|(T-T_n')T_n'\|$ 两项：
 
@@ -73,25 +83,40 @@ $$
 
   其中最后的函数类定义为
   $$
-      \cal H \cdot H := \{h(x,\cdot)h(y,\cdot): x,y\in X\}.
+  \cal H \cdot H := \{h(x,\cdot)h(y,\cdot): x,y\in X\}.
   $$
   综合起来我们得到
   $$
-      \|(T-T_n')T_n'\| \le \left(1+\frac{3\|s\|^3}{l^4}\right)\sup_{g\in (\cal H\cdot H)\cup S} \left|\int_{\cal X}g(y)\,dP_n(y) - \int_{\cal X} g(y)\,dP(y) \right|.
+  \|(T-T_n')T_n'\| \le \left(1+\frac{3\|s\|^3}{l^4}\right)\sup_{g\in (\cal H\cdot H)\cup S} \left|\int_{\cal X}g(y)\,dP_n(y) - \int_{\cal X} g(y)\,dP(y) \right|.
   $$
 
 综上，我们可以得到最终结果：
 
 ::: theorem
-在上述假设和记号下，则存在只依赖于 $\mu, \sigma(T)$ 和相似度函数 $s$ 的常数 $C’>0$，以及一列 $\{a_n\}\subset \{-1,1\}$，使得
+在上述假设和记号下，则存在只依赖于 $\mu, \sigma(T)$ 和相似度函数 $s$ 的常数 $C'>0$，
+以及一列 $\{a_n\}\subset \{-1,1\}$，使得
 $$
-    \|a_nf_n - f\| \le C'\sup_{g\in\cal G} \left|\int_{\cal X}g(y)\,dP_n(y) - \int_{\cal X} g(y)\,dP(y) \right|
+\|a_nf_n - f\| \le C'\sup_{g\in\cal G} \left|\int_{\cal X}g(y)\,dP_n(y) - \int_{\cal X} g(y)\,dP(y) \right|
 $$
 其中函数类 $\cal G = S\cup (f\cdot H)\cup (H\cdot H).$
 :::
 
 由此可见，特征函数的收敛速度被**经验分布的收敛速度**（由函数类 $\cal G$ 刻画）所控制，
-而后者可由经验过程理论得到估计（参考书 Weak Convergence and Empirical Processes 中第2章）。
+而后者可由经验过程理论得到估计（参考书 Weak Convergence and Empirical Processes [@vandervaart-wellner96] 中第 2 章）。
 
-例如，对于 Gauss 相似度函数 $s(x,y) = \exp(-\|x-y\|^2/\sigma^2)$，我们可以用**覆盖数方法**得到特征函数的收敛速度为 $O(1/n).$
-（详见文章中的 Section 6.3）
+例如，对于 Gauss 相似度函数 $s(x,y) = \exp(-\|x-y\|^2/\sigma^2)$，
+我们可以用**覆盖数方法**得到特征函数的收敛速度为 $O(1/n).$
+（详见 [@vonluxburg-belkin-bousquet08] 中的 Section 6.3）
+
+## 参考文献*
+
+```bibliography
+atkinson67:
+  type: article
+  author: Kendall E. Atkinson
+  title: The Numerical Solution of the Eigenvalue Problem for Compact Integral Operators
+  journaltitle: Transactions of the American Mathematical Society
+  volume: 129
+  pages: 458–465
+  year: 1967
+```

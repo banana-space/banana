@@ -1,3 +1,5 @@
+authors: Zeibniz
+description: 2020 年秋季学期研讨课《机器学习与微分方程》中关于谱聚类算法的报告讲义。
 contents:
   - page: 聚类简介
   - page: 从图的分割出发
