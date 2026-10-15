@@ -1,6 +1,7 @@
 ---
 title: 基本概念
 ---
+
 在有限群的Sylow定理学习中我们看到群作用是强有力的工具，
 通过把群作用到某个集合上就足以反映出很多信息。
 在环的结构理论中，任何一个含幺环$R$上的左$R$-模$M$就是环$R$的一个表示对象，
@@ -35,7 +36,7 @@ $M$总有天然的$\mathbb{k}$-线性结构
 并且我们都可以通过$a\in A$在$M$上决定的左乘变换给出$M$上的$\mathbb{k}$-线性变换。
 现在我们把目光聚焦在群代数上的模的情形，把群的表示和群代数上的模联系起来。
 我们马上会看到，有一个群表示本质上与有一个群代数上的模是一样的
-（见[定理\ref{groupreandmodethm}]）。
+（见 @groupreandmodethm）。
 
 ::: example {@ghmodkggrep}
 设$G$是群，$\mathbb{k}G$是群代数，
@@ -63,10 +64,10 @@ $\psi:\mathbb{k}(G\times H)\to\mathbb{k}G\otimes_{\mathbb{k}}\mathbb{k}H,
     (g,h)\mapsto g\otimes h$，不难看出$\psi$是$\mathbb{k}$-代数同态。
 其次，通过$\mathbb{k}$-平衡映射
 $$
-    \mathbb{k}G\times\mathbb{k}H\to \mathbb{k}(G\times H),
-    (\sum\limits_{g\in G}a_{g}g,
-    \sum\limits_{h\in H}b_{h}h)\mapsto
-    \sum\limits_{(g,h)\in G\times H}a_{g}b_{h}(g,h)
+\mathbb{k}G\times\mathbb{k}H\to \mathbb{k}(G\times H),
+(\sum\limits_{g\in G}a_{g}g,
+\sum\limits_{h\in H}b_{h}h)\mapsto
+\sum\limits_{(g,h)\in G\times H}a_{g}b_{h}(g,h)
 $$
 可诱导$\mathbb{k}$-双线性映射
 $\varphi:\mathbb{k}G\otimes_{\mathbb{k}}\mathbb{k}H
@@ -74,8 +75,8 @@ $\varphi:\mathbb{k}G\otimes_{\mathbb{k}}\mathbb{k}H
 易验证$\psi$与$\varphi$互为逆映射。
 :::
 
-::: example
-设$G$是$n$阶循环群\label{cycgrpkGeg}，
+::: example {@cycgrpkGeg}
+设$G$是$n$阶循环群，
 则有$\mathbb{k}$-代数同构$\mathbb{k}G\cong \mathbb{k}[x]/(x^{n}-1)$。
 :::
 
@@ -92,9 +93,9 @@ $\varphi:\mathbb{k}G\otimes_{\mathbb{k}}\mathbb{k}H
 事实上，如果我们有了群$G$在$\mathbb{k}$上的一个表示$\rho:G\to GL(V)$，
 $V$有天然的左$\mathbb{k}G$-模结构
 $$
-    \bigg(\sum\limits_{g\in G}a_{g}g\bigg)v
-    =\sum\limits_{g\in G}a_{g}\rho(g)(v),\forall v\in V,
-    \sum\limits_{g\in G}a_{g}g\in\mathbb{k}G.
+\bigg(\sum\limits_{g\in G}a_{g}g\bigg)v
+=\sum\limits_{g\in G}a_{g}\rho(g)(v),\forall v\in V,
+\sum\limits_{g\in G}a_{g}g\in\mathbb{k}G.
 $$
 所以一个群$G$的$\mathbb{k}$-线性表示所承载的信息
 和一个群代数$\mathbb{k}G$上的左模所载有的信息一致。
@@ -130,10 +131,10 @@ $\overline{\rho}:G/\operatorname{Ker}\rho\to GL(V)$。
 如果存在线性同构$f:V\to V^{\prime}$使得下图对所有的$g\in G$交换，
 则称这两个表示是**等价的**。
 $$
-    \begin{tikzcd}
-    V \arrow[rr, "f"] \arrow[d, "\rho(g)"'] &  & V^{\prime} \arrow[d, "\rho^{\prime}(g)"] \\
-    V \arrow[rr, "f"]                       &  & V^{\prime}
-    \end{tikzcd}
+\begin{tikzcd}
+V \arrow[rr, "f"] \arrow[d, "\rho(g)"'] &  & V^{\prime} \arrow[d, "\rho^{\prime}(g)"] \\
+V \arrow[rr, "f"]                       &  & V^{\prime}
+\end{tikzcd}
 $$
 :::
 
@@ -148,11 +149,12 @@ $\rho^{\prime}:G\to GL(V^{\prime})$
 是$V^{\prime}$上$\mathbb{k}G$-模结构给出的表示，
 那么$f:V\to V^{\prime}$是使得下图交换的线性同构。
 $$
-    \begin{tikzcd}
-    V \arrow[rr, "f"] \arrow[d, "\rho(g)"'] &  & V^{\prime} \arrow[d, "\rho^{\prime}(g)"] \\
-    V \arrow[rr, "f"]                       &  & V^{\prime}
-    \end{tikzcd}
-$$根据上面的讨论，我们便看到下述命题成立。
+\begin{tikzcd}
+V \arrow[rr, "f"] \arrow[d, "\rho(g)"'] &  & V^{\prime} \arrow[d, "\rho^{\prime}(g)"] \\
+V \arrow[rr, "f"]                       &  & V^{\prime}
+\end{tikzcd}
+$$
+根据上面的讨论，我们便看到下述命题成立。
 
 ::: proposition
 设$G$是群，$\mathbb{k}$是域，$\rho:G\to GL(V)$
@@ -164,8 +166,8 @@ $$根据上面的讨论，我们便看到下述命题成立。
 
 在本节最后，用范畴语言来更严格地叙述群的表示与群代数上的模本质上一样。为此，引入
 
-::: definition [群表示范畴]
-给定群$G$以及域$\mathbb{k}$\label{RepGcatdef}，
+::: definition [群表示范畴] {@RepGcatdef}
+给定群$G$以及域$\mathbb{k}$，
 通过如下方式来定义范畴$\text{Rep}_{\mathbb{k}}(G)$：
 定义对象类$\text{ob}\text{Rep}_{\mathbb{k}}(G)$
 为$G$在$\mathbb{k}$上的线性表示$\rho:G\to GL(V)$全体，
@@ -173,10 +175,10 @@ $$根据上面的讨论，我们便看到下述命题成立。
 若线性映射$f:V\to V^{\prime}$使得下图对所有的$g\in G$交换，
 则称$f$是**表示$\rho$到$\rho^{\prime}$的态**（或**态射**）。
 $$
-    \begin{tikzcd}
-    V \arrow[rr, "f"] \arrow[d, "\rho(g)"'] &  & V^{\prime} \arrow[d, "\rho^{\prime}(g)"] \\
-    V \arrow[rr, "f"]                       &  & V^{\prime}
-    \end{tikzcd}
+\begin{tikzcd}
+V \arrow[rr, "f"] \arrow[d, "\rho(g)"'] &  & V^{\prime} \arrow[d, "\rho^{\prime}(g)"] \\
+V \arrow[rr, "f"]                       &  & V^{\prime}
+\end{tikzcd}
 $$
 记$\text{Hom}_{\text{Rep}_{\mathbb{k}}(G)}(\rho,\rho^{\prime})$
 为$\rho$到$\rho^{\prime}$的所有态构成的集合。
@@ -185,15 +187,15 @@ $$
 记$\text{rep}_{\mathbb{k}}(G)$为群$G$在$\mathbb{k}$上所有有限维表示构成的全子范畴。
 :::
 
-::: theorem
+::: theorem {@groupreandmodethm}
 给定群$G$以及域$\mathbb{k}$，
 那么有范畴同构$\mathbb{k}G\text{-Mod}
-    \cong \text{Rep}_{\mathbb{k}}(G)$\label{groupreandmodethm}。
+    \cong \text{Rep}_{\mathbb{k}}(G)$。
 :::
 
 ::: proof
 对每个左$\mathbb{k}G$-模$V$，
-可在[@ghmodkggrep]意义下得到表示$\rho:G\to GL(V)$，记之为$FV$。
+可在 @ghmodkggrep 意义下得到表示$\rho:G\to GL(V)$，记之为$FV$。
 任意两个$\mathbb{k}G$-模之间的模同态$f:V\to V^{\prime}$，
 可对应表示之间的态$f:V\to V^{\prime}$，记为$F(f)$。
 由此得到函子$F:\mathbb{k}G\text{-Mod}\to \text{Rep}_{\mathbb{k}}(G)$。
@@ -212,14 +214,20 @@ $\rho:A\to\text{End}_{\mathbb{k}}V$为$A$在$\mathbb{k}$上的**表示**。
 类似可定义$A$的表示间的态来得到$A$的表示范畴$\text{Rep}_{\mathbb{k}}(A)$。同样
 可验证范畴同构$A\text{-Mod}\cong \text{Rep}_{\mathbb{k}}(A)$。因此研究结合代数
 $A$的表示本质上就是研究$A$上的模，由此可见群表示论可纳入结合代数表示论的框架下研究。之
-后我们会大量使用模论的工具来研究群代数的表示，即群的表示。矩阵的Jordan标准型理论就是应用P.I.D。
-上有限生成模的结构理论来研究代数闭域$\mathbb{k}$上多项式代数$\mathbb{k}[x]$的表示取得成功的绝佳证明。
-类似的思想也适用于Lie理论。对域$\mathbb{k}$上Lie代数$\mathfrak{g}$，用换位子赋予自同态代数$\text{End}_{\mathbb{k}}V$
-上导出Lie代数结构，称Lie代数同态$\rho:\mathfrak{g}\to \text{End}_{\mathbb{k}}V$为Lie代数$\mathfrak{g}$的**表示**。
-为了把握非结合的代数对象的表示，人们对Lie代数$\mathfrak{g}$引入了**泛包络代数**的概念，它是$\mathbb{k}$上结合代数，
-这里记作$\mathcal{U}(\mathfrak{g})$。若记$\mathfrak{g}$的表示范畴为$\text{Rep}_{\mathbb{k}}(\mathfrak{g})$，
+后我们会大量使用模论的工具来研究群代数的表示，即群的表示。矩阵的Jordan标准型理论就是应用P.I.D.
+上有限生成模的结构理论来研究代数闭域$\mathbb{k}$上多项式代数$\mathbb{k}[x]$
+的表示取得成功的绝佳证明。
+类似的思想也适用于Lie理论。
+对域$\mathbb{k}$上Lie代数$\mathfrak{g}$，用换位子赋予自同态代数$\text{End}_{\mathbb{k}}V$
+上导出Lie代数结构，
+称Lie代数同态$\rho:\mathfrak{g}\to \text{End}_{\mathbb{k}}V$为Lie代数$\mathfrak{g}$的**表示**。
+为了把握非结合的代数对象的表示，人们对Lie代数$\mathfrak{g}$引入了**泛包络代数**的概念，
+它是$\mathbb{k}$上结合代数，
+这里记作$\mathcal{U}(\mathfrak{g})$。
+若记$\mathfrak{g}$的表示范畴为$\text{Rep}_{\mathbb{k}}(\mathfrak{g})$，
 可以证明范畴同构$\mathcal{U}(\mathfrak{g})\text{-Mod}\cong \text{Rep}_{\mathbb{k}}(\mathfrak{g})$。
-进而可用泛包络代数$\mathcal{U}(\mathfrak{g})$（结合代数）的表示去研究Lie代数$\mathfrak{g}$（非结合代数）的表示。
+进而可用泛包络代数$\mathcal{U}(\mathfrak{g})$（结合代数）的表示去研究Lie代数
+$\mathfrak{g}$（非结合代数）的表示。
 :::
 
 ## 群的矩阵表示
@@ -230,14 +238,16 @@ $A$的表示本质上就是研究$A$上的模，由此可见群表示论可纳�
 那么考虑每个$\varphi\in\text{End}_{\mathbb{k}}(V)$在这个基下表示矩阵$A$，
 即满足等式$(\varphi(u_{1}),...,\varphi(u_{n}))=(u_{1},...,u_{n})A$的矩阵$A$，
 我们可以得到$\mathbb{k}$-代数同构
-$$T:\text{End}_{\mathbb{k}}(V)\to\text{M}_{n}(\mathbb{k}),\varphi\mapsto A,$$
+$$
+T:\text{End}_{\mathbb{k}}(V)\to\text{M}_{n}(\mathbb{k}),\varphi\mapsto A,
+$$
 那么$T$自然把可逆线性变换全体$GL(V)$映至可逆阵全体$GL_{n}(\mathbb{k})$，
 并且把$T$限制在$GL(V)$上就给出了群同构$GL(V)\cong GL_{n}(\mathbb{k})$，
 所以通过下述同态列的合成$\rho_{B}=T|\rho:G\to GL_{n}(\mathbb{k})$
 \[
-    \begin{tikzcd}
-    G \arrow[rr, "\rho"] &  & GL(V) \arrow[rr, "T|"] &  & GL_{n}(\mathbbm{k})
-    \end{tikzcd}
+\begin{tikzcd}
+G \arrow[rr, "\rho"] &  & GL(V) \arrow[rr, "T|"] &  & GL_{n}(\mathbb{k})
+\end{tikzcd}
 \]
 我们便可把每个群中元素$g$对应到可逆矩阵$\rho_{B}(g)$。
 那么$g\in G$在$V$上的线性作用可由可逆阵$\rho_{B}(g)$在$\mathbb{k}^{n}$上的数乘作用描述。
@@ -257,25 +267,25 @@ $\rho:G\to GL_{n}(\mathbb{k})$为群$G$的$n$次矩阵表示。
 
 根据有限维线性变换和它在一给定基下表示矩阵的关系，我们看到
 
-::: lemma
+::: lemma {@mpcdffds}
 设群$G$在域$\mathbb{k}$-上有一个次数为$n\geq 1$有限维表示$\rho:G\to GL(V)$，
 取定$V$的基$B=\{u_{1},...,u_{n}\}$，
 并设$\eta_{B}:V\to\mathbb{k}^{n}$是满足
 $\eta_{B}(u_{i})=e_{i},1\leq i\leq n$的线性同构，
 其中$e_{i}\in\mathbb{k}^{n}$是第$i$个标准单位列向量，
 那么对由$B$诱导的矩阵表示$\rho_{B}:G\to GL_{n}(\mathbb{k})$，
-有下图对所有$g\in G$交换。\label{mpcdffds}
+有下图对所有$g\in G$交换。
 $$
-    \begin{tikzcd}
-    V \arrow[rr, "\rho(g)"] \arrow[d, "\eta_{B}"'] &  & V \arrow[d, "\eta_{B}"] \\
-    \mathbbm{k}^{n} \arrow[rr, "\rho_{B}(g)"]      &  & \mathbbm{k}^{n}
-    \end{tikzcd}
+\begin{tikzcd}
+V \arrow[rr, "\rho(g)"] \arrow[d, "\eta_{B}"'] &  & V \arrow[d, "\eta_{B}"] \\
+\mathbb{k}^{n} \arrow[rr, "\rho_{B}(g)"]      &  & \mathbb{k}^{n}
+\end{tikzcd}
 $$
 :::
 
 线性代数中更一般的结果如下，它的证明也是平凡的。
 
-::: lemma
+::: lemma {@labhmpcdlem}
 设$V$是域$\mathbb{k}$上$n$维线性空间，
 $V^{\prime}$是域$\mathbb{k}$上$m$维线性空间，
 取定$V$的基$B=\{u_{1},...,u_{n}\}$，
@@ -285,13 +295,13 @@ $V^{\prime}$是域$\mathbb{k}$上$m$维线性空间，
 类似地，取定$V^{\prime}$的一个基$C$，
 可得线性同构$\eta_{C}:V^{\prime}\to \mathbb{k}^{m}$。
 对任何线性映射$\varphi:V\to V^{\prime}$，
-设$M_{\varphi}$是$\varphi$在基$B,C$下的表示矩阵\label{labhmpcdlem}，
+设$M_{\varphi}$是$\varphi$在基$B,C$下的表示矩阵，
 那么下图交换
 $$
-    \begin{tikzcd}
-    V \arrow[rr, "\varphi"] \arrow[d, "\eta_{B}"'] &  & V^{\prime} \arrow[d, "\eta_{C}"] \\
-    \mathbbm{k}^{n} \arrow[rr, "M_{\varphi}"]      &  & \mathbbm{k}^{m}
-    \end{tikzcd}
+\begin{tikzcd}
+V \arrow[rr, "\varphi"] \arrow[d, "\eta_{B}"'] &  & V^{\prime} \arrow[d, "\eta_{C}"] \\
+\mathbb{k}^{n} \arrow[rr, "M_{\varphi}"]      &  & \mathbb{k}^{m}
+\end{tikzcd}
 $$
 :::
 
@@ -316,19 +326,19 @@ $$
 构成的集合上的二元关系是等价关系。
 :::
 
-从[引理\ref{mpcdffds}]以及[引理\ref{labhmpcdlem}]
+从 @mpcdffds 以及 @labhmpcdlem
 我们可以看到对任何两个群$G$在$\mathbb{k}$上的有限维表示
 $\rho:G\to GL(V)$和$\rho^{\prime}:G\to GL(V^{\prime})$，
 其中$\text{dim}_{\mathbb{k}}V=n,\text{dim}_{\mathbb{k}}V^{\prime}=m$，
 只要$V$和$V^{\prime}$之间有个左$\mathbb{k}G$-模同态$\varphi:V\to V^{\prime}$，
 就会产生下述交换图：
 $$
-    \begin{tikzcd}
-                                                                                  & V \arrow[dd, dashed] \arrow[rr, "\varphi"]         &                                                      & V^{\prime} \arrow[dd, "\eta_{C}"] \\
-    V \arrow[rr, "\varphi"] \arrow[dd, "\eta_{B}"'] \arrow[ru, "\rho(g)"]         &                                                    & V^{\prime} \arrow[dd] \arrow[ru, "\rho^{\prime}(g)"] &                                   \\
-                                                                                  & \mathbbm{k}^{n} \arrow[rr, "M_{\varphi}"', dashed] &                                                      & \mathbbm{k}^{m}                   \\
-    \mathbbm{k}^{n} \arrow[rr, "M_{\varphi}"'] \arrow[ru, "\rho_{B}(g)"', dashed] &                                                    & \mathbbm{k}^{m} \arrow[ru, "\rho_{C}^{\prime}(g)"']  &
-    \end{tikzcd}
+\begin{tikzcd}
+& V \arrow[dd, dashed] \arrow[rr, "\varphi"] & & V^{\prime} \arrow[dd, "\eta_{C}"] \\
+V \arrow[rr, "\varphi"] \arrow[dd, "\eta_{B}"'] \arrow[ru, "\rho(g)"] & & V^{\prime} \arrow[dd] \arrow[ru, "\rho^{\prime}(g)"] & \\
+& \mathbb{k}^{n} \arrow[rr, "M_{\varphi}"', dashed] & & \mathbb{k}^{m} \\
+\mathbb{k}^{n} \arrow[rr, "M_{\varphi}"'] \arrow[ru, "\rho_{B}(g)"', dashed] & & \mathbb{k}^{m} \arrow[ru, "\rho_{C}^{\prime}(g)"'] &
+\end{tikzcd}
 $$
 其中$B$是$V$取定的基，$C$是$V^{\prime}$取定的基。
 进而我们看到等价的有限维群表示它们在给定基下决定的矩阵表示也等价。
@@ -400,7 +410,9 @@ $\rho:G_{1}\times\cdots\times G_{m}\to GL
 若取定$V_{1},...,V_{m}$的基，那么$\rho(g)$在这些基对应作张量积适当重排后
 得到$V_{1}\otimes_{\mathbb{k}}\cdots\otimes_{\mathbb{k}}V_{m}$的基下
 表示矩阵依然是$\rho_{i}(g)$在给定基下表示矩阵的Kronecker积。特别地，有
-$$\operatorname{tr}\rho(g)=\operatorname{tr}\rho_{1}(g)\operatorname{tr}\rho_{2}(g)\cdots \operatorname{tr}\rho_{m}(g).$$
+$$
+\operatorname{tr}\rho(g)=\operatorname{tr}\rho_{1}(g)\operatorname{tr}\rho_{2}(g)\cdots \operatorname{tr}\rho_{m}(g).
+$$
 之后将用特征标理论来说明当$V_{i}$是不可约左$\mathbb{C}G_{i}$-模时，
 $V_{1}\otimes_{\mathbb{k}}\cdots\otimes_{\mathbb{k}}V_{m}$
 是不可约左$\mathbb{C}[G_{1}\times\cdots\times G_{m}]$-模。
@@ -451,12 +463,12 @@ $\text{dim}_{\mathbb{k}}V=n$且有子表示$\rho|_{U}:G\to GL(U)$。
 设$U$有基$\{u_{1},...,u_{r}\}$，并将其扩充为$V$的一个基$B=\{u_{1},...,u_{n}\}$，
 那么$\rho(g)$在基$B$下的表示矩阵$\rho_{B}(g)$是具有下述形式的分块矩阵。
 $$
-    \rho_{B}(g)=\begin{pmatrix}
-    M_{11} & M_{12} \\ \\
-    0 &M_{22}
-    \end{pmatrix},M_{11}\in\text{M}_{r}(\mathbb{k}),
-    M_{12}\in\text{M}_{r\times(n-r)}(\mathbb{k}),
-    M_{22}\in\text{M}_{n-r}(\mathbb{k}).
+\rho_{B}(g)=\begin{pmatrix}
+M_{11} & M_{12} \\ \\
+0 &M_{22}
+\end{pmatrix},M_{11}\in\text{M}_{r}(\mathbb{k}),
+M_{12}\in\text{M}_{r\times(n-r)}(\mathbb{k}),
+M_{22}\in\text{M}_{n-r}(\mathbb{k}).
 $$
 特别地，当$U$是$V$作为$\mathbb{k}G$-模的一个直和因子，
 即存在子模$U^{\prime}$使得$V=U\oplus U^{\prime}$时，
@@ -480,7 +492,7 @@ $$
 称该表示是**不可约的**。
 若$V$是完全可约左$\mathbb{k}G$-模，称该表示是**完全可约的**。
 一般地，即使有限Abel群在复数域上都可能不存在忠实的不可约表示
-（见[@egnotcyclicabirecfarep]）。
+（见 @egnotcyclicabirecfarep）。
 
 下面的结果被称为Maschke定理。该定理在复数域上的特殊情形
 由H. Maschke（德国，1853–1908），这里呈现的版本由L.E.Dickson（美国，1874–1954）先注意到。
@@ -498,7 +510,9 @@ $$
 设$U_{0}$是$U$作为线性子空间的直和补，
 即作为$\mathbb{k}$-线性空间有直和分解$V=U\oplus U_{0}$。
 设$p_{0}:V\to U$是$V$作为线性空间在子空间$U$上的标准投射，命
-$$p=\frac{1}{|G|}\sum\limits_{g\in G}\rho(g)^{-1}p_{0}\rho(g),$$
+$$
+p=\frac{1}{|G|}\sum\limits_{g\in G}\rho(g)^{-1}p_{0}\rho(g),
+$$
 则$p:V\to U$是满左$\mathbb{k}G$-模同态且$p|_{U}=\text{id}_{U}$，
 故$U$作为$\mathbb{k}G$-子模是直和因子。
 :::
@@ -515,16 +529,17 @@ $\operatorname{char}\mathbb{k}{\not|}$ $|G|$。
 那么$z=\sum\limits_{g\in G}g\neq 0$
 满足$z^{2}=|G|z=0$以及$zx=xz,\forall x\in G$，
 因此$z\in\text{Jac}(\mathbb{k}G)$。
-由Wedderburn-Artin定理知这说明$\mathbb{k}G$不是Artin半单环。
+由Wedderburn–Artin定理知这说明$\mathbb{k}G$不是Artin半单环。
 但条件说群代数$\mathbb{k}G$作为一个Artin环是半单的，这就得到了矛盾。
 :::
 
 ::: remark
 让我们再更深入看一下当域$\mathbb{k}$的特征整除$|G|$时
 $\mathbb{k}G$不会是半单代数的原因。
-作$$
-    \varepsilon:\mathbb{k}G\to\mathbb{k},
-    \sum\limits_{g\in G}a_{g}g\mapsto \sum\limits_{g\in G}a_{g}
+作
+$$
+\varepsilon:\mathbb{k}G\to\mathbb{k},
+\sum\limits_{g\in G}a_{g}g\mapsto \sum\limits_{g\in G}a_{g}
 $$
 将$\mathbb{k}$视作平凡左$\mathbb{k}G$-模，
 那么$\varepsilon$是满左$\mathbb{k}G$-模同态
@@ -548,15 +563,16 @@ $$
 
 ::: proof
 充分性由Artin半单环上的模均投射立即得到，只需验证必要性。
-这时$$
-    \varepsilon:\mathbb{k}G\to\mathbb{k},
-    \sum\limits_{g\in G}a_{g}g\mapsto \sum\limits_{g\in G}a_{g}
+这时
+$$
+\varepsilon:\mathbb{k}G\to\mathbb{k},
+\sum\limits_{g\in G}a_{g}g\mapsto \sum\limits_{g\in G}a_{g}
 $$
 是可裂满$\mathbb{k}G$-模同态。
 因此存在$\mathbb{k}G$-模同态$s:\mathbb{k}\to\mathbb{k}G$
 使得$\varepsilon s=\text{id}_{\mathbb{k}}$。
 由$\mathbb{k}$是平凡模，存在$c\in\mathbb{k}$
-使得$\tau(1)=c\sum\limits_{g\in G} g$，两边作用$\varepsilon$可知$c|G|=1$，
+使得$s(1)=c\sum\limits_{g\in G} g$，两边作用$\varepsilon$可知$c|G|=1$，
 这说明$\operatorname{char}\mathbb{k}{\not|}$ $|G|$。
 :::
 
@@ -572,8 +588,8 @@ Maschke定理的意义在于它告诉我们，要研究有限群$G$在满足特�
 其中$\mathbb{F}_{p}$是$p$元有限域，所以此时$\text{Jac}(\mathbb{F}_{p}G)=0$。
 对任给素数$p$，都有自然的满环同态
 $$
-    \alpha_{p}:\mathbb{Z}G\to\mathbb{F}_{p}G,
-    \sum\limits_{g\in G}b_{g}g\mapsto \sum\limits_{g\in G}\overline{b_{g}}g,
+\alpha_{p}:\mathbb{Z}G\to\mathbb{F}_{p}G,
+\sum\limits_{g\in G}b_{g}g\mapsto \sum\limits_{g\in G}\overline{b_{g}}g,
 $$
 易知$\alpha_{p}(\text{Jac}\mathbb{Z}G)\subseteq \text{Jac}(\mathbb{F}_{p}G)$，
 当素数$p$不整除$|G|$时，上述包含关系右端是$0$，
@@ -586,7 +602,7 @@ $$
 
 在本节最后我们指出用上述Maschke定理证明过程中完全相同的方法可稍作推广。
 
-::: theorem [推广的Mashcke] {@lem:GMaschkThm}
+::: theorem [推广的Maschke] {@lem:GMaschkThm}
 设$G$是有限群且有子群$H$，域$\mathbb{k}$
 满足$\operatorname{char}\mathbb{k}{\not|}$ $[G:H]$。
 如果左$\mathbb{k}G$-模$V$的子模$W$
@@ -601,9 +617,10 @@ $$
 可定义出标准投射$p_{0}:V\to W$使得$p_{0}$是左$\mathbb{k}H$-模同态
 且固定$W$内每个点。作
 $$
-    p(v)=\frac{1}{n}\sum\limits_{i=1}^{n}g_{i}^{-1}p_{0}(g_{i}v),
-    \forall v\in V,
-$$则$p:V\to W$是满左$\mathbb{k}G$-模同态
+p(v)=\frac{1}{n}\sum\limits_{i=1}^{n}g_{i}^{-1}p_{0}(g_{i}v),
+\forall v\in V,
+$$
+则$p:V\to W$是满左$\mathbb{k}G$-模同态
 且$p|_{W}=\text{id}_{W}$，故$W$作为$V$的$\mathbb{k}G$-子模是直和因子。
 :::
 
@@ -625,7 +642,7 @@ $$则$p:V\to W$是满左$\mathbb{k}G$-模同态
 总不超过其线性维数$\text{dim}_{\mathbb{k}}A$。
 :::
 
-对$\mathbb{k}$-代数$A$上的左模$V$，Krull-Schmidt定理告诉我们只要$V$有合成列
+对$\mathbb{k}$-代数$A$上的左模$V$，Krull–Schmidt定理告诉我们只要$V$有合成列
 （例如$V$是非零有限维模），那么$V$可分解为有限个不可分模的直和，
 并且这样的直和分解在不计次序和同构意义下唯一。
 具体地，若$_{A}V\neq 0$有合成列，则存在不可分子模$V_{1},...,V_{m}\neq 0$
@@ -641,8 +658,8 @@ $V_{i}\cong W_{\sigma(i)},\forall 1\leq i\leq m$。
 所以$_{A}V$的不可约子模直和分解在不计次序和同构意义下唯一。
 现在我们可以设有限维模$V$有不可约分解
 $$
-    V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}\oplus V_{2}^{(1)}
-    \oplus\cdots\oplus V_{r}^{(1)}\oplus\cdots\oplus V_{r}^{(m_{r})},
+V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}\oplus V_{2}^{(1)}
+\oplus\cdots\oplus V_{r}^{(1)}\oplus\cdots\oplus V_{r}^{(m_{r})},
 $$
 其中每个$V_{i}^{(k)}$是不可约模，对每个$1\leq i\leq r$，
 有$V_{i}^{(k)}\cong V_{i}^{(l)},\forall k,l\in\{1,2,...,m_{i}\}$，
@@ -678,11 +695,11 @@ $V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}\oplus V_{2}^{(1)}
 于是由反代数同构$\mathbb{k}G\cong\text{End}_{\mathbb{k}G}(\mathbb{k}G)
 =\text{End}_{\mathbb{k}G}(V)$以及$\mathbb{k}$-线性同构
 $$
-    \text{End}_{\mathbb{k}G}(V)
-    \cong\prod_{i=1}^{r}\prod_{j=1}^{r}
-    \text{Hom}_{\mathbb{k}G}(V_{i}^{(1)},V_{j}^{(1)})^{m_{i}m_{j}}
-    \cong \prod_{i=1}^{r}\text{End}_{\mathbb{k}G}(V_{i}^{(1)})^{m_{i}^{2}}
-    =\prod_{i=1}^{r}\Delta_{i}^{m_{i}^{2}}
+\text{End}_{\mathbb{k}G}(V)
+\cong\prod_{i=1}^{r}\prod_{j=1}^{r}
+\text{Hom}_{\mathbb{k}G}(V_{i}^{(1)},V_{j}^{(1)})^{m_{i}m_{j}}
+\cong \prod_{i=1}^{r}\text{End}_{\mathbb{k}G}(V_{i}^{(1)})^{m_{i}^{2}}
+=\prod_{i=1}^{r}\Delta_{i}^{m_{i}^{2}}
 $$
 得到$|G|=\dim_{\mathbb{k}}\mathbb{k}G
 =\sum\limits_{i=1}^{r}m_{i}^{2}\dim_{\mathbb{k}}\Delta_{i}$。
@@ -692,9 +709,9 @@ $$
 设$G$是有限群，群代数$\mathbb{k}G$半单，
 并设$V=\mathbb{k}G$作为左$\mathbb{k}G$-模有不可约分解
 $$
-    \mathbb{k}G=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}
-    \oplus V_{2}^{(1)}\oplus\cdots\oplus V_{r}^{(1)}
-    \oplus\cdots\oplus V_{r}^{(m_{r})},
+\mathbb{k}G=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}
+\oplus V_{2}^{(1)}\oplus\cdots\oplus V_{r}^{(1)}
+\oplus\cdots\oplus V_{r}^{(m_{r})},
 $$
 其中每个$V_{i}^{(k)}$是不可约模，对每个$1\leq i\leq r$，
 有$V_{i}^{(k)}\cong V_{i}^{(l)},\forall k,l\in\{1,2,...,m_{i}\}$，
@@ -716,9 +733,9 @@ $\text{End}_{\mathbb{k}G}(V)\cong
 记$\Delta_{i}=\text{End}_{\mathbb{k}G}V_{i}^{(1)}$
 是域$\mathbb{k}$上的有限维可除代数，那么有$\mathbb{k}$-代数同构
 $$
-    \text{End}_{\mathbb{k}G}(V)
-    \cong \text{M}_{m_{1}}(\Delta_{1})\times\cdots
-    \times \text{M}_{m_{r}}(\Delta_{r}),
+\text{End}_{\mathbb{k}G}(V)
+\cong \text{M}_{m_{1}}(\Delta_{1})\times\cdots
+\times \text{M}_{m_{r}}(\Delta_{r}),
 $$
 于是得到$\mathbb{k}$-代数同构$\mathbb{k}G\cong  \text{M}_{m_{1}}(\Delta_{1}^{op})
 \times\cdots\times \text{M}_{m_r}(\Delta_{r}^{op})$。
@@ -728,9 +745,9 @@ $$
 设$G$是有限群，群代数$\mathbb{k}G$半单，
 并设$\mathbb{k}G$作为左$\mathbb{k}G$-模有不可约分解
 $$
-    \mathbb{k}G=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}
-    \oplus V_{2}^{(1)}\oplus\cdots\oplus V_{r}^{(1)}\oplus\cdots
-    \oplus V_{r}^{(m_{r})},
+\mathbb{k}G=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}
+\oplus V_{2}^{(1)}\oplus\cdots\oplus V_{r}^{(1)}\oplus\cdots
+\oplus V_{r}^{(m_{r})},
 $$
 其中每个$V_{i}^{(k)}$是不可约模，对每个$1\leq i\leq r$，
 有$V_{i}^{(k)}\cong V_{i}^{(l)},\forall k,l\in\{1,2,...,m_{i}\}$，
@@ -743,10 +760,11 @@ $$
     \dim_{\mathbb{k}}\Delta_{i}$。
 若进一步要求$\mathbb{k}$是代数闭域，
 则代数同构$\Delta_{i}\cong\mathbb{k}$表明$\Delta_{i}=\Delta_{i}^{op}$，
-从而有代数同构$$
-    \mathbb{k}G\cong
-    \text{M}_{m_{1}}(\mathbb{k})\times\cdots\times
-    \text{M}_{m_{r}}(\mathbb{k}).
+从而有代数同构
+$$
+\mathbb{k}G\cong
+\text{M}_{m_{1}}(\mathbb{k})\times\cdots\times
+\text{M}_{m_{r}}(\mathbb{k}).
 $$
 :::
 
@@ -767,7 +785,9 @@ $Z(\mathbb{k}G)$作为$\mathbb{k}$-线性空间的一个基，
 任取$g\in G$，有$gc_{i}g^{-1}=\sum\limits_{g_{i}\in C_{i}}
     gg_{i}g^{-1}=c_{i}$，所以$c_{i}\in Z(\mathbb{k}G)$。
 对每个$c\in Z(\mathbb{k}G)$，设
-$$c=\sum\limits_{g\in G}\alpha_{g}g,\alpha_{g}\in\mathbb{k},$$
+$$
+c=\sum\limits_{g\in G}\alpha_{g}g,\alpha_{g}\in\mathbb{k},
+$$
 那么$c=hch^{-1},\forall h\in G$，
 由此可见$\alpha_{hgh^{-1}}=\alpha_{g},\forall h\in G$。
 这蕴含$c$可被$\{c_{1},...,c_{r}\}$线性表出。
@@ -789,9 +809,9 @@ $$c=\sum\limits_{g\in G}\alpha_{g}g,\alpha_{g}\in\mathbb{k},$$
 设$G$是有限群，$\mathbb{k}$是代数闭域且群代数$\mathbb{k}G$半单，
 $V=\mathbb{k}G$作为左$\mathbb{k}G$-模有不可约分解
 $$
-    V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}
-    \oplus V_{2}^{(1)}\oplus\cdots\oplus V_{r}^{(1)}
-    \oplus\cdots\oplus V_{r}^{(m_{r})},
+V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}
+\oplus V_{2}^{(1)}\oplus\cdots\oplus V_{r}^{(1)}
+\oplus\cdots\oplus V_{r}^{(m_{r})},
 $$
 其中每个$V_{i}^{(k)}$是不可约模，对每个$1\leq i\leq r$，
 有$V_{i}^{(k)}\cong V_{i}^{(l)},\forall k,l\in\{1,2,...,m_{i}\}$，
@@ -808,7 +828,7 @@ $$
 :::
 
 ::: example [置换群$S_{n}$的不可约复表示和整数拆分] {@exm:Sncomppartrg}
-对有限群$G$，[@cor:acfirmicneqCcN]说$\mathbb{C}G$上不可约模同构类总数
+对有限群$G$，@cor:acfirmicneqCcN 说$\mathbb{C}G$上不可约模同构类总数
 恰是$G$共轭类数目。当我们取$G=S_{n}$为$n$次对称群时，
 $S_{n}$中两个元素共轭当且仅当它们有相同的型（回忆置换$\sigma\in S_{n}$的型如下定义：
 当$\sigma$分解为不相交轮换分解后，
@@ -825,10 +845,10 @@ $[1^{\alpha_{1}}2^{\alpha_{2}}\cdots n^{\alpha_{n}}]$
 或者说$S_{n}$的不可约复表示等价类，数目是$p(n)$。
 :::
 
-::: example [有限Abel群的不可约表示]
-设$\mathbb{k}$是代数闭域\label{exm:acfofAbgirepeg}，$G$是有限Abel群，
+::: example [有限Abel群的不可约表示] {@exm:acfofAbgirepeg}
+设$\mathbb{k}$是代数闭域，$G$是有限Abel群，
 那么$\mathbb{k}G$是交换代数。考虑$\mathbb{k}G$上任何不可约左模$M$，
-它是有限维模，由[@lem:acffdireEndk]知$M$上任何一个自同态
+它是有限维模，由 @lem:acffdireEndk 知$M$上任何一个自同态
 是$\mathbb{k}$中元素决定的数乘作用。
 而$\mathbb{k}G$的交换性使得每个$g\in G$决定的$M$上左乘变换
 是左$\mathbb{k}G$-模同态，
@@ -837,7 +857,7 @@ $[1^{\alpha_{1}}2^{\alpha_{2}}\cdots n^{\alpha_{n}}]$
 
 有限Abel群在代数闭域上的不可约表示都是$1$次的。
 
-在[@cor:acfirmicneqCcN]中我们看到只要代数闭域$\mathbb{k}$的特征
+在 @cor:acfirmicneqCcN 中我们看到只要代数闭域$\mathbb{k}$的特征
 不整除有限群的阶$|G|$，那么有限群$G$在代数闭域$\mathbb{k}$上的不可约表示等价类数
 恰好就是$G$的共轭类总数。当$G$是有限Abel群时，它的共轭类数目恰好是$|G|$，因此
 
@@ -850,7 +870,7 @@ $[1^{\alpha_{1}}2^{\alpha_{2}}\cdots n^{\alpha_{n}}]$
 如果域$\mathbb{k}$不是代数闭域，
 那么有限Abel群在$\mathbb{k}$上的不可约表示未必是$1$次的。
 例如考虑$3$阶循环群$C_{3}$在$\mathbb{Q}$上的表示
-$M=\mathbb{Q}[x]/(x^{2}+x+1)$（通过[例\ref{cycgrpkGeg}]中的代数同构
+$M=\mathbb{Q}[x]/(x^{2}+x+1)$（通过 @cycgrpkGeg 中的代数同构
 $\mathbb{Q}C_{3}\cong \mathbb{Q}[x]/(x^{3}-1)$
 赋予$M$自然的左$\mathbb{Q}C_{3}$-模结构），
 那么由$x^{2}+x+1$是$\mathbb{Q}$上不可约多项式
@@ -863,7 +883,7 @@ $\mathbb{Q}C_{3}\cong \mathbb{Q}[x]/(x^{3}-1)$
 进而存在不可约左$\mathbb{k}G$-模$M_{1},...,M_{t}$
 使得$\mathbb{k}G=M_{1}\oplus M_{2}\oplus\cdots\oplus M_{t}$
 （比较两边维数不难看出$t=|G|$）。
-由[@lem:acffdireEndk]可知任意$g,h\in G$，
+由 @lem:acffdireEndk 可知任意$g,h\in G$，
 作为$M_{i}$上$\mathbb{k}G$-模自同态是域$\mathbb{k}$中元素的数乘变换，
 这一观察表明$g$和$h$所决定的$\mathbb{k}G$上的左乘变换是可交换的。
 因此$G$是Abel群。结合前面的讨论可知，
@@ -900,9 +920,9 @@ $rx=\alpha(r)x,\forall r\in R,x\in M$。
 所以$\rho$可天然诱导$G/[G,G]$的表示$\tilde{\rho}:G/[G,G]\to GL(V),
     g[G,G]\mapsto \rho(g) $。命
 $$
-    \eta:\{G\text{ 在域 }\mathbb{k}\text{ 上的 }1\text{ 次表示 }\}\to
-    \{G/[G,G]\text{ 在域 }\mathbb{k}\text{ 上的 }1\text{ 次表示}\},
-    [\rho]\mapsto [\tilde{\rho}],
+\eta:\{G\text{ 在域 }\mathbb{k}\text{ 上的 }1\text{ 次表示 }\}\to
+\{G/[G,G]\text{ 在域 }\mathbb{k}\text{ 上的 }1\text{ 次表示}\},
+[\rho]\mapsto [\tilde{\rho}],
 $$
 不难验证$\eta$是双射。
 :::

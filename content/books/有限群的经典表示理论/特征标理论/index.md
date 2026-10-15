@@ -3,23 +3,29 @@ title: 特征标理论
 notices:
   - name: 问题
     items:
-      - 本页面转换自定理与证明环境互相嵌套的原文，相应部分的结构需要整理。
+      - '“一些算术性质”一节第一个推论的证明中，$\tilde{\rho}_{i}$ 的陪域似乎应为 $\text{End}_{\mathbb{C}}W_{i}$ 而不是 $\mathbb{C}$；证明止于 $u_{j}M\subseteq M$，没有写出 $u_{j}$ 是代数整数的结论。'
+      - '“第二正交关系”一节末尾注记中，“$a_{j},b_{j},c_{j}\in\{\pm 1,\pm i\}$”与“$a_{j},b_{j},c_{j}=\pm 1$”中的 $a_{j},b_{j},c_{j}$ 似乎应为 $b_{j},c_{j},d_{j}$。'
+      - '“Burnside 定理”一节中，关于有限单群共轭类的定理的证明中“$\rho_{i}(1)=n_{i}$”似乎应为 $\chi_{i}(1)=n_{i}$；其后应用的证明中“$[G:H]$ 就是 $h$ 在 $G$ 中共轭类的元素数目”似乎应为 $[G:C(h)]$。'
+      - '“诱导表示”一节开头注记中的同构 $_{R}M\cong\text{Hom}_{S}({_{S}S_{R},{_{S}T}})$ 里的 $T$ 似乎应为 $M$；该节最后的引理与命题中“$\rho:G\to GL(M)$ 是 $H$ 的表示”似乎应为 $\rho:H\to GL(M)$。'
+      - '“Frobenius 互反律”一节应用的证明第一段中“包含 $H$ 的某个不可约复表示”似乎应为 $G$ 的不可约复表示。'
+      - '“Mackey 不可约性判别”一节定理的证明中，$\text{Ind}_{H_{1}}^{L}$ 似乎应为 $\text{Ind}_{H_{1}}^{H}$，括号中的 $\langle\text{Ind}_{H}^{G}(\chi),\text{Ind}_{H}^{G}(\chi)\rangle_{H}\geq 1$ 似乎应为 $\langle\chi,\chi\rangle_{H}\geq 1$。'
 ---
+
 虽然群的矩阵表示使得我们可以通过分析具体的对象结构来了解抽象的群，
 但是对高阶群，它的矩阵表示或是置换表示难以具体分析处理。
 例如对充分大的正整数$n$，置换群$S_{n}$中每个元素的不相交轮换分解可能基本无法手算。
 这时我们需要更精巧的数值不变量，
 使得不通过复杂计算也能在一些具体处理问题的场合能为我们提供一些有用的信息。
-大量实践经验表明特征标（见[定义\ref{defcg}]）所载有的表示信息在应用中卓有成效。
+大量实践经验表明特征标（见 @defcg）所载有的表示信息在应用中卓有成效。
 并且，我们会说明对有限群的任意两个不可约复表示，
-这两个复表示等价的充要条件是它们的特征标相同（见[@cor:CrefdEqifftcharae]）。
+这两个复表示等价的充要条件是它们的特征标相同（见 @cor:CrefdEqifftcharae）。
 并且有限维复表示的不可约性可通过计算特征标复内积判别
-（见[推论\ref{cor:ireCribyCpcharraincor}]）。
+（见 @cor:ireCribyCpcharraincor）。
 
 ## 基本概念
 
-::: definition [类函数，特征标]
-设$G$是群\label{defcg}，$\mathbb{k}$是域。
+::: definition [类函数，特征标] {@defcg}
+设$G$是群，$\mathbb{k}$是域。
 
 - 若函数$f:G\to\mathbb{k}$在群$G$的每个共轭类上取值是常值的，
   即$f(gxg^{-1})=f(x),\forall x,g\in G$，则称$f$是一个**类函数**。
@@ -39,11 +45,14 @@ notices:
 
 ::: example [平凡表示特征标]
 设$\rho:G\to GL(V)$是群$G$的$n$次平凡表示，
-则该表示的特征标$$\chi(g)=n1_{\mathbb{k}},\forall g\in G.$$
+则该表示的特征标
+$$
+\chi(g)=n1_{\mathbb{k}},\forall g\in G.
+$$
 :::
 
-::: example [子表示直和特征标]
-设$\rho:G\to GL(V)$是群$G$的$n\geq 1$次表示\label{charasum}，
+::: example [子表示直和特征标] {@charasum}
+设$\rho:G\to GL(V)$是群$G$的$n\geq 1$次表示，
 如果$\rho$是子表示$\rho_{1},\rho_{2},...,\rho_{m}$的直和，
 即$\rho=\rho_{1}\oplus\rho_{2}\oplus\cdots\oplus\rho_{m}$，
 若记$\chi_{i}$是子表示$\rho_{i}$的特征标，
@@ -57,10 +66,10 @@ notices:
 那么$\chi_{\rho}=\chi_{\rho_{U}}+\chi_{\rho_{V/U}}$。
 :::
 
-::: example [表示张量积的特征标]
-设群$G$\label{charatensoR}有有限维表示$\rho:G\to GL(V)$
+::: example [表示张量积的特征标] {@charatensoR}
+设群$G$有有限维表示$\rho:G\to GL(V)$
 和$\rho^{\prime}:G\to GL(V^{\prime})$，它们次数均正。
-在[@exm:tensorpdefpg]中我们已经看到若取定$V$的基
+在 @exm:tensorpdefpg 中我们已经看到若取定$V$的基
 $B=\{u_{1},...,u_{n}\}$，$V^{\prime}$的基$C=\{v_{1},...,v_{m}\}$，
 设$\rho(g)$在$B$下的表示矩阵是$\rho_{B}(g)$，
 $\rho^{\prime}(g)$在$C$下的表示矩阵是$\rho_{C}(g)$，
@@ -133,21 +142,21 @@ $\text{diag}\{\omega_{1},...,\omega_{n}\}$，
 也称$\{g\in G|\chi_{\rho}(g)=n\}$为**该特征标的核**，
 记作$\operatorname{Ker}\chi_{\rho}$。我们也引入
 $$
-    Z(\chi_{\rho})=\{g\in G\mid\text{特征标 }|\chi_{\rho}(g)|=n\}
-    =\{g\in G\mid\text{存在 }m\text{ 次本原单位根 }\omega\text{ 使得 }
-    \rho(g)=\omega\operatorname{id}_{V}\}.
+Z(\chi_{\rho})=\{g\in G\mid\text{特征标 }|\chi_{\rho}(g)|=n\}
+=\{g\in G\mid\text{存在 }m\text{ 次本原单位根 }\omega\text{ 使得 }
+\rho(g)=\omega\operatorname{id}_{V}\}.
 $$
 这也是群$G$的正规子群，并且包含$\operatorname{Ker}\chi_{\rho}=\operatorname{Ker}\rho$。
 通过满群同态$Z(\chi_{\rho})\to U(m),g\mapsto\omega$，
 这里$\rho(g)=\omega\operatorname{id}_{V}$，我们看到$Z(\chi_{\rho})/\operatorname{Ker}\rho$是循环群。
 
-::: example [对偶表示]
-设有限群$G$\label{dualRepeg}有$n$次复表示$\rho:G\to GL(X)$，
+::: example [对偶表示] {@dualRepeg}
+设有限群$G$有$n$次复表示$\rho:G\to GL(X)$，
 那么可如下在$X^{*}=\text{Hom}_{\mathbb{C}}(X,\mathbb{C})$上
 赋予左$\mathbb{C}G$-模结构：$g\varphi:X\to\mathbb{C},
     x\mapsto \varphi(g^{-1}x)$，于是得到$G$的表示$\rho^{*}:G\to GL(X^{*})$，
 称为$G$关于$\rho$的**对偶表示**。
-在[@fGanpprimerDiag]中我们看到对每个$g\in G$，
+在 @fGanpprimerDiag 中我们看到对每个$g\in G$，
 可选取$X$的一个基$B$使得$\rho(g)$在$B$下的表示矩阵形如
 $\text{diag}\{\omega_{1},...,\omega_{n}\}$，
 其中每个$\omega_{i}$是某个$m$次本原单位根，$m$是$G$的指数，
@@ -168,19 +177,21 @@ $\text{diag}\{\omega_{1},...,\omega_{n}\}$，
 :::
 
 ::: proof
-从[@chirhonorleqneqiffmrpptop]
+从 @chirhonorleqneqiffmrpptop
 我们看到对任何$g\in G$，只要$\chi(g)=n$，
 $\rho(g)$就是由某个本原单位根诱导的数乘变换。
 因此对任何$g^{\prime}\in G$以及满足$\chi(g)=n$的元素$g$，
 总有$\rho(g^{\prime})\rho(g)=\rho(g)\rho(g^{\prime})$。
 结合$\rho$是单射可知$g\in Z(G)$。
-反之，如果$g\in Z(G)$，那么[@lem:acffdireEndk]
+反之，如果$g\in Z(G)$，那么 @lem:acffdireEndk
 表明$g$所诱导的$V$上线性变换是$\mathbb{C}$中某个元素$\lambda$的数乘变换。
 并且若记$G$的指数是$m$，则$\lambda$一定是$m$次本原单位根。
 进而$|\chi(g)|=n|\lambda|=n$。最后我们说明$Z(G)$是循环群。
 任取$g,h\in Z(G)$，那么存在$m$次本原单位根$\lambda,\mu$
 使得$\rho(g)=\lambda\operatorname{id}_{V},\rho(h)=\mu\operatorname{id}_{V}$，进而
-$$\varphi:Z(G)\to \mathbb{C}^{*},g\mapsto \frac{\chi(g)}{n}$$
+$$
+\varphi:Z(G)\to \mathbb{C}^{*},g\mapsto \frac{\chi(g)}{n}
+$$
 是定义合理的群同态。通过$\rho$是单射可知$\varphi$是单同态，
 故$Z(G)\cong \operatorname{Im}\varphi$是$\mathbb{C}^{*}$的有限乘法子群，为循环群。
 :::
@@ -203,15 +214,15 @@ $\rho_{i}$的表示空间是$W_{i}$，$\chi_{i}$是$\rho_{i}$的特征标。
 对每个$G$的有限维表示$\rho:G\to GL(V)$，
 我们已经看到$V$作为完全可约左$\mathbb{C}G$-模可分解为一些不可约模的直和，可设
 $$
-    V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}\oplus V_{2}^{(1)}
-    \oplus\cdots\oplus V_{r}^{(1)}\oplus\cdots\oplus V_{r}^{(m_{r})},
+V=V_{1}^{(1)}\oplus\cdots\oplus V_{1}^{(m_{1})}\oplus V_{2}^{(1)}
+\oplus\cdots\oplus V_{r}^{(1)}\oplus\cdots\oplus V_{r}^{(m_{r})},
 $$
 其中每个$V_{i}^{(k)}$是不可约模，对每个$1\leq i\leq r$，
 $V_{i}^{\ell}\cong W_{i},\forall 1\leq\ell\leq m_{i}$，
 这里$m_{1},...,m_{r}$由$V$决定。
 进而得到$\mathbb{C}G$-模同构$V\cong W_{1}^{m_{1}}\oplus W_{2}^{m_{2}}
 \oplus\cdots\oplus W_{r}^{m_{r}}$。
-从[例\ref{charasum}]可知$\chi_{\rho}=\sum\limits_{i=1}^{r}m_{i}\chi_{i}$。
+从 @charasum 可知$\chi_{\rho}=\sum\limits_{i=1}^{r}m_{i}\chi_{i}$。
 接下来我们来说明$\{\chi_{1},...,\chi_{r}\}$作为复线性空间
 $\mathbb{C}^{G}=\{f:G\to\mathbb{C}\}$的子集线性无关。一旦说明这一点我们马上得到
 
@@ -220,40 +231,46 @@ $\mathbb{C}^{G}=\{f:G\to\mathbb{C}\}$的子集线性无关。一旦说明这一�
 我们通过证明下面的定理来得到特征标集
 $\{\chi_{1},...,\chi_{r}\}$的$\mathbb{C}$-线性无关性。
 
-::: theorem [第一正交关系]
-设$G$\label{BasicoRRelThm}是有限群，$\mathbb{k}$的特征零的代数闭域。
+::: theorem [第一正交关系] {@BasicoRRelThm}
+设$G$是有限群，$\mathbb{k}$是特征零的代数闭域。
 $\{\rho_{1},\rho_{2},...,\rho_{r}\}$是$G$在$\mathbb{k}$上
 不可约表示等价类的一个代表元集，
 $\rho_{i}$的表示空间是$W_{i}$，$\chi_{i}$是$\rho_{i}$的特征标。
 那么对每个$g\in G$，有
 $$
-    \frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)\chi_{j}(g^{-1})
-    =\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g^{-1}) \chi_{j}(g)
-    = \begin{cases}1, & i=j \\ 0, & i\neq j\end{cases}.
+\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)\chi_{j}(g^{-1})
+=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g^{-1}) \chi_{j}(g)
+= \begin{cases}1, & i=j \\ 0, & i\neq j\end{cases}.
 $$
 :::
 
 为了看到上述定理成立，对有限群$G$的有限维表示
 $\rho:G\to GL(V),\text{dim}_{\mathbb{k}}V=n$，设线性作用的不动点集
-$$V^{G}=\{x\in V|gx=x,\forall g\in G\},$$
+$$
+V^{G}=\{x\in V|gx=x,\forall g\in G\},
+$$
 易见$V^{G}$是$V$作为左$\mathbb{k}G$-模的一个子模，
 并且$\operatorname{char}\mathbb{k}=0$使得可构造满$\mathbb{k}G$-模同态
-$$p:V\to V^{G},x\mapsto \frac{1}{|G|} \sum_{g \in G} gx$$
+$$
+p:V\to V^{G},x\mapsto \frac{1}{|G|} \sum_{g \in G} gx
+$$
 使得对标准嵌入$i:V^{G}\to V$有$pi=\operatorname{id}_{V^{G}}$，
 因此$p$是$V$在直和因子$V^{G}$上的投射。
 我们把$p$视作$V$上线性变换$\tilde{p}:V\to V$
 并设$\text{dim}_{\mathbb{k}}V^{G}=t$，
 那么可取$V$的一个基$B$使得$\tilde{p}:V\to V$在$B$下的表示矩阵为
 $$
-    \begin{pmatrix}
-    I_{t} & 0 \\ \\
-    0 & 0
-    \end{pmatrix},
+\begin{pmatrix}
+I_{t} & 0 \\ \\
+0 & 0
+\end{pmatrix},
 $$
 所以$\operatorname{tr}(\tilde{p})=\text{dim}_{\mathbb{k}}V^{G}$。
 另一方面，由$p$的定义可以看出$\tilde{p}=(1/|G|)\sum\limits_{g\in G}\rho(g)$，
 对该等式两边取迹得
-$$\tilde{p}=\frac{1}{|G|} \sum_{g \in G}\chi_{\rho}(g),$$
+$$
+\operatorname{tr}(\tilde{p})=\frac{1}{|G|} \sum_{g \in G}\chi_{\rho}(g),
+$$
 总结一下，得到
 
 ::: lemma
@@ -278,7 +295,7 @@ $$\tilde{p}=\frac{1}{|G|} \sum_{g \in G}\chi_{\rho}(g),$$
 ::: lemma
 设$G$是群，$X,Y$是左$\mathbb{k}G$-模，
 那么$X\otimes_{\mathbb{k}}Y$上通过表示的张量积可知
-有一个左$\mathbb{k}G$-模结构（见[@exm:tensorpdefpg]），
+有一个左$\mathbb{k}G$-模结构（见 @exm:tensorpdefpg），
 对$\text{Hom}_{\mathbb{k}}(X,Y),X^{*}
     =\text{Hom}_{\mathbb{k}}(X,\mathbb{k})$
 通过前面的方式赋予左$\mathbb{k}G$-模结构（其中$\mathbb{k}$上左模结构平凡），
@@ -289,23 +306,24 @@ $X^{*}\otimes_{\mathbb{k}}Y\cong\text{Hom}_{\mathbb{k}}(X,Y)$。
 现在我们把上述引理具体到有限维复表示的场景，对有限维非零左$\mathbb{C}G$-模$X,Y$，
 由模同构$X^{*}\otimes_{\mathbb{C}}Y\cong\text{Hom}_{\mathbb{C}}(X,Y)$知
 它们对应的表示有相同的特征标，设$\rho_{X},\rho_{Y}$分别是模$X,Y$对应的复表示。
-从[例\ref{charatensoR}]看到$X^{*}\otimes_{\mathbb{C}}Y$的特征标
+从 @charatensoR 看到$X^{*}\otimes_{\mathbb{C}}Y$的特征标
 由$\chi_{\rho_{X}^{*}}\chi_{\rho_{Y}}$给出，
-而[例\ref{dualRepeg}]中已说明$\chi_{\rho_{X}^{*}}=\overline{\chi_{\rho_{X}}}$，
+而 @dualRepeg 中已说明$\chi_{\rho_{X}^{*}}=\overline{\chi_{\rho_{X}}}$，
 所以$\text{Hom}_{\mathbb{C}}(X,Y)$对应的表示的特征标
 是$\overline{\chi_{\rho_{X}}}\chi_{\rho_{Y}}$。
 因此由$\text{Hom}_{\mathbb{C}}(X,Y)^{G}=\text{Hom}_{\mathbb{C}G}(X,Y)$
 以及$\text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}}(X,Y)^{G}
 =(1/|G|)\sum_{g \in G}\overline{\chi_{\rho_{X}}(g)}\chi_{\rho_{Y}}(g)$知
 
-::: proposition
-设有限群$G$有有限维复表示\label{Hompropdimeqinnchar}
+::: proposition {@Hompropdimeqinnchar}
+设有限群$G$有有限维复表示
 $\rho_{X}:G\to GL(X),\rho_{Y}:G\to GL(Y)$，其中$X,Y\neq 0$。
-那么$$
-    \text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}G}(X,Y)
-    =\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho_{X}}(g)}\chi_{\rho_{Y}}(g)
-    =\frac{1}{|G|}\sum_{g \in G}\chi_{\rho_{X}}(g^{-1})\chi_{\rho_{Y}}(g)
-    =\frac{1}{|G|}\sum_{g \in G}\chi_{\rho_{X}}(g)\chi_{\rho_{Y}}(g^{-1}).
+那么
+$$
+\text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}G}(X,Y)
+=\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho_{X}}(g)}\chi_{\rho_{Y}}(g)
+=\frac{1}{|G|}\sum_{g \in G}\chi_{\rho_{X}}(g^{-1})\chi_{\rho_{Y}}(g)
+=\frac{1}{|G|}\sum_{g \in G}\chi_{\rho_{X}}(g)\chi_{\rho_{Y}}(g^{-1}).
 $$
 :::
 
@@ -316,23 +334,23 @@ $$
 是$X$不可约分解中与$Y$同构的不可约直和项数目。
 :::
 
-现在我们可以给出[定理\ref{BasicoRRelThm}]的证明：
+现在我们可以给出 @BasicoRRelThm 的证明：
 对不可约模同构类代表元集$\{W_{1},...,W_{r}\}$，有
 $$
-    \text{dim}_{\mathbb{C}G}\text{Hom}_{\mathbb{C}G}(W_{i},W_{j})
-    =\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{i}(g)}\chi_{j}(g).
+\text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}G}(W_{i},W_{j})
+=\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{i}(g)}\chi_{j}(g).
 $$
-当$i=j$时，[@lem:acffdireEndk]说上式等号左边的维数是$1$。
+当$i=j$时，@lem:acffdireEndk 说上式等号左边的维数是$1$。
 当$i\neq j$时，明显$\text{Hom}_{\mathbb{C}G}(W_{i},W_{j})=0$，证毕。
 
 对有限群$G$，在复线性空间$\mathbb{C}^{G}$上，
 对每个$\varphi,\psi\in \mathbb{C}^{G}$，通过定义
 $$
-    \langle \varphi,\psi\rangle
-    =\frac{1}{|G|}\sum_{g \in G}\overline{\varphi(g)}\psi(g),\forall g\in G,
+\langle \varphi,\psi\rangle
+=\frac{1}{|G|}\sum_{g \in G}\overline{\varphi(g)}\psi(g),\forall g\in G,
 $$
 可赋予$\mathbb{C}^{G}$复内积结构。
-那么[定理\ref{BasicoRRelThm}]无非是说
+那么 @BasicoRRelThm 无非是说
 不可约特征标集$\{\chi_{1},...,\chi_{r}\}$是两两正交且长度是$1$的向量集，
 这也是为什么我们称该定理体现的是“正交关系”。
 特别地，我们得到$\{\chi_{1},...,\chi_{r}\}$是$\mathbb{C}$-线性无关的。
@@ -345,8 +363,8 @@ $$
 此外，引入复内积语言后，任何有限维表示的特征标在该复内积下的长度
 可由不可约分解中的“重数”表示。具体地，有
 
-::: corollary [复表示的不可约性关于内积的判别]
-设有限群$G$有有限维复表示$\rho:G\to GL(V)$\label{cor:ireCribyCpcharraincor}，
+::: corollary [复表示的不可约性关于内积的判别] {@cor:ireCribyCpcharraincor}
+设有限群$G$有有限维复表示$\rho:G\to GL(V)$，
 并设有$\mathbb{C}G$-模同构$V\cong W_{1}^{m_{1}}\oplus W_{2}^{m_{2}}
     \oplus\cdots\oplus W_{r}^{m_{r}}$（$m_{1},...,m_{r}$由$V$决定），
 其中$\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
@@ -355,12 +373,12 @@ $$
 并且$\langle \chi_{\rho},\chi_{\rho}\rangle=\sum\limits_{i=1}^{r}m_{i}^{2}$。
 特别地，$\rho$是不可约复表示当且仅当$\langle \chi_{\rho},\chi_{\rho}\rangle=1$。
 若取$V=\mathbb{C}G$，那么$\langle \chi_{\rho},\chi_{\rho}\rangle=|G|$
-（回忆[@cor:sumcoAcFssGo]）。
+（回忆 @cor:sumcoAcFssGo）。
 :::
 
 ::: corollary {@tensorireestilrecorcomf}
 给定有限群族$\{G_{i}|1\leq i\leq m\}$，$W_{i}$是不可约左$\mathbb{C}G_{i}$-模，
-$\rho_{i}:G\to GL(W_{i})$是$W_{i}$对应的不可约复表示。
+$\rho_{i}:G_{i}\to GL(W_{i})$是$W_{i}$对应的不可约复表示。
 则群$G_{1}\times\cdots\times G_{m}$有天然的复表示
 $\rho:G_{1}\times\cdots\times G_{m}\to
     GL(W_{1}\otimes_{\mathbb{C}}\cdots\otimes_{\mathbb{C}}W_{m})$
@@ -369,30 +387,30 @@ $\rho:G_{1}\times\cdots\times G_{m}\to
 :::
 
 ::: proof
-根据[推论\ref{cor:ireCribyCpcharraincor}]，只需验证上述表示$\rho$满足
+根据 @cor:ireCribyCpcharraincor，只需验证上述表示$\rho$满足
 $\langle \chi_{\rho},\chi_{\rho}\rangle=1$。即要说明下式的值为$1$：
 $$
-    \frac{1}{|G_{1}\times\cdots\times G_{m}|}
-    \sum\limits_{(g_{1},...,g_{m})}\chi_{\rho}(g_{1},...,g_{m})
-    \overline{\chi_{\rho}(g_{1},...,g_{m})}
-    =\frac{1}{|G_{1}|\cdots |G_{m}|}\sum\limits_{(g_{1},...,g_{m})}
-    |\chi_{\rho}(g_{1},...,g_{m})|^{2}.
+\frac{1}{|G_{1}\times\cdots\times G_{m}|}
+\sum\limits_{(g_{1},...,g_{m})}\chi_{\rho}(g_{1},...,g_{m})
+\overline{\chi_{\rho}(g_{1},...,g_{m})}
+=\frac{1}{|G_{1}|\cdots |G_{m}|}\sum\limits_{(g_{1},...,g_{m})}
+|\chi_{\rho}(g_{1},...,g_{m})|^{2}.
 $$
 结合每个$\rho_{i}$是不可约表示，记其复特征标为$\chi_{i}$，便有
 $$
-    \frac{1}{|G_{1}|\cdots |G_{m}|}
-    \sum\limits_{(g_{1},...,g_{m})}|\chi_{\rho}(g_{1},...,g_{m})|^{2}
-    =\left(\frac{1}{|G_{1}|}\sum\limits_{g_{1}\in G_{1}}
-    |\chi_{1}(g_{1})|^{2}\right)\cdots \left(\frac{1}{|G_{m}|}
-    \sum\limits_{g_{m}\in G_{m}}|\chi_{m}(g_{m})|^{2}\right)=1.
+\frac{1}{|G_{1}|\cdots |G_{m}|}
+\sum\limits_{(g_{1},...,g_{m})}|\chi_{\rho}(g_{1},...,g_{m})|^{2}
+=\left(\frac{1}{|G_{1}|}\sum\limits_{g_{1}\in G_{1}}
+|\chi_{1}(g_{1})|^{2}\right)\cdots \left(\frac{1}{|G_{m}|}
+\sum\limits_{g_{m}\in G_{m}}|\chi_{m}(g_{m})|^{2}\right)=1.
 $$
 :::
 
 因为有限维复表示$\chi_{\rho}$关于自己的复内积由定义是
 $$
-    \langle \chi_{\rho},\chi_{\rho}\rangle
-    =\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho}(g)}\chi_{\rho}(g),
-    \forall g\in G,
+\langle \chi_{\rho},\chi_{\rho}\rangle
+=\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho}(g)}\chi_{\rho}(g),
+\forall g\in G,
 $$
 特征标相当于算有限维线性空间上线性变换的迹，它的计算并不需要把线性变换所有特征值解出，
 因此计算复特征标的复内积在实际计算中是可行的。
@@ -401,35 +419,36 @@ $$
 所以有限群的特征标理论不止步于理论本身的优美与重要研究意义，也具有很高的应用价值。
 若有限群$G$的共轭类全体是$\{C_{1},...,C_{r}\}$，$\{\chi_{1},...,\chi_{r}\}$
 是不可约复表示等价类的一个代表元集$\{\rho_{1},...,\rho_{r}\}$所对应的复特征标
-（我们已经从[@cor:acfirmicneqCcN]中看到
+（我们已经从 @cor:acfirmicneqCcN 中看到
 $r$就是$\mathbb{C}G$上所有不可约模等价类的数目），
 每个$\chi_{i}$可视作共轭类上的函数，于是得到下表
 $$
-    \begin{array}{c|cccc}
-    & C_{1} & C_{2} & \cdots & C_{r} \\
-    \hline \chi_1 & \chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\
-    \chi_2 & \chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\
-    \vdots & \vdots &\vdots & &\vdots \\
-    \chi_r & \chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
-    \end{array}
-$$称为群$G$的**复特征标表**。设$C_{1}=\{1_{G}\}$，
+\begin{array}{c|cccc}
+& C_{1} & C_{2} & \cdots & C_{r} \\
+\hline \chi_1 & \chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\
+\chi_2 & \chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\
+\vdots & \vdots &\vdots & &\vdots \\
+\chi_r & \chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
+\end{array}
+$$
+称为群$G$的**复特征标表**。设$C_{1}=\{1_{G}\}$，
 则特征标表$C_{1}$所在的列，各元素$\chi_{i}(C_{1})$就是$\rho_{i}$的次数。
 我们也指出特征标表实际上也给我们提供了一个复方阵
 $$
-    \begin{pmatrix}
-    \chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\ \\
-    \chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\ \\
-    \vdots &\vdots & &\vdots \\ \\
-    \chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
-    \end{pmatrix}\in\text{M}_{r}(\mathbb{C}).
+\begin{pmatrix}
+\chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\ \\
+\chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\ \\
+\vdots &\vdots & &\vdots \\ \\
+\chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
+\end{pmatrix}\in\text{M}_{r}(\mathbb{C}).
 $$
 
 下面应用特征标的复内积来导出有限群所有不可约复表示维数的平方和就是群的阶，
 也就是说特征标表第一列的平方和，
 即$\sum\limits_{i=1}^{r}(\chi_{i}(C_{1}))^{2}(C_{1}=\{1_{G}\})$，是$|G|$。
 
-在[@exm:rgpeg]中引入了正则表示，它相当于是对群$G$利用群代数上的模结构给出一个表示。
-在[@cor:sumcoAcFssGo]中我们也看到若有限群$G$
+在 @exm:rgpeg 中引入了正则表示，它相当于是对群$G$利用群代数上的模结构给出一个表示。
+在 @cor:sumcoAcFssGo 中我们也看到若有限群$G$
 与代数闭域$\mathbb{k}$使$\operatorname{char}k{\not|}$ $|G|$，
 则考察正则表示对应的不可约模直和分解
 $\mathbb{k}G\cong W_{1}^{m_{1}}\oplus W_{2}^{m_{2}}\oplus\cdots
@@ -444,7 +463,7 @@ $\mathbb{k}G\cong W_{1}^{m_{1}}\oplus W_{2}^{m_{2}}\oplus\cdots
 
 ::: lemma {@fGirredims2seqGolem}
 设$G$是有限群，$\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
-并设有$\mathbb{C}G$-模同构$\mathbb{k}G
+并设有$\mathbb{C}G$-模同构$\mathbb{C}G
     \cong W_{1}^{m_{1}}\oplus W_{2}^{m_{2}}\oplus\cdots\oplus W_{r}^{m_{r}}$，
 那么对每个$1\leq i\leq r$，有$m_{i}=\text{dim}_{\mathbb{C}}W_{i}$。
 进而$|G|=\sum\limits_{i=1}^{r}(\text{dim}_{\mathbb{C}}W_{i})^{2}$。
@@ -453,16 +472,17 @@ $\mathbb{k}G\cong W_{1}^{m_{1}}\oplus W_{2}^{m_{2}}\oplus\cdots
 ::: proof
 记$W_{i}$对应的不可约表示为$\rho_{i}$，其特征标是$\chi_{i}$，
 正则表示仍记为$\rho:G\to GL(\mathbb{C}G)$。
-那么[推论\ref{cor:ireCribyCpcharraincor}]说
+那么 @cor:ireCribyCpcharraincor 说
 $\chi_{\rho}=\sum\limits_{i=1}^{r}m_{i}\chi_{i}$，
 从而对每个$i$有$\langle \chi_{\rho},\chi_{i}\rangle=m_{i}$。
 另一方面，由正则表示的定义不难看到
 $\chi_{\rho}(g)=0,\forall g\neq 1_{G}\in G$以及$\chi_{\rho}(1_{G})=|G|$。
-所以$$
-    m_{i}=\langle \chi_{\rho},\chi_{i}\rangle
-    =\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho}(g)}\chi_{i}(g)
-    =\frac{1}{|G|}\overline{\chi_{\rho}(1_{G})}\chi_{i}(1_{G})
-    =\chi_{i}(1_{G})=\text{dim}_{\mathbb{C}}W_{i}.
+所以
+$$
+m_{i}=\langle \chi_{\rho},\chi_{i}\rangle
+=\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho}(g)}\chi_{i}(g)
+=\frac{1}{|G|}\overline{\chi_{\rho}(1_{G})}\chi_{i}(1_{G})
+=\chi_{i}(1_{G})=\text{dim}_{\mathbb{C}}W_{i}.
 $$
 :::
 
@@ -474,21 +494,23 @@ $$
 代数。若取$A$是有限群在复数域上的群代数，便得到上述引理的结论。
 :::
 
-::: theorem
+::: theorem {@grpalgisowithirredegthm}
 设$G,H$是有限群，$\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
 $\{T_{1},...,T_{s}\}$是$\mathbb{C}H$-不可约模同构类代表元集。
 那么$\mathbb{C}G$与$\mathbb{C}H$作为$\mathbb{C}$上代数同构的充要条件是
-$r=s$且经适当重排后有\label{grpalgisowithirredegthm}
-$$\text{dim}_{\mathbb{C}}W_{i}=\text{dim}_{\mathbb{C}}T_{i},i=1,2,...,r.$$
+$r=s$且经适当重排后有
+$$
+\text{dim}_{\mathbb{C}}W_{i}=\text{dim}_{\mathbb{C}}T_{i},i=1,2,...,r.
+$$
 :::
 
 ::: proof
-必要性是明显的，只证充分性。通过[@fGirredims2seqGolem]
+必要性是明显的，只证充分性。通过 @fGirredims2seqGolem
 我们看到群在复数域上群代数作为Artin半单代数的结构
 完全由不可约表示等价类数目以及不可约表示的次数决定。
 :::
 
-在[例\ref{exm:acfofAbgirepeg}]中我们看到有限Abel群$G$
+在 @exm:acfofAbgirepeg 中我们看到有限Abel群$G$
 在代数闭域$\mathbb{k}$上的不可约表示都是$1$次的，
 所以群代数$\mathbb{k}G$上的不可约模都是$1$维的。
 下面我们用刚刚得到的事实给出一个有限群交换性的刻画。
@@ -496,7 +518,7 @@ $$\text{dim}_{\mathbb{C}}W_{i}=\text{dim}_{\mathbb{C}}T_{i},i=1,2,...,r.$$
 ::: example [应用：有限群交换性刻画]
 设$G$是有限群，则$G$交换的充要条件是任何不可约左$\mathbb{C}G$-模都是$1$维的，
 即任何不可约复表示都是$1$次的。因此我们可以读特征标表第一列元素来判别有限群的交换性。
-例如对称群$S_{3}$的共轭类总数是$p(3)=3$（回忆[@exm:Sncomppartrg]），
+例如对称群$S_{3}$的共轭类总数是$p(3)=3$（回忆 @exm:Sncomppartrg），
 所以可设$S_{3}$的一个不可约复表示代表元集是$\{\rho_{1},\rho_{2},\rho_{3}\}$，
 $\rho_{i}$的次数是$m_{i}$，那么$6=|S_{3}|=m_{1}^{2}+m_{2}^{2}+m_{3}^{2}$
 表明$S_{3}$存在次数高于$1$的不可约表示，
@@ -506,56 +528,59 @@ $\rho_{i}$的次数是$m_{i}$，那么$6=|S_{3}|=m_{1}^{2}+m_{2}^{2}+m_{3}^{2}$
 
 ::: proof
 只需说明充分性：如果任何不可约左$\mathbb{C}G$-模都是$1$维的，
-那么[@fGirredims2seqGolem]表明$G$的共轭类总数就是$|G|$，
+那么 @fGirredims2seqGolem 表明$G$的共轭类总数就是$|G|$，
 这迫使群$G$每个元素所在的共轭类是单点集，进而知$G$是交换群。
 :::
 
 ## 第二正交关系
 
-在[定理\ref{BasicoRRelThm}]中我们得到了复特征标的第一正交关系，
+在 @BasicoRRelThm 中我们得到了复特征标的第一正交关系，
 本节我们介绍另一种正交关系，它不仅指出复特征标表不同的列是正交的，
 也为我们提供了用复特征标计算有限群中一给定元素所在共轭类元素数目的公式
-（见[定理\ref{secoRthrethm2}]）。
+（见 @secoRthrethm2）。
 
 对有限群$G$，设$G$的共轭类全体是$\{C_{1},...,C_{r}\}$，
 $\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
 它们对应的不可约表示特征标集设为$\{\chi_{1},...,\chi_{r}\}$。我们有下述特征标表
 $$
-    \begin{array}{c|cccc}
-    & C_{1} & C_{2} & \cdots & C_{r} \\
-    \hline \chi_1 & \chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\
-    \chi_2 & \chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\
-    \vdots & \vdots &\vdots & &\vdots \\
-    \chi_r & \chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
-    \end{array}
-$$前面提到过我们可以把特征标表视作一个$r$阶复方阵
+\begin{array}{c|cccc}
+& C_{1} & C_{2} & \cdots & C_{r} \\
+\hline \chi_1 & \chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\
+\chi_2 & \chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\
+\vdots & \vdots &\vdots & &\vdots \\
+\chi_r & \chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
+\end{array}
 $$
-    \begin{pmatrix}
-    \chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\ \\
-    \chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\ \\
-    \vdots &\vdots & &\vdots \\ \\
-    \chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
-    \end{pmatrix}.
-$$回忆不可约特征标的第一正交关系（见[定理\ref{BasicoRRelThm}]）表明
+前面提到过我们可以把特征标表视作一个$r$阶复方阵
 $$
-    \frac{1}{|G|} \sum_{k=1}^{r}|C_{k}|\chi_{i}(C_{k})
-    \overline{\chi_{j}(C_{k})}=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)
-    \overline{\chi_{j}(g)}=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)\chi_{j}(g^{-1})
-    = \begin{cases}1, & i=j \\ 0, & i\neq j\end{cases}.
-$$作复方阵
+\begin{pmatrix}
+\chi_{1}(C_{1}) & \chi_{1}(C_{2}) & \cdots & \chi_{1}(C_{r}) \\ \\
+\chi_{2}(C_{1}) & \chi_{2}(C_{2}) & \cdots & \chi_{2}(C_{r}) \\ \\
+\vdots &\vdots & &\vdots \\ \\
+\chi_{r}(C_{1}) & \chi_{r}(C_{2}) & \cdots & \chi_{r}(C_{r})
+\end{pmatrix}.
 $$
-    A=\frac{1}{\sqrt{|G|}}\begin{pmatrix}
-    \chi_{1}(C_{1})\sqrt{|C_{1}|} & \chi_{1}(C_{2})\sqrt{|C_{2}|} & \cdots & \chi_{1}(C_{r})\sqrt{|C_{r}|} \\ \\
-    \chi_{2}(C_{1})\sqrt{|C_{1}|} & \chi_{2}(C_{2})\sqrt{|C_{2}|} & \cdots & \chi_{2}(C_{r})\sqrt{|C_{r}|} \\ \\
-    \vdots &\vdots & &\vdots \\ \\
-    \chi_{r}(C_{1})\sqrt{|C_{1}|} & \chi_{r}(C_{2})\sqrt{|C_{2}|} & \cdots & \chi_{r}(C_{r})\sqrt{|C_{r}|}
-    \end{pmatrix},
+回忆不可约特征标的第一正交关系（见 @BasicoRRelThm）表明
+$$
+\frac{1}{|G|} \sum_{k=1}^{r}|C_{k}|\chi_{i}(C_{k})
+\overline{\chi_{j}(C_{k})}=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)
+\overline{\chi_{j}(g)}=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)\chi_{j}(g^{-1})
+= \begin{cases}1, & i=j \\ 0, & i\neq j\end{cases}.
+$$
+作复方阵
+$$
+A=\frac{1}{\sqrt{|G|}}\begin{pmatrix}
+\chi_{1}(C_{1})\sqrt{|C_{1}|} & \chi_{1}(C_{2})\sqrt{|C_{2}|} & \cdots & \chi_{1}(C_{r})\sqrt{|C_{r}|} \\ \\
+\chi_{2}(C_{1})\sqrt{|C_{1}|} & \chi_{2}(C_{2})\sqrt{|C_{2}|} & \cdots & \chi_{2}(C_{r})\sqrt{|C_{r}|} \\ \\
+\vdots &\vdots & &\vdots \\ \\
+\chi_{r}(C_{1})\sqrt{|C_{1}|} & \chi_{r}(C_{2})\sqrt{|C_{2}|} & \cdots & \chi_{r}(C_{r})\sqrt{|C_{r}|}
+\end{pmatrix},
 $$
 那么$A$的行向量是两两正交的单位复向量，所以$A$是酉矩阵，
 这说明$A$的列向量全体也是两两正交的单位向量。于是我们得到了下述定理。
 
-::: theorem [第二正交关系]
-设$G$是有限群\label{secoRthrethm2}，$G$的共轭类全体是$\{C_{1},...,C_{r}\}$，
+::: theorem [第二正交关系] {@secoRthrethm2}
+设$G$是有限群，$G$的共轭类全体是$\{C_{1},...,C_{r}\}$，
 $\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
 它们对应的不可约表示特征标集设为$\{\chi_{1},...,\chi_{r}\}$。那么
 
@@ -577,34 +602,35 @@ $\chi_{2}$是非平凡的$1$次表示复特征标，$\chi_{3}$是不可约$2$次
 记$C_{1}=\{1\}$，$C_{2}$是对换$(1\ 2)$所在的共轭类，
 $C_{3}$是轮换$(1\ 2 \ 3)$所在的共轭类。则可设
 $$
-    \begin{array}{c|ccc}
-    & C_{1} & C_{2} & C_{3}  \\
-    \hline \chi_{1} & 1 & 1 & 1  \\
-    \chi_2 & 1 & x & y \\
-    \chi_{3} & 2 &z & w
-    \end{array}
-$$其中$x,y,z,w\in\mathbb{C}$，下面来确定$x,y,z,w$。
+\begin{array}{c|ccc}
+& C_{1} & C_{2} & C_{3}  \\
+\hline \chi_{1} & 1 & 1 & 1  \\
+\chi_2 & 1 & x & y \\
+\chi_{3} & 2 &z & w
+\end{array}
+$$
+其中$x,y,z,w\in\mathbb{C}$，下面来确定$x,y,z,w$。
 注意到$\chi_{2}$是$1$次表示的特征标，因此$x,y$是单位根。
 而$C_{2}$中元素的阶为$2$蕴含$x$满足$x^{2}=1$，类似地，$y^{3}=1$。
 利用第一正交关系，由$|C_{2}|=3,|C_{3}|=2$可知$1+3x+2y=0$，
 因此由$x$是整数迫使$y$是有理数。从而$y=1,x=-1$。于是上述特征标表变为
 $$
-    \begin{array}{c|ccc}
-    & C_{1} & C_{2} & C_{3}  \\
-    \hline \chi_{1} & 1 & 1 & 1  \\
-    \chi_2 & 1 & -1 & 1 \\
-    \chi_{3} & 2 &z & w
-    \end{array}
+\begin{array}{c|ccc}
+& C_{1} & C_{2} & C_{3}  \\
+\hline \chi_{1} & 1 & 1 & 1  \\
+\chi_2 & 1 & -1 & 1 \\
+\chi_{3} & 2 &z & w
+\end{array}
 $$
 现在利用第二正交关系可得$2z=0,1+1+2w=0$，解得$z=0,w=-1$。
 由此得到$S_{3}$的复特征标表：
 $$
-    \begin{array}{c|ccc}
-    & C_{1} & C_{2} & C_{3}  \\
-    \hline \chi_{1} & 1 & 1 & 1  \\
-    \chi_2 & 1 & -1 & 1 \\
-    \chi_{3} & 2 &0 & -1
-    \end{array}
+\begin{array}{c|ccc}
+& C_{1} & C_{2} & C_{3}  \\
+\hline \chi_{1} & 1 & 1 & 1  \\
+\chi_2 & 1 & -1 & 1 \\
+\chi_{3} & 2 &0 & -1
+\end{array}
 $$
 :::
 
@@ -630,36 +656,39 @@ $$
 一方面，$G/Z(G)$作为$4$阶群必交换，这说明$[G,G]\subseteq Z(G)$。
 另一方面，$G$的非交换性表明$[G,G]$非平凡，所以$[G,G]=Z(G)$。
 
-(2)根据[@pro:1repGandGqGGprop]，群$G$的$1$次不可约复表示同构类数目
+(2)根据 @pro:1repGandGqGGprop，群$G$的$1$次不可约复表示同构类数目
 就是$G/[G,G]=G/Z(G)$的$1$次不可约复表示同构类数目。
-结合[例\ref{exm:acfofAbgirepeg}]便知$G$的$1$次不可约复表示同构类数目是$|G/[G,G]|=4$。
+结合 @exm:acfofAbgirepeg 便知$G$的$1$次不可约复表示同构类数目是$|G/[G,G]|=4$。
 设$\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
 其中$r\geq 4$且$W_{1},W_{2},W_{3},W_{4}$是都是$1$次不可约复表示。
-若设$W_{i}$的线性维数是$n_{i}$，则[@fGirredims2seqGolem]告诉我们
+若设$W_{i}$的线性维数是$n_{i}$，则 @fGirredims2seqGolem 告诉我们
 $n_{1}^{2}+\cdots+n_{r}^{2}=|G|=8$。
 由$n_{1}=n_{2}=n_{3}=n_{4}=1$且$n_{j}\geq 2$ $(5\leq j\leq r)$知
 $r=5$且$n_{5}=2$。因此群$G$共有$5$个不可约复表示同构类，其中$4$个次数为$1$；
 剩下的次数为$2$。
 
-(3)通过[@cor:acfirmicneqCcN]我们看到$G$的共轭类总数是$5$，
-设$G$所有共轭类为$$C_{1}=\{1\},C_{2}=Z(G)-C_{1},C_{3},C_{4},C_{5}.$$
+(3)通过 @cor:acfirmicneqCcN 我们看到$G$的共轭类总数是$5$，
+设$G$所有共轭类为
+$$
+C_{1}=\{1\},C_{2}=Z(G)-C_{1},C_{3},C_{4},C_{5}.
+$$
 注意到$|C_{1}|=|C_{2}|=1$，因此由$|C_{3}|,|C_{4}|,|C_{5}|\geq 2$
 迫使$|C_{3}|=|C_{4}|=|C_{5}|=2$。
 设$W_{1},W_{2},W_{3},W_{4}$对应的不可约特征标是
 $\chi_{1},\chi_{2},\chi_{3},\chi_{4}$，并记$\chi_{5}=\chi$。
 如果$g\neq 1\in Z(G)$，则$C_{2}=\{g\}$。那么
 $$
-    \overline{\chi_{1}(1)}\chi_{1}(g)+\overline{\chi_{2}(1)}\chi_{2}(g)
-    +\overline{\chi_{3}(1)}\chi_{3}(g)+\overline{\chi_{4}(1)}\chi_{4}(g)
-    +\overline{\chi_{5}(1)}\chi_{5}(g)=0.
+\overline{\chi_{1}(1)}\chi_{1}(g)+\overline{\chi_{2}(1)}\chi_{2}(g)
++\overline{\chi_{3}(1)}\chi_{3}(g)+\overline{\chi_{4}(1)}\chi_{4}(g)
++\overline{\chi_{5}(1)}\chi_{5}(g)=0.
 $$
 由此可知$\chi_{1}(g)+\chi_{2}(g)+\chi_{3}(g)+\chi_{4}(g)+2\chi_{5}(g)=0$。
 注意到$g\in Z(G)=[G,G]$，所以$g$诱导的$1$次不可约表示上的作用都是恒等的，
 从而$\chi_{j}(g)=1,1\leq j\leq 4$。由此解出$\chi(g)=\chi_{5}(g)=-2$。
 由第一正交关系得到
 $$
-    2^{2}+(-2)^{2}+2(|\chi(C_{3})|^{2}+|\chi(C_{4})|^{2}+|\chi(C_{5})|^{2})
-    =\sum_{k=1}^{r}|C_{k}|\chi(C_{k})\overline{\chi(C_{k})}=|G|=8,
+2^{2}+(-2)^{2}+2(|\chi(C_{3})|^{2}+|\chi(C_{4})|^{2}+|\chi(C_{5})|^{2})
+=\sum_{k=1}^{r}|C_{k}|\chi(C_{k})\overline{\chi(C_{k})}=|G|=8,
 $$
 因此$\chi(C_{3})=\chi(C_{4})=\chi(C_{5})=0$。
 即$\chi(g)=0,\forall g\notin Z(G)$。
@@ -668,15 +697,16 @@ $$
 ::: remark
 沿用前面的记号，我们还可以计算上述$8$阶非交换群$G$的复特征标表。可设
 $$
-    \begin{array}{c|ccccc}
-    & C_{1} & C_{2} & C_{3} & C_{4} & C_{5} \\
-    \hline \chi_{1} & 1 & 1 & 1  & 1 & 1\\
-    \chi_{2} & 1 & a_{1} & b_{1} & c_{1} & d_{1}\\
-    \chi_{3} & 1 &a_{2} & b_{2} &  c_{2} & d_{2}\\
-    \chi_{4} & 1 &a_{3} & b_{3} & c_{3} & d_{3} \\
-    \chi_{5} & 2 & -2 & 0 & 0 & 0 \\
-    \end{array}
-$$通过第二正交关系考察上述表的前两列可得$a_{1}+a_{2}+a_{3}=3$。
+\begin{array}{c|ccccc}
+& C_{1} & C_{2} & C_{3} & C_{4} & C_{5} \\
+\hline \chi_{1} & 1 & 1 & 1  & 1 & 1\\
+\chi_{2} & 1 & a_{1} & b_{1} & c_{1} & d_{1}\\
+\chi_{3} & 1 &a_{2} & b_{2} &  c_{2} & d_{2}\\
+\chi_{4} & 1 &a_{3} & b_{3} & c_{3} & d_{3} \\
+\chi_{5} & 2 & -2 & 0 & 0 & 0 \\
+\end{array}
+$$
+通过第二正交关系考察上述表的前两列可得$a_{1}+a_{2}+a_{3}=3$。
 注意到$a_{i}^{2}=1(1\leq i\leq 3)$，那么只可能$a_{1}=a_{2}=a_{3}=1$。
 因此由第一正交关系以及$|C_{3}|=|C_{4}|=|C_{5}|=2$
 可得对每个$1\leq j\leq 3$都有$b_{j}+c_{j}+d_{j}=-1$。
@@ -685,25 +715,25 @@ $$通过第二正交关系考察上述表的前两列可得$a_{1}+a_{2}+a_{3}=3$
 即$a_{j},b_{j},c_{j}\in\{\pm 1,\pm i\}$。
 利用$b_{j}+c_{j}+d_{j}=-1$以及第二至四行两两正交
 可通过反证法说明$a_{j},b_{j},c_{j}=\pm 1$。
-在[@cor:CrefdEqifftcharae]中我们看到两个不等价的有限维复表示的特征标不同，
+在 @cor:CrefdEqifftcharae 中我们看到两个不等价的有限维复表示的特征标不同，
 因此对固定的正整数$1\leq j\leq 3$，$b_{j}+c_{j}+d_{j}=-1$
 迫使$b_{j},c_{j},d_{j}$中恰有两个是$-1$，剩余的是$1$。
 不妨设$b_{1}=c_{2}=d_{3}=1$，那么$G$的复特征标表为
 $$
-    \begin{array}{c|ccccc}
-    & C_{1} & C_{2} & C_{3} & C_{4} & C_{5} \\
-    \hline \chi_{1} & 1 & 1 & 1  & 1 & 1\\
-    \chi_{2} & 1 &1 & 1 &-1 & -1 \\
-    \chi_{3} & 1 & 1 & -1 &  1 & -1\\
-    \chi_{4} & 1 & 1 & -1  & -1 & 1 \\
-    \chi_{5} & 2 & -2 & 0 & 0 & 0 \\
-    \end{array}
+\begin{array}{c|ccccc}
+& C_{1} & C_{2} & C_{3} & C_{4} & C_{5} \\
+\hline \chi_{1} & 1 & 1 & 1  & 1 & 1\\
+\chi_{2} & 1 &1 & 1 &-1 & -1 \\
+\chi_{3} & 1 & 1 & -1 &  1 & -1\\
+\chi_{4} & 1 & 1 & -1  & -1 & 1 \\
+\chi_{5} & 2 & -2 & 0 & 0 & 0 \\
+\end{array}
 $$
 通过比较元素的阶，易验证正方形的二面体群$D_{4}$与四元数群$Q_{8}$是不同构的非交换群。所以
 
 不同构的有限群可能有相同的复特征标表。
 
-不过[定理\ref{grpalgisowithirredegthm}]告诉我们两个有限群只要有相同的复特征标表，
+不过 @grpalgisowithirredegthm 告诉我们两个有限群只要有相同的复特征标表，
 至少它们在复数域上群代数同构。这也让我们看到两个不同构的同阶有限群可能有等价的表示范畴，
 因此研究给定的有限群的线性表示范畴虽然可以帮助我们获取很多群的结构信息，但并没有蕴含
 群的所有结构信息。
@@ -711,7 +741,7 @@ $$
 
 ## 一些算术性质
 
-本节我们着眼于不可约复特征标的一些算术性质。[@lem:acffdireEndk]表明
+本节我们着眼于不可约复特征标的一些算术性质。@lem:acffdireEndk 表明
 代数闭域$\mathbb{k}$上代数上的有限维不可约表示的自同态都是基域内某个元素的数乘，
 因此对有限群$G$的不可约表示$\rho_{1},...,\rho_{r}$
 （设对应的不可约$\mathbb{k}G$模分别为$W_{1},...,W_{r}$）内固定的$\rho_{i}$，
@@ -721,8 +751,8 @@ $$
 设$G$是有限群，$c\in Z(\mathbb{C}G)$，
 那么对任何$G$的不可约复表示$\rho:G\to GL(V)$有
 $$
-    \tilde{\rho}(c)
-    =\frac{\tilde{\chi}_{\rho}(c)}{\text{dim}_{\mathbb{C}}V}\operatorname{id}_{V},
+\tilde{\rho}(c)
+=\frac{\tilde{\chi}_{\rho}(c)}{\text{dim}_{\mathbb{C}}V}\operatorname{id}_{V},
 $$
 这里$\tilde{\rho}:\mathbb{C}G\to \text{End}_{\mathbb{C}}V$是$\rho$的线性延拓，
 $\tilde{\chi}_{\rho}:\mathbb{C}G\to \mathbb{C}$
@@ -737,27 +767,30 @@ $\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
 它们对应的不可约表示特征标集设为$\{\chi_{1},...,\chi_{r}\}$。
 那么对任给$g_{j}\in C_{j}$与特征标$\chi_{i}$有
 $$
-    \frac{|C_{j}|\chi_{i}(g_{j})}{\chi_{i}(1)}
-    =\frac{|C_{j}|\chi_{i}(g_{j})}{\text{dim}_{\mathbb{C}}W_{i}}
+\frac{|C_{j}|\chi_{i}(g_{j})}{\chi_{i}(1)}
+=\frac{|C_{j}|\chi_{i}(g_{j})}{\text{dim}_{\mathbb{C}}W_{i}}
 $$
 是代数整数。
 :::
 
 ::: proof
-沿用[@pro:propcogclasNeqdimcent]中的记号，
-对每个$1\leq i\leq r$，置$c_{i}$是共轭类$c_{i}$中所有元素的和，
+沿用 @pro:propcogclasNeqdimcent 中的记号，
+对每个$1\leq i\leq r$，置$c_{i}$是共轭类$C_{i}$中所有元素的和，
 那么$\{c_{1},...,c_{r}\}$是$Z(\mathbb{C}G)$的一个基，
 那么对任给正整数$1\leq s,t\leq r$，存在整数$m_{stl}$ $(1\leq l\leq r)$使得
-$$c_{s}c_{t}=\sum_{l=1}^{r}m_{stl}c_{l},$$
+$$
+c_{s}c_{t}=\sum_{l=1}^{r}m_{stl}c_{l},
+$$
 两边作用$W_{i}$对应不可约表示的线性延拓
 $\tilde{\rho}_{i}:\mathbb{C}G\to \mathbb{C}$
 和$\chi_{i}$的线性延拓$\tilde{\chi}_{i}:\mathbb{C}G\to \mathbb{C}$可得
 $$
-    \frac{|C_{s}|\chi_{i}(g_{s})}{\chi_{i}(1)}
-    \frac{|C_{t}|\chi_{i}(g_{t})}{\chi_{i}(1)}
-    =\left(\sum_{l=1}^{r}m_{stl}|C_{l}|\chi_{i}(g_{l})\right)\big/
-    \chi_{i}(1).
-$$对条件中固定的指标$i$和每个正整数$1\leq j\leq r$，
+\frac{|C_{s}|\chi_{i}(g_{s})}{\chi_{i}(1)}
+\frac{|C_{t}|\chi_{i}(g_{t})}{\chi_{i}(1)}
+=\left(\sum_{l=1}^{r}m_{stl}|C_{l}|\chi_{i}(g_{l})\right)\big/
+\chi_{i}(1).
+$$
+对条件中固定的指标$i$和每个正整数$1\leq j\leq r$，
 记$u_{j}=|C_{j}|\chi_{i}(g_{j})/\chi_{i}(1)$，
 补充定义$u_{0}=1$并作考虑$\mathbb{C}$作为$\mathbb{Z}$-模的子模
 $M=\mathbb{Z}u_{0}+\mathbb{Z}u_{1}+\cdots+\mathbb{Z}u_{r}$，
@@ -775,24 +808,25 @@ $\{W_{1},...,W_{r}\}$是$\mathbb{C}G$-不可约模同构类代表元集，
 
 ::: proof
 下面说明有理数$|G|/\chi_{i}(1)$是$\mathbb{Z}$上整元来得到$\chi_{i}(1)$整除$|G|$。
-根据第一正交关系（回忆[定理\ref{BasicoRRelThm}]）有
+根据第一正交关系（回忆 @BasicoRRelThm）有
 $$
-    \frac{1}{|G|} \sum_{k=1}^{r}|C_{k}|\chi_{i}(C_{k})
-    \overline{\chi_{j}(C_{k})}
-    =\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)
-    \overline{\chi_{j}(g)}
-    =\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)\chi_{j}(g^{-1})
-    = \begin{cases}1, & i=j \\ 0, & i\neq j\end{cases}.
-$$现取$j=i$，则$|G|=\sum\limits_{k=1}^{r}|C_{k}|\chi_{i}(C_{k})
+\frac{1}{|G|} \sum_{k=1}^{r}|C_{k}|\chi_{i}(C_{k})
+\overline{\chi_{j}(C_{k})}
+=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)
+\overline{\chi_{j}(g)}
+=\frac{1}{|G|} \sum_{g \in G} \chi_{i}(g)\chi_{j}(g^{-1})
+= \begin{cases}1, & i=j \\ 0, & i\neq j\end{cases}.
+$$
+现取$j=i$，则$|G|=\sum\limits_{k=1}^{r}|C_{k}|\chi_{i}(C_{k})
 \overline{\chi_{i}(C_{k})}$。由此得到
 $$
-    \frac{|G|}{\chi_{i}(1)}=\sum_{k=1}^{r}
-    \frac{|C_{k}|\chi_{i}(C_{k})}{\chi_{i}(1)}\overline{\chi_{i}(C_{k})}.
+\frac{|G|}{\chi_{i}(1)}=\sum_{k=1}^{r}
+\frac{|C_{k}|\chi_{i}(C_{k})}{\chi_{i}(1)}\overline{\chi_{i}(C_{k})}.
 $$
-[@algintefracdimconbrunlemco]表明
+@algintefracdimconbrunlemco 表明
 $|C_{k}|\chi_{i}(C_{k})/\chi_{i}(1)$是代数整数，
 因此由$\chi_{i}(g)=\overline{\chi_{i}(g^{-1})},\forall g\in G$
-（见[例\ref{dualRepeg}]）也是代数整数便知$|G|/\chi_{i}(1)$是$\mathbb{Z}$上整元。
+（见 @dualRepeg）也是代数整数便知$|G|/\chi_{i}(1)$是$\mathbb{Z}$上整元。
 因为$\mathbb{Z}\subseteq\mathbb{Q}$是整闭扩张，所以$\chi_{i}(1)$整除$|G|$。
 :::
 
@@ -808,31 +842,35 @@ $|C_{k}|\chi_{i}(C_{k})/\chi_{i}(1)$是代数整数，
 :::
 
 ::: proof
-根据[@tensorireestilrecorcomf]得到群$G^{m}=G\times\cdots\times G$
+根据 @tensorireestilrecorcomf 得到群$G^{m}=G\times\cdots\times G$
 的不可约复表示$\rho=\rho_{i}\otimes\cdots\otimes \rho_{i}:
     G^{m}\to GL(W_{i}\otimes_{\mathbb{C}}W_{i}\otimes_{\mathbb{C}}
     \cdots\otimes_{\mathbb{C}}W_{i})$
 （以下为叙述方便将$W_{i}\otimes_{\mathbb{C}}W_{i}\otimes_{\mathbb{C}}
     \cdots\otimes_{\mathbb{C}}W_{i}$记作$X$）。
 因为每个$c\in Z(G)$满足$\rho(c)$是$W_{i}$上$\mathbb{C}G$-模自同构，
-所以[@lem:acffdireEndk]表明存在唯一的$\gamma_{i}(c)\in\mathbb{C}^{*}$
+所以 @lem:acffdireEndk 表明存在唯一的$\gamma_{i}(c)\in\mathbb{C}^{*}$
 使得$\rho(c)=\gamma_{i}(c)\text{id}_{W_{i}}$。
 于是得到群同态$\gamma_{i}:Z(G)\to\mathbb{C}^{*}$，
 易见$\rho(1,...,1,c,1,...,1)=\gamma_{i}(c)\operatorname{id}_{X}$。
 所以对任给$c_{1},...,c_{m}\in Z(G)$有$\rho(c_{1},...,c_{m})
     =\gamma_{i}(c_{1}\cdots c_{m})\operatorname{id}_{X}$。因此
-$$D=\{(c_{1},...,c_{m})\in G^{m}|c_{j}\in Z(G),c_{1}\cdots c_{m}=1\}$$
+$$
+D=\{(c_{1},...,c_{m})\in G^{m}|c_{j}\in Z(G),c_{1}\cdots c_{m}=1\}
+$$
 不仅是$G^{m}$的正规子群还含于$\operatorname{Ker}\rho$（不难看出$D$的阶为$|Z(G)|^{m-1}$）。
 由此得到$G^{m}/D$的一个不可约复表示$\overline{\rho}:G^{m}/D\to GL(X)$。
-应用[@cor:coriredediGo]，
+应用 @cor:coriredediGo，
 可知$\chi_{i}(1)^{m}$整除$|G|^{m}/|Z(G)|^{m-1}$。
 特别地，对任何正整数$m$有
 $$
-    \left(\frac{|G|}{|Z(G)|\chi_{i}(1)}\right)^{m}
-    \in\mathbb{Z}\frac{1}{|Z(G)|}\subseteq \mathbb{Q}.
+\left(\frac{|G|}{|Z(G)|\chi_{i}(1)}\right)^{m}
+\in\mathbb{Z}\frac{1}{|Z(G)|}\subseteq \mathbb{Q}.
 $$
 进而得到$_{\mathbb{Z}}\mathbb{Q}$的有限生成$\mathbb{Z}$-子模
-$$M=\sum_{m=0}^{\infty}\mathbb{Z}\left(\frac{|G|}{|Z(G)|\chi_{i}(1)}\right)^{m}.$$
+$$
+M=\sum_{m=0}^{\infty}\mathbb{Z}\left(\frac{|G|}{|Z(G)|\chi_{i}(1)}\right)^{m}.
+$$
 若记$u=[G:Z(G)]/\chi_{i}(1)$，那么$uM\subseteq M$且$1\in M$。
 这说明有理数$u$是$\mathbb{Z}$上整元，于是$u\in\mathbb{Z}$。
 :::
@@ -844,18 +882,18 @@ $G$有$q$个$1$次不可约复表示等价类和$(p-1)/q$个$q$次不可约复�
 :::
 
 ::: proof
-因为$G$非交换，所以$[G:G]\neq 1$。
+因为$G$非交换，所以$[G,G]\neq 1$。
 依Sylow定理，$p>q$蕴含$G$有唯一的Sylow $p$-子群$P$，从而$P$是正规子群。
 于是由$G/P$是交换群得$[G,G]\subseteq P$，
 结合$[G,G]$非平凡得到$[G,G]=P$为$p$阶群。
-由[@pro:1repGandGqGGprop]，
+由 @pro:1repGandGqGGprop，
 $G$的$1$次不可约复表示等价类数与$q$阶循环群$G/[G,G]$的$1$次不可约复表示等价类数一致。
 因此$G$恰有$q$个$1$次不可约复表示等价类。
-在[@cor:coriredediGo]中我们看到有限群不可约复表示的次数总整除群的阶，
+在 @cor:coriredediGo 中我们看到有限群不可约复表示的次数总整除群的阶，
 所以若设$\mathbb{C}G$上不可约模等价类的一个代表元集
 是$\{W_{1},...,W_{q},W_{q+1},...,W_{q+k}\}$，其中$W_{1},...,W_{q}$均为$1$维模，
 则对每个$q+1\leq j\leq q+k$有$\text{dim}_{\mathbb{C}}W_{j}$整除$|G|$。
-再利用[@fGirredims2seqGolem]可得
+再利用 @fGirredims2seqGolem 可得
 $(\text{dim}_{\mathbb{C}}W_{q+1})^{2}+(\text{dim}_{\mathbb{C}}W_{q+2})^{2}
     +\cdots+(\text{dim}_{\mathbb{C}}W_{q+k})^{2}=(p-1)q$，
 因此$p>q$迫使对每个$q+1\leq j\leq q+k$
@@ -872,9 +910,9 @@ W. Burnside（英国，1852–1927）于1904年利用有限群表示论的工具
 
 本节的目标是证明上述定理，首先我们回顾可解群的基本概念与性质。若群$G$存在正规列
 $$
-    G=G_{1}\trianglerighteq G_{2}\trianglerighteq G_{3}
-    \trianglerighteq \cdots \trianglerighteq G_{s}
-    \trianglerighteq G_{s+1}=\{1_{G}\}
+G=G_{1}\trianglerighteq G_{2}\trianglerighteq G_{3}
+\trianglerighteq \cdots \trianglerighteq G_{s}
+\trianglerighteq G_{s+1}=\{1_{G}\}
 $$
 满足每个商因子$G_{i}/G_{i+1}$是Abel群，则称$G$是**可解群**。
 否则称该群**不可解**。可解群的“可解”一词来源
@@ -927,9 +965,9 @@ $S_{n}\trianglerighteq G_{2}\trianglerighteq G_{3}
 ::: example
 称群$G$是**幂零群**，如果群$G$存在中心正规列，即有$G$的正规子群列
 $$
-    G=G_{1}\trianglerighteq G_{2}\trianglerighteq G_{3}
-    \trianglerighteq \cdots \trianglerighteq G_{s}
-    \trianglerighteq G_{s+1}=\{1_{G}\}
+G=G_{1}\trianglerighteq G_{2}\trianglerighteq G_{3}
+\trianglerighteq \cdots \trianglerighteq G_{s}
+\trianglerighteq G_{s+1}=\{1_{G}\}
 $$
 满足每个商因子$G_{i}/G_{i+1}\subseteq Z(G/G_{i+1})$。
 从该定义立即看到幂零群是可解群且任何Abel群是幂零群。
@@ -1000,8 +1038,8 @@ $G/N=\overline{G_{1}}\trianglerighteq \overline{G_{2}}
 是正规列且每个商因子是Abel群，故$G$是可解群。
 :::
 
-::: example
-设$p$是素数，那么$p$-群是可解群\label{pgroupsob}。
+::: example {@pgroupsob}
+设$p$是素数，那么$p$-群是可解群。
 :::
 
 ::: proof
@@ -1026,11 +1064,13 @@ $G/N=\overline{G_{1}}\trianglerighteq \overline{G_{2}}
 ::: proof
 由条件知存在整数$m,l$使得$m\chi(1)+l|C|=1$，
 所以等式两边同时除以$\chi(1)$并乘上$\chi(g)$可得等式
-$$\frac{\chi(g)}{\chi(1)}=l|C|\frac{\chi(g)}{\chi(1)}+m\chi(g),g\in C.$$
-在[@algintefracdimconbrunlemco]中我们看到对$g\in C$
+$$
+\frac{\chi(g)}{\chi(1)}=l|C|\frac{\chi(g)}{\chi(1)}+m\chi(g),g\in C.
+$$
+在 @algintefracdimconbrunlemco 中我们看到对$g\in C$
 有$|C|\chi(g)/\chi(1)$是代数整数，因此由$\chi(g)$本身也是代数整数立即得到
 $\chi(g)/\chi(1)$是代数整数。设$\chi(g)=\omega_{1}+\cdots+\omega_{n}$
-是$n$个$\ell$次本原单位根的和（回忆[@fGanpprimerDiag]），
+是$n$个$\ell$次本原单位根的和（回忆 @fGanpprimerDiag），
 考虑$\ell$次本原单位根$\zeta_{\ell}=e^{2\pi i/\ell}$生成的$\ell$次分圆域
 $\mathbb{Q}(\zeta_{\ell})$，
 那么有有限扩张$\mathbb{Q}(\zeta_{\ell})\supseteq \mathbb{Q}$，
@@ -1043,8 +1083,8 @@ $\mathbb{Q}(\zeta_{\ell})$，
 并且对任何$\sigma\in \operatorname{Aut}_{\mathbb{Q}}\mathbb{Q}(\zeta_{\ell})$
 总有$\sigma(\chi(g))$是$n$个$\ell$次本原单位根的和。现作
 $$
-    N=\prod\limits_{\sigma\in \operatorname{Aut}_{\mathbb{Q}}\mathbb{Q}(\zeta_{\ell})}
-    \sigma\left(\frac{\chi(g)}{\chi(1)}\right),
+N=\prod\limits_{\sigma\in \operatorname{Aut}_{\mathbb{Q}}\mathbb{Q}(\zeta_{\ell})}
+\sigma\left(\frac{\chi(g)}{\chi(1)}\right),
 $$
 那么$\tau(N)=N,\forall \tau\in \operatorname{Aut}_{\mathbb{Q}}\mathbb{Q}(\zeta_{\ell}) $。
 前面提到分圆域$\mathbb{Q}(\zeta_{\ell})$是$\mathbb{Q}$的有限Galois扩张，
@@ -1054,9 +1094,9 @@ $\operatorname{Aut}_{\mathbb{Q}}\mathbb{Q}(\zeta_{\ell})$中
 $N$作为有限个代数整数之积依然是代数整数，
 结合它是有理数以及$\mathbb{Q}\supseteq \mathbb{Z}$是整闭扩张可得$N\in\mathbb{Z}$。
 注意到对每个$\sigma\in \operatorname{Aut}_{\mathbb{Q}}\mathbb{Q}(\zeta_{\ell})$
-有$\sigma(\chi(g)/\chi(1))$是模长不超过$1$非复数，所以$|N|=0$或$1$。
+有$\sigma(\chi(g)/\chi(1))$是模长不超过$1$的复数，所以$|N|=0$或$1$。
 如果$N=0$，那么$\chi(g)=0$。
-如果$|N|=1$，那么[@chirhonorleqneqiffmrpptop]表明
+如果$|N|=1$，那么 @chirhonorleqneqiffmrpptop 表明
 存在$\ell$次本原单位根$\omega$使得$\rho(g)=\omega \operatorname{id}_{V}$。
 因此对固定的$g\in C$有$\chi(g)=0$或$\rho(g)\in\mathbb{C}\operatorname{id}_{V}$。
 :::
@@ -1088,20 +1128,23 @@ $N$作为有限个代数整数之积依然是代数整数，
 **断言。** 存在正整数$2\leq j\leq r$使得$p$整除$n_{j}$。
 
 若不然，只要正整数$i$满足$p$不整除$n_{i}$，
-那么$|C|$与$\chi_{i}(1)$互素，于是应用[@burnsidekeylem]得到
+那么$|C|$与$\chi_{i}(1)$互素，于是应用 @burnsidekeylem 得到
 对$g\in C$有$\chi_{i}(g)=0$或$\rho_{i}(g)\in\mathbb{C}\operatorname{id}$。
 假设存在$g\in C$使得$\chi_{i}(g)\neq 0$，
 那么$N=\{g\in G|\rho_{i}(g)\in\mathbb{C}\operatorname{id}\}$是$G$的非平凡正规子群，
 由$G$是单群迫使$N=G$，所以$G\cong \rho_{i}(G)$为Abel群，
 这与条件矛盾，所以$\chi_{i}(g)=0,\forall g\in C$。
-由特征标理论的第二正交关系（回忆[定理\ref{secoRthrethm2}]），
+由特征标理论的第二正交关系（回忆 @secoRthrethm2），
 对$g\in C$与$1$这两个不共轭的元素有
 $$
-    0=\sum_{i=1}^{r}\overline{\chi_{i}(1)}\chi_{i}(g)
-    =\sum_{i=1}^{r}n_{i}\chi_{i}(g)=\chi_{1}(1)=1,
-$$矛盾。
+0=\sum_{i=1}^{r}\overline{\chi_{i}(1)}\chi_{i}(g)
+=\sum_{i=1}^{r}n_{i}\chi_{i}(g)=\chi_{1}(1)=1,
+$$
+矛盾。
 断言得证，即有某个$n_{j}$能够被素数$p$整除。依然考虑第二正交关系导出的等式
-$$1+\sum_{i=2}^{r}n_{i}\chi_{i}(g)=0,g\in C.$$
+$$
+1+\sum_{i=2}^{r}n_{i}\chi_{i}(g)=0,g\in C.
+$$
 通过前面证明断言的讨论我们知道上式那些满足$p$不整除$n_{i}$的项满足$\chi_{i}(g)=0$，
 因此由每个$\chi_{i}(g)$是代数整数知上式蕴含$1/p$是代数整数。
 这与$\mathbb{Q}\supseteq \mathbb{Z}$是整闭扩张矛盾。
@@ -1120,12 +1163,12 @@ $$1+\sum_{i=2}^{r}n_{i}\chi_{i}(g)=0,g\in C.$$
 于是$[G:C(h)]$作为$[G:H]$的因子是$p$的正整数幂。
 而$[G:H]$就是$h$在$G$中共轭类的元素数目，
 所以$G$存在共轭类$C$使得$|C|$为$p$的正整数幂，
-这与[@fsimncogpnpthm]矛盾。
+这与 @fsimncogpnpthm 矛盾。
 :::
 
-::: corollary
+::: corollary {@cor:paqbnotsimcor}
 设$p,q$是不同的素数，$a,b\in\mathbb{N}_{\geq 1}$，
-那么阶为$p^{a}q^{b}$的群不是单群\label{cor:paqbnotsimcor}。
+那么阶为$p^{a}q^{b}$的群不是单群。
 :::
 
 ::: proof
@@ -1133,7 +1176,7 @@ $$1+\sum_{i=2}^{r}n_{i}\chi_{i}(g)=0,g\in C.$$
 那么由$P$是$p$-群知其中心$Z=Z(P)$非平凡，取$z\neq 1\in Z$，
 那么$z$在群$G$中的中心化子$C(z)\supseteq P$，
 这意味着指数$[G:C(z)]$（也是元素$z$所在的共轭类元素数目）是素数$q$的幂次。
-如果$[G:C(z)]>1$，那么由[@fsimncogpnpthm]知$G$不是单群。
+如果$[G:C(z)]>1$，那么由 @fsimncogpnpthm 知$G$不是单群。
 如果$[G:C(z)]=1$，那么$z\in Z(G)$，于是$Z(G)\neq 1$。
 如果$Z(G)\neq G$，那么由$Z(G)$是$G$的非平凡正规子群知$G$不是单群。
 如果$Z(G)=G$，那么$G$作为阶不是素数正整数幂的Abel群自然不是单群。
@@ -1145,18 +1188,18 @@ $$1+\sum_{i=2}^{r}n_{i}\chi_{i}(g)=0,g\in C.$$
 
 现在我们可以正式地给出Burnside定理的证明：对$n=|G|$作归纳，当$n=1$时结论直接成立。
 假设结论对阶不超过$n-1$ $(n\geq 1)$的群成立，那么对$n=p^{a}q^{b}$的有限群$G$，
-如果$a$与$b$中有一个为零，那么[例\ref{pgroupsob}]保证了$G$可解。
-下设$a,b$均不为零，这时[推论\ref{cor:paqbnotsimcor}]保证了
+如果$a$与$b$中有一个为零，那么 @pgroupsob 保证了$G$可解。
+下设$a,b$均不为零，这时 @cor:paqbnotsimcor 保证了
 $G$存在正规子群$N$满足$1\subsetneq N\subsetneq G$，
 $N$与$G/N$的阶都具备一个素数的自然数幂乘上一个素数的自然数幂的形式，并且阶严格小于$n$，
 故对$N$和$G/N$应用归纳假设得到$N,G/N$是可解群。
-最后应用[@sovgrpiffcor]得到$G$是可解群。
+最后应用 @sovgrpiffcor 得到$G$是可解群。
 
 之前已经提到，Burnside定理在有限单群分类问题中的基本意义是
 它告诉我们要寻找非交换有限单群只需从阶至少有三个不同素因子的群中找。
 下述定理是有限单群分类问题中里程碑式的成果。
 
-::: theorem [Feit-Thompson]
+::: theorem [Feit–Thompson]
 奇数阶单群可解，因此任何奇数阶单群同构于奇素数阶循环群。
 :::
 
@@ -1189,12 +1232,11 @@ $\text{Res}_{H}^{G}(-):\mathbb{k}G\text{-Mod}\to \mathbb{k}H\text{-Mod}$，
 $\text{Res}_{H}^{G}(-)\cong \text{Hom}_{\mathbb{k}G}(\mathbb{k}G,-)$。
 :::
 
-::: example
+::: example {@fGsubHbasisfreeEG}
 设$G$是有限群，$H$是子群且$\mathbb{k}$是域。
 那么$\mathbb{k}G$作为$\mathbb{k}H$-$\mathbb{k}H$双模在单边均自由。
 以右模情形为例，若设$\{g_{1}H,g_{2}H,...,g_{n}H\}$是群$G$关于$H$的一个左陪集分解，
-则$\{g_{1},...,g_{n}\}$是$\mathbb{k}G$作为右$\mathbb{k}H$-模的基
-\label{fGsubHbasisfreeEG}。
+则$\{g_{1},...,g_{n}\}$是$\mathbb{k}G$作为右$\mathbb{k}H$-模的基。
 :::
 
 前面提到通过保幺环同态$\alpha:R\to S$可将任何$S$-模视作$R$-模，
@@ -1221,11 +1263,13 @@ $\text{Res}_{H}^{G}(-)\cong \text{Hom}_{\mathbb{k}G}(\mathbb{k}G,-)$。
 那么它可自然限制为$H$的不可约表示。
 根据Maschke定理，$V$作为左$\mathbb{k}H$-模可分解为
 一些不可约左$\mathbb{k}H$-模的直和，
-而[例\ref{exm:acfofAbgirepeg}]说有限Abel群在代数闭域上的不可约表示都是$1$次的，
+而 @exm:acfofAbgirepeg 说有限Abel群在代数闭域上的不可约表示都是$1$次的，
 所以$V$可以分解为一些$1$维左$\mathbb{k}H$-模的直和。
 总之，$V$存在$1$维左$\mathbb{k}H$-子模$W$，
 考虑$V$作为左$\mathbb{k}G$-模的子模
-$$V^{\prime}=\sum\limits_{g\in G}gW,$$
+$$
+V^{\prime}=\sum\limits_{g\in G}gW,
+$$
 那么由$V^{\prime}=V$且集合$\{gW|g\in G\}$的元素数目不超过$ [G:H]$知结论成立。
 :::
 
@@ -1269,7 +1313,7 @@ $\text{Ind}_{N}^{G}M\cong \text{Ind}_{H}^{G}(\text{Ind}_{N}^{H}M)$，
 因此诱导表示具有传递性。
 :::
 
-在[例\ref{fGsubHbasisfreeEG}]中我们看到若$H$是$G$的子群，
+在 @fGsubHbasisfreeEG 中我们看到若$H$是$G$的子群，
 则$\mathbb{k}G$是$\mathbb{k}H$上的自由右模，
 并且存在一个基由$G$关于$H$左陪集分解的代表元集构成。
 现考虑子群$H$的表示$M$，那么作为$\mathbb{k}$-线性空间，
@@ -1295,26 +1339,26 @@ $G$关于子群$H$的左陪集分解有代表元集$\{g_{1},...,g_{n}\}$，
 
 除了诱导表示与给定表示之间的维数关系，我们也关心诱导表示的特征标。首先可直接验证下述结果。
 
-::: lemma
-设$G$是有限群\label{indrepgBmatrixrepformlem}，$H$是子群，
+::: lemma {@indrepgBmatrixrepformlem}
+设$G$是有限群，$H$是子群，
 $\rho:G\to GL(M)$是$H$在域$\mathbb{k}$上的有限维表示，
 $M$作为$\mathbb{k}$-线性空间有基$B=\{x_{1},...,x_{n}\}$，
 $G$关于子群$H$的左陪集分解有代表元集$\{g_{1},...,g_{m}\}$。
 取定$\text{Ind}_{H}^{G}M$作为$\mathbb{k}$-线性空间的基
 $C=\{g_{i}\otimes x_{j}|1\leq i\leq n,1\leq j\leq m\}$
-（根据[@linbasisofindrepprop]这确实是诱导表示的基）。
+（根据 @linbasisofindrepprop 这确实是诱导表示的基）。
 如果记表示$\rho $关于基$B$的矩阵表示为$\rho_{B}:H\to GL_{n}(\mathbb{k})$，
 那么诱导表示$\tau:G\to GL(\text{Ind}_{H}^{G}M)$在基$C$下的矩阵表示
 $\tau_{C}:G\to GL_{\ell}(\mathbb{k}),g\mapsto \tau_{C}(g)$
 （这里$\ell=\text{dim}_{\mathbb{k}}\text{Ind}_{H}^{G}M
     =[G:H]\text{dim}_{\mathbb{k}}M=mn$）满足
 $$
-    \tau_{C}(g)=\begin{pmatrix}
-    \dot{\rho_{B}}(g_{1}^{-1}gg_{1}) & \dot{\rho_{B}}(g_{1}^{-1}gg_{2}) & \cdots & \dot{\rho_{B}}(g_{1}^{-1}gg_{m}) \\ \\
-    \dot{\rho_{B}}(g_{2}^{-1}gg_{1}) & \dot{\rho_{B}}(g_{2}^{-1}gg_{2}) & \cdots & \dot{\rho_{B}}(g_{2}^{-1}gg_{m}) \\ \\
-    \vdots &\vdots & &\vdots \\ \\
-    \dot{\rho_{B}}(g_{m}^{-1}gg_{1}) & \dot{\rho_{B}}(g_{m}^{-1}gg_{2}) & \cdots & \dot{\rho_{B}}(g_{m}^{-1}gg_{m})
-    \end{pmatrix},
+\tau_{C}(g)=\begin{pmatrix}
+\dot{\rho_{B}}(g_{1}^{-1}gg_{1}) & \dot{\rho_{B}}(g_{1}^{-1}gg_{2}) & \cdots & \dot{\rho_{B}}(g_{1}^{-1}gg_{m}) \\ \\
+\dot{\rho_{B}}(g_{2}^{-1}gg_{1}) & \dot{\rho_{B}}(g_{2}^{-1}gg_{2}) & \cdots & \dot{\rho_{B}}(g_{2}^{-1}gg_{m}) \\ \\
+\vdots &\vdots & &\vdots \\ \\
+\dot{\rho_{B}}(g_{m}^{-1}gg_{1}) & \dot{\rho_{B}}(g_{m}^{-1}gg_{2}) & \cdots & \dot{\rho_{B}}(g_{m}^{-1}gg_{m})
+\end{pmatrix},
 $$
 其中$\dot{\rho_{B}}(g)$满足当$g\in H$时$\dot{\rho_{B}}(g)=\rho_{B}(g)$，
 当$g\notin H$时$\dot{\rho_{B}}(g)=O$。
@@ -1332,12 +1376,12 @@ $\text{Ind}_{H}^{G}(\chi)(g)
     =\sum\limits_{i=1}^{m}\dot{\chi}(g_{i}^{-1}gg_{i})
     =(1/|H|)\sum\limits_{a\in G}\dot{\chi}(a^{-1}ga)$，其中
 $$
-    \dot{\chi}(x)= \begin{cases}\chi(x), & x\in H \\ 0, & x\notin H\end{cases}.
+\dot{\chi}(x)= \begin{cases}\chi(x), & x\in H \\ 0, & x\notin H\end{cases}.
 $$
 :::
 
 ::: proof
-在[引理\ref{indrepgBmatrixrepformlem}]中我们已经看到了
+在 @indrepgBmatrixrepformlem 中我们已经看到了
 取定$M$的一个基$B$后诱导表示关于$B$诱导的基$C$下的矩阵表示
 $\tau_{C}:G\to GL_{\ell}(\mathbb{k}),g\mapsto \tau_{C}(g)$所具有的形式，
 其中$\ell=\text{dim}_{\mathbb{k}}\text{Ind}_{H}^{G}M$。
@@ -1356,12 +1400,12 @@ $\text{Res}_{H}^{G}(-):\mathbb{k}G\text{-Mod}\to \mathbb{k}H\text{-Mod}$
 因此由Hom函子和张量函子的伴随性质便知诱导函子$\text{Ind}_{H}^{G}(-)$
 是限制函子$\text{Res}_{H}^{G}(-)$的左伴随函子。特别地，我们有
 
-::: proposition
+::: proposition {@propResIndadjoint}
 设群$G$有子群$H$，$\mathbb{k}$是域，则对任何左$\mathbb{k}H$-模$X$，
-左$\mathbb{k}G$-模$Y$有标准$\mathbb{k}$-线性同构\label{propResIndadjoint}
+左$\mathbb{k}G$-模$Y$有标准$\mathbb{k}$-线性同构
 $$
-    \text{Hom}_{\mathbb{k}G}(\text{Ind}_{H}^{G}X,Y)
-    \cong \text{Hom}_{\mathbb{k}H}(X,\text{Res}_{H}^{G}Y).
+\text{Hom}_{\mathbb{k}G}(\text{Ind}_{H}^{G}X,Y)
+\cong \text{Hom}_{\mathbb{k}H}(X,\text{Res}_{H}^{G}Y).
 $$
 :::
 
@@ -1376,21 +1420,21 @@ $$
 与$Y$同构的不可约直和项项数。
 :::
 
-在[命题\ref{Hompropdimeqinnchar}]中我们看到对有限群$G$的任何有限维复表示
+在 @Hompropdimeqinnchar 中我们看到对有限群$G$的任何有限维复表示
 $\rho_{X}:G\to GL(X),\rho_{Y}:G\to GL(Y)$，其中$X,Y\neq 0$，有
 $$
-    \text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}G}(X,Y)
-    =\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho_{X}}(g)}\chi_{\rho_{Y}}(g)
-    =\langle \chi_{\rho_{X}},\chi_{\rho_{Y}}\rangle .
+\text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}G}(X,Y)
+=\frac{1}{|G|}\sum_{g \in G}\overline{\chi_{\rho_{X}}(g)}\chi_{\rho_{Y}}(g)
+=\langle \chi_{\rho_{X}},\chi_{\rho_{Y}}\rangle .
 $$
-所以此时对[命题\ref{propResIndadjoint}]中的线性同构两边取线性维数
+所以此时对 @propResIndadjoint 中的线性同构两边取线性维数
 便可得下面的Frobenius互反律。
 
 ::: theorem [Frobenius互反律]
 设有限群$G$有子群$H$，$\chi$是$H$的一个复特征标，$\psi$是$G$的一个复特征标，则
 $$
-    \langle \text{Ind}_{H}^{G}(\chi),\psi\rangle_{G}
-    =\langle  \chi,\text{Res}_{H}^{G}(\psi)  \rangle_{H},
+\langle \text{Ind}_{H}^{G}(\chi),\psi\rangle_{G}
+=\langle  \chi,\text{Res}_{H}^{G}(\psi)  \rangle_{H},
 $$
 其中$\langle -,-\rangle_{H},\langle -,-\rangle_{G}$分别表示
 $\mathbb{C}^{H}$和$\mathbb{C}^{G}$上之前定义的复内积。
@@ -1403,8 +1447,8 @@ Frobenius互反律反映了有限群复特征标的限制特征与其子群复�
 
 通过Frobenius互反律我们可以看到有限群与其子群的最高次不可约复表示的次数间的关系。
 
-::: example [应用]
-设$G$是有限群\label{fincomiremaxdeGHrel}，有子群$H$，
+::: example [应用] {@fincomiremaxdeGHrel}
+设$G$是有限群，有子群$H$，
 那么$\mathcal{M}_{H}\leq\mathcal{M}_{G}\leq[G:H]\mathcal{M}_{H}$，
 其中$\mathcal{M}_{H}$表示$H$所有不可约复表示的次数中最大者、
 $\mathcal{M}_{G}$表示$G$所有不可约复表示的次数中最大者。
@@ -1432,13 +1476,13 @@ $\mathcal{M}_{G}$表示$G$所有不可约复表示的次数中最大者。
 存在同构于$\psi$对应不可约复表示的直和项，
 这说明$\psi(1)=\mathcal{M}_{G}$不超过$\text{Ind}_{H}^{G}(\chi)$
 对应诱导表示的次数，
-根据[@linbasisofindrepprop]立即得到
+根据 @linbasisofindrepprop 立即得到
 $\mathcal{M}_{G}\leq [G:H]\chi(1)\leq [G:H]\mathcal{M}_{H}$。
 :::
 
 ::: remark
 若$H$是Abel子群，那么$\mathcal{M}_{H}=1$，进而$\mathcal{M}_{G}\leq[G:H]$，
-这就是[@alg0clfireeGleqindepropabesub]的结果。
+这就是 @alg0clfireeGleqindepropabesub 的结果。
 :::
 
 ## Mackey不可约性判别
@@ -1446,7 +1490,7 @@ $\mathcal{M}_{G}\leq [G:H]\chi(1)\leq [G:H]\mathcal{M}_{H}$。
 诱导表示作为通过子群表示构造大群表示的手段，我们自然关心诱导表示何时是不可约的。
 设$H$是有限群$G$的子群，并有有限维复表示$\rho:H\to GL(W)$，
 $\rho$对应的特征标记作$\chi$。
-根据[推论\ref{cor:ireCribyCpcharraincor}]，
+根据 @cor:ireCribyCpcharraincor，
 $\text{Ind}_{H}^{G}W$是不可约$\mathbb{C}G$-模的充要条件是
 $\langle \text{Ind}_{H}^{G}(\chi), \text{Ind}_{H}^{G}(\chi) \rangle_{G}=1$。
 因此需要挖掘使得$\langle \text{Ind}_{H}^{G}(\chi),
@@ -1469,26 +1513,28 @@ $\langle \text{Ind}_{H}^{G}(\chi), \text{Ind}_{H}^{G}(\chi) \rangle_{G}=1$。
 那么可直接验证若$\{b_{i1},b_{i2},...,b_{ij_{i}}\}\subseteq L$
 是$L$关于子群$L_{i}$左陪集分解的一个代表元集，则
 $$
-    \{b_{11}s_{1},b_{12}s_{1},...,b_{1j_{1}}s_{1},...,
-    b_{m1}s_{m},...,b_{mj_{m}}s_{m}\}\subseteq G
+\{b_{11}s_{1},b_{12}s_{1},...,b_{1j_{1}}s_{1},...,
+b_{m1}s_{m},...,b_{mj_{m}}s_{m}\}\subseteq G
 $$
 是$G$关于子群$H$的一个左陪集分解代表元集，
 并且$Ls_{i}H=b_{i1}s_{i}H\cup b_{i2}s_{i}H\cup\cdots\cup b_{ij_{i}}s_{i}H,
 \forall 1\leq i\leq m.$
 
-现设$G$有限。通过[@linbasisofindrepprop]，
+现设$G$有限。通过 @linbasisofindrepprop，
 我们看到作为域$\mathbb{k}$上线性空间，
 任何左$\mathbb{k}H$-模$W$的诱导模$\text{Ind}_{H}^{G}W$与
 $$
-    \bigoplus\limits_{i=1}^{m}\bigoplus
-    \limits_{k=1}^{j_{i}}b_{ik}s_{i} \otimes_{\mathbb{k}H} W
+\bigoplus\limits_{i=1}^{m}\bigoplus
+\limits_{k=1}^{j_{i}}b_{ik}s_{i} \otimes_{\mathbb{k}H} W
 $$
 同构。并且对每个正整数$1\leq i\leq m$，
 $L$可天然作用在$\{b_{i1}s_{i}H,b_{i2}s_{i}H,...,b_{ij_{i}}s_{i}H\}$上，
-这说明$$
-    \mathcal{U}_{i}=\bigoplus\limits_{k=1}^{j_{i}}
-    b_{ik}s_{i} \otimes_{\mathbb{k}H} W
-$$上有自然的左$\mathbb{k}L$-模结构。
+这说明
+$$
+\mathcal{U}_{i}=\bigoplus\limits_{k=1}^{j_{i}}
+b_{ik}s_{i} \otimes_{\mathbb{k}H} W
+$$
+上有自然的左$\mathbb{k}L$-模结构。
 不难看出左$\mathbb{k}L$-模同构$\bigoplus\limits_{i=1}^{m}
 \mathcal{U}_{i}\cong\text{Res}_{L}^{G}(\text{Ind}_{H}^{G}W)$。
 
@@ -1500,9 +1546,9 @@ $\rho^{g}:gHg^{-1}\to GL(W),x\mapsto \rho(g^{-1}xg)$，
 是左$\mathbb{k}L_{i}$-模。现在我们设$\rho:H\to GL(W)$
 是有限群$G$的子群$H$在$\mathbb{k}$上的有限维表示，则有如下左$\mathbb{k}L$-模同构：
 $$
-    \varphi_{i}:\mathcal{U}_{i}\to \text{Ind}_{L_{i}}^{L}
-    (\text{Res}_{L_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})),
-    b_{ik}s_{i}\otimes w\mapsto b_{ik}\otimes w.
+\varphi_{i}:\mathcal{U}_{i}\to \text{Ind}_{L_{i}}^{L}
+(\text{Res}_{L_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})),
+b_{ik}s_{i}\otimes w\mapsto b_{ik}\otimes w.
 $$
 $\varphi_{i}$是通过$\mathcal{U}_{i}$具体的基直接构造的$\mathbb{k}$-线性映射，
 因为$\{b_{i1},b_{i2},...,b_{ij_{i}}\}\subseteq L$
@@ -1520,15 +1566,15 @@ $\varphi_{i}$是通过$\mathcal{U}_{i}$具体的基直接构造的$\mathbb{k}$-�
 所以$\varphi_{i}$是左$\mathbb{k}L$-模同构。上述讨论证明了下面的Mackey分解定理。
 
 ::: theorem [Mackey分解]
-设群$G$是有限群，$L.H$是子群。
+设群$G$是有限群，$L,H$是子群。
 设$\{s_{1},...,s_{m}\}$是群$G$关于子群对$(L,H)$的双陪集分解的一个代表元集，
 并记$L_{i}=L\cap s_{i}Hs_{i}^{-1},i=1,2,...,m$。
 那么对$H$在域$\mathbb{k}$上的任何有限维表示$\rho:H\to GL(W)$，
 有左$\mathbb{k}L$-模同构
 $$
-    \text{Res}_{L}^{G}(\text{Ind}_{H}^{G}W)
-    \cong \bigoplus\limits_{i=1}^{m}
-    \text{Ind}_{L_{i}}^{L}(\text{Res}_{L_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})),
+\text{Res}_{L}^{G}(\text{Ind}_{H}^{G}W)
+\cong \bigoplus\limits_{i=1}^{m}
+\text{Ind}_{L_{i}}^{L}(\text{Res}_{L_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})),
 $$
 其中$W^{s_{i}}$是同构群同构$s_{i}Hs_{i}^{-1}\cong H$
 给出$W$上自然的左$\mathbb{k}[s_{i}Hs_{i}^{-1}]$-模结构。
@@ -1546,7 +1592,7 @@ $\text{Res}_{H_{t}}^{H}W$和$\text{Res}_{H_{t}}^{tHt^{-1}}(W^{t})$
 :::
 
 ::: proof
-根据[推论\ref{cor:ireCribyCpcharraincor}]，
+根据 @cor:ireCribyCpcharraincor，
 $\text{Ind}_{H}^{G}W$是不可约$\mathbb{C}G$-模的充要条件是
 $\langle \text{Ind}_{H}^{G}(\chi), \text{Ind}_{H}^{G}(\chi) \rangle_{G}=1$。
 结合Frobenius互反律知$\text{Ind}_{H}^{G}\rho$是不可约复表示当且仅当
@@ -1556,9 +1602,9 @@ $\langle  \chi ,\text{Res}_{H}^{G}(\text{Ind}_{H}^{G}(\chi))  \rangle_{H}=1$。
     =\text{dim}_{\mathbb{C}}\text{Hom}_{\mathbb{C}H}(W,\text{Res}_{H}^{G}(\text{Ind}_{H}^{G}(W)))$，
 立即得到
 $$
-    \langle  \chi ,\text{Res}_{H}^{G}(\text{Ind}_{H}^{G}(\chi))  \rangle_{H}
-    =\sum_{i=1}^{m}\langle  \chi ,
-    \text{Ind}_{H_{i}}^{H}(\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})) \rangle_{H},
+\langle  \chi ,\text{Res}_{H}^{G}(\text{Ind}_{H}^{G}(\chi))  \rangle_{H}
+=\sum_{i=1}^{m}\langle  \chi ,
+\text{Ind}_{H_{i}}^{H}(\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})) \rangle_{H},
 $$
 其中$\{s_{1},...,s_{m}\}$是群$G$关于子群对$(H,H)$的双陪集分解的一个代表元集，
 $H_{i}=H\cap s_{i}Hs_{i}^{-1}$。不妨设$s_{1}=1$，那么$H_{1}=H$，
@@ -1568,14 +1614,14 @@ $H_{i}=H\cap s_{i}Hs_{i}^{-1}$。不妨设$s_{1}=1$，那么$H_{1}=H$，
     \text{Ind}_{H}^{G}(\chi)\rangle_{H}\geq 1$）。
 现在我们把$\langle  \chi ,\text{Res}_{H}^{G}(\text{Ind}_{H}^{G}(\chi))  \rangle_{H}$表示为
 $$
-    \langle  \chi,\chi\rangle_{H}+\sum_{i=2}^{m}\langle \chi ,
-    \text{Ind}_{H_{i}}^{H}(\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})) \rangle_{H},
+\langle  \chi,\chi\rangle_{H}+\sum_{i=2}^{m}\langle \chi ,
+\text{Ind}_{H_{i}}^{H}(\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})) \rangle_{H},
 $$
 那么由上式每一项均为自然数且当$W\neq 0$时第一项至少为$1$可知
 $\text{Ind}_{H}^{G}\rho$不可约的充要条件是$\rho$不可约且
 $$
-    \langle  \chi ,\text{Ind}_{H_{i}}^{H}(\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})) \rangle_{H}=0,
-    \forall 2\leq i\leq m.
+\langle  \chi ,\text{Ind}_{H_{i}}^{H}(\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})) \rangle_{H}=0,
+\forall 2\leq i\leq m.
 $$
 根据Frobenius互反律，后者等价于
 $\langle \text{Res}_{H_{i}}^{H}\chi,\text{Res}_{H_{i}}^{s_{i}Hs_{i}^{-1}}(W^{s_{i}})\rangle_{H_{i}}=0,
