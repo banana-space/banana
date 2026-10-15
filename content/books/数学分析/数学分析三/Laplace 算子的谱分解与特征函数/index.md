@@ -1,9 +1,5 @@
 ---
 title: Laplace 算子的谱分解与特征函数
-notices:
-  - name: 问题
-    items:
-      - 正方体上的例子中，证明 $\varphi_k\in H^1_0$ 时，乘积之差的 $H^1$ 范数似乎不等于各因子之差的范数之积（结论仍可通过逐个替换因子并利用三角不等式得到）。
 ---
 
 我们可以将上述紧算子的理论应用到Dirichlet问题之上
@@ -230,11 +226,14 @@ u(x)=C \sin\big(\frac{\pi }{d}k  x\big).
 \[
 \lim_{p\rightarrow \infty}\left\|\varphi_j^{(p)}(x)-\sin\left(\dfrac{\pi}{d}k_j\cdot x\right)\right\|_{H^1}=0.
 \]
-所以，
+记 $f_j=\varphi_j^{(p)}$，$g_j(x)=\sin\left(\dfrac{\pi}{d}k_j\cdot x\right)$。
+对 $(0,d)$ 上的函数 $h_1,\cdots,h_n$，直接计算可知 $\bigl\|\prod_{j=1}^n h_j(x_j)\bigr\|_{H^1}\leqslant \prod_{j=1}^n\|h_j\|_{H^1}$。
+逐个替换因子，并注意到 $\|f_j\|_{H^1}$ 关于 $p$ 有界，我们有
 \[
 \begin{aligned}
-\left\|\prod_{j=1}^n\varphi_j^{(p)}(x_j)-\prod_{j=1}^n\sin\left(\dfrac{\pi}{d}k_j\cdot x_j\right)\right\|^2_{H^1}
-=\prod_{j=1}^n\left\|\varphi_j^{(p)}-\sin\left(\dfrac{\pi}{d}k_j\cdot x_j\right)\right\|^2_{H^1_0}\rightarrow 0.
+\Bigl\|\prod_{j=1}^n f_j(x_j)-\prod_{j=1}^n g_j(x_j)\Bigr\|_{H^1}
+&=\Bigl\|\sum_{i=1}^n \prod_{j<i}f_j(x_j)\,\bigl(f_i-g_i\bigr)(x_i)\prod_{j>i}g_j(x_j)\Bigr\|_{H^1}\\
+&\leqslant \sum_{i=1}^n \prod_{j<i}\|f_j\|_{H^1}\,\|f_i-g_i\|_{H^1}\prod_{j>i}\|g_j\|_{H^1}\rightarrow 0.
 \end{aligned}
 \]
 最终，为了证明这是所有的特征函数，

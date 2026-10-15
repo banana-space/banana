@@ -1,9 +1,5 @@
 ---
 title: 作业：Heisenberg 测不准原理，Sobolev 空间的物理刻画
-notices:
-  - name: 问题
-    items:
-      - 习题 A4 中“特别地”之后的公式与前一个公式完全相同，似乎应为 $\widehat{1}=(2\pi)^n\delta_0$；其中 $e^{-ix\cdot a}$ 似乎也应为 $e^{-i\xi\cdot a}$。
 ---
 
 ## 习题A：课堂细节的补充
@@ -45,11 +41,11 @@ A3) 给定分布${u}\in \mathcal{D}'(\mathbb{R}^n)$和$\mathbb{R}^n$上的光滑
 
 A4) 证明，对任意的$a\in \mathbb{R}^n$，任意的多重指标$\alpha$，我们有
     \[
-    \widehat{\partial^\alpha \delta_a}=(i\xi)^\alpha e^{-ix\cdot a}, \ \ \widehat{x^\alpha }=(2\pi)^n (i\partial)^\alpha\delta_0.
+    \widehat{\partial^\alpha \delta_a}=(i\xi)^\alpha e^{-i\xi\cdot a}, \ \ \widehat{x^\alpha }=(2\pi)^n (i\partial)^\alpha\delta_0.
     \]
     特别地，
     \[
-    \widehat{\partial^\alpha \delta_a}=(i\xi)^\alpha e^{-ix\cdot a}, \ \ \widehat{x^\alpha }=(2\pi)^n (i\partial)^\alpha\delta_0.
+    \widehat{\delta_a}=e^{-i\xi\cdot a}, \ \ \widehat{1}=(2\pi)^n\delta_0.
     \]
 
 A5) 证明，分布$d\sigma_R$是旋转不变的，

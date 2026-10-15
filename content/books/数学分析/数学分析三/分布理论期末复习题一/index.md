@@ -3,7 +3,6 @@ title: 分布理论期末复习题一
 notices:
   - name: 问题
     items:
-      - 题目 C8) 中 $V(z)$ 的积分限与定义域似乎有误：按 $\int_\infty^{0}$ 定义，对 $z\in \mathbb{H}$ 有 $V=-U$，且 $x-i\varepsilon\notin \mathbb{H}$；似乎应为 $\int_{-\infty}^{0}$ 并对下半平面中的 $z$ 定义。
       - 题目 D 中有两个小题都编号为 D6)。
 ---
 
@@ -134,9 +133,9 @@ C7) 对任意的$\varepsilon>0$，我们定义$\mathbb{R}$上的分布：
     \lim_{\varepsilon\rightarrow 0^+} u_\varepsilon.
     \]
 
-C8) 对于$z\in \mathbb{H}$，我们定义
+C8) 对于满足${\rm Im}(z)<0$的$z\in \mathbb{C}$，我们定义
     \[
-    V(z):=\int_\infty^{0} \widehat{u}(\xi)e^{i\xi z}d\xi
+    V(z):=\int_{-\infty}^{0} \widehat{u}(\xi)e^{i\xi z}d\xi
     \]
     并令
     \[

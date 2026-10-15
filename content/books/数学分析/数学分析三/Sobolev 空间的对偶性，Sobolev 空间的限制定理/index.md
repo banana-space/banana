@@ -1,10 +1,5 @@
 ---
 title: Sobolev 空间的对偶性，Sobolev 空间的限制定理
-notices:
-  - name: 问题
-    items:
-      - '“Sobolev空间的限制性定理”一节中，限制所得的函数空间写作 $H^{s-\frac{1}{2}}(\mathbb{R}^n)$，似乎应为 $H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})$；最后一个注记中 $u$ 所在的空间与范数 $\|u\|_{H^{n-1}}$ 也似乎应为 $H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})$。'
-      - 最后一个注记中 $\widehat{U}$ 的定义与随后的计算似乎不一致：按后面的计算，定义中的指数似乎应为 $s-\frac{1}{2}$ 与 $s$（而非 $\frac{s}{2}-\frac{1}{2}$ 与 $\frac{s}{2}$），计算中的常数 $2\pi$、$C_s$ 似乎也多写了一次。
 ---
 
 我们来证明Sobolev空间之间的对偶性，为此，我们需要证明关于完备的内积空间的Riesz表示定理。
@@ -307,7 +302,7 @@ v&\mapsto \int_{\mathbb{R}^n} u(x)v(x)dx.
 特别地，在一个零测集上改变$u$的取值不会改变$u \in  H^{s}(\mathbb{R}^n)$。
 所以，我们可以任意地改变$u$在$\Sigma$上的值（因为$\Sigma$是一个零测集）。
 然而，我们将证明，当$s>\dfrac{1}{2}$时，
-我们可以把$u$“限制”到$\Sigma$上来得到一个落在$H^{s-\frac{1}{2}}(\mathbb{R}^n)$的函数。
+我们可以把$u$“限制”到$\Sigma$上来得到一个落在$H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})$的函数。
 当然，我们也可以这么想象这个结果，当$s$足够大的时候（大于空间的维数的一半），
 此时，根据Sobolev嵌入定理，$u$是连续函数，自然可以在$\Sigma$上限制。
 
@@ -457,22 +452,22 @@ C_s=\int_{\mathbb{R}}\frac{dy}{(1+y^2)^{s}}.
 \mathcal{F}'(\varphi(\cdot,0))(\xi')&=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{\varphi}(\xi',\xi_n)d\xi_n,
 \end{aligned}
 \]
-的提示，对任意的$u\in H^{s-\frac{1}{2}}(\mathbb{R}^n)$，我们构造一个$U \in H^{s}(\mathbb{R}^n)$，
+的提示，对任意的$u\in H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})$，我们构造一个$U \in H^{s}(\mathbb{R}^n)$，
 使得
 \[
 \mathcal{F}'(u)(\xi')=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{U}(\xi',\xi_n)d\xi_n.
 \]
 实际上，我们定义
 \[
-\widehat{U}(\xi',\xi_n)=\widehat{u}(\xi')\frac{2\pi(1+|\xi'|^2)^{\frac{s}{2}-\frac{1}{2}}}{C_{s}(1+|\xi|^2)^\frac{s}{2}}.
+\widehat{U}(\xi',\xi_n)=\widehat{u}(\xi')\frac{2\pi(1+|\xi'|^2)^{s-\frac{1}{2}}}{C_{s}(1+|\xi|^2)^{s}}.
 \]
 据此，我们首先有${U}\in H^s(\mathbb{R}^n)$，这因为
 \[
 \begin{aligned}
-\|U\|^2_{H^s(\mathbb{R}^n)}&=\frac{4\pi^2}{C_s^2}\int_{\mathbb{R}^n}(1+|\xi|^2)^s\left|\widehat{u}(\xi')\right|^2\frac{2\pi(1+|\xi'|^2)^{2s-1}}{C_s^2(1+|\xi|^2)^{2s}}d\xi\\
+\|U\|^2_{H^s(\mathbb{R}^n)}&=\int_{\mathbb{R}^n}(1+|\xi|^2)^s\left|\widehat{u}(\xi')\right|^2\frac{4\pi^2(1+|\xi'|^2)^{2s-1}}{C_s^2(1+|\xi|^2)^{2s}}d\xi\\
 &=\frac{4\pi^2}{C_s^2}\int_{\mathbb{R}^{n-1}} \left|\widehat{u}(\xi')\right|^2 (1+|\xi'|^2)^{2s-1}\int_{\mathbb{R}}\frac{d\xi_n }{(1+|\xi|^2)^{s}}d\xi'\\
 &=\frac{4\pi^2}{C_s}\int_{\mathbb{R}^{n-1}} \left|\widehat{u}(\xi')\right|^2(1+|\xi'|^2)^{s-\frac{1}{2}}d\xi'\\
-&=\frac{4\pi^2}{C_s}\|u\|^2_{H^{n-1}}<\infty.
+&=\frac{4\pi^2}{C_s}\|u\|^2_{H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})}<\infty.
 \end{aligned}
 \]
 所以，${U}\in H^s(\mathbb{R}^n)$。
@@ -480,8 +475,8 @@ C_s=\int_{\mathbb{R}}\frac{dy}{(1+y^2)^{s}}.
 现在证明$U(x',0)=u(x')$。实际上，我们只要说明
 \[
 \begin{aligned}
-\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{U}(\xi',\xi_n)d\xi_n&=\frac{1}{2\pi}\int_{\mathbb{R}} \widehat{u}(\xi')\frac{2\pi(1+|\xi'|^2)^{\frac{s}{2}-\frac{1}{2}}}{C_{s}(1+|\xi|^2)^\frac{s}{2}} d\xi_n\\
-&=\frac{1}{C_s} \widehat{u}(\xi'){(1+|\xi'|^2)^{\frac{s}{2}-\frac{1}{2}}}\int_{\mathbb{R}}\frac{1}{C_{s}(1+|\xi|^2)^\frac{s}{2}} d\xi_n\\
+\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{U}(\xi',\xi_n)d\xi_n&=\frac{1}{2\pi}\int_{\mathbb{R}} \widehat{u}(\xi')\frac{2\pi(1+|\xi'|^2)^{s-\frac{1}{2}}}{C_{s}(1+|\xi|^2)^{s}} d\xi_n\\
+&=\frac{1}{C_s} \widehat{u}(\xi'){(1+|\xi'|^2)^{s-\frac{1}{2}}}\int_{\mathbb{R}}\frac{1}{(1+|\xi|^2)^{s}} d\xi_n\\
 &=\widehat{u}(\xi').
 \end{aligned}
 \]

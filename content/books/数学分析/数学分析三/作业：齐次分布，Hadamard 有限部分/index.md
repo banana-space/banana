@@ -1,9 +1,5 @@
 ---
 title: 作业：齐次分布，Hadamard 有限部分
-notices:
-  - name: 问题
-    items:
-      - '习题 F 中 $u_\lambda$ 的定义 $\langle u_\lambda, \varphi \rangle =\langle u, |\lambda|^{-n} \varphi_{1/\lambda} \rangle$ 与 F1 中的刻画 $f(\lambda x)=\lambda^d f(x)$ 似乎不一致：对局部可积函数 $f$，与 F1 相容的定义似乎应为 $|\lambda|^{n}\varphi_{1/\lambda}$。'
 ---
 
 ## 分布的定义、例子与操作
@@ -195,7 +191,7 @@ E2) （正则性）假设分布$u \in \mathcal{D}'(\mathbb{R}^2)$满足
 \]
 对于$u \in \mathcal{D}'(\mathbb{R}^n)$，我们定义分布$u_\lambda$如下：
 \[
-\langle u_\lambda, \varphi \rangle =\left\langle u, |\lambda|^{-n} \varphi_{\frac{1}{\lambda}} \right \rangle.
+\langle u_\lambda, \varphi \rangle =\left\langle u, |\lambda|^{n} \varphi_{\frac{1}{\lambda}} \right \rangle.
 \]
 如果对每个$\lambda>0$，下面的等式成立：
 \[
