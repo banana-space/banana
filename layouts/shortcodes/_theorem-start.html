@@ -3,7 +3,7 @@
 {{- with $title -}}
   {{- $caption = i18n "environment_title" (dict "Caption" $caption "Title" .) -}}
 {{- end -}}
-{{- /* ::: -remark [寄语]：只显示标题。 */ -}}
+{{- /* ::: proof [@thm 的证明]：只显示标题。 */ -}}
 {{- if eq (.Get "bare") "true" -}}{{- $caption = $title -}}{{- end -}}
 {{- $proof := eq (.Get "kind") "proof" -}}
 <div class="theorem-block theorem-{{ .Get "group" }} environment-{{ .Get "kind" }}"{{ with .Get "id" | base64Decode }} id="{{ . }}"{{ end }}>

@@ -374,22 +374,19 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
   assert.throws(() => transformDocument('1) 甲\n(a) 乙\n2. 丙'), /标签列表项目/);
 }
 assert.throws(() => transformDocument('::: theorem* [@self] {@self}\n内容\n:::\n\n@self'), /循环引用/);
-// ::: -remark [寄语]：只显示标题，不编号、不占计数器；引用显示标题。
-{
-  const bare = transformDocument('::: remark\n一\n:::\n\n::: -remark [寄语] {@wisdom}\n二\n:::\n\n::: remark\n三\n:::\n\n见 @wisdom。');
-  assert.match(bare, /theorem-start kind="remark" group="remark" name="environment_remark" number="" title="[^"]+" bare="true"/);
-  assert.match(bare, /number="2" title="" id=""/, 'A bare environment takes no number');
-  assert.match(bare, /\(reference:\?id=wisdom&[^)]*caption=5a%2BE6K%2Bt\)/, 'References show the title');
-  assert.throws(() => transformDocument('::: -remark\n二\n:::'), /必须写标题/);
-  assert.throws(() => transformDocument('::: -remark* [寄语]\n二\n:::'), /不能与 \* 同用/);
-}
+// 旧写法 -remark [寄语] 报错并给出新写法 remark* (寄语)。
+assert.throws(() => transformDocument('::: -remark [寄语]\n二\n:::'), /不再使用 - 前缀[\s\S]*remark\* \(寄语\)/);
 // ::: definition (条件)：自定的名称代替类型名称，编号、计数器与颜色仍按类型。
 {
   const custom = transformDocument('::: theorem\n一\n:::\n\n::: definition (条件) [同分布] {@cond}\n二\n:::\n\n::: remark* (异议)\n三\n:::\n\n见 @cond。');
   assert.match(custom, /kind="definition" group="definition" name="environment_custom" number="2" title="[^"]+" custom="5p2h5Lu2" id=/);
   assert.match(custom, /kind="remark" group="remark" name="environment_custom" number="" title="" custom="5byC6K6u"/, 'A starred custom environment takes no number');
   assert.match(custom, /\(reference:\?id=cond&name=environment_custom&number=2&custom=5p2h5Lu2\)/);
-  for (const header of ['-remark (异议) [x]', 'definition ()', 'definition ($x$)', 'proof (证)']) {
+  // 不编号的自定名称不占计数器；有标题时引用带标题。
+  const wisdom = transformDocument('::: remark\n一\n:::\n\n::: remark* (寄语) [给读者] {@wisdom}\n二\n:::\n\n::: remark\n三\n:::\n\n见 @wisdom。');
+  assert.match(wisdom, /name="environment_remark" number="2" title=""/, 'An unnumbered custom environment takes no number');
+  assert.match(wisdom, /\(reference:\?id=wisdom&name=environment_custom&number=&custom=5a%2BE6K%2Bt&title=[^)]+\)/);
+  for (const header of ['definition ()', 'definition ($x$)', 'definition (a[b])', 'proof (证)']) {
     assert.throws(() => transformDocument(`::: ${header}\n二\n:::`), /圆括号中的名称/, header);
   }
 }
