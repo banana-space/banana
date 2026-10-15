@@ -1,6 +1,6 @@
 ---
 title: Bézout 引理
-aliases: [Bézout 等式, Bézout 恒等式]
+aliases: [Bézout 等式, Bézout 恒等式, 裴蜀定理]
 categories: [初等数论]
 notices:
   - name: 消歧义

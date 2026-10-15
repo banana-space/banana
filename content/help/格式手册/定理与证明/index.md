@@ -35,6 +35,22 @@ title: 定理与证明
 
 定理环境的正文**不要缩进**。在 Markdown 中，缩进的内容会变成代码块。
 
+可用的定理类型如下：
+
+| 类型 | 显示 |
+| --- | --- |
+| `definition` | 定义 |
+| `theorem` | 定理 |
+| `proposition` | 命题 |
+| `lemma` | 引理 |
+| `corollary` | 推论 |
+| `conjecture` | 猜想 |
+| `example` | 例 |
+| `exercise` | 习题 |
+| `remark` | 注 |
+| `notation` | 记号 |
+| `convention` | 约定，见下文 |
+
 ### 不编号的环境
 
 类型后加 `*`，环境不编号，也不占用编号：
