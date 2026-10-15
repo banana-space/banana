@@ -1,10 +1,5 @@
 ---
 title: 最速降线问题，积分中值定理
-notices:
-  - name: 问题
-    items:
-      - '“最速降线问题”一节中，$\dfrac{dL}{dX}$ 的表达式分母中的 $(-2GV)^\frac{3}{2}$ 似乎应为 $(-2GX)^\frac{3}{2}$。'
-      - “等时性”命题中摆线的参数区间似乎应为 $[0,\pi]$，否则不含其后用到的点 $\gamma(\pi)$。
 ---
 
 ## 最速降线问题
@@ -86,7 +81,7 @@ g(x)=\varphi(x) \Bigl[(\frac{dL}{dX}\bigr)(f,f') -\dfrac{d}{dx}(\frac{dL}{dV}\bi
 \]
 按照定义，我们有
 \[
-\frac{dL}{dX}=G\frac{(1+V^2)^\frac{1}{2}}{(-2GV)^\frac{3}{2}},  \ \ \frac{dL}{dV}=\frac{V}{\bigl(-2GX(1+V^2)\bigr)^{\frac{1}{2}}}.
+\frac{dL}{dX}=G\frac{(1+V^2)^\frac{1}{2}}{(-2GX)^\frac{3}{2}},  \ \ \frac{dL}{dV}=\frac{V}{\bigl(-2GX(1+V^2)\bigr)^{\frac{1}{2}}}.
 \]
 所以，
 \[
@@ -136,7 +131,7 @@ c(\Theta-\sin \Theta)=a, \ \ -c(1-\cos \Theta)=-h
 ::: proposition [等时性，Huygens]
 考虑摆线
 \[
-\gamma\colon  [0,\frac{\pi}{2}]\rightarrow \mathbb{R}^2,  \ \ \theta \mapsto \bigl(c(\theta-\sin \theta), -c(1-\cos \theta)\bigr).
+\gamma\colon  [0,\pi]\rightarrow \mathbb{R}^2,  \ \ \theta \mapsto \bigl(c(\theta-\sin \theta), -c(1-\cos \theta)\bigr).
 \]
 
 ![](MathAnalysis_N26P2.svg)

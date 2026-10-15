@@ -1,9 +1,5 @@
 ---
 title: Riemann 可积函数的刻画，Newton–Leibniz 公式
-notices:
-  - name: 问题
-    items:
-      - 第一个定理的证明中，“2)$\Rightarrow$3)”一段所取分划 $\sigma_0=\{b_0<b_1<\cdots<b_0\}$ 的末项似乎应为 $b_m$，而随后用到的分割点 $a_i$ 与下标 $i_0$ 似乎没有与该分划对应起来。
 ---
 
 我们现在可以对紧区间 $I$ 上的Riemann可积函数做全面的刻画：
@@ -35,9 +31,9 @@ notices:
 
 2)$\Rightarrow$3)任意给定 $\varepsilon>0$，按照定义，存在 $\delta$，当 $|\sigma|<\delta$ 时，
 对任意的 $(\sigma,\xi)$ 我们都有 $|S(f;\sigma,\xi)-\mathbf{I}|<\varepsilon$。
-我们选定一个 $\sigma_0=\{b_0<b_1<\cdots<b_0\}$，使得 $|\sigma_0|<\delta$。
+我们选定一个分划 $\sigma=\{a_0<a_1<\cdots<a_n\}$，使得 $|\sigma|<\delta$。
 
-我们令 $\xi_i=a_i, i\neq i_0$，$\xi_{i_0}=x\in [a_{i_0-1},a_{i_0}]$ 可以任意选择。
+任意取定 $1\leqslant i_0\leqslant n$，我们令 $\xi_i=a_i, i\neq i_0$，$\xi_{i_0}=x\in [a_{i_0-1},a_{i_0}]$ 可以任意选择。
 根据 $|S(f;\sigma,\xi)|<\mathbf{I}+\varepsilon$，我们知道
 \[
 \begin{aligned}

@@ -1,9 +1,5 @@
 ---
 title: 实数的公理化描述
-notices:
-  - name: 问题
-    items:
-      - “(A) Archimedes 公理”一节中命题（$\mathbb{R}$ 包含所有有理数）的证明里，“按照定义，就有 $k=m-n$”一句似乎应为“就有 $m-n=0$，即 $m=n$”。
 ---
 
 $\mathbb{R}$ 是一个集合，我们假设 $x$、$y$、$z$ 等都是它的元素。
@@ -242,7 +238,7 @@ $\mathbb{R}$ 包含所有有理数，即存在单射 $\iota \colon \mathbb{Q}\ri
 \[
 \iota(m-n)=\iota(m)+\iota(-n)=\iota(m)-\iota(n)=0,
 \]
-按照定义，就有 $k=m-n$（因为对任意的 $k>0$，$\underbrace{1+1+\cdots+1}_{k\text{个}}>0$，
+按照定义，就有 $m-n=0$，即 $m=n$（因为对任意的 $k>0$，$\underbrace{1+1+\cdots+1}_{k\text{个}}>0$，
 $\underbrace{(-1)+(-1)+\cdots+(-1)}_{k\text{个}}<0$）。
 对于有理数 $x=\dfrac{p}{q}\in \mathbb{Q}$，其中 $p,q\in \mathbb{Z}$，$q\neq 0$，我们定义
 \[

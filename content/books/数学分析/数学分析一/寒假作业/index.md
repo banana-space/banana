@@ -1,10 +1,5 @@
 ---
 title: 寒假作业
-notices:
-  - name: 问题
-    items:
-      - 题目D中 D1) 的和式似乎应从 $k=0$ 开始（否则无法逼近常数函数）。
-      - 题目F中 F7)、F8) 的 $e^{\pi i x}$ 似乎应为 $e^{ix}$，否则 $f_\varepsilon$、$f_R$ 不以 $2\pi$ 为周期，不属于 $E$。
 ---
 
 ## 题目A（Young不等式）
@@ -110,9 +105,9 @@ $P_n(x)=\dfrac{1}{2^n n!}\left(\dfrac{d}{dx}\right)^n\left((x^2-1)^n\right)$。
 为了方便起见，我们令 $P_0(x)\equiv 1$。
 
 D1) 证明，任意给定连续函数 $\varphi(x)\in C([-1,1])$，
-    对任意的 $\varepsilon>0$，存在正整数 $N$ 和实数 $c_1,c_2,\cdots, c_N$，使得
+    对任意的 $\varepsilon>0$，存在正整数 $N$ 和实数 $c_0,c_1,\cdots, c_N$，使得
     \[
-    \|\varphi(x)-\sum_{k=1}^Nc_kP_k(x)\|_{\infty}<\varepsilon.
+    \|\varphi(x)-\sum_{k=0}^Nc_kP_k(x)\|_{\infty}<\varepsilon.
     \]
 
 D2) 证明，对任意的 $n\geqslant 1$，$P_n(x)$ 满足下面的微分方程：
@@ -251,11 +246,11 @@ F6) 证明同伦不变性：假设 $F(t,\tau)\colon \mathbb{R}\times [0,1]\right
 F7) 假设 $P(x)=x^n+c_{n-1}x^{n-1}+\cdots+c_1x+c_0$ 是一个 $n$ 次的首一复系数多项式，
     假设 $P(0)\neq 0$，证明，存在 $\varepsilon_0>0$，
     使得对任意的 $\varepsilon \in (0,\varepsilon_0)$，
-    函数 $f_\varepsilon(x)=P(\varepsilon e^{\pi i x}) \in E$ 并计算 $d(f_\varepsilon)$。
+    函数 $f_\varepsilon(x)=P(\varepsilon e^{ix}) \in E$ 并计算 $d(f_\varepsilon)$。
 
 F8) 假设 $P(x)=x^n+c_{n-1}x^{n-1}+\cdots+c_1x+c_0$ 是一个 $n$ 次的首一复系数多项式，
     假设 $P(0)\neq 0$，证明，存在 $R_0>0$，使得对任意的 $R\in (R_0,\infty)$，
-    函数 $f_R(x)=P(R e^{\pi i x}) \in E$ 并计算 $d(f_R)$。
+    函数 $f_R(x)=P(R e^{ix}) \in E$ 并计算 $d(f_R)$。
 
 F9) 证明代数基本定理：对任意 $n$ 次的复系数多项式 $P(x)$，它至少有一个根。（提示：反证法）
 

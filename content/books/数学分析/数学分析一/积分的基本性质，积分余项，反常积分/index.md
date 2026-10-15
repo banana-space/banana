@@ -1,9 +1,5 @@
 ---
 title: 积分的基本性质，积分余项，反常积分
-notices:
-  - name: 问题
-    items:
-      - '“面积法”一节例子第 1 项中，由下界估计得到的不等式 $\sum_{1\leqslant n \leqslant N} n^\alpha-\frac{N^{\alpha+1}-1}{\alpha+1}\leqslant 1$ 似乎应为 $\geqslant 1$。'
 ---
 
 ## Riemann 积分的性质
@@ -334,7 +330,7 @@ $f$ 和 $F$ 均为 $J$ 上的Riemann可积函数。假设对任意的 $x\in I$�
   \]
   这表明
   \[
-  \sum_{1\leqslant n \leqslant N} n^\alpha-\frac{N^{\alpha+1}-1}{\alpha+1}\leqslant 1=O(N^\alpha).
+  \sum_{1\leqslant n \leqslant N} n^\alpha-\frac{N^{\alpha+1}-1}{\alpha+1}\geqslant 1>0.
   \]
   这就证明了命题。
 
