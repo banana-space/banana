@@ -1,3 +1,5 @@
+authors: OperatorP
+description: 一阶逻辑与集合论的入门讲义。
 contents:
   - page: 朴素逻辑
     children:
@@ -22,7 +24,6 @@ contents:
       - page: 序数与序数算术
       - page: 势与基数
       - page: 大可数序数
-      - page: 无选择基数算术
       - page: 选择公理
       - page: 初等基数算术
   - page: 一般拓扑学准备
