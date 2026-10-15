@@ -3,7 +3,6 @@ title: 热核与热方程的基本性质
 notices:
   - name: 问题
     items:
-      - “热核的构造”一节中，验证热核满足方程的计算里，后两项 $\frac{\lambda_k}{2}\lambda_k e^{-\lambda_k t}\cdots$ 似乎多了一个因子 $\lambda_k$。
       - “热核的构造”一节中，对算子 $\partial_t-\frac{1}{2}(\triangle_x+\triangle_y)$ 的基本解 $E(t,x,y)$，归一化因子似乎应为 $(2\pi t)^{-n}$ 而不是 $(4\pi t)^{-n}$。
       - 极大值原理（命题）的证明中，由边界上 $u\leqslant 0$ 似乎得不到 $u_\varepsilon$ 在边界上 $>0$，而且若 $u_\varepsilon$ 在边界上为正，则 $u_\varepsilon\leqslant 0$ 不可能成立；这一步的论证似乎有误。
       - 从代数角度证明热核为实值的注记中，“特征子空间 $E_\lambda\subset$”一句缺少包含它的空间。
@@ -132,7 +131,7 @@ p(t,x,y)\in \mathcal{D}'\big((0,\infty)\times \Omega\times \Omega\big).
 \begin{aligned}
 &\left(\partial_t-\frac{1}{2}\left(\triangle_x+\triangle_y\right)\right)\left(\sum_{k\geqslant 1} e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\right) \\
 =&\lim_{m\rightarrow \infty}\sum_{k=1}^{m}  \left(\partial_t-\frac{1}{2}\left(\triangle_x+\triangle_y\right)\right)\left(e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\right)\\
-=& \lim_{m\rightarrow \infty}\sum_{k=1}^{m}  -\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2}\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2}\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\\
+=& \lim_{m\rightarrow \infty}\sum_{k=1}^{m}  -\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2} e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2} e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\\
 =&0.
 \end{aligned}
 \]

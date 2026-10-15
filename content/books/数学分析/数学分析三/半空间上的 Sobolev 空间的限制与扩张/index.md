@@ -1,10 +1,5 @@
 ---
 title: 半空间上的 Sobolev 空间的限制与扩张
-notices:
-  - name: 问题
-    items:
-      - “高阶推广”一节的引理中，扩张映射 ${\rm Ext}$ 写作 $H^k(\mathbb{R}^n)\rightarrow H^k(\mathbb{H}^n)$，方向似乎应为 $H^k(\mathbb{H}^n)\rightarrow H^k(\mathbb{R}^n)$；该节两处延拓构造的值域写作 $H^1(\mathbb{H}^n)$，似乎应为 $H^1(\mathbb{R}^n)$（引理的证明中似乎还应为 $H^k$）。
-      - “高阶推广”一节引理的证明中，下标的范围前后不一致（$a_j$、$b_j$ 的下标有时从 $0$ 到 $k-1$，有时到 $k$），求和指标 $i$ 与 $u(x',-b_jx_n)$ 中的 $j$ 似乎也混用了。
 ---
 
 ## $H^1$ 的扩张
@@ -731,13 +726,13 @@ H^1_0(\mathbb{H}^n)\supset \widetilde{\varphi}_p \stackrel{H^1(\mathbb{H}^n)}{\l
   我们的证明是假设$u$是$\mathbb{R}^n$上的一个光滑函数$F$的限制（一般情况逼近即可）：
   $u=F\big|_{\mathbb{H}^n}$。所谓的对称延拓是：
   \[
-  {\rm Ext_{_{\rm Sym}}}\colon C^\infty\left(\mathbb{R}^n\right)\cap H^1\left(\mathbb{H}^n\right)\rightarrow H^1\left(\mathbb{H}^n\right),  \ \ u \mapsto  \widetilde{u}(x',x_n)=\begin{cases}u(x',x_n), \ &x_n\geqslant 0;\\
+  {\rm Ext_{_{\rm Sym}}}\colon C^\infty\left(\mathbb{R}^n\right)\cap H^1\left(\mathbb{H}^n\right)\rightarrow H^1\left(\mathbb{R}^n\right),  \ \ u \mapsto  \widetilde{u}(x',x_n)=\begin{cases}u(x',x_n), \ &x_n\geqslant 0;\\
   u(x',-x_n), \ &x_n\leqslant 0.\end{cases}
   \]
   为了计算它的导数，我们需要验证跳跃公式中的要求，其中，$\widetilde{u}$在$x_n=0$处的连续性是重要的。
   根据跳跃公式，我们证明了
   \[
-  \partial_j \left({\rm Ext_{_{\rm Sym}}}(u)\right) = {\rm Ext_{_{\rm Sym}}}\left(\partial_k u\right), \ \  k=1,2,\cdots,n-1.
+  \partial_k \left({\rm Ext_{_{\rm Sym}}}(u)\right) = {\rm Ext_{_{\rm Sym}}}\left(\partial_k u\right), \ \  k=1,2,\cdots,n-1.
   \]
   并且
   \[
@@ -764,7 +759,7 @@ H^1_0(\mathbb{H}^n)\supset \widetilde{\varphi}_p \stackrel{H^1(\mathbb{H}^n)}{\l
 \]
 是连续的满的线性映射并且存在连续线性的扩张映射
 \[
-{\rm Ext}\colon H^k\left(\mathbb{R}^n\right)\rightarrow H^k\left(\mathbb{H}^n\right)
+{\rm Ext}\colon H^k\left(\mathbb{H}^n\right)\rightarrow H^k\left(\mathbb{R}^n\right)
 \]
 使得
 \[
@@ -775,11 +770,11 @@ H^1_0(\mathbb{H}^n)\supset \widetilde{\varphi}_p \stackrel{H^1(\mathbb{H}^n)}{\l
 ::: proof
 我们构造一种延拓方式：假设$u$是$\mathbb{R}^n$上光滑函数的限制
 \[
-{\rm Ext}\colon C^\infty\left(\mathbb{R}^n\right)\cap H^1\left(\mathbb{H}^n\right)\rightarrow H^1\left(\mathbb{H}^n\right),  \ \ u \mapsto  \widetilde{u}(x',x_n)=\begin{cases}u(x',x_n), \ &x_n\geqslant 0;\\
+{\rm Ext}\colon C^\infty\left(\mathbb{R}^n\right)\cap H^k\left(\mathbb{H}^n\right)\rightarrow H^k\left(\mathbb{R}^n\right),  \ \ u \mapsto  \widetilde{u}(x',x_n)=\begin{cases}u(x',x_n), \ &x_n\geqslant 0;\\
 \displaystyle\sum_{0\leqslant j\leqslant k-1}a_ju(x',-b_jx_n), \ &x_n < 0.\end{cases}
 \]
-在这个表达式中，我们要求$0<b_1<b_2<\cdots<b_k$是任意给定的正实数，
-$\{a_j\}_{0\leqslant j \leqslant k}$目前待定。
+在这个表达式中，我们要求$0<b_0<b_1<\cdots<b_{k-1}$是任意给定的正实数，
+$\{a_j\}_{0\leqslant j \leqslant k-1}$目前待定。
 
 此时，对关于前面$n-1$个分量的任意多重指标$\alpha'$，我们都有
 \[
@@ -810,9 +805,9 @@ $\partial_{x_n}^\ell\partial_{x'}^{\alpha'}\widetilde{u}(x',x_n)$在$x_n=0$处�
 \begin{aligned}
 &\partial_n\left(\partial_{x_n}^\ell\partial_{x'}^{\alpha'}\widetilde{u}(x',x_n)\right)\\
 =&\partial_n\left(\partial_{x_n}^\ell\partial_{x'}^{\alpha'}u(x',x_n) \mathbf{1}_{x_n\geqslant 0}\right)+\partial_n\left(\sum_{0\leqslant j\leqslant k-1}a_j(-b_j)^\ell  \partial_{x_n}^\ell\partial_{x'}^{\alpha'}u(x',-b_jx_n) \mathbf{1}_{x_n< 0}\right)\\
-=& \partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',x_n) \mathbf{1}_{x_n\geqslant 0}-\partial_{x_n}^\ell\partial_{x'}^{\alpha'}u(x',0) d\sigma_{x_n=0}\\
-& +\sum_{0\leqslant i\leqslant k-1}a_i(-b_i)^{\ell+1}\partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',-b_jx_n) \mathbf{1}_{x_n< 0}+\sum_{0\leqslant i\leqslant k-1}a_i(-b_i)^\ell  \partial_{x_n}^\ell\partial_{x'}^{\alpha'}u(x',0) d\sigma_{x_n=0}\\
-=&\partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',x_n) \mathbf{1}_{x_n\geqslant 0}+\sum_{0\leqslant i\leqslant k-1}a_i(-b_i)^{\ell+1}\partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',-b_jx_n) \mathbf{1}_{x_n< 0}.
+=& \partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',x_n) \mathbf{1}_{x_n\geqslant 0}+\partial_{x_n}^\ell\partial_{x'}^{\alpha'}u(x',0) d\sigma_{x_n=0}\\
+& +\sum_{0\leqslant i\leqslant k-1}a_i(-b_i)^{\ell+1}\partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',-b_ix_n) \mathbf{1}_{x_n< 0}-\sum_{0\leqslant i\leqslant k-1}a_i(-b_i)^\ell  \partial_{x_n}^\ell\partial_{x'}^{\alpha'}u(x',0) d\sigma_{x_n=0}\\
+=&\partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',x_n) \mathbf{1}_{x_n\geqslant 0}+\sum_{0\leqslant i\leqslant k-1}a_i(-b_i)^{\ell+1}\partial_{x_n}^{\ell+1}\partial_{x'}^{\alpha'}u(x',-b_ix_n) \mathbf{1}_{x_n< 0}.
 \end{aligned}
 \]
 这就给出对所有的$|\alpha'|+\ell\leqslant k$的导数的计算，很明显，

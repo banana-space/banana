@@ -3,7 +3,6 @@ title: 奇性传播定理
 notices:
   - name: 问题
     items:
-      - “奇性传播定理的证明：条件”一节中，利用 Lebesgue 数的一句里，“对任意的 $t$”之后的公式似乎有残缺，混入了多余的一段。
       - “奇性传播定理的证明：完成”一节中，控制 $H(\xi)$ 的条件 (c) 的陈述（“都有”之后）以及其后“所以我们可以运用非驻相法引理，从而，”一句不完整。
 ---
 
@@ -325,7 +324,7 @@ $\gamma$的开覆盖，利用紧性，我们就得到了结论。
 所以，存在$r_0>0$和$\alpha_0>0$，对任意的$t\in [0,1]$，
 $B_{r_0}(x(t))\times \Gamma(\xi(t),\alpha_0)\subset \Gamma(\gamma)$。
 特别地，根据Lebesgue数的存在性（第一学期第11次课），对任意的$t$，
-$B_{r_0}(x(t))\times \Gamma(\xi(t),\alpha_0)\\xi \in  \Gamma(\xi(t),\alpha_0)$必然落在某个
+$B_{r_0}(x(t))\times \Gamma(\xi(t),\alpha_0)$必然落在某个
 $B_{r(t_j)}(x(t_j))\times \Gamma(\xi(t_j),\alpha(t_j))$中（这里我们可以先在
 $\Omega \times \mathbf{S}^{n-1}$这个紧集上考虑）。
 通过选取最小的$C_N$和最大的$M(N)$，我们就得到了如下的结论：

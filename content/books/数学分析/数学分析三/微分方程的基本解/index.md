@@ -1,10 +1,5 @@
 ---
 title: 微分方程的基本解
-notices:
-  - name: 问题
-    items:
-      - '“线性微分算子与基本解”一节例子第 2 项中，$n=2$ 时的基本解 $E(x)=-\dfrac{1}{2\pi}\log|x|$ 似乎符号有误：对 $\triangle =\sum_k \partial^2/\partial x_k^2$ 似乎应为 $\dfrac{1}{2\pi}\log|x|$（与 $n\geqslant 3$ 的公式一致）。'
-      - '“热算子基本解的研究”一节中，变量替换后的积分 $\int_{\mathbb{R}^n}\frac{1}{(4\pi)^{n/2}} e^{\frac{|y|^2}{4}}dy$ 的指数似乎缺少负号；随后的 $\mathbb{R}\times \mathbb{R}^2-\{(0,0)\}$ 似乎应为 $\mathbb{R}\times \mathbb{R}^n-\{(0,0)\}$。'
 ---
 
 ## 解析函数的正则性
@@ -160,7 +155,7 @@ $\mathbb{R}^n$每一个常数系数的微分算子都有基本解。我们在课
   我们将在作业中证明，如下的函数是$\triangle$的基本解：
   \[
   \begin{cases}
-  E(x)=-\dfrac{1}{2\pi}\log|x|, \ \ &n =2;\\
+  E(x)=\dfrac{1}{2\pi}\log|x|, \ \ &n =2;\\
   E(x)=\dfrac{1}{(2-n)|\mathbf{S}^{n-1}|}\dfrac{1}{|x|^{n-2}}, \ \ &n\geqslant 3.
   \end{cases}
   \]
@@ -195,7 +190,7 @@ E(t,x)=\frac{H(t)}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{|x|^2}{4t}}.
 实际上，我们观察到这是一个正函数并且在$t<0$处恒为零；在$t>0$处光滑。
 我们在$t=0$附近研究它的性质即可。实际上，对于任意的$t>0$，做变量替换$x=\sqrt{t}y$我们知道
 \[
-\int_{\mathbb{R}^n}E(t,x)dx= \int_{\mathbb{R}^n}\frac{1}{(4\pi)^{\frac{n}{2}}} e^{\frac{|y|^2}{4}}dy
+\int_{\mathbb{R}^n}E(t,x)dx= \int_{\mathbb{R}^n}\frac{1}{(4\pi)^{\frac{n}{2}}} e^{-\frac{|y|^2}{4}}dy
 \]
 是常数。所以，$E(t,x)$在$[-A,A]\times \mathbb{R}^n$上可积分，这说明$E$是局部可积的。
 
@@ -206,7 +201,7 @@ E(t,x)=\frac{H(t)}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{|x|^2}{4t}}.
 另外，固定$(0,x_0)$，其中，$x_0 \neq 0$，此时，由于当$t$从$>0$的地方趋向于$0$时，
 $e^{-\frac{|x_0|^2}{4t}}$趋于$0$的速度比任意的$t$的幂次都要快，所以，
 $E(0,x_0)$在这个点处的$t$的所有阶的偏导数都是$0$。
-据此，不难说明，$E(t,x)$实际上在$\mathbb{R}\times \mathbb{R}^2-\{(0,0)\}$上是光滑的。
+据此，不难说明，$E(t,x)$实际上在$\mathbb{R}\times \mathbb{R}^n-\{(0,0)\}$上是光滑的。
 利用连续性以及上面的计算，我们得到
 \[
 (\partial_t -\triangle)(E(t,x))=0, \ \ \text{对任意的}~(t,x)\neq (0,0).
