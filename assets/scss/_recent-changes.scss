@@ -87,6 +87,31 @@ $recent-time-width: 5.2rem;
   }
 }
 
+// Waiting for the API (here, in the page history and the diff, and in the load-more button): a small turning ring, with
+// the loading text for screen readers.
+.loading-spinner {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 2px solid $semi-light-text-color;
+  border-right-color: transparent;
+  border-radius: 50%;
+  vertical-align: middle;
+  animation: loading-spin 0.8s linear infinite;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation-duration: 2.4s;
+  }
+}
+
 // Days
 .recent-day {
   margin-top: 2.8rem;
