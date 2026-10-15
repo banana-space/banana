@@ -7,7 +7,7 @@ import { createProject, buildProject } from './helpers/project.mjs';
 import { pageHistories } from '../scripts/prebuild/page-history.mjs';
 
 // 页面历史（scripts/prebuild/page-history.mjs）：从本地 Git 历史中读出每个页面的 PR 与提交，跟随改名，
-// 认出 PR 的作者与时间；从旧站迁移来的页面另带旧站的修订（legacy/history.json，以导入提交中的路径为键）；
+// 认出 PR 的作者与时间；从旧站迁移来的页面另带旧站的修订（legacy/history.json，以导入时的路径为键，页面不晚于键加入）；
 // 构建写出 /history/data/<页面>.json，页面底部链接到 /history/。
 const root = await createProject('page-history');
 const page = (title, body) => `---\ntitle: '${title}'\n---\n\n${body}\n`;
@@ -58,6 +58,24 @@ try {
   // A commit straight to main.
   await writeFile(join(root, 'content/help/style/index.md'), `${await readFile(join(root, 'content/help/style/index.md'), 'utf8')}\n更多帮助。\n`);
   git(['commit', '-q', '-am', '补充帮助'], { name: 'Direct', email: 'direct@example.org', date: '2026-06-01T00:00:00Z' });
+  // A book migrated later in a pull request: its pages first, then their legacy history, in two commits of the branch.
+  const withLegacy = async entries => at('legacy/history.json', JSON.stringify({ ...JSON.parse(await readFile(join(root, 'legacy/history.json'), 'utf8')), ...entries }));
+  git(['checkout', '-q', '-b', 'pr-4', 'main']);
+  await at('content/books/戊/_index.md', page('戊', '戊的正文。'));
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '迁移讲义戊'], { date: '2026-07-01T00:00:00Z' });
+  await withLegacy({ 'content/books/戊/_index.md': [{ time: '2022-01-01T00:00:00Z', user: 'Dee', add: 1, del: 0 }] });
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '戊的旧站历史'], { date: '2026-07-01T01:00:00Z' });
+  git(['checkout', '-q', 'main']);
+  git(['merge', '-q', '--no-ff', 'pr-4', '-m', 'Merge pull request #4 from banana-space/book', '-m', '迁移讲义戊'], { date: '2026-07-02T00:00:00Z' });
+  // The same straight on a branch: the page in one commit, its legacy history in a later one.
+  await at('content/books/己/_index.md', page('己', '己的正文。'));
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '迁移讲义己'], { date: '2026-08-01T00:00:00Z' });
+  await withLegacy({ 'content/books/己/_index.md': [{ time: '2022-02-01T00:00:00Z', user: 'Eve', add: 1, del: 0 }] });
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '己的旧站历史'], { date: '2026-08-02T00:00:00Z' });
 
   const histories = await pageHistories(root, { repository: 'banana-space/banana' });
   const shown = path => histories.get(path).changes.map(({ pr, commit, title, author, time, status, add, del, path: then, previous, import: imported }) =>
@@ -79,6 +97,8 @@ try {
   assert.deepEqual(shown('content/wiki/丁/index.md'), [{ id: 3, title: '新页面丁', author: 'writer', time: '2026-05-01T00:00:00Z', status: 'added', add: 5, del: 0 }],
     '仓库中的分支：作者取自 GitHub 的地址');
   assert.deepEqual(histories.get('content/wiki/丁/index.md').legacy, [], '导入之后新建的页面没有旧站的历史，即使旧站有同名页面');
+  assert.deepEqual(histories.get('content/books/戊/_index.md').legacy.map(revision => revision.user), ['Dee'], '之后在 PR 中迁移的讲义：页面与旧站历史一起合并');
+  assert.deepEqual(histories.get('content/books/己/_index.md').legacy.map(revision => revision.user), ['Eve'], '之后迁移的讲义：旧站历史晚于页面加入');
   assert.deepEqual(shown('content/help/style/index.md').map(change => [change.id, change.title, change.author]), [[40, '补充帮助', 'Direct'], [40, '香蕉空间', 'Maintainer']],
     '直接提交到分支的提交');
   assert.deepEqual(histories.get('content/help/style/index.md').legacy, []);
@@ -100,5 +120,5 @@ try {
   buildProject(root);
   assert.equal(existsSync(join(root, 'public/history/data/wiki/丙/index.md.json')), false);
   assert.equal((await readFile(join(root, 'public/wiki/丙/index.html'), 'utf8')).includes('/history/?path='), false);
-  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时的页面）、构建写出的数据与链接、没有 Git 历史时验证通过');
+  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、没有 Git 历史时验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }
