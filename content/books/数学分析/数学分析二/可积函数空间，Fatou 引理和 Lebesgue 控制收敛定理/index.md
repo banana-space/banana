@@ -3,9 +3,6 @@ title: 可积函数空间，Fatou 引理和 Lebesgue 控制收敛定理
 notices:
   - name: 问题
     items:
-      - '“抽象积分理论的一些具体例子与讨论”一节中可积性判别准则的证明里，集合 $B=\bigl\{x\in X\bigm| f(x)>g(x)\bigr\}$ 似乎应为 $\bigl\{x\in X\bigm| |f(x)|>h(x)\bigr\}$。'
-      - 同一节中 Riemann 积分与 Lebesgue 积分一致的定理的证明里，“由于 $\overline{F}=\underline{F}\geqslant 0$”似乎应为 $\overline{F}-\underline{F}\geqslant 0$。
-      - 积分线性定理的证明第 4) 步中，等式左端 $\int_{X}f d\mu$ 似乎应为 $\int_X (-f) d\mu$。
       - 本页末尾预告了“下面的两个推论”，但只给出了积分对参数的连续依赖性一个推论。
 ---
 
@@ -57,7 +54,7 @@ $f$ 和 $h$ 是测度空间 $(X,\mathcal{A},\mu)$ 上的可测函数。如果 $h
 :::
 
 ::: proof
-令 $B=\bigl\{x\in X\bigm| f(x)>g(x)\bigr\}$，按照命题中的要求，$\mu(B)=0$。
+令 $B=\bigl\{x\in X\bigm| |f(x)|>h(x)\bigr\}$，按照命题中的要求，$\mu(B)=0$。
 我们令 $f_1(x)=f(x)\mathbf{1}_{B^c}(x)$，那么，对所有的 $x\in X$，我们都有
 \[
 |f_1(x)|\leqslant h(x).
@@ -227,7 +224,7 @@ $\{\underline{F}_n\}_{n\geqslant 1}$。
 \[
 \displaystyle\int_{[a,b]}\overline{F}-\underline{F}=0.
 \]
-从而，由于 $\overline{F}=\underline{F}\geqslant 0$，所以，在一个零测集之外，我们有
+从而，由于 $\overline{F}-\underline{F}\geqslant 0$，所以，在一个零测集之外，我们有
 \[
 \overline{F}=\underline{F}, \ \ \text{几乎处处}.
 \]
@@ -422,7 +419,7 @@ $\mathcal{L}^1(X,\mathcal{A},\mu)$ 为 $\mathbb{C}$-线性空间且积分算子
 
 - 4\) $f$ 和 $g$ 都是实值函数，$a,b\in \mathbb{R}$ 的情况。按照积分的定义，我们自然有
   \[
-  \int_{X}f d\mu =\int_X f_+ d\mu -\int_X f_-d\mu=-\left(\int_X f_- d\mu -\int_X f_+d\mu\right)=-\int_X fd\mu.
+  \int_{X}(-f) d\mu =\int_X f_- d\mu -\int_X f_+d\mu=-\left(\int_X f_+ d\mu -\int_X f_-d\mu\right)=-\int_X fd\mu.
   \]
   此时，对于 $a$ 和 $b$ 可能的正负情况逐一讨论即可。
 

@@ -1,11 +1,5 @@
 ---
 title: 光滑性–衰减速率关系，积分核，局部化引理
-notices:
-  - name: 问题
-    items:
-      - “从频率空间来看光滑性”一节的注记、交换图以及“Fejér核的一个应用”一节的注记中，求导对应于 Fourier 系数乘以 $-ik$，似乎应为乘以 $ik$（与定理证明中的计算一致）。
-      - Fejér 核性质 3) 的证明中，由 $\big|\sin\bigl(\frac{x}{2}\bigr)\big|\leqslant \frac{|x|}{2}$ 似乎推不出所写的上界（需要 $\sin\frac{x}{2}$ 的下界，例如 $\sin\frac{|x|}{2}\geqslant \frac{|x|}{\pi}$）；该行最后的上界 $\frac{1}{N\delta^2}$ 似乎应为 $\frac{4}{N\delta^2}$。
-      - “Fejér核的一个应用”一节第一段中，Riemann–Lebesgue 引理的结论似乎应为 $\lim_{|k|\rightarrow\infty}\widehat{f}(k)=0$。
 ---
 
 ## 从频率空间来看光滑性
@@ -76,7 +70,7 @@ $f \in C^\ell(\mathbf{T})$。
 :::
 
 ::: remark*
-从证明中可见，对光滑函数 $f$ 求导数等价于对每个频率 $k$ 的Fourier系数乘以 $-ik$。
+从证明中可见，对光滑函数 $f$ 求导数等价于对每个频率 $k$ 的Fourier系数乘以 $ik$。
 把这个现象和线性代数联系起来是很有启发性的：我们考虑线性空间 $L^2(\mathbf{T})$，那么，
 \[
 \frac{d}{dx}\colon L^2(\mathbf{T})\rightarrow L^2(\mathbf{T})
@@ -95,7 +89,7 @@ $f \in C^\ell(\mathbf{T})$。
 \begin{tikzcd}
  L^2(\mathbf{T}) \arrow[r,"\frac{d}{dx}"] \arrow[d,"\mathcal{F}"]
   &L^2(\mathbf{T}) \arrow[d,"\mathcal{F}"]\\
-\ell^2(\mathbb{Z}) \arrow[r,"\times (-ik)"]&\ell^2(\mathbb{Z}) \end{tikzcd},
+\ell^2(\mathbb{Z}) \arrow[r,"\times (ik)"]&\ell^2(\mathbb{Z}) \end{tikzcd},
 \]
 换句话说，换了这组基后，微分算子 $\dfrac{d}{dx}$ 被对角化了（变成了在每个分量上乘一个数），
 这把求微分的操作变成了代数操作。
@@ -280,13 +274,13 @@ N, \ &x=2k\pi.\end{cases}
   \]
 
   证明是直截了当的：当 $|x|\in [\delta, \pi]$ 时，
-  由于 $\big|\sin\bigl(\frac{x}{2}\bigr)\big|\leqslant \frac{|x|}{2}$，我们有
+  由于 $\big|\sin\bigl(\frac{x}{2}\bigr)\big|\geqslant \frac{|x|}{\pi}\geqslant\frac{\delta}{\pi}$（$\sin$ 在 $[0,\frac{\pi}{2}]$ 上是凹函数），我们有
   \[
-  |F_N(x)|\leqslant \frac{1}{N}\bigl(\frac{2}{\delta}\bigr)^2 \bigl(\sin(\frac{N}{2}x)\bigr)^2\leqslant \frac{1}{N\delta^2}.
+  |F_N(x)|\leqslant \frac{1}{N}\bigl(\frac{\pi}{\delta}\bigr)^2 \bigl(\sin(\frac{N}{2}x)\bigr)^2\leqslant \frac{\pi^2}{N\delta^2}.
   \]
   所以，当 $N\rightarrow \infty$ 时，我们有
   \[
-  \int_{\delta \leqslant |x|\leqslant \pi} F_N(x)\frac{dx}{2\pi} \leqslant \int_{\delta \leqslant |x|\leqslant \pi}  \frac{4}{N\delta^2} \frac{dx}{2\pi}\rightarrow 0.
+  \int_{\delta \leqslant |x|\leqslant \pi} F_N(x)\frac{dx}{2\pi} \leqslant \int_{\delta \leqslant |x|\leqslant \pi}  \frac{\pi^2}{N\delta^2} \frac{dx}{2\pi}\rightarrow 0.
   \]
 
 传统的Fourier分析把 $F_N$ 的性质提炼成所谓的好的积分核的性质：
@@ -384,7 +378,7 @@ F_N(x)=\frac{1}{N}\sum_{|k|\leqslant N}(N-|k|)e^{ikx},
 
 ## Fejér核的一个应用：$L^1$ 函数的原函数与Fatou的反例
 
-根据Riemann–Lebesgue引理，$f\in L^1(\mathbf{T})$，那么 $\displaystyle \widehat{f}(k)=0$。
+根据Riemann–Lebesgue引理，如果 $f\in L^1(\mathbf{T})$，那么 $\displaystyle \lim_{|k|\rightarrow\infty}\widehat{f}(k)=0$。
 那么，是不是每个极限是 $0$ 序列 $\{a_k\}_{k\in\mathbb{Z}}$，它必为某个可积函数的Fourier系数呢，
 即是否存在 $f\in L^1(\mathbf{T})$，使得对任意的 $k$，我们都有 $\widehat{f}=a_k$？
 
@@ -412,7 +406,7 @@ F\colon \mathbb{R}\rightarrow \mathbf{C},  \ \ F(x)=\int_{0}^x  f(t) dt.
 
 ::: remark*
 如果 $f$ 是连续函数，那么 $F$ 是 $C^1$ 的，所以，$F'=f$。
-此时，由于求导在频率空间来看是乘以 $-ik$，所以当 $k\neq 0$ 时，命题是显然的（可以直接分部积分）。
+此时，由于求导在频率空间来看是乘以 $ik$，所以当 $k\neq 0$ 时，命题是显然的（可以直接分部积分）。
 :::
 
 ::: proof

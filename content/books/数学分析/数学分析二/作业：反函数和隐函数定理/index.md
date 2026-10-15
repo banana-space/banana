@@ -1,11 +1,5 @@
 ---
 title: 作业：反函数和隐函数定理
-notices:
-  - name: 问题
-    items:
-      - 'D1 中的等式 $\|A\|=\sup_{k}|\lambda_k|$ 似乎只对正规矩阵（如对称矩阵）成立，对一般矩阵左边可以严格大于右边。'
-      - 'D3 中的 $\mathbf{I}_{n^2\times n^2}$ 似乎应为 $3\,\mathbf{I}_{n^2\times n^2}$（因为 $d\mathcal{C}(\mathbf{I}_{n\times n})$ 是乘以 3）。'
-      - 'D6 中的 $U$ 是单位矩阵，此时问题是平凡的；$U$ 似乎应为 $\bigl(\begin{smallmatrix}1 & 0 \\ 0 & -1\end{smallmatrix}\bigr)$。'
 ---
 
 ::: remark*
@@ -183,9 +177,9 @@ C6) 证明，映射
 \[
 \|A\|=\sup_{x\in \mathbb{R}^n, x\neq 0}\frac{|A\cdot x|}{|x|}.
 \]
-其中 $|x|=\sqrt{|x_1|^2+\cdots+|x_n|^2}$。假设 $\lambda_1,\cdots,\lambda_n$ 是 $A$ 的特征值。
+其中 $|x|=\sqrt{|x_1|^2+\cdots+|x_n|^2}$。假设 $\lambda_1,\cdots,\lambda_n$ 是 $A^{\mathrm{T}}A$ 的特征值（它们都是非负实数）。
 
-D1) 试证明，$\|A\|=\sup_{k=1,\cdots,n}|\lambda_k|$。
+D1) 试证明，$\|A\|=\sup_{k=1,\cdots,n}\sqrt{\lambda_k}$。
     进一步证明这是一个范数并且和之前定义的 $\|\cdot \|_1$，
     $\|\cdot \|_2$ 和 $\|\cdot \|_\infty$ 都等价。
 
@@ -205,7 +199,7 @@ D3) 我们定义立方运算 $\mathcal{C}\colon \mathbf{M}_n\rightarrow \mathbf{
     证明 $\mathcal{C}$ 是连续可微的并计算它的微分 $d\mathcal{C}(A)$。
     将 $d\mathcal{C}(A)$ 视为是 $n^2\times n^2$ 的矩阵，进一步证明
     \[
-    \|d\mathcal{C}(A)-\mathbf{I}_{n^2\times n^2}\|\leqslant 6\|A-\mathbf{I}_{n\times n}\|+ 3\|A-\mathbf{I}_{n\times n}\|^2.
+    \|d\mathcal{C}(A)-3\,\mathbf{I}_{n^2\times n^2}\|\leqslant 6\|A-\mathbf{I}_{n\times n}\|+ 3\|A-\mathbf{I}_{n\times n}\|^2.
     \]
 
 D4) 令
@@ -225,7 +219,7 @@ D5) 我们定义平方运算 $\Theta\colon \mathbf{M}_n\rightarrow \mathbf{M}_n,
     据此证明，存在 $\varepsilon>0$，当 $\|B-\mathbf{I}_{n\times n}\|<\varepsilon$ 时，
     存在 $A\in \mathbf{M}_n$，使得 $A^2=B$。
 
-D6) 假设 $n=2$，$U=\bigl(\begin{smallmatrix}1 & 0 \\ 0 & 1\end{smallmatrix}\bigr)$，
+D6) 假设 $n=2$，$U=\bigl(\begin{smallmatrix}1 & 0 \\ 0 & -1\end{smallmatrix}\bigr)$，
     是否存在 $\mathbf{I}_{2\times 2}$ 的邻域 $\mathcal{I}\subset \mathbf{M}_2$，
     $U$ 的邻域 $\mathcal{U}\subset \mathbf{M}_2$ 以及连续可微的映射
     $\Psi\colon  \mathcal{I}\rightarrow \mathcal{U}$，

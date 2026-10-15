@@ -1,10 +1,5 @@
 ---
 title: 作业：齐次函数与Euler公式
-notices:
-  - name: 问题
-    items:
-      - 习题 T7) 交换图中的 $T_{f(x_1)}\Omega_2$、$T_{x_1}\Omega_1$、$T_{g(f(x_1))}\Omega_3$ 似乎应分别为 $\mathbb{R}^n$、$T_{p'}\Omega'$、$\mathbb{R}^m$。
-      - 习题 T2) 中的 $T_p\Omega_1$ 似乎应为 $T_p\Omega$；T5) 中曲线 $\ell_k$ 的值域似乎应为 $\Omega$；T6) 中的曲线 $\ell'_{k'}$ 似乎应是 $\Omega'$ 中过 $p'$ 的曲线。
 ---
 
 ## 基本习题
@@ -208,7 +203,7 @@ T1) 证明，映射
 
 T2) 证明，将$\mathcal{C}(p)/\sim$定义为一个$\mathbb{R}$-线性空间使得上述为线性空间的同构，
     我们把具有线性空间结构的$\mathcal{C}(p)/\sim$（它本来仅是曲线的等价类的集合）
-    记作是$T_p\Omega_1$。
+    记作是$T_p\Omega$。
 
 T3) 令$\Omega' = \mathbb{R}^m$，$f\colon\Omega\rightarrow \Omega'$是$C^1$的映射
     （即其微分也连续），$p'=f(p)$。证明，映射
@@ -227,14 +222,14 @@ T4) 证明，映射
 
 T5) 在$\Omega$上考虑曲线
     \[
-    \ell_k\colon (-1,1)\rightarrow \Omega', \ \ t\mapsto p+\underbrace{(0,0,\cdots,0,t,0,\cdots,0)}_{\text{只有第 $k$ 个位置非 $0$}}
+    \ell_k\colon (-1,1)\rightarrow \Omega, \ \ t\mapsto p+\underbrace{(0,0,\cdots,0,t,0,\cdots,0)}_{\text{只有第 $k$ 个位置非 $0$}}
     \]
     证明，$\iota_p([\ell_k])=\dfrac{\partial}{\partial x_k}$，
     其中，我们在$\mathbb{R}^n$上用$\{x_1,\cdots,x_n\}$作为坐标系。
 
-T6) 在$\Omega$上考虑曲线
+T6) 在$\Omega'$上考虑曲线
     \[
-    \ell'_{k'}\colon (-1,1)\rightarrow \Omega', \ \ t\mapsto p+\underbrace{(0,0,\cdots,0,t,0,\cdots,0)}_{\text{只有第 $k'$ 个位置非 $0$}}
+    \ell'_{k'}\colon (-1,1)\rightarrow \Omega', \ \ t\mapsto p'+\underbrace{(0,0,\cdots,0,t,0,\cdots,0)}_{\text{只有第 $k'$ 个位置非 $0$}}
     \]
     试用$f$的偏导数和$[\ell'_{k'}]$来表达$f_{*p}([\ell_k])$。
 
@@ -242,9 +237,9 @@ T7) 证明，我们有如下的交换图表：
     \[
     \begin{tikzcd}
       T_{p}\Omega \arrow[r,"\iota_p","\approx"'] \arrow[d, "f_{*p}"]
-      &   \ T_{f(x_1)}\Omega_2 \arrow[d,"df(p)"]\\
-      T_{x_1}\Omega_1 \arrow[r,"\iota_{p'}","\approx"']
-    &   T_{g(f(x_1))}\Omega_3 \end{tikzcd}
+      &   \ \mathbb{R}^n \arrow[d,"df(p)"]\\
+      T_{p'}\Omega' \arrow[r,"\iota_{p'}","\approx"']
+    &   \mathbb{R}^m \end{tikzcd}
     \]
     即对任意的$[\gamma]\in  T_{p}\Omega$，我们有
     \[
