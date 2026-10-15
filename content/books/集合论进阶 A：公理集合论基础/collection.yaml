@@ -1,3 +1,5 @@
+authors: OperatorP
+description: 介绍各种集合论公理及它们形成的理论。
 contents:
   - page: 集论语言及扩展
     children:
@@ -37,7 +39,6 @@ contents:
       - page: KP的自增强
       - page: 原始递归函数，集合版本
       - page: 容许性
-      - page: 无穷逻辑及其语义
   - page: 世界与不可达
     children:
       - page: 世界基数及其强化
