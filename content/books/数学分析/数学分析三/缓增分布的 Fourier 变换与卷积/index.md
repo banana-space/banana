@@ -1,10 +1,5 @@
 ---
 title: 缓增分布的 Fourier 变换与卷积
-notices:
-  - name: 问题
-    items:
-      - 第一个命题的证明中，$L^2$ 情形的截断函数定义为 $f_n$，后文却用 $f_k$；且 $f_k\to f$ 似乎应为 $L^2$ 意义下的收敛，而不是 $L^1$ 意义下的收敛。
-      - 有紧支集的分布的结构定理的证明中，$|\widehat{c}(\xi)|$ 的估计右端的 $\varphi$ 似乎应为 $\chi$。
 ---
 
 在进一步研究缓增分布的性质之前，我们先说明对于一个$L^1$或者$L^2$的函数，
@@ -34,7 +29,7 @@ notices:
 现在假设$f\in L^2(\mathbb{R}^n)$，我们把它在$L^2$-意义下的Fourier变换记为$\mathcal{F}_2(f)$。
 对任意的$k\geqslant 1$，我们令
 \[
-f_n=f\cdot \mathbf{1}_{|x|\leqslant n} \in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^n),
+f_k=f\cdot \mathbf{1}_{|x|\leqslant k} \in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^n),
 \]
 那么，我们已经证明过
 \[
@@ -50,7 +45,7 @@ f_n=f\cdot \mathbf{1}_{|x|\leqslant n} \in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^
 \]
 其中，后面戴帽子的符号代表$\mathcal{S}'$中的Fourier变换。由于
 \[
-f \stackrel{L^1}{=}\lim_{k\rightarrow \infty} f_k,
+f \stackrel{L^2}{=}\lim_{k\rightarrow \infty} f_k,
 \]
 所以，
 \[
@@ -266,7 +261,7 @@ c =\sum_{k\leqslant m}\partial^{\alpha_k} f_{\alpha_k}(x).
 由于$c$的阶是有限的（记作是$p$），所以存在常数$C$，使得
 \[
 \begin{aligned}
-|\widehat{c}(\xi)| \leqslant C\sup_{|\alpha|\leqslant p}\|\partial^\alpha\big(\chi(x)e^{-ix\cdot \xi}\big)\|_{L^\infty_x}\leqslant C(1+|\xi|)^p\sup_{|\beta|\leqslant |\alpha|}\|\partial^{\beta}\varphi\|_{L^\infty}.
+|\widehat{c}(\xi)| \leqslant C\sup_{|\alpha|\leqslant p}\|\partial^\alpha\big(\chi(x)e^{-ix\cdot \xi}\big)\|_{L^\infty_x}\leqslant C(1+|\xi|)^p\sup_{|\beta|\leqslant p}\|\partial^{\beta}\chi\|_{L^\infty}.
 \end{aligned}
 \]
 所以，只要选取$N\geqslant p+n+1$，我们就有
