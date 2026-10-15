@@ -1,6 +1,7 @@
 ---
 title: 假设检验的问题设定与流程
 ---
+
 本章中，我们介绍数理统计中的另一大类问题：**假设检验**
 （hypothesis testing）。在假设检验问题中，我们对总体具体服从
 怎样的分布提出一种假设，并收集样本数据，检验样本数据是否与提出的假设
@@ -8,24 +9,24 @@ title: 假设检验的问题设定与流程
 总体的分布可以被某个未知参数$\theta$参数化的情形，则此时对于总体的假设
 就归结为一个表示参数范围的集合。我们用
 \[
-    H: \theta\in\Theta_0
+H: \theta\in\Theta_0
 \]
 来表示这样一个假设$H$：当总体的真实参数$\theta$为集合$\Theta_0$
 的元素时，就认为假设$H$成立，否则认为假设$H$不成立。下面几个例子
 给出了假设检验问题中一些常见的假设形式：
 
 - 总体服从正态分布$\mathcal{N}(\mu,\sigma_0^2)$，
-  其中方差$\sigma_0^2$已知已知但期望$\mu$未知。此时我们把$\mu$作为
+  其中方差$\sigma_0^2$已知但期望$\mu$未知。此时我们把$\mu$作为
   未知参数，则假设
   \[
-      H : \mu=\mu_0
+  H : \mu=\mu_0
   \]
   表示“总体服从正态分布$\mathcal{N}(\mu_0,\sigma_0^2)$”。
 
 - 总体服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中期望$\mu$
   与方差$\sigma^2$均为未知参数。则假设
   \[
-      H : \mu=\mu_0,\sigma^2>0
+  H : \mu=\mu_0,\sigma^2>0
   \]
   表示“总体服从期望为$\mu_0$的某个正态分布”。注意这一假设当中并未把
   方差$\sigma^2$限定为单个值。
@@ -33,7 +34,7 @@ title: 假设检验的问题设定与流程
 - 总体服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中期望$\mu$
   与方差$\sigma^2$均为未知参数。则假设
   \[
-      H: \mu\neq\mu_0,\sigma^2>0
+  H: \mu\neq\mu_0,\sigma^2>0
   \]
   表示“总体服从期望不等于$\mu_0$的某个正态分布”。
 
@@ -41,7 +42,7 @@ title: 假设检验的问题设定与流程
   期望$\mu_0$已知但方差$\sigma^2$为未知参数，$\sigma_0$为某个
   给定实数。则假设
   \[
-      H: \sigma^2>\sigma_0^2
+  H: \sigma^2>\sigma_0^2
   \]
   表示“总体服从方差大于$\sigma_0^2$的某个正态分布”。
 
@@ -57,13 +58,13 @@ $H_0$与$H_1$当中有且仅有一个假设成立。当总体的分布能够被�
 $\theta$参数化时，原假设$H_0$与备择假设$H_1$就可以用各自相应的
 参数范围表示为如下形式：
 \[
-    H_0:\theta\in\Theta_0,\qquad H_1:\theta\in\Theta_1,
+H_0:\theta\in\Theta_0,\qquad H_1:\theta\in\Theta_1,
 \]
 其中$\Theta_0$与$\Theta_1$为给定的集合，$\Theta_0\cup\Theta_1$
 包含了未知参数$\theta$的所有可能取值，而$\Theta_0\cap\Theta_1=\varnothing$。
 在后面我们将看到，在频率学派的假设检验理论中，原假设与备择假设有着
 不一样的地位。在许多实际场合中，我们做假设检验的目的是利用收集到的
-样本数据，以统计上足够可靠的方式，揭示出某种尚未发现或证实的的规律
+样本数据，以统计上足够可靠的方式，揭示出某种尚未发现或证实的规律
 或现象，此时通常取原假设表示总体符合已知规律或常理，或是总体与
 旧有理论相容，而备择假设则用来表示总体按照某种方式或朝着某个方向
 偏离了已知规律或常理，或是出现了某种旧有理论解释不了的状态。
@@ -97,7 +98,7 @@ $H_1:\theta\in\Theta_1$。简单起见我们先考虑$\Theta_0$只包含
    对应的检验统计量的值的概率$\mathbb{P}_\theta(T\geq t)$是多少；
    或者说，$H_0$成立时，与已获取样本检验统计量的取值相比，新样本的
    检验统计量取同样极端或更加极端的值的概率是多少。我们将这个概率
-   $\hat p$称为样本值$x_1,\ldots,x_n$的 **$p$值** ($p$-value)。
+   $\hat p$称为样本值$x_1,\ldots,x_n$的 **$p$值**（$p$-value）。
 
 3. 根据$p$值的大小，判断获取到的样本值$x_1,\ldots,x_n$与
    原假设$H_0$之间是否存在统计意义上的不一致。
@@ -134,12 +135,12 @@ $\sigma^2$已知但期望$\mu$未知，只知道$\mu$大于等于某个给定的
 $\mu_0$。我们希望检验$\mu$是等于$\mu_0$还是大于$\mu_0$。此时
 可取原假设$H_0$与备择假设$H_1$分别为
 \[
-    H_0: \mu=\mu_0,\qquad H_1:\mu>\mu_0.
+H_0: \mu=\mu_0,\qquad H_1:\mu>\mu_0.
 \]
 考虑到备择假设与原假设的差异仅体现在期望上，且备择假设$H_1$的期望
 相较于原假设$H_0$的期望偏大，故我们考虑用
 \[
-    Z = \frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}},
+Z = \frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}},
 \]
 作为检验统计量；直观上看，备择假设$H_1$下$Z$的取值相较于原假设
 $H_0$下具有偏大的趋势。上式中的分母$\sigma/\sqrt{n}$在这个例子中
@@ -147,25 +148,25 @@ $H_0$下具有偏大的趋势。上式中的分母$\sigma/\sqrt{n}$在这个例�
 
 现假设我们获取了一组样本值$x_1,\ldots,x_n$，并记
 \[
-    z = \frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}},
-    \qquad\text{其中}\ \overline{x}=\frac{1}{n}\sum_{i=1}^n x_i.
+z = \frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}},
+\qquad\text{其中}\ \overline{x}=\frac{1}{n}\sum_{i=1}^n x_i.
 \]
 由于$H_0$为简单假设，故相应的$p$值就直接等于
 \[
-    \begin{aligned}
-    \hat{p} ={} & \mathbb{P}_{\mu_0}
-    \!\left(Z
-    \geq z
-    \right) \\
-    ={} &
-    1-\Phi(z)
-    =1-\Phi\!\left(\frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}}\right).
-    \end{aligned}
+\begin{aligned}
+\hat{p} ={} & \mathbb{P}_{\mu_0}
+\!\left(Z
+\geq z
+\right) \\
+={} &
+1-\Phi(z)
+=1-\Phi\!\left(\frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}}\right).
+\end{aligned}
 \]
 而若设定了显著性水平$\alpha$并需要决定是否拒绝$H_0$，
 则当$1-\Phi(z)<\alpha$，也即
 \[
-    z=\frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}}> z_{\alpha}
+z=\frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}}> z_{\alpha}
 \]
 时我们拒绝$H_0$，否则不拒绝$H_0$。
 :::
@@ -176,7 +177,7 @@ $H_0$下具有偏大的趋势。上式中的分母$\sigma/\sqrt{n}$在这个例�
 则首先需要回答“什么样的检验统计量是一个好的检验统计量”，而这就要求
 我们给出检验统计量的定量评价方法。
 我们将在[第9.2节](/books/概率与数理统计/假设检验/假设检验的Neyman-Pearson理论简介/)对
-频率学派的Neymann–Pearson理论进行初步的介绍。
+频率学派的Neyman–Pearson理论进行初步的介绍。
 
 另一方面，限于本讲义面对的读者群体，我们也不要求读者掌握
 较为一般的情况下检验统计量的设计方法，而只是在随后的几节中，
@@ -187,8 +188,8 @@ $H_0$下具有偏大的趋势。上式中的分母$\sigma/\sqrt{n}$在这个例�
 在本节一开始给出的假设检验流程中，我们要求检验统计量
 $T=\phi(X_1,\ldots,X_n)$在原假设成立时具有取值偏小的趋势，
 而在备择假设成立时具有取值偏大的趋势。也就是说，从检验统计量
-$T$的视角来看，备择假设相对于原假设的偏离是单侧(one-sided)的。
-但对某些问题而言，考虑双侧(two-sided)的检验统计量$T$可能是更合理的：
+$T$的视角来看，备择假设相对于原假设的偏离是单侧（one-sided）的。
+但对某些问题而言，考虑双侧（two-sided）的检验统计量$T$可能是更合理的：
 原假设成立时$T$的取值相对集中，而备择假设成立时$T$则既可能具有取值
 偏大的趋势，也可能有取值偏小的趋势；或者说，$T$取过大的值或者过小的值
 都提示着相对于原假设出现了偏离。一般来说，给定原假设
@@ -197,8 +198,7 @@ $H_0:\theta\in\Theta_0$与备择假设$H_1:\theta\in\Theta_1$，
 则会考虑采用双侧的检验统计量。
 
 若采用双侧的检验统计量$T$进行假设检验，且原假设为简单假设
-$H_0:\theta=\theta_0$，则相应的$p$值可采取如下定义
-[^1]：
+$H_0:\theta=\theta_0$，则相应的$p$值可采取如下定义[^1]：
 
 ```math {@eq:two-sided_p_value}
 \hat{p} = 2\min\left\{\mathbb{P}_{\theta_0}(T\geq t),\,\mathbb{P}_{\theta_0}(T\leq t)\right\},
@@ -226,25 +226,25 @@ $H_0:\theta=\theta_0$下，$T$服从连续型分布，其相对于原点
 该对称性意味着用$|T|$作为单侧检验统计量也是合理的。若用$T$作为
 双侧检验统计量，则相应的$p$值为
 \[
-    \begin{aligned}
-    \hat{p}_2 ={} & 2\min\left\{
-    \mathbb{P}_{\theta_0}(T\geq t),\,
-    \mathbb{P}_{\theta_0}(T\leq t)
-    \right\} \\
-    ={} &
-    2\min\left\{
-    \mathbb{P}_{\theta_0}(T\geq t),\,
-    \mathbb{P}_{\theta_0}(T\geq -t)
-    \right\}
-    =2\,\mathbb{P}_{\theta_0}(T\geq |t|).
-    \end{aligned}
+\begin{aligned}
+\hat{p}_2 ={} & 2\min\left\{
+\mathbb{P}_{\theta_0}(T\geq t),\,
+\mathbb{P}_{\theta_0}(T\leq t)
+\right\} \\
+={} &
+2\min\left\{
+\mathbb{P}_{\theta_0}(T\geq t),\,
+\mathbb{P}_{\theta_0}(T\geq -t)
+\right\}
+=2\,\mathbb{P}_{\theta_0}(T\geq |t|).
+\end{aligned}
 \]
 而若采用$|T|$作为单侧检验统计量，相应的$p$值为
 \[
-    \hat{p}_1 = \mathbb{P}_{\theta_0}(|T|\geq |t|)
-    =\mathbb{P}_{\theta_0}(T\geq |t|)
-    +\mathbb{P}_{\theta_0}(T\leq -|t|)
-    =2\,\mathbb{P}_{\theta_0}(T\geq |t|).
+\hat{p}_1 = \mathbb{P}_{\theta_0}(|T|\geq |t|)
+=\mathbb{P}_{\theta_0}(T\geq |t|)
++\mathbb{P}_{\theta_0}(T\leq -|t|)
+=2\,\mathbb{P}_{\theta_0}(T\geq |t|).
 \]
 故$\hat{p}_2=\hat{p}_1$。这说明当对称性
 @eq:symmetry_H0_two-sided_test  得到满足时，
@@ -265,45 +265,46 @@ $H_0:\sigma^2=\sigma_0^2,H_1:\sigma^2\neq\sigma_0^2$就是一个
 $\sigma^2$已知而期望$\mu$未知，且$\mu$的所有可能取值覆盖整个
 实数集$\mathbb{R}$。考虑如下原假设与备择假设：
 \[
-    H_0:\mu=\mu_0,\qquad H_1:\mu\neq \mu_0,
+H_0:\mu=\mu_0,\qquad H_1:\mu\neq \mu_0,
 \]
 其中$\mu_0$为给定的实数。该问题当中$H_1$相对于$H_0$的偏离体现在
 期望上，且既包括正向的偏离也包括负向的偏离。故我们考虑将
 \[
-    Z=\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}
+Z=\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}
 \]
 作为双侧检验统计量。直观上看，在原假设$H_0$下$Z$的取值相对于
 备择假设$H_1$下具有更加集中于$0$附近的趋势，而当$Z$在某一组
 样本上的取值过大或过小时，可以认为原假设$H_0$与该样本值之间
 出现了不一致。
 
-现设$x_1,\ldots,x_n$为观测到的一组样本值，并记\[
-    z = \frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}},
-    \qquad\text{其中}\ \overline{x}=\frac{1}{n}\sum_{i=1}^n x_i.
+现设$x_1,\ldots,x_n$为观测到的一组样本值，并记
+\[
+z = \frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}},
+\qquad\text{其中}\ \overline{x}=\frac{1}{n}\sum_{i=1}^n x_i.
 \]
 则$p$值为
 \[
-    \begin{aligned}
-    \hat{p} ={} & 2\min\left\{
-    \mathbb{P}_{\theta_0}\!\left(Z\geq z\right),
-    \mathbb{P}_{\theta_0}\!\left(Z\leq z\right)
-    \right\} \\
-    ={} &
-    2\min\left\{
-    1-\Phi(z), \Phi(z)
-    \right\} \\
-    ={} & 2\min\left\{
-    1-\Phi(z),1-\Phi(-z)
-    \right\} \\
-    ={} &
-    2(1-\Phi(|z|))
-    =2\left(1-\Phi\!\left(\frac{|\overline{x}-\mu|}{\sigma/\sqrt{n}}\right)\right).
-    \end{aligned}
+\begin{aligned}
+\hat{p} ={} & 2\min\left\{
+\mathbb{P}_{\theta_0}\!\left(Z\geq z\right),
+\mathbb{P}_{\theta_0}\!\left(Z\leq z\right)
+\right\} \\
+={} &
+2\min\left\{
+1-\Phi(z), \Phi(z)
+\right\} \\
+={} & 2\min\left\{
+1-\Phi(z),1-\Phi(-z)
+\right\} \\
+={} &
+2(1-\Phi(|z|))
+=2\left(1-\Phi\!\left(\frac{|\overline{x}-\mu_0|}{\sigma/\sqrt{n}}\right)\right).
+\end{aligned}
 \]
 而若设定了显著性水平$\alpha$并需要决定是否拒绝$H_0$，则当
 $2(1-\Phi(|z|))<\alpha$，也即
 \[
-    |z|=\frac{|\overline{x}-\mu_0|}{\sigma/\sqrt{n}}> z_{\alpha/2}
+|z|=\frac{|\overline{x}-\mu_0|}{\sigma/\sqrt{n}}> z_{\alpha/2}
 \]
 时我们拒绝$H_0$，否则不拒绝$H_0$。
 
@@ -311,4 +312,7 @@ $2(1-\Phi(|z|))<\alpha$，也即
 结果是一样的。
 :::
 
-[^1]: 当$T$在原假设下的分布不是连续型分布时，理论上不排除 @eq:two-sided_p_value  给出大于$1$的$p$值的可能性， 此时我们通常强行取$\hat{p}=1$。 （${}^\star$）此外，当$T$在原假设下的分布不是连续型分布时， 相应的双侧检验的$p$值也存在其它定义方法，典型的如 [@cox1974theoretical]第4.7节所给出的定义。 与[@cox1974theoretical]第4.7节的定义相比， 式 @eq:two-sided_p_value  定义的$p$值可能会略偏大， 从而对样本值偏离原假设程度的判断会更保守一些，但胜在易于理解、 计算方便。
+[^1]: 当$T$在原假设下的分布不是连续型分布时，
+    理论上不排除 @eq:two-sided_p_value  给出大于$1$的$p$值的可能性，此时我们通常强行取$\hat{p}=1$。
+
+    （${}^\star$）此外，当$T$在原假设下的分布不是连续型分布时，相应的双侧检验的$p$值也存在其它定义方法，典型的如 [@cox1974theoretical, 第4.7节]所给出的定义。与 [@cox1974theoretical, 第4.7节]的定义相比，式 @eq:two-sided_p_value  定义的$p$值可能会略偏大，从而对样本值偏离原假设程度的判断会更保守一些，但胜在易于理解、计算方便。

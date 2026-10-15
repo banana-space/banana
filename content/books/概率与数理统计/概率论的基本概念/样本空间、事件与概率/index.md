@@ -1,6 +1,7 @@
 ---
 title: 样本空间、事件与概率
 ---
+
 概率论用如下数学对象对某个随机试验进行抽象：
 
 - 我们将随机试验的所有可能结果用一个非空集合$\Omega$表示。
@@ -50,8 +51,8 @@ $\mathcal{F}$是幂集$2^\Omega$的子集
    一列集合，且对任意$i\neq j$均有$E_i\cap E_j=\varnothing$，
    则级数$\sum_{i=1}^\infty \mathbb{P}(E_i)$收敛，且
    \[
-       \mathbb{P}\!\left(\bigcup_{i=1}^\infty E_i\right)
-       =\sum_{i=1}^\infty \mathbb{P}(E_i).
+   \mathbb{P}\!\left(\bigcup_{i=1}^\infty E_i\right)
+   =\sum_{i=1}^\infty \mathbb{P}(E_i).
    \]
 
 我们将样本空间$\Omega$、事件域$\mathcal{F}\subseteq 2^\Omega$、
@@ -67,20 +68,22 @@ $\mathcal{F}$是幂集$2^\Omega$的子集
 以及这些数学对象所要满足的理论条件。作为数学理论的概率论，
 就是以上述定义为基础发展起来的。概率论主要关心的一些典型问题如下：
 
-*假设已经给定了样本空间$\Omega$、$\Omega$的一族子集$\{E_i,\,i\in\mathcal{I}\}$作为我们所关心的一些事件，以及该族事件中一些简单事件的概率值或者这些概率所满足的关系．则
+*假设已经给定了样本空间$\Omega$、
+$\Omega$的一族子集$\{E_i,\,i\in\mathcal{I}\}$作为我们所关心的一些事件，
+以及该族事件中一些简单事件的概率值或者这些概率所满足的关系。则*
 
-- 应当如何由简单事件的概率值或概率的关系，计算出$\{E_i,\,i\in\mathcal{I}\}$当中其它事件的概率；
+- *应当如何由简单事件的概率值或概率的关系，计算出$\{E_i,\,i\in\mathcal{I}\}$当中其它事件的概率；*
 
-- 在获取到额外信息（例如获知某些事件已经发生）的条件下，应当如何对概率进行修正或更新．*
+- *在获取到额外信息（例如获知某些事件已经发生）的条件下，应当如何对概率进行修正或更新。*
 
 ::: remark
 之前说过，理想情况下，我们希望一个事件$E$的概率
 $\mathbb{P}(E)$等于试验重复的次数$n$趋于无穷大时频率
-$\mathrm{Fr}_n(E)$的极限，但在 @definition:probability_space  当中，
+$\mathrm{Fr}_n(E)$的极限，但在 @definition:probability_space 当中，
 我们并不直接把“概率等于频率的极限”作为概率的原始数学定义，
 而是从“概率等于频率的极限”这一理想当中抽象出一些基本性质，
 利用这些基本性质来定义$\mathbb{P}$。这种概率的定义方式常被称为
-概率的公理化定义，它是数学家柯尔莫哥洛夫(Kolmogorov)在1933年的著作
+概率的公理化定义，它是数学家柯尔莫哥洛夫（Kolmogorov）在1933年的著作
 [@Kolmogorov1933]中总结并提出的，是现代概率论发展的重要里程碑。
 
 实际上，把“概率等于频率的极限”作为原始定义来建立概率论会遇到
@@ -154,22 +157,22 @@ $\mathrm{Fr}_n(E)$的极限，但在 @definition:probability_space  当中，
 
 ## 一些随机试验及其样本空间的例子*
 
-下面我们给出一些随机试验以及相应的样本空间$\Omega$的例子．
+下面我们给出一些随机试验以及相应的样本空间$\Omega$的例子。
 
 ::: example [抛硬币]
 假设我们的随机试验为掷$2$次硬币，
 硬币的正反面分别用$\mathrm{H}$和$\mathrm{T}$表示。
 则样本空间可以取为
 \[
-    \begin{aligned}
-    \Omega ={} & \left\{(\omega_1,\omega_2) \mid
-    \text{对每个 $i=1,2$, $\omega_i$ 均为
-    $\mathrm{H}$ 或 $\mathrm{T}$}
-    \right\} \\
-    ={} & \{(\mathrm{H},\mathrm{H}),(\mathrm{H},\mathrm{T}),
-    (\mathrm{T},\mathrm{H}),
-    (\mathrm{T},\mathrm{T})\}
-    \end{aligned}
+\begin{aligned}
+\Omega ={} & \left\{(\omega_1,\omega_2) \mid
+\text{对每个 $i=1,2$, $\omega_i$ 均为
+$\mathrm{H}$ 或 $\mathrm{T}$}
+\right\} \\
+={} & \{(\mathrm{H},\mathrm{H}),(\mathrm{H},\mathrm{T}),
+(\mathrm{T},\mathrm{H}),
+(\mathrm{T},\mathrm{T})\}
+\end{aligned}
 \]
 以下给出了一些事件的例子：
 
@@ -180,17 +183,17 @@ $\mathrm{Fr}_n(E)$的极限，但在 @definition:probability_space  当中，
    的含义可写为“两次抛硬币的结果不同”；
 
 3. 事件$\{(\mathrm{H},\mathrm{H}),(\mathrm{H},\mathrm{T}),
-(\mathrm{T},\mathrm{H})\}$的含义可写为“抛出反面的次数至多为$1$”；
+   (\mathrm{T},\mathrm{H})\}$的含义可写为“抛出反面的次数至多为$1$”；
 
 4. 事件$\{(\mathrm{H},\mathrm{H}),(\mathrm{T},\mathrm{H}),
-(\mathrm{T},\mathrm{T})\}$的含义可写为“第一次抛出反面，
+   (\mathrm{T},\mathrm{T})\}$的含义可写为“第一次抛出反面，
    或第二次抛出正面”。
 
 更一般地，若随机试验为抛$n$次硬币，则样本空间可以取为
 \[
-    \Omega = \left\{(\omega_1,\ldots,\omega_n) \mid
-    \text{对每个 $i=1,2,\ldots,n$, $\omega_i$ 均为
-    $\mathrm{H}$ 或 $\mathrm{T}$}\right\}.
+\Omega = \left\{(\omega_1,\ldots,\omega_n) \mid
+\text{对每个 $i=1,2,\ldots,n$, $\omega_i$ 均为
+$\mathrm{H}$ 或 $\mathrm{T}$}\right\}.
 \]
 :::
 
@@ -206,18 +209,18 @@ $\mathrm{Fr}_n(E)$的极限，但在 @definition:probability_space  当中，
 假设我们的随机试验为抛（可数）无穷多次硬币，
 硬币的正反面分别用H和T表示[^2]。则样本空间可以取为
 \[
-    \Omega = \left\{(\omega_1,\omega_2,\omega_3,\ldots) \mid
-    \text{每个 $\omega_i$ 均为 $\mathrm{H}$ 或 $\mathrm{T}$}
-    \right\}.
+\Omega = \left\{(\omega_1,\omega_2,\omega_3,\ldots) \mid
+\text{每个 $\omega_i$ 均为 $\mathrm{H}$ 或 $\mathrm{T}$}
+\right\}.
 \]
 接下来，用$q_n(\omega_1,\ldots,\omega_n)$表示
 $\omega_1,\ldots,\omega_n$当中$\mathrm{H}$出现的次数，则事件
 \[
-    \left\{(\omega_1,\omega_2,\omega_3,\ldots)\in \Omega
-    \biggm\vert
-    \lim_{n\rightarrow\infty}
-    \frac{q_n\!\left(\omega_1,\ldots,\omega_n\right)}{n}
-    =\frac{1}{2}\right\}
+\left\{(\omega_1,\omega_2,\omega_3,\ldots)\in \Omega
+\biggm\vert
+\lim_{n\rightarrow\infty}
+\frac{q_n\!\left(\omega_1,\ldots,\omega_n\right)}{n}
+=\frac{1}{2}\right\}
 \]
 的含义是“前$n$次抛硬币中抛出正面的频率在$n\rightarrow\infty$时
 趋向于$1/2$”。
@@ -228,10 +231,10 @@ $\omega_1,\ldots,\omega_n$当中$\mathrm{H}$出现的次数，则事件
 @example:Brownian_motion_0。对于该随机试验，
 我们通常取样本空间为
 \[
-    \Omega = \left\{
-    \boldsymbol{r}:\left[0,+\infty\right[\rightarrow\mathbb{R}^3
-    \bigm\vert \boldsymbol{r}\ \text{在 $\left[0,+\infty\right[$ 上连续}
-    \right\}.
+\Omega = \left\{
+\boldsymbol{r}:\left[0,+\infty\right[\rightarrow\mathbb{R}^3
+\bigm\vert \boldsymbol{r}\ \text{在 $\left[0,+\infty\right[$ 上连续}
+\right\}.
 \]
 注意到该例当中，样本空间$\Omega$似乎取得有些“过大”：
 真实实验只能观察长度有限的时间段内有限个时刻
@@ -243,4 +246,6 @@ $0\leq t_1<\cdots<t_n\leq T$无关，从而具有普适性。
 :::
 
 [^1]: 这个结果属于测度论的内容，感兴趣的读者可参阅 [@williams1991probability] 的附录A1.1等相关文献。
-[^2]: 这个随机试验并不能在真实世界中实现，然而对它的研究依然具有重要的价值。 一方面，抛$n$次硬币的试验都可以看成是抛无穷多次硬币的一个“子试验”； 另一方面，对抛无穷多次硬币的研究使得我们能更深入地研究抛$n$次硬币 在$n\rightarrow\infty$时的极限行为。
+[^2]: 这个随机试验并不能在真实世界中实现，然而对它的研究依然具有重要的价值。
+    一方面，抛$n$次硬币的试验都可以看成是抛无穷多次硬币的一个“子试验”；另一方面，
+    对抛无穷多次硬币的研究使得我们能更深入地研究抛$n$次硬币在$n\rightarrow\infty$时的极限行为。

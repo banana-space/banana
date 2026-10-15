@@ -1,6 +1,7 @@
 ---
 title: 一元线性回归模型
 ---
+
 本章当中，我们将对**线性回归**（linear regression）进行
 简单的介绍。与前几章不同的是，在线性回归以及更一般的回归分析问题中，
 我们不再只关注单个变量的概率分布情况，而是考虑两个或多个取值连续的变量
@@ -9,15 +10,15 @@ title: 一元线性回归模型
 $Y^{(1)},\ldots,Y^{(l)}$给出，其中
 
 - $x^{(1)},\ldots,x^{(d)}$看成自变量（independent variable）。
-  $x^{(1)},\ldots,x^{(d)}$的其它名称还包括regressors，
-  exogenous variables, explanatory variables, covariates，
-  input variables, predictor variables等。
+  $x^{(1)},\ldots,x^{(d)}$的其它名称还包括regressors、
+  exogenous variables、explanatory variables、covariates、
+  input variables、predictor variables等。
 
 - $Y^{(1)},\ldots,Y^{(l)}$看成是带有随机因素的因变量
   （dependent variable），其（联合）概率分布的具体形式取决于
   $x^{(1)},\ldots,x^{(d)}$的值。$Y^{(1)},\ldots,Y^{(l)}$的
-  其它名称还包括regressands，endogenous variables，
-  response variables, output variables等。
+  其它名称还包括regressands、endogenous variables、
+  response variables、output variables等。
 
 而回归分析的基本任务，就是通过收集样本数据，对
 $(Y^{(1)},\ldots,Y^{(l)})$的分布以何种方式依赖于
@@ -29,7 +30,7 @@ $x^{(1)},\ldots,x^{(d)}$的取值的关系用某种统计模型进行建模以�
 在本章中，我们主要考察自变量$x$与因变量$Y$均为一维变量（也就是一元回归）
 的情形。我们假定样本由成对数据
 \[
-    (x_1,Y_1),\ldots,(x_n,Y_n)
+(x_1,Y_1),\ldots,(x_n,Y_n)
 \]
 给出，其中每个$x_i$均为确定性的量，而$Y_i$则与自变量取值为
 $x_i$时的因变量$Y$同分布，且$Y_1,Y_2,\ldots,Y_n$之间相互独立。
@@ -66,7 +67,7 @@ Y_i = \beta_0+\beta_1 x_i + \varepsilon_i,
 而“线性”则是指$\mu(x)=\mathbb{E}\!\left[Y \mkern2mu|\mkern2mu x\right]$关于回归系数
 $\beta_0,\beta_1$是线性的。例如，若$x$与$Y$之间的关系由如下式子给出：
 \[
-    Y = \beta_0 + \beta_1 \phi(x) + \varepsilon,
+Y = \beta_0 + \beta_1 \phi(x) + \varepsilon,
 \]
 其中$\phi:\mathbb{R}\rightarrow\mathbb{R}$为任意函数，那么
 我们依然可以把它作为一元线性回归模型进行处理，这是因为只需令
@@ -81,7 +82,7 @@ $t=\phi(x)$即可将模型化为 @eq:linear_regression_model1
   $\beta_0,\beta_1$与$\sigma^2$进行点估计、区间估计与假设检验？
 
 - 给定一个新的自变量的值$x_0$，如何基于线性回归模型
-@eq:linear_regression_model1  与获得的样本，对
+  @eq:linear_regression_model1 与获得的样本，对
   $x=x_0$时$Y$的取值进行预测？
 
 - 如何判断线性回归模型 @eq:linear_regression_model1

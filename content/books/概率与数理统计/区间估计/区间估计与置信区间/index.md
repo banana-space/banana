@@ -1,6 +1,7 @@
 ---
 title: 区间估计与置信区间
 ---
+
 设总体的分布函数为$F(x;\theta)$，其中未知参数$\theta$的所有可能取值
 构成集合$\Theta$，且为简单起见，设$\Theta$是$\mathbb{R}$上的
 一个区间。在点估计问题中，我们通过构造合适的统计量$\hat\theta$，
@@ -13,7 +14,7 @@ title: 区间估计与置信区间
 进行整理后，我们就得到了如下问题：应当如何构造点估计量$\hat\theta$
 以及一个阈值统计量$D=D(X_1,\ldots,X_n)$，使得不等式
 \[
-    \mathbb{P}_\theta\big(|\hat\theta-\theta|\leq D\big)\geq 1-\alpha
+\mathbb{P}_\theta\big(|\hat\theta-\theta|\leq D\big)\geq 1-\alpha
 \]
 对任意$\theta\in\Theta$成立，其中$\alpha$是一个事先定好的
 足够小的实数。不难看出上述问题也等价于如何构造统计量
@@ -53,7 +54,7 @@ $\overline{\theta}-\underline{\theta}$取得越小越好。通常，
 下探到$1-\alpha$（但不得低于$1-\alpha$）；特别是，当总体$X$
 是连续型随机变量时，我们通常就按要求
 \[
-    \inf_{\theta\in\Theta}\mathbb{P}_\theta\big(\big[\mkern2mu\underline{\theta},\overline{\theta}\mkern2mu\big]\ni\theta\big)= 1-\alpha
+\inf_{\theta\in\Theta}\mathbb{P}_\theta\big(\big[\mkern2mu\underline{\theta},\overline{\theta}\mkern2mu\big]\ni\theta\big)= 1-\alpha
 \]
 来求置信区间。
 
@@ -69,12 +70,10 @@ $\overline{\theta}-\underline{\theta}$取得越小越好。通常，
 上述置信区间的构造流程（比方说重复$M$次），从而获得$M$个置信区间的结果。
 由于每次抽样获得的样本值是不同的，这$M$个区间也互不相同。则平均而言，
 在这大量的区间估计给出的结果中，把参数真值$\theta$覆盖住的区间
-所占的比例将至少为$1-\alpha$；可参考图\ref{figure:CI_meaning}
+所占的比例将至少为$1-\alpha$；可参考图 1
 给出的图示。
 
-![固定总体参数$\theta$，对某个置信水平为$90\%$的置信区间 构造流程重复100次的实验结果。图中每个“工”字图形表示一个区间估计的结果， 蓝色表示该区间覆盖住了参数真值，而红色表示该区间没能覆盖住参数真值。 当重复次数进一步提升并趋于无穷时，蓝色区间所占比例将趋于$90\%$。](Confidence_intervals_illustration.png?width=750)
-
-\label{figure:CI_meaning}
+![固定总体参数$\theta$，对某个置信水平为$90\%$的置信区间构造流程重复100次的实验结果。图中每个“工”字图形表示一个区间估计的结果，蓝色表示该区间覆盖住了参数真值，而红色表示该区间没能覆盖住参数真值。当重复次数进一步提升并趋于无穷时，蓝色区间所占比例将趋于$90\%$。](Confidence_intervals_illustration.png?width=750)
 
 ::: example [方差已知时正态总体期望的区间估计] {@example:normal_expectation_CI_var_known}
 设总体$X$服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中
@@ -85,32 +84,32 @@ $1-\alpha$的一个置信区间。
 注意到样本均值$\overline{X}=\frac{1}{n}\sum_{i=1}^n X_i$
 服从正态分布$\mathcal{N}(\mu,\sigma^2/n)$，因而
 \[
-    \frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}} \sim \mathcal{N}(0,1).
+\frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}} \sim \mathcal{N}(0,1).
 \]
 可以看出随机变量$\big(\overline{X}-\mu\big)/\sqrt{\sigma^2/n}$
 的分布已不再依赖于未知参数$\mu$。现任取$\lambda\in\left]0,1\right[$，
 依照标准正态分布上分位数的定义以及正态分布的对称性，可得
-（见图\ref{fig:normal_expectation_CI_var_known}）
+（见图 2）
 \[
-    \mathbb{P}_\mu\!\left(
-    -z_{(1-\lambda)\alpha}\leq\frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}}
-    \leq z_{\lambda\alpha}
-    \right) = 1-\alpha.
+\mathbb{P}_\mu\!\left(
+-z_{(1-\lambda)\alpha}\leq\frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}}
+\leq z_{\lambda\alpha}
+\right) = 1-\alpha.
 \]
 对上式进行变形，得到
 \[
-    \mathbb{P}_\mu\!\left(
-    \left[
-    \overline{X}-z_{\lambda\alpha}\frac{\sigma}{\sqrt{n}},
-    \overline{X}+z_{(1-\lambda)\alpha}\frac{\sigma}{\sqrt{n}}\right]
-    \ni \mu
-    \right) = 1-\alpha.
+\mathbb{P}_\mu\!\left(
+\left[
+\overline{X}-z_{\lambda\alpha}\frac{\sigma}{\sqrt{n}},
+\overline{X}+z_{(1-\lambda)\alpha}\frac{\sigma}{\sqrt{n}}\right]
+\ni \mu
+\right) = 1-\alpha.
 \]
 由此可得，形如
 \[
-    \left[
-    \overline{X}-z_{\lambda\alpha}\frac{\sigma}{\sqrt{n}},
-    \overline{X}+z_{(1-\lambda)\alpha}\frac{\sigma}{\sqrt{n}}\right].
+\left[
+\overline{X}-z_{\lambda\alpha}\frac{\sigma}{\sqrt{n}},
+\overline{X}+z_{(1-\lambda)\alpha}\frac{\sigma}{\sqrt{n}}\right].
 \]
 的随机区间均为$\mu$的置信水平为$1-\alpha$的置信区间。
 但在所有这些置信区间中，令$\lambda=1/2$可以使置信区间的宽度达到最小，
@@ -124,9 +123,7 @@ $1-\alpha$的一个置信区间。
 
 作为$\mu$的置信水平为$1-\alpha$的置信区间。
 
-![正态总体的方差已知时，利用枢轴量 $\big(\overline{X}-\mu\big)/\sqrt{\sigma^2/n}$求解期望的 置信区间。](Confidence_interval_normal_mean_z.png?width=600)
-
-\label{fig:normal_expectation_CI_var_known}
+![正态总体的方差已知时，利用枢轴量$\big(\overline{X}-\mu\big)/\sqrt{\sigma^2/n}$求解期望的置信区间。](Confidence_interval_normal_mean_z.png?width=600)
 :::
 
 ::: remark
@@ -156,8 +153,8 @@ $1-\alpha$的置信区间可以近似由
 单侧置信上界越小则估计精度越高。同理也可定义**单侧置信下界**
 （one-sided lower confidence bound）的概念。此外，我们也将形如
 \[
-    \left]-\infty,\overline{\theta}\mkern2mu\right]\quad\text{或}\quad
-    \left[\mkern2mu\underline{\theta},+\infty\right[
+\left]-\infty,\overline{\theta}\mkern2mu\right]\quad\text{或}\quad
+\left[\mkern2mu\underline{\theta},+\infty\right[
 \]
 的置信区间称作**单侧置信区间**（one-sided confidence interval）。
 
@@ -165,8 +162,8 @@ $1-\alpha$的置信区间可以近似由
 情形为例，给定置信水平$1-\alpha$，则未知参数$\mu$的两个单侧置信区间
 可以分别取为
 \[
-    \left]-\infty, \overline{X}+z_{\alpha}\frac{\sigma}{\sqrt{n}}\right]\quad\text{与}\quad
-    \left[\overline{X}-z_{\alpha}\frac{\sigma}{\sqrt{n}}, +\infty\right[
+\left]-\infty, \overline{X}+z_{\alpha}\frac{\sigma}{\sqrt{n}}\right]\quad\text{与}\quad
+\left[\overline{X}-z_{\alpha}\frac{\sigma}{\sqrt{n}}, +\infty\right[
 \]
 （注意上式中用到的上分位数为$z_\alpha$而非$z_{\alpha/2}$）。
 :::
@@ -186,34 +183,34 @@ $1-\alpha$的置信区间可以近似由
 
 2. 找出两个合适的常数$l$与$u$，使得
    \[
-       \mathbb{P}_\theta\!\left(
-       l\leq h(X_1,\ldots,X_n;\theta)\leq u
-       \right)\geq 1-\alpha.
+   \mathbb{P}_\theta\!\left(
+   l\leq h(X_1,\ldots,X_n;\theta)\leq u
+   \right)\geq 1-\alpha.
    \]
    特别是，若$h(X_1,\ldots,X_n;\theta)$为连续型随机变量，则找出满足
    \[
-       \mathbb{P}_\theta\!\left(
-       l\leq h(X_1,\ldots,X_n;\theta)\leq u
-       \right)= 1-\alpha
+   \mathbb{P}_\theta\!\left(
+   l\leq h(X_1,\ldots,X_n;\theta)\leq u
+   \right)= 1-\alpha
    \]
    的常数$l,u$。
 
    在 @example:normal_expectation_CI_var_known  当中，
-   由于枢轴量服从标准正态分布，故可以取$l=-z_{(1-\alpha)\lambda},
-u=z_{\lambda\alpha}$。而取$\lambda=1/2$可以使得最终构造出来的
+   由于枢轴量服从标准正态分布，故可以取$l=-z_{(1-\lambda)\alpha},
+   u=z_{\lambda\alpha}$。而取$\lambda=1/2$可以使得最终构造出来的
    置信区间宽度最小。
 
 3. 尝试将不等式$l\leq h(X_1,\ldots,X_n;\theta)\leq u$等价地
    变形为如下形式：
    \[
-       \underline{\theta}(X_1,\ldots,X_n)\leq\theta
-       \leq
-       \overline{\theta}(X_1,\ldots,X_n).
+   \underline{\theta}(X_1,\ldots,X_n)\leq\theta
+   \leq
+   \overline{\theta}(X_1,\ldots,X_n).
    \]
    若这样的等价变形可行，则可知$\theta$的一个置信水平为$1-\alpha$的
    置信区间为
    \[
-       \left[\underline{\theta}(X_1,\ldots,X_n),\overline{\theta}(X_1,\ldots,X_n)\right].
+   \left[\underline{\theta}(X_1,\ldots,X_n),\overline{\theta}(X_1,\ldots,X_n)\right].
    \]
 
 我们将上述求解置信区间的方法称作**枢轴量法**。需要注意的是，
@@ -228,8 +225,8 @@ $g:\Theta\rightarrow\mathbb{R}$为一个实值函数，
 $\left[\mkern2mu\underline{\eta},\overline{\eta}\mkern2mu\right]$
 需满足如下条件：
 \[
-    \mathbb{P}_{\theta}\!\left(\left[\mkern2mu\underline{\eta},\overline{\eta}\mkern2mu\right]\ni g(\theta)\right)\geq 1-\alpha,
-    \qquad\forall \theta\in\Theta,
+\mathbb{P}_{\theta}\!\left(\left[\mkern2mu\underline{\eta},\overline{\eta}\mkern2mu\right]\ni g(\theta)\right)\geq 1-\alpha,
+\qquad\forall \theta\in\Theta,
 \]
 其中区间端点$\underline{\eta},\overline{\eta}$仍要求为统计量。
 此时依然可以考虑用枢轴量法构造置信区间，不过我们会要求枢轴量的形式为
@@ -237,8 +234,8 @@ $h(X_1,\ldots,X_n;g(\theta))$，也就是说它只和$X_1,\ldots,X_n$
 与$g(\theta)$有关；另一方面，我们仍然要求
 $h(X_1,\ldots,X_n;g(\theta))$的分布与$\theta$无关。此时通过
 \[
-    \mathbb{P}_{\theta}
-    \!\left(l\leq h(X_1,\ldots,X_n;g(\theta))\leq u\right)\geq 1-\alpha
+\mathbb{P}_{\theta}
+\!\left(l\leq h(X_1,\ldots,X_n;g(\theta))\leq u\right)\geq 1-\alpha
 \]
 即可构造$\eta=g(\theta)$的置信区间。
 
@@ -252,8 +249,8 @@ $\boldsymbol{\lambda}$时，$\theta$的置信水平为$1-\alpha$的
 置信区间$\left[\mkern2mu\underline{\theta},
 \overline{\theta}\mkern2mu\right]$则需满足如下条件：
 \[
-    \mathbb{P}_{\theta,\boldsymbol{\lambda}}\!\left(\left[\mkern2mu\underline{\theta},\overline{\theta}\mkern2mu\right]\ni\theta\right)\geq 1-\alpha,
-    \qquad\forall \theta\in\Theta,\boldsymbol{\lambda}\in\Lambda,
+\mathbb{P}_{\theta,\boldsymbol{\lambda}}\!\left(\left[\mkern2mu\underline{\theta},\overline{\theta}\mkern2mu\right]\ni\theta\right)\geq 1-\alpha,
+\qquad\forall \theta\in\Theta,\boldsymbol{\lambda}\in\Lambda,
 \]
 其中$\Theta$为$\theta$的取值范围，$\Lambda$为多余参数
 $\boldsymbol{\lambda}$的取值范围。对于存在多余参数的情形，
@@ -263,8 +260,8 @@ $h(X_1,\ldots,X_n;\theta)$只和$X_1,\ldots,X_n$与$\theta$
 $h(X_1,\ldots,X_n;\theta)$的分布与$\theta$和
 $\boldsymbol{\lambda}$均无关。此时由
 \[
-    \mathbb{P}_{\theta,\boldsymbol{\lambda}}
-    \!\left(l\leq h(X_1,\ldots,X_n;\theta)\leq u\right)\geq 1-\alpha
+\mathbb{P}_{\theta,\boldsymbol{\lambda}}
+\!\left(l\leq h(X_1,\ldots,X_n;\theta)\leq u\right)\geq 1-\alpha
 \]
 构造的$\theta$的置信区间则可用于多余参数$\boldsymbol{\lambda}$
 未知的情形。
@@ -274,5 +271,10 @@ $\boldsymbol{\lambda}$均无关。此时由
 求解流程。我们只给出（双侧）置信区间的构造流程，但读者可自行推导相应的
 单侧置信上界与单侧置信下界。
 
-[^1]: 注意到若$1-\alpha$是 $\big[\mkern2mu\underline{\theta}, \overline{\theta}\mkern2mu\big]$的置信水平，那么任何小于等于 $1-\alpha$的正实数也都是$\big[\mkern2mu\underline{\theta}, \overline{\theta}\mkern2mu\big]$的置信水平。有些场合 为了表意上的确切，当给定置信区间而谈论其置信水平时，我们是指 满足 @eq:def_confidence_interval  的$1-\alpha$当中 最大的那个值。
-[^2]: 这套区间估计的范式是由统计学家Jerzy Neyman 首先建立的。
+[^1]: 注意到若$1-\alpha$是$\big[\mkern2mu\underline{\theta}, \overline{\theta}\mkern2mu\big]$
+    的置信水平，
+    那么任何小于等于$1-\alpha$的正实数也都是
+    $\big[\mkern2mu\underline{\theta}, \overline{\theta}\mkern2mu\big]$的置信水平。
+    有些场合为了表意上的确切，当给定置信区间而谈论其置信水平时，
+    我们是指满足 @eq:def_confidence_interval 的$1-\alpha$当中最大的那个值。
+[^2]: 这套区间估计的范式是由统计学家 Jerzy Neyman 首先建立的。

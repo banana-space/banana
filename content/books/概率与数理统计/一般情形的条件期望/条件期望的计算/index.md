@@ -1,6 +1,11 @@
 ---
 title: 条件期望的计算
+notices:
+  - name: 问题
+    items:
+      - 本节定理两条的结论 $\mathbb{E}\!\left[X \mkern2mu|\mkern2mu Y\right]=\phi_X(Y)$ 中，左端似乎应为 $\mathbb{E}\!\left[h(X,Y) \mkern2mu|\mkern2mu Y\right]$（证明验证的是 $\mathbb{E}[\phi_X(Y)\cdot g(Y)]=\mathbb{E}[h(X,Y)\cdot g(Y)]$）。
 ---
+
 本节中，我们给出$(X,Y)$为离散型或连续型随机向量时，
 条件期望$\mathbb{E}\!\left[h(X,Y) \mkern2mu|\mkern2mu Y\right]$的计算方法，
 也就是条件期望的law of the unconscious statistician (LOTUS)。
@@ -51,20 +56,20 @@ $\mathbb{E}[h(X,y)]$均存在。
 1. 当$(X,Y)$为离散型随机向量时，任取有界函数
    $g:\mathbb{R}\rightarrow\mathbb{R}$，则有
    \[
-       \begin{aligned}
-       \mathbb{E}\!\left[
-       \phi_X(Y)\cdot g(Y)
-       \right] ={} &
-       \sum_y \phi_X(y)\,g(y)\,p_Y(y) \\
-       ={} &
-       \sum_y\left(
-       \sum_x h(x,y)\cdot\frac{p_{X,Y}(x,y)}{p_Y(y)}
-       \right)g(y)\,p_Y(y) \\
-       ={} &
-       \sum_{(x,y)} h(x,y)\,g(y)\,p_{X,Y}(x,y) \\
-       ={} &
-       \mathbb{E}[h(X,Y)\cdot g(Y)],
-       \end{aligned}
+   \begin{aligned}
+   \mathbb{E}\!\left[
+   \phi_X(Y)\cdot g(Y)
+   \right] ={} &
+   \sum_y \phi_X(y)\,g(y)\,p_Y(y) \\
+   ={} &
+   \sum_y\left(
+   \sum_x h(x,y)\cdot\frac{p_{X,Y}(x,y)}{p_Y(y)}
+   \right)g(y)\,p_Y(y) \\
+   ={} &
+   \sum_{(x,y)} h(x,y)\,g(y)\,p_{X,Y}(x,y) \\
+   ={} &
+   \mathbb{E}[h(X,Y)\cdot g(Y)],
+   \end{aligned}
    \]
    其中第一步与最后一步来自于期望的LOTUS，第三步是因为
    $p_Y(y)=0$时必定有$p_{X,Y}(x,y)=0$。故式 @eq:conditional_expectation_identity
@@ -74,29 +79,29 @@ $\mathbb{E}[h(X,y)]$均存在。
    $U=\{y\in\mathbb{R} \mid f_{Y}(y)=0\}$，
    任取有界函数$g:\mathbb{R}\rightarrow\mathbb{R}$，则有
    \[
-       \begin{aligned}
-       \mathbb{E}\!\left[\phi_X(Y)\cdot g(Y)
-       \right]
-       & =\int_{-\infty}^{+\infty}
-       \phi_X(y)\,g(y)\,
-       f_{Y}(y)
-       \,\mathrm{d} y \\
-       & =
-       \int_{\mathbb{R}\backslash U}
-       \left(\int_{-\infty}^{+\infty}
-       h(x,y)\cdot
-       \frac{f_{X,Y}(x,y)}{f_{Y}(y)}
-       \,\mathrm{d} x\right)
-       g(y)\,f_{Y}(y)\,\mathrm{d} y \\
-       & = \iint_{\,\mathbb{R}^2}
-       h(x,y)\, g(y)\,f_{X,Y}(x,y)
-       \,\mathrm{d} x\mathrm{d} y \\
-       & =
-       \mathbb{E}\!\left[h(X,Y)\cdot g(Y)\right],
-       \end{aligned}
+   \begin{aligned}
+   \mathbb{E}\!\left[\phi_X(Y)\cdot g(Y)
+   \right]
+   & =\int_{-\infty}^{+\infty}
+   \phi_X(y)\,g(y)\,
+   f_{Y}(y)
+   \,\mathrm{d} y \\
+   & =
+   \int_{\mathbb{R}\backslash U}
+   \left(\int_{-\infty}^{+\infty}
+   h(x,y)\cdot
+   \frac{f_{X,Y}(x,y)}{f_{Y}(y)}
+   \,\mathrm{d} x\right)
+   g(y)\,f_{Y}(y)\,\mathrm{d} y \\
+   & = \iint_{\,\mathbb{R}^2}
+   h(x,y)\, g(y)\,f_{X,Y}(x,y)
+   \,\mathrm{d} x\mathrm{d} y \\
+   & =
+   \mathbb{E}\!\left[h(X,Y)\cdot g(Y)\right],
+   \end{aligned}
    \]
    其中第一步与最后一步来自于期望的LOTUS，第三步将累次积分化为了重积分
    并利用了$f_{X,Y}(x,y)=0,\,\forall (x,y)\in \mathbb{R}\times U$。
-   故式 @eq:conditional_expectation_identity  对任意有界函数$g$均成立。
+   故式 @eq:conditional_expectation_identity 对任意有界函数$g$均成立。
 
 :::

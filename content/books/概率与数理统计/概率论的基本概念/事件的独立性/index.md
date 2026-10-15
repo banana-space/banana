@@ -1,12 +1,13 @@
 ---
 title: 事件的独立性
 ---
+
 ::: definition {@definition:independence_two_events}
 设$(\Omega,\mathcal{F},\mathbb{P})$为一概率空间，
 $E,F$为$\mathcal{F}$中的两个事件。
-我们称$E$与$F$相互**独立**(independent)，若
+我们称$E$与$F$相互**独立**（independent），若
 \[
-    \mathbb{P}(E\cap F) = \mathbb{P}(E)\,\mathbb{P}(F).
+\mathbb{P}(E\cap F) = \mathbb{P}(E)\,\mathbb{P}(F).
 \]
 :::
 
@@ -23,41 +24,41 @@ $\mathbb{P}(E\cap F)=\mathbb{P}(E)\,\mathbb{P}(F)$
 对于这样的随机试验，我们将第一阶段的结果用$1,\ldots,m$标号，
 将第二阶段的结果用$1,\ldots,n$标号，则可以取样本空间为
 \[
-    \begin{aligned}
-    \Omega & = \left\{(\omega_1,\omega_2) \mid
-    \omega_1\in\{1,\ldots,m\},\,\omega_2\in\{1,\ldots,n\} \right\} \\
-    & =\{1,\ldots,m\}\times \{1,\ldots,n\},
-    \end{aligned}
+\begin{aligned}
+\Omega & = \left\{(\omega_1,\omega_2) \mid
+\omega_1\in\{1,\ldots,m\},\,\omega_2\in\{1,\ldots,n\} \right\} \\
+& =\{1,\ldots,m\}\times \{1,\ldots,n\},
+\end{aligned}
 \]
 并取$(\Omega,2^\Omega,\mathbb{P})$为古典概型。
 
 现对任意$A\subseteq\{1,\ldots,m\}$与
 $B\subseteq\{1,\ldots,n\}$，令
 \[
-    \begin{aligned}
-    E_{1,A} ={} & \left\{(\omega_1,\omega_2) \mid \omega_1\in A \right\}
-    = \{\text{第一个阶段的结果属于集合$A$}\},\\
-    E_{2,B} ={} & \left\{(\omega_1,\omega_2) \mid \omega_2\in B \right\}
-    = \{\text{第二个阶段的结果属于集合$B$}\}.
-    \end{aligned}
+\begin{aligned}
+E_{1,A} ={} & \left\{(\omega_1,\omega_2) \mid \omega_1\in A \right\}
+= \{\text{第一个阶段的结果属于集合$A$}\},\\
+E_{2,B} ={} & \left\{(\omega_1,\omega_2) \mid \omega_2\in B \right\}
+= \{\text{第二个阶段的结果属于集合$B$}\}.
+\end{aligned}
 \]
 则
 \[
-    \mathbb{P}(E_{1,A}\cap E_{2,B})
-    =\mathbb{P}(
-    \left\{(\omega_1,\omega_2) \mid \omega_1\in A,\omega_2\in B\right\}
-    ) = \mathbb{P}(A\times B)
-    =\frac{|A|\cdot |B|}{m\cdot n},
+\mathbb{P}(E_{1,A}\cap E_{2,B})
+=\mathbb{P}(
+\left\{(\omega_1,\omega_2) \mid \omega_1\in A,\omega_2\in B\right\}
+) = \mathbb{P}(A\times B)
+=\frac{|A|\cdot |B|}{m\cdot n},
 \]
 而
 \[
-    \mathbb{P}(E_{1,A}) =  \frac{|A|\cdot n}{m\cdot n}=\frac{|A|}{m}, \qquad
-    \mathbb{P}(E_{2,B}) = \frac{m\cdot |B|}{m\cdot n}=\frac{|B|}{n},
+\mathbb{P}(E_{1,A}) =  \frac{|A|\cdot n}{m\cdot n}=\frac{|A|}{m}, \qquad
+\mathbb{P}(E_{2,B}) = \frac{m\cdot |B|}{m\cdot n}=\frac{|B|}{n},
 \]
 故
 \[
-    \mathbb{P}(E_{1,A}\cap E_{2,B})
-    =\mathbb{P}(E_{1,A})\,\mathbb{P}(E_{2,B}).
+\mathbb{P}(E_{1,A}\cap E_{2,B})
+=\mathbb{P}(E_{1,A})\,\mathbb{P}(E_{2,B}).
 \]
 以上结果可以总结为如下结论：设一个两阶段的随机试验服从古典概型，
 且第二阶段可能发生的结果与第一阶段的结果无关，那么当事件$E$发生与否
@@ -75,20 +76,20 @@ $\{E_i,\,i\in\mathcal{I}\}$中的事件**相互独立**
 （mutually independent），若对任意$\mathcal{I}$的非空有限子集
 $\mathcal{J}$，都有
 \[
-    \mathbb{P}\!\left(\bigcap_{j\in\mathcal{J}}E_{j}\right)
-    =\prod_{j\in\mathcal{J}}\mathbb{P}\!\left(E_{j}\right).
+\mathbb{P}\!\left(\bigcap_{j\in\mathcal{J}}E_{j}\right)
+=\prod_{j\in\mathcal{J}}\mathbb{P}\!\left(E_{j}\right).
 \]
 :::
 
 例如，设$E,F,G$为三个事件，则这三个事件相互独立的充要条件是
 如下四个等式成立：
 \[
-    \begin{aligned}
-    \mathbb{P}(E\cap F) & =\mathbb{P}(E)\,\mathbb{P}(F), & \qquad \mathbb{P}(E\cap G) &=
-    \mathbb{P}(E)\,\mathbb{P}(G), \\
-    \mathbb{P}(F\cap G) & =\mathbb{P}(F)\,\mathbb{P}(G), & \qquad \mathbb{P}(E\cap F\cap G) &=
-    \mathbb{P}(E)\,\mathbb{P}(F)\,\mathbb{P}(G).
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(E\cap F) & =\mathbb{P}(E)\,\mathbb{P}(F), & \qquad \mathbb{P}(E\cap G) &=
+\mathbb{P}(E)\,\mathbb{P}(G), \\
+\mathbb{P}(F\cap G) & =\mathbb{P}(F)\,\mathbb{P}(G), & \qquad \mathbb{P}(E\cap F\cap G) &=
+\mathbb{P}(E)\,\mathbb{P}(F)\,\mathbb{P}(G).
+\end{aligned}
 \]
 
 @example:independence_in_classical_probability
@@ -101,7 +102,7 @@ $E_1,\ldots,E_r$，当各个事件$E_i$发生与否完全取决于
 ::: example [本例改编自[@bertsekas2008introduction]第一章的习题31.c] {@example:communication_noisy_channel_2}
 仍考虑 @example:communication_noisy_channel
 中传感器向服务器上传数据的问题，则传感器与服务器之间的信道
-可以等效为图\ref{fig:communication_noisy_channel_2} 所示，
+可以等效为图 1 所示，
 其中我们用$p_0$表示符号$\mathtt{0}$传输不出错的概率，
 用$p_1$表示符号$\mathtt{1}$传输不出错的概率。
 我们进一步假设在依次传输多个符号时，各个符号是否传输错误是相互独立的。
@@ -115,40 +116,40 @@ $E_1,\ldots,E_r$，当各个事件$E_i$发生与否完全取决于
 用$F_i,\,i=1,2,3$表示符号$\mathtt{0}$在第$i$次传输时没有出现错误，
 则有
 \[
-    G = (F_1\cap F_2\cap F_3) \cup (F_1^c\cap F_2\cap F_3)
-    \cup (F_1\cap F_2^c\cap F_3)
-    \cup (F_1\cap F_2\cap F_3^c),
+G = (F_1\cap F_2\cap F_3) \cup (F_1^c\cap F_2\cap F_3)
+\cup (F_1\cap F_2^c\cap F_3)
+\cup (F_1\cap F_2\cap F_3^c),
 \]
 从而由概率的有限可加性可得
 \[
-    \mathbb{P}(F) = \mathbb{P}(F_1\cap F_2\cap F_3)
-    + \mathbb{P}(F_1^c\cap F_2\cap F_3)
-    + \mathbb{P}(F_1\cap F_2^c\cap F_3)
-    + \mathbb{P}(F_1\cap F_2\cap F_3^c).
+\mathbb{P}(G) = \mathbb{P}(F_1\cap F_2\cap F_3)
++ \mathbb{P}(F_1^c\cap F_2\cap F_3)
++ \mathbb{P}(F_1\cap F_2^c\cap F_3)
++ \mathbb{P}(F_1\cap F_2\cap F_3^c).
 \]
 而由$F_1,F_2,F_3$相互独立，可得
 \[
-    \mathbb{P}(F_1\cap F_2\cap F_3)
-    =\mathbb{P}(F_1)\,\mathbb{P}(F_2)\,\mathbb{P}(F_3)
-    =p_0^3,
+\mathbb{P}(F_1\cap F_2\cap F_3)
+=\mathbb{P}(F_1)\,\mathbb{P}(F_2)\,\mathbb{P}(F_3)
+=p_0^3,
 \]
 而
 \[
-    \mathbb{P}(F_1^c\cap F_2\cap F_3)
-    =\mathbb{P}(F_1^c)\cap\mathbb{P}(F_1)\cap\mathbb{P}(F_3)
-    =(1-p_0)p_0^2,
+\mathbb{P}(F_1^c\cap F_2\cap F_3)
+=\mathbb{P}(F_1^c)\,\mathbb{P}(F_2)\,\mathbb{P}(F_3)
+=(1-p_0)p_0^2,
 \]
 且同理有$\mathbb{P}(F_1\cap F_2^c\cap F_3)
 =\mathbb{P}(F_1\cap F_2\cap F_3^c) = (1-p_0)p_0^2$。故
 \[
-    \mathbb{P}(G) = p_0^3 + 3(1-p_0)p_0^2 \approx 0.9546.
+\mathbb{P}(G) = p_0^3 + 3(1-p_0)p_0^2 \approx 0.9546.
 \]
 
 同理可得，通过将单个符号重复传输3次，符号$\mathtt{1}$
 被正确传输的概率能被提升至$p_1^3+3(1-p_1)p_1^2\approx 0.8355$。
 :::
 
-```tikz {caption="例\ref{example:communication_noisy_channel_2} 中的等效信道图示，其中$p_0=0.871375$，$p_1=0.74275$。"}
+```tikz {caption="@example:communication_noisy_channel_2 中的等效信道图示，其中$p_0=0.871375$，$p_1=0.74275$。"}
 \begin{tikzpicture}
 \draw[fill=black] (0,0) circle (3pt) node[left, xshift=-5pt] { $\mathtt{0}$};
 \draw[fill=black] (0,-3) circle (3pt) node[left, xshift=-5pt] { $\mathtt{1}$};
@@ -164,5 +165,3 @@ $E_1,\ldots,E_r$，当各个事件$E_i$发生与否完全取决于
 \node[anchor=south east,xshift=3pt] at (1,-2.4) {$1\!-\!p_1$};
 \end{tikzpicture}
 ```
-
-\label{fig:communication_noisy_channel_2}

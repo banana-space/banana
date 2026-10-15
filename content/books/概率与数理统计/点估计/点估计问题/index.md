@@ -1,12 +1,12 @@
 ---
 title: 点估计问题
 ---
+
 本章中，我们首先介绍参数估计当中的**点估计**
 （point estimation）问题。在点估计问题中，我们希望基于获得的样本数据，
 给出未知参数（或者它的某个函数值）的单个估计值，作为参数估计的最终结果。
 具体而言，设总体的未知参数为$\theta\in\Theta$，而我们希望对
-它的一个函数值$\eta=g(\theta)$进行估计，其中$g$是一个已知的函数
-[^1]。
+它的一个函数值$\eta=g(\theta)$进行估计，其中$g$是一个已知的函数[^1]。
 令$X_1,\ldots,X_n$为该总体的一组样本，则点估计的任务就是
 构造出一个统计量$\hat{\eta}(X_1,\ldots,X_n)$，并在
 获取到样本的具体取值$x_1,\ldots,x_n$后将它们代入该统计量中，
@@ -26,7 +26,7 @@ $\hat{\eta}(X_1,\ldots,X_n)$本身也是一个随机变量，
 表示点估计量$\hat{\eta}(X_1,\ldots,X_n)$。
 
 ::: example {@example:point_estimator_normal}
-考虑 @example:parameter_estimation_normal  的情形。
+考虑 @example:parameter_estimation_normal 的情形。
 为了对总体的期望$\mu$进行点估计，可以取样本期望
 
 ```math {@eq:point_estimation_mean}
@@ -36,7 +36,7 @@ $\hat{\eta}(X_1,\ldots,X_n)$本身也是一个随机变量，
 
 作为$\mu$的点估计量。由弱大数定律可得，给定任意$\epsilon>0$，有
 \[
-    \lim_{n\rightarrow\infty}\mathbb{P}\!\left(\left|\overline{X}_n-\mu\right|\leq\epsilon\right)=1,
+\lim_{n\rightarrow\infty}\mathbb{P}\!\left(\left|\overline{X}_n-\mu\right|\leq\epsilon\right)=1,
 \]
 从而当样本容量$n$足够大时，$\overline{X}_n$与真实期望$\mu$的
 偏离程度不超过$\epsilon$将是一个大概率事件。这意味着将样本均值
@@ -53,15 +53,15 @@ $\mu=g(\mu,\sigma^2)$的一个点估计量。
 的情形，但假设这次我们也希望对方差$\sigma^2$进行估计，以对传感器的
 测量精度有一个定量上的认识。此时可以取样本方差
 \[
-    S^2_n
-    =\frac{1}{n-1}\sum_{i=1}^n\left(
-    X_i-\overline{X}_n
-    \right),
+S^2_n
+=\frac{1}{n-1}\sum_{i=1}^n\left(
+X_i-\overline{X}_n
+\right)^2,
 \]
 为$\sigma^2$的点估计量。由 @exercise:convergence_sample_variance
 的结论以及几乎处处收敛与依概率收敛的关系，可知给定任意$\epsilon>0$，有
 \[
-    \lim_{n\rightarrow\infty}\mathbb{P}\!\left(\big|S^2_n-\sigma^2\big|\leq\epsilon\right)=1.
+\lim_{n\rightarrow\infty}\mathbb{P}\!\left(\big|S^2_n-\sigma^2\big|\leq\epsilon\right)=1.
 \]
 从而当样本容量$n$足够大时，样本方差$S^2_n$与真实方差$\sigma^2$的
 偏离程度不超过$\epsilon$将是一个大概率事件。这意味着将样本方差
@@ -74,7 +74,7 @@ $\mu=g(\mu,\sigma^2)$的一个点估计量。
 （其中$k$为一给定正整数），并将其记为$\nu_k(\theta)$。考虑
 对$\nu_k(\theta)$的点估计问题，则可以取样本$k$阶矩
 \[
-    \hat{\nu}_k=\frac{1}{n}\sum_{i=1}^n X_i^k
+\hat{\nu}_k=\frac{1}{n}\sum_{i=1}^n X_i^k
 \]
 作为$\nu_k(\theta)$的点估计量。由大数定律可知
 $\hat{\nu}_k\xrightarrow{P}\nu_k(\theta)$，
@@ -82,8 +82,8 @@ $\hat{\nu}_k\xrightarrow{P}\nu_k(\theta)$，
 :::
 
 对于 @example:point_estimator_normal、
-\ref{example:point_estimator_normal_unknown_var}
-与\ref{example:moments_point_estimation} 所考虑的情形，
+@example:point_estimator_normal_unknown_var
+与 @example:moments_point_estimation 所考虑的情形，
 由于待估计的参数都具有很明确的期望的意义，我们可以自然想到
 用样本均值、样本方差以及样本矩来构造相应的点估计量。然而对于
 更加一般的点估计问题，其点估计量的设计则往往不会这样简单；

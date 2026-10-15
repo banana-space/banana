@@ -1,14 +1,15 @@
 ---
 title: 随机变量的独立性
 ---
+
 ::: definition {@definition:independence_random_vars}
 设$X_1,\ldots,X_n$为$n$个随机变量。
 我们称$X_1,\ldots,X_n$**相互独立**
 （mutually independent），若对任意区间
 $I_1,\ldots,I_n\subseteq\mathbb{R}$，都有
 \[
-    \mathbb{P}(X_1\in I_1,\ldots,X_n\in I_n)
-    =\prod_{i=1}^n \mathbb{P}(X_i\in I_i).
+\mathbb{P}(X_1\in I_1,\ldots,X_n\in I_n)
+=\prod_{i=1}^n \mathbb{P}(X_i\in I_i).
 \]
 :::
 
@@ -17,12 +18,12 @@ $I_1,\ldots,I_n\subseteq\mathbb{R}$，都有
 $\mathcal{I}$以及区间$I_1,\ldots,I_n\subseteq\mathbb{R}$，
 只要
 \[
-    \mathbb{P}\!\left(X_k\in I_k,\,\forall k\notin\mathcal{I}\right)>0,
+\mathbb{P}\!\left(X_k\in I_k,\,\forall k\notin\mathcal{I}\right)>0,
 \]
 就有
 \[
-    \mathbb{P}\!\left(X_i\in I_i,\,\forall i\in\mathcal{I} \mkern2mu|\mkern2mu X_k\in I_k,\,\forall k\notin\mathcal{I}\right)
-    =\mathbb{P}\!\left(X_i\in I_i,\,\forall i\in\mathcal{I}\right).
+\mathbb{P}\!\left(X_i\in I_i,\,\forall i\in\mathcal{I} \mkern2mu|\mkern2mu X_k\in I_k,\,\forall k\notin\mathcal{I}\right)
+=\mathbb{P}\!\left(X_i\in I_i,\,\forall i\in\mathcal{I}\right).
 \]
 直观上看，上述条件就是说，从$X_1,\ldots,X_n$当中任意挑出一组随机变量，
 则这组随机变量（作为随机向量）取值的统计规律不会受到其它随机变量取值的影响，
@@ -63,26 +64,26 @@ $\mathcal{I}$以及区间$I_1,\ldots,I_n\subseteq\mathbb{R}$，
   则对任意$(x,y)\in\mathbb{R}^2$，
   令$I=[x,x]=\{x\},J=[y,y]=\{y\}$，由独立性定义即得到
   \[
-      \begin{aligned}
-      p_{X,Y}(x,y)
-      & =\mathbb{P}(X\in I,Y\in J) \\
-      & =\mathbb{P}(X\in I)\cdot\mathbb{P}(Y\in J) = p_{X}(x)\cdot p_{Y}(y).
-      \end{aligned}
+  \begin{aligned}
+  p_{X,Y}(x,y)
+  & =\mathbb{P}(X\in I,Y\in J) \\
+  & =\mathbb{P}(X\in I)\cdot\mathbb{P}(Y\in J) = p_{X}(x)\cdot p_{Y}(y).
+  \end{aligned}
   \]
-  故式 @eq:independence_discrete_pmf_1  成立。
+  故式 @eq:independence_discrete_pmf_1 成立。
 
 - 命题2 $\Rightarrow$ 命题1：
   设式 @eq:independence_discrete_pmf_1 成立。
   任取区间$I,J\subseteq\mathbb{R}$，则
   \[
-      \begin{aligned}
-      \mathbb{P}(X\in I,Y\in J)
-      &= \sum_{(x,y)\in I\times J} p_{X,Y}(x,y) \\
-      &= \sum_{(x,y)\in I\times J} p_X(x)\cdot p_Y(y) \\
-      &= \sum_{x\in I}\sum_{y\in J} p_X(x)\cdot p_Y(y) \\
-      &=\sum_{x\in I} p_X(x)\sum_{y\in J}p_Y(y) \\
-      &= \mathbb{P}(X\in I)\cdot\mathbb{P}(Y\in J).
-      \end{aligned}
+  \begin{aligned}
+  \mathbb{P}(X\in I,Y\in J)
+  &= \sum_{(x,y)\in I\times J} p_{X,Y}(x,y) \\
+  &= \sum_{(x,y)\in I\times J} p_X(x)\cdot p_Y(y) \\
+  &= \sum_{x\in I}\sum_{y\in J} p_X(x)\cdot p_Y(y) \\
+  &=\sum_{x\in I} p_X(x)\sum_{y\in J}p_Y(y) \\
+  &= \mathbb{P}(X\in I)\cdot\mathbb{P}(Y\in J).
+  \end{aligned}
   \]
   由区间$I,J$的任意性，可得$X,Y$相互独立。
 
@@ -92,49 +93,49 @@ $\mathcal{I}$以及区间$I_1,\ldots,I_n\subseteq\mathbb{R}$，
   设式 @eq:independence_discrete_pmf_2 成立。
   两边对$y$求和，并由边缘分布列与联合分布列的关系，可得
   \[
-      p_{X}(x) = g(x)\sum_{y}h(y),
+  p_{X}(x) = g(x)\sum_{y}h(y),
   \]
   两边再对$x$求和并利用$\sum_{x}p_{X}(x)=1$可得
   \[
-      1=\sum_{x}g(x)\sum_{y}h(y).
+  1=\sum_{x}g(x)\sum_{y}h(y).
   \]
   类似地有
   \[
-      p_{Y}(y) = h(y)\sum_{x}g(x),
+  p_{Y}(y) = h(y)\sum_{x}g(x),
   \]
   故对任意$(x,y)\in\mathbb{R}^2$，有
   \[
-      \begin{aligned}
-      p_{X}(x)\cdot p_{Y}(y)
-      & =g(x)\, h(y)
-      \sum_{x}g(x)\sum_{y}h(y) \\
-      & =g(x)\, h(y)
-      =p_{X,Y}(x,y).
-      \end{aligned}
+  \begin{aligned}
+  p_{X}(x)\cdot p_{Y}(y)
+  & =g(x)\, h(y)
+  \sum_{x}g(x)\sum_{y}h(y) \\
+  & =g(x)\, h(y)
+  =p_{X,Y}(x,y).
+  \end{aligned}
   \]
-  因此式 @eq:independence_discrete_pmf_1  成立。
+  因此式 @eq:independence_discrete_pmf_1 成立。
 
 :::
 
 ::: example [独立离散型随机变量的和] {@example:sum_independent_rv_discrete}
 设$X,Y$为相互独立的离散型随机变量，我们考察$Z=X+Y$的分布。
-由 @example:function_of_discrete_rv_vec  的结果可知，
+由 @example:function_of_discrete_rv_vec 的结果可知，
 $Z$是离散型随机变量，其分布列为
 \[
-    \begin{aligned}
-    p_Z(z) = \sum_{(x,y)\,:\, x+y=z} p_{X,Y}(x,y)
-    = \sum_{x} p_{X,Y}(x,z-x)
-    \end{aligned}
+\begin{aligned}
+p_Z(z) = \sum_{(x,y)\,:\, x+y=z} p_{X,Y}(x,y)
+= \sum_{x} p_{X,Y}(x,z-x)
+\end{aligned}
 \]
 （该式对于$X,Y$不独立的情形也是成立的）。接下来，
 利用$X,Y$的独立性与 @theorem:independence_discrete_pmf
 即可得到
 \[
-    p_Z(z) = \sum_x p_X(x)\,p_Y(z-x).
+p_Z(z) = \sum_x p_X(x)\,p_Y(z-x).
 \]
 同理有
 \[
-    p_Z(z) = \sum_y p_X(z-y)\,p_Y(y).
+p_Z(z) = \sum_y p_X(z-y)\,p_Y(y).
 \]
 以上两个计算$p_Z(z)$的公式又被称为**卷积公式**（convolution formula）。
 :::
@@ -154,39 +155,39 @@ $g:\mathbb{R}^m\rightarrow\mathbb{R}$为任意函数。
 
 令$U=f(X_1,X_2)$，$V=g(Y_1)$，则$(U,V)$的联合分布列为
 \[
-    \begin{aligned}
-    p_{U,V}(u,v) ={} &
-    \mathbb{P}(U=u,V=v) \\
-    ={} &
-    \sum_{\substack{(x_1,x_2,y_1)\,: \\
-    f(x_1,x_2)=u,\,
-    g(y_1)=v}} \mathbb{P}(X_1=x_1,X_2=x_2,Y_1=y_1) \\
-    ={} &
-    \sum_{\substack{(x_1,x_2)\,: \\
-    f(x_1,x_2)=u}}
-    \sum_{y_1\,:\,
-    g(y_1)=v}
-    \mathbb{P}(X_1=x_1)\cdot\mathbb{P}(X_2=x_2)\cdot\mathbb{P}(Y_1=y_1) \\
-    ={} &
-    \sum_{\substack{(x_1,x_2)\,: \\
-    f(x_1,x_2)=u}} \mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2)
-    \cdot
-    \sum_{y_1\,:\,
-    g(y_1)=v} \mathbb{P}(Y_1=y_1).
-    \end{aligned}
+\begin{aligned}
+p_{U,V}(u,v) ={} &
+\mathbb{P}(U=u,V=v) \\
+={} &
+\sum_{\substack{(x_1,x_2,y_1)\,: \\
+f(x_1,x_2)=u,\,
+g(y_1)=v}} \mathbb{P}(X_1=x_1,X_2=x_2,Y_1=y_1) \\
+={} &
+\sum_{\substack{(x_1,x_2)\,: \\
+f(x_1,x_2)=u}}
+\sum_{y_1\,:\,
+g(y_1)=v}
+\mathbb{P}(X_1=x_1)\cdot\mathbb{P}(X_2=x_2)\cdot\mathbb{P}(Y_1=y_1) \\
+={} &
+\sum_{\substack{(x_1,x_2)\,: \\
+f(x_1,x_2)=u}} \mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2)
+\cdot
+\sum_{y_1\,:\,
+g(y_1)=v} \mathbb{P}(Y_1=y_1).
+\end{aligned}
 \]
 令
 \[
-    \begin{aligned}
-    h_1(u) = \sum_{\substack{(x_1,x_2)\,: \\
-    f(x_1,x_2)=u}} \mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2),
-    \qquad
-    h_2(v) = \sum_{y_1\,:\,
-    g(y_1)=v} \mathbb{P}(Y_1=y_1),
-    \end{aligned}
+\begin{aligned}
+h_1(u) = \sum_{\substack{(x_1,x_2)\,: \\
+f(x_1,x_2)=u}} \mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2),
+\qquad
+h_2(v) = \sum_{y_1\,:\,
+g(y_1)=v} \mathbb{P}(Y_1=y_1),
+\end{aligned}
 \]
 则有$p_{U,V}(u,v)=h_1(u)\cdot h_2(v)$，
-故由 @theorem:independence_discrete_pmf  得$U,V$相互独立。
+故由 @theorem:independence_discrete_pmf 得$U,V$相互独立。
 :::
 
 实际上，@theorem:functions_of_independent_rv_discrete
@@ -197,8 +198,8 @@ $g:\mathbb{R}^m\rightarrow\mathbb{R}$为任意函数。
 而这意味着$f(X_1,\ldots,X_n)$取值的统计规律不会受到$g(Y_1,\ldots,Y_m)$取值的影响，
 从而
 \[
-    \mathbb{P}\!\left(f(X_1,\ldots,X_n)\in I_1 \mkern2mu|\mkern2mu g(Y_1,\ldots,Y_m)\in I_2\right)
-    =\mathbb{P}(f(X_1,\ldots,X_n)\in I_1)
+\mathbb{P}\!\left(f(X_1,\ldots,X_n)\in I_1 \mkern2mu|\mkern2mu g(Y_1,\ldots,Y_m)\in I_2\right)
+=\mathbb{P}(f(X_1,\ldots,X_n)\in I_1)
 \]
 对任意$\mathbb{R}$中的区间$I_1,I_2$均成立（只要条件概率存在）。
 接下来由条件概率与独立性的定义即可看出

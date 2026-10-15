@@ -1,8 +1,9 @@
 ---
 title: 总体、样本与统计量
 ---
+
 在数理统计学的不同发展阶段，人们对“**总体**”
-(population) 这个概念有着不同的认识。起初，我们把“总体”简单理解为
+（population）这个概念有着不同的认识。起初，我们把“总体”简单理解为
 被研究对象的全体，这是因为数理统计学在发展早期主要关注于如何对
 有限多个体构成的群体收集数据并刻画该群体的某些定量特征，
 例如我们希望知道全国人口的年龄分布情况，或是调查一所学校
@@ -21,7 +22,7 @@ $F(x)$来指代一个总体；又如，当总体的分布函数$F(x)$存在相�
 在数理统计问题中，总体的具体信息通常是未知的，而我们的任务
 则是通过合适的试验或观察，获取关于总体的具有代表性的数据，
 并从这些数据对总体的未知信息以及关键性质进行推断。这些具有代表性的
-数据被称为总体的**样本** (sample)，而获取这些样本的过程
+数据被称为总体的**样本**（sample），而获取这些样本的过程
 被称为**抽样**。本讲义中，我们只考虑最简单的一类样本，
 被称为简单随机样本。
 
@@ -44,7 +45,7 @@ $F(x)$来指代一个总体；又如，当总体的分布函数$F(x)$存在相�
 设$X_1,\ldots,X_n$为一组容量为$n$的样本，
 $g:\mathbb{R}^n\rightarrow\mathbb{R}$为$n$元函数，
 则称随机变量$g(X_1,\ldots,X_n)$为一个**统计量**
-(statistic)。
+（statistic）。
 :::
 
 一般来说，我们要求统计量$g(X_1,\ldots,X_n)$的值在总体未知的情况下
@@ -54,34 +55,35 @@ $g:\mathbb{R}^n\rightarrow\mathbb{R}$为$n$元函数，
 ::: example
 设$X_1,\ldots,X_n$为某个总体的一组样本。我们将统计量
 \[
-    \overline{X} = \frac{1}{n}\sum_{i=1}^n X_i
+\overline{X} = \frac{1}{n}\sum_{i=1}^n X_i
 \]
 称为该样本的**样本均值**（sample mean）；将统计量
 \[
-    S^2 = \frac{1}{n-1}\sum_{i=1}^n \left(X_i-\overline{X}\right)^2
+S^2 = \frac{1}{n-1}\sum_{i=1}^n \left(X_i-\overline{X}\right)^2
 \]
 称为该样本的**样本方差**（sample variance）。
 注意到在样本方差的定义中，我们用$n-1$而不是$n$作为系数的分母，
-这样定义的原因将在[第7章](/books/概率与数理统计/点估计/)中
+这样定义的原因将在[第 7 章](/books/概率与数理统计/点估计/)中
 进行解释。有时我们也会用$\overline{X}_n$与$S^2_n$分别表示
 样本均值与样本方差，以强调它们与样本容量$n$的依赖关系。
 
 下面我们考虑样本均值的分布。当总体为正态分布
 $\mathcal{N}(\mu,\sigma^2)$时，利用
-@example:linear_combination_independent_normal  的结论
+@example:linear_combination_independent_normal 的结论
 可得，样本均值$\overline{X}$服从正态分布
 $\mathcal{N}(\mu,\sigma^2/n)$。而若仅假设总体存在方差，
 但样本容量$n$足够大，则此时由中心极限定理可得$\overline{X}$
 近似服从正态分布$\mathcal{N}(\mu,\sigma^2/n)$。
 
-样本方差的概率分布则更复杂一些。在第6.2节中，
+样本方差的概率分布则更复杂一些。
+在[第 6.2 节](/books/概率与数理统计/数理统计的基本概念/重要抽样分布/)中，
 我们将分析总体为正态分布时样本方差的概率分布。
 :::
 
 ::: example
 设$X_1,\ldots,X_n$为总体$F(x)$的一组样本。对任意$x\in\mathbb{R}$，定义
 \[
-    \widehat{F}_n(x) = \frac{1}{n}\sum_{i=1}^n \mathsf{1}_{\{X_i\leq x\}},
+\widehat{F}_n(x) = \frac{1}{n}\sum_{i=1}^n \mathsf{1}_{\{X_i\leq x\}},
 \]
 也就是说，我们先统计$X_1,\ldots,X_n$中有多少个是小于等于$x$的，
 再将其除以样本容量$n$即得到$\widehat{F}_n(x)$。显然对于给定的
@@ -90,14 +92,19 @@ $x\in\mathbb{R}$，$\widehat{F}_n(x)$为一统计量。
 称为**经验分布函数**（empirical distribution function），
 取这个名称是因为
 \[
-    \mathbb{E}\!\left[\widehat{F}_n(x)\right]
-    =\frac{1}{n}\sum_{i=1}^n
-    \mathbb{E}\!\left[\mathsf{1}_{\{X_i\leq x\}}\right] = F(x),
+\mathbb{E}\!\left[\widehat{F}_n(x)\right]
+=\frac{1}{n}\sum_{i=1}^n
+\mathbb{E}\!\left[\mathsf{1}_{\{X_i\leq x\}}\right] = F(x),
 \]
 且由强大数定律可得[^1]，给定任意$x\in\mathbb{R}$，均有
 \[
-    \widehat{F}_n(x)\xrightarrow{a.s.} F(x).
+\widehat{F}_n(x)\xrightarrow{a.s.} F(x).
 \]
 :::
 
-[^1]: （${}^\star$）实际上有如下更强的结论成立： \[ \sup_{x\in\mathbb{R}}\left|\widehat{F}_n(x)-F(x)\right| \xrightarrow{a.s.} 0. \] 换句话说，经验分布函数$\widehat{F}_n$几乎必然地一致收敛于分布函数$F$。 该结论被称为Glivenko–Cantelli定理。
+[^1]: （${}^\star$）实际上有如下更强的结论成立：
+    \[
+    \sup_{x\in\mathbb{R}}\left|\widehat{F}_n(x)-F(x)\right| \xrightarrow{a.s.} 0.
+    \]
+    换句话说，经验分布函数$\widehat{F}_n$几乎必然地一致收敛于分布函数$F$。
+    该结论被称为Glivenko–Cantelli定理。

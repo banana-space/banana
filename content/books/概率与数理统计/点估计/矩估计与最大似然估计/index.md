@@ -1,6 +1,7 @@
 ---
 title: 矩估计与最大似然估计
 ---
+
 本节中我们介绍两种常用的点估计方法：矩估计法与最大似然估计法。
 
 ## 矩估计*
@@ -11,8 +12,8 @@ $\theta_1,\ldots,\theta_k$表示总体的$k$个未知的标量参数，
 进一步假设对任意$(\theta_1,\ldots,\theta_k)\in\Theta$，
 相应的概率分布$F(x;\theta_1,\ldots,\theta_k)$的$k$阶矩存在，并记
 \[
-    \mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^j\right]
-    =\mu_j(\theta_1,\ldots,\theta_k),\qquad\forall j=1,\ldots,k.
+\mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^j\right]
+=\mu_j(\theta_1,\ldots,\theta_k),\qquad\forall j=1,\ldots,k.
 \]
 换句话说，函数$\mu_j:\Theta\rightarrow\mathbb{R}$将任一组
 可能的参数$(\theta_1,\ldots,\theta_k)$映射为相应分布的$j$阶矩。
@@ -31,7 +32,7 @@ m_k ={} & \mu_k(\theta_1,\ldots,\theta_k).
 
 那么当映射
 \[
-    (\theta_1,\ldots,\theta_k)\mapsto (\mu_1(\theta_1,\ldots,\theta_k),\ldots,\mu_k(\theta_1,\ldots,\theta_k))
+(\theta_1,\ldots,\theta_k)\mapsto (\mu_1(\theta_1,\ldots,\theta_k),\ldots,\mu_k(\theta_1,\ldots,\theta_k))
 \]
 是一个从$\Theta$到$\mathbb{R}^k$的单射时，通过求解方程组
 @eq:moment_method_pre，我们即可求出未知参数
@@ -42,14 +43,14 @@ $\theta_1,\ldots,\theta_k$的值。
 容量足够大的样本$X_1,\ldots,X_n$，那么$X$的$j$阶矩就可以用样本
 做出近似估计：
 \[
-    \begin{aligned}
-    m_1 \approx{} &  \frac{1}{n}\sum_{i=1}^n X_i, \\
-    m_2 \approx{} &  \frac{1}{n}\sum_{i=1}^n X_i^2, \\
-    & \vdots \\
-    m_k \approx{} & \frac{1}{n}\sum_{i=1}^n X_i^k.
-    \end{aligned}
+\begin{aligned}
+m_1 \approx{} &  \frac{1}{n}\sum_{i=1}^n X_i, \\
+m_2 \approx{} &  \frac{1}{n}\sum_{i=1}^n X_i^2, \\
+& \vdots \\
+m_k \approx{} & \frac{1}{n}\sum_{i=1}^n X_i^k.
+\end{aligned}
 \]
-矩估计方法，就是指将 @eq:moment_method_pre  当中
+矩估计方法，就是指将 @eq:moment_method_pre 当中
 前$k$阶矩的精确值替换为基于样本的估计值，再求解相应的方程组：
 
 ```math {@eq:moment_method}
@@ -68,29 +69,29 @@ $\theta_1,\ldots,\theta_k$的值。
 设总体$X$服从区间$[\theta_1,\theta_1+\theta_2]$上的均匀分布，
 其中$\theta_1\in\mathbb{R}$以及$\theta_2>0$为未知参数。则有
 \[
-    \begin{aligned}
-    \mu_1(\theta_1,\theta_2)={} & \mathbb{E}_{\theta_1,\theta_2}[X] = \theta_1+\frac{\theta_2}{2}, \\
-    \mu_2(\theta_1,\theta_2)={} & \mathbb{E}_{\theta_1,\theta_2}[X^2] = \bigg(\theta_1+\frac{\theta_2}{2}\bigg)^{\!2}+\frac{\theta_2^2}{12}.
-    \end{aligned}
+\begin{aligned}
+\mu_1(\theta_1,\theta_2)={} & \mathbb{E}_{\theta_1,\theta_2}[X] = \theta_1+\frac{\theta_2}{2}, \\
+\mu_2(\theta_1,\theta_2)={} & \mathbb{E}_{\theta_1,\theta_2}[X^2] = \bigg(\theta_1+\frac{\theta_2}{2}\bigg)^{\!2}+\frac{\theta_2^2}{12}.
+\end{aligned}
 \]
 那么当$X_1,\ldots,X_n$为总体$X$的一组样本时，根据矩估计方法的步骤，
 可得$\theta_1$与$\theta_2$的矩估计量$\hat\theta_1,\hat\theta_2$
 为如下方程的解：
 \[
-    \begin{aligned}
-    \frac{1}{n}\sum_{i=1}^n X_i ={} & \mu_1(\hat\theta_1,\hat\theta_2)
-    =\hat\theta_1+\frac{\hat\theta_2}{2}, \\
-    \frac{1}{n}\sum_{i=1}^n X_i^2 ={} &
-    \mu_2(\hat\theta_1,\hat\theta_2)
-    =\bigg(\hat\theta_1+\frac{\hat\theta_2}{2}\bigg)^{\!2}+\frac{\hat\theta_2^2}{12}.
-    \end{aligned}
+\begin{aligned}
+\frac{1}{n}\sum_{i=1}^n X_i ={} & \mu_1(\hat\theta_1,\hat\theta_2)
+=\hat\theta_1+\frac{\hat\theta_2}{2}, \\
+\frac{1}{n}\sum_{i=1}^n X_i^2 ={} &
+\mu_2(\hat\theta_1,\hat\theta_2)
+=\bigg(\hat\theta_1+\frac{\hat\theta_2}{2}\bigg)^{\!2}+\frac{\hat\theta_2^2}{12}.
+\end{aligned}
 \]
 由此可解得
 \[
-    \begin{aligned}
-    \hat\theta_2 ={} & 2\sqrt{3}\left[\frac{1}{n}\sum_{i=1}^n X_i^2-\bigg(\frac{1}{n}\sum_{i=1}^n X_i\bigg)^{\!2}\,\right]^{1/2}, \\
-    \hat\theta_1 ={} & \frac{1}{n}\sum_{i=1}^n X_i - \frac{\hat\theta_2}{2}.
-    \end{aligned}
+\begin{aligned}
+\hat\theta_2 ={} & 2\sqrt{3}\left[\frac{1}{n}\sum_{i=1}^n X_i^2-\bigg(\frac{1}{n}\sum_{i=1}^n X_i\bigg)^{\!2}\,\right]^{1/2}, \\
+\hat\theta_1 ={} & \frac{1}{n}\sum_{i=1}^n X_i - \frac{\hat\theta_2}{2}.
+\end{aligned}
 \]
 :::
 
@@ -113,26 +114,25 @@ $(\theta_1,\ldots,\theta_k)$的所有可能取值构成集合$\Theta$。
 定义简单随机样本的**似然函数**（likelihood function）
 $L\!\left(\mkern2mu\cdot\mkern3mu;\boldsymbol{x}\right):\Theta\rightarrow\left[0,+\infty\right[$为
 \[
-    L(\theta_1,\ldots,\theta_k;\boldsymbol{x})
-    =\prod_{i=1}^n f(x_i;\theta_1,\ldots,\theta_k).
+L(\theta_1,\ldots,\theta_k;\boldsymbol{x})
+=\prod_{i=1}^n f(x_i;\theta_1,\ldots,\theta_k).
 \]
 :::
 
 许多情况下，我们还会用到**对数似然函数**
 （log likelihood function）
 \[
-    \ln L(\theta_1,\ldots,\theta_k;\boldsymbol{x})
-    =\sum_{i=1}^n \ln f(x_i;\theta_1,\ldots,\theta_k).
+\ln L(\theta_1,\ldots,\theta_k;\boldsymbol{x})
+=\sum_{i=1}^n \ln f(x_i;\theta_1,\ldots,\theta_k).
 \]
 
 最大似然估计法的基本步骤如下：给定样本容量$n$，对每个
 $\boldsymbol{x}=(x_1,\ldots,x_n)$，求解使得似然函数
-$L(\theta_1,\ldots,\theta_k;\boldsymbol{x})$取最大值的点
-[^2]：
+$L(\theta_1,\ldots,\theta_k;\boldsymbol{x})$取最大值的点[^2]：
 \[
-    (\hat\theta_1(\boldsymbol{x}),
-    \ldots,\hat\theta_k(\boldsymbol{x})) = \argmax_{(\theta_1,\ldots,\theta_k)\in\Theta}
-    L(\theta_1,\ldots,\theta_k;\boldsymbol{x})
+(\hat\theta_1(\boldsymbol{x}),
+\ldots,\hat\theta_k(\boldsymbol{x})) = \argmax_{(\theta_1,\ldots,\theta_k)\in\Theta}
+L(\theta_1,\ldots,\theta_k;\boldsymbol{x})
 \]
 接下来我们将样本$X_1,\ldots,X_n$代入上式给出的函数
 $\hat\theta_1,\ldots,\hat\theta_k$当中，即可对每一个参数
@@ -150,55 +150,55 @@ $\ln L(\theta_1,\ldots,\theta_k;\boldsymbol{x})$进行最大化，
 ```
 
 来得到对数似然函数的驻点，而后从这些驻点中进一步找出最大值点。
-方程 @eq:log-likelihood_equation  经常
+方程 @eq:log-likelihood_equation 经常
 被称为**对数似然方程**（log-likelihood equation）。
 
 ::: example
 设总体$X$服从一元正态分布，其期望$\mu\in\mathbb{R}$与方差
 $\sigma^2>0$均未知。则相应的似然函数为
 \[
-    \begin{aligned}
-    L(\mu,\sigma^2;\boldsymbol{x})
-    ={} &
-    \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma}
-    \exp\!\left(-\frac{(x_i-\mu)^2}{2\sigma^2}\right) \\
-    ={} & \frac{1}{(2\pi\sigma^2)^{n/2}}
-    \exp\!\left(-\frac{1}{2\sigma^2}\sum_{i=1}^n (x_i-\mu)^2\right),
-    \end{aligned}
+\begin{aligned}
+L(\mu,\sigma^2;\boldsymbol{x})
+={} &
+\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma}
+\exp\!\left(-\frac{(x_i-\mu)^2}{2\sigma^2}\right) \\
+={} & \frac{1}{(2\pi\sigma^2)^{n/2}}
+\exp\!\left(-\frac{1}{2\sigma^2}\sum_{i=1}^n (x_i-\mu)^2\right),
+\end{aligned}
 \]
 对数似然函数为
 \[
-    \ln L(\mu,\sigma^2;\boldsymbol{x})
-    =-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2
-    -\frac{n}{2}\ln\sigma^2 - \frac{n}{2}\ln(2\pi).
+\ln L(\mu,\sigma^2;\boldsymbol{x})
+=-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2
+-\frac{n}{2}\ln\sigma^2 - \frac{n}{2}\ln(2\pi).
 \]
 为了求解对数似然函数的最大值点，我们计算对数似然函数分别
 对$\mu$与$\sigma^2$的偏导数并令它们等于零，可得到如下方程组：
 \[
-    \begin{aligned}
-    0 &=\frac{\partial \ln L(\mu,\sigma^2;\boldsymbol{x})}{\partial\mu} =
-    \frac{1}{\sigma^2}\left(\sum_{i=1}^n x_i-n\mu\right), \\
-    0 &= \frac{\partial \ln L(\mu,\sigma^2;\boldsymbol{x})}{\partial(\sigma^2)}
-    =\frac{1}{2\sigma^4}
-    \sum_{i=1}^n (x_i-\mu)^2 - \frac{n}{2\sigma^2}.
-    \end{aligned}
+\begin{aligned}
+0 &=\frac{\partial \ln L(\mu,\sigma^2;\boldsymbol{x})}{\partial\mu} =
+\frac{1}{\sigma^2}\left(\sum_{i=1}^n x_i-n\mu\right), \\
+0 &= \frac{\partial \ln L(\mu,\sigma^2;\boldsymbol{x})}{\partial(\sigma^2)}
+=\frac{1}{2\sigma^4}
+\sum_{i=1}^n (x_i-\mu)^2 - \frac{n}{2\sigma^2}.
+\end{aligned}
 \]
 解上述方程组，可得
 \[
-    \begin{aligned}
-    \hat\mu(\boldsymbol{x}) & = \frac{1}{n}\sum_{i=1}^n x_i, \\
-    \widehat{\sigma^2}(\boldsymbol{x}) &= \frac{1}{n}\sum_{i=1}^n \big(x_i-\hat\mu(\boldsymbol{x})\big)^2.
-    \end{aligned}
+\begin{aligned}
+\hat\mu(\boldsymbol{x}) & = \frac{1}{n}\sum_{i=1}^n x_i, \\
+\widehat{\sigma^2}(\boldsymbol{x}) &= \frac{1}{n}\sum_{i=1}^n \big(x_i-\hat\mu(\boldsymbol{x})\big)^2.
+\end{aligned}
 \]
 可以证明，上式给出的$\hat\mu(\boldsymbol{x})$与
 $\widehat{\sigma^2}(\boldsymbol{x})$的确使得对数似然函数
 取到最大值。故期望$\mu$与方差$\sigma^2$的最大似然估计量为
 \[
-    \begin{aligned}
-    \hat\mu(X_1,\ldots,X_n) & = \frac{1}{n}\sum_{i=1}^n X_i = \overline{X}, \\
-    \widehat{\sigma^2}(X_1,\ldots,X_n) &= \frac{1}{n}\sum_{i=1}^n (X_i-\overline{X})^2
-    =\frac{n-1}{n}S^2.
-    \end{aligned}
+\begin{aligned}
+\hat\mu(X_1,\ldots,X_n) & = \frac{1}{n}\sum_{i=1}^n X_i = \overline{X}, \\
+\widehat{\sigma^2}(X_1,\ldots,X_n) &= \frac{1}{n}\sum_{i=1}^n (X_i-\overline{X})^2
+=\frac{n-1}{n}S^2.
+\end{aligned}
 \]
 可以看到，期望的最大似然估计量就是样本均值，但方差的最大似然估计量
 与样本方差相差一个因子$(n-1)/n$。
@@ -211,12 +211,12 @@ $\widehat{\sigma^2}(\boldsymbol{x})$的确使得对数似然函数
 
 由题设不难得到似然函数为
 \[
-    L(\theta;x_1,\ldots,x_n)
-    =\prod_{i=1}^n\left(\frac{1}{\theta}\cdot \mathsf{1}_{x_i\leq\theta}(\theta)\right)
-    =\begin{cases}
-    \theta^{-n}, & \text{若\ } \theta\geq \max\{x_1,\ldots,x_n\}, \\
-    0, & \text{其它情况},
-    \end{cases}
+L(\theta;x_1,\ldots,x_n)
+=\prod_{i=1}^n\left(\frac{1}{\theta}\cdot \mathsf{1}_{x_i\leq\theta}(\theta)\right)
+=\begin{cases}
+\theta^{-n}, & \text{若\ } \theta\geq \max\{x_1,\ldots,x_n\}, \\
+0, & \text{其它情况},
+\end{cases}
 \]
 其中$\mathsf{1}_{x_i\leq\theta}(\theta)$在
 $x_i\leq \theta$时为$1$而在其它情况下为$0$。由于
@@ -224,7 +224,7 @@ $\theta\mapsto\theta^{-n}$严格单调递减，故当
 $\theta=\max\{x_1,\ldots,x_n\}$时似然函数取到最大值，
 因而$\theta$的最大似然估计量为
 \[
-    \hat\theta = \max\{X_1,\ldots,X_n\}.
+\hat\theta = \max\{X_1,\ldots,X_n\}.
 \]
 :::
 
@@ -271,20 +271,20 @@ $\theta=\max\{x_1,\ldots,x_n\}$时似然函数取到最大值，
 $(c_1,\ldots,c_k)$为$\mathcal{M}$内的一个点，
 $g:\mathcal{M}\rightarrow\mathbb{R}$为一连续函数。若
 \[
-    \begin{aligned}
-    & X_{1,1},X_{1,2},\ldots,X_{1,n},\ldots \\
-    & X_{2,1},X_{2,2},\ldots,X_{2,n},\ldots \\
-    & \phantom{X_{2,1},X_{2,2},}\ \ \vdots \\
-    & X_{k,1},X_{k,2},\ldots,X_{k,n},\ldots
-    \end{aligned}
+\begin{aligned}
+& X_{1,1},X_{1,2},\ldots,X_{1,n},\ldots \\
+& X_{2,1},X_{2,2},\ldots,X_{2,n},\ldots \\
+& \phantom{X_{2,1},X_{2,2},}\ \ \vdots \\
+& X_{k,1},X_{k,2},\ldots,X_{k,n},\ldots
+\end{aligned}
 \]
 为$k$列随机变量，且固定任意$j=1,\ldots,k$，有
 \[
-    X_{j,n}\xrightarrow{P} c_j,\qquad n\rightarrow\infty,
+X_{j,n}\xrightarrow{P} c_j,\qquad n\rightarrow\infty,
 \]
 则
 \[
-    g(X_{1,n},\ldots,X_{k,n})\xrightarrow{P} g(c_1,\ldots,c_k),\qquad n\rightarrow\infty.
+g(X_{1,n},\ldots,X_{k,n})\xrightarrow{P} g(c_1,\ldots,c_k),\qquad n\rightarrow\infty.
 \]
 :::
 
@@ -293,9 +293,9 @@ $g:\mathcal{M}\rightarrow\mathbb{R}$为一连续函数。若
 连续函数，故存在$\delta>0$使得对任意的
 $(x_1,\ldots,x_k)\in\mathbb{R}^k$，有
 \[
-    \max_{1\leq j\leq k}|x_j-c_j|\leq\delta
-    \quad\Longrightarrow\quad
-    |g(x_1,\ldots,x_k)-g(c_1,\ldots,c_k)|\leq\epsilon,
+\max_{1\leq j\leq k}|x_j-c_j|\leq\delta
+\quad\Longrightarrow\quad
+|g(x_1,\ldots,x_k)-g(c_1,\ldots,c_k)|\leq\epsilon,
 \]
 从而对任意$n\in\mathbb{N}_+$，有
 
@@ -312,64 +312,64 @@ $(x_1,\ldots,x_k)\in\mathbb{R}^k$，有
 
 另一方面，由弱大数定律可得，对任意$j=1,\ldots,k$，均有
 \[
-    \lim_{n\rightarrow\infty}
-    \mathbb{P}\!\left(
-    \left|X_{j,n}-c_j\right|>\delta
-    \right) = 0,\qquad\forall j=1,\ldots,k.
+\lim_{n\rightarrow\infty}
+\mathbb{P}\!\left(
+\left|X_{j,n}-c_j\right|>\delta
+\right) = 0,\qquad\forall j=1,\ldots,k.
 \]
 故存在正整数$N$，使得$n>N$时均有
 \[
-    \mathbb{P}\!\left(
-    \left|X_{j,n}-c_j\right|>\delta
-    \right)
-    \leq\frac{\epsilon'}{k},\qquad\forall j=1,\ldots,k.
+\mathbb{P}\!\left(
+\left|X_{j,n}-c_j\right|>\delta
+\right)
+\leq\frac{\epsilon'}{k},\qquad\forall j=1,\ldots,k.
 \]
 因而$n>N$时有
 \[
-    \begin{aligned}
-    \mathbb{P}\!\left(
-    \max_{1\leq j\leq k}
-    \left|X_{j,n}-c_j\right|
-    >\delta
-    \right)
-    ={} &
-    \mathbb{P}\!\left(
-    \bigcup_{j=1}^k
-    \left\{\left|X_{j,n}-c_j\right|
-    >\delta\right\}
-    \right) \\
-    \leq{} &
-    \sum_{j=1}^k \mathbb{P}\!\left(
-    \left|X_{j,n}-c_j\right|
-    >\delta
-    \right)
-    \leq k\cdot\frac{\epsilon'}{k}
-    =\epsilon'.
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}\!\left(
+\max_{1\leq j\leq k}
+\left|X_{j,n}-c_j\right|
+>\delta
+\right)
+={} &
+\mathbb{P}\!\left(
+\bigcup_{j=1}^k
+\left\{\left|X_{j,n}-c_j\right|
+>\delta\right\}
+\right) \\
+\leq{} &
+\sum_{j=1}^k \mathbb{P}\!\left(
+\left|X_{j,n}-c_j\right|
+>\delta
+\right)
+\leq k\cdot\frac{\epsilon'}{k}
+=\epsilon'.
+\end{aligned}
 \]
 将以上结果代入式 @eq:continuity_converge_in_P_temp1，
 可得$n>N$时有
 \[
-    \begin{aligned}
-    \mathbb{P}\!\left(
-    \left|g(X_{1,n},\ldots,X_{k,n})-g(c_1,\ldots,c_k)\right|\leq\epsilon
-    \right)
-    \geq{} &
-    1-\mathbb{P}\!\left(
-    \max_{1\leq j\leq k}
-    \left|X_{j,n}-c_j\right|
-    >\delta
-    \right) \\
-    \geq{} & 1-\epsilon'.
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}\!\left(
+\left|g(X_{1,n},\ldots,X_{k,n})-g(c_1,\ldots,c_k)\right|\leq\epsilon
+\right)
+\geq{} &
+1-\mathbb{P}\!\left(
+\max_{1\leq j\leq k}
+\left|X_{j,n}-c_j\right|
+>\delta
+\right) \\
+\geq{} & 1-\epsilon'.
+\end{aligned}
 \]
 由$\epsilon'>0$的任意性，可得
 \[
-    \lim_{n\rightarrow\infty}
-    \mathbb{P}\!\left(
-    \left|g(X_{1,n},\ldots,X_{k,n})-g(c_1,\ldots,c_k)\right|\leq\epsilon
-    \right)
-    =1,
+\lim_{n\rightarrow\infty}
+\mathbb{P}\!\left(
+\left|g(X_{1,n},\ldots,X_{k,n})-g(c_1,\ldots,c_k)\right|\leq\epsilon
+\right)
+=1,
 \]
 再由$\epsilon>0$的任意性可得$n\rightarrow\infty$时
 有$g(X_{1,n},\ldots,X_{k,n})\xrightarrow{P} g(c_1,\ldots,c_k)$。
@@ -382,12 +382,12 @@ $(x_1,\ldots,x_k)\in\mathbb{R}^k$，有
 分布$F(x;\theta_1,\ldots,\theta_k)$的$k$阶矩均存在。令向量值函数
 $\boldsymbol{\mu}:\Theta\rightarrow\mathbb{R}^k$由下式给出：
 \[
-    \boldsymbol{\mu}(\theta_1,\ldots,\theta_k) =
-    \left(
-    \mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^1\right],
-    \ldots,
-    \mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^k\right]
-    \right),
+\boldsymbol{\mu}(\theta_1,\ldots,\theta_k) =
+\left(
+\mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^1\right],
+\ldots,
+\mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^k\right]
+\right),
 \]
 其中$\mathbb{E}_{\theta_1,\ldots,\theta_k}\!\left[X^j\right]$
 表示取期望时$X$服从的分布为$F(x;\theta_1,\ldots,\theta_k)$。
@@ -402,15 +402,15 @@ $\boldsymbol{\mu}:\Theta\rightarrow\mathbb{R}^k$由下式给出：
 
 记样本容量为$n$的矩估计量为
 \[
-    \left(
-    \hat\theta_1^{(n)},
-    \ldots,
-    \hat\theta_k^{(n)}
-    \right)
-    =\boldsymbol{\mu}^{-1}\!\left(
-    \frac{1}{n}\sum_{i=1}^n X_i^1,\ldots,
-    \frac{1}{n}\sum_{i=1}^n X_i^k
-    \right)
+\left(
+\hat\theta_1^{(n)},
+\ldots,
+\hat\theta_k^{(n)}
+\right)
+=\boldsymbol{\mu}^{-1}\!\left(
+\frac{1}{n}\sum_{i=1}^n X_i^1,\ldots,
+\frac{1}{n}\sum_{i=1}^n X_i^k
+\right)
 \]
 则当总体的参数为任一$(\theta_1,\ldots,\theta_k)\in\Theta$时，
 对于每个$l=1,\ldots,k$，相应的矩估计量$\hat\theta_l^{(n)}$
@@ -424,34 +424,34 @@ $(m_1,\ldots,m_k)=\boldsymbol{\mu}(\theta_1,\ldots,\theta_k)$。
 任取$l\in\{1,\ldots,k\}$，并将向量值函数$\boldsymbol{\mu}^{-1}$的
 第$l$个分量记为$g_l$。注意到
 \[
-    g_l(m_1,\ldots,m_k)=\theta_l
+g_l(m_1,\ldots,m_k)=\theta_l
 \]
 以及
 \[
-    g_l\!\left(
-    \frac{1}{n}\sum_{i=1}^n X_i^j,
-    \ldots,\frac{1}{n}\sum_{i=1}^n X_i^j\right)
-    =\hat\theta_l^{(n)}.
+g_l\!\left(
+\frac{1}{n}\sum_{i=1}^n X_i^1,
+\ldots,\frac{1}{n}\sum_{i=1}^n X_i^k\right)
+=\hat\theta_l^{(n)}.
 \]
 由弱大数定律，可得
 \[
-    \frac{1}{n}\sum_{i=1}^n X_i^j \xrightarrow{P} m_j,\qquad \forall j=1,\ldots,k,
+\frac{1}{n}\sum_{i=1}^n X_i^j \xrightarrow{P} m_j,\qquad \forall j=1,\ldots,k,
 \]
 而由定理条件，可知$g_l$在开集$\mathcal{M}$上连续，且
 $(m_1,\ldots,m_k)\in\mathcal{M}$。故可以利用
 @lemma:continuity_converge_in_P，得
 \[
-    g_l\!\left(
-    \frac{1}{n}\sum_{i=1}^n X_i^j,
-    \ldots,\frac{1}{n}\sum_{i=1}^n X_i^j\right)
-    \xrightarrow{P} g_l(m_1,\ldots,m_k),
-    \qquad n\rightarrow\infty,
+g_l\!\left(
+\frac{1}{n}\sum_{i=1}^n X_i^1,
+\ldots,\frac{1}{n}\sum_{i=1}^n X_i^k\right)
+\xrightarrow{P} g_l(m_1,\ldots,m_k),
+\qquad n\rightarrow\infty,
 \]
 也即
 \[
-    \hat\theta_l^{(n)} \xrightarrow{P}
-    \theta_l,
-    \qquad n\rightarrow\infty.
+\hat\theta_l^{(n)} \xrightarrow{P}
+\theta_l,
+\qquad n\rightarrow\infty.
 \]
 :::
 
@@ -464,9 +464,9 @@ $(m_1,\ldots,m_k)\in\mathcal{M}$。故可以利用
 $\hat{\theta}^{(n)}$表示样本容量为$n$时参数$\theta$的
 最大似然估计量，则当总体的参数取为任一$\theta\in\Theta$时，均有
 \[
-    \lim_{n\rightarrow\infty}\mathbb{P}_{\theta}\!\left(
-    \big|\hat\theta^{(n)}-\theta\big|>\epsilon
-    \right)=0,\qquad\forall \epsilon>0.
+\lim_{n\rightarrow\infty}\mathbb{P}_{\theta}\!\left(
+\big|\hat\theta^{(n)}-\theta\big|>\epsilon
+\right)=0,\qquad\forall \epsilon>0.
 \]
 :::
 
@@ -492,51 +492,51 @@ $\hat{\theta}^{(n)}$表示样本容量为$n$时参数$\theta$的
 且$\theta'$给出与$\theta_0$不同的概率分布。接下来，
 对任意$\theta\in\Theta$，记事件$E_\theta$为
 \[
-    E_\theta=\left\{\lim_{n\rightarrow\infty}
-    \frac{1}{n}\sum_{i=1}^n \ln \frac{f(X_i;\theta)}{f(X_i;\theta_0)}
-    =
-    \mathbb{E}_{\theta_0}\!\left[
-    \ln \frac{f(X;\theta)}{f(X;\theta_0)}\right]
-    \right\},
+E_\theta=\left\{\lim_{n\rightarrow\infty}
+\frac{1}{n}\sum_{i=1}^n \ln \frac{f(X_i;\theta)}{f(X_i;\theta_0)}
+=
+\mathbb{E}_{\theta_0}\!\left[
+\ln \frac{f(X;\theta)}{f(X;\theta_0)}\right]
+\right\},
 \]
 则由Kolmogorov强大数定律，可知对任意$\theta\in\Theta$，
 均有$\mathbb{P}_{\theta_0}(E_\theta)=1$，而又因为
 $\Theta$是有限集，故
 \[
-    \mathbb{P}_{\theta_0}\!\left(\bigcap\nolimits_{\theta\in\Theta}E_\theta\right)=1.
+\mathbb{P}_{\theta_0}\!\left(\bigcap\nolimits_{\theta\in\Theta}E_\theta\right)=1.
 \]
 接下来任取$\omega\in\bigcap_{\theta\in\Theta}E_\theta$，
-由式 @eq:MLE_consistency_proof_Jensen  可知
+由式 @eq:MLE_consistency_proof_Jensen 可知
 \[
-    \lim_{n\rightarrow\infty}
-    \frac{1}{n}\sum_{i=1}^n \ln \frac{f(X_i(\omega);\theta')}{f(X_i(\omega);\theta_0)}
-    <0,\qquad\forall\theta'\neq\theta_0,
+\lim_{n\rightarrow\infty}
+\frac{1}{n}\sum_{i=1}^n \ln \frac{f(X_i(\omega);\theta')}{f(X_i(\omega);\theta_0)}
+<0,\qquad\forall\theta'\neq\theta_0,
 \]
 而由极限的保号性，可知存在足够大的正整数$N(\omega)$，
 使得$n\geq N(\omega)$时均有
 \[
-    \sum_{i=1}^n\ln\frac{f(X_i(\omega);\theta')}{f(X_i(\omega);\theta_0)}<0,\qquad\forall\theta'\neq\theta_0,
+\sum_{i=1}^n\ln\frac{f(X_i(\omega);\theta')}{f(X_i(\omega);\theta_0)}<0,\qquad\forall\theta'\neq\theta_0,
 \]
 也即$\sum_{i=1}^n\ln f(X_i(\omega);\theta')<
 \sum_{i=1}^n\ln f(X_i(\omega);\theta_0),
 \,\forall\theta'\neq\theta_0$。这意味着$n\geq N(\omega)$时有
 \[
-    \argmax_{\theta\in\Theta} \sum_{i=1}^n \ln f(X_i(\omega);\theta)=\theta_0.
+\argmax_{\theta\in\Theta} \sum_{i=1}^n \ln f(X_i(\omega);\theta)=\theta_0.
 \]
 但由最大似然估计量的定义，可知
 \[
-    \hat\theta^{(n)} = \argmax_{\theta\in\Theta} \sum_{i=1}^n \ln f(X_i;\theta),
+\hat\theta^{(n)} = \argmax_{\theta\in\Theta} \sum_{i=1}^n \ln f(X_i;\theta),
 \]
 故
 \[
-    \lim_{n\rightarrow\infty}\hat\theta^{(n)}(\omega)
-    =\theta_0.
+\lim_{n\rightarrow\infty}\hat\theta^{(n)}(\omega)
+=\theta_0.
 \]
 由$\omega\in\bigcap_{\theta\in\Theta}E_\theta$的任意性，即得到
 \[
-    \mathbb{P}_{\theta_0}\!\left(\lim_{n\rightarrow\infty}\hat\theta^{(n)}
-    =\theta_0\right)
-    \geq \mathbb{P}_{\theta_0}\!\left(\bigcap\nolimits_{\theta\in\Theta}E_\theta\right)=1.
+\mathbb{P}_{\theta_0}\!\left(\lim_{n\rightarrow\infty}\hat\theta^{(n)}
+=\theta_0\right)
+\geq \mathbb{P}_{\theta_0}\!\left(\bigcap\nolimits_{\theta\in\Theta}E_\theta\right)=1.
 \]
 最后，由几乎必然收敛与依概率收敛的关系，可知
 $\hat\theta^{(n)}\xrightarrow{P}\theta_0$。
@@ -550,6 +550,16 @@ $\hat\theta^{(n)}\xrightarrow{P}\theta_0$。
 可参阅[@schervish1995theory]第7.3.2节。
 :::
 
-[^1]: 该结果的严格表述以及证明见本节 最后一小节的选读内容。
-[^2]: 若$\Theta$中存在多个点使得似然函数取到最大值， 则在其中任取一个即可。若似然函数不存在最大值点，则称$\theta$的 最大似然估计量不存在。
-[^3]: 本讲义第2、3章中对于期望的定义与讨论不包括它取 $\pm\infty$的情形，但实际上对于某些随机变量，我们可以定义其期望为 $+\infty$或$-\infty$。可以证明，$\mathbb{E}_{\theta_0}\!\left[ \ln\frac{f(X;\theta')}{f(X;\theta_0)} \right]$要么取有限值，要么取$-\infty$，而它取$-\infty$的情形 同样可以被不等式 @eq:MLE_consistency_proof_Jensen  包括进来。 此外，后面应用强大数定律时，所得到的结论对于 $\mathbb{E}_{\theta_0}\!\left[ \ln\frac{f(X;\theta')}{f(X;\theta_0)} \right]=-\infty$的情形也是适用的。
+[^1]: 该结果的严格表述以及证明见本节最后一小节的选读内容。
+[^2]: 若$\Theta$中存在多个点使得似然函数取到最大值，则在其中任取一个即可。
+    若似然函数不存在最大值点，则称$\theta$的最大似然估计量不存在。
+[^3]: 本讲义第2、3章中对于期望的定义与讨论不包括它取$\pm\infty$的情形，但实际上对于某些随机变量，
+    我们可以定义其期望为$+\infty$或$-\infty$。
+    可以证明，
+    $\mathbb{E}_{\theta_0}\!\left[ \ln\frac{f(X;\theta')}{f(X;\theta_0)} \right]$要么取有限值，
+    要么取$-\infty$，
+    而它取$-\infty$的情形同样可以被不等式 @eq:MLE_consistency_proof_Jensen 包括进来。
+    此外，后面应用强大数定律时，
+    所得到的结论对于
+    $\mathbb{E}_{\theta_0}\!\left[ \ln\frac{f(X;\theta')}{f(X;\theta_0)} \right]=-\infty$
+    的情形也是适用的。

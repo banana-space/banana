@@ -1,6 +1,7 @@
 ---
 title: 条件概率的初步介绍
 ---
+
 ## 条件概率的定义*
 
 相当多的随机试验具有阶段性的特点，即整个试验可以分为多个阶段，
@@ -33,21 +34,21 @@ $\mathbb{P}_F$（暂且将其称为条件概率测度）。
 那么已知$F$发生的情况下$E_1$与$E_2$的条件概率之比应当与之前保持一致。
 现任取一事件$E$，则根据第一个性质有
 \[
-    \mathbb{P}_F(E\cap F^c)\leq \mathbb{P}_F(F^c) = 1-\mathbb{P}_F(F)=0,
+\mathbb{P}_F(E\cap F^c)\leq \mathbb{P}_F(F^c) = 1-\mathbb{P}_F(F)=0,
 \]
 从而由概率的可加性可得到
 \[
-    \mathbb{P}_F(E)=\mathbb{P}_F(E\cap F)+\mathbb{P}_F(E\cap F^c)
-    =\mathbb{P}_F(E\cap F),
+\mathbb{P}_F(E)=\mathbb{P}_F(E\cap F)+\mathbb{P}_F(E\cap F^c)
+=\mathbb{P}_F(E\cap F),
 \]
 接下来再根据第二个性质并注意到$E\cap F\subseteq F$，可得
 \[
-    \frac{\mathbb{P}_F(E\cap F)}{\mathbb{P}_F(F)}
-    =\frac{\mathbb{P}(E\cap F)}{\mathbb{P}(F)},
+\frac{\mathbb{P}_F(E\cap F)}{\mathbb{P}_F(F)}
+=\frac{\mathbb{P}(E\cap F)}{\mathbb{P}(F)},
 \]
 综合以上结果即可算得
 \[
-    \mathbb{P}_F(E) = \frac{\mathbb{P}(E\cap F)}{\mathbb{P}(F)}.
+\mathbb{P}_F(E) = \frac{\mathbb{P}(E\cap F)}{\mathbb{P}(F)}.
 \]
 由此我们做出如下定义：
 
@@ -69,9 +70,9 @@ $\mathbb{P}_F$（暂且将其称为条件概率测度）。
 设$(\Omega,2^\Omega,\mathbb{P})$给出一古典概型，
 事件$F$满足$\mathbb{P}(F)>0$。则对任意事件$E$，有
 \[
-    \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)
-    =\frac{|E\cap F|}{|F|}
-    =\sum_{\omega\in E\cap F}\frac{1}{|F|}.
+\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)
+=\frac{|E\cap F|}{|F|}
+=\sum_{\omega\in E\cap F}\frac{1}{|F|}.
 \]
 换句话说，$\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)$等于把集合$E$中
 不属于$F$的元素取掉以后，剩下的元素在$F$的元素中所占的比例。
@@ -88,8 +89,8 @@ $\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)$看成$E$的函数，
 设$(\Omega,\mathcal{F},\mathbb{P})$为一概率空间，
 事件$F$满足$\mathbb{P}(F)>0$。令
 \[
-    \mathbb{P}_F(E) = \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right),
-    \qquad \forall E\in\mathcal{F},
+\mathbb{P}_F(E) = \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right),
+\qquad \forall E\in\mathcal{F},
 \]
 则$\mathbb{P}_F$给出了事件域$\mathcal{F}$上的一个概率测度，且满足
 
@@ -97,7 +98,7 @@ $\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)$看成$E$的函数，
 
 2. 若$E_1,E_2\subseteq F$且$\mathbb{P}_F(E_2)>0$，
    则$\mathbb{P}_F(E_1)/\mathbb{P}_F(E_2)=
-\mathbb{P}(E_1)/\mathbb{P}(E_2)$。
+   \mathbb{P}(E_1)/\mathbb{P}(E_2)$。
 
 :::
 
@@ -107,30 +108,30 @@ $\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)$看成$E$的函数，
 得到$0\leq \mathbb{P}_F(E)\leq 1$。现取$E_1,E_2,\ldots$
 为一列两两互斥的事件，则对任意$i\neq j$有
 \[
-    (E_i\cap F)\cap (E_j\cap F)=(E_i\cap E_j)\cap F=\varnothing,
+(E_i\cap F)\cap (E_j\cap F)=(E_i\cap E_j)\cap F=\varnothing,
 \]
 故
 \[
-    \begin{aligned}
-    \mathbb{P}\!\left(
-    \bigcup_{i=1}^n E_i
-     \mkern2mu|\mkern2mu F\right)
-    ={} &
-    \frac{1}{\mathbb{P}(F)}
-    \,\mathbb{P}\!\left(
-    \left(\bigcup_{i=1}^\infty E_i\right)\cap F
-    \right)\\
-    ={} &
-    \frac{1}{\mathbb{P}(F)}\,\mathbb{P}\!\left(
-    \bigcup_{i=1}^\infty (E_i\cap F)\right) \\
-    ={} &
-    \frac{1}{\mathbb{P}(F)}
-    \sum_{i=1}^\infty \mathbb{P}(E_i\cap F) \\
-    ={} &
-    \frac{1}{\mathbb{P}(F)}
-    \sum_{i=1}^\infty \mathbb{P}\!\left(E_i \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)
-    =\sum_{i=1}^\infty \mathbb{P}\!\left(E_i \mkern2mu|\mkern2mu F\right),
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}\!\left(
+\bigcup_{i=1}^\infty E_i
+ \mkern2mu|\mkern2mu F\right)
+={} &
+\frac{1}{\mathbb{P}(F)}
+\,\mathbb{P}\!\left(
+\left(\bigcup_{i=1}^\infty E_i\right)\cap F
+\right)\\
+={} &
+\frac{1}{\mathbb{P}(F)}\,\mathbb{P}\!\left(
+\bigcup_{i=1}^\infty (E_i\cap F)\right) \\
+={} &
+\frac{1}{\mathbb{P}(F)}
+\sum_{i=1}^\infty \mathbb{P}(E_i\cap F) \\
+={} &
+\frac{1}{\mathbb{P}(F)}
+\sum_{i=1}^\infty \mathbb{P}\!\left(E_i \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)
+=\sum_{i=1}^\infty \mathbb{P}\!\left(E_i \mkern2mu|\mkern2mu F\right),
+\end{aligned}
 \]
 其中第二步利用了并集与交集运算的分配律，
 第三步利用了$\mathbb{P}$的可数可加性。
@@ -178,20 +179,20 @@ $\mathbb{P}\!\left(\,\cdot \mkern2mu|\mkern2mu F\right)$反而是更容易建模
 ::: proof
 式 @eq:conditional_prob_multiply_1
 是条件概率定义的直接推论。而式
-@eq:conditional_prob_multiply_2  则可以由
-式 @eq:conditional_prob_multiply_1  不断递推得到：
+@eq:conditional_prob_multiply_2 则可以由
+式 @eq:conditional_prob_multiply_1 不断递推得到：
 \[
-    \begin{aligned}
-    & \mathbb{P}(E_1\cap\cdots\cap E_{n}) \\
-    ={} & \mathbb{P}\!\left(E_{n} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-1}\right)
-    \, \mathbb{P}(E_1\cap\cdots \cap E_{n-1}) \\
-    ={} & \mathbb{P}\!\left(E_{n} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-1}\right)
-    \, \mathbb{P}\!\left(E_{n-1} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-2}\right)\, \mathbb{P}(E_1\cap\cdots \cap E_{n-2}) \\
-    ={} & \cdots \\
-    ={} & \mathbb{P}\!\left(E_{n} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-1}\right)
-    \, \mathbb{P}\!\left(E_{n-1} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-2}\right)
-    \cdots \mathbb{P}\!\left(E_2 \mkern2mu|\mkern2mu E_1\right)\,\mathbb{P}(E_1),
-    \end{aligned}
+\begin{aligned}
+& \mathbb{P}(E_1\cap\cdots\cap E_{n}) \\
+={} & \mathbb{P}\!\left(E_{n} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-1}\right)
+\, \mathbb{P}(E_1\cap\cdots \cap E_{n-1}) \\
+={} & \mathbb{P}\!\left(E_{n} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-1}\right)
+\, \mathbb{P}\!\left(E_{n-1} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-2}\right)\, \mathbb{P}(E_1\cap\cdots \cap E_{n-2}) \\
+={} & \cdots \\
+={} & \mathbb{P}\!\left(E_{n} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-1}\right)
+\, \mathbb{P}\!\left(E_{n-1} \mkern2mu|\mkern2mu E_1\cap\cdots \cap E_{n-2}\right)
+\cdots \mathbb{P}\!\left(E_2 \mkern2mu|\mkern2mu E_1\right)\,\mathbb{P}(E_1),
+\end{aligned}
 \]
 其中$\mathbb{P}(E_1\cap\cdots\cap E_i)>0,\,i=1,\ldots,n-2$
 可由$\mathbb{P}(E_1\cap\cdots\cap E_{n-1})>0$保证。
@@ -214,24 +215,24 @@ $(E\cap F_i)\cap (E\cap F_j)=E\cap (F_i\cap F_j)=\varnothing$，
 即$E\cap F_1,\ldots,E\cap F_n$也两两互斥。而由
 $F_1\cup\cdots\cup F_n$为必然事件以及并集与交集运算的分配律可得
 \[
-    E=E\cap \left(F_1\cup \cdots \cup F_n\right)
-    =(E\cap F_1)\cup\cdots\cup (E\cap F_n).
+E=E\cap \left(F_1\cup \cdots \cup F_n\right)
+=(E\cap F_1)\cup\cdots\cup (E\cap F_n).
 \]
 故可将概率的可加性用于事件组$E\cap F_1,\ldots,E\cap F_n$并得到
 \[
-    \mathbb{P}(E)=\sum_{i=1}^n \mathbb{P}(E\cap F_i),
+\mathbb{P}(E)=\sum_{i=1}^n \mathbb{P}(E\cap F_i),
 \]
-最后由式 @eq:conditional_prob_multiply_1  即得待证等式。
+最后由式 @eq:conditional_prob_multiply_1 即得待证等式。
 :::
 
-式 @eq:conditional_prob_multiply_1  与
-@eq:conditional_prob_multiply_2  被称为条件概率的
+式 @eq:conditional_prob_multiply_1 与
+@eq:conditional_prob_multiply_2 被称为条件概率的
 **乘法公式**，而式 @eq:conditional_prob_total
 则被称为**全概率公式**，它们为解决本节开头提出的第二类问题
 （即如何将分阶段的概率模型进行整合）奠定了基础。全概率公式的一个特例是
 \[
-    \mathbb{P}(E)=\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)
-    +\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F^c\right)\,\mathbb{P}(F^c),
+\mathbb{P}(E)=\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)
++\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F^c\right)\,\mathbb{P}(F^c),
 \]
 其中需假设$0<\mathbb{P}(F)<1$。
 
@@ -241,28 +242,28 @@ $F_1\cup\cdots\cup F_n$为必然事件以及并集与交集运算的分配律可
 设符号串中的每个符号在传输时需要依次经过三个二进制信道，
 每个信道在传输符号$\mathtt{0}$时有$0.05$的概率发生错误
 变为$\mathtt{1}$，而传输符号$\mathtt{1}$时有$0.1$的概率
-发生错误变为$\mathtt{0}$（如图\ref{fig:communication_noisy_channel}）。
+发生错误变为$\mathtt{0}$（如图 1）。
 则从传感器发出一个符号$\mathtt{0}$能够被服务器正确接收的概率是多少？
 
 我们用$E_i$表示符号$\mathtt{0}$经过$i$个信道传输后
 还保持为$\mathtt{0}$，则待求概率为$\mathbb{P}(E_3)$，
 而由全概率公式，有
 \[
-    \begin{aligned}
-    \mathbb{P}(E_3) ={} &
-    \mathbb{P}\!\left(E_3 \mkern2mu|\mkern2mu E_2\right)\,\mathbb{P}(E_2)
-    +\mathbb{P}\!\left(E_3 \mkern2mu|\mkern2mu E_2^c\right)\,\mathbb{P}(E_2^c) \\
-    ={} & 0.95\,\mathbb{P}(E_2) + 0.1\,\mathbb{P}(E_2^c).
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(E_3) ={} &
+\mathbb{P}\!\left(E_3 \mkern2mu|\mkern2mu E_2\right)\,\mathbb{P}(E_2)
++\mathbb{P}\!\left(E_3 \mkern2mu|\mkern2mu E_2^c\right)\,\mathbb{P}(E_2^c) \\
+={} & 0.95\,\mathbb{P}(E_2) + 0.1\,\mathbb{P}(E_2^c).
+\end{aligned}
 \]
 而对于$\mathbb{P}(E_2)$，同样可由全概率公式得到
 \[
-    \begin{aligned}
-    \mathbb{P}(E_2) ={} &
-    \mathbb{P}\!\left(E_2 \mkern2mu|\mkern2mu E_1\right)\,\mathbb{P}(E_1)
-    +\mathbb{P}\!\left(E_2 \mkern2mu|\mkern2mu E_1^c\right)\,\mathbb{P}(E_1^c) \\
-    ={} & 0.95\,\mathbb{P}(E_1) + 0.1\,\mathbb{P}(E_1^c).
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(E_2) ={} &
+\mathbb{P}\!\left(E_2 \mkern2mu|\mkern2mu E_1\right)\,\mathbb{P}(E_1)
++\mathbb{P}\!\left(E_2 \mkern2mu|\mkern2mu E_1^c\right)\,\mathbb{P}(E_1^c) \\
+={} & 0.95\,\mathbb{P}(E_1) + 0.1\,\mathbb{P}(E_1^c).
+\end{aligned}
 \]
 $\mathbb{P}(E_2^c)$则满足
 $\mathbb{P}(E_2^c)=1-\mathbb{P}(E_2)$。
@@ -273,7 +274,7 @@ $\mathbb{P}(E_2^c)=1-\mathbb{P}(E_2)$。
 是$0.74275$。
 :::
 
-```tikz {caption="例\ref{example:communication_noisy_channel} 中的二进制信道图示。"}
+```tikz {caption="@example:communication_noisy_channel 中的二进制信道图示。"}
 \begin{tikzpicture}
 \draw[fill=black] (0,0) circle (3pt) node[left, xshift=-5pt] { $\mathtt{0}$};
 \draw[fill=black] (0,-3) circle (3pt) node[left, xshift=-5pt] { $\mathtt{1}$};
@@ -290,38 +291,36 @@ $\mathbb{P}(E_2^c)=1-\mathbb{P}(E_2)$。
 \end{tikzpicture}
 ```
 
-\label{fig:communication_noisy_channel}
-
 ::: example [Pólya罐子模型]
 设一个罐子中一开始有$x$个标号为$1$的球与$y$个标号为$0$的球。
 之后我们重复如下过程：从罐子中随机取一个球，记下它的标号，
 将这个球放回的同时将$c$个与之标号一样的球加入罐子当中。
 则经过$n$轮取球和放球的操作后，罐子中有$x+kc$个标号$1$的球
-与$b+(n-k)c$个标号$0$的球的概率是多少？
+与$y+(n-k)c$个标号$0$的球的概率是多少？
 
 首先用$E_{n,k}$表示事件“$n$轮过后，
-罐子中有$r+kc$个标号$1$的球与$b+(n-k)c$个标号$0$的球”，
+罐子中有$x+kc$个标号$1$的球与$y+(n-k)c$个标号$0$的球”，
 并对任意$c_1,\ldots,c_n\in\{0,1\}$，
 用$F_{c_1,\ldots,c_n}$表示事件“$n$轮中抽出的球的标号
 依次为$c_1,\ldots,c_n$”，则由概率的可加性可得
 \[
-    \mathbb{P}(E_{n,k})=\sum_{\substack{c_1,\ldots,c_n\in \{0,1\}: \\
-    c_1+\cdots+c_n=k}} \mathbb{P}(F_{c_1,\ldots,c_n}).
+\mathbb{P}(E_{n,k})=\sum_{\substack{c_1,\ldots,c_n\in \{0,1\}: \\
+c_1+\cdots+c_n=k}} \mathbb{P}(F_{c_1,\ldots,c_n}).
 \]
 接下来，设$c_1+\cdots+c_n=k$，我们用乘法公式
 计算$\mathbb{P}(F_{c_1,\ldots,c_n})$：
 \[
-    \begin{aligned}
-    \mathbb{P}(F_{c_1,\ldots,c_n})
-    ={} &
-    \mathbb{P}\!\left(F_{c_1,\ldots,c_n} \mkern2mu|\mkern2mu F_{c_1,\ldots,c_{n-1}}\right)\,
-    \mathbb{P}(F_{c_1,\ldots,c_{n-1}}) \\
-    ={} &
-    \left\{\begin{aligned}
-    &\displaystyle\frac{x+(k-1)c}{x+y+(n-1)c}\,\mathbb{P}(F_{c_1,\ldots,c_{n-1}}), && \text{若}\ c_n=1, \\[3pt]
-    &\displaystyle\frac{y+(n-k-1)c}{x+y+(n-1)c}\,\mathbb{P}(F_{c_1,\ldots,c_{n-1}}), &&\text{若}\ c_n=0.
-    \end{aligned}\right.
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(F_{c_1,\ldots,c_n})
+={} &
+\mathbb{P}\!\left(F_{c_1,\ldots,c_n} \mkern2mu|\mkern2mu F_{c_1,\ldots,c_{n-1}}\right)\,
+\mathbb{P}(F_{c_1,\ldots,c_{n-1}}) \\
+={} &
+\left\{\begin{aligned}
+&\displaystyle\frac{x+(k-1)c}{x+y+(n-1)c}\,\mathbb{P}(F_{c_1,\ldots,c_{n-1}}), && \text{若}\ c_n=1, \\[3pt]
+&\displaystyle\frac{y+(n-k-1)c}{x+y+(n-1)c}\,\mathbb{P}(F_{c_1,\ldots,c_{n-1}}), &&\text{若}\ c_n=0.
+\end{aligned}\right.
+\end{aligned}
 \]
 我们对上式做一些简单的解释：若$c_n=1$，因$c_1+\cdots+c_n=k$，
 故前$n-1$轮中有$k-1$轮抽出了标号为$1$的球，因而
@@ -331,16 +330,16 @@ $\mathbb{P}(E_2^c)=1-\mathbb{P}(E_2)$。
 利用上式作出若干步递推后不难发现，
 $\mathbb{P}(F_{c_1,\ldots,c_n})$的值仅取决于$k$：
 \[
-    \mathbb{P}(F_{c_1,\ldots,c_n})=\frac{\prod_{i=0}^{k-1}(x+ic)\prod_{i=0}^{n-k-1}(y+ic)}{\prod_{i=0}^{n-1}(x+y+ic)}.
+\mathbb{P}(F_{c_1,\ldots,c_n})=\frac{\prod_{i=0}^{k-1}(x+ic)\prod_{i=0}^{n-k-1}(y+ic)}{\prod_{i=0}^{n-1}(x+y+ic)}.
 \]
 最后可得
 \[
-    \begin{aligned}
-    \mathbb{P}(E_{n,k})
-    ={} & \sum_{\substack{c_1,\ldots,c_n\in\{0,1\}: \\
-    c_1+\cdots+c_n=k}} \frac{\prod_{i=0}^{k-1}(x+ic)\prod_{i=0}^{n-k-1}(y+ic)}{\prod_{i=0}^{n-1}(x+y+ic)} \\
-    ={} & \binom{n}{k} \frac{\prod_{i=0}^{k-1}(x+ic)\prod_{i=0}^{n-k-1}(y+ic)}{\prod_{i=0}^{n-1}(x+y+ic)},
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(E_{n,k})
+={} & \sum_{\substack{c_1,\ldots,c_n\in\{0,1\}: \\
+c_1+\cdots+c_n=k}} \frac{\prod_{i=0}^{k-1}(x+ic)\prod_{i=0}^{n-k-1}(y+ic)}{\prod_{i=0}^{n-1}(x+y+ic)} \\
+={} & \binom{n}{k} \frac{\prod_{i=0}^{k-1}(x+ic)\prod_{i=0}^{n-k-1}(y+ic)}{\prod_{i=0}^{n-1}(x+y+ic)},
+\end{aligned}
 \]
 其中最后一步我们利用了这样一个事实：方程$c_1+\cdots+c_n=k$的
 满足$c_1,\ldots,c_n\in\{0,1\}$的解总共有
@@ -368,29 +367,29 @@ $\bigcup_{i=1}^n F_i$为必然事件，
 ::: proof
 我们有
 \[
-    \begin{aligned}
-    \mathbb{P}\!\left(F_i \mkern2mu|\mkern2mu E\right)
-    ={} & \frac{\mathbb{P}(E\cap F_i)}{\mathbb{P}(E)}
-    =
-    \frac{\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F_i\right)\,\mathbb{P}(F_i)}
-    {\sum_{i=1}^n \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F_i\right)\,\mathbb{P}(F_i)},
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}\!\left(F_i \mkern2mu|\mkern2mu E\right)
+={} & \frac{\mathbb{P}(E\cap F_i)}{\mathbb{P}(E)}
+=
+\frac{\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F_i\right)\,\mathbb{P}(F_i)}
+{\sum_{j=1}^n \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F_j\right)\,\mathbb{P}(F_j)},
+\end{aligned}
 \]
 其中第一步来自于条件概率的定义，而第二步中则代入了条件概率的
 乘法公式与全概率公式。
 :::
 
-@theorem:Bayes_theorem  通常被称为**贝叶斯定理**（Bayes' theorem），等式
-@eq:conditional_prob_Bayes  被称为**贝叶斯公式**或**逆概率公式**，
+@theorem:Bayes_theorem 通常被称为**贝叶斯定理**（Bayes' theorem），等式
+@eq:conditional_prob_Bayes 被称为**贝叶斯公式**或**逆概率公式**，
 其中概率$\mathbb{P}(F_i)$通常被称为事件$F_i$的**先验概率**（prior probability），
 $\mathbb{P}\!\left(F_i \mkern2mu|\mkern2mu E\right)$则被称为（事件$E$发生后）
 $F_i$的**后验概率**（posterior probability）。
 贝叶斯公式的一个特例是
 \[
-    \mathbb{P}\!\left(F \mkern2mu|\mkern2mu E\right)
-    =\frac{\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)}
-    {\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)
-    +\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F^c\right)\,\mathbb{P}(F^c)},
+\mathbb{P}\!\left(F \mkern2mu|\mkern2mu E\right)
+=\frac{\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)}
+{\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right)\,\mathbb{P}(F)
++\mathbb{P}\!\left(E \mkern2mu|\mkern2mu F^c\right)\,\mathbb{P}(F^c)},
 \]
 其中需假设$\mathbb{P}(E)>0$以及$0<\mathbb{P}(F)<1$。
 
@@ -410,14 +409,14 @@ $F_i$的**后验概率**（posterior probability）。
 我们用事件$E_+$表示诊断结果为阳性，事件$H$表示随机选择的这个人患病。
 则由贝叶斯公式可得
 \[
-    \begin{aligned}
-    \mathbb{P}\!\left(H \mkern2mu|\mkern2mu E_+\right)
-    & = \frac{\mathbb{P}\!\left(E_+ \mkern2mu|\mkern2mu H\right)\,\mathbb{P}(H)}{
-    \mathbb{P}\!\left(E_+ \mkern2mu|\mkern2mu H\right)\,\mathbb{P}(H)+\mathbb{P}\!\left(E_+ \mkern2mu|\mkern2mu H^c\right)\,\mathbb{P}(H^c)
-    } \\
-    & =\frac{0.99\cdot 10^{-5}}{0.99\cdot 10^{-5}+0.01\cdot (1-10^{-5})}
-    <0.1\%.
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}\!\left(H \mkern2mu|\mkern2mu E_+\right)
+& = \frac{\mathbb{P}\!\left(E_+ \mkern2mu|\mkern2mu H\right)\,\mathbb{P}(H)}{
+\mathbb{P}\!\left(E_+ \mkern2mu|\mkern2mu H\right)\,\mathbb{P}(H)+\mathbb{P}\!\left(E_+ \mkern2mu|\mkern2mu H^c\right)\,\mathbb{P}(H^c)
+} \\
+& =\frac{0.99\cdot 10^{-5}}{0.99\cdot 10^{-5}+0.01\cdot (1-10^{-5})}
+<0.1\%.
+\end{aligned}
 \]
 以上计算说明，这种快速诊断方法应用在一般人群中误报阳性的几率非常大，
 因此是有非常大缺陷的。
@@ -426,9 +425,9 @@ $F_i$的**后验概率**（posterior probability）。
 依然保持在$99\%$，但应用在健康人身上时的阳性率下降到$\alpha$。
 则此时有
 \[
-    \mathbb{P}\!\left(H \mkern2mu|\mkern2mu E_+\right)
-    =\frac{0.99\cdot 10^{-5}}{0.99\cdot 10^{-5}+\alpha\cdot (1-10^{-5})}
-    \approx \frac{10^{-5}}{10^{-5}+\alpha}.
+\mathbb{P}\!\left(H \mkern2mu|\mkern2mu E_+\right)
+=\frac{0.99\cdot 10^{-5}}{0.99\cdot 10^{-5}+\alpha\cdot (1-10^{-5})}
+\approx \frac{10^{-5}}{10^{-5}+\alpha}.
 \]
 由上式可看出，若要使得$\mathbb{P}\!\left(H \mkern2mu|\mkern2mu E_+\right)$提升到$50\%$以上，
 则要求$\alpha\lesssim 10^{-5}$；若要使得
@@ -447,23 +446,23 @@ $\mathbb{P}\!\left(H \mkern2mu|\mkern2mu E_+\right)$提升到$95\%$以上，
 简单起见，假设汽车与山羊均随机放置在门背后。现假设参赛者选择1号门，
 而主持人打开了3号门。则
 \[
-    \begin{aligned}
-    & \mathbb{P}\!\left(\text{汽车在 1 号门} \mkern2mu|\mkern2mu \text{主持人打开 3 号门}\right) \\
-    ={} & \frac{\mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 1 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 1 号门}\right)}{
-    \sum_{i=1}^3 \mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 $i$ 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 $i$ 号门}\right)
-    } \\
-    ={} & \frac{\frac{1}{2}\cdot\frac{1}{3}}{\frac{1}{2}\cdot\frac{1}{3}+1\cdot\frac{1}{3}+0\cdot\frac{1}{3}} = \frac{1}{3},
-    \end{aligned}
+\begin{aligned}
+& \mathbb{P}\!\left(\text{汽车在 1 号门} \mkern2mu|\mkern2mu \text{主持人打开 3 号门}\right) \\
+={} & \frac{\mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 1 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 1 号门}\right)}{
+\sum_{i=1}^3 \mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 $i$ 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 $i$ 号门}\right)
+} \\
+={} & \frac{\frac{1}{2}\cdot\frac{1}{3}}{\frac{1}{2}\cdot\frac{1}{3}+1\cdot\frac{1}{3}+0\cdot\frac{1}{3}} = \frac{1}{3},
+\end{aligned}
 \]
 而
 \[
-    \begin{aligned}
-    & \mathbb{P}\!\left(\text{汽车在 2 号门} \mkern2mu|\mkern2mu \text{主持人打开 3 号门}\right) \\
-    ={} & \frac{\mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 2 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 2 号门}\right)}{
-    \sum_{i=1}^3 \mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 $i$ 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 $i$ 号门}\right)
-    } \\
-    ={} & \frac{1\cdot\frac{1}{3}}{\frac{1}{2}\cdot\frac{1}{3}+1\cdot\frac{1}{3}+0\cdot\frac{1}{3}} = \frac{2}{3},
-    \end{aligned}
+\begin{aligned}
+& \mathbb{P}\!\left(\text{汽车在 2 号门} \mkern2mu|\mkern2mu \text{主持人打开 3 号门}\right) \\
+={} & \frac{\mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 2 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 2 号门}\right)}{
+\sum_{i=1}^3 \mathbb{P}\!\left(\text{主持人打开 3 号门} \mkern2mu|\mkern2mu \text{汽车在 $i$ 号门}\right)\,\mathbb{P}\!\left(\text{汽车在 $i$ 号门}\right)
+} \\
+={} & \frac{1\cdot\frac{1}{3}}{\frac{1}{2}\cdot\frac{1}{3}+1\cdot\frac{1}{3}+0\cdot\frac{1}{3}} = \frac{2}{3},
+\end{aligned}
 \]
 故这种情况下参赛者应改选2号门。由问题的对称性可知参赛者
 总是应该改选另一扇未开启的门。

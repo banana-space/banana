@@ -1,6 +1,7 @@
 ---
 title: '（${}^\star$）一般情形的条件期望'
 ---
+
 本章将对条件期望的一般理论进行简要的介绍。为了数学上的严格性，
 我们先简要介绍一下Borel集与Borel可测函数的概念。
 
@@ -37,7 +38,7 @@ $
 由于非Borel集的存在，可证明不Borel可测的函数也是存在的。
 不过以下定理说明，常见的函数都是Borel可测函数；
 我们在这里不给出其证明，感兴趣的读者可参考
-[@billingsley1995probability]第13节的内容。
+[@billingsley1995probability, 第 13 节]的内容。
 
 ::: theorem
 1. 定义在$\mathbb{R}^n$上的连续函数可测。
@@ -50,17 +51,17 @@ $
    若$f:\mathbb{R}^n\rightarrow\mathbb{R}$与
    $g:\mathbb{R}\rightarrow\mathbb{R}$是可测的，
    则$g\circ f$可测；又如，若$f:\mathbb{R}^m\rightarrow\mathbb{R},
-g:\mathbb{R}^n\rightarrow\mathbb{R}$与
+   g:\mathbb{R}^n\rightarrow\mathbb{R}$与
    $h:\mathbb{R}^2\rightarrow\mathbb{R}$可测，
    则函数$(x,y)\mapsto h(f(x),g(y))$可测。
 
 4. 设$f_1,f_2,\ldots$为一列可测函数，令
    \[
-       f_\infty(x) = \begin{cases}
-       \displaystyle\lim_{n\rightarrow\infty} f_n(x), & \text{若极限存在}, \\
-       0, & \text{若极限不存在},
-       \end{cases}
-       \qquad \forall x,
+   f_\infty(x) = \begin{cases}
+   \displaystyle\lim_{n\rightarrow\infty} f_n(x), & \text{若极限存在}, \\
+   0, & \text{若极限不存在},
+   \end{cases}
+   \qquad \forall x,
    \]
    则$f_\infty$可测。
 

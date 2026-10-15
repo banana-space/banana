@@ -1,6 +1,7 @@
 ---
 title: 随机试验
 ---
+
 在现实生活中，我们经常会遇到各种具有不确定性的现象，
 这些现象难以在事前被准确地预测出来。
 产生不确定性的原因可以是多方面的，例如我们可能缺乏足够的数据，
@@ -46,15 +47,15 @@ title: 随机试验
 
    我们发现，如下平均量
    \[
-       \frac{1}{N}\sum_{k=1}^N \lambda_k,
-       \qquad
-       \frac{1}{N}\sum_{k=1}^N \boldsymbol{r}_k,
-       \qquad \frac{1}{N}\sum_{k=1}^N |\boldsymbol{r}_k|^2,
-       \qquad
-       \frac{1}{N}\sum_{k=1}^N \boldsymbol{p}_k
-       \boldsymbol{q}_k^\mathsf{T},
-       \qquad
-       \frac{1}{N}\sum_{k=1}^N \tau_k,
+   \frac{1}{N}\sum_{k=1}^N \lambda_k,
+   \qquad
+   \frac{1}{N}\sum_{k=1}^N \boldsymbol{r}_k,
+   \qquad \frac{1}{N}\sum_{k=1}^N |\boldsymbol{r}_k|^2,
+   \qquad
+   \frac{1}{N}\sum_{k=1}^N \boldsymbol{p}_k
+   \boldsymbol{q}_k^\mathsf{T},
+   \qquad
+   \frac{1}{N}\sum_{k=1}^N \tau_k,
    \]
    在$N$足够大时均有收敛于一个定值的趋势；换句话说，
    上述几个量所描述的花粉轨迹的“平均行为”存在规律性。
@@ -86,7 +87,7 @@ title: 随机试验
    将其中事件$E$发生的次数记为$q_n(E)$，
    则事件$E$在这$n$次试验中发生的**频率**为
    \[
-       \mathrm{Fr}_n(E)= \frac{q_n(E)}{n}.
+   \mathrm{Fr}_n(E)= \frac{q_n(E)}{n}.
    \]
    理想情况下，我们希望概率$\mathbb{P}(E)$等于
    $n$趋向无穷大时的频率$\mathrm{Fr}_n(E)$的极限值。

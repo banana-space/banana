@@ -3,8 +3,10 @@ title: 中心极限定理
 notices:
   - name: 问题
     items:
-      - 本页面转换自定理与证明环境互相嵌套的原文，相应部分的结构需要整理。
+      - '中心极限定理的证明中，第一个显示公式的第二个等号右侧的期望内似乎缺少指数函数，即似乎应为 $\mathbb{E}\!\left[\exp\left(\frac{t}{\sqrt{n}}Y_i\right)\right]$。'
+      - '中心极限定理证明之后的注中，特征函数的定义式左侧似乎应为 $\mathbb{E}[\cos (tY_1)] + \mathrm{i}\,\mathbb{E}[\sin (tY_1)]$。'
 ---
+
 对于一列独立同分布的随机变量$X_1,X_2,\ldots$，
 大数定律保证了样本均值$\overline{X}_n$时将（在某种意义下）收敛于期望，
 而中心极限定理考虑的则是对这个收敛过程更细致的刻画，即$n$足够大时，
@@ -16,17 +18,17 @@ notices:
 且$\mu=\mathbb{E}[X_1]$与
 $\sigma=\sqrt{\operatorname{Var}(X_1)}$均存在。令
 \[
-    Z_n = \frac{\sum_{i=1}^n(X_i-\mu)}{\sigma\sqrt{n}}
-    =\frac{\sqrt{n}\big(\overline{X}_n-\mu\big)}{\sigma}
-    ,\qquad\forall n=1,2,\ldots,
+Z_n = \frac{\sum_{i=1}^n(X_i-\mu)}{\sigma\sqrt{n}}
+=\frac{\sqrt{n}\big(\overline{X}_n-\mu\big)}{\sigma}
+,\qquad\forall n=1,2,\ldots,
 \]
 则对任意$z\in\mathbb{R}$，有
 \[
-    \lim_{n\rightarrow\infty}\mathbb{P}\!\left(
-    Z_n\leq z
-    \right)
-    =\int_{-\infty}^z \frac{1}{\sqrt{2\pi}}\exp\!\left(-\frac{x^2}{2}\right)\mathrm{d} x
-    =\Phi(z).
+\lim_{n\rightarrow\infty}\mathbb{P}\!\left(
+Z_n\leq z
+\right)
+=\int_{-\infty}^z \frac{1}{\sqrt{2\pi}}\exp\!\left(-\frac{x^2}{2}\right)\mathrm{d} x
+=\Phi(z).
 \]
 :::
 
@@ -37,56 +39,60 @@ $M_Y(t)=\mathbb{E}[\mathrm{e}^{tY_1}]$在某个包含$0$的开区间
 $\left]-\delta,\delta\right[$上有定义的情形。
 任取$t\in\mathbb{R}$，则对足够大的正整数$n$，有
 \[
-    \begin{aligned}
-    M_{Z_n}(t) ={} &
-    \mathbb{E}\!\left[
-    \exp\left(\frac{t}{\sqrt{n}}\sum_{i=1}^n Y_i\right)
-    \right]
-    =
-    \prod_{i=1}^n \mathbb{E}\!\left[
-    \frac{t}{\sqrt{n}}Y_i
-    \right]
-    =
-    \left[M_Y\!\left(\frac{t}{\sqrt{n}}\right)\right]^n.
-    \end{aligned}
+\begin{aligned}
+M_{Z_n}(t) ={} &
+\mathbb{E}\!\left[
+\exp\left(\frac{t}{\sqrt{n}}\sum_{i=1}^n Y_i\right)
+\right]
+=
+\prod_{i=1}^n \mathbb{E}\!\left[
+\frac{t}{\sqrt{n}}Y_i
+\right]
+=
+\left[M_Y\!\left(\frac{t}{\sqrt{n}}\right)\right]^n.
+\end{aligned}
 \]
 而由于$\mathbb{E}[Y_1]=0,\operatorname{Var}(Y_1)=1$，
 故将$M_Y(t)$在$t=0$附近做泰勒展开到二阶可得
 \[
-    M_Y(t) =
-    1 + \frac{1}{2}t^2 + o(t^2),
+M_Y(t) =
+1 + \frac{1}{2}t^2 + o(t^2),
 \]
 因此
 \[
-    M_{Z_n}(t)
-    =\left(1+\frac{t^2}{2n}+o\!\left(\frac{1}{n}\right)\right)^{\!n}.
+M_{Z_n}(t)
+=\left(1+\frac{t^2}{2n}+o\!\left(\frac{1}{n}\right)\right)^{\!n}.
 \]
 令$n\rightarrow\infty$即可得到
 \[
-    \lim_{n\rightarrow\infty} M_{Z_n}(t)
-    =\mathrm{e}^{\frac{t^2}{2}}.
+\lim_{n\rightarrow\infty} M_{Z_n}(t)
+=\mathrm{e}^{\frac{t^2}{2}}.
 \]
 上式右端恰好给出标准正态分布$\mathcal{N}(0,1)$的矩母函数，
-接下来我们需要用到如下引理：
+接下来我们需要用到如下引理。
+:::
 
-**引理。** 设$Z_1,Z_2,\ldots$为一列随机变量，它们的分布函数为$F_{Z_n}$，
+::: lemma {@lemma:convergence_in_distribution_MGF}
+设$Z_1,Z_2,\ldots$为一列随机变量，它们的分布函数为$F_{Z_n}$，
 矩母函数为$M_{Z_n}$。又设随机变量$Z$的分布函数为$F_Z$，
 矩母函数$M_Z$在$\left]-\delta,\delta\right[$上有定义。
 若对任意$t\in \left]-\delta,\delta\right[\,$，
 $M_{Z_n}(t)$总对足够大的$n$有定义，且
 \[
-    \lim_{n\rightarrow\infty} M_{Z_n}(t) = M_Z(t),
+\lim_{n\rightarrow\infty} M_{Z_n}(t) = M_Z(t),
 \]
 则对任意$x\in\mathbb{R}$，只要$F_Z$在点$x$处连续，就有
 \[
-    \lim_{n\rightarrow\infty}
-    F_{Z_n}(x) = F_Z(x).
+\lim_{n\rightarrow\infty}
+F_{Z_n}(x) = F_Z(x).
 \]
+:::
 
+::: proof [@theorem:CLT 的证明（续）]
 该引理的证明不做要求。由上述引理可立即得到
 \[
-    \lim_{n\rightarrow\infty} F_{Z_n}(z)
-    =\int_{-\infty}^{z} \frac{1}{\sqrt{2\pi}}\exp\!\left(-\frac{x^2}{2}\right)\mathrm{d} x,
+\lim_{n\rightarrow\infty} F_{Z_n}(z)
+=\int_{-\infty}^{z} \frac{1}{\sqrt{2\pi}}\exp\!\left(-\frac{x^2}{2}\right)\mathrm{d} x,
 \]
 因此待证结论成立。
 :::
@@ -96,13 +102,13 @@ $M_{Z_n}(t)$总对足够大的$n$有定义，且
 实际上在上述证明中，我们只需把矩母函数$M_Y$
 换成**特征函数**（characteristic function）
 \[
-    \varphi_Y(t) = \mathbb{E}[\cos Y_1] + \mathrm{i}\,\mathbb{E}[\sin Y_1]=\mathbb{E}\!\left[\mathrm{e}^{\mathrm{i} tY_1}\right],
-    \qquad t\in\mathbb{R},
+\varphi_Y(t) = \mathbb{E}[\cos Y_1] + \mathrm{i}\,\mathbb{E}[\sin Y_1]=\mathbb{E}\!\left[\mathrm{e}^{\mathrm{i} tY_1}\right],
+\qquad t\in\mathbb{R},
 \]
 即可将该证明比较直接地推广到一般的情形。
 特征函数与矩母函数有许多相似的性质，例如$X,Y$独立时
 有$\varphi_{X+Y}=\varphi_X\cdot\varphi_Y$，
-又如引理\ref{lemma:convergence_in_distribution_MGF} 也有
+又如 @lemma:convergence_in_distribution_MGF 也有
 特征函数的版本。但可以证明，对于任意随机变量，其特征函数
 在整个实数轴上均有定义，而对各阶矩的存在性没有要求，
 因此特征函数相比矩母函数有着更广泛的适用范围。
@@ -111,7 +117,7 @@ $M_{Z_n}(t)$总对足够大的$n$有定义，且
 结合大数定律与中心极限定理，可以不严格地认为，
 对于一列独立同分布的随机变量$X_1,X_2,\ldots$，当$n$足够大时有
 \[
-    \frac{1}{n}\sum_{i=1}^n X_i \approx \mu + \frac{\sigma}{\sqrt{n}}\cdot Z_n,
+\frac{1}{n}\sum_{i=1}^n X_i \approx \mu + \frac{\sigma}{\sqrt{n}}\cdot Z_n,
 \]
 其中$\mu=\mathbb{E}[X_1]$，
 $\sigma=\sqrt{\operatorname{Var}(X_1)}$，
@@ -136,12 +142,12 @@ Lindeberg中心极限定理等，它们在不同条件下证明了样本均值
 而$X_1,X_2,\ldots$是一列服从分布$F$的相互独立的随机变量。
 记$S_n=X_1+\cdots+X_n$，则当$n$足够大时，由中心极限定理可得
 \[
-    \mathbb{P}\!\left(S_n\leq x\right)
-    =\mathbb{P}\!\left(\frac{S_n-n\mu}{\sigma\sqrt{n}}
-    \leq \frac{x-n\mu}{\sigma\sqrt{n}}
-    \right) \approx \Phi\!\left(
-    \frac{x-n\mu}{\sigma\sqrt{n}}
-    \right).
+\mathbb{P}\!\left(S_n\leq x\right)
+=\mathbb{P}\!\left(\frac{S_n-n\mu}{\sigma\sqrt{n}}
+\leq \frac{x-n\mu}{\sigma\sqrt{n}}
+\right) \approx \Phi\!\left(
+\frac{x-n\mu}{\sigma\sqrt{n}}
+\right).
 \]
 上式意味着我们可以近似认为$S_n$服从正态分布
 $\mathcal{N}(n\mu,n\sigma^2)$。
@@ -188,19 +194,19 @@ $\mathbb{P}(30\leq S\leq 40)$进行估计。
 考虑到$S$服从的依然是离散型分布，
 我们在用中心极限定理前先采取连续性修正：
 \[
-    \begin{aligned}
-    \mathbb{P}(30\leq S\leq 40) ={} &
-     \mathbb{P}\!\left(29.5\leq S\leq 40.5\right) \\
-     \approx{} & \Phi\!\left(\frac{40.5-10\cdot 3.5}{\sqrt{35/12}\cdot\sqrt{10}}\right)
-     -\Phi\!\left(\frac{29.5-10\cdot 3.5}{\sqrt{35/12}\cdot\sqrt{10}}\right) \\
-     = {} & 2\,\Phi\!\left(\frac{40.5-10\cdot 3.5}{\sqrt{35/12}\cdot\sqrt{10}}\right)-1 \approx 0.6915,
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(30\leq S\leq 40) ={} &
+ \mathbb{P}\!\left(29.5\leq S\leq 40.5\right) \\
+ \approx{} & \Phi\!\left(\frac{40.5-10\cdot 3.5}{\sqrt{35/12}\cdot\sqrt{10}}\right)
+ -\Phi\!\left(\frac{29.5-10\cdot 3.5}{\sqrt{35/12}\cdot\sqrt{10}}\right) \\
+ = {} & 2\,\Phi\!\left(\frac{40.5-10\cdot 3.5}{\sqrt{35/12}\cdot\sqrt{10}}\right)-1 \approx 0.6915,
+\end{aligned}
 \]
 计算中我们还利用了函数$\Phi$的对称性$\Phi(x)+\Phi(-x)=1$。
 实际上，利用卷积公式交由计算机可算出精确值：
 \[
-    \mathbb{P}(30\leq S\leq 40)=\frac{10384949}{15116544}=
-    0.68699\cdots
+\mathbb{P}(30\leq S\leq 40)=\frac{10384949}{15116544}=
+0.68699\cdots
 \]
 可看出中心极限定理（附加连续性修正）给出的估计值与精确值
 相差不到$5\times 10^{-3}$。感兴趣的读者可尝试计算

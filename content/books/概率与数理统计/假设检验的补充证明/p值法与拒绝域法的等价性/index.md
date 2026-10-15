@@ -1,6 +1,7 @@
 ---
 title: $p$值法与拒绝域法的等价性
 ---
+
 首先对假设检验的$p$值法与拒绝域法进行简要回顾。
 令$\theta$为未知参数，并考虑如下假设检验问题：
 
@@ -50,7 +51,7 @@ $C_\alpha$为
   ```
 
 为使得临界值的表达式 @eq:critical_value_one_sided_appendix
-与 @eq:critical_value_two_sided_appendix  有意义，
+与 @eq:critical_value_two_sided_appendix 有意义，
 须要求形如
 $\{c\in\mathbb{R}\mid \mathbb{P}_{H_0}(T\geq c)\geq\alpha\}$
 的集合非空且有有限的最大值，而这可由如下引理保证：
@@ -59,8 +60,8 @@ $\{c\in\mathbb{R}\mid \mathbb{P}_{H_0}(T\geq c)\geq\alpha\}$
 设$Y$为任一随机变量，则任取$\alpha\in\left]0,1\right[$，
 均存在$y_\alpha\in\mathbb{R}$，使得
 \[
-    \left\{y\in\mathbb{R} \mid \mathbb{P}(Y\geq y)\geq\alpha\right\}
-    =\left]-\infty,y_\alpha\right].
+\left\{y\in\mathbb{R} \mid \mathbb{P}(Y\geq y)\geq\alpha\right\}
+=\left]-\infty,y_\alpha\right].
 \]
 :::
 
@@ -74,22 +75,22 @@ $\mathbb{P}(Y\geq y)\rightarrow 0$，
 
 接下来，记
 \[
-    S_\alpha = \left\{y\in\mathbb{R} \mid
-    \mathbb{P}(Y\geq y)\geq\alpha\right\}.
+S_\alpha = \left\{y\in\mathbb{R} \mid
+\mathbb{P}(Y\geq y)\geq\alpha\right\}.
 \]
 由于$\alpha<1$且$y\rightarrow-\infty$时
 $\mathbb{P}(Y\geq y)\rightarrow 1$，故集合$S_\alpha$非空。再令
 \[
-    y_\alpha = \sup S_\alpha
-    =\sup \left\{y\in\mathbb{R} \mid \mathbb{P}(Y\geq y)\geq\alpha\right\}.
+y_\alpha = \sup S_\alpha
+=\sup \left\{y\in\mathbb{R} \mid \mathbb{P}(Y\geq y)\geq\alpha\right\}.
 \]
 则由$\alpha>0$以及$y\rightarrow+\infty$时
 $\mathbb{P}(Y\geq y)\rightarrow 0$，可得$y_\alpha<+\infty$。
 而由上确界的定义，可知对任意$s<y_\alpha$，均存在$s'>s$使得
 $s'\in S_\alpha$，从而
 \[
-    \mathbb{P}(Y\geq s)\geq \mathbb{P}(Y\geq s')
-    \geq\alpha,
+\mathbb{P}(Y\geq s)\geq \mathbb{P}(Y\geq s')
+\geq\alpha,
 \]
 其中第一个不等号来自$\mathbb{P}(Y\geq s)$关于$s$的单调性，
 而第二个不等号则是因为$s'\in S_\alpha$。上式意味着$s<y_\alpha$时
@@ -97,12 +98,12 @@ $s'\in S_\alpha$，从而
 $\left]-\infty,y_\alpha\right]$或
 $\left]-\infty,y_\alpha\right[$的形式。最后，由
 \[
-    \mathbb{P}(Y\geq s)\geq\alpha,\qquad\forall s<y_\alpha,
+\mathbb{P}(Y\geq s)\geq\alpha,\qquad\forall s<y_\alpha,
 \]
 令$s$从左侧趋向$y_\alpha$并利用$\mathbb{P}(Y\geq y)$关于$y$的
 左连续性，可得
 \[
-    \mathbb{P}(Y\geq y_\alpha)\geq\alpha,
+\mathbb{P}(Y\geq y_\alpha)\geq\alpha,
 \]
 即$y_\alpha\in S_\alpha$，故$S_\alpha=
 \left]-\infty,y_\alpha\right]$，引理得证。
@@ -112,12 +113,12 @@ $\left]-\infty,y_\alpha\right[$的形式。最后，由
 
 ::: theorem
 设$T$为假设检验问题 @eq:testing_formulation_appendix
-的检验统计量，且 @condition:hypothesis_testing_H0_identical_distribution
+的检验统计量，且条件 @-condition:hypothesis_testing_H0_identical_distribution
 成立。则对任意样本观测值$x_1,\ldots,x_n$与显著性水平
 $\alpha\in\left]0,1\right[$，均有
 \[
-    \hat{p}(x_1,\ldots,x_n)<\alpha\quad\Longleftrightarrow\quad
-    \phi(x_1,\ldots,x_n)\in C_\alpha.
+\hat{p}(x_1,\ldots,x_n)<\alpha\quad\Longleftrightarrow\quad
+\phi(x_1,\ldots,x_n)\in C_\alpha.
 \]
 :::
 
@@ -127,71 +128,71 @@ $\alpha\in\left]0,1\right[$，均有
 - “$\Longleftarrow$”方向：
   设$\phi(x_1,\ldots,x_n)\in C_\alpha$，也即
   \[
-      \phi(x_1,\ldots,x_n)>c_\alpha = \max\left\{c\in\mathbb{R} \mid
-      \mathbb{P}_{H_0}(T\geq c)\geq\alpha\right\}.
+  \phi(x_1,\ldots,x_n)>c_\alpha = \max\left\{c\in\mathbb{R} \mid
+  \mathbb{P}_{H_0}(T\geq c)\geq\alpha\right\}.
   \]
   上式意味着$\phi(x_1,\ldots,x_n)\notin \{c\in\mathbb{R} \mid
-\mathbb{P}_{H_0}(T\geq c)\geq\alpha\}$，从而
+  \mathbb{P}_{H_0}(T\geq c)\geq\alpha\}$，从而
   \[
-      \mathbb{P}_{H_0}(T\geq\phi(x_1,\ldots,x_n))<\alpha,
+  \mathbb{P}_{H_0}(T\geq\phi(x_1,\ldots,x_n))<\alpha,
   \]
   也即$\hat{p}(x_1,\ldots,x_n)<\alpha$。
 
 - “$\Longrightarrow$”方向：设
   $\hat{p}(x_1,\ldots,x_n)<\alpha$，也就是说
   \[
-      \mathbb{P}_{H_0}(T\geq\phi(x_1,\ldots,x_n))<\alpha.
+  \mathbb{P}_{H_0}(T\geq\phi(x_1,\ldots,x_n))<\alpha.
   \]
   该不等式意味着
   \[
-      \phi(x_1,\ldots,x_n)\notin
-      \left\{c\in\mathbb{R} \mid \mathbb{P}_{H_0}(T\geq c)\geq\alpha\right\}.
+  \phi(x_1,\ldots,x_n)\notin
+  \left\{c\in\mathbb{R} \mid \mathbb{P}_{H_0}(T\geq c)\geq\alpha\right\}.
   \]
   而由 @lemma:hypothesis_testing_critical_value_well_defined
   可得$\{c\in\mathbb{R} \mid \mathbb{P}_{H_0}(T\geq c)\geq\alpha\}
-=\left]-\infty,c_\alpha\right]$，故由上式可得
+  =\left]-\infty,c_\alpha\right]$，故由上式可得
   \[
-      \phi(x_1,\ldots,x_n)>c_\alpha.
+  \phi(x_1,\ldots,x_n)>c_\alpha.
   \]
 
-由此我们建立了 @condition:hypothesis_testing_H0_identical_distribution
+由此我们建立了条件 @-condition:hypothesis_testing_H0_identical_distribution
 下单侧检验$p$值法与拒绝域法的等价性。
 
 接下来考虑双侧检验。此时由$p$值的定义可得
 \[
-    \begin{aligned}
-    & \hat{p}(x_1,\ldots,x_n) = 2\min\left\{
-    \mathbb{P}_{H_0}(T\geq t),\mathbb{P}_{H_0}(T\leq t)
-    \right\} < \alpha \\
-    \Longleftrightarrow\quad &
-    \mathbb{P}_{H_0}(T\geq t)<\frac{\alpha}{2}\ \text{或}\
-    \mathbb{P}_{H_0}(T\leq t)<\frac{\alpha}{2}.
-    \end{aligned}
+\begin{aligned}
+& \hat{p}(x_1,\ldots,x_n) = 2\min\left\{
+\mathbb{P}_{H_0}(T\geq t),\mathbb{P}_{H_0}(T\leq t)
+\right\} < \alpha \\
+\Longleftrightarrow\quad &
+\mathbb{P}_{H_0}(T\geq t)<\frac{\alpha}{2}\ \text{或}\
+\mathbb{P}_{H_0}(T\leq t)<\frac{\alpha}{2}.
+\end{aligned}
 \]
 而仿照单侧检验的证明过程，不难得到
 \[
-    \mathbb{P}_{H_0}(T\geq t)<\frac{\alpha}{2}
-    \quad \Longleftrightarrow\quad
-    \phi(x_1,\ldots,x_n) > \max\left\{
-    c\in\mathbb{R} \Bigm\vert
-    \mathbb{P}_{H_0}(T\geq c)\geq\frac{\alpha}{2}
-    \right\} = c_\alpha^u
+\mathbb{P}_{H_0}(T\geq t)<\frac{\alpha}{2}
+\quad \Longleftrightarrow\quad
+\phi(x_1,\ldots,x_n) > \max\left\{
+c\in\mathbb{R} \Bigm\vert
+\mathbb{P}_{H_0}(T\geq c)\geq\frac{\alpha}{2}
+\right\} = c_\alpha^u
 \]
 以及
 \[
-    \mathbb{P}_{H_0}(T\leq t)<\frac{\alpha}{2}
-    \quad \Longleftrightarrow\quad
-    \phi(x_1,\ldots,x_n) < \min\left\{
-    c\in\mathbb{R} \Bigm\vert
-    \mathbb{P}_{H_0}(T\leq c)\geq\frac{\alpha}{2}
-    \right\} = c_\alpha^l.
+\mathbb{P}_{H_0}(T\leq t)<\frac{\alpha}{2}
+\quad \Longleftrightarrow\quad
+\phi(x_1,\ldots,x_n) < \min\left\{
+c\in\mathbb{R} \Bigm\vert
+\mathbb{P}_{H_0}(T\leq c)\geq\frac{\alpha}{2}
+\right\} = c_\alpha^l.
 \]
 综上可得
 \[
-    \hat{p}(x_1,\ldots,x_n)\qquad\Longleftrightarrow\qquad
-    \phi(x_1,\ldots,x_n)>c_\alpha^u\ \text{或}\
-    \phi(x_1,\ldots,x_n)<c_\alpha^l,
+\hat{p}(x_1,\ldots,x_n)<\alpha\qquad\Longleftrightarrow\qquad
+\phi(x_1,\ldots,x_n)>c_\alpha^u\ \text{或}\
+\phi(x_1,\ldots,x_n)<c_\alpha^l,
 \]
-从而对于双侧检验，在 @condition:hypothesis_testing_H0_identical_distribution
+从而对于双侧检验，在条件 @-condition:hypothesis_testing_H0_identical_distribution
 下$p$值法与拒绝域法也是等价的。
 :::

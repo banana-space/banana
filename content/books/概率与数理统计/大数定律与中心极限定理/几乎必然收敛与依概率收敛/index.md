@@ -1,6 +1,7 @@
 ---
 title: 几乎必然收敛与依概率收敛
 ---
+
 在大数定律中，我们需要考虑一列随机变量的极限行为。
 由于随机变量本质上都是定义域为样本空间$\Omega$的函数，
 研究随机变量列的极限本质上也就是研究函数列的极限。
@@ -12,7 +13,7 @@ title: 几乎必然收敛与依概率收敛
 设$X$为随机变量，$X_1,X_2,\ldots$为一列随机变量。
 
 1. 我们称$X_n$在$n\rightarrow\infty$时**几乎必然收敛**于$X$
-   （$X_n$ converge to $X$ almost surely as $n\rightarrow\infty$），
+   （$X_n$ converges to $X$ almost surely as $n\rightarrow\infty$），
    记为$X_n\xrightarrow{a.s.} X$，若事件
 
    ```math {@eq:event_limit_exists}
@@ -26,7 +27,7 @@ title: 几乎必然收敛与依概率收敛
    （$X_n$ converges to $X$ in probability as $n\rightarrow\infty$），
    记为$X_n\xrightarrow{P} X$，若给定任意$\epsilon>0$，均有
    \[
-       \lim_{n\rightarrow\infty}\mathbb{P}(|X_n-X|>\epsilon)=0.
+   \lim_{n\rightarrow\infty}\mathbb{P}(|X_n-X|>\epsilon)=0.
    \]
 
 :::
@@ -57,23 +58,23 @@ $X_n\xrightarrow{P}X$但事件 @eq:event_limit_exists
 依概率收敛$X_n\xrightarrow{P} X$仅保证了对于每个
 足够大的自然数$n$，事件
 \[
-    \{|X_n-X|>\epsilon\}
+\{|X_n-X|>\epsilon\}
 \]
 的概率非常小，且$n\rightarrow\infty$时它的概率趋于$0$，
 但它不足以保证事件
 \[
-    \begin{aligned}
-     E_\epsilon ={} &
-    \left\{
-    \text{存在无穷多个自然数 $m$ 使得 $|X_m-X|>\epsilon$}
-    \right\} \\
-    ={} &
-    \left\{
-    \text{对每个自然数 $k$, 都存在自然数 $m\geq k$ 使得 $|X_m-X|>\epsilon$}
-    \right\} \\ ={} &
-    \bigcap_{k=1}^\infty \bigcup_{m=k}^\infty\left\{
-    |X_m-X|>\epsilon\right\}
-    \end{aligned}
+\begin{aligned}
+ E_\epsilon ={} &
+\left\{
+\text{存在无穷多个自然数 $m$ 使得 $|X_m-X|>\epsilon$}
+\right\} \\
+={} &
+\left\{
+\text{对每个自然数 $k$, 都存在自然数 $m\geq k$ 使得 $|X_m-X|>\epsilon$}
+\right\} \\ ={} &
+\bigcap_{k=1}^\infty \bigcup_{m=k}^\infty\left\{
+|X_m-X|>\epsilon\right\}
+\end{aligned}
 \]
 的概率为零，也就是说在$X_n\xrightarrow{P} X$时仍可能
 有非零的概率使得$(X_n)_{n=1}^\infty$当中有无穷多个

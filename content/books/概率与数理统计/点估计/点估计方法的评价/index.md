@@ -1,6 +1,7 @@
 ---
 title: 点估计方法的评价
 ---
+
 在数理统计学中，未知参数的统计推断理论被分为频率学派与贝叶斯学派两种。
 在频率学派的理论中，我们将总体的未知参数$\theta$作为一个确定性的量
 来处理，这种观点下，我们对未知参数推断所下的结论通常类似于“若
@@ -23,23 +24,26 @@ $g(\theta)$进行估计的情况。
 并设$\hat{\theta}:\mathbb{R}^n\rightarrow\mathbb{R}$为一个
 $n$元函数。现任取$\theta\in\Theta$，并设$X_1,\ldots,X_n$
 为总体$F(x;\theta)$的一组样本，令
-\begin{align}
-b_\theta(\hat{\theta}) ={} & \mathbb{E}\!\left[
+
+```math {@eq:point_estimator_bias}
+b_\theta(\hat{\theta}) = \mathbb{E}\!\left[
 \hat{\theta}(X_1,\ldots,X_n)
 \right]-\theta,
-\label{eq:point_estimator_bias}\\
+```
+
+```math {@eq:point_estimator_MSE}
 \operatorname{MSE}_\theta(\hat{\theta})
-={} & \mathbb{E}\!\left[
+= \mathbb{E}\!\left[
 \big(
 \hat{\theta}(X_1,\ldots,X_n)
 -\theta
 \big)^{\!2}
 \right]
-\label{eq:point_estimator_MSE}
-\end{align}
+```
+
 我们称$b_\theta(\hat{\theta})$为点估计量
 $\hat{\theta}(X_1,\ldots,X_n)$关于$\theta$的**偏差**
-(bias)，$\operatorname{MSE}_\theta(\hat{\theta})$为点估计量
+（bias），$\operatorname{MSE}_\theta(\hat{\theta})$为点估计量
 $\hat{\theta}(X_1,\ldots,X_n)$关于$\theta$的**均方误差**
 （mean square error, MSE）。
 :::
@@ -57,9 +61,9 @@ $X_1,\ldots,X_n$则是从参数为$\theta$的总体$F(x;\theta)$中
 为了强调样本$X_1,\ldots,X_n$与参数$\theta$的依赖关系，
 我们有时会用如下形式的记号
 \[
-    \mathbb{E}_\theta\!\left[\hat{\theta}(X_1,\ldots,X_n)\right]
-    \qquad\text{与}\qquad
-    \mathbb{P}_\theta\!\left(\hat{\theta}(X_1,\ldots,X_n)\in B\right)
+\mathbb{E}_\theta\!\left[\hat{\theta}(X_1,\ldots,X_n)\right]
+\qquad\text{与}\qquad
+\mathbb{P}_\theta\!\left(\hat{\theta}(X_1,\ldots,X_n)\in B\right)
 \]
 来强调样本$X_1,\ldots,X_n$来自于参数为$\theta$的总体。
 
@@ -67,10 +71,10 @@ $X_1,\ldots,X_n$则是从参数为$\theta$的总体$F(x;\theta)$中
 可以认为点估计量的均方误差越小，则给出的估计值越集中于真实值。
 不难验证点估计量$\hat\theta$的均方误差满足如下等式：
 \[
-    \operatorname{MSE}_\theta(\hat\theta)
-    =\big[b_\theta(\hat\theta)\big]^2
-    +\operatorname{Var}_\theta(\hat\theta),
-    \qquad\forall\theta\in\Theta,
+\operatorname{MSE}_\theta(\hat\theta)
+=\big[b_\theta(\hat\theta)\big]^2
++\operatorname{Var}_\theta(\hat\theta),
+\qquad\forall\theta\in\Theta,
 \]
 其中$\operatorname{Var}_\theta(\hat\theta)$表示样本
 $X_1,\ldots,X_n$来自于参数为$\theta$的总体时
@@ -92,11 +96,11 @@ $\operatorname{Var}_\theta(\hat\theta)$之间通常会存在一定冲突，
 点估计量的研究占据了比较重要的位置。
 
 ::: definition
-考虑 @definition:bias_MSE_point_estimator  的设定。
+考虑 @definition:bias_MSE_point_estimator 的设定。
 若对于任意的$\theta\in\Theta$，点估计量
 $\hat{\theta}(X_1,\ldots,X_n)$关于$\theta$的偏差都等于$0$，即
 \[
-    b_\theta(\hat{\theta})=0,\qquad\forall\theta\in\Theta,
+b_\theta(\hat{\theta})=0,\qquad\forall\theta\in\Theta,
 \]
 则称$\hat{\theta}(X_1,\ldots,X_n)$是$\theta$的
 一个**无偏估计量**（unbiased estimator）。
@@ -107,12 +111,12 @@ $\hat{\theta}(X_1,\ldots,X_n)$关于$\theta$的偏差都等于$0$，即
 给出了参数为$\theta$时相应总体的方差。现考虑样本$X_1,\ldots,X_n$的
 样本方差
 \[
-    S^2 = \frac{1}{n-1}\sum_{i=1}^n
-    \left(X_i-\frac{1}{n}\sum_{j=1}^n X_j\right)^2,
+S^2 = \frac{1}{n-1}\sum_{i=1}^n
+\left(X_i-\frac{1}{n}\sum_{j=1}^n X_j\right)^2,
 \]
 则不难验证
 \[
-    \mathbb{E}_\theta\!\left[S^2\right]=\sigma^2(\theta)
+\mathbb{E}_\theta\!\left[S^2\right]=\sigma^2(\theta)
 \]
 对任意$\theta$均成立。因此样本方差$S^2$是总体方差
 $\sigma^2(\theta)$的一个无偏估计量。
@@ -121,8 +125,8 @@ $\sigma^2(\theta)$的一个无偏估计量。
 根据均方误差的偏差—方差分解，在限制点估计量的偏差恒为零以后，
 其点估计量的方差即等于它的均方误差：
 \[
-    \operatorname{MSE}_\theta(\hat\theta)
-    =\operatorname{Var}_\theta(\hat\theta).
+\operatorname{MSE}_\theta(\hat\theta)
+=\operatorname{Var}_\theta(\hat\theta).
 \]
 因此在对两个无偏估计量的好坏进行比较时，我们就可以考虑以它们的方差为依据。
 不过，由于点估计量的方差依赖于参数$\theta$的值，而参数的真实值
@@ -135,8 +139,8 @@ $\hat\theta_2(X_1,\ldots,X_n)$为参数$\theta$的两个无偏估计量。
 我们称$\hat\theta_1$较$\hat\theta_2$**有效**
 （$\hat\theta_1$ is more efficient than $\hat\theta_2$），若
 \[
-    \operatorname{Var}_\theta(\hat\theta_1)
-    \leq \operatorname{Var}_\theta(\hat\theta_2)
+\operatorname{Var}_\theta(\hat\theta_1)
+\leq \operatorname{Var}_\theta(\hat\theta_2)
 \]
 对任意$\theta\in\Theta$都成立，且存在某个$\theta\in\Theta$使得
 上述不等式中的不等号能够取为严格不等号。
@@ -159,18 +163,18 @@ $\hat\theta_2(X_1,\ldots,X_n)$为参数$\theta$的两个无偏估计量。
 首先构造一个$n$元函数$g:\mathbb{R}^n\rightarrow\mathbb{R}$，
 并做初始化$\hat\theta_0=0$。接下来在每个$t$时刻，令
 \[
-    \hat\theta_t = \frac{t-1}{t}\hat\theta_{t-1} + \frac{1}{t}g(X_1^t,\ldots,X_n^t),
+\hat\theta_t = \frac{t-1}{t}\hat\theta_{t-1} + \frac{1}{t}g(X_1^t,\ldots,X_n^t),
 \]
 并将$\hat\theta_t$作为$t$时刻参数$\theta$的点估计结果。
 不难看出上式实际上是对$g(X_1^\tau,\ldots,X_n^\tau),\,
 \tau=1,\ldots,t$在线求平均的过程，从而
 \[
-    \hat\theta_t = \frac{1}{t}\sum_{\tau=1}^t g(X_1^\tau,\ldots,X_n^\tau).
+\hat\theta_t = \frac{1}{t}\sum_{\tau=1}^t g(X_1^\tau,\ldots,X_n^\tau).
 \]
 若$\mathbb{E}_\theta\!\left[g(X_1,\ldots,X_n)\right]$存在，
 则由大数定律可得
 \[
-    \hat\theta_t\xrightarrow{a.s.} \mathbb{E}_\theta[g(X_1,\ldots,X_n)],
+\hat\theta_t\xrightarrow{a.s.} \mathbb{E}_\theta[g(X_1,\ldots,X_n)],
 \]
 其中$X_1,\ldots,X_n$相互独立且与$X$同分布。不难看出在上述设定下，
 $g(X_1,\ldots,X_n)$的无偏性将是一个合理的要求，否则
@@ -182,7 +186,7 @@ $\hat\theta_t$与$\theta$真值之间的差无法通过让更新轮次$t$足够�
 （${}^\star$）
 设总体$X$服从几何分布
 \[
-    \mathbb{P}_\theta(X=k)=(1-\theta)^{k-1}\theta,\qquad k=1,2,\ldots,
+\mathbb{P}_\theta(X=k)=(1-\theta)^{k-1}\theta,\qquad k=1,2,\ldots,
 \]
 其中$\theta$为未知参数，其取值范围为$\left]0,0.5\right]$。
 现假设$X_1$为来自该总体的一个容量为$1$的样本，我们希望设计一个
@@ -191,58 +195,56 @@ $\theta$的点估计量$\hat\theta(X_1)$。由于$X_1$的取值为正整数，
 
 若要求$\hat\theta(X_1)$是无偏的，则有
 \[
-    \mathbb{E}_\theta\!\left[\hat\theta(X_1)\right]
-    =\sum_{k=1}^\infty\hat\theta(k)\cdot (1-\theta)^{k-1}\theta
-    =\theta,\qquad\forall\theta\in\left]0,0.5\right],
+\mathbb{E}_\theta\!\left[\hat\theta(X_1)\right]
+=\sum_{k=1}^\infty\hat\theta(k)\cdot (1-\theta)^{k-1}\theta
+=\theta,\qquad\forall\theta\in\left]0,0.5\right],
 \]
 即
 \[
-    1 = \sum_{k=0}^\infty \hat\theta(k+1)\cdot (1-\theta)^k,\qquad\forall\theta\in\left]0,0.5\right].
+1 = \sum_{k=0}^\infty \hat\theta(k+1)\cdot (1-\theta)^k,\qquad\forall\theta\in\left]0,0.5\right].
 \]
 可以证明满足上式的$\hat\theta$只能是
 \[
-    \hat{\theta}(k) = \begin{cases}
-    1, & \text{若}\ k=1, \\
-    0, & \text{若}\ k=2,3,\ldots
-    \end{cases}
+\hat{\theta}(k) = \begin{cases}
+1, & \text{若}\ k=1, \\
+0, & \text{若}\ k=2,3,\ldots
+\end{cases}
 \]
 因此对$\theta$的无偏估计量只可能是
 \[
-    \hat{\theta}(X_1) = \mathsf{1}_{\{X_1=1\}},
+\hat{\theta}(X_1) = \mathsf{1}_{\{X_1=1\}},
 \]
 也就是说$X_1=1$时点估计的值为$1$，而$X_1$取其它值时点估计的值为$0$，
 从而无偏估计量的均方误差为
 \[
-    \mathbb{E}_\theta\!\left[
-    (\mathsf{1}_{X_1=1}-\theta)^2
-    \right]
-    =(1-\theta)^2\cdot\theta + \sum_{k=2}^\infty \theta^2\cdot (1-\theta)^{k-1}\theta
-    =\theta(1-\theta).
+\mathbb{E}_\theta\!\left[
+(\mathsf{1}_{X_1=1}-\theta)^2
+\right]
+=(1-\theta)^2\cdot\theta + \sum_{k=2}^\infty \theta^2\cdot (1-\theta)^{k-1}\theta
+=\theta(1-\theta).
 \]
 
 然而，如果考虑如下点估计量
 \[
-    \hat\theta(X_1) = (1+X_1)^{-1},
+\hat\theta(X_1) = (1+X_1)^{-1},
 \]
 则它的均方误差为
 \[
-    \begin{aligned}
-    \mathbb{E}_\theta\!\left[\left((1+X_1)^{-1}-\theta\right)^{\!2}\right]
-    ={} & \sum_{k=1}^\infty \left((1+k)^{-1}-\theta\right)^{\!2}
-    \cdot (1-\theta)^{k-1}\theta.
-    \end{aligned}
+\begin{aligned}
+\mathbb{E}_\theta\!\left[\left((1+X_1)^{-1}-\theta\right)^{\!2}\right]
+={} & \sum_{k=1}^\infty \left((1+k)^{-1}-\theta\right)^{\!2}
+\cdot (1-\theta)^{k-1}\theta.
+\end{aligned}
 \]
 上式右端的求和没有初等表达式，需要用特殊函数来表示，
 但通过理论分析可以证明，当$0<\theta\leq 0.5$时，上式右端
-总是小于$\theta(1-\theta)$。图\ref{fig:geometric__point_estimation_mse}
+总是小于$\theta(1-\theta)$。图 1
 展示了两种点估计量的均方误差在$0<\theta\leq 0.5$时的值。这说明，
 若以均方误差作为点估计量优劣的评价指标，则对于所考虑的参数范围
 $0<\theta\leq 0.5$，有偏的估计量$(1+X_1)^{-1}$均优于
 无偏估计量$\mathsf{1}_{\{X_1=1\}}$。
 
-![点估计量$\mathsf{1}_{\{X_1=1\}}$与$(1+X_1)^{-1}$ 估计几何分布参数$\theta$的均方误差曲线。](Geometric_point_estimator_mse.png?width=600)
-
-\label{fig:geometric__point_estimation_mse}
+![点估计量$\mathsf{1}_{\{X_1=1\}}$与$(1+X_1)^{-1}$估计几何分布参数$\theta$的均方误差曲线。](Geometric_point_estimator_mse.png?width=600)
 
 本例部分取自[@cox1974theoretical]的Example 8.1。
 :::
@@ -272,7 +274,7 @@ $\hat\theta$，而是考虑一列点估计量$\hat\theta^{(1)},
 $\theta\in\Theta$，均有$\hat\theta^{(n)}\xrightarrow{P}\theta$，
 换句话说
 \[
-    \lim_{n\rightarrow\infty}\mathbb{P}_\theta\!\left(\big|\hat\theta^{(n)}(X_1,\ldots,X_n)-\theta\big|>\epsilon\right)=0
+\lim_{n\rightarrow\infty}\mathbb{P}_\theta\!\left(\big|\hat\theta^{(n)}(X_1,\ldots,X_n)-\theta\big|>\epsilon\right)=0
 \]
 对任意$\epsilon>0$以及$\theta\in\Theta$均成立。
 :::
@@ -282,4 +284,4 @@ $\theta\in\Theta$，均有$\hat\theta^{(n)}\xrightarrow{P}\theta$，
 没有相合性，那么直观上看，无论样本容量有多大，我们也难以把未知参数
 估计到任意高的精度，这样的点估计方法对于大多数问题都是不可取的。
 
-[^1]: 感兴趣的读者可参阅[@casella2024statistical] [@schervish1995theory][@cox1974theoretical]等更高阶的 数理统计教材。
+[^1]: 感兴趣的读者可参阅[@casella2024statistical; @schervish1995theory; @cox1974theoretical]等更高阶的数理统计教材。

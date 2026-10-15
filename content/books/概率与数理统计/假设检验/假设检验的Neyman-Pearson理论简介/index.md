@@ -1,6 +1,7 @@
 ---
 title: 假设检验的Neyman–Pearson理论简介
 ---
+
 假设检验的Neyman–Pearson理论是由统计学家Jerzy Neyman与
 Egon Pearson发展起来的，是一套广为接受的频率学派的假设检验理论，
 也是大多数数理统计教科书中频率学派假设检验的标准理论。
@@ -49,9 +50,9 @@ $H_0$与$H_1$之间二选一时，可以将假设检验的过程等价地用另�
 我们用$\hat{p}(x_1,\ldots,x_n)$来表示样本值$x_1,\ldots,x_n$
 对应的$p$值，则在给定显著性水平$\alpha$后，假设检验的过程可以总结为
 \[
-    \text{
-    若 $\hat{p}(x_1,\ldots,x_n)<\alpha$, 则拒绝 $H_0$; 否则接受 $H_0$.}
-    \tag{P}
+\text{
+若 $\hat{p}(x_1,\ldots,x_n)<\alpha$, 则拒绝 $H_0$; 否则接受 $H_0$.}
+\tag{P}
 \]
 设检验统计量$T=\phi(X_1,\ldots,X_n)$是单侧的。此时我们令
 
@@ -66,17 +67,17 @@ T\geq c
 $\mathbb{P}_{\theta_0}(T\geq c)\geq\alpha$的所有实数$c$当中
 最大的数。则可以证明
 \[
-    \begin{aligned}
-    \hat{p}(x_1,\ldots,x_n)<\alpha
-    \quad \Longleftrightarrow\quad
-    \phi(x_1,\ldots,x_n) > c_\alpha.
-    \end{aligned}
+\begin{aligned}
+\hat{p}(x_1,\ldots,x_n)<\alpha
+\quad \Longleftrightarrow\quad
+\phi(x_1,\ldots,x_n) > c_\alpha.
+\end{aligned}
 \]
 这意味着我们可以把假设检验的过程等价地写为
 \[
-    \text{若 $\phi(x_1,\ldots,x_n)>c_\alpha$, 则拒绝 $H_0$;
-    否则接受 $H_0$.}
-    \tag{C1}
+\text{若 $\phi(x_1,\ldots,x_n)>c_\alpha$, 则拒绝 $H_0$;
+否则接受 $H_0$.}
+\tag{C1}
 \]
 也就是说，我们只需算出样本值$x_1,\ldots,x_n$所对应的检验统计量
 $T$的取值，并将其与$c_\alpha$比较即可判断是否应当拒绝$H_0$。
@@ -84,7 +85,7 @@ $T$的取值，并将其与$c_\alpha$比较即可判断是否应当拒绝$H_0$�
 给出的$c_\alpha$称为（显著性水平为$\alpha$时检验统计量$T$的）
 **临界值**（critical value），并将集合
 \[
-    C_\alpha=\left]c_\alpha,+\infty\right[
+C_\alpha=\left]c_\alpha,+\infty\right[
 \]
 称为**拒绝域**（rejection region或critical region）。
 
@@ -101,10 +102,10 @@ $c_\alpha$可通过求解方程
 临界值为$z_{\alpha}$，它也可直接由方程
 @eq:hypothesis_testing_critical_value_2  解出：
 \[
-    \mathbb{P}_{\mu_0}
-    \left(Z\geq c_\alpha\right) = \alpha\quad
-    \Longleftrightarrow\quad
-    c_\alpha = z_{\alpha}.
+\mathbb{P}_{\mu_0}
+\left(Z\geq c_\alpha\right) = \alpha\quad
+\Longleftrightarrow\quad
+c_\alpha = z_{\alpha}.
 \]
 
 对于双侧检验，则需要用两个临界值来框定拒绝域：
@@ -124,20 +125,20 @@ c\in\mathbb{R} \Bigm\vert
 
 此时可以证明
 \[
-    \hat{p}(x_1,\ldots,x_n)<\alpha\quad
-    \Longleftrightarrow\quad
-    \phi(x_1,\ldots,x_n)>c_\alpha^u\ \text{或}\ \phi(x_1,\ldots,x_n)<c_\alpha^l.
+\hat{p}(x_1,\ldots,x_n)<\alpha\quad
+\Longleftrightarrow\quad
+\phi(x_1,\ldots,x_n)>c_\alpha^u\ \text{或}\ \phi(x_1,\ldots,x_n)<c_\alpha^l.
 \]
 这意味着我们可以把假设检验的过程等价地写为
 \[
-    \text{若 $\phi(x_1,\ldots,x_n)>c_\alpha^u$ 或
-    $\phi(x_1,\ldots,x_n)<c_\alpha^l$, 则拒绝 $H_0$; 否则接受 $H_0$.}
-    \tag{C2}
+\text{若 $\phi(x_1,\ldots,x_n)>c_\alpha^u$ 或
+$\phi(x_1,\ldots,x_n)<c_\alpha^l$, 则拒绝 $H_0$; 否则接受 $H_0$.}
+\tag{C2}
 \]
 相应的拒绝域为
 \[
-    C_\alpha =\ ]{-\infty},c_{\alpha}^l[\
-    \cup\,\left]c_{\alpha}^u,+\infty\right[.
+C_\alpha =\ ]{-\infty},c_{\alpha}^l[\
+\cup\,\left]c_{\alpha}^u,+\infty\right[.
 \]
 而若$T$在原假设下还是连续型随机变量，且概率密度函数在某个开区间上
 恒大于$0$而在该开区间外恒等于$0$，则双侧检验的两个临界值可通过求解方程
@@ -158,7 +159,8 @@ c\in\mathbb{R} \Bigm\vert
 $H_0$的方法称为 **$p$值法**，而将(C1)
 与(C2)给出的方法
 称为**临界值法**或**拒绝域法**。$p$值法与拒绝域法
-等价性的证明则作为选读内容，感兴趣的读者可参阅[附录C.1](/books/概率与数理统计/假设检验的补充证明/p值法与拒绝域法的等价性/)。
+等价性的证明则作为选读内容，
+感兴趣的读者可参阅[附录C.1](/books/概率与数理统计/假设检验的补充证明/p值法与拒绝域法的等价性/)。
 
 ## 第I类错误与第II类错误*
 
@@ -176,7 +178,7 @@ $H_0$的方法称为 **$p$值法**，而将(C1)
 第I类错误与第II类错误的概率。这里我们对“发生错误的概率”进行一些
 必要的说明与澄清：由于Neyman–Pearson理论属于频率学派理论，
 因而总体的未知参数$\theta$是一个确定性的未知量。
-在Neymann-Pearson理论中，假设检验结果的随机性来自于样本的随机性，
+在Neyman–Pearson理论中，假设检验结果的随机性来自于样本的随机性，
 我们会考察
 
 1. 当总体真实参数$\theta$属于$\Theta_0$时，若通过反复
@@ -212,18 +214,17 @@ $H_0$的方法称为 **$p$值法**，而将(C1)
 （备择假设成立时）发生第II类错误的概率。这两类错误概率的值都依赖于
 $\theta$的值。我们还会引入**功效函数**（power function）
 \[
-    w(\theta) = w_T^\alpha(\theta)
-    =\mathbb{P}_{\theta}(T\in C_\alpha),\qquad
-    \theta\in\Theta_0\cup\Theta_1.
+w(\theta) = w_T^\alpha(\theta)
+=\mathbb{P}_{\theta}(T\in C_\alpha),\qquad
+\theta\in\Theta_0\cup\Theta_1.
 \]
 不难看出，$w(\theta)$在$\theta\in\Theta_0$时等于第I类错误的概率，
 而在$\theta\in\Theta_1$时等于$1$减去第II类错误的概率。
 
 可以证明，当$\Theta_0$仅包含单个点$\theta_0$（即原假设$H_0$
-为简单假设），且检验统计量$T$为连续型随机变量时，有
-[^1]
+为简单假设），且检验统计量$T$为连续型随机变量时，有[^1]
 \[
-    \mathbb{P}_{\theta_0}(T\in C_\alpha) = \alpha.
+\mathbb{P}_{\theta_0}(T\in C_\alpha) = \alpha.
 \]
 也就是说，显著性水平$\alpha$就等于第I类错误的概率。一般来说，
 在样本容量固定的情况下，我们不可能同时让第I类错误的概率与第II类错误
@@ -237,11 +238,11 @@ $\theta\in\Theta_1$时发生第II类错误的概率都尽可能比较小）；
 它们的显著性水平为$\alpha$的拒绝域分别记为$C_{1,\alpha}$与
 $C_{2,\alpha}$，那么当
 \[
-    w_{T_1}^\alpha(\theta)
-    =\mathbb{P}_{\theta}(T_1\in C_{1,\alpha})
-    \geq
-    \mathbb{P}_{\theta}(T_2\in C_{2,\alpha})
-    =w_{T_2}^\alpha(\theta)
+w_{T_1}^\alpha(\theta)
+=\mathbb{P}_{\theta}(T_1\in C_{1,\alpha})
+\geq
+\mathbb{P}_{\theta}(T_2\in C_{2,\alpha})
+=w_{T_2}^\alpha(\theta)
 \]
 对任意的$\theta\in\Theta_1$都成立，且上述不等式对于至少一个
 $\theta\in\Theta_1$能够取得严格不等号的时候，即认为检验统计量
@@ -271,45 +272,45 @@ Neyman–Pearson理论的重要组成部分，但限于本讲义面向的读者�
 设总体服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中
 $\sigma^2$已知而$\mu$未知。原假设与备择假设为
 \[
-    H_0: \mu=\mu_0,\qquad H_1:\mu\neq\mu_0.
+H_0: \mu=\mu_0,\qquad H_1:\mu\neq\mu_0.
 \]
 由 @example:testing_normal_mean_var_known_two-sided
 的结果可知，显著性水平$\alpha$时，检验统计量
-$Z=(\overline{X}-\mu)/(\sigma/\sqrt{n})$的拒绝域为
+$Z=(\overline{X}-\mu_0)/(\sigma/\sqrt{n})$的拒绝域为
 $\left]-\infty,-z_{\alpha/2}\right[\,\cup\,
 \left]z_{\alpha/2},+\infty\right[$。故功效函数为
 \[
-    \begin{aligned}
-    w(\mu) ={} &
-    \mathbb{P}
-    _{\mu}\!\left(
-    \frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}
-    >z_{\alpha/2}
-    \right)
-    +
-    \mathbb{P}
-    _{\mu}\!\left(
-    \frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}
-    <-z_{\alpha/2}
-    \right) \\
-    ={} &
-    \mathbb{P}_{\mu}\!\left(
-    \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
-    >z_{\alpha/2} + \frac{\mu_0-\mu}{\sigma/\sqrt{n}}
-    \right)
-    +
-    \mathbb{P}_{\mu}\!\left(
-    \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
-    <-z_{\alpha/2} + \frac{\mu_0-\mu}{\sigma/\sqrt{n}}
-    \right) \\
-    ={} &
-    1-\Phi\!\left(z_{\alpha/2}-\frac{\mu-\mu_0}{\sigma/\sqrt{n}}\right)
-    +\Phi\!\left(-z_{\alpha/2}-\frac{\mu-\mu_0}{\sigma/\sqrt{n}}\right) \\
-    ={} &
-    \Phi\!\left(-z_{\alpha/2}+\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)
-    +
-    \Phi\!\left(-z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right),
-    \end{aligned}
+\begin{aligned}
+w(\mu) ={} &
+\mathbb{P}
+_{\mu}\!\left(
+\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}
+>z_{\alpha/2}
+\right)
++
+\mathbb{P}
+_{\mu}\!\left(
+\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}
+<-z_{\alpha/2}
+\right) \\
+={} &
+\mathbb{P}_{\mu}\!\left(
+\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
+>z_{\alpha/2} + \frac{\mu_0-\mu}{\sigma/\sqrt{n}}
+\right)
++
+\mathbb{P}_{\mu}\!\left(
+\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
+<-z_{\alpha/2} + \frac{\mu_0-\mu}{\sigma/\sqrt{n}}
+\right) \\
+={} &
+1-\Phi\!\left(z_{\alpha/2}-\frac{\mu-\mu_0}{\sigma/\sqrt{n}}\right)
++\Phi\!\left(-z_{\alpha/2}-\frac{\mu-\mu_0}{\sigma/\sqrt{n}}\right) \\
+={} &
+\Phi\!\left(-z_{\alpha/2}+\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)
++
+\Phi\!\left(-z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right),
+\end{aligned}
 \]
 其中最后一步用到了$1-\Phi(x)=\Phi(-x)$及
 $\Phi(x+y)+\Phi(x-y)=\Phi(x+|y|)+\Phi(x-|y|)$。
@@ -318,47 +319,44 @@ $\Phi(x+y)+\Phi(x-y)=\Phi(x+|y|)+\Phi(x-|y|)$。
 我们尤其关注$|\mu-\mu_0|\geq\delta$的情形，其中$\delta>0$
 为事先适当选定的一个正实数，并希望对于这些$\mu$的可能取值能够
 尽量避免第II类错误；而对于$0<|\mu-\mu_0|<\delta$的情形，
-则由于$\mu$与$\mu_0$较为接近，即使发生第II类错误我们也可以忍受
-[^2]。
+则由于$\mu$与$\mu_0$较为接近，即使发生第II类错误我们也可以忍受[^2]。
 此时我们可以问这样一个问题：在保持显著性水平$\alpha$不变的前提下，
 若要将$|\mu-\mu_0|\geq\delta$时的第II类错误概率降低到$\beta$以下，
 则样本容量$n$应至少为多大？由上述功效函数的计算可得，第II类错误的概率为
 \[
-    \begin{aligned}
-    1-w(\mu)
-    ={} & \Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)
-    -
-    \Phi\!\left(-z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right) \\
-    <{} &
-    \Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right).
-    \end{aligned}
+\begin{aligned}
+1-w(\mu)
+={} & \Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)
+-
+\Phi\!\left(-z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right) \\
+<{} &
+\Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right).
+\end{aligned}
 \]
 实际上，上式中最后一步的放缩通常是相当紧的，这是因为当
 $\sqrt{n}|\mu-\mu_0|$足够大时，
 $\Phi\!\left(-z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)$
 与$\Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)$
-相比可忽略（也可见图\ref{fig:test_normal_mean_var_known_power}
-给出的示意）。由此可得，若要让$|\mu-\mu_0|<\delta$时的第II类错误概率
+相比可忽略（也可见图 1
+给出的示意）。由此可得，若要让$|\mu-\mu_0|\geq\delta$时的第II类错误概率
 小于等于$\beta$，一个充分条件为
 \[
-    \Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)
-    \leq\beta,
-    \qquad\forall \mu:|\mu-\mu_0|\geq\delta,
+\Phi\!\left(z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)
+\leq\beta,
+\qquad\forall \mu:|\mu-\mu_0|\geq\delta,
 \]
 即
 \[
-    z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}
-    \leq - z_\beta,\qquad \forall \mu:|\mu-\mu_0|\geq\delta,
+z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}
+\leq - z_\beta,\qquad \forall \mu:|\mu-\mu_0|\geq\delta,
 \]
 也即
 \[
-    n\geq \left[\frac{(z_{\alpha/2}+z_\beta)\sigma}{\delta}\right]^2.
+n\geq \left[\frac{(z_{\alpha/2}+z_\beta)\sigma}{\delta}\right]^2.
 \]
 :::
 
-![例\ref{example:test_power_normal_mean_var_known} 中第II类错误的计算示意图。虚曲线为$\mathcal{N}(0,1)$的概率密度函数， 实曲线为$\mathcal{N}(\sqrt{n}|\mu\!-\!\mu_0|/\sigma,1)$的 概率密度函数，其分布函数即为 $\Phi(z-\sqrt{n}|\mu\!-\!\mu_0|/\sigma)$。蓝色阴影表示实曲线下 从$z=-z_{\alpha/2}$到$z=z_{\alpha/2}$部分的面积，不难看出它 严格小于但又约等于实曲线下从$z=-\infty$到$z=z_{\alpha/2}$部分的面积。](Type-II_error_example.png?width=660)
-
-\label{fig:test_normal_mean_var_known_power}
+![图 1：@example:test_power_normal_mean_var_known 中第II类错误的计算示意图。虚曲线为$\mathcal{N}(0,1)$的概率密度函数，实曲线为$\mathcal{N}(\sqrt{n}|\mu\!-\!\mu_0|/\sigma,1)$的概率密度函数，其分布函数即为 $\Phi(z-\sqrt{n}|\mu\!-\!\mu_0|/\sigma)$。蓝色阴影表示实曲线下从$z=-z_{\alpha/2}$到$z=z_{\alpha/2}$部分的面积，不难看出它严格小于但又约等于实曲线下从$z=-\infty$到$z=z_{\alpha/2}$部分的面积。](Type-II_error_example.png?width=660)
 
 理想情况下，对于在原假设与备择假设之间二选一的假设检验问题，我们
 均需要在事前进行类似于 @example:test_power_normal_mean_var_known  那样的分析，
@@ -376,9 +374,9 @@ $\Phi\!\left(-z_{\alpha/2}-\frac{\sqrt{n}|\mu-\mu_0|}{\sigma}\right)$
 总体的未知参数$\theta=(\psi,\lambda)$由两部分$\psi$和$\lambda$
 组成，而原假设和备择假设则分别为
 \[
-    H_0: \psi=\psi_0,\qquad H_1:\psi\begin{Bmatrix}
-    \neq \\[-5pt] > \\[-5pt] <
-    \end{Bmatrix} \psi_0.
+H_0: \psi=\psi_0,\qquad H_1:\psi\begin{Bmatrix}
+\neq \\[-5pt] > \\[-5pt] <
+\end{Bmatrix} \psi_0.
 \]
 换句话说，我们关心$\psi$的取值是否为$\psi_0$，而$\lambda$则是
 一个多余参数。若将$\lambda$的所有可能取值构成的集合记为
@@ -398,7 +396,7 @@ $T$在原假设$H_0$下的分布是与$\theta\in\Theta_0$的具体取值无关�
 - 单侧检验：$\hat{p}=\mathbb{P}_{H_0}(T\geq t)$；
 
 - 双侧检验：$\hat{p}=2\min\{\mathbb{P}_{H_0}(T\geq t),
-\mathbb{P}_{H_0}(T\leq t)\}$。
+  \mathbb{P}_{H_0}(T\leq t)\}$。
 
 其中$t$为检验统计量$T$在代入样本观测值$x_1,\ldots,x_n$后的取值，
 $\mathbb{P}_{H_0}(T\geq t)$表示原假设$H_0$下$T\geq t$的概率
@@ -408,39 +406,35 @@ $\alpha\in\left]0,1\right[$后，相应的拒绝域$C_\alpha$可由
 
 - 单侧检验：$C_\alpha=\left]c_\alpha,+\infty\right[$，其中
   \[
-      c_\alpha = \max\left\{c\in\mathbb{R} \mid
-      \mathbb{P}_{H_0}(T\geq c)\geq\alpha\right\};
+  c_\alpha = \max\left\{c\in\mathbb{R} \mid
+  \mathbb{P}_{H_0}(T\geq c)\geq\alpha\right\};
   \]
-  而若$T$在原假设下服从连续型分布，且相应的率密度函数在某个开区间上
+  而若$T$在原假设下服从连续型分布，且相应的概率密度函数在某个开区间上
   恒大于$0$而在该开区间外恒等于$0$，则临界值可通过求解
-  $
-\mathbb{P}_{H_0}(T> c_\alpha)=\alpha
-$
+  $\mathbb{P}_{H_0}(T> c_\alpha)=\alpha$
   得到。
 
 - 双侧检验：$C_\alpha=\ ]{-\infty},c_\alpha^l[\
-\cup\ ]c_\alpha^u,+\infty[$，其中
+  \cup\ ]c_\alpha^u,+\infty[$，其中
   \[
-      \begin{aligned}
-      c^u_{\alpha} ={} & \max\left\{
-      c\in\mathbb{R} \Bigm\vert
-      \mathbb{P}_{H_0}(T\geq c)\geq\frac{\alpha}{2}
-      \right\}, \\
-      c^l_{\alpha} ={} & \min\left\{
-      c\in\mathbb{R} \Bigm\vert
-      \mathbb{P}_{H_0}(T\leq c)\geq\frac{\alpha}{2}
-      \right\}.
-      \end{aligned}
+  \begin{aligned}
+  c^u_{\alpha} ={} & \max\left\{
+  c\in\mathbb{R} \Bigm\vert
+  \mathbb{P}_{H_0}(T\geq c)\geq\frac{\alpha}{2}
+  \right\}, \\
+  c^l_{\alpha} ={} & \min\left\{
+  c\in\mathbb{R} \Bigm\vert
+  \mathbb{P}_{H_0}(T\leq c)\geq\frac{\alpha}{2}
+  \right\}.
+  \end{aligned}
   \]
-  而若$T$在原假设下服从连续型分布，且相应的率密度函数在某个开区间上
+  而若$T$在原假设下服从连续型分布，且相应的概率密度函数在某个开区间上
   恒大于$0$而在该开区间外恒等于$0$，则临界值可通过求解
-  $
-\mathbb{P}_{H_0}
-\!\left(T> c_\alpha^u\right)=
-\mathbb{P}_{H_0}
-\!\left(T< c_\alpha^l\right)
-=\alpha/2
-$
+  $\mathbb{P}_{H_0}
+  \!\left(T> c_\alpha^u\right)=
+  \mathbb{P}_{H_0}
+  \!\left(T< c_\alpha^l\right)
+  =\alpha/2$
   得到。
 
 可以证明（见[附录C](/books/概率与数理统计/假设检验的补充证明/)），
@@ -454,8 +448,14 @@ $
   第I类错误概率。
 
 在本章的后两节中，我们将针对一些具体的例子，讨论如何构造满足
-@condition:hypothesis_testing_H0_identical_distribution_main_text
+条件 @-condition:hypothesis_testing_H0_identical_distribution_main_text
 的检验统计量，并给出相应的$p$值与拒绝域。
 
-[^1]: 对于更一般的情况，可以证明$\mathbb{P}_{\theta_0} (T\in C_\alpha) \leq \alpha$，也就是说显著性水平$\alpha$ 给出了第I类错误概率的一个上界； 参见[附录C.2](/books/概率与数理统计/假设检验的补充证明/显著性水平与第I类错误概率的关系/)。
-[^2]: 由于功效函数$w(\mu)$是连续函数，故当第I类错误概率 $w(\mu_0)$小于等于$\alpha$时，不可能让所有的$\mu\neq\mu_0$都 给出很小的第II类错误概率$1-w(\mu)$，因此我们需要以$\delta$ 为阈值将$\mu\neq\mu_0$的情形分为$|\mu-\mu_0|\geq\delta$ 与$0<|\mu-\mu_0|<\delta$两类，主要关注$|\mu-\mu_0|\geq\delta$ 时的第II类错误概率而容忍$|\mu-\mu_0|<\delta$时的第II类错误。
+[^1]: 对于更一般的情况，可以证明$\mathbb{P}_{\theta_0} (T\in C_\alpha) \leq \alpha$，
+    也就是说显著性水平$\alpha$ 给出了第I类错误概率的一个上界；
+    参见[附录C.2](/books/概率与数理统计/假设检验的补充证明/显著性水平与第I类错误概率的关系/)。
+[^2]: 由于功效函数$w(\mu)$是连续函数，故当第I类错误概率 $w(\mu_0)$小于等于$\alpha$时，
+    不可能让所有的$\mu\neq\mu_0$都给出很小的第II类错误概率$1-w(\mu)$，
+    因此我们需要以$\delta$ 为阈值将$\mu\neq\mu_0$的情形分为$|\mu-\mu_0|\geq\delta$ 与
+    $0<|\mu-\mu_0|<\delta$两类，
+    主要关注$|\mu-\mu_0|\geq\delta$ 时的第II类错误概率而容忍$|\mu-\mu_0|<\delta$时的第II类错误。

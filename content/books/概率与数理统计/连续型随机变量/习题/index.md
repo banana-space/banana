@@ -1,13 +1,14 @@
 ---
 title: 习题选编
 ---
+
 ::: exercise [Pareto分布]
 设随机变量$X$满足
 \[
-    \mathbb{P}(X\geq x) = \begin{cases}
-    \displaystyle \left(\frac{x_{\mathrm{m}}}{x}\right)^\alpha, & \text{若}\ x\geq x_{\mathrm{m}}, \\
-    1, & \text{若}\ x<x_{\mathrm{m}},
-    \end{cases}
+\mathbb{P}(X\geq x) = \begin{cases}
+\displaystyle \left(\frac{x_{\mathrm{m}}}{x}\right)^\alpha, & \text{若}\ x\geq x_{\mathrm{m}}, \\
+1, & \text{若}\ x<x_{\mathrm{m}},
+\end{cases}
 \]
 其中$x_{\mathrm{m}}$与$\alpha$为给定的正实数。
 
@@ -31,19 +32,19 @@ title: 习题选编
 
 1. 若$(X,Y)$的联合概率密度函数为
    \[
-       f_{X,Y}(x,y) = \begin{cases}
-       c\,\mathrm{e}^{-2x}\mathrm{e}^{-3y}, & \text{若}\ x>0\ \text{且}\ y>0, \\
-       0, & \text{其它情况},
-       \end{cases}
+   f_{X,Y}(x,y) = \begin{cases}
+   c\,\mathrm{e}^{-2x}\mathrm{e}^{-3y}, & \text{若}\ x>0\ \text{且}\ y>0, \\
+   0, & \text{其它情况},
+   \end{cases}
    \]
    其中$c$为某个常数。试求$c$的值，并判断$X,Y$是否相互独立。
 
 2. 若$(X,Y)$的联合概率密度函数为
    \[
-       f_{X,Y}(x,y) = \begin{cases}
-       c xy, & \text{若}\ x>0,y>0\ \text{且}\ x+y<1, \\
-       0, & \text{其它情况},
-       \end{cases}
+   f_{X,Y}(x,y) = \begin{cases}
+   c xy, & \text{若}\ x>0,y>0\ \text{且}\ x+y<1, \\
+   0, & \text{其它情况},
+   \end{cases}
    \]
    其中$c$为某个常数。试求$c$的值，并判断$X,Y$是否相互独立。
 
@@ -57,28 +58,28 @@ title: 习题选编
 
 *提示：* 由于$N$取值为自然数，而$X-N$取值于$[0,1[$，故$N$与$X-N$独立当且仅当
 \[
-    \mathbb{P}(N=n,X-N\in I) = \mathbb{P}(N=n)\cdot\mathbb{P}(X-N\in I)
+\mathbb{P}(N=n,X-N\in I) = \mathbb{P}(N=n)\cdot\mathbb{P}(X-N\in I)
 \]
 对任意自然数$n$以及区间$I\subseteq[0,1[\,$均成立，而
 \[
-    \begin{aligned}
-    \mathbb{P}(N=n,X-N\in I)& =\mathbb{P}(X-n\in I), \\
-    \mathbb{P}(X-N\in I) &= \sum_{n=0}^\infty \mathbb{P}(N=n,X-N\in I), \\
-    \mathbb{P}(N=n) &= \mathbb{P}(n\leq X< n+1).
-    \end{aligned}
+\begin{aligned}
+\mathbb{P}(N=n,X-N\in I)& =\mathbb{P}(X-n\in I), \\
+\mathbb{P}(X-N\in I) &= \sum_{n=0}^\infty \mathbb{P}(N=n,X-N\in I), \\
+\mathbb{P}(N=n) &= \mathbb{P}(n\leq X< n+1).
+\end{aligned}
 \]
 :::
 
 ::: exercise {@exercise:positive_continuous_rv_expectation}
 设$X$为一非负连续型随机变量且期望存在，证明
 \[
-    \mathbb{E}[X] = \int_0^{+\infty} \mathbb{P}(X>x)\,\mathrm{d} x.
+\mathbb{E}[X] = \int_0^{+\infty} \mathbb{P}(X>x)\,\mathrm{d} x.
 \]
 *提示：* 由期望的定义出发，证明
 \[
-    \mathbb{E}[X]
-    =\int_{0}^{+\infty}
-    \left(\int_{0}^x f_X(x)\,\mathrm{d} t\right)\mathrm{d} x,
+\mathbb{E}[X]
+=\int_{0}^{+\infty}
+\left(\int_{0}^x f_X(x)\,\mathrm{d} t\right)\mathrm{d} x,
 \]
 然后交换积分次序（无需说明积分次序交换的合法性）。
 :::
@@ -86,21 +87,21 @@ title: 习题选编
 ::: exercise
 设$g:\mathbb{R}\rightarrow\left[0,+\infty\right[$为一非负函数，
 $X$与$g(X)$均为连续型随机变量，$X$的概率密度函数为$f_X$。
-试利用 @exercise:positive_continuous_rv_expectation  的结论，
+试利用 @exercise:positive_continuous_rv_expectation 的结论，
 证明
 \[
-    \mathbb{E}[g(X)] = \int_{-\infty}^{+\infty} g(x)\cdot f_X(x)\,\mathrm{d} x.
+\mathbb{E}[g(X)] = \int_{-\infty}^{+\infty} g(x)\cdot f_X(x)\,\mathrm{d} x.
 \]
-*提示：* 由 @exercise:positive_continuous_rv_expectation  的结论，
+*提示：* 由 @exercise:positive_continuous_rv_expectation 的结论，
 可得
 \[
-    \begin{aligned}
-    \mathbb{E}[g(X)]
-    & =\int_0^{+\infty} \mathbb{P}(g(X)>t)\,\mathrm{d} t \\
-    & = \int_0^{+\infty}\left(
-    \int_{-\infty}^{+\infty}
-    \mathsf{1}_{g(x)>t}(x,t)\cdot f_X(x)\,\mathrm{d} x\right)\,\mathrm{d} t,
-    \end{aligned}
+\begin{aligned}
+\mathbb{E}[g(X)]
+& =\int_0^{+\infty} \mathbb{P}(g(X)>t)\,\mathrm{d} t \\
+& = \int_0^{+\infty}\left(
+\int_{-\infty}^{+\infty}
+\mathsf{1}_{g(x)>t}(x,t)\cdot f_X(x)\,\mathrm{d} x\right)\,\mathrm{d} t,
+\end{aligned}
 \]
 其中$\mathsf{1}_{g(x)>t}(x,t)$在$g(x)>t$时等于1
 而其它情况下等于$0$。接下来交换积分次序（无需说明积分次序交换的合法性）。
@@ -110,9 +111,9 @@ $X$与$g(X)$均为连续型随机变量，$X$的概率密度函数为$f_X$。
 设$X$为一随机变量，$\operatorname{Var}(X)$存在。证明：
 对任意$c\in\mathbb{R}$，均有
 \[
-    \operatorname{Var}(X)\leq \mathbb{E}\!\left[(X-c)^2\right],
+\operatorname{Var}(X)\leq \mathbb{E}\!\left[(X-c)^2\right],
 \]
-且上式中取等号当且仅当$c=\mathbb{E}[X]$．
+且上式中取等号当且仅当$c=\mathbb{E}[X]$。
 :::
 
 ::: exercise
@@ -127,11 +128,11 @@ $g:\mathbb{R}\rightarrow\mathbb{R}$为一阶连续可微函数，
 $g'(x)$在$x\in\mathbb{R}$上单调不减，且$\mathbb{E}[g(X)]$存在，
 证明
 \[
-    g(\mathbb{E}[X])\leq \mathbb{E}[g(X)].
+g(\mathbb{E}[X])\leq \mathbb{E}[g(X)].
 \]
 *提示：* 先证明对任意$x,t\in\mathbb{R}$，有
 \[
-    g(x) \geq g(t) + g'(t)(x-t),
+g(x) \geq g(t) + g'(t)(x-t),
 \]
 再在上式中代入$x=X,\,t=\mathbb{E}[X]$并取期望。
 :::
@@ -141,13 +142,13 @@ $g'(x)$在$x\in\mathbb{R}$上单调不减，且$\mathbb{E}[g(X)]$存在，
 且满足$0\leq g(x)\leq 1,\,\forall x\in[0,1]$。
 设随机变量$X,Y$相互独立且均服从区间$[0,1]$上的均匀分布。令
 \[
-    U = \mathsf{1}_{\{Y\leq g(X)\}},\quad V = g(X),\quad
-    W = \frac{1}{2}(g(X)+g(1-X)).
+U = \mathsf{1}_{\{Y\leq g(X)\}},\quad V = g(X),\quad
+W = \frac{1}{2}(g(X)+g(1-X)).
 \]
 
 1. 证明
    \[
-       \mathbb{E}[U]=\mathbb{E}[V]=\mathbb{E}[W]=\int_0^1 g(x)\,\mathrm{d}x.
+   \mathbb{E}[U]=\mathbb{E}[V]=\mathbb{E}[W]=\int_0^1 g(x)\,\mathrm{d}x.
    \]
 
 2. 证明$\operatorname{Var}(W)\leq\operatorname{Var}(V)\leq\operatorname{Var}(U)$。
@@ -162,12 +163,12 @@ $Y_1,\ldots,Y_n$为$n$个同分布的连续型随机变量，
 $g:\mathbb{R}\rightarrow\mathbb{R}$为一函数，
 且$\mathbb{E}[g(X)]$存在。令
 \[
-    Z = \frac{1}{n}\sum_{i=1}^n
-    g(Y_i)\cdot\frac{f_X(Y_i)}{f_Y(Y_i)}.
+Z = \frac{1}{n}\sum_{i=1}^n
+g(Y_i)\cdot\frac{f_X(Y_i)}{f_Y(Y_i)}.
 \]
 证明
 \[
-    \mathbb{E}[Z] = \mathbb{E}[g(X)].
+\mathbb{E}[Z] = \mathbb{E}[g(X)].
 \]
 :::
 
@@ -176,11 +177,11 @@ $g:\mathbb{R}\rightarrow\mathbb{R}$为一函数，
 且$\mathbb{E}[X_1]$存在。$T$为一离散型随机变量，其取值均为自然数，
 且期望$\mathbb{E}[T]$存在。证明：当
 \[
-    \mathbb{E}\!\left[X_n\mathsf{1}_{\{n\leq T\}}\right]=\mathbb{E}[X_n]\,\mathbb{P}(T\geq n),\qquad \forall n=1,2,\ldots
+\mathbb{E}\!\left[X_n\mathsf{1}_{\{n\leq T\}}\right]=\mathbb{E}[X_n]\,\mathbb{P}(T\geq n),\qquad \forall n=1,2,\ldots
 \]
 时，有
 \[
-    \mathbb{E}\!\left[\sum_{n=1}^T X_n\right] = \mathbb{E}[X_1]\cdot\mathbb{E}[T].
+\mathbb{E}\!\left[\sum_{n=1}^T X_n\right] = \mathbb{E}[X_1]\cdot\mathbb{E}[T].
 \]
 *提示：* 将上式左端改写为
 $\mathbb{E}\!\left[\sum_{n=1}^\infty X_n\cdot \mathsf{1}_{\{n\leq T\}}\right]$，
@@ -199,7 +200,7 @@ $\mathbb{E}\!\left[\sum_{n=1}^\infty X_n\cdot \mathsf{1}_{\{n\leq T\}}\right]$�
 1. 试对任意$s,t>0$求$\mathbb{P}(X_{\mathrm{A}}>s,X_{\mathrm{B}}>t)$。
 
 2. $(X_{\mathrm{A}},X_{\mathrm{B}})$是否是连续型随机向量？
-     *提示：*$\mathbb{P}(X_{\mathrm{A}}=X_{\mathrm{B}})$是否为$0$？
+   *提示：*$\mathbb{P}(X_{\mathrm{A}}=X_{\mathrm{B}})$是否为$0$？
 
 注：本题取自[@ross_first_course_probability]第六章自测题6.8。
 :::
@@ -241,13 +242,13 @@ $\mathbb{E}\!\left[\sum_{n=1}^\infty X_n\cdot \mathsf{1}_{\{n\leq T\}}\right]$�
 ::: exercise
 设随机变量$(X,Y)$的联合分布函数为
 \[
-    F_{X,Y}(x,y)
-    =\mathbb{P}(X\leq x,Y\leq y)
-    =\begin{cases}
-    1, & \text{若 $\min\{x,y\}\geq 1$}, \\
-    \min\{x,y\}, & \text{若 $0<\min\{x,y\}<1$}, \\
-    0, & \text{若 $\min\{x,y\}\leq 0$}.
-    \end{cases}
+F_{X,Y}(x,y)
+=\mathbb{P}(X\leq x,Y\leq y)
+=\begin{cases}
+1, & \text{若 $\min\{x,y\}\geq 1$}, \\
+\min\{x,y\}, & \text{若 $0<\min\{x,y\}<1$}, \\
+0, & \text{若 $\min\{x,y\}\leq 0$}.
+\end{cases}
 \]
 
 1. 求$X,Y$各自的边缘分布。
@@ -260,14 +261,12 @@ $\mathbb{E}\!\left[\sum_{n=1}^\infty X_n\cdot \mathsf{1}_{\{n\leq T\}}\right]$�
 
    *提示：* 令
    \[
-       E_{n,k}=\left\{\frac{k-1}{2^n}<X\leq\frac{k}{2^n},
-       \frac{k-1}{2^n}<Y\leq\frac{k}{2^n}\right\},
-       \quad \forall n\in\mathbb{N}_+, k\in\{1,\ldots,2^n\}.
+   E_{n,k}=\left\{\frac{k-1}{2^n}<X\leq\frac{k}{2^n},
+   \frac{k-1}{2^n}<Y\leq\frac{k}{2^n}\right\},
+   \quad \forall n\in\mathbb{N}_+, k\in\{1,\ldots,2^n\}.
    \]
    注意到
-   $
-\{X=Y\} = \bigcap_{n=1}^\infty\bigcup_{k=1}^{2^n}
-E_{n,k}
-$，再利用概率的可加性与连续性。
+   $\{X=Y\} = \bigcap_{n=1}^\infty\bigcup_{k=1}^{2^n}
+   E_{n,k}$，再利用概率的可加性与连续性。
 
 :::

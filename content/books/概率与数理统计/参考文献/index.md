@@ -1,106 +1,247 @@
 ---
 title: 参考文献
 ---
-\begin{thebibliography}
-    \bibitem{Kolmogorov1933}
-        KOLMOGOROFF A. Grundbegriffe der Wahrscheinlichkeitsrechnung[M]. Springer Berlin, Heidelberg, 1933. English Ed.: KOLMOGOROV A N. Foundations of the theory of probability[M]. Dover Publications, Inc., 2018.
 
-    \bibitem{williams1991probability}
-        WILLIAMS D. Probability with martingales[M]. Cambridge University Press, 1991.
-
-    \bibitem{ross_first_course_probability}
-        ROSS S. A first course in probability[M]. 10th ed. Pearson Education Limited, 2020.
-
-    \bibitem{chung_elementary_probability}
-        CHUNG K L, AITSAHLIA F. Elementary probability theory[M]. Springer, 2003.
-
-    \bibitem{bertsekas2008introduction}
-        BERTSEKAS D P, TSITSIKLIS J N. Introduction to probability[M]. 2nd ed. Athena Scientiﬁc, 2008.
-
-    \bibitem{grimmett2001probability}
-        GRIMMETT G R, STIRZAKER D R. Probability and  random processes[M]. 3rd ed. Oxford University Press, 2001.
-
-    \bibitem{zhangzhusheng_vol3}
-        张筑生. 数学分析新讲: 第三册[M]. 北京大学出版社, 1991.
-
-    \bibitem{grimmett2014introduction}
-        GRIMMETT G, WELSH D. Probability: An introduction[M]. 2nd ed. Oxford University Press, 2014.
-
-    \bibitem{vonneumann1951various}
-        VON NEUMANN J. Various techniques used in connection with random digits[M]//National Bureau of Standards Applied Math Series: Vol. 12 Monte Carlo Methods. 1951: 36-38.
-
-    \bibitem{chentianquan_vol2}
-        陈天权. 数学分析讲义: 第二册[M]. 北京大学出版社, 2010.
-
-    \bibitem{zhangzhusheng_vol2}
-        张筑生. 数学分析新讲: 第二册[M]. 北京大学出版社, 1990.
-
-    \bibitem{billingsley1995probability}
-        BILLINGSLEY P. Probability and measure[M]. 3rd ed. John Wiley & Sons, Inc., 1995.
-
-    \bibitem{feller1968introduction}
-        FELLER W. An introduction to probability theory and its applications: I[M]. 3rd ed. John Wiley & Sons, Inc., 1968.
-
-    \bibitem{casella2024statistical}
-        CASELLA G, BERGER R. Statistical inference[M]. 2nd ed. CRC Press, 2024.
-
-    \bibitem{schervish1995theory}
-        SCHERVISH M J. Theory of statistics[M]. Springer, 1995.
-
-    \bibitem{cox1974theoretical}
-        COX D R, HINKLEY D V. Theoretical statistics[M]. CRC Press, 1974.
-
-    \bibitem{nocedal2006numerical}
-        NOCEDAL J, WRIGHT S J. Numerical optimization[M]. 2nd ed. Springer, 2006.
-
-    \bibitem{mclachlan2008algorithm}
-        MCLACHLAN G J, KRISHNAN T. The EM algorithm and extensions[M]. 2nd ed. John Wiley & Sons, Inc., 2008.
-
-    \bibitem{walpole2022probability}
-        WALPOLE R E, MYERS R H, MYERS S L, et al. Probability and statistics for engineers and scientists[M]. 9th ed. Pearson, 2022.
-
-    \bibitem{degroot2010probability}
-        DEGROOT M H, SCHERVISH M J. Probability and statistics[M]. 4th ed. Addison-Wesley, 2010.
-
-    \bibitem{johnson2005discrete}
-        JOHNSON N L, KEMP A W, KOTZ S. Univariate discrete distributions[M]. 3rd ed. John Wiley & Sons, Inc., 2005.
-
-    \bibitem{johnson1995continuous}
-        JOHNSON N L, KOTZ S, BALAKRISHNAN N. Continuous univariate distributions: Vol. 2[M]. 2nd ed. John Wiley & Sons, Inc., 1995.
-
-    \bibitem{linnik1968statistical}
-        LINNIK J V. Statistical problems with nuisance parameters[M]. American Mathematical Society, 1968. Translated from the Russian by Scripta Technica.
-
-    \bibitem{scheffe1943solutions}
-        SCHEFFÉ H. On solutions of the Behrens--Fisher problem, based on the $t$-distribution[J]. The Annals of Mathematical Statistics, 1943, 14(1): 35-44.
-
-    \bibitem{dudewicz1988modern}
-        DUDEWICZ E J, MISHRA S N. Modern mathematical statistics[M]. John Wiley & Sons, Inc., 1988.
-
-    \bibitem{hsu1938contribution}
-        许宝𫘧. Contribution to the theory of ``Student's'' $t$-test as applied to the problem of two samples[J]. Statistical Research Memoirs, 1938, 2: 1-24. 同时收录于《许宝𫘧文集》, 科学出版社, 1981.
-
-    \bibitem{welch1949further}
-        WELCH B L. Further note on Mrs. Aspin’s tables and on certain approximations to the tabled function[J]. Biometrika, 1949, 36(3/4): 293-296. Appendix to Mrs. Aspin’s paper.
-
-    \bibitem{scheffe1970practical}
-        SCHEFFÉ H. Practical solutions of the Behrens--Fisher problem[J]. Journal of the American Statistical Association, 1970, 65(332): 1501-1508.
-
-    \bibitem{kirkwood2013application}
-        KIRKWOOD A A, COX T, HACKSHAW A. Application of methods for central statistical monitoring in clinical trials[J]. Clinical Trials, 2013, 10(5): 783-806.
-
-    \bibitem{montgomery2021introduction}
-        MONTGOMERY D C, PECK E A, VINING G G. Introduction to linear regression analysis[M]. 6th ed. John Wiley & Sons, Inc., 2021.
-
-    \bibitem{tao_analysis}
-        TAO T. Analysis I[M]. Hindustan Book Agency, 2015.
-
-    \bibitem{zhengguangping_linear_algebra}
-        郑广平, 裘祖干, 陆章基. 线性代数与解析几何[M]. 复旦大学出版社, 2004.
-
-    \bibitem{lay2016linear}
-        LAY D C, LAY S R, MCDONALD J J. Linear algebra and its applications[M]. 5th ed. Pearson Education, Inc., 2016.
-
-    \bibitem{big_rudin}
-        RUDIN W. Real and complex analysis[M]. McGraw-Hill, Inc., 1987.
-\end{thebibliography}
+```bibliography
+Kolmogorov1933:
+  type: book
+  author: "Kolmogoroff, A."
+  title: Grundbegriffe der Wahrscheinlichkeitsrechnung
+  publisher: Springer
+  location: Berlin, Heidelberg
+  year: 1933
+  note: "English edition: A. N. Kolmogorov, Foundations of the theory of probability, Dover Publications, Inc., 2018."
+williams1991probability:
+  type: book
+  author: "Williams, D."
+  title: Probability with martingales
+  publisher: Cambridge University Press
+  year: 1991
+ross_first_course_probability:
+  type: book
+  author: "Ross, S."
+  title: A first course in probability
+  edition: 10
+  publisher: Pearson Education Limited
+  year: 2020
+chung_elementary_probability:
+  type: book
+  author: ["Chung, K. L.", "AitSahlia, F."]
+  title: Elementary probability theory
+  publisher: Springer
+  year: 2003
+bertsekas2008introduction:
+  type: book
+  author: ["Bertsekas, D. P.", "Tsitsiklis, J. N."]
+  title: Introduction to probability
+  edition: 2
+  publisher: Athena Scientific
+  year: 2008
+grimmett2001probability:
+  type: book
+  author: ["Grimmett, G. R.", "Stirzaker, D. R."]
+  title: Probability and random processes
+  edition: 3
+  publisher: Oxford University Press
+  year: 2001
+zhangzhusheng_vol3:
+  type: book
+  author: 张筑生
+  title: 数学分析新讲：第三册
+  publisher: 北京大学出版社
+  year: 1991
+grimmett2014introduction:
+  type: book
+  author: ["Grimmett, G.", "Welsh, D."]
+  title: "Probability: An introduction"
+  edition: 2
+  publisher: Oxford University Press
+  year: 2014
+vonneumann1951various:
+  type: incollection
+  author: "von Neumann, J."
+  title: Various techniques used in connection with random digits
+  booktitle: Monte Carlo Methods
+  series: National Bureau of Standards Applied Math Series
+  volume: 12
+  pages: 36–38
+  year: 1951
+chentianquan_vol2:
+  type: book
+  author: 陈天权
+  title: 数学分析讲义：第二册
+  publisher: 北京大学出版社
+  year: 2010
+zhangzhusheng_vol2:
+  type: book
+  author: 张筑生
+  title: 数学分析新讲：第二册
+  publisher: 北京大学出版社
+  year: 1990
+billingsley1995probability:
+  type: book
+  author: "Billingsley, P."
+  title: Probability and measure
+  edition: 3
+  publisher: John Wiley & Sons, Inc.
+  year: 1995
+feller1968introduction:
+  type: book
+  author: "Feller, W."
+  title: "An introduction to probability theory and its applications: I"
+  edition: 3
+  publisher: John Wiley & Sons, Inc.
+  year: 1968
+casella2024statistical:
+  type: book
+  author: ["Casella, G.", "Berger, R."]
+  title: Statistical inference
+  edition: 2
+  publisher: CRC Press
+  year: 2024
+schervish1995theory:
+  type: book
+  author: "Schervish, M. J."
+  title: Theory of statistics
+  publisher: Springer
+  year: 1995
+cox1974theoretical:
+  type: book
+  author: ["Cox, D. R.", "Hinkley, D. V."]
+  title: Theoretical statistics
+  publisher: CRC Press
+  year: 1974
+nocedal2006numerical:
+  type: book
+  author: ["Nocedal, J.", "Wright, S. J."]
+  title: Numerical optimization
+  edition: 2
+  publisher: Springer
+  year: 2006
+mclachlan2008algorithm:
+  type: book
+  author: ["McLachlan, G. J.", "Krishnan, T."]
+  title: The EM algorithm and extensions
+  edition: 2
+  publisher: John Wiley & Sons, Inc.
+  year: 2008
+walpole2022probability:
+  type: book
+  author: ["Walpole, R. E.", "Myers, R. H.", "Myers, S. L.", "Ye, K."]
+  title: Probability and statistics for engineers and scientists
+  edition: 9
+  publisher: Pearson
+  year: 2022
+degroot2010probability:
+  type: book
+  author: ["DeGroot, M. H.", "Schervish, M. J."]
+  title: Probability and statistics
+  edition: 4
+  publisher: Addison-Wesley
+  year: 2010
+johnson2005discrete:
+  type: book
+  author: ["Johnson, N. L.", "Kemp, A. W.", "Kotz, S."]
+  title: Univariate discrete distributions
+  edition: 3
+  publisher: John Wiley & Sons, Inc.
+  year: 2005
+johnson1995continuous:
+  type: book
+  author: ["Johnson, N. L.", "Kotz, S.", "Balakrishnan, N."]
+  title: "Continuous univariate distributions: Vol. 2"
+  edition: 2
+  publisher: John Wiley & Sons, Inc.
+  year: 1995
+linnik1968statistical:
+  type: book
+  author: "Linnik, J. V."
+  title: Statistical problems with nuisance parameters
+  publisher: American Mathematical Society
+  year: 1968
+  note: Translated from the Russian by Scripta Technica.
+scheffe1943solutions:
+  type: article
+  author: "Scheffé, H."
+  title: On solutions of the Behrens–Fisher problem, based on the $t$-distribution
+  journaltitle: The Annals of Mathematical Statistics
+  volume: 14
+  number: 1
+  pages: 35–44
+  year: 1943
+dudewicz1988modern:
+  type: book
+  author: ["Dudewicz, E. J.", "Mishra, S. N."]
+  title: Modern mathematical statistics
+  publisher: John Wiley & Sons, Inc.
+  year: 1988
+hsu1938contribution:
+  type: article
+  author: 许宝𫘧
+  title: Contribution to the theory of “Student's” $t$-test as applied to the problem of two samples
+  journaltitle: Statistical Research Memoirs
+  volume: 2
+  pages: 1–24
+  year: 1938
+  note: 同时收录于《许宝𫘧文集》，科学出版社，1981。
+welch1949further:
+  type: article
+  author: "Welch, B. L."
+  title: Further note on Mrs. Aspin’s tables and on certain approximations to the tabled function
+  journaltitle: Biometrika
+  volume: 36
+  number: 3/4
+  pages: 293–296
+  year: 1949
+  note: Appendix to Mrs. Aspin’s paper.
+scheffe1970practical:
+  type: article
+  author: "Scheffé, H."
+  title: Practical solutions of the Behrens–Fisher problem
+  journaltitle: Journal of the American Statistical Association
+  volume: 65
+  number: 332
+  pages: 1501–1508
+  year: 1970
+kirkwood2013application:
+  type: article
+  author: ["Kirkwood, A. A.", "Cox, T.", "Hackshaw, A."]
+  title: Application of methods for central statistical monitoring in clinical trials
+  journaltitle: Clinical Trials
+  volume: 10
+  number: 5
+  pages: 783–806
+  year: 2013
+montgomery2021introduction:
+  type: book
+  author: ["Montgomery, D. C.", "Peck, E. A.", "Vining, G. G."]
+  title: Introduction to linear regression analysis
+  edition: 6
+  publisher: John Wiley & Sons, Inc.
+  year: 2021
+tao_analysis:
+  type: book
+  author: "Tao, T."
+  title: Analysis I
+  publisher: Hindustan Book Agency
+  year: 2015
+zhengguangping_linear_algebra:
+  type: book
+  author: [郑广平, 裘祖干, 陆章基]
+  title: 线性代数与解析几何
+  publisher: 复旦大学出版社
+  year: 2004
+lay2016linear:
+  type: book
+  author: ["Lay, D. C.", "Lay, S. R.", "McDonald, J. J."]
+  title: Linear algebra and its applications
+  edition: 5
+  publisher: Pearson Education, Inc.
+  year: 2016
+big_rudin:
+  type: book
+  author: "Rudin, W."
+  title: Real and complex analysis
+  publisher: McGraw-Hill, Inc.
+  year: 1987
+```

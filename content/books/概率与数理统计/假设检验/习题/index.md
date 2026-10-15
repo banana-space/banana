@@ -1,11 +1,12 @@
 ---
 title: 习题选编
 ---
+
 ::: exercise
 设总体服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中$\sigma^2$已知
 而$\mu$未知。考虑如下假设检验问题：
 \[
-    H_0:\mu=\mu_0,\qquad H_1:\mu<\mu_0,
+H_0:\mu=\mu_0,\qquad H_1:\mu<\mu_0,
 \]
 其中$\mu_0$为一给定的实数。令
 $Z=\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}$为单侧检验统计量，
@@ -25,9 +26,10 @@ $\alpha$为显著性水平（注意此时拒绝域的形式为$z<-z_{\alpha}$）
 2. 设总体服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中
    期望$\mu$与方差$\sigma^2$均未知。考虑如下假设检验问题：
    \[
-       H_0: \mu=\mu_0,\qquad H_1:\mu\neq \mu_0.
+   H_0: \mu=\mu_0,\qquad H_1:\mu\neq \mu_0.
    \]
-   试设计一个服从$F$分布的检验统计量，用于对上述假设检验问题进行单侧检验，并给出显著性水平为$\alpha$时的拒绝域。
+   试设计一个服从$F$分布的检验统计量，用于对上述假设检验问题进行单侧检验，
+   并给出显著性水平为$\alpha$时的拒绝域。
 
 :::
 
@@ -35,7 +37,7 @@ $\alpha$为显著性水平（注意此时拒绝域的形式为$z<-z_{\alpha}$）
 设随机变量$X$服从参数为$(n,p)$的二项分布，其中$n=19$已知而$p$未知。
 我们对$X$进行了一次观测，得到一个观测值$8$，试对
 \[
-    H_0: p=1/3,\qquad H_1:p\neq 1/3
+H_0: p=1/3,\qquad H_1:p\neq 1/3
 \]
 进行假设检验。
 :::
@@ -45,12 +47,12 @@ $\alpha$为显著性水平（注意此时拒绝域的形式为$z<-z_{\alpha}$）
 与$\mathcal{N}(\mu_2,\sigma_2^2)$，其中$\sigma_1^2$
 与$\sigma_2^2$已知。考虑如下假设检验问题：
 \[
-    H_0: \mu_1-\mu_2=\Delta_0,\qquad H_1:\mu_1-\mu_2\neq\Delta_0.
+H_0: \mu_1-\mu_2=\Delta_0,\qquad H_1:\mu_1-\mu_2\neq\Delta_0.
 \]
 设两个总体的样本分别为$X_{1,1},\ldots,X_{1,n_1}$与
 $X_{2,1},\ldots,X_{2,n_2}$，取检验统计量为
 \[
-    Z=\frac{\overline{X}_1-\overline{X}_2-\Delta_0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}.
+Z=\frac{\overline{X}_1-\overline{X}_2-\Delta_0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}.
 \]
 
 1. 试求功效函数$w(\mu_1,\mu_2)$。
@@ -66,7 +68,7 @@ $X_{2,1},\ldots,X_{2,n_2}$，取检验统计量为
 某个测试样例上的训练时间较另一种商用芯片至少缩短一半，故考虑如下形式的
 假设检验问题：
 \[
-    H_0:\mu_1=2\mu_2,\qquad H_1:\mu_1>2\mu_2,
+H_0:\mu_1=2\mu_2,\qquad H_1:\mu_1>2\mu_2,
 \]
 其中$\mu_1$表示商用芯片在测试样例上训练时间的期望，而$\mu_2$表示
 新芯片在测试样例上训练时间的期望。设两个总体均服从正态分布，
@@ -80,14 +82,13 @@ $X_{2,1},\ldots,X_{2,n_2}$表示新芯片测试$n_2$次的试验结果，
 Benford定律称，在一个由真实世界的某类数据构成的大数据集中，
 以$n$为首位数字的数出现的概率约为
 \[
-    p_0(n) = \log_{10}\!\left(1+\frac{1}{n}\right),\qquad n=1,2,\ldots,9.
+p_0(n) = \log_{10}\!\left(1+\frac{1}{n}\right),\qquad n=1,2,\ldots,9.
 \]
 下表给出了某份数据集中以$n$为首位数字的数出现的频数：
 
-\begin{tabular}{cccccccccc}
-!首位数字 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
-!频数 & 342 & 180 & 164 & 155 & 86 & 65 & 54 & 47 & 56
-\end{tabular}
+| 首位数字 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **频数** | 342 | 180 | 164 | 155 | 86 | 65 | 54 | 47 | 56 |
 
 试检验该数据集是否服从Benford定律。
 
@@ -104,30 +105,26 @@ $\underline{\theta}=\underline{\theta}(X_1,\ldots,X_n)$
 与$\overline{\theta}$均服从连续型分布。
 
 1. 若$\left[\mkern2mu\underline{\theta},
-\overline{\theta}\mkern2mu\right]$给出了参数$\theta$的一个
+   \overline{\theta}\mkern2mu\right]$给出了参数$\theta$的一个
    置信水平为$1-\alpha$的置信区间，证明：任取$\theta_0\in\Theta$，
    假设检验问题
-   $
-H_0:\theta=\theta_0,\  H_1:\theta\neq\theta_0
-$
+   $H_0:\theta=\theta_0,\  H_1:\theta\neq\theta_0$
    的一个显著性水平不超过$\alpha$的拒绝域可由
    \[
-       \theta_0<\underline{\theta}(x_1,\ldots,x_n)\ \
-       \text{或}\ \ \theta_0>\overline{\theta}(x_1,\ldots,x_n)
+   \theta_0<\underline{\theta}(x_1,\ldots,x_n)\ \
+   \text{或}\ \ \theta_0>\overline{\theta}(x_1,\ldots,x_n)
    \]
    给出。
 
 2. 反之，若对任意$\theta_0\in\Theta$，不等式
    \[
-       \theta_0<\underline{\theta}(x_1,\ldots,x_n)\ \
-       \text{或}\ \ \theta_0>\overline{\theta}(x_1,\ldots,x_n)
+   \theta_0<\underline{\theta}(x_1,\ldots,x_n)\ \
+   \text{或}\ \ \theta_0>\overline{\theta}(x_1,\ldots,x_n)
    \]
-   总能给出假设检验问题$
-H_0:\theta=\theta_0,\  H_1:\theta\neq\theta_0
-$
+   总能给出假设检验问题$H_0:\theta=\theta_0,\  H_1:\theta\neq\theta_0$
    的一个显著性水平为$\alpha$的拒绝域，证明：
    $\left[\mkern2mu\underline{\theta},
-\overline{\theta}\mkern2mu\right]$给出了$\theta$的一个
+   \overline{\theta}\mkern2mu\right]$给出了$\theta$的一个
    置信水平为$1-\alpha$的置信区间。
 
 :::
@@ -136,7 +133,7 @@ $
 设A在一项研究工作中需要验证课题组提出的新方法是否起效，
 故设计了实验流程并考虑用配对$t$检验方法对
 \[
-    H_0:\ \text{新方法无效},\qquad H_1:\ \text{新方法有效}
+H_0:\ \text{新方法无效},\qquad H_1:\ \text{新方法有效}
 \]
 进行检验，但一次实验之后发现得到的$p$值大于$0.05$。由于领域内顶刊
 只发表$p$值小于$0.05$的实验结果，迫于压力，A决定采取如下策略：
@@ -159,7 +156,7 @@ $
    某同行B希望基于A公开发表的实验数据算出一个合理的$p$值，故考虑用一个
    因子$c>1$与$\hat{P}_M$相乘来进行修正。试求出一个$c$值使得
    \[
-       \mathbb{P}_{H_0}(c\hat{P}_M< \alpha)\leq\alpha,\qquad\forall \alpha\in\left]0,1\right[
+   \mathbb{P}_{H_0}(c\hat{P}_M< \alpha)\leq\alpha,\qquad\forall \alpha\in\left]0,1\right[
    \]
    成立。
 

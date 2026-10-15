@@ -1,11 +1,12 @@
 ---
 title: 习题选编
 ---
+
 ::: exercise
 任给事件$E,F$，定义$E\triangle F$为“$E$与$F$当中发生且仅发生一个”
 这一事件。证明
 \[
-    \mathbb{P}(E\triangle F) = \mathbb{P}(E)+\mathbb{P}(F)-2\,\mathbb{P}(E\cap F).
+\mathbb{P}(E\triangle F) = \mathbb{P}(E)+\mathbb{P}(F)-2\,\mathbb{P}(E\cap F).
 \]
 :::
 
@@ -21,23 +22,24 @@ $\mathbb{P}(\{i\})=\mathbb{P}(\{j\})$。
 设$(\Omega,\mathcal{F},\mathbb{P})$为一概率空间，
 事件$F,G$满足$\mathbb{P}(F\cap G)>0$。令
 \[
-    \mathbb{P}_F(E) = \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right),\qquad\forall E\in\mathcal{F}.
+\mathbb{P}_F(E) = \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\right),\qquad\forall E\in\mathcal{F}.
 \]
 @proposition:conditional_prob_is_a_prob_measure
 指出$\mathbb{P}_F$为定义在$\mathcal{F}$上的一个概率测度。证明
 \[
-    \mathbb{P}_F\!\left(E \mkern2mu|\mkern2mu G\right) = \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\cap G\right),\qquad\forall E\in\mathcal{F}.
+\mathbb{P}_F\!\left(E \mkern2mu|\mkern2mu G\right) = \mathbb{P}\!\left(E \mkern2mu|\mkern2mu F\cap G\right),\qquad\forall E\in\mathcal{F}.
 \]
 :::
 
 ::: exercise [辛普森悖论，Simpson's paradox]
 设事件$A,B,C$满足
 \[
-    \mathbb{P}\!\left(A \mkern2mu|\mkern2mu B\cap C\right)>\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B^c\cap C\right)
-    \quad\text{以及}\quad
-    \mathbb{P}\!\left(A \mkern2mu|\mkern2mu B\cap C^c\right)>\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B^c\cap C^c\right),
+\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B\cap C\right)>\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B^c\cap C\right)
+\quad\text{以及}\quad
+\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B\cap C^c\right)>\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B^c\cap C^c\right),
 \]
-则是否有$\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B\right)>\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B^c\right)$？
+则是否有
+$\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B\right)>\mathbb{P}\!\left(A \mkern2mu|\mkern2mu B^c\right)$？
 若是请给出证明，若否请给出反例。
 :::
 
@@ -49,14 +51,14 @@ $E_1\supseteq E_2\supseteq\cdots\supseteq E_T$
 以及$\mathbb{P}(E_T)>0$，且在某次试验中，我们观测到
 $E_1,E_2,\ldots,E_T$依次发生。令
 \[
-    P_i(t) = \mathbb{P}\!\left(F_i \mkern2mu|\mkern2mu E_t\right)
+P_i(t) = \mathbb{P}\!\left(F_i \mkern2mu|\mkern2mu E_t\right)
 \]
 表示观测到$E_t$发生时事件$F_i$的后验概率。证明：
 对任意$i=1,\ldots,n$与$t=1,\ldots,T-1$，有
 \[
-    P_{i}(t+1) = \frac{\mathbb{P}\!\left(E_{t+1} \mkern2mu|\mkern2mu F_i \cap E_{t}\right)\,P_i(t)}{
-    \sum_{j=1}^n \mathbb{P}\!\left(E_{t+1} \mkern2mu|\mkern2mu F_j\cap E_{t}\right)\,P_j(t)
-    }.
+P_{i}(t+1) = \frac{\mathbb{P}\!\left(E_{t+1} \mkern2mu|\mkern2mu F_i \cap E_{t}\right)\,P_i(t)}{
+\sum_{j=1}^n \mathbb{P}\!\left(E_{t+1} \mkern2mu|\mkern2mu F_j\cap E_{t}\right)\,P_j(t)
+}.
 \]
 :::
 
@@ -76,9 +78,9 @@ $E_1,E_2,\ldots,E_T$依次发生。令
 ::: exercise
 设$E_1,\ldots,E_n$为相互独立的事件，证明
 \[
-    \mathbb{P}(E_1\cup\cdots\cup E_n)
-    = 1- \prod_{i=1}^n(1-\mathbb{P}(E_i))
-    \geq 1-\exp\!\left(-\sum_{i=1}^n \mathbb{P}(E_i)\right).
+\mathbb{P}(E_1\cup\cdots\cup E_n)
+= 1- \prod_{i=1}^n(1-\mathbb{P}(E_i))
+\geq 1-\exp\!\left(-\sum_{i=1}^n \mathbb{P}(E_i)\right).
 \]
 :::
 
@@ -121,7 +123,7 @@ $E_1,E_2,\ldots,E_T$依次发生。令
 设有$k$个罐子，每个罐子当中一开始有$r$个红球和$b$个蓝球。
 现从第1个罐子中随机取一个球放入第2个罐子中并搅匀，
 再从第2个罐子中随机取一个球放入第3个罐子中并搅匀……
-直到从$k-1$个罐子中取出一球放入第$k$个罐子中并搅匀。
+直到从第$k-1$个罐子中取出一球放入第$k$个罐子中并搅匀。
 则此时从第$k$个罐子中随机取出一球为红球的概率是多少？
 :::
 
@@ -179,7 +181,8 @@ $p_i=(i-1)/N$。你从这$N+1$枚硬币中随机选取一枚，
 2. 证明$(P_{i+1}\!-\!P_i)_{i=0}^{N-1}$构成一等比数列，
    并求出其通项。
 
-3. 求出$P_1$的值。\
+3. 求出$P_1$的值。
+
    *提示：* 利用$1=P_N\!-\!P_0=\sum_{i=0}^{N-1}(P_{i+1}\!-\!P_i)$。
    注意区分$p=1/2$与$p\neq 1/2$的情形。
 
@@ -200,7 +203,7 @@ $p_i=(i-1)/N$。你从这$N+1$枚硬币中随机选取一枚，
 设$E_1,E_2,E_3,\ldots$为一列事件，且对任意正整数$i$
 均有$\mathbb{P}(E_i)=1$。证明
 \[
-    \mathbb{P}\!\left(\bigcap_{i=1}^\infty E_i\right)=1,
+\mathbb{P}\!\left(\bigcap_{i=1}^\infty E_i\right)=1,
 \]
 也就是说，可数多个几乎必然发生的事件的交依然是几乎必然发生的。
 :::

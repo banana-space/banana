@@ -1,6 +1,11 @@
 ---
 title: 回归显著性检验
+notices:
+  - name: 问题
+    items:
+      - '“$F$ 检验法”中 ${\widehat\beta_1}^2$ 的计算第三行末项 ${SS}_{\mathrm{R}}$ 似乎应为 ${SS}_{\mathrm{R}}/S_{xx}$（与下文结论 ${\widehat\beta_1}^2 = {SS}_{\mathrm{R}}/S_{xx}$ 一致）。'
 ---
+
 对回归系数$\beta_1$进行假设检验的方法
 已在[第10.3节](/books/概率与数理统计/一元线性回归/回归系数的区间估计与假设检验/)第1小节
 中进行了介绍。在实际问题中，最常用的针对$\beta_1$的假设检验问题
@@ -41,8 +46,8 @@ T = \frac{\widehat{\beta}_1}{\sqrt{\widehat{\sigma^2}/S_{xx}}}
 则在原假设$H_0:\beta_1=0$下，$T$服从分布$t(n-2)$，相应的
 $p$值与拒绝域分别由
 \[
-    \hat{p} = 2\!\left(1-F^t_{n-2}\!\left(\frac{\big|\widehat\beta_1\big|}{\sqrt{\widehat{\sigma^2}/S_{xx}}}\right)\right)\qquad\text{与}\qquad
-    \frac{\big|\widehat\beta_1\big|}{\sqrt{\widehat{\sigma^2}/S_{xx}}}>t_{\alpha/2}
+\hat{p} = 2\!\left(1-F^t_{n-2}\!\left(\frac{\big|\widehat\beta_1\big|}{\sqrt{\widehat{\sigma^2}/S_{xx}}}\right)\right)\qquad\text{与}\qquad
+\frac{\big|\widehat\beta_1\big|}{\sqrt{\widehat{\sigma^2}/S_{xx}}}>t_{\alpha/2}
 \]
 给出，其中$\alpha$为事先取定的显著性水平。
 
@@ -64,65 +69,65 @@ F = \frac{{SS}_{\mathrm{R}}}{
 
 其中
 \[
-    {SS}_{\mathrm{R}} = \sum_{i=1}^n \big(\widehat{Y}_i - \overline{Y}\big)^2
-    =\sum_{i=1}^n \big(\widehat\beta_0+\widehat\beta_1 x_i-\overline{Y}\big)^2
+{SS}_{\mathrm{R}} = \sum_{i=1}^n \big(\widehat{Y}_i - \overline{Y}\big)^2
+=\sum_{i=1}^n \big(\widehat\beta_0+\widehat\beta_1 x_i-\overline{Y}\big)^2
 \]
 被称为**回归平方和**（regression sum of squares）。
-式 @eq:linear_regression_F_test2  成立是因为
+式 @eq:linear_regression_F_test2 成立是因为
 \[
-    \begin{aligned}
-    {\widehat\beta_1}^2
-    ={} & \widehat\beta_1\cdot\frac{1}{S_{xx}}\sum_{i=1}^n (x_i-\overline{x})\big(Y_i-\overline{Y}\big) \\
-    ={} &
-    \frac{\widehat\beta_1}{S_{xx}}\sum_{i=1}^n \big( x_i-\overline{x}\big)\big(Y_i-\widehat{Y}_i\big)
-    +\frac{1}{S_{xx}}\sum_{i=1}^n \big(\widehat\beta_1x_i-\widehat\beta_1\overline{x}\big)\big(\widehat{Y}_i-\overline{Y}\big) \\
-    ={} &
-    \frac{\widehat\beta_1}{S_{xx}}\sum_{i=1}^n
-    \big(x_i-\overline{x}\big)\big(Y_i-\widehat{Y}_i\big) + {SS}_{\mathrm{R}},
-    \end{aligned}
+\begin{aligned}
+{\widehat\beta_1}^2
+={} & \widehat\beta_1\cdot\frac{1}{S_{xx}}\sum_{i=1}^n (x_i-\overline{x})\big(Y_i-\overline{Y}\big) \\
+={} &
+\frac{\widehat\beta_1}{S_{xx}}\sum_{i=1}^n \big( x_i-\overline{x}\big)\big(Y_i-\widehat{Y}_i\big)
++\frac{1}{S_{xx}}\sum_{i=1}^n \big(\widehat\beta_1x_i-\widehat\beta_1\overline{x}\big)\big(\widehat{Y}_i-\overline{Y}\big) \\
+={} &
+\frac{\widehat\beta_1}{S_{xx}}\sum_{i=1}^n
+\big(x_i-\overline{x}\big)\big(Y_i-\widehat{Y}_i\big) + {SS}_{\mathrm{R}},
+\end{aligned}
 \]
-而由normal equations @eq:LSE_normal_equation  可推得
+而由normal equations @eq:LSE_normal_equation 可推得
 \[
-    \begin{aligned}
-    0 ={} &
-    \sum_{i=1}^n x_i\big(Y_i-\widehat\beta_0 - \widehat\beta_1x_i\big)
-    =\sum_{i=1}^n x_i\big(Y_i-\widehat{Y}_i\big),
-    \end{aligned}
+\begin{aligned}
+0 ={} &
+\sum_{i=1}^n x_i\big(Y_i-\widehat\beta_0 - \widehat\beta_1x_i\big)
+=\sum_{i=1}^n x_i\big(Y_i-\widehat{Y}_i\big),
+\end{aligned}
 \]
 以及
 \[
-    \begin{aligned}
-    0
-    ={} &
-    \sum_{i=1}^n \big(Y_i-\widehat\beta_0-\widehat\beta_1x_i\big) = \sum_{i=1}^n
-    \big(Y_i-\widehat{Y}_i\big),
-    \end{aligned}
+\begin{aligned}
+0
+={} &
+\sum_{i=1}^n \big(Y_i-\widehat\beta_0-\widehat\beta_1x_i\big) = \sum_{i=1}^n
+\big(Y_i-\widehat{Y}_i\big),
+\end{aligned}
 \]
 故
 \[
-    \sum_{i=1}^n
-    \big(x_i-\overline{x}\big)\big(Y_i-\widehat{Y}_i\big)
-    =
-    \sum_{i=1}^n
-    x_i\big(Y_i-\widehat{Y}_i\big)
-    -\overline{x}
-    \sum_{i=1}^n
-    \big(Y_i-\widehat{Y}_i\big) = 0,
+\sum_{i=1}^n
+\big(x_i-\overline{x}\big)\big(Y_i-\widehat{Y}_i\big)
+=
+\sum_{i=1}^n
+x_i\big(Y_i-\widehat{Y}_i\big)
+-\overline{x}
+\sum_{i=1}^n
+\big(Y_i-\widehat{Y}_i\big) = 0,
 \]
 从而
 \[
-    {\widehat\beta_1}^2 = \frac{{SS}_{\mathrm{R}}}{S_{xx}},
+{\widehat\beta_1}^2 = \frac{{SS}_{\mathrm{R}}}{S_{xx}},
 \]
-再将其带入式 @eq:linear_regression_F_test1  中并利用
+再将其带入式 @eq:linear_regression_F_test1 中并利用
 $\widehat{\sigma^2}={SS}_{\text{Res}}/(n-2)$即可得到
 表达式 @eq:linear_regression_F_test2。由此可知，
 $p$值与拒绝域还可表示为
 \[
-    \hat{p} = 1-F^{F}_{1,n-2}\!\left(\frac{{SS}_{\mathrm{R}}}{
-    {SS}_{\text{Res}}/(n-2)}\right)
-    \qquad\text{与}\qquad
-    \frac{{SS}_{\mathrm{R}}}{
-    {SS}_{\text{Res}}/(n-2)}>F_{\alpha}(1,n-2),
+\hat{p} = 1-F^{F}_{1,n-2}\!\left(\frac{{SS}_{\mathrm{R}}}{
+{SS}_{\text{Res}}/(n-2)}\right)
+\qquad\text{与}\qquad
+\frac{{SS}_{\mathrm{R}}}{
+{SS}_{\text{Res}}/(n-2)}>F_{\alpha}(1,n-2),
 \]
 其中$F^F_{1,n-2}$表示分布$F(1,n-2)$的分布函数，$\alpha$为
 事先给定的显著性水平。
@@ -139,41 +144,41 @@ R = \frac{\sum_{i=1}^n (x_i-\overline{x})\big(Y_i-\overline{Y})}{\sqrt{\sum_{i=1
 对 @eq:simple_linear_regression_significance_test
 进行检验：由上述$R$的定义式可得
 \[
-    \begin{aligned}
-    R ={} & \frac{S_{xY}}{\sqrt{S_{xx}}\sqrt{{SS}_{\mathrm{T}}}}
-    =\frac{S_{xY}/S_{xx}}{\sqrt{{SS}_{\mathrm{T}}/S_{xx}}} \\
-    ={} & \frac{\widehat\beta_1}{\sqrt{({SS}_{\mathrm{Res}}+\widehat\beta_1 S_{xY})/S_{xx}}}
-    =
-    \frac{\widehat\beta_1}{\sqrt{{SS}_{\mathrm{Res}}/S_{xx} + \widehat\beta_1^2}} \\
-    ={} &
-    \frac{\sqrt{S_{xx}/{SS}_{\text{Res}}}\cdot \widehat\beta_1}{\sqrt{1+S_{xx}\widehat\beta_1^2/{SS}_{\text{Res}}}}
-    =\frac{T}{\sqrt{n-2+T^2}},
-    \end{aligned}
+\begin{aligned}
+R ={} & \frac{S_{xY}}{\sqrt{S_{xx}}\sqrt{{SS}_{\mathrm{T}}}}
+=\frac{S_{xY}/S_{xx}}{\sqrt{{SS}_{\mathrm{T}}/S_{xx}}} \\
+={} & \frac{\widehat\beta_1}{\sqrt{({SS}_{\mathrm{Res}}+\widehat\beta_1 S_{xY})/S_{xx}}}
+=
+\frac{\widehat\beta_1}{\sqrt{{SS}_{\mathrm{Res}}/S_{xx} + \widehat\beta_1^2}} \\
+={} &
+\frac{\sqrt{S_{xx}/{SS}_{\text{Res}}}\cdot \widehat\beta_1}{\sqrt{1+S_{xx}\widehat\beta_1^2/{SS}_{\text{Res}}}}
+=\frac{T}{\sqrt{n-2+T^2}},
+\end{aligned}
 \]
 其中$T$即为 @eq:linear_regression_significance_t_test
 给出的检验统计量。上式指出，$R$与$T$之间存在连续且严格单调递增的
 对应关系。反解上式可得
 \[
-    T=\frac{\sqrt{n-2}R}{\sqrt{1-R^2}},
+T=\frac{\sqrt{n-2}R}{\sqrt{1-R^2}},
 \]
 由此还可得到
 \[
-    F = T^2 = \frac{(n-2)R^2}{1-R^2}
-    \qquad\text{以及}
-    \qquad
-    R^2 = \frac{F}{n-2+F}.
+F = T^2 = \frac{(n-2)R^2}{1-R^2}
+\qquad\text{以及}
+\qquad
+R^2 = \frac{F}{n-2+F}.
 \]
 故$p$值为
 \[
-    \hat{p} = 2\!\left(1-F^t_{n-2}\!\left(
-    \frac{\sqrt{n-2}|r|}{\sqrt{1-r^2}}
-    \right)\right)
-    =1-F^F_{1,n-2}\!\left(\frac{(n-2)r^2}{1-r^2}\right),
+\hat{p} = 2\!\left(1-F^t_{n-2}\!\left(
+\frac{\sqrt{n-2}|r|}{\sqrt{1-r^2}}
+\right)\right)
+=1-F^F_{1,n-2}\!\left(\frac{(n-2)r^2}{1-r^2}\right),
 \]
 其中$r$为统计量$R$在代入样本观测值后的取值，而拒绝域则可表示为
 \[
-    |r| > \frac{t_{\alpha/2}(n-2)}{\sqrt{n-2+[t_{\alpha/2}(n-2)]^2}}
-    \quad\text{或}\quad
-    r^2 > \frac{F_{\alpha}(1,n-2)}{n-2+F_{\alpha}(1,n-2)},
+|r| > \frac{t_{\alpha/2}(n-2)}{\sqrt{n-2+[t_{\alpha/2}(n-2)]^2}}
+\quad\text{或}\quad
+r^2 > \frac{F_{\alpha}(1,n-2)}{n-2+F_{\alpha}(1,n-2)},
 \]
 其中$\alpha$为显著性水平。

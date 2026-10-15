@@ -1,6 +1,7 @@
 ---
 title: 古典概型
 ---
+
 对于一个只有有限个结果的随机试验，
 若我们没有证据指出其中的某个结果会比其它结果更有可能发生，
 则通常将这个随机试验用**古典概型**（classical probability）
@@ -10,16 +11,16 @@ $\Omega=\{\omega_1,\ldots,\omega_N\}$，
 事件域$\mathcal{F}$取为$2^\Omega$（即$\Omega$的所有子集都是事件），
 概率测度$\mathbb{P}$则由
 \[
-    \mathbb{P}(E) = \frac{|E|}{N}
-    =\sum_{\omega\in E}\frac{1}{N},
-    \qquad\forall E\subseteq \Omega
+\mathbb{P}(E) = \frac{|E|}{N}
+=\sum_{\omega\in E}\frac{1}{N},
+\qquad\forall E\subseteq \Omega
 \]
 给出，其中我们用$|E|$表示集合$E$中元素的个数。
 不难验证上述$\mathbb{P}$的确满足
 @definition:probability_space，此外
 \[
-    \mathbb{P}(\{\omega_1\})=\cdots=\mathbb{P}(\{\omega_N\})
-    =\frac{1}{N},
+\mathbb{P}(\{\omega_1\})=\cdots=\mathbb{P}(\{\omega_N\})
+=\frac{1}{N},
 \]
 也就是说每个仅包含单个试验结果的事件都具有相同的概率$1/N$。
 
@@ -27,8 +28,8 @@ $\Omega=\{\omega_1,\ldots,\omega_N\}$，
 因此关于古典概型的概率论问题通常会用到组合计数的诸多方法。
 接下来我们对一些基本的组合计数方法进行简要回顾；
 相关结果更详细的介绍以及证明可参考
-[@ross_first_course_probability]
-[@chung_elementary_probability] 等教材。
+[@ross_first_course_probability; @chung_elementary_probability]
+等教材。
 
 **乘法原理：** 设某个试验共包括$r$个依次执行的阶段，其中
 
@@ -47,28 +48,28 @@ $\Omega=\{\omega_1,\ldots,\omega_N\}$，
 **排列：** 假设有$n$个不同的个体，
 我们需要从中选出$m$个个体并将它们排成一个序列。则总共有
 \[
-    n(n-1)\cdots (n-m+1)=\frac{n!}{(n-m)!}
+n(n-1)\cdots (n-m+1)=\frac{n!}{(n-m)!}
 \]
 个可能的排列方式。
 
 **组合：** 假设一个集合包含$n$个不同的元素，
 我们需要从中选出$m$个元素构成一个子集。则可能得到的子集总共有
 \[
-    \frac{n(n-1)\cdots (n-m+1)}{m!} = \frac{n!}{m!(n-m)!}
+\frac{n(n-1)\cdots (n-m+1)}{m!} = \frac{n!}{m!(n-m)!}
 \]
 个。上式给出的正整数又被称作**二项式系数**
 （binomial coefficient），
 记作$\displaystyle\binom{n}{m}$，这是因为二项式定理给出
 \[
-    (x+y)^n = \sum_{m=0}^n \binom{n}{m} x^m y^{n-m}.
+(x+y)^n = \sum_{m=0}^n \binom{n}{m} x^m y^{n-m}.
 \]
 
 **多项式系数：** 给定一组自然数$n_1,\ldots,n_r$
 以及$n=n_1+\cdots+n_r$，相应的**多项式系数**
 （multinomial coefficient）被定义为
 \[
-    \binom{n}{n_1,n_2,\ldots,n_r}
-    =\frac{n!}{n_1!\,n_2!\cdots n_r!}.
+\binom{n}{n_1,n_2,\ldots,n_r}
+=\frac{n!}{n_1!\,n_2!\cdots n_r!}.
 \]
 多项式系数的含义可以有如下两种解释：
 
@@ -91,9 +92,9 @@ $\Omega=\{\omega_1,\ldots,\omega_N\}$，
 
 此外，多项式系数还出现在多项式定理当中：
 \[
-    (x_1+x_2+\cdots x_r)^n
-    =\sum
-    \binom{n}{n_1,n_2,\ldots,n_r} x_1^{n_1}\,x_2^{n_2}\cdots x_r^{n_r},
+(x_1+x_2+\cdots+x_r)^n
+=\sum
+\binom{n}{n_1,n_2,\ldots,n_r} x_1^{n_1}\,x_2^{n_2}\cdots x_r^{n_r},
 \]
 其中的求和遍历所有满足$n_1+\cdots+n_r=n$的自然数$n_1,\ldots,n_r$。
 
@@ -118,34 +119,34 @@ $n+1$次$\omega_{2n-k+1}$的概率是多少？
 
 对于变换后的问题，显然可以令
 \[
-    \Omega=\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
-    \omega_i\in\{\mathrm{H},\mathrm{T}\},\,\forall i\right\},
+\Omega=\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
+\omega_i\in\{\mathrm{H},\mathrm{T}\},\,\forall i\right\},
 \]
 并取$(\Omega,2^\Omega,\mathbb{P})$为古典概型，
 其中每个$\Omega$的单点集的概率为$1/2^{2n+1}$。记事件
 \[
-    \begin{aligned}
-    E &=
-    \left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
-    \text{$(\omega_1,\ldots,\omega_{2n-k+1})$ 当中恰好出现
-    $n+1$ 次 $\omega_{2n-k+1}$}\right\}, \\
-    E_{\mathrm{H}}
-    & =\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
-    \omega_{2n-k+1}=\mathrm{H}\ \text{且
-    $(\omega_1,\ldots,\omega_{2n-k})$ 当中恰好出现
-    $n$ 次 $\mathrm{H}$}\right\} \\
-    E_{\mathrm{T}}
-    & =\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
-    \omega_{2n-k+1}=\mathrm{T}\ \text{且
-    $(\omega_1,\ldots,\omega_{2n-k})$ 当中恰好出现
-    $n$ 次 $\mathrm{T}$}\right\},
-    \end{aligned}
+\begin{aligned}
+E &=
+\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
+\text{$(\omega_1,\ldots,\omega_{2n-k+1})$ 当中恰好出现
+$n+1$ 次 $\omega_{2n-k+1}$}\right\}, \\
+E_{\mathrm{H}}
+& =\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
+\omega_{2n-k+1}=\mathrm{H}\ \text{且
+$(\omega_1,\ldots,\omega_{2n-k})$ 当中恰好出现
+$n$ 次 $\mathrm{H}$}\right\} \\
+E_{\mathrm{T}}
+& =\left\{(\omega_1,\ldots,\omega_{2n+1}) \mid
+\omega_{2n-k+1}=\mathrm{T}\ \text{且
+$(\omega_1,\ldots,\omega_{2n-k})$ 当中恰好出现
+$n$ 次 $\mathrm{T}$}\right\},
+\end{aligned}
 \]
 则$E=E_{\mathrm{H}}\cup E_{\mathrm{T}}$
 且$E_{\mathrm{H}}\cap E_{\mathrm{T}}=\varnothing$，故
 \[
-    \mathbb{P}(E)=\mathbb{P}(E_{\mathrm{H}})
-    +\mathbb{P}(E_{\mathrm{T}}).
+\mathbb{P}(E)=\mathbb{P}(E_{\mathrm{H}})
++\mathbb{P}(E_{\mathrm{T}}).
 \]
 而$E_{\mathrm{H}}$中的元素可以用如下方法不重不漏地构造出来：
 首先从$(\omega_1,\ldots,\omega_{2n-k})$中取出$n$个分量
@@ -154,20 +155,20 @@ $n+1$次$\omega_{2n-k+1}$的概率是多少？
 $\omega_i,\,i> 2n-k+1$赋值$\mathrm{H}$或$\mathrm{T}$。
 由乘法公式与排列数公式可得$E_{\mathrm{H}}$的元素个数为
 \[
-    \binom{2n-k}{n}\cdot 2^{k}
+\binom{2n-k}{n}\cdot 2^{k}
 \]
 故
 \[
-    \mathbb{P}(E_{\mathrm{H}})=\binom{2n-k}{n}\cdot 2^k \cdot \frac{1}{2^{2n+1}}
-    =\binom{2n-k}{n}\cdot \frac{1}{2^{2n-k+1}},
+\mathbb{P}(E_{\mathrm{H}})=\binom{2n-k}{n}\cdot 2^k \cdot \frac{1}{2^{2n+1}}
+=\binom{2n-k}{n}\cdot \frac{1}{2^{2n-k+1}},
 \]
 由对称性可得$E_{\mathrm{T}}$与$E_{\mathrm{H}}$包含相同多的元素，故
 \[
-    \mathbb{P}(E_{\mathrm{T}})=\binom{2n-k}{n}\cdot\frac{1}{2^{2n-k+1}}.
+\mathbb{P}(E_{\mathrm{T}})=\binom{2n-k}{n}\cdot\frac{1}{2^{2n-k+1}}.
 \]
 最终有
 \[
-    \mathbb{P}(E)
-    =\binom{2n-k}{n}\cdot\frac{1}{2^{2n-k}}.
+\mathbb{P}(E)
+=\binom{2n-k}{n}\cdot\frac{1}{2^{2n-k}}.
 \]
 :::

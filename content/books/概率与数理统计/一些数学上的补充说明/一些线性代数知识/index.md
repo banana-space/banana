@@ -1,6 +1,12 @@
 ---
 title: 一些线性代数知识
+notices:
+  - name: 问题
+    items:
+      - 正定矩阵判别定理的证明中，令 $\boldsymbol{y}$ 为第 $j$ 个标准基向量后，按 $\boldsymbol{y}=\mathbf{Q}^\mathsf{T}\boldsymbol{x}$ 似乎应取 $\boldsymbol{x}=\mathbf{Q}\boldsymbol{y}$，而不是 $\mathbf{Q}^\mathsf{T}\boldsymbol{y}$。
+      - 奇异值分解定理第 3 条中，$\sigma_1,\ldots,\sigma_r$ 似乎应是 $\mathbf{A}^\mathsf{T}\mathbf{A}$ 与 $\mathbf{A}\mathbf{A}^\mathsf{T}$ 的非零特征值的算术平方根，即 $\sigma_i^2$ 才是这些特征值。
 ---
+
 ::: definition
 给定实的方阵$\mathbf{M}\in\mathbb{R}^{n\times n}$。
 
@@ -12,15 +18,15 @@ title: 一些线性代数知识
    有$\boldsymbol{x}^\mathsf{T} \mathbf{M} \boldsymbol{x}>0$。
 
 3. 我们称$\mathbf{M}$是实正交的，
-   若$\mathbf{Q}^\mathsf{T}\mathbf{Q}=\mathbf{Q}\mathbf{Q}^\mathsf{T}=\mathbf{I}_n$，
-   或等价地说，$\mathbf{Q}$的列向量构成了$\mathbb{R}^n$的一组
+   若$\mathbf{M}^\mathsf{T}\mathbf{M}=\mathbf{M}\mathbf{M}^\mathsf{T}=\mathbf{I}_n$，
+   或等价地说，$\mathbf{M}$的列向量构成了$\mathbb{R}^n$的一组
    标准正交基。
 
 :::
 
 以下定理是线性代数中有关实对称矩阵的经典结果，
-相关论述可参考[@zhengguangping_linear_algebra]第6.4节
-或[@lay2016linear]第7.1节。
+相关论述可参考[@zhengguangping_linear_algebra, 第 6.4 节]
+或[@lay2016linear, 第 7.1 节]。
 
 ::: theorem
 设$\mathbf{M}\in\mathbb{R}^{n\times n}$为一实对称阵，
@@ -42,20 +48,20 @@ $\{\boldsymbol{v}_1,\ldots,\boldsymbol{v}_n\}$，
 ::: proof
 对$\mathbf{M}$做特征值分解：
 \[
-    \mathbf{M}=\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\mathsf{T},
-    \qquad \boldsymbol{\Lambda}=\begin{bmatrix}
-    \lambda_1 \\ & \ddots \\ & & \lambda_n
-    \end{bmatrix},
+\mathbf{M}=\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\mathsf{T},
+\qquad \boldsymbol{\Lambda}=\begin{bmatrix}
+\lambda_1 \\ & \ddots \\ & & \lambda_n
+\end{bmatrix},
 \]
 其中$\mathbf{Q}$为实正交阵，$\lambda_1,\ldots,\lambda_n$
 给出$\mathbf{M}$的所有特征值。任取
 $\boldsymbol{x}\in\mathbb{R}^n\backslash\{\boldsymbol{0}\}$，
 并令$\boldsymbol{y}=\mathbf{Q}^\mathsf{T}\boldsymbol{x}$，则有
 \[
-    \boldsymbol{x}^\mathsf{T}\mathbf{M}\boldsymbol{x}
-    =(\mathbf{Q}^\mathsf{T}\boldsymbol{x})^\mathsf{T} \mathbf{M}(\mathbf{Q}^\mathsf{T}\boldsymbol{x})
-    =\boldsymbol{y}^\mathsf{T}\boldsymbol{\Lambda}\boldsymbol{y}
-    =\sum_{i=1}^n \lambda_i y_i^2,
+\boldsymbol{x}^\mathsf{T}\mathbf{M}\boldsymbol{x}
+=(\mathbf{Q}^\mathsf{T}\boldsymbol{x})^\mathsf{T} \mathbf{M}(\mathbf{Q}^\mathsf{T}\boldsymbol{x})
+=\boldsymbol{y}^\mathsf{T}\boldsymbol{\Lambda}\boldsymbol{y}
+=\sum_{i=1}^n \lambda_i y_i^2,
 \]
 且$\boldsymbol{y}\neq\boldsymbol{0}$
 （否则$\boldsymbol{x}=\mathbf{Q}\boldsymbol{y}=\boldsymbol{0}$）。
@@ -88,24 +94,24 @@ $\boldsymbol{x}^\mathsf{T}\mathbf{M}\boldsymbol{x}=\lambda_j y_j^2\leq 0$，
 ::: proof
 1. 对$\mathbf{M}$做特征值分解：
    \[
-       \mathbf{M}=\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\mathsf{T},\qquad
-       \boldsymbol{\Lambda}=\begin{bmatrix}
-       \lambda_1 \\ & \ddots \\ & & \lambda_n
-       \end{bmatrix},
+   \mathbf{M}=\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\mathsf{T},\qquad
+   \boldsymbol{\Lambda}=\begin{bmatrix}
+   \lambda_1 \\ & \ddots \\ & & \lambda_n
+   \end{bmatrix},
    \]
    其中$\mathbf{Q}$为实正交阵，$\lambda_1,\ldots,\lambda_n$
    给出$\mathbf{M}$的所有特征值。由于$\mathbf{M}$正定，
    可得$\lambda_i>0,\,\forall i=1,\ldots,n$，故
    \[
-       \boldsymbol{\Lambda}^{-1}
-       =\begin{bmatrix}
-       \lambda_1^{-1} \\ & \ddots \\ & & \lambda_n^{-1}
-       \end{bmatrix},
+   \boldsymbol{\Lambda}^{-1}
+   =\begin{bmatrix}
+   \lambda_1^{-1} \\ & \ddots \\ & & \lambda_n^{-1}
+   \end{bmatrix},
    \]
    从而
    \[
-       \mathbf{M}^{-1} = \left(\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\mathsf{T}\right)^{-1}
-       =\mathbf{Q}\boldsymbol{\Lambda}^{-1}\mathbf{Q}^\mathsf{T}.
+   \mathbf{M}^{-1} = \left(\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\mathsf{T}\right)^{-1}
+   =\mathbf{Q}\boldsymbol{\Lambda}^{-1}\mathbf{Q}^\mathsf{T}.
    \]
    从上式可进一步看出$\lambda_1^{-1},\ldots,\lambda_n^{-1}$
    给出$\mathbf{M}$的所有特征值，而
@@ -119,7 +125,7 @@ $\boldsymbol{x}^\mathsf{T}\mathbf{M}\boldsymbol{x}=\lambda_j y_j^2\leq 0$，
    $\mathbf{P}$的列向量的某个线性组合等于$\boldsymbol{0}$），
    再由$\mathbf{M}$的正定性可得
    \[
-       \boldsymbol{x}^\mathsf{T}\mathbf{P}^\mathsf{T}\mathbf{M}\mathbf{P}\boldsymbol{x} = \boldsymbol{y}^\mathsf{T}\mathbf{M}\boldsymbol{y}>0.
+   \boldsymbol{x}^\mathsf{T}\mathbf{P}^\mathsf{T}\mathbf{M}\mathbf{P}\boldsymbol{x} = \boldsymbol{y}^\mathsf{T}\mathbf{M}\boldsymbol{y}>0.
    \]
    最后由$\boldsymbol{x}\in\mathbb{R}^n\backslash\{\boldsymbol{0}\}$
    的任意性可得$\mathbf{P}^\mathsf{T}\mathbf{M}\mathbf{P}$为正定阵。
@@ -162,14 +168,14 @@ $\boldsymbol{v}_1,\ldots,\boldsymbol{v}_r\in\mathbb{R}^n$
 
 :::
 
-@theorem:matrix_SVD  的证明可参考[@lay2016linear]
-第7.4节。我们将式 @eq:matrix_SVD1  的右端称为
+@theorem:matrix_SVD 的证明可参考 [@lay2016linear, 第 7.4 节]。
+我们将式 @eq:matrix_SVD1 的右端称为
 矩阵$\mathbf{A}$的**奇异值分解**，而将
 $\sigma_1,\ldots,\sigma_r$称为$\mathbf{A}$的**奇异值**
 （singular value）。注意矩阵的奇异值分解并不要求矩阵是方阵。
 矩阵的奇异值分解还可以有其它表示形式，例如
 
-- 式 @eq:matrix_SVD1  可等价写为
+- 式 @eq:matrix_SVD1 可等价写为
 
   ```math
   \mathbf{A} = \mathbf{U}_\mathrm{c}\boldsymbol{\Sigma}_\mathrm{c}\mathbf{V}_\mathrm{c}^\mathsf{T},
@@ -189,12 +195,12 @@ $\sigma_1,\ldots,\sigma_r$称为$\mathbf{A}$的**奇异值**
   ```
 
   其中$\mathbf{U}\in\mathbb{R}^{m\times m},
-\mathbf{V}\in\mathbb{R}^{n\times n}$为实正交阵，而
+  \mathbf{V}\in\mathbb{R}^{n\times n}$为实正交阵，而
   \[
-      \boldsymbol{\Sigma} = \begin{bmatrix}
-      \boldsymbol{\Sigma}_\mathrm{c} & \mathbf{0}_{r\times(n-r)} \\ \mathbf{0}_{(m-r)\times r} & \mathbf{0}_{(m-r)\times(n-r)}
-      \end{bmatrix},\qquad
-      \boldsymbol{\Sigma}_\mathrm{c}=\begin{bmatrix}
-      \sigma_1 \\ & \ddots \\ && \sigma_r
-      \end{bmatrix}\in\mathbb{R}^{r\times r}.
+  \boldsymbol{\Sigma} = \begin{bmatrix}
+  \boldsymbol{\Sigma}_\mathrm{c} & \mathbf{0}_{r\times(n-r)} \\ \mathbf{0}_{(m-r)\times r} & \mathbf{0}_{(m-r)\times(n-r)}
+  \end{bmatrix},\qquad
+  \boldsymbol{\Sigma}_\mathrm{c}=\begin{bmatrix}
+  \sigma_1 \\ & \ddots \\ && \sigma_r
+  \end{bmatrix}\in\mathbb{R}^{r\times r}.
   \]
