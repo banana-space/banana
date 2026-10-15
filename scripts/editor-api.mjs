@@ -60,7 +60,7 @@ import { displayTitle } from './shared/display-title.mjs';
 // GET  /api/page-history?path=<页面>       { ok, pulls }：修改该页面而尚未出现在网站上的 PR（待审阅的，以及已合并、编辑接口所在的提交
 //                                          还不包含的），供页面历史（/history/）补在构建时的历史之前；每项同 recent-changes，另有该页面在 PR
 //                                          中的 path、status、previous、additions、deletions。所有页面共用一份 PR 列表，每分钟至多向 GitHub
-//                                          读取一次；同一来源地址的请求限频（与 recent-changes/diff 一样，可以连续 20 次，之后每 2 秒一次）
+//                                          读取一次；同一来源地址的请求限频（与 recent-changes 及其 diff 一样，可以连续 20 次，之后每 2 秒一次）
 // POST /api/preview { path, text }          { ok, url, html, missingLinks, timings }（需登录）
 // POST /api/check   { path, text }          { ok, missingLinks }（需登录）
 // POST /api/submit  { path, text, original, message, pull }
@@ -222,8 +222,10 @@ const limits = {
   submit: { interval: options.previewInterval * 5000, burst: 1 },
   // Answered from memory, but anyone may ask, and a crawler would ask for every page.
   history: { interval: 2000, burst: 20 },
-  // Each new pull request and page is read from GitHub, whose limit the whole site shares.
+  // Each new pull request and page is read from GitHub, whose limit the whole site shares. Pages of the recent
+  // changes are kept a minute, but each later page (up to 100) reads 30 more pull requests.
   diff: { interval: 2000, burst: 20 },
+  recent: { interval: 2000, burst: 20 },
 };
 const maxBuckets = 50000;
 const buckets = new Map(); // "login or address\0action" -> { tokens, time }
@@ -345,8 +347,9 @@ const routes = {
       pulls: pulls.map(describe), pullMissing, file, url: service.url(path) ?? null, labels: service.labels(path),
     });
   },
-  'GET /api/recent-changes': async (_request, response, url) => {
+  'GET /api/recent-changes': async (request, response, url) => {
     if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
+    throttle(client(request), 'recent');
     await sourcesReady;
     const page = Number(url.searchParams.get('page') ?? 1);
     if (!Number.isInteger(page) || page < 1 || page > 100) throw new RequestError(400, 'page must be a number from 1 to 100');

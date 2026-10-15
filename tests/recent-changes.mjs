@@ -230,6 +230,11 @@ try {
   for (let i = 0; i < 20; i++) await history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2::${i + 1}` });
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:2:ffff::1' })).status, 429, 'IPv6 地址按 /64 网段限频');
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:3::1' })).status, 200);
+  // The recent changes and their diffs likewise, each counted on its own.
+  const listing = () => fetch(`${base}/api/recent-changes?page=1`, { headers: { 'X-Forwarded-For': '198.51.100.7' } }).then(response => response.status);
+  const listings = [];
+  for (let i = 0; i < 21; i++) listings.push(await listing());
+  assert.deepEqual(listings.slice(19), [200, 429], '最近更改同样按地址限频，与页面历史分开计数');
 
   // What a commit fixes (its date, its files, where its branch left main) is kept on disk: after a restart (as after
   // each deploy) the first load reads only the lists from GitHub.

@@ -144,7 +144,7 @@ function render(data, pending) {
   toggle.addEventListener('click', () => { shown.legacy = open ? 0 : pageSize; rerender(); });
   const section = element('section', 'history-legacy',
     element('h2', 'history-legacy-title', strings.legacy),
-    element('p', 'history-legacy-note', strings.legacyNote, ' ', toggle));
+    element('p', 'history-legacy-note', open ? `${strings.legacyNote} ` : null, toggle));
   // Built only when opened.
   if (open) section.append(...paged(data.legacy, legacyRow, 'legacy', rerender).filter(Boolean));
   list.append(section);
