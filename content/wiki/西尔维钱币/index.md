@@ -121,7 +121,7 @@ $s\in\mathbb{Z}$，$s$ 和 $t-s$ 中恰有一个是 $a$、$b$
 :::
 
 ::: proof
-由 [[Bezout 定理]]，任一整数 $x$ 都可写成 $ma+nb$ 的形式，
+由 [[Bézout 引理]]，任一整数 $x$ 都可写成 $ma+nb$ 的形式，
 其中 $m,n\in\mathbb{Z}$。把 $m$、$n$ 换成 $m+kb$、$n-ka$，
 其中 $k\in\mathbb{Z}$，可不妨设 $0\le m<b$。此时不难发现
 $x$ 是 $a$、$b$ 的正线性组合当且仅当 $n\ge0$。换言之：

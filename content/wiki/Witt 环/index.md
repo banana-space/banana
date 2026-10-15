@@ -812,7 +812,7 @@ $\frac{n}{d}\mid\binom{n}{j}$，因为
 $V_{n/d}[r^{j/d}]^{(n)}=\frac{n}{d}r^j$。
 注意 $\binom{n}{j}$ 和
 $\binom{n-1}{j-1}=\frac{j}{n}\binom{n}{j}$ 都是整数，
-由 [[Bezout 定理]]易知 $\frac{d}{n}\binom{n}{j}$
+由 [[Bézout 引理]]易知 $\frac{d}{n}\binom{n}{j}$
 也是整数，即 $\frac{n}{d}\mid\binom{n}{j}$。
 :::
 
