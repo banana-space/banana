@@ -11,7 +11,7 @@ notices:
 为方便，我们作一个有名的（有名字的）假定。
 我们会反复地说它。
 
-::: -remark [假定] {@standing-assumption-of-resultant}
+::: remark* (假定) {@standing-assumption-of-resultant}
 设 \(n\)、\(m\) 是非负整数，
 且 \(m + n \geqslant 1\)。
 设

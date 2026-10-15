@@ -7,7 +7,7 @@ title: 期中考试：非 Borel 集的构造
 
 在本次考试中所出现的测度均为Lebesgue测度。
 
-::: -remark [寄语]
+::: remark* (寄语)
 Student: Dr. Einstein, Aren't these the same questions as last year's final exam?
 
 Dr. Einstein: Yes! But this year the answers are different.

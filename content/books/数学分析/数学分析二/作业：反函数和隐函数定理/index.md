@@ -266,7 +266,7 @@ E4) 证明，对任意的 $t\in \mathbb{R}$，
     \]
     进一步证明 $(x(t),y(t))=(0,0)$ 当且仅当 $t=1$ 并计算 $x'(1)$ 和 $y'(1)$。
 
-::: -remark [寄语]
+::: remark* (寄语)
 Technical skill is mastery of complexity while creativity is mastery of simplicity.
 
 <align right>

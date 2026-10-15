@@ -4,7 +4,7 @@ title: 反射原理
 
 我们用$\Sigma_\mathfrak{n}$正确基数构成闭无界类这一事实可以简单地验证：
 
-::: theorem [元定理]
+::: theorem (元定理)
 $ZFC$可证全反射公理模式。
 :::
 
@@ -15,13 +15,13 @@ $\kappa$随便取一个$\Sigma_\mathfrak{n}$正确基数。
 
 然而，选择公理其实是完全不必要的。我们可以证明：
 
-::: theorem [元定理：Levy] {@Levy反射}
+::: theorem (元定理) [Levy] {@Levy反射}
 $Z$加上全反射公理模式等价于$ZF$。
 :::
 
 我们首先验证$ZF$可证全反射公理模式。事实上，我们可以证明：
 
-::: theorem [元定理] {@层级反射}
+::: theorem (元定理) {@层级反射}
 如果$\Psi(x,\alpha)$在$\alpha\in\mathbf{Ord}$上定义出一个单增连续的传递集层级$W_\alpha=\{x|\Psi\}$，
 则考虑$\exists \alpha\in\mathbf{Ord}(\Psi)$定义出的类$W=\bigcup_{\alpha\in\mathbf{Ord}}W_\alpha$，
 任给句子$\varphi(x_0,...,x_\mathfrak{n})$，我们都有
@@ -46,7 +46,7 @@ $\exists y\in W(\varphi_\mathfrak{j})\to\exists y\in W_\gamma(\varphi_\mathfrak{
 
 我们还需要全反射公理模式对自己的一个增强。
 
-::: theorem [元定理] {@反射增强}
+::: theorem (元定理) {@反射增强}
 $Z$加上全反射公理模式可对任何有穷多个共享自由变元$v_0,...,v_{\mathfrak{n}-1}$的公式
 $\varphi_0,...,\varphi_{\mathfrak{m}}$证明：
 $$
@@ -112,7 +112,7 @@ $\exists z(\varphi)\leftrightarrow\exists z\in c(\varphi)$。现在我们所要�
 但Gödel说$ZF$只要一致就办不到这件事，所以$ZF$不一致，数学大厦轰然倒塌！我们首先指出，
 这个论证的一部分是对的。
 
-::: theorem [元定理]
+::: theorem (元定理)
 （如果$ZF$一致）$ZF$不可有穷公理化。
 :::
 
@@ -124,7 +124,7 @@ $\varphi\vdash\exists u(u\vDash\varphi)$也就是$\varphi\vdash\mathrm{Con}(\var
 
 我们只需要把这个论证形式化，就能接着发现它哪里不对了。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $ZF$不可证$\forall T\subseteq\ulcorner ZF\urcorner(\mathrm{isFin}(T)\to\exists u(u\vDash T))$。
 :::
 

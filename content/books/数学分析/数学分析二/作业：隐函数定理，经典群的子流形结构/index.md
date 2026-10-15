@@ -253,7 +253,7 @@ E8) 令 $G=\mathbf{SL}_n(\mathbb{R})$（或 $\mathbf{O}(n)$），
     $\mathfrak{g}=\mathfrak{sl}_n(\mathbb{R})$（或 $\mathfrak{o}(n)$），证明，
     指数映射 $\exp$ 把 $\mathfrak{g}$ 映射到 $G$ 中去。
 
-::: -remark [寄语]
+::: remark* (寄语)
 <lang grc>
 Ὡς τοῦ ἀεὶ ὄντος γνώσεος ἀλλὰ οὐ
 τοῦ ποτέ τι γιγνομένου καὶ ἀπολλυμένου.

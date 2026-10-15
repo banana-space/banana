@@ -366,7 +366,7 @@ E28) 试计算
      \]
      并给出 $A_2$ 的自然密度的一个上界。
 
-::: -remark [寄语]
+::: remark* (寄语)
 God does not care about our mathematical difficulties. He integrates empirically.
 
 <align right>

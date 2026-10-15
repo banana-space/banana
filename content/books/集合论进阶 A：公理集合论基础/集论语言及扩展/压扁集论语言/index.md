@@ -109,7 +109,7 @@ $NBG$是一个有带定义一元谓词$\mathrm{isSet}$的一阶集合论，其�
 
 我们首先指出$ZF^2$名称的来由。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给$ZF^2$中0层公式$\varphi$，$ZF^2\vdash\varphi$当且仅当$ZF\vdash\varphi$。
 :::
 
@@ -127,7 +127,7 @@ $\mathcal{E}=\{(x,X)\in\omega\times\wp(\omega)|x\in X\}$是关系$\epsilon$的�
 
 另一方面，很容易证明$NBG$就是$ZF^2$压扁之后的理论。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给$ZF^2$中公式$\varphi$，
 将其中$\forall/\exists x(...)$改成$\forall/\exists x(\mathrm{isSet}(x)\to/\wedge...)$，
 $\forall/\exists X(...)$改成$\forall/\exists x$后得到对应的$NBG$中公式$\varphi^{\sharp}$，

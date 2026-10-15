@@ -11,7 +11,7 @@ H_0:\theta\in\Theta_0,\qquad H_1:\theta\in\Theta_1.
 
 设$T=\phi(X_1,\ldots,X_n)$为该问题的检验统计量，它满足如下条件：
 
-::: definition [条件] {@condition:hypothesis_testing_H0_identical_distribution}
+::: definition (条件) {@condition:hypothesis_testing_H0_identical_distribution}
 $T$在原假设$H_0$下的分布是与$\theta\in\Theta_0$的具体取值无关的。
 换句话说，对任意$\theta\in\Theta_0$，$T$均服从同一个分布。
 :::
@@ -113,7 +113,7 @@ $\left]-\infty,y_\alpha\right[$的形式。最后，由
 
 ::: theorem
 设$T$为假设检验问题 @eq:testing_formulation_appendix
-的检验统计量，且条件 @-condition:hypothesis_testing_H0_identical_distribution
+的检验统计量，且@condition:hypothesis_testing_H0_identical_distribution
 成立。则对任意样本观测值$x_1,\ldots,x_n$与显著性水平
 $\alpha\in\left]0,1\right[$，均有
 \[
@@ -155,7 +155,7 @@ $\alpha\in\left]0,1\right[$，均有
   \phi(x_1,\ldots,x_n)>c_\alpha.
   \]
 
-由此我们建立了条件 @-condition:hypothesis_testing_H0_identical_distribution
+由此我们建立了@condition:hypothesis_testing_H0_identical_distribution
 下单侧检验$p$值法与拒绝域法的等价性。
 
 接下来考虑双侧检验。此时由$p$值的定义可得
@@ -193,6 +193,6 @@ c\in\mathbb{R} \Bigm\vert
 \phi(x_1,\ldots,x_n)>c_\alpha^u\ \text{或}\
 \phi(x_1,\ldots,x_n)<c_\alpha^l,
 \]
-从而对于双侧检验，在条件 @-condition:hypothesis_testing_H0_identical_distribution
+从而对于双侧检验，在@condition:hypothesis_testing_H0_identical_distribution
 下$p$值法与拒绝域法也是等价的。
 :::

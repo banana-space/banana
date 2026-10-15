@@ -6,7 +6,7 @@ notices:
       - "“连通性与商映射”一节开头“连续映射的商空间是连通的”似乎应为“连通空间的商空间是连通的”。"
 ---
 
-::: -remark [一句大实话]
+::: remark* (一句大实话)
 The most intuitively evident topological invariant of a space is the number
 of connected pieces into which it falls.
 

@@ -255,7 +255,7 @@ T10) 证明：设 $f\colon [0,1] \to \mathbb{R}^3$ 是不自相交的光滑曲�
 
      - $\displaystyle \sup_{t,x \in [0,1]} |f_t(x) - f(x)| < \varepsilon$。
 
-::: -remark [寄语]
+::: remark* (寄语)
 Analytical geometry has never existed. There are only people who do linear algebra badly, by taking coordinates and this they call analytical geometry.
 
 <align right>

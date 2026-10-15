@@ -6,7 +6,7 @@ title: 扩展语言中的基础与基本
 注意到在合适的编码方案下，有穷多个新增谓词可以编码为一个谓词，
 我们其实是在考虑一大类形如$(X,\in,A_0,...,A_{\mathfrak{n}})$的结构的递归可枚举的（部分）理论。
 
-::: definition [元定义]
+::: definition (元定义)
 对集合论理论$T$，我们称$T^A$为它在$\mathcal{L}_{A}$中的（典范）扩展理论，
 这一理论由$T$和下一句子（称作$(Sep)_{A}$）构成：
 $\forall x\exists y\forall z(z\in y\leftrightarrow (z\in x\wedge A(z)))$。
@@ -25,7 +25,7 @@ $\forall x\exists y\forall z(z\in y\leftrightarrow (z\in x\wedge A(z)))$。
 
 我们还是从$DB_0^A$开始讨论。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $DB_0^A$可证$\Delta_{0;A;}$分离公理模式。
 :::
 
@@ -35,7 +35,7 @@ $DB_0^A$可证$\Delta_{0;A;}$分离公理模式。
 
 正如基本性有两种等价刻画，$A$中基本性同样有这两种等价刻画。我们仍然先从可替性开始讨论。
 
-::: definition [元定义：$A$中可替]
+::: definition (元定义) [$A$中可替]
 我们在集合论$T$的典范扩展理论$T^A$中考虑一个公式$\varphi(x,v_0,...,v_{\mathfrak{n}-1})$：
 
 1. 若对任何$\Delta_{0}$公式$\psi(y,u_0,...,u_{\mathfrak{m}-1})$和$v_0,...,v_{\mathfrak{n}-1}$均有
@@ -57,7 +57,7 @@ $A$中半可替要求的$\psi$是$\Delta_0$而非$\Delta_{0,A}$的，
 
 我们同样先引入引理。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$\varphi(x,v_0,...,v_{\mathfrak{n}-1})$是$T^A$可证的函数符号，
 则它在$A$中可替等价于以下两事实同时成立：
 
@@ -78,7 +78,7 @@ $A$中半可替要求的$\psi$是$\Delta_0$而非$\Delta_{0,A}$的，
 
 $A$中可替函数构成的（元）集合同样要对诸多操作封闭。
 
-::: theorem [元定理：$A$中可替函数的复合]
+::: theorem (元定理) [$A$中可替函数的复合]
 固定集合论$T$，
 若
 $h(y_1,...,y_{\mathfrak{n}}),g_1(x_1\\,...,x_{\mathfrak{m}}),...,g_\mathfrak{n}(x_1,...,x_{\mathfrak{m}})$
@@ -90,7 +90,7 @@ $h(y_1,...,y_{\mathfrak{n}}),g_1(x_1\\,...,x_{\mathfrak{m}}),...,g_\mathfrak{n}(
 照抄。
 :::
 
-::: theorem [元定理：$A$中可替函数的受限极小化]
+::: theorem (元定理) [$A$中可替函数的受限极小化]
 固定集合论$T$，若$g(x,x_0,x_1\\,...,x_{\mathfrak{n}})$是$T$的$A$中可替的函数符号，
 且$f(x_0,x_1,...,x_{\mathfrak{n}})=\bigcup_{x\in x_0}g(x,x_0,x_1\\,...,x_{\mathfrak{n}})$同样是$T$的
 $A$中可证的函数符号，则$f$亦是$T$的$A$中可替的函数符号。
@@ -100,7 +100,7 @@ $A$中可证的函数符号，则$f$亦是$T$的$A$中可替的函数符号。
 照抄。
 :::
 
-::: theorem [元定理：$A$中可替函数的分段定义]
+::: theorem (元定理) [$A$中可替函数的分段定义]
 如果$\psi(u_0,...,u_{\mathfrak{m}-1})$是$\Delta_{0,A}$句子，
 $f(x_0,...,x_{\mathfrak{n}-1})$是$T$的$A$中可替的函数，
 则$g(x_0,...,x_{\mathfrak{n}-1},u_0,...,u_{\mathfrak{m}-1})$同样是$T$的$A$中可替的函数，
@@ -113,7 +113,7 @@ $f(x_0,...,x_{\mathfrak{n}-1})$是$T$的$A$中可替的函数，
 
 当然，我们还需要把Grandy–Jensen引理延拓到这个语境下来。我们同样定义伴生函数。
 
-::: definition [元定义：$A$中的伴生性]
+::: definition (元定义) [$A$中的伴生性]
 取集合论$T\supseteq DB_0$，
 $F(x_0,...,x_{\mathfrak{n}-1}),G(y_0,\\...,y_{\mathfrak{n}-1})$均是$\Delta_{0,A}$的$T^A$可证类函数，
 且$G$是$T$的$A$中可替函数。
@@ -130,7 +130,7 @@ $F(x_0,...,x_{\mathfrak{n}-1}),G(y_0,\\...,y_{\mathfrak{n}-1})$均是$\Delta_{0,
 
 我们来延拓Grandy–Jensen引理。
 
-::: theorem [元定理：扩展Grandy–Jensen]
+::: theorem (元定理) [扩展Grandy–Jensen]
 假定集合论$T\supseteq DB_0$中$F$有第二类$A$中的伴生函数$G$，
 且$z\in F(x_0,...,x_{\mathfrak{n}-1})$是$\Delta_{0,A}^{DB_0^A}$的，我们断言：
 
@@ -161,7 +161,7 @@ $y_0=\{x_0|\exists v\in u\exists x_1...\exists x_{\mathfrak{n}-1}(v=(x_0,x_1,...
 
 最后，我们回到等价性证明上来。
 
-::: theorem [元定理]
+::: theorem (元定理)
 下列两种对函数符号$A$中基本性的刻画等价。
 
 1. 称函数符号$f$是$A$中归纳基本的，若它可在有穷步内由以下操作得到：
@@ -202,7 +202,7 @@ $y_0=\{x_0|\exists v\in u\exists x_1...\exists x_{\mathfrak{n}-1}(v=(x_0,x_1,...
 
 最后，我们指出：如果$A$是$\Delta_0$可定义的，那么扩展$A$相当于没扩展。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给$\Delta_0$公式$\varphi(x)$，$DB_0^A+(\forall x(A(x)\leftrightarrow \varphi(x)))$可翻译为$DB_0$，
 $GJ_0^A+(\forall x(A(x)\leftrightarrow \varphi(x)))$可翻译为$GJ_0$，$A$中基础就是基础，
 $A$中基本就是基本，$A$中可替就是可替，$A$中伴生就是伴生。

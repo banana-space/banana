@@ -2,7 +2,7 @@
 title: 作业：二维波动方程的基本解，Airy 函数与 KdV 方程
 ---
 
-::: -remark [寄语]
+::: remark* (寄语)
 An ocean traveller has even more vividly the impression that the ocean is made of waves than that it is made of water.
 
 <align right>

@@ -10,7 +10,7 @@ notices:
 也就是$s$对$u$的相对化，which是$\Delta_0$句子），而我们的讨论说明它是$\Delta_1$的；
 接下来让我们考虑更高复杂度句子的真谓词。我们首先指出一个简单的事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 对任何$\mathfrak{n}$，我们都有$\Delta_0$谓词来判定一个公式是否是$\Delta_0$、
 $\Sigma_\mathfrak{n}$或$\Pi_\mathfrak{n}$公式，
 $\Sigma_1$谓词来判定某个集合论$T$下一个公式是否是$\Sigma_\mathfrak{n}^T$、
@@ -47,7 +47,7 @@ $\vDash_{\Pi_\mathfrak{n}}$（$\Pi_\mathfrak{n}$真谓词）的复杂度应该�
 
 我们立即有集合论版本的真不可定义定理。
 
-::: theorem [元定理]
+::: theorem (元定理)
 在强于$T_{Ar}$的集合论中，不存在全局真谓词。
 换言之，
 不存在单变元谓词$\psi(x)$使得对任何句子$\sigma$都有
@@ -88,7 +88,7 @@ $\varphi(\ulcorner\sigma\urcorner)\to\sigma$：因为$s'$只有一个，
 
 但这不妨碍分层真谓词的定义。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\vDash_0$是$\Delta_1^{T_{Sat}}$的，
 $\vDash_{\Sigma_\mathfrak{n}}$是$\Sigma_\mathfrak{n}$的（$\mathfrak{n}\geq 1$）。
 :::
@@ -178,7 +178,7 @@ $\beth_\beta=\gamma\in\alpha$。
 这提示我们，$\Sigma_2$是一个比较重要的分水岭。
 事实上，$V_\alpha$和$H_\kappa$都可以给我们一些$\Sigma_2$句子的标准形式。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给$\varphi$，以下三件事等价：
 
 1. 存在$\Sigma_2$句子$\psi$使得$ZFC\vdash \varphi\leftrightarrow\psi$。
@@ -252,7 +252,7 @@ $\exists\gamma(\beta<\gamma\wedge\varphi(\gamma))$（$\mathbf{V}$认为$\varphi$
 既然$C^{(\mathfrak{n})}$都是闭无界的，那把这$\omega$个闭无界类交起来按道理也是闭无界类；
 但这其实不对，因为$C^{(\mathfrak{n})}$并非$C^{(n)}$。不过，我们可以这么做。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果在$\mathcal{L}_\in$中再加常元符号$K$，然后做此语言中$ZFC$的扩展理论，
 要求（利用公理模式）对每个$\mathfrak{n}$都有$K$是$\Sigma_\mathfrak{n}$正确基数，
 则此理论与$ZFC$等一致性强度。此时称$K$是正确基数。

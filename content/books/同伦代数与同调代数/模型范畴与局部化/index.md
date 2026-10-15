@@ -114,7 +114,7 @@ $(\mathsf{C},\mathsf{W},\mathsf{Cof},\mathsf{Fib})$ 得到的，
 但实际上，局部化有一种十分清晰的构造方法，
 由 Dwyer 和 Kan [@DK-calc] 给出：
 
-::: definition [构造]
+::: definition (构造)
 设 $(\mathsf{C},\mathsf{W})$ 为弱等价范畴。
 我们构造单纯范畴 $\mathsf{L}(\mathsf{C},\mathsf{W})$ 如下：
 其对象与 $\mathsf{C}$ 相同，且对任意 $X,Y\in\mathsf{C}$，

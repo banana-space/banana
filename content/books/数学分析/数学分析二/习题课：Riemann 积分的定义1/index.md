@@ -10,7 +10,7 @@ notices:
 我们在课上从测度的观点定义了积分，这次习题目的是尽可能还原历史Riemann积分的（严格）定义。
 我们不假设任何的测度理论。同学们与课堂内容作比较，就能体会为什么抽象积分实际上更简单更有效率。
 
-::: -remark [寄语]
+::: remark* (寄语)
 C'est pour la résolution de ces problèmes, et non par amour des complications, que j'ai introduit dans ce Livre une définition de l'intégrale plus générale que celle de Riemann et comprenant celle-ci comme cas particulier.
 
 （此书新引入的积分定义比Riemann积分更广泛并且把它作为一个特例，这是为了要解决存在的那些问题，

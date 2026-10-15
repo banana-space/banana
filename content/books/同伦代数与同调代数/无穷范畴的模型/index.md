@@ -264,7 +264,7 @@ $X\times\Delta[n]$ 到 $Y$ 的映射。
 
 单纯范畴的同伦范畴可以非常直接地定义。
 
-::: definition [构造]
+::: definition (构造)
 设 $\mathsf{C}$ 为单纯范畴。在函子
 \[
 \mathsf{sSet}\xrightarrow{h}\mathsf{hCW}\xrightarrow{\pi_0}\mathsf{Set}
@@ -322,7 +322,7 @@ $\mathsf{C}$ 可以先对应于 $\mathsf{hCW}$-充实范畴 $h \mathsf{C}$，
 总能够对应于 $\mathfrak C\Delta[n]$ 到该单纯范畴的函子。
 上述讨论促使我们给出下面的定义。
 
-::: definition [构造]
+::: definition (构造)
 对整数 $n\geq0$，定义单纯范畴 $\mathfrak C^n$ 如下：
 
 - 它有 $(n+1)$ 个对象，记为 $0,1,\dotsc,n$。

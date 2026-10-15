@@ -8,7 +8,7 @@ notices:
 
 我们先来论证一个熟知的元定理。
 
-::: theorem [元定理：元自然数的标准编码]
+::: theorem (元定理) [元自然数的标准编码]
 对每个元自然数$\mathfrak{n}$，$ReS_0$可证存在一个对应的集合$\ulcorner\mathfrak{n}\urcorner$，
 满足以下特质：
 
@@ -35,7 +35,7 @@ $x=\varnothing\vee(\mathrm{isSuccOrd}(x)\wedge\forall y\in x(\mathrm{isSuccOrd}(
 这时，$x$将被称作一个自然数。这是$\Delta_0$谓词。
 :::
 
-::: -remark [论题：自然数论题]
+::: remark* (论题) [自然数论题]
 如果集合$n$满足$\mathrm{isNat}(n)$，
 则存在一个元自然数$\mathfrak{n}$使得$n=\ulcorner\mathfrak{n}\urcorner$。
 :::
@@ -46,7 +46,7 @@ $x=\varnothing\vee(\mathrm{isSuccOrd}(x)\wedge\forall y\in x(\mathrm{isSuccOrd}(
 因为它根本不是一个能被形式化的句子，没有人能定义对这种东西的“证明”是什么。
 然而，我们总能不依赖这个论题而证明一些简单的关于自然数的事实，例如（形式化的）数学归纳法（模式）。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $ReS_0\vdash(Fnd)_{\Pi_\mathfrak{n}}\leftrightarrow (Ind)_{\Sigma_\mathfrak{n}}$
 :::
 
@@ -289,7 +289,7 @@ $\forall u(\mathrm{isNat}(u)\to\forall v(\mathrm{isNat}(v)\to\exists f\exists d\
 
 因此，我们事实上证明了如下事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $T_{Ar}$有$\Sigma_1-PA$的解释，
 此处$\Sigma_1-PA$指的是在$PA$中将数学归纳法限制到$\Sigma_1$算术句子的版本。
 进一步，鉴于$\Sigma_1-PA$已有Gödel第二不完备性定理，不弱于$T_{Ar}$的理论均有Gödel第二不完备性定理。
@@ -297,7 +297,7 @@ $T_{Ar}$有$\Sigma_1-PA$的解释，
 
 我们也可以证明递归函数的可表示性。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $T_{Ar}$有所有递归函数的$\Delta_1^{T_{Ar}}$表示。
 :::
 

@@ -6,13 +6,13 @@ notices:
       - '定理的证明中，双侧检验在 $T$ 连续时的两个推导式里的 $\mathbb{P}(Y\geq y)$、$\mathbb{P}(-Y\geq -y)$ 似乎应为 $\mathbb{P}_{H_0}(T\geq y)$、$\mathbb{P}_{H_0}(-T\geq -y)$。'
 ---
 
-本节中我们证明，在条件 @-condition:hypothesis_testing_H0_identical_distribution
+本节中我们证明，在@condition:hypothesis_testing_H0_identical_distribution
 下，显著性水平$\alpha$给出了第I类错误概率的上界，且当$T$在原假设
 $H_0$下为连续型随机变量时，显著性水平$\alpha$就等于第I类错误概率。
 
 ::: theorem {@theorem:p_value_distribution}
 设$T$为假设检验问题 @eq:testing_formulation_appendix
-的检验统计量，且条件 @-condition:hypothesis_testing_H0_identical_distribution
+的检验统计量，且@condition:hypothesis_testing_H0_identical_distribution
 成立，$\hat{p}:\mathbb{R}^n\rightarrow\mathbb{R}$为将样本值
 映射到$p$值的函数，$\alpha\in\left]0,1\right[$为给定的显著性水平，
 $C_\alpha$为相应的拒绝域。则

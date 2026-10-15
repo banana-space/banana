@@ -10,7 +10,7 @@ notices:
 
 为方便，我们仍作如下假定。
 
-::: -remark [假定] {@standing-assumption-of-resultant-banana}
+::: remark* (假定) {@standing-assumption-of-resultant-banana}
 设 \(n\)、\(m\) 是非负整数，
 且 \(m + n \geqslant 1\)。
 设

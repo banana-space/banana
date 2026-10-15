@@ -36,7 +36,7 @@ notices:
 
 量子力学的公理如下。
 
-::: -definition [公理：态]
+::: definition* (公理) [态]
 系统的所有可能状态处在某个 Hilbert 空间 $\mathcal{H}$ 中，
 系统的状态由其中某个向量表示，称为**态**，
 两个向量 $\psi_1$、$\psi_2$ 表示相同的状态，
@@ -54,7 +54,7 @@ $\mathcal{H} = L^2 (\mathbb{R}^n)$。
 $\operatorname{Sym}^m (\mathcal{H})$。
 :::
 
-::: -definition [公理：量子化]
+::: definition* (公理) [量子化]
 对一个[[力学量]]，即系统经典[[相空间]]上的一个函数，
 存在 $\mathcal{H}$ 上某个[[自伴算子]]（未必有界）
 $\mathcal{H} \to \mathcal{H}$ 与之对应，
@@ -95,7 +95,7 @@ $x_{01}, \dots, x_{0n}$。此时相当于粒子具有确定的位置。
 例如上例中的 $\delta$ 函数。
 :::
 
-::: -definition [公理：演化]
+::: definition* (公理) [演化]
 系统的演化由如下方程，称为 **[[Schrödinger 方程]]** 决定：
 \[
 \mathrm{i}\hbar \frac{d \psi}{d t} = \hat{H} \psi,
@@ -103,7 +103,7 @@ $x_{01}, \dots, x_{0n}$。此时相当于粒子具有确定的位置。
 其中 $H$ 为系统在经典意义下的 [[Hamilton 量]]。
 :::
 
-::: -definition [公理：测量]
+::: definition* (公理) [测量]
 在一次对某个（或某一组使相应算符交换的）
 [[力学量]]的[[测量]]后，
 系统的态变为这个力学量的某个本征态，

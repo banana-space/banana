@@ -290,7 +290,7 @@ $\Lambda_0[3]$ 的提升性质的推论。
 其中 $\{\infty\}$ 是一个单点集，
 点 $\infty$ 称为**锥顶点**。
 
-::: definition [构造]
+::: definition (构造)
 设 $X\to S$ 为单纯集间的映射。我们如下定义函子
 \[
 \operatorname{St}_SX\colon\mathfrak CS\to\mathsf{sSet} .
@@ -315,7 +315,7 @@ M = \mathfrak C\bigl(X^\vartriangleleft\mathop{\sqcup}_XS\bigr).
 那么该态射空间就弱同伦等价于 $X_s$。
 :::
 
-::: definition [构造]
+::: definition (构造)
 设 $F\colon\mathfrak CS\to\mathsf{sSet}$ 为单纯范畴之间的函子。
 我们来构造左纤维化
 \[

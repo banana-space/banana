@@ -264,7 +264,7 @@ E11) 任给 $\varepsilon>0$ 和 $a>0$。
      使得 $|\alpha-\dfrac{p}{q}|<\dfrac{a}{q^{2+\varepsilon}}$。证明，这样的实数的测度为零。
      （这表明 Dirichlet 定理给出的逼近在某种意义上是最佳的）
 
-::: -remark [寄语]
+::: remark* (寄语)
 I remember one occasion when I tried to add a little seasoning to a review, but I wasn't allowed to. The paper was by Dorothy Maharam, and it was a perfectly sound contribution to abstract measure theory. The domains of the underlying measures were not sets but elements of more general Boolean algebras, and their range consisted not of positive numbers but of certain abstract equivalence classes. My proposed first sentence was: “The author discusses valueless measures in pointless spaces.”
 
 <align right>

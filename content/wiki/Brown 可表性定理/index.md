@@ -99,7 +99,7 @@ F(X) \xrightarrow{(i^*,j^*)} F(A) \times F(B) \xrightarrow{k^*-l^*} F(C).
 当且仅当其满足**楔和公理**以及 **Mayer–Vietoris 性质**。
 :::
 
-::: remark [警告]
+::: remark (警告)
 带点以及连通性的条件均不可缺少，否则存在反例。
 :::
 

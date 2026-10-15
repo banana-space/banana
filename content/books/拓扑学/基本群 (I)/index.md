@@ -9,7 +9,7 @@ notices:
       - “球面的基本群”一节命题证明中的同伦 $\sigma(t,s) = |(1-t)l(s)+t| \cdot(\cos(s\theta(t)),\sin(s\theta(t)))$ 似乎有误：其中向量与数相加，且 $s=1$ 时得到的似乎不是回路 $l$。
 ---
 
-::: -remark [Poincaré 如是说]
+::: remark* (Poincaré 如是说)
 Ce n'est pas assez, en effet, qu'une science soit légitime : il faut que
 l'utilité ne puisse en être contestée. Tant d'objets divers sollicitent notre
 attention, que les plus importants ont seuls droit de l'obtenir.[^1]

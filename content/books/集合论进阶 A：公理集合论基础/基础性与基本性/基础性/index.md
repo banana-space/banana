@@ -2,7 +2,7 @@
 title: 基础性
 ---
 
-::: theorem [元定理：by Bernays]
+::: theorem (元定理) [by Bernays]
 $DB_0$可有穷公理化。
 :::
 
@@ -139,13 +139,13 @@ $\in$四种符号，且$\in$两边的变元符号总是不同。
 
 我们在元语境下指出一个$DB_0$模型有关的显然刻画。
 
-::: theorem [元定理]
+::: theorem (元定理)
 传递集$M$是$DB_0$的模型，当且仅当它对$\mathcal{B}$中的每个函数符号封闭。这种集合称作基础闭集。
 :::
 
 当然，我们还有：
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果传递集$M$是$DB_0$的模型（鉴于上个（元）定理，这是说$\bigcup_{B\in\mathcal{B}}B``(M)=M$），
 则令$N=\bigcup_{B\in\mathcal{B}}B``(\mathrm{Succ}(M))$，我们有：任给$DB_0$模型$N'$，
 $M\in N'$当且仅当$N\subseteq N'$。特别的，显然有$M\in N$，因此$N$是$DB_0$的模型。
@@ -165,7 +165,7 @@ $M\in N'$当且仅当$N\subseteq N'$。特别的，显然有$M\in N$，因此$N$
 
 当然，我们也可以让它变得更加方便定义。
 
-::: theorem [元定理]
+::: theorem (元定理)
 记
 $\mathbf{B}(x)=x\cup \bigcup_{\mathfrak{i}=1,2,3}\mathcal{G}_\mathfrak{i}``(x,x)\cup\bigcup_{\mathfrak{i}=4,...,8}\mathcal{G}_\mathfrak{i}``(x)$，
 则递归地定义$\mathbf{B}_0(x)=\mathrm{Succ}(x)$和
@@ -187,7 +187,7 @@ $z\in y\leftrightarrow z\in x_0\times...\times x_{\mathfrak{m}-1}\wedge z=(z_0,.
 
 我们之前的论证可以转述为以下结果。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任何$\Delta_0$分离子都是基础函数符号。
 :::
 

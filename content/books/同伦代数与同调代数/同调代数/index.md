@@ -77,7 +77,7 @@ title: 同调代数
 我们首先用更直接的方法定义 $\mathfrak{N}_{\mathrm{dg}}$，
 然后证明这两种构造是等价的。
 
-::: definition [构造]
+::: definition (构造)
 设 $\mathsf{C}$ 是 dg 范畴。
 则其 **dg 脉**是如下构造的拟范畴 $\mathfrak{N}_{\mathrm{dg}}(\mathsf{C})$：
 其 $n$-单形是形如

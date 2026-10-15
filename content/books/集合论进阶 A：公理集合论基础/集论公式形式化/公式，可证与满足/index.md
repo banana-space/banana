@@ -284,7 +284,7 @@ $g$里面装着所有确实被判断了的句子，我们其实是在对公式�
 
 先来看$\Pi_1-GJI$，它是$\Pi_1-GJ$加上无穷公理所得的公理系统。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\mathrm{Sat}$是$\Delta_1^{\Pi_1-GJI}$的。
 :::
 
@@ -302,7 +302,7 @@ $\exists w\exists x\exists y\exists a\exists b(a=\mathrm{ConSym}(u)\wedge b=\mat
 
 接下来讨论[从DB到DS](@sec:从DB到DS)一节中引入的$DS$。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\mathrm{Sat}$是$\Delta_1^{DS}$的。
 :::
 

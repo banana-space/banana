@@ -391,7 +391,7 @@ $L^2(\mathbf{S}^2)$ 的Hilbert基。
 从而它们*应该*可以被同时（正交）对角化。这个问题的计算对应着量子力学中的Zeeman效应。
 :::
 
-::: -remark [寄语]
+::: remark* (寄语)
 Derrière la série de Fourier, d'autres séries analogues sont entrées dans le domaine de l'analyse; elles y sont entrées par la même porte; elles ont été imaginées en vue des applications.
 
 <align right>

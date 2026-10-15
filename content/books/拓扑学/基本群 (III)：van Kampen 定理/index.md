@@ -8,7 +8,7 @@ notices:
       - “Brieskorn 流形”习题第 1 款中的 $\mathbb{S}^{5}$ 似乎应为 $\mathbb{S}^{7}$；题后说明中与 $\Sigma$ 的锥同胚的集合所在的 $\mathbb{C}^{3}$ 似乎应为 $\mathbb{C}^{4}$。
 ---
 
-::: -remark [定理的历史：A. Gramain，[“Le théorème de Van Kampen”](http://www.numdam.org/item/?id=CTGDC_1992__33_3_237_0)]
+::: remark* (定理的历史) [A. Gramain，[“Le théorème de Van Kampen”](http://www.numdam.org/item/?id=CTGDC_1992__33_3_237_0)]
 Cet énoncé a été démontré en 1931 par H. SEIFERT, non pour
 des ouverts $U_1$ et $U_2$, mais pour des sous-complexes d’un complexe simplicial
 $Y$. En 1933, E. VAN KAMPEN retrouve cet énoncé comme cas particulier

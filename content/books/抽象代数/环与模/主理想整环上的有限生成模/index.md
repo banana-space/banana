@@ -802,7 +802,7 @@ M'=\{x\in M\mid p^{l-1}x=0\}
 请参考 @prop:classification-of-finitely-generated-abelian-groups。
 :::
 
-::: -remark [应用：矩阵的标准型]
+::: remark* (应用) [矩阵的标准型]
 $K$是域，$V$是有限维$K$-线性空间，$T\in {\rm End}_{K}(V)$是$K$-线性映射，则$V$可被视为$K[X]$-模：
 \[
 K[X]\times V\rightarrow V, \ \  (P(X), v)\mapsto P(T)v,

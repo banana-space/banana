@@ -163,7 +163,7 @@ $(\Delta_0-WDC)_\varphi$即
 $\forall v_0...\forall v_{\mathfrak{n}-1}(\forall x\exists y(\varphi)\to\forall a\forall b\exists f(\delta^\varphi))$。
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 $KP$加$\Delta_0$弱依赖选择公理模式可证$\Sigma_1$基础公理模式；我们将记前一公理体系为$KP'$。
 :::
 
@@ -292,11 +292,11 @@ $f(\varnothing)=\{(a,b)\}$，
 记存在长$n$秩$k$的对$\Gamma$的推演（这句话）为$\vdash^n_k\Gamma$。
 :::
 
-::: -lemma [断言：$\mathcal{CAL}$有效]
+::: lemma* (断言) [$\mathcal{CAL}$有效]
 $KP'\vdash\varphi$当且仅当$\mathcal{CAL}$中$\vdash\varphi$。
 :::
 
-::: -lemma [断言：$\mathcal{CAL}$的切消]
+::: lemma* (断言) [$\mathcal{CAL}$的切消]
 如果$\vdash^n_{k+2}\Gamma$，则$\vdash^m_2\Gamma$，这里$m=2^n_k$，这东西归纳地定义为$2^n_0=n$，
 $2^n_{k+1}=2^{2^n_k}$。
 :::
@@ -315,7 +315,7 @@ $2^n_{k+1}=2^{2^n_k}$。
 $\exists x$改为$\exists x\in L_\beta(t)$所得的公式；注意$L_\alpha(t)$是原始递归函数。
 :::
 
-::: -lemma [断言：$\mathcal{CAL}$的解释定理]
+::: lemma* (断言) [$\mathcal{CAL}$的解释定理]
 如果$\varphi(a_1,...,a_\mathfrak{k})$是$\Delta_0(\Sigma_1)$公式，
 秩不大于$2$的推演$\mathbf{d}\vdash\varphi$，则存在严格单增的原始递归函数$F$，使得任给序数$\alpha$，
 当$a_1,...,a_\mathfrak{k}\in L_\alpha(t)$时均有
@@ -324,7 +324,7 @@ $\varphi(a_1,...,a_\mathfrak{k})_t^{\alpha,F(t,\alpha)}$。
 
 我们用这些声明的引理来证明：
 
-::: theorem [元定理]
+::: theorem (元定理)
 若$KP'$可证$H(x_1,...,x_\mathfrak{k})$是$\Sigma_1$公式
 $\exists z(\varphi(z,y,x_1,...,x_\mathfrak{k}))$定义的函数符号（$\varphi$是$\Delta_0$公式），
 则$H$原始递归。

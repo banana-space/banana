@@ -26,7 +26,7 @@ $M\vDash\varphi$，则称$N$由公式$\varphi$和参数$v_0,...,v_{\mathfrak{n}-
 后面这个定义并不元（因为我们只用到了$M\vDash\varphi$这个$\Delta_0$真谓词），
 我们甚至有好几个对它的等价刻画。
 
-::: theorem [元定理]
+::: theorem (元定理)
 若$M$传递，对$\wp(M)$的元素$N$，以下四条件等价：
 
 1. 有单自由变元公式$\varphi(x,v_0,...,v_{\mathfrak{n}-1})$，

@@ -84,7 +84,7 @@ $K(\mathbb{C})^\blacksquare=\mathrm{ku}$。
 
 证明之前先回忆杠构造。
 
-::: -remark [回忆]
+::: remark* (回忆)
 对幺半群 $G$，其**杠构造**为单纯集 $B_\bullet G$，
 定义为 $B_nG=G^n$，
 $$

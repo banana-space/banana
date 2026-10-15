@@ -35,13 +35,13 @@ title: 基本性
 
 一个自然的期望就是证明这两个基本性的刻画相互等价，而事实的确如此。
 
-::: theorem [元定理] {@算子基本蕴含归纳基本}
+::: theorem (元定理) {@算子基本蕴含归纳基本}
 算子基本函数都是归纳基本函数。
 :::
 
 我们先证明一个引理。
 
-::: theorem [元定理：归纳基本函数的分段定义] {@归纳基本函数的分段定义}
+::: theorem (元定理) [归纳基本函数的分段定义] {@归纳基本函数的分段定义}
 如果$\psi(u_0,...,u_{\mathfrak{m}-1})$是$\Delta_0$句子，
 $f(x_0,...,x_{\mathfrak{n}-1})$是归纳基本函数，
 则$g(x_0,...,x_{\mathfrak{n}-1},u_0,...,u_{\mathfrak{m}-1})$同样是归纳基本函数，
@@ -116,7 +116,7 @@ $f(x_0,...,x_{\mathfrak{n}-1})$是归纳基本函数，
 
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 归纳基本函数都是算子基本函数。
 :::
 
@@ -155,7 +155,7 @@ $f(x_0,...,x_{\mathfrak{n}-1})$是归纳基本函数，
 
 今后，我们将把归纳基本函数和算子基本函数合称基本函数；我们甚至额外得到一个定理。
 
-::: theorem [元定理]
+::: theorem (元定理)
 对某个类$\varphi$，其判别函数$\chi_{\varphi}$（在$\varphi$成立时取$\{\varnothing\}$，
 不成立时取$\varnothing$）是基本的，当且仅当它是$\Delta_0$的。
 :::
@@ -173,7 +173,7 @@ $\Delta_0$的类$\varphi$由[引理](@归纳基本函数的分段定义)有$\chi
 
 我们接着指出$GJ_0$的有穷公理化。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $GJ_0$由外延公理、空集存在公理和诸基本算子存在公理共同给出有穷公理化。
 :::
 
@@ -187,7 +187,7 @@ $t_{\varphi(u,v_0,...,v_{\mathfrak{n}-1})}(x^{(\mathfrak{n}+1)})$的第$\mathfra
 
 这同样指出一个事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 传递集$M$是$GJ_0$的模型，当且仅当它对$\mathcal{R}$中的每个函数符号封闭。这种集合称作基本闭集。
 :::
 
@@ -233,7 +233,7 @@ Grandy的反例指出，基本性严格强于$GJ_0$可替性，且亦严格强�
 
 Jensen的$\mathbf{S}_{J}$在历史上最早出现。它没有什么特别的性质，就只是一个生成器而已。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $x\in\mathrm{rud}(u)$，
 当且仅当有一个（元）自然数$\mathfrak{n}$使得$x\in\mathbf{S}_J^{(\mathfrak{n})}(u)$，
 这里上标（通过元递归定义）是迭代次数。
@@ -254,7 +254,7 @@ $\mathfrak{n}<\mathfrak{m}\to \mathbf{S}_J^{(\mathfrak{n})}(u)\subseteq\mathbf{S
 
 Schindler–Zeman的$\mathbf{S}_{SZ}$的好处是，如果$u$是传递的，那么$\mathbf{S}_{SZ}(u)$同样传递。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $x\in\mathrm{rud}(u)$，
 当且仅当有一个（元）自然数$\mathfrak{n}$使得$x\in\mathbf{S}_{SZ}^{(\mathfrak{n})}(u)$。
 如果$u$传递，则$\mathbf{S}_{SZ}(u)$同样传递。
@@ -330,7 +330,7 @@ $x\in\mathrm{rud}(u)$，
 Mathias的$\mathbf{T}$则更加优秀，它不但把传递集映到传递集，
 而且一次只把$\mathrm{rank}_{\in}$（如果能定义的话）提升为其后继。
 
-::: theorem [元定理]
+::: theorem (元定理)
 若$u$传递，
 则$x\in\mathrm{rud}(u)$当且仅当有一个（元）自然数$\mathfrak{n}$使得
 $x\in\mathbf{T}^{(\mathfrak{n})}(u)$，且$\mathbf{T}(u)$同样传递。
@@ -354,7 +354,7 @@ $\mathcal{R}_{7,8}$的结果在$\mathbf{T}^{(5)}(u)$中，验证交由读者。
 
 这以一种更强的方式指出了基本函数只能有限地提升$\mathrm{rank}_{\in}$。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给基本函数符号$F$，存在（元）自然数$\mathfrak{l}$使得：
 任给传递集$u$和$x_0,...,x_{\mathfrak{k}-1}\in u$，
 总有$F(x_0,...,x_{\mathfrak{k}-1})\in\mathbf{T}^{(\mathfrak{l})}(u)$。

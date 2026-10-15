@@ -145,7 +145,7 @@ D2) 心脏线 $\{ (x,y) \in \mathbb{R}^2 \mid (x^2 + y^2)^2 + 4ax(x^2 + y^2) - 4
 
 D3) 球体 $x^2 + y^2 + z^2 \leqslant a^2$ 被圆柱体 $x^2 + y^2 = ax$ 截下的立体的体积。
 
-::: -remark [寄语]
+::: remark* (寄语)
 I never failed in mathematics. Before I was fifteen I had mastered differential and integral calculus.
 
 <align right>

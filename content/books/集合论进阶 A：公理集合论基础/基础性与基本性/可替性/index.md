@@ -66,7 +66,7 @@ notices:
 我们引入本小节要考虑的主要概念，
 这正是我们在考虑层级$\Gamma_{\mathfrak{n};;F}$的翻译公式的复杂度时应当引入的概念。
 
-::: definition [元定义：可替性]
+::: definition (元定义) [可替性]
 在集合论$T$中考虑一个公式$\varphi(x,v_0,...,v_{\mathfrak{n}-1})$：
 
 1. 若对任何$\Delta_0$公式$\psi(y,u_0,...,u_{\mathfrak{m}-1})$和$v_0,...,v_{\mathfrak{n}-1}$均有
@@ -94,7 +94,7 @@ Mathias又称之为合适性（suitable）。
 
 显然可替性比$\Delta_0$的要求更强，我们现在来证明诸常见函数的可替性，首先要引入一个引理。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$\varphi(x,v_0,...,v_{\mathfrak{n}-1})$是$T$可证的函数符号，则它可替等价于以下两事实同时成立：
 
 1. 谓词$\forall x(\varphi(x,v_0,...,v_{\mathfrak{n}-1})\to y\in x)$是$\Delta_0^{T}$的；
@@ -207,7 +207,7 @@ $\mathcal{R}_1$到$\mathcal{R}_8$和全体$\mathcal{A}_\mathfrak{n}$都是$DB_0$
 
 为证明这一引理，我们给出两个定理。
 
-::: theorem [元定理：可替函数复合]
+::: theorem (元定理) [可替函数复合]
 固定集合论$T$，
 若
 $h(y_1,...,y_{\mathfrak{n}}),g_1(x_1,...,x_{\mathfrak{m}})\\,...,g_\mathfrak{n}(x_1,...,x_{\mathfrak{m}})$
@@ -234,7 +234,7 @@ $$
 由归纳假设由内向外依次展开为$\Delta_0^T$句子即可。
 :::
 
-::: theorem [元定理：可替函数的受限极小化]
+::: theorem (元定理) [可替函数的受限极小化]
 固定集合论$T$，若$g(x,x_0,x_1...,x_{\mathfrak{n}})$是$T$可替的函数符号，
 且$f(x_0,x_1,...,x_{\mathfrak{n}})=\bigcup_{x\in x_0}g(x,x_0,x_1,...,x_{\mathfrak{n}})$同样是$T$
 可证的函数符号，则$f$亦$T$可替。
@@ -347,7 +347,7 @@ $\forall z\in\mathcal{R}_8(x,y)(\psi(z,...))\leftrightarrow \forall z\in F(x)(z\
 
 注意$\mathcal{R}_6$可替的证明，它其实启示我们一个更强的事实。
 
-::: theorem [元定理：可替函数的分段定义]
+::: theorem (元定理) [可替函数的分段定义]
 如果$\psi(u_0,...,u_{\mathfrak{m}-1})$是$\Delta_0$句子，
 $f(x_0,...,x_{\mathfrak{n}-1})$是$T$可替的函数，
 则$g(x_0,...,x_{\mathfrak{n}-1},u_0,...,u_{\mathfrak{m}-1})$同样是$T$可替的函数，
@@ -368,7 +368,7 @@ $f(x_0,...,x_{\mathfrak{n}-1})$是$T$可替的函数，
 
 接下来，我们引入可替性带来的一个概念。
 
-::: definition [元定义]
+::: definition (元定义)
 假定集合论$T\supseteq DB_0$，
 $F(x_0,...,x_{\mathfrak{n}-1}),G(y_0,...,y_{\mathfrak{n}-1})$均是$\Delta_0$的$T$可证类函数，
 且$G$是$T$可替的。
@@ -389,7 +389,7 @@ Mathias给它们的名字是1-companion和2-companion。
 
 我们来证明著名的Grandy–Jensen引理。
 
-::: theorem [元定理：Grandy–Jensen]
+::: theorem (元定理) [Grandy–Jensen]
 假定集合论$T\supseteq DB_0$中$F$有第二类伴生函数$G$，
 且$z\in F(x_0,...,x_{\mathfrak{n}-1})$是$\Delta_0^{DB_0}$的，我们断言：
 

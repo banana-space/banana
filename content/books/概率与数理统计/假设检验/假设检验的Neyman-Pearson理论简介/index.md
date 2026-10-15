@@ -385,7 +385,7 @@ $H_0:\theta\in\Theta_0 = \{\psi_0\}\times\Theta_\lambda$。
 对于此类问题，我们通常会首先考虑找一个合适的检验统计量$T$，使其满足
 （或近似满足）如下额外条件：
 
-::: definition [条件] {@condition:hypothesis_testing_H0_identical_distribution_main_text}
+::: definition (条件) {@condition:hypothesis_testing_H0_identical_distribution_main_text}
 $T$在原假设$H_0$下的分布是与$\theta\in\Theta_0$的具体取值无关的。
 换句话说，对任意$\theta\in\Theta_0$，$T$均服从同一个分布。
 :::
@@ -448,7 +448,7 @@ $\alpha\in\left]0,1\right[$后，相应的拒绝域$C_\alpha$可由
   第I类错误概率。
 
 在本章的后两节中，我们将针对一些具体的例子，讨论如何构造满足
-条件 @-condition:hypothesis_testing_H0_identical_distribution_main_text
+@condition:hypothesis_testing_H0_identical_distribution_main_text
 的检验统计量，并给出相应的$p$值与拒绝域。
 
 [^1]: 对于更一般的情况，可以证明$\mathbb{P}_{\theta_0} (T\in C_\alpha) \leq \alpha$，

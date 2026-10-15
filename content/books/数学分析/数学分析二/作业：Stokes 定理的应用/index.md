@@ -282,7 +282,7 @@ C7) 假设 $f\in C^2(\mathbb{R}^3)$ 并且 $f$ 在 $\mathbb{R}^3$ 上Lebesgue可
   m\bigl(x\in \mathbb{R}^3\bigm||\Phi_f(x)|>\lambda\bigr)\leqslant \dfrac{C}{\lambda^3}.
   \]
 
-::: -remark [寄语]
+::: remark* (寄语)
 Les mathématiciens n'étudient pas des objets, mais des relations entre les objets.
 
 （数学家研究的是数学对象之间的关系而不是对象本身）

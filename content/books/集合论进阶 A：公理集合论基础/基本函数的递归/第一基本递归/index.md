@@ -13,7 +13,7 @@ $y=F(x)\leftrightarrow \\\exists f(y=G(f)\wedge \mathrm{isFun}(f)\wedge\mathrm{d
 严格地说，这里其实应当指明何理论可证$F$由$G$第一基本递归而成；
 我们需要$GJ_0$来确保每个基本函数符号$G$都可证为函数符号，但什么公理能保证对每个$G$都存在$F$呢？
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\Pi_1-GJ+(TCo)$可证第一基本递归总是可行。
 :::
 
@@ -26,7 +26,7 @@ $\exists d,h,k(x\in d\wedge \mathrm{isFun}(h)\wedge \mathrm{isFun}(k)\wedge \mat
 
 因此，此小节中我们总是默认所用的理论是某个$\Pi_1-GJ+(TCo)$的扩展。我们现在简要研究基本递归性。
 
-::: theorem [元定理]
+::: theorem (元定理)
 一元基本函数符号都是基本递归的。
 :::
 
@@ -37,7 +37,7 @@ $\exists d,h,k(x\in d\wedge \mathrm{isFun}(h)\wedge \mathrm{isFun}(k)\wedge \mat
 
 鉴于拥有对集公理，我们其实可以说：
 
-::: theorem [元定理]
+::: theorem (元定理)
 将基本函数符号$G(x_\mathfrak{0},...,x_\mathfrak{n})$通过$\mathfrak{n}$元元组编码为$G'(x)$，
 在$x=(x_\mathfrak{0},...,x_\mathfrak{n})$时$G'(x)=G(x_\mathfrak{0},...,x_\mathfrak{n})$，
 否则$G'(x)=\varnothing$。
@@ -52,7 +52,7 @@ $\exists d,h,k(x\in d\wedge \mathrm{isFun}(h)\wedge \mathrm{isFun}(k)\wedge \mat
 
 基本递归函数的限制同样是基本递归的。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$F$是基本递归的，那么$F\upharpoonright$也是基本递归的。
 :::
 
@@ -64,7 +64,7 @@ $\exists d,h,k(x\in d\wedge \mathrm{isFun}(h)\wedge \mathrm{isFun}(k)\wedge \mat
 
 对多重基本递归这类操作，我们仅指出最特殊的二重基本递归。
 
-::: theorem [元定理]
+::: theorem (元定理)
 给定两个二元基本函数符号$G_1,G_2$，
 如果一元函数符号$F_1,F_2$满足$F_1(x)=G_1(F_1\upharpoonright x,F_2\upharpoonright x)$且
 $F_2(x)=G_2(F_1\upharpoonright x,F_2\upharpoonright x)$，则函数$F(x)=(F_1(x),F_2(x))$是基本递归的。
@@ -81,7 +81,7 @@ $G_4(F\upharpoonright x)=F_2\upharpoonright x$，
 
 我们甚至能容忍递归操作中的简单分类定义。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$G(x)$是一元基本函数符号，$\varphi(x)$是一个$\Delta_0$公式，
 则满足如下要求的$F$是基本递归的函数符号：$F(x)$在$\varphi(x)$时等于$G(F\upharpoonright x)$，
 在$\neg\varphi(x)$时等于$\varnothing$。
@@ -100,7 +100,7 @@ $G_4(F\upharpoonright x)=F_2\upharpoonright x$，
 则称其复合$F(x)=H(G(x))$是和缓（gentle）的函数符号。
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 和缓函数的复合仍是和缓的。
 :::
 
@@ -169,7 +169,7 @@ $H_1'$和$H_2$均基本递归，因此$H_1'\circ H_2$和缓，假定$H_1'\circ H
 则$F_1\circ F_2=(G_1\circ G_2'\circ G_3)\circ H$和缓。
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 和缓函数的像仍是和缓的。
 :::
 
@@ -182,14 +182,14 @@ $H_1'$和$H_2$均基本递归，因此$H_1'\circ H_2$和缓，假定$H_1'\circ H
 
 在作为谓词的性质上，和缓性甚至比基本性还恰到好处。我们已知以下事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\varphi$是$\Delta_0$的，当且仅当其分离子$t_\varphi$是基础的，
 当且仅当其特征函数$\chi_\varphi$是基本的。
 :::
 
 但和缓性不会加强其分离子的性质。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\varphi$的分离子$t_\varphi$和缓，当且仅当其特征函数$\chi_\varphi$和缓。
 :::
 
@@ -207,14 +207,14 @@ $\varphi$的分离子$t_\varphi$和缓，当且仅当其特征函数$\chi_\varph
 
 正如$\Delta_0$类的分类定义不改变基本性，和缓类的分类定义同样也不改变和缓性。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$\varphi$是和缓类，$F$是和缓函数，则$F_\varphi$同样是和缓函数，
 这里$F_\varphi(x)$在$\varphi(x)$时取值为$F(x)$，在$\neg\varphi(x)$时取值为$\varnothing$。
 :::
 
 我们同样可以把分类定义放到递归操作中去。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$G(x)$是和缓函数符号，$\varphi(x)$是一个和缓类，则满足如下要求的$F$是和缓的函数符号：
 $F(x)$在$\varphi(x)$时等于$G(F\upharpoonright x)$，在$\neg\varphi(x)$时等于$\varnothing$。
 :::
@@ -230,7 +230,7 @@ $F(x)$在$\varphi(x)$时等于$G(F\upharpoonright x)$，在$\neg\varphi(x)$时�
 $y=F(x)\leftrightarrow \exists f(y=G(f)\wedge \mathrm{isFun}(f)\wedge\mathrm{dom}(f)=x\wedge\forall a\in x\exists b(b=f(a)\wedge b=F(a)))$
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 $GJ_0^A+(TCo)+(Fnd)_{\Pi_1}$可证$A$中的第一基本递归可行。
 :::
 
@@ -243,7 +243,7 @@ $GJ_0^A+(TCo)+(Fnd)_{\Pi_1}$可证$A$中的第一基本递归可行。
 则称其复合$F(x)=H(G(x))$是$A$中和缓（gentle）的函数符号。
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 $A$中和缓函数的复合仍是$A$中和缓的，$A$中和缓函数的像仍是$A$中和缓的。
 :::
 
@@ -254,7 +254,7 @@ $A$中和缓函数的复合仍是$A$中和缓的，$A$中和缓函数的像仍�
 我们希望指出的事实是，正如$\Delta_0$的$A$不新增基本函数，和缓的$A$也不新增和缓函数。
 在此之前，我们先指出此时一个重要的引理。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$A$的分离子$\mathcal{O}_A=H\circ F$如分解和缓，则对任意$A$中基本的函数符号$G$，
 存在二元基本函数符号$\hat{G}$，使得任给传递集$u\ni x$均有$G(x)=\hat{G}(x,F\upharpoonright u)$。
 :::
@@ -266,7 +266,7 @@ $A$中和缓函数的复合仍是$A$中和缓的，$A$中和缓函数的像仍�
 其中$\phi(x,f)=(x,G(f\upharpoonright x))$，$H_G(b,f)=\phi''(b\times\{f\})$。
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$A$是和缓类，则在$A$中和缓的函数就是和缓的函数。
 :::
 

@@ -39,7 +39,7 @@ T=\frac{\overline{X}-\mu_0}{\sqrt{S^2/n}}
 ```
 
 作为单侧检验统计量。该检验统计量的一个重要特点在于它满足
-条件 @-condition:hypothesis_testing_H0_identical_distribution_main_text：
+@condition:hypothesis_testing_H0_identical_distribution_main_text：
 无论多余参数$\sigma^2$的实际取值如何，在原假设$H_0$下$T$的分布
 总是不变的，而且很容易看出这个不变的分布就是$t(n-1)$，这意味着
 我们在计算$p$值与临界值时可以直接套用原假设为简单假设时的公式。
@@ -175,7 +175,7 @@ $H_0$与$H_1$实际上均为复合假设。对于该假设检验问题，可以�
 
 作为双侧检验统计量。虽然原假设是复合假设，但该检验统计量在原假设下
 总是服从卡方分布$\chi^2(n-1)$而与未知期望$\mu$的取值无关，
-故 条件 @-condition:hypothesis_testing_H0_identical_distribution_main_text
+故 @condition:hypothesis_testing_H0_identical_distribution_main_text
 成立，我们可以套用原假设为简单假设时的公式来计算$p$值与临界值。
 当显著性水平为$\alpha$时，由临界值计算式
 \[

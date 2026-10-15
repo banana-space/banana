@@ -20,7 +20,7 @@ KP的自增强并不按我们之前引入的Levy对句子复杂度的分层来�
 
 $KP$的自增强主要围绕$\Sigma$公式展开。
 
-::: theorem [元定理：弱$\Sigma$反射公理模式]
+::: theorem (元定理) [弱$\Sigma$反射公理模式]
 任给$\Sigma$公式$\varphi$，$KP\vdash\varphi\leftrightarrow\exists c(\varphi^c)$。
 :::
 
@@ -56,7 +56,7 @@ $KP$的自增强主要围绕$\Sigma$公式展开。
 
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 $KP$可证：任何$\Sigma$公式都等价于某个$\Sigma_1$公式。
 :::
 
@@ -65,7 +65,7 @@ $KP$可证：任何$\Sigma$公式都等价于某个$\Sigma_1$公式。
 而根据弱$\Sigma$反射公理模式它与$\Sigma$公式$\varphi$等价。
 :::
 
-::: theorem [元定理：$\Sigma$局部收集公理模式]
+::: theorem (元定理) [$\Sigma$局部收集公理模式]
 任给$\Sigma$公式$\varphi$，$KP\vdash(LColl)_\varphi$。
 :::
 
@@ -77,7 +77,7 @@ $KP$可证：任何$\Sigma$公式都等价于某个$\Sigma_1$公式。
 又鉴于$\varphi^c\to\varphi$最终有$\forall x\in a\exists y\in b(\varphi)$。
 :::
 
-::: theorem [元定理：$\Delta^{KP}$分离公理模式]
+::: theorem (元定理) [$\Delta^{KP}$分离公理模式]
 任给$\Delta^{KP}$公式$\varphi$，$KP\vdash(Sep)_\varphi$。
 :::
 
@@ -96,7 +96,7 @@ $\exists c\forall x\in a(\varphi_\sigma^c\vee\neg\varphi_\pi^c)$。
 这就说明这个$b$确实是我们想要的$b$。
 :::
 
-::: theorem [元定理：$\Sigma$替代公理模式]
+::: theorem (元定理) [$\Sigma$替代公理模式]
 任给$\Sigma$公式$\varphi$，$KP\vdash(Rep)_\varphi$。
 :::
 
@@ -109,7 +109,7 @@ $\exists c\forall x\in a(\varphi_\sigma^c\vee\neg\varphi_\pi^c)$。
 替代公理模式中指出的是这个关系所给的像集还是这个关系所给的函数都一样。
 :::
 
-::: theorem [元定理：$\Sigma$强替代公理模式]
+::: theorem (元定理) [$\Sigma$强替代公理模式]
 任给$\Sigma$公式$\varphi$，$KP\vdash(SRep)_\varphi$。
 :::
 
@@ -123,7 +123,7 @@ $\exists c\forall x\in a(\varphi_\sigma^c\vee\neg\varphi_\pi^c)$。
 我们可以对$\Sigma$公式随意使用$\in$归纳法，因此我们只要讨论递归定义。
 我们首先考虑最重要的递归定义的函数：传递闭包。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $KP\vdash (TCl)$。
 :::
 
@@ -159,7 +159,7 @@ $\mathrm{TCl}$是$\Delta^{KP}$函数符号。
 
 我们先把$\Sigma$公式的$\in$归纳法换成更易于处理的形式。
 
-::: theorem [元定理：$\Sigma$公式的$\mathrm{TCl}$归纳法]
+::: theorem (元定理) [$\Sigma$公式的$\mathrm{TCl}$归纳法]
 任给$\Sigma$公式$\varphi(x,...)$我们都有
 $\forall x((\forall y\in\mathrm{TCl}(x)(\varphi(y)))\to\varphi(x))\to\forall x(\varphi(x))$。
 :::
@@ -176,7 +176,7 @@ $\exists t(t=\mathrm{TCl}(x)\wedge \forall y\in t(\varphi(y)))$，
 $\mathrm{TCl}$归纳法之于$\in$归纳法，正如第二数学归纳法之于数学归纳法。
 :::
 
-::: theorem [元定理：$\Sigma$递归定义原理]
+::: theorem (元定理) [$\Sigma$递归定义原理]
 取$\mathfrak{n}+2$元$\Sigma$公式定义的$KP$可证函数符号$G$，
 按以下方案定义的$F$同样由$\Sigma$公式被$KP$可证为函数符号：
 $$

@@ -24,7 +24,7 @@ $y=\mathrm{FinSub}(x)\leftrightarrow \forall z\in y(\forall w\in z(w\in x)\wedge
 
 我们首先将嵌套的量词解开，因而可以直接对约束其他约束变元的自由变元做处理。
 
-::: theorem [元定理：第一限制正规形]
+::: theorem (元定理) [第一限制正规形]
 若$\Delta_{0;;FS}$公式$\varphi(x_0,...,x_{\mathfrak{n}})$共有$\mathfrak{m}+1$个限制或受限量词，
 则对每个元自然数$\mathfrak{j}\leq \mathfrak{m}$存在两个对应的元自然数
 $\mathfrak{k}_\mathfrak{j}\leq \mathfrak{n}$和$\mathfrak{l}_\mathfrak{j}$，
@@ -52,7 +52,7 @@ $$
 
 我们的目标是加强分离公理模式，因此自然希望全体自由变元受限于某个被分离的集合。
 
-::: theorem [元定理：第二限制正规形]
+::: theorem (元定理) [第二限制正规形]
 若$\Delta_{0;;FS}$公式$\varphi(x_0,...,x_{\mathfrak{n}})$共有$\mathfrak{m}+1$个限制或受限量词，
 则继承第一限制正规形给出的诸$\mathfrak{k}_\mathfrak{j},\mathfrak{l}_\mathfrak{j}$，
 我们在诸$y_\mathfrak{j}$之外再引入$\mathfrak{n}+1$个新自由变元$w_\mathfrak{i}$，然后宣称：
@@ -103,7 +103,7 @@ $$
 
 接下来，我们把$\Delta_{0;;FS}$改进为$\Delta_0$。首先延续第一限制正规形的思路。
 
-::: theorem [元定理：第一受限正规形]
+::: theorem (元定理) [第一受限正规形]
 若$\Delta_{0;;FS}$公式$\varphi(x_0,...,x_{\mathfrak{n}})$共有$\mathfrak{m}+1$个限制或受限量词，
 则继承第一限制正规形给出的诸$\mathfrak{k}_\mathfrak{j},\mathfrak{l}_\mathfrak{j}$，
 我们在诸$y_\mathfrak{j}$之外再引入$\mathfrak{m}+1$个新自由变元$z_\mathfrak{j}$，然后宣称：
@@ -124,7 +124,7 @@ $$
 
 现在，我们延续第二限制正规形的思路，把第一受限正规形改成更好用的形式。
 
-::: theorem [元定理：第二受限正规形]
+::: theorem (元定理) [第二受限正规形]
 若$\Delta_{0;;FS}$公式$\varphi(x_0,...,x_{\mathfrak{n}})$共有$\mathfrak{m}+1$个限制或受限量词，
 则继承第一限制正规形给出的诸$\mathfrak{k}_\mathfrak{j},\mathfrak{l}_\mathfrak{j}$，
 我们在诸$y_\mathfrak{j}$之外再引入$\mathfrak{n}+1$个新自由变元$w_\mathfrak{i}$和$\mathfrak{m}+1$
@@ -151,7 +151,7 @@ $$
 
 第二受限正规形最终告诉我们如下事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $DS$有$\Delta_{0;;FS}$分离公理模式。
 :::
 
@@ -180,7 +180,7 @@ $DS$可证每个递归函数的表示都从宇宙中分离出一个集合。
 
 当然，这个正规形还有别的妙用，我们这里举一个例子。
 
-::: theorem [元定理]
+::: theorem (元定理)
 每个$\Pi_{1,FS}$公式都是$DS$可证$\Pi_1$的。
 :::
 
@@ -240,7 +240,7 @@ $\mathrm{isFin}$是$\Delta_1^{DS}$谓词。
 
 最后，我们证明$\mathrm{FinSub}$相关的论断全都是$\Delta_1^{DS}$的。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $x\in\mathrm{FinSub}(y)$、$x\subseteq\mathrm{FinSub}(y)$和$x=\mathrm{FinSub}(y)$都$\Delta_1^{DS}$。
 :::
 

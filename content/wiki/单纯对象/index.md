@@ -18,7 +18,7 @@ $\mathsf{Fun}(\mathbb{\Delta}^{\operatorname{op}},\mathcal{C})$，
 一般记为 $\mathsf{s}\mathcal{C}$。
 :::
 
-::: definition [变体]
+::: definition (变体)
 范畴 $\mathcal{C}$ 中的**余单纯对象**是指函子 $X^{\bullet} \colon \mathbb{\Delta} \to \mathcal{C}$。
 范畴 $\mathcal{C}$ 中全体余单纯对象所构成的范畴一般记为 $\mathsf{cs}\mathcal{C}$ 或
 $\mathsf{c}\mathcal{C}$。
@@ -40,7 +40,7 @@ $X$（或余单纯对象），
 $X_{\bullet} \colon \mathbb{\Delta}_{单}^{\operatorname{op}} \to \mathcal{C}$。
 :::
 
-::: definition [变体]
+::: definition (变体)
 范畴 $\mathcal{C}$ 中的**余半单纯对象**是指函子
 $X^{\bullet} \colon \mathbb{\Delta}_{单} \to \mathcal{C}$。
 :::
@@ -55,7 +55,7 @@ $X^{\bullet} \colon \mathbb{\Delta}_{单} \to \mathcal{C}$。
 $X_{\bullet} \colon \mathbb{\Delta}_{+}^{\operatorname{op}} \to \mathcal{C}$。
 :::
 
-::: definition [变体]
+::: definition (变体)
 范畴 $\mathcal{C}$ 中的**余增广单纯对象**是指函子
 $X^{\bullet} \colon \mathbb{\Delta}_{+} \to \mathcal{C}$。
 :::
@@ -83,7 +83,7 @@ $X^{\bullet} \colon \mathbb{\Delta}_{+} \to \mathcal{C}$。
 $X_{\bullet} \colon \mathbb{\Delta}_{+,单}^{\operatorname{op}} \to \mathcal{C}$。
 :::
 
-::: definition [变体]
+::: definition (变体)
 范畴 $\mathcal{C}$ 中的**余增广半单纯对象**是指函子
 $X^{\bullet} \colon \mathbb{\Delta}_{+,单} \to \mathcal{C}$。
 :::

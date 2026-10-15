@@ -40,7 +40,7 @@ $LPROV$的传递模型称作极限远见集。
 则称$P$是一个$p$-远见（provident）集。
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\varnothing$-远见集的上述两种定义等价。
 :::
 
@@ -116,7 +116,7 @@ $Y_2^{(\mathfrak{n})}(Y_2(y))\in_{2^{\mathfrak{n}}}Y_2^{(\mathfrak{n})}(\{Y_2(y)
 
 接下来，我们来讨论远见集。这里有四个等价刻画。
 
-::: theorem [元定理]
+::: theorem (元定理)
 对传递集$P$，以下刻画等价。
 
 1. $P\vDash PROV$。

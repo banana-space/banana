@@ -167,7 +167,7 @@ $n\in\mathbb Z$。
 \]
 并说明它是范畴等价。
 
-::: definition [构造]
+::: definition (构造)
 设 $\mathsf{A}$ 是 Abel 范畴，
 并设 $X_\bullet\in\mathsf{Ch}(\mathsf{A})_{\geq0}$。
 则单纯对象

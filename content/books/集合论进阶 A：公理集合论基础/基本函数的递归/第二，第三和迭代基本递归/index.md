@@ -32,7 +32,7 @@ $y=F(x)\leftrightarrow (x=\varnothing\wedge y=G_0(p))\vee(x\not=\varnothing\wedg
 
 幸运的是，这两个和缓性是等价的，我们从而不再需要刻意考察远第二基本递归与第二基本递归的区别。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $p$-和缓当且仅当远$p$-和缓。
 :::
 
@@ -54,7 +54,7 @@ $(\bigcup\mathrm{dom}(\mathrm{ran}(K\upharpoonright x)),G(\bigcup\mathrm{dom}(\m
 因此我们也会把基本递归称作$\varnothing$-基本递归，同样的把和缓称作$\varnothing-$和缓。
 这提示一个更好的观察。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给一元基本函数$R_1,R_2$，若两集合$p,q$满足$R_1(p)=q$且$R_2(q)=p$，
 则$p$-基本递归当且仅当$q$-基本递归，远$p$-基本递归当且仅当远$q$-基本递归，$p$-和缓当且仅当$q$-和缓。
 :::
@@ -65,7 +65,7 @@ $(\bigcup\mathrm{dom}(\mathrm{ran}(K\upharpoonright x)),G(\bigcup\mathrm{dom}(\m
 
 但不幸的是，$p$-和缓函数的复合可以不是$p$-和缓的，这是因为它的递归方程需要传入含有更多信息的参数。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果$F_1$是$p_1$-和缓的，$F_2$是$p_2$-和缓的，
 则$F_1\circ F_2$是$(p_1,p_2,F_1\upharpoonright\mathrm{TCl}(p_2))$-和缓的。
 :::
@@ -122,7 +122,7 @@ $F_1\upharpoonright\mathbf{T}^{\mathfrak{l}}(t)=H^T(p_1,H^T(p_1,H^T(...H^T(p_1,F
 
 但$p$-和缓类的概念不受影响。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\varphi$的分离子$t_\varphi$是$p$-和缓的，当且仅当其特征函数$\chi_\varphi$是$p$-和缓的。
 :::
 
@@ -141,7 +141,7 @@ $p$-和缓函数的限制与基本函数的复合，显然$p$-和缓；如果$t_
 
 同样的，$p$-和缓的谓词中的$p$-和缓函数也不能断言为$p$-和缓函数。
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果新谓词$A$的分离子$\mathcal{O}_A=H_1\circ F_1$如分解$p_1$-和缓，
 则在$A$中$p_2$-和缓的函数事实上是$(p_1,p_2,F_1\upharpoonright\mathrm{TCl}(p_2))$-和缓的函数。
 :::
@@ -164,7 +164,7 @@ $p$-和缓函数的限制与基本函数的复合，显然$p$-和缓；如果$t_
 这种递归产生的二元函数在集合论中相当常见，序数的加法便是一个例子。
 另一方面，它也确实是第二基本递归的自然推广。
 
-::: theorem [元定理]
+::: theorem (元定理)
 对任意集合$v$与第三基本递归的函数符号$F$，函数符号$F_v(x)=F(v,x)$是$v$-基本递归的。
 :::
 
@@ -174,7 +174,7 @@ $p$-和缓函数的限制与基本函数的复合，显然$p$-和缓；如果$t_
 
 注意二元基本函数符号按定义就不可能是基本递归的，但现在元数增加了，我们就可以宣称了。
 
-::: theorem [元定理]
+::: theorem (元定理)
 二元基本函数符号都是（第三）基本递归的。
 :::
 

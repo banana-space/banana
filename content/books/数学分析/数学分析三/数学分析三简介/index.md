@@ -2,7 +2,7 @@
 title: 数学分析三简介
 ---
 
-::: -remark [寄语]
+::: remark* (寄语)
 What is important is to deeply understand things and their relations to each other. This is where intelligence lies. The fact of being quick or slow isn’t really relevant.
 
 <align right>

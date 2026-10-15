@@ -19,7 +19,7 @@ title: 扩展集论语言
 
 如果不考虑公理组的扩展，语言的扩展毫无意义。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给$\mathcal{L}_{\in}$的理论$T$，$\mathcal{L}_A$中的同一套理论对$T$保守，
 即它不会在原来的语言$\mathcal{L}_{\in}$中额外证明任何公式。
 :::
@@ -47,7 +47,7 @@ $A$解释的$T$扩展，记为$T^\varphi$，这个具体的$\varphi$称作$A$的
 
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 $\mathcal{L}_A$中理论$T^\varphi$可证公式$\phi$，当且仅当$\mathcal{L}_{\in}$中$T$可证$\phi^\varphi$。
 :::
 
@@ -74,7 +74,7 @@ $\mathcal{L}_A$中理论$T^\varphi$可证公式$\phi$，当且仅当$\mathcal{L}
 
 我们还要考察$\varphi$复杂度对Levy层级的影响，这体现为一个简单的事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 我们区分以下三个情况。
 注意$T^\varphi$对$T$保守，
 $\Gamma_\mathfrak{n}^T$与$\Gamma_{\mathfrak{n}}^{T^\varphi}$在语言$\mathcal{L}_\in$
@@ -152,7 +152,7 @@ $\Gamma_\mathfrak{n}^T$与$\Gamma_{\mathfrak{n}}^{T^\varphi}$在语言$\mathcal{
 
 同样的，如果不考虑公理组的扩展，语言的扩展毫无意义。
 
-::: theorem [元定理]
+::: theorem (元定理)
 任给$\mathcal{L}_{\in}$的理论$T$，$\mathcal{L}_F$中的同一套理论对$T$保守。
 :::
 
@@ -205,7 +205,7 @@ $\Gamma_\mathfrak{n}^T$与$\Gamma_{\mathfrak{n}}^{T^\varphi}$在语言$\mathcal{
 
 :::
 
-::: theorem [元定理]
+::: theorem (元定理)
 如果
 $T\vdash\forall x_1...\forall x_{\mathfrak{n}}\exists x\forall y(x=y\leftrightarrow \varphi(y,x_1,...,x_{\mathfrak{n}}))$，
 则$\mathcal{L}_F$中理论$T^\varphi$可证公式$\phi$，
@@ -284,7 +284,7 @@ $\forall x_1...\forall x_\mathfrak{n}\exists y(\varphi(y,x_1,...,x_\mathfrak{n})
 
 我们列举以下事实。
 
-::: theorem [元定理]
+::: theorem (元定理)
 $Z^e$、$ZF^e$、$ZC^e$和$ZFC^e$均对未扩展版本保守，$ZGC$不可证$ZC$，$ZFGC$不可证$ZFC$，
 $ZGC^e$可证$ZC$，$ZFGC^e$对$ZFC$保守。
 :::

@@ -255,7 +255,7 @@ $X$ 是集合，$\mathcal{T}=\{U\mid U\subset X\}$ 是 $X$ 的某些子集所组
 
 - 8\) 综上，用反证法证明，存在无限多个素数。
 
-::: -remark [寄语]
+::: remark* (寄语)
 As for everything else, so for a mathematical theory: beauty can be perceived but not explained.
 
 <align right>

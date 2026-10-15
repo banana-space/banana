@@ -2,7 +2,7 @@
 title: '$\sigma$-代数，可测空间与可测函数'
 ---
 
-::: -remark [寄语]
+::: remark* (寄语)
 Nature laughs at the difficulties of integration.
 
 <align right>

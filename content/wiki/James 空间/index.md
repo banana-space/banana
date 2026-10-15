@@ -29,7 +29,7 @@ J= \{ x\in c_0: \sup_{\mathbf p\in P} \|x\|_{\mathbf p} < +\infty \},
 \|x\|_J = \sup_{\mathbf p\in P} \|x\|_{\mathbf p} .
 \]
 
-::: proposition [观察]
+::: proposition (观察)
 在 $\|\cdot \|_J$ 下，$J$ 确实是一个赋范线性空间。
 :::
 
