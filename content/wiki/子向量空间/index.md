@@ -39,16 +39,24 @@ navboxes: [线性代数]
 
 ## 例子
 
-- 每个[[向量空间]] $V$ 中，原点 $\{ 0 \}$ 和 $V$ 自身都是 $V$ 的子向量空间。
+::: example [平凡子空间]
+设 $V$ 是[[向量空间]]。
+则 $\{ 0 \}$ 和 $V$ 自身都是 $V$ 的子向量空间。
+:::
 
-- 在向量空间 $V$ 中取一组[[向量]] $x_1, \dotsc, x_n \in V$。
-  则这组向量的[[线性生成空间]]是 $V$ 的子空间，
-  也称为这组向量张成的子空间。
+::: example [线性生成空间]
+设 $V$ 是向量空间，$x_1, \dotsc, x_n \in V$。
+则这组向量的[[线性生成空间]]是 $V$ 的子空间，
+也称为这组向量张成的子空间。
+:::
 
-- 记 $C (\mathbb{R})$ 为所有[[连续函数]] $f \colon \mathbb{R} \to \mathbb{R}$ 的空间，
-  $C_0 (\mathbb{R})$ 为所有[[紧支函数|紧支]]连续函数 $f \colon \mathbb{R} \to \mathbb{R}$ 的空间。
-  则 $C_0 (\mathbb{R}) \subset C (\mathbb{R})$ 是子向量空间。
-  两者都是无限维 $\mathbb{R}$-向量空间。
+::: example [紧支连续函数]
+记 $C (\mathbb{R})$ 为所有[[连续函数]] $f \colon \mathbb{R} \to \mathbb{R}$ 的空间，
+$C_0 (\mathbb{R})$ 为所有[[紧支函数|紧支]]连续函数
+$f \colon \mathbb{R} \to \mathbb{R}$ 的空间。
+则 $C_0 (\mathbb{R}) \subset C (\mathbb{R})$ 是子向量空间。
+两者都是无限维 $\mathbb{R}$-向量空间。
+:::
 
 ## 性质
 

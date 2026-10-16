@@ -13,15 +13,15 @@ navboxes: [线性代数, 代数结构]
 是[[线性代数]]的主要研究对象。
 我们最熟悉的向量空间包括坐标平面
 \[
-\mathbb{R}^2 = \set{ (x, y) | x, y \in \mathbb{R} },
+\mathbb{R}^2 = \{ (x, y) \mid x, y \in \mathbb{R} \},
 \]
 以及我们所处的三维空间
 \[
-\mathbb{R}^3 = \set{ (x, y, z) | x, y, z \in \mathbb{R} }.
+\mathbb{R}^3 = \{ (x, y, z) \mid x, y, z \in \mathbb{R} \}.
 \]
 一般地，也有 $\mathbb{R}$ 上的 $n$ 维向量空间
 \[
-\mathbb{R}^n = \set{ (x_1, \dotsc, x_n) | x_1, \dotsc, x_n \in \mathbb{R} }.
+\mathbb{R}^n = \{ (x_1, \dotsc, x_n) \mid x_1, \dotsc, x_n \in \mathbb{R} \}.
 \]
 向量空间的元素称为[[向量]]。
 向量可以相加而得到新的向量，也可以将向量乘以一个数而得到新的向量。
@@ -30,7 +30,7 @@ navboxes: [线性代数, 代数结构]
 除了上述例子外，还可以有无限维的向量空间。
 例如，考虑 $\mathbb{R}$ 上的所有实值[[连续函数]]的空间
 \[
-C (\mathbb{R}) = \set{f \colon \mathbb{R} \to \mathbb{R} | f \text{ 连续}}.
+C (\mathbb{R}) = \{ f \colon \mathbb{R} \to \mathbb{R} \mid f \text{ 连续} \}.
 \]
 使用线性代数的术语，我们将这样的连续函数称为向量。
 在 $C (\mathbb{R})$ 中，连续函数可以相加而得到新的连续函数，
@@ -39,7 +39,7 @@ C (\mathbb{R}) = \set{f \colon \mathbb{R} \to \mathbb{R} | f \text{ 连续}}.
 
 ## 定义
 
-::: definition [向量空间] {@def-vector-space}
+::: definition [向量空间] {@def:vector-space}
 设 $k$ 是[[域]]。
 则 $k$-**向量空间**就是 $k$-[[模]]。
 
@@ -106,7 +106,7 @@ C (\mathbb{R}) = \set{f \colon \mathbb{R} \to \mathbb{R} | f \text{ 连续}}.
 元素 $0 \in V$ 有时称为 $V$ 的**原点**。
 :::
 
-::: definition [线性映射] {@def-linear-map}
+::: definition [线性映射] {@def:linear-map}
 设 $k$ 是域，设 $V, W$ 是 $k$-向量空间。
 [[映射]]
 \[
@@ -129,8 +129,8 @@ f \colon V \to W
 :::
 
 ::: definition [向量空间范畴]
-所有向量空间（@def-vector-space）
-和它们之间的线性映射（@def-linear-map）
+所有向量空间（@def:vector-space）
+和它们之间的线性映射（@def:linear-map）
 构成[[范畴]]，
 称为 $k$-[[向量空间范畴]]，
 记为 $\mathsf{Vect}_{k}$。
@@ -138,22 +138,33 @@ f \colon V \to W
 
 ## 例子
 
-- 对任何域 $k$，[[单点集]]可以视为 $k$-向量空间，
-  称为 **[[零向量空间]]**，记为 $0$。
+::: example [零向量空间]
+设 $k$ 是域。
+[[单点集]]可以视为 $k$-向量空间，
+称为 **[[零向量空间]]**，记为 $0$。
+:::
 
-- 域 $k$ 可以看成自身上的向量空间，其[[维数 (线性代数)|维数]]为 $1$。
+::: example [域自身]
+域 $k$ 可以看成自身上的向量空间，其[[维数 (线性代数)|维数]]为 $1$。
+:::
 
-- 对任何[[自然数]]（乃至[[基数]]）$n$，
-  集合 $k^n$ 上带有自然的 $k$-向量空间结构，其维数为 $n$。
+::: example [坐标空间]
+设 $k$ 是域。对任何[[自然数]]（乃至[[基数]]）$n$，
+集合 $k^n$ 上带有自然的 $k$-向量空间结构，其维数为 $n$。
+:::
 
-- 对任何[[扩域]] $K/k$，都能将 $K$ 看作 $k$-向量空间。
-  例如，[[复数]]域 $\mathbb{C}$ 就是 $\mathbb{R}$-向量空间，其维数为 $2$。
+::: example [扩域]
+设 $K/k$ 是[[扩域]]。则 $K$ 可以看作 $k$-向量空间。
+例如，[[复数]]域 $\mathbb{C}$ 是 $\mathbb{R}$-向量空间，其维数为 $2$。
+:::
 
-- 对任何[[拓扑空间]] $X$，[[连续函数]]空间
-  \[
-  C (X) = \set{f \colon X \to \mathbb{R} | f \text{ 连续}}
-  \]
-  是 $\mathbb{R}$ 上的向量空间。
+::: example [连续函数空间]
+设 $X$ 是[[拓扑空间]]。则[[连续函数]]空间
+\[
+C (X) = \{ f \colon X \to \mathbb{R} \mid f \text{ 连续} \}
+\]
+是 $\mathbb{R}$ 上的向量空间。
+:::
 
 ## 性质
 
@@ -191,10 +202,4 @@ v = \begin{pmatrix}
   fr: espace linéaire :m
   grc: γραμμικὸς χῶρος :m
   la: spatium lineare :n
-向量:
-  en: vector
-  de: Vektor :m
-  fr: vecteur :m
-  grc: διάνυσμα :n
-  la: vector :m
 ```
