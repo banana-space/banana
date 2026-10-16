@@ -59,6 +59,9 @@ assert.equal(page(`${long('汉', 49)} $x$ ${long('汉', 10)}`), `${long('汉', 4
 assert.equal(page(`${long('汉', 49)}$x$${long('汉', 10)}`), `${long('汉', 49)}\n$x$${long('汉', 10)}`, 'Han next to a formula');
 assert.equal(page(`${long('a', 95)}$x$`), `${long('a', 95)}$x$`, 'not between letters and a formula');
 assert.equal(page(`**${long('汉', 46)}** <person years="1900--1980" />，${long('汉', 5)}`), `**${long('汉', 46)}**\n<person years="1900--1980" />，${long('汉', 5)}`);
+// A tag continued on the next lines keeps its lines (a break at the ， in its value would split the value).
+const continued = `**甲**\n<person original="${long('汉', 40)}，${long('汉', 20)}" lang="zh"\n  years="1900--1980" />，乙`;
+assert.equal(page(continued), continued);
 assert.equal(page(`${long('汉', 45)}”${long('汉', 2)}。”${long('汉', 9)}`), `${long('汉', 45)}”${long('汉', 2)}。”\n${long('汉', 9)}`, 'after closing quotes');
 // Continuation lines keep their block: a list item's text, a quote, a footnote.
 assert.equal(page(`- ${sentence}${sentence}`), `- ${sentence}\n  ${sentence}`);

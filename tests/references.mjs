@@ -211,6 +211,17 @@ assert.match(duplicateLabels, /&#91;\*\*Same a\*\*&#93;/);
 const chinese = transformDocument('@a\n\n' + block('a: {type: book, title: Test, year: 2020, author: {family: 张, given: 三}}'));
 assert.match(chinese, /\[张三 2020\]/);
 assert.match(chinese, /\*\*张三\*\* \(2020\)/);
+assert.match(converted, /\*\*nLab\*\* \(a\)\. \[First online page\]\([^)]+\)\. 作者：Actual Contributor\. 访问日期/);
+const online = transformDocument('@a @b @c\n\n' + block(`a: {type: online, site: MacTutor, title: A, url: 'https://example.com/a', author: ["J. J. O'Connor", E. F. Robertson]}
+b: {type: online, site: Blog, title: B, url: 'https://example.com/b', author: ['Tao, Terence']}
+c: {type: online, site: Wiki, title: C, url: 'https://example.com/c', author: [Alice Smith, 张三, Bob Jones]}`));
+assert.match(online, /\*\*MacTutor\*\*\. \[A\]\([^)]+\)\. 作者：J\. J\. O'Connor; E\. F\. Robertson\./);
+assert.match(online, /\*\*Blog\*\*\. \[B\]\([^)]+\)\. 作者：Terence Tao\./);
+assert.match(online, /作者：Alice Smith; 张三; Bob Jones\./);
+const edited = transformDocument('@a @b\n\n' + block(`a: {type: book, title: Lectures, year: 1863, publisher: Vieweg, author: Peter Dirichlet, editor: Richard Dedekind}
+b: {type: book, title: Collected, year: 1900, editor: [Alice Smith, 张三]}`));
+assert.match(edited, /\*\*Dirichlet,\*\* Peter \(1863\)\. \*Lectures\*\. 编者：Richard Dedekind\. Vieweg\./);
+assert.match(edited, /\*\*Smith,\*\* Alice; \*\*张三\*\* \(1900\)\. \*Collected\*\.(?! 编者)/);
 const hostile = block(`safe:
   type: online
   site: '<script>alert(1)</script>'

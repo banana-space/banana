@@ -9,8 +9,8 @@
 // - references @label and {@label} (also the labels of headings, environments and list items);
 // - environment fences ::: name [title] {@label} and their closing :::;
 // - labelled list items (a), iv), (A1) …, as ordered lists;
-// - tags such as <see>, <lang en> and <person name="…">, on one line (HTML blocks are not parsed: a line
-//   starting with a tag is a paragraph's, as the build reads it);
+// - tags such as <see>, <lang en> and <person name="…">, continued on the next lines between parameters as
+//   the build reads them (HTML blocks are not parsed: a line starting with a tag is a paragraph's);
 // - fenced code by its language: math and tikz as TeX, terms, bibliography and yaml as YAML, markdown as
 //   this dialect.
 // See docs/syntax.md for the syntax itself.
@@ -476,7 +476,7 @@ const reference = {
   },
 };
 
-/** Tags on one line: <name>, </name>, <name attribute="value" …>, <name … /> (scripts/prebuild/tags.mjs). */
+/** Tags <name>, </name>, <name attribute="value" …>, <name … />, read as the build reads them (scripts/shared/scan.mjs). */
 const tag = {
   name: 'Tag',
   before: 'HTMLTag',

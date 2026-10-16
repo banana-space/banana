@@ -234,6 +234,14 @@ b) 第二部分。
 日文原名可以标注读音，写法与术语翻译相同（见 @help:notices），
 例如 `original="米<よね>田<だ> 信<のぶ>夫<お>"`。
 
+标签太长时，可以在字段之间换行，续行缩进；每个字段的值要写在同一行，标签中不能有空行：
+
+```markdown
+**Johann Peter Gustav Lejeune Dirichlet**
+<person lang="de" years="1805--1859"
+  ipa="/ˈjoː.han ˈpeː.tɐ ˈɡʊs.taf lə.ˈʒœn di.ʁi.ˈkleː/" />，
+```
+
 ## 特殊字符
 
 - 正文中的美元符号写成 `\$`，反斜杠写成 `\\`。

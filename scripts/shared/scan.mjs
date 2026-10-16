@@ -116,10 +116,23 @@ export function labelText(label) {
   return label.replace(/(\$[^$]*\$|\\\(.*?\\\))|'/g, (all, formula) => formula ?? '′');
 }
 
-// A tag on one line, at most a thousand characters: "<", an optional "/", a name, attributes (a name, maybe "="
-// and a value: in double or single quotes, or bare), maybe "/", and ">".
-const tagPattern = /^<(\/?)([A-Za-z][A-Za-z0-9-]*)((?:[ \t]+[A-Za-z_:][\w.:-]*(?:[ \t]*=[ \t]*(?:"[^"\n]*"|'[^'\n]*'|[^\s"'=<>`]+))?)*)[ \t]*(\/?)>/;
-const attributePattern = /[ \t]+([A-Za-z_:][\w.:-]*)(?:[ \t]*=[ \t]*(?:"([^"\n]*)"|'([^'\n]*)'|([^\s"'=<>`]+)))?/g;
+// A tag, at most a thousand characters: "<", an optional "/", a name, attributes (a name, maybe "=" and a value:
+// in double or single quotes, or bare), maybe "/", and ">". It may continue on the next lines before an
+// attribute or "/>" (a long <person … />), never within a value or across a blank line, and a line may not
+// start with its ">". In a quote, a continuation line starts with the quote's ">" marks, as many as on the
+// tag's first line, or with none (a lazy continuation), as formulas (withoutQuoteMarkers).
+const tagPatterns = [];
+function tagPatternsAt(depth) {
+  if (!tagPatterns[depth]) {
+    const lineBreak = String.raw`[ \t]*\n[ \t]*(?:(?:>[ \t]?){${depth}})?[ \t]*`;
+    const space = `(?:[ \\t]+|${lineBreak})`;
+    tagPatterns[depth] = {
+      tag: new RegExp(String.raw`^<(\/?)([A-Za-z][A-Za-z0-9-]*)((?:${space}[A-Za-z_:][\w.:-]*(?:[ \t]*=[ \t]*(?:"[^"\n]*"|'[^'\n]*'|[^\s"'=<>\x60]+))?)*)(?:${lineBreak}(\/)|[ \t]*(\/?))>`),
+      attribute: new RegExp(String.raw`${space}([A-Za-z_:][\w.:-]*)(?:[ \t]*=[ \t]*(?:"([^"\n]*)"|'([^'\n]*)'|([^\s"'=<>\x60]+)))?`, 'g'),
+    };
+  }
+  return tagPatterns[depth];
+}
 
 /**
  * An HTML tag at start: { end, name, closing, selfClosing, attributes: [{ key, value }] } (value undefined for a
@@ -127,14 +140,17 @@ const attributePattern = /[ \t]+([A-Za-z_:][\w.:-]*)(?:[ \t]*=[ \t]*(?:"([^"\n]*
  */
 export function readTag(text, start) {
   if (text[start] !== '<' || !/[A-Za-z/]/.test(text[start + 1] ?? '')) return;
-  const match = text.slice(start, start + 1000).match(tagPattern);
+  const line = text.slice(text.lastIndexOf('\n', start - 1) + 1, start);
+  const depth = (line.match(/^[ \t]*(?:>[ \t]?)+/)?.[0].match(/>/g) ?? []).length;
+  const patterns = tagPatternsAt(depth);
+  const match = text.slice(start, start + 1000).match(patterns.tag);
   if (!match) return;
   const base = start + 1 + match[1].length + match[2].length; // Where the attributes start.
-  const attributes = [...match[3].matchAll(attributePattern)].map(attribute => {
-    const [whole, key, double, single, bare] = attribute, from = base + attribute.index + whole.length - whole.trimStart().length;
+  const attributes = [...match[3].matchAll(patterns.attribute)].map(attribute => {
+    const [whole, key, double, single, bare] = attribute, from = base + attribute.index + whole.search(/[A-Za-z_:]/);
     const value = double ?? single ?? bare;
     // Offsets for highlighting: the key, and the value with its quotes.
     return { key, value, keyFrom: from, keyTo: from + key.length, valueFrom: value === undefined ? undefined : base + attribute.index + whole.length - value.length - (bare === undefined ? 2 : 0), valueTo: base + attribute.index + whole.length };
   });
-  return { end: start + match[0].length, name: match[2], closing: Boolean(match[1]), selfClosing: Boolean(match[4]), attributes };
+  return { end: start + match[0].length, name: match[2], closing: Boolean(match[1]), selfClosing: Boolean(match[4] || match[5]), attributes };
 }

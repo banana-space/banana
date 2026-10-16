@@ -1,4 +1,4 @@
-import { blankLineAt, labelledMarkerSource, readMath } from '../shared/scan.mjs';
+import { blankLineAt, labelledMarkerSource, readMath, readTag } from '../shared/scan.mjs';
 
 // Source-line marks for the online editor's preview (never in builds): the start of each source line of
 // the previewed page carries its line number, so that the editor can tell where preview text comes from.
@@ -46,7 +46,7 @@ export function markSourceLines(body, lineOffset = 0) {
 /** Where formulas are in text: [{ from, to }] (offsets, delimiters included), outside code. */
 export const formulaRanges = text => scan(text).formulas;
 
-/** Lines and their offsets, the lines in fenced code blocks (at any indentation), and the code spans and formulas. */
+/** Lines and their offsets, the lines in fenced code blocks (at any indentation), and the code spans, tags over lines and formulas. */
 function scan(body) {
   const lines = body.split('\n');
   const starts = [];
@@ -73,6 +73,13 @@ function scan(body) {
       if (end < 0) { i += run.length - 1; continue; }
       covered.push([i, end + run.length]);
       i = end + run.length - 1;
+      continue;
+    }
+    // A tag continued on the next lines (<person … />): a mark would split it.
+    const tag = body[i] === '<' ? readTag(body, i) : undefined;
+    if (tag) {
+      if (body.slice(i, tag.end).includes('\n')) covered.push([i, tag.end]);
+      i = tag.end - 1;
       continue;
     }
     const math = readMath(body, i);

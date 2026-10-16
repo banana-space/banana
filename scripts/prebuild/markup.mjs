@@ -10,7 +10,7 @@ import { t } from '../shared/i18n.mjs';
 import { normalizeTokens, trimOrdinary } from '../shared/typography.mjs';
 import { mathDisplayText, mathKey } from '../shared/math-name.mjs';
 import { blankLineAt, escaped, readMath, referenceStop, referenceTail, validReferenceName } from '../shared/scan.mjs';
-import { authorTagNames, looksLikeTag, readTag, tagShortcode } from './tags.mjs';
+import { brokenTagMessage, looksLikeTag, readTag, tagShortcode } from './tags.mjs';
 
 export { escaped, readMath, validReferenceName };
 
@@ -394,7 +394,7 @@ export function transformMarkup(text, extensions = [], options = {}) {
     // An author's tag becomes its shortcode; other HTML is not for pages (Hugo would leave it out).
     if (protectedEnd && blockEnd === undefined && text[i] === '<' && (readTag(text, i) || looksLikeTag(text, i))) {
       const tag = readTag(text, i);
-      const shortcode = tag ? tagShortcode(tag) : { error: t('build_tag_unknown', { Name: text.slice(i).match(/^<\/?([A-Za-z][A-Za-z0-9-]*)/)[1], Allowed: authorTagNames.map(name => `<${name}>`).join('、') }) };
+      const shortcode = tag ? tagShortcode(tag) : { error: brokenTagMessage(text, i) };
       if (shortcode.error) {
         if (options.fail) options.fail(shortcode.error, i);
         throw new Error(shortcode.error);

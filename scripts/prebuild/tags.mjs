@@ -44,9 +44,18 @@ export const authorTags = {
 export const authorTagNames = Object.keys(authorTags);
 const allowed = () => authorTagNames.map(name => `<${name}>`).join('、');
 
-/** Whether a "<" at start is a tag spread over lines (Markdown reads those as HTML too): an error as well. */
+/**
+ * Whether a "<" at start is a tag that readTag does not read, its lines joined (a value continued on the next
+ * line, a quote's continuation line; Markdown reads those as HTML too): an error as well.
+ */
 export function looksLikeTag(text, start) {
   return Boolean(readTag(text.slice(start, start + 1000).replace(/\n(?![ \t]*\n)/g, ' '), 0));
+}
+
+/** The message for such a tag: an author's is written wrongly, another is not for pages. */
+export function brokenTagMessage(text, start) {
+  const name = text.slice(start).match(/^<\/?([A-Za-z][A-Za-z0-9-]*)/)[1];
+  return Object.hasOwn(authorTags, name) ? t('build_tag_layout', { Name: name }) : t('build_tag_unknown', { Name: name, Allowed: allowed() });
 }
 
 /** A parameter value's problem, or undefined. */

@@ -330,6 +330,11 @@ function wrapParagraphs(body) {
     if (body.startsWith('\\[', from) || body.startsWith('$$', from)) skipped.push([from, to]);
   }
   for (const match of body.matchAll(/<!--[\s\S]*?-->/g)) skipped.push([match.index, match.index + match[0].length]);
+  // A tag continued on the next lines (<person … />): its lines as written (a break in a value would end it).
+  for (const match of body.matchAll(/<[A-Za-z]/g)) {
+    const tag = readTag(body, match.index);
+    if (tag && body.slice(match.index, tag.end).includes('\n')) skipped.push([match.index, tag.end]);
+  }
   let result = '', cursor = 0;
   for (const [start, end] of paragraphs) {
     const lines = body.slice(start, end).split('\n');
