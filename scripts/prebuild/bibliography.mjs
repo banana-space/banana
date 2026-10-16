@@ -104,6 +104,8 @@ export function readBibliography(text, start, fail) {
 const chineseName = name => /\p{Script=Han}/u.test(name.family ?? '');
 const fullName = name => name.literal ?? (chineseName(name) ? name.family + (name.given ?? '')
   : [name.family, name.given].filter(Boolean).join(', '));
+const naturalName = name => name.literal ?? (chineseName(name) ? fullName(name)
+  : [name.given, name.family].filter(Boolean).join(' '));
 const shortName = name => name.literal ?? (chineseName(name) ? fullName(name) : name.family);
 const shortNames = names => names.length > 2 ? t('bibliography_others', { Name: shortName(names[0]) }) : names.map(shortName).join(', ');
 
@@ -157,12 +159,16 @@ function edition(value) {
   const suffix = n % 100 >= 11 && n % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] ?? 'th');
   return t('bibliography_edition', { Edition: `${n}${suffix}` });
 }
+/** 按自然语序列出姓名，以分号分隔：A; B。 */
+const nameList = names => names.map(naturalName).map(text).join('; ');
 const publication = entry => [entry.publisher, entry.location].filter(Boolean).map(text).join(', ');
 const series = entry => [entry.series, entry.series ? entry.volume : ''].filter(Boolean).map(text).join(' ');
 
 /** 各类型把规范化字段组织为 Markdown 片段；不改动身份、引用文字和消歧结果。 */
 export const bibliographyFormats = {
+  // 有作者时，编者写在标题之后（没有作者时，编者已在条目开头）。
   book: entry => [sentence([italic(entry.title), edition(entry.edition)]),
+    entry.author.length && entry.editor.length ? sentence([t('bibliography_edited_by', { Names: nameList(entry.editor) })]) : '',
     sentence([series(entry), publication(entry)])],
   article: entry => [sentence([text(entry.title)]), sentence([
     [italic(entry.journaltitle), text(entry.volume), entry.number ? `(${text(entry.number)})` : ''].filter(Boolean).join(' '), text(entry.pages),
@@ -178,8 +184,9 @@ export const bibliographyFormats = {
     text(entry.institution), text(entry.location),
   ])],
   preprint: entry => [sentence([text(entry.title)])],
+  // 在线来源以站点开头，作者写在标题之后，用“作者：”表明其身份。
   online: entry => [sentence([`[${text(entry.title)}](${destination(entry.url)})`]),
-    entry.author.length ? sentence([entry.author.map(fullName).map(text).join('; ')]) : '',
+    entry.author.length ? sentence([t('bibliography_by', { Names: nameList(entry.author) })]) : '',
     entry.urldate ? t('bibliography_accessed', { Date: text(entry.urldate) }) : ''],
 };
 
@@ -205,7 +212,7 @@ export function bibliographyMarkdown(entries) {
     const names = entry.author.length ? entry.author : entry.editor;
     const authors = entry.type === 'online' ? `**${text(entry.site)}**`
       : names.map(formattedName).join('; ') || text(entry.shorttitle || entry.title);
-    const lastName = names.length ? fullName(names.at(-1)) : entry.type === 'online' ? entry.site : entry.title;
+    const lastName = entry.type === 'online' ? entry.site : names.length ? fullName(names.at(-1)) : entry.title;
     const heading = `${authors}${entry.dateLabel ? ` (${text(entry.dateLabel)}).` : /[.!?。]$/.test(lastName) ? '' : '.'}`;
     const label = entry.displayLabel ? `&#91;**${text(entry.displayLabel)}**&#93;` : '';
     const links = [];

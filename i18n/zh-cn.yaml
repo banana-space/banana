@@ -205,8 +205,12 @@ reference_section:
 # 参考文献
 bibliography_accessed:
   other: 访问日期：{{ .Date }}.
+bibliography_by:
+  other: 作者：{{ .Names }}
 bibliography_edition:
   other: "{{ .Edition }} ed."
+bibliography_edited_by:
+  other: 编者：{{ .Names }}
 bibliography_editor:
   other: " (ed.)"
 bibliography_editors:
