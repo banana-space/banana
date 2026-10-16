@@ -74,16 +74,117 @@ $V / 0 \simeq V$，这里 $0$ 表示[[零向量空间]]。
 其中 $V$ 自然地视为 $V \oplus W$ 的子空间。
 :::
 
+::: example [平面除以直线]
+设 $L \subset \mathbb{R}^2$ 是经过原点的直线。
+则 $\mathbb{R}^2 / L$ 的元素是平行于 $L$ 的直线。
+取另一条经过原点、不同于 $L$ 的直线 $L'$，
+则每条平行于 $L$ 的直线与 $L'$ 恰好交于一点，
+这给出同构 $\mathbb{R}^2 / L \simeq L' \simeq \mathbb{R}$。
+:::
+
+::: example [多项式的截断]
+设 $k$ 是域，$n$ 是自然数。
+在多项式空间 $k[x]$ 中，
+所有被 $x^n$ 整除的多项式构成子空间 $x^n k[x]$。
+商空间 $k[x] / x^n k[x]$ 的元素由多项式的前 $n$ 项系数决定，
+它的维数为 $n$，以 $[1], [x], \dotsc, [x^{n-1}]$ 为基。
+:::
+
+::: example [函数在一点的值]
+设 $X$ 是[[拓扑空间]]，$p \in X$。
+在连续函数空间 $C (X)$ 中，
+所有满足 $f (p) = 0$ 的函数构成子空间 $W$。
+映射 $f \mapsto f (p)$ 给出同构 $C (X) / W \simeq \mathbb{R}$：
+两个函数在 $C (X) / W$ 中相等，当且仅当它们在 $p$ 处的值相等。
+:::
+
 ## 性质
 
-- 设 $W$ 是 $V$ 的[[子向量空间]]。
-  则投影映射 $V \to V / W$ 是[[线性映射]]，且是[[满射]]。
-  有向量空间的[[短正合列]]
+### 基本性质
+
+设 $k$ 是域，$V$ 是 $k$-向量空间，$W \subset V$ 是[[子向量空间]]。
+
+- 投影映射 $\pi \colon V \to V / W$ 是[[线性映射]]，且是[[满射]]，其核为 $W$。
+  因此有向量空间的[[短正合列]]
   \[
-  0 \to W \longrightarrow
-  V \longrightarrow
-  V / W \to 0.
+  0 \longrightarrow W \longrightarrow
+  V \overset{\pi}{\longrightarrow}
+  V / W \longrightarrow 0 .
   \]
+
+- 若 $W' \subset V$ 是 $W$ 的补空间，即 $V = W \oplus W'$，
+  则 $\pi$ 限制为同构 $W' \simeq V / W$。
+  补空间总是存在的，见[[向量空间]]。
+
+### 万有性质
+
+::: proposition [万有性质] {@prop:universal}
+设 $k$ 是域，$V$ 是 $k$-向量空间，$W \subset V$ 是子向量空间，
+$\pi \colon V \to V / W$ 是投影。
+则对任意 $k$-向量空间 $U$ 及满足 $f (W) = 0$ 的线性映射 $f \colon V \to U$，
+存在唯一的线性映射 $\bar{f} \colon V / W \to U$，使得 $f = \bar{f} \circ \pi$。
+:::
+
+::: proof
+由于 $\pi$ 是满射，$\bar{f}$ 若存在则必为 $\bar{f} ([x]) = f (x)$。
+这是良好定义的：若 $[x] = [x']$，则 $x - x' \in W$，
+故 $f (x) - f (x') = f (x - x') = 0$。
+容易验证 $\bar{f}$ 是线性的。
+:::
+
+::: theorem [第一同构定理]
+设 $f \colon V \to U$ 是向量空间之间的线性映射。
+则 $f$ 诱导同构
+\[
+V / \ker f \overset{\sim}{\longrightarrow} \operatorname{im} f ,
+\]
+其中 $\ker f$、$\operatorname{im} f$ 分别是 $f$ 的[[核 (代数)|核]]与[[像]]。
+:::
+
+::: proof
+由 @prop:universal，$f$ 诱导线性映射
+$\bar{f} \colon V / \ker f \to \operatorname{im} f$，
+它显然是满射。
+若 $\bar{f} ([x]) = f (x) = 0$，则 $x \in \ker f$，即 $[x] = 0$，
+故 $\bar{f}$ 是单射。
+:::
+
+### 维数
+
+设 $W$ 是向量空间 $V$ 的子向量空间。
+由于 $V = W \oplus W'$ 且 $W' \simeq V / W$，有
+\[
+\dim V = \dim W + \dim (V / W) .
+\]
+商空间的维数 $\dim (V / W)$ 称为 $W$ 在 $V$ 中的**[[余维数]]**。
+例如，[[超平面]]是余维数为 $1$ 的子空间。
+
+结合第一同构定理，对有限维向量空间 $V$ 上的线性映射 $f$，
+就得到[[秩–零化度定理]]
+\[
+\dim V = \dim \ker f + \dim \operatorname{im} f .
+\]
+
+### 子空间的对应
+
+::: proposition [对应定理]
+设 $W$ 是向量空间 $V$ 的子向量空间，$\pi \colon V \to V / W$ 是投影。
+则 $U \mapsto \pi (U)$ 给出以下两者之间保持包含关系的一一对应：
+
+- $V$ 中包含 $W$ 的子向量空间 $U$；
+
+- $V / W$ 的子向量空间。
+
+其逆映射为 $\bar{U} \mapsto \pi^{-1} (\bar{U})$，且有 $\pi (U) \simeq U / W$。
+:::
+
+::: proof
+若 $W \subset U$，则 $\pi^{-1} (\pi (U)) = U + W = U$；
+由于 $\pi$ 是满射，对 $V / W$ 的任意子空间 $\bar{U}$，
+有 $\pi (\pi^{-1} (\bar{U})) = \bar{U}$。
+最后，$\pi$ 在 $U$ 上的限制是满射 $U \to \pi (U)$，其核为 $W$，
+由第一同构定理得 $\pi (U) \simeq U / W$。
+:::
 
 ```terms
 商向量空间:
