@@ -1,10 +1,5 @@
 ---
 title: 子流形上的积分计算，Stokes 定理
-notices:
-  - name: 问题
-    items:
-      - Stokes 公式证明的第三步中，等式 $\varphi(x_1,\cdots,b_i,\cdots,x_n)= \varphi(x_1,\cdots,b_i,\cdots,x_n)=0$ 左边的 $b_i$ 似乎应为 $a_i$；随后“由于 $\dfrac{\partial \varphi}{\partial x_i}$ 在 $\partial \Omega$ 上为 $0$”中的偏导数似乎应为 $\varphi$ 本身。
-      - Stokes 公式证明的第四步中，标题里的条件 $Q\cap \mathring{\Omega}\neq \emptyset$ 似乎应为 $Q\cap \partial\Omega\neq \emptyset$；“$\varphi(x', f(x')) \sqrt{1+|\nabla f(x')|^2}dx'$ 就是 $\partial \Omega$ 的曲面测度 $d\sigma$”一句中似乎不应有因子 $\varphi(x', f(x'))$。
 ---
 
 ## Fubini公式的一个应用
@@ -481,14 +476,14 @@ ${\rm supp}\chi_{\mathbf{k}}$ 落在以 $\mathbf{k}$ 为中心边长为 $2^{-N+1
 上面表达式中，一个符号上面加上 $\widehat{}$ 表示这个符号不在那里。
 由于 $\varphi$ 的支集在 $Q$ 中，所以
 \[
-\varphi(x_1,\cdots,b_i,\cdots,x_n)= \varphi(x_1,\cdots,b_i,\cdots,x_n)=0.
+\varphi(x_1,\cdots,b_i,\cdots,x_n)= \varphi(x_1,\cdots,a_i,\cdots,x_n)=0.
 \]
 从而上面的积分为 $0$。
-另外，由于 $\dfrac{\partial \varphi}{\partial x_i}$ 在 $\partial \Omega$ 上为 $0$，
+另外，由于 $\varphi$ 在 $\partial \Omega$ 上为 $0$，
 所以此时Stokes公式成立。
 
 **第四步**，正方体 $Q$ 与边界 $\partial \Omega$ 相交的情况：
-$Q\cap \mathring{\Omega}\neq \emptyset$，此时，我们可以假设 $Q\subset U_{x_j}$，其中，
+$Q\cap \partial\Omega\neq \emptyset$，此时，我们可以假设 $Q\subset U_{x_j}$，其中，
 $U_{x_j}$ 是第一步中构造的开集。
 
 ![](MathAnalysis_N1805.svg)
@@ -570,7 +565,7 @@ x_n-f(x_1,\cdots,x_{n-1})
 \end{aligned}
 \]
 我们注意到，
-$\varphi(x', f(x')) \sqrt{1+|\nabla f(x')|^2}dx'$ 就是 $\partial \Omega$ 的曲面测度 $d\sigma$。
+$\sqrt{1+|\nabla f(x')|^2}dx'$ 就是 $\partial \Omega$ 的曲面测度 $d\sigma$。
 另外，根据之前的计算，
 \[
 \nu=\frac{1}{(1+|\nabla f|^2)^\frac{1}{2}}(-\nabla f,1),

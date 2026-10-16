@@ -1,12 +1,5 @@
 ---
 title: 子流形上的光滑映射与微分学
-notices:
-  - name: 问题
-    items:
-      - “子流形之间的映射”一节中，定义的条件 2) 里开集 $V$ 似乎应在 $\mathbb{R}^m$ 中；说明“$2)\Rightarrow 1)$”的部分，$V\cap \mathbb{R}^m\times\{0\}$ 似乎应为 $V\cap \mathbb{R}^d\times\{0\}$，$\mathring{F}$ 的变量 $x_{d+1},\cdots,x_n$ 似乎应到 $x_m$ 为止。
-      - “子流形之间的映射”一节第一个注记中，“对于一般的 $N\subset M$”似乎应为 $N\subset \mathbb{R}^n$。
-      - “求极值问题”一节第一个例子中，$f(x)=d(x,z)^2$ 的右边似乎不应带根号（下面的梯度 $\nabla f(x)= 2(x-z)$ 是按平方和计算的）。
-      - “子流形上的反函数定理和隐函数定理”一节的反函数定理中，开邻域 $U\subset M$、$V\subset M$ 似乎应为 $U\subset \mathbb{R}^m$、$V\subset \mathbb{R}^n$。
 ---
 
 ## 子流形之间的映射
@@ -27,7 +20,7 @@ $M\subset \mathbb{R}^m$ 和 $N\subset \mathbb{R}^n$ 是子流形，$f\colon M\ri
   \]
 
 - 2\) 对任意 $p\in M$，按子流形的定义，存在包含 $p$ 的开集 $U\subset \mathbb{R}^m$，
-  $\mathbb{R}^n$ 中的开集 $V$ 以及微分同胚 $\Phi\colon U \rightarrow V$
+  $\mathbb{R}^m$ 中的开集 $V$ 以及微分同胚 $\Phi\colon U \rightarrow V$
   使得 $\Phi(U\cap M) = V \cap (\mathbb{R}^d \times \{0\})$。那么，映射
   \[
   f_\Phi=\left(\Phi^{-1}\right)^* f=f\circ \Phi^{-1}
@@ -73,12 +66,12 @@ A\colon \mathbf{S}^2\rightarrow \mathbf{S}^2.
 
 a) 定义2)中我们用了子流形的定义，然而，子流形定义中所选取的局部微分同胚 $\Phi$ 不是唯一的。
    对 $p\in M$，可以存在另外的包含 $p$ 的开集 $U'\subset \mathbb{R}^m$，
-   $\mathbb{R}^n$ 中的开集 $V'$ 以及微分同胚 $\Phi'\colon U' \rightarrow V'$，
+   $\mathbb{R}^m$ 中的开集 $V'$ 以及微分同胚 $\Phi'\colon U' \rightarrow V'$，
    使得 $\Phi'(U'\cap M) = V' \cap (\mathbb{R}^d \times \{0\})$。那么，映射
    \[
    f_{\Phi'}=\left(\Phi'^{-1}\right)^* f=f\circ \Phi'^{-1}
    \]
-   是否是在 $V \cap (\mathbb{R}^d \times \{0\})\subset \mathbb{R}^d$ 上的 $C^\infty$ 映射？
+   是否是在 $V' \cap (\mathbb{R}^d \times \{0\})\subset \mathbb{R}^d$ 上的 $C^\infty$ 映射？
    \[
    \begin{tikzcd}
    V' \cap (\mathbb{R}^d \times \{0\}) \arrow[r,"\Phi'^{-1}"] \arrow[dr, "\text{光滑}?"swap]
@@ -125,13 +118,13 @@ b) 我们要说明1)和2)是等价的。
    按照2)的要求，下面的三角形的图表中的映射都是光滑的。
    特别地，$f_\Phi$ 用坐标来表达（$\mathbb{R}^d\times\{0\}$ 上用 $x_1,\cdots,x_d$ 作为坐标）可以写成
    \[
-   V\cap \mathbb{R}^m\times\{0\} \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d)\mapsto f_{\Phi}(x_1,\cdots,x_d).
+   V\cap \mathbb{R}^d\times\{0\} \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d)\mapsto f_{\Phi}(x_1,\cdots,x_d).
    \]
    我们可以把 $f_\Phi$ 拓展成 $V$ 上的函数：
    \[
-   \mathring{F}\colon V \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d,x_{d+1},\cdots, x_n)\mapsto f_{\Phi}(x_1,\cdots,x_d).
+   \mathring{F}\colon V \rightarrow \mathbb{R}^n, \ \ (x_1,\cdots, x_d,x_{d+1},\cdots, x_m)\mapsto f_{\Phi}(x_1,\cdots,x_d).
    \]
-   很明显，$\mathring{F}$ 在 $V\cap \mathbb{R}^m\times\{0\} $ 上的限制就是 $f_\Phi$。
+   很明显，$\mathring{F}$ 在 $V\cap \mathbb{R}^d\times\{0\} $ 上的限制就是 $f_\Phi$。
    根据上面的图表，我们令 $F=\mathring{F}\circ\Phi$ 即可。
 
 ::: remark*
@@ -144,7 +137,7 @@ b) 我们要说明1)和2)是等价的。
 - 2\) 假设 $f\in C^\infty(M)$。
   如果对任意的 $x\in M$，$f(x)\neq 0$，那么 $\dfrac{1}{f}$ 也是光滑函数。
 
-另外，对于一般的 $N\subset M$，$C^k(M,N)$ 通常不是线性空间，因为对于任意的 $f,g\in C^k(M,N)$，
+另外，对于一般的 $N\subset \mathbb{R}^n$，$C^k(M,N)$ 通常不是线性空间，因为对于任意的 $f,g\in C^k(M,N)$，
 $x\in M$，点 $f(x)+g(x)$ 不见得在 $N$ 上。
 :::
 
@@ -507,7 +500,7 @@ dL(x,\lambda)=0.
 
 - 在 $g^{-1}(0)$ 上找一个点，使得 $\nabla f(x)$ 与 $\nabla g(x)$ 共线。
 
-我们令 $f(x)=d(x,z)^2=\sqrt{(x_1-z_1)^2+\cdots+(x_n-z_n)^2}$，
+我们令 $f(x)=d(x,z)^2=(x_1-z_1)^2+\cdots+(x_n-z_n)^2$，
 即我们要在曲面 $g(x)=0$ 上找一个点 $x$，使得该点到一个给定的点的距离是最短的。
 中学的经验告诉我们我们需要从 $z$ 点到这个曲面做垂线，我们用Lagrange乘子法来解读这个问题。
 首先，我们计算 $\nabla f$
@@ -599,8 +592,8 @@ $f\colon M \rightarrow N$ 是光滑映射，$p\in M$，$f(p)=q$。假设
 df(p)\colon T_{p}M\rightarrow T_{f(p)}N
 \]
 是可逆的，
-那么存在 $\mathbb{R}^m$ 中包含 $p$ 的开邻域 $U\subset M$ 和 $\mathbb{R}^n$ 中包含 $q$ 的开邻域
-$V\subset M$，使得
+那么存在 $\mathbb{R}^m$ 中包含 $p$ 的开邻域 $U\subset \mathbb{R}^m$ 和 $\mathbb{R}^n$ 中包含 $q$ 的开邻域
+$V\subset \mathbb{R}^n$，使得
 \[
 f\big|_{U\cap M}\colon U\cap M \rightarrow V\cap N
 \]
