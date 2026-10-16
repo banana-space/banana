@@ -55,10 +55,4 @@ document.querySelectorAll('a.external-link, .math-rendered[data-display="false"]
   following.splitText(punctuation.length);
   element.before(group);
   group.append(element, following);
-
-  if (!icon && !tikz) {
-    // KaTeX normally permits breaks between these atomic bases. A wbr keeps
-    // those same opportunities explicit inside the nowrap punctuation group.
-    bases.slice(0, -1).forEach(base => base.after(document.createElement('wbr')));
-  }
 });

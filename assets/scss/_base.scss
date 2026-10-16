@@ -424,13 +424,16 @@ h1 {
   vertical-align: -0.05em;
 }
 
-// Keep punctuation beside atomic icons/formula fragments. Explicit math
-// breakpoints and ordinary link-label wrapping remain available inside.
+// Keep punctuation beside atomic icons/formula fragments. A break between two
+// boxes is governed by their nearest common ancestor, so restoring wrapping
+// inside the formula and link label keeps their own breakpoints available.
+// (A wbr would not do: Safari and Firefox suppress it under nowrap.)
 .inline-punctuation,
 a.external-link {
   white-space: nowrap;
 }
 
+.inline-punctuation .katex-html,
 .external-link-label {
   white-space: normal;
 }
