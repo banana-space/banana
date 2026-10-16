@@ -31,6 +31,7 @@ assert.equal(page('(a)   甲\n      乙\n(iii) 丙\n  丁\n\n      戊'), '(a) �
 assert.equal(page('> (a) 甲\n>       乙'), '> (a) 甲\n>     乙');
 assert.equal(page('($\\mathrm{T}_{2}$) 甲\n                    乙'), '($\\mathrm{T}_{2}$) 甲\n              乙', 'at most column 14');
 assert.equal(page('(a) \\[x\\]\n(b) 乙'), '(a) \\[\n    x\n    \\]\n(b) 乙', 'a formula right after a label');
+assert.equal(page('B4)\n\n    1. 甲\n        \\[x\\]'), 'B4)\n\n    1. 甲\n       \\[\n       x\n       \\]', 'a list (not code) under a label alone on its line');
 for (const kept of ['甲\n(3) 乙', '(1\\) 与 (3)']) assert.equal(page(kept), kept, kept);
 
 // Display formulas on lines of their own, at the indentation of the line they start on.

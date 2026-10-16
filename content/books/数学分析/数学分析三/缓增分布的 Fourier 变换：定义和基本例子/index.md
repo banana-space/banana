@@ -1,12 +1,5 @@
 ---
 title: 缓增分布的 Fourier 变换：定义和基本例子
-notices:
-  - name: 问题
-    items:
-      - '定义收敛性之前推导 $\langle \partial^\alpha u,\varphi\rangle_{\mathcal{S}''\times\mathcal{S}}$ 的公式中，第二行右端似乎应为 $(-1)^{|\alpha|}\langle u,\partial^\alpha\varphi\rangle_{\mathcal{S}''\times\mathcal{S}}$。'
-      - 关于求导与乘多项式连续性的命题的证明中，配对的第二个分量似乎应为 $(-1)^{|\alpha|}\partial^\alpha\varphi$ 而不是 $(-1)^{|\alpha|}\varphi$。
-      - “Fourier 变换的几个例子”一节第 2 项中 $\widehat{\partial^\alpha \delta_a}$ 的表达式里的 $e^{-ix\cdot a}$ 似乎应为 $e^{-i\xi\cdot a}$。
-      - 例子第 5 项中“我们已经证明了当 $n\geqslant 3$ 时，我们用。令”一句似乎有残缺。
 ---
 
 ::: definition [缓增的分布]
@@ -113,7 +106,7 @@ $\mathcal{S}(\mathbb{R}^n)$中的逼近序列，那么，
 \[
 \begin{aligned}
 \langle \partial^\alpha u,\varphi\rangle_{\mathcal{S}'\times\mathcal{S}}&=(-1)^{|\alpha|}\lim_{k\rightarrow \infty}\langle u,\partial^\alpha\varphi_k\rangle\\
-&=(-1)^{|\alpha|}\langle \partial^\alpha u,\partial^{|\alpha|}\varphi\rangle_{\mathcal{S}'\times\mathcal{S}}.
+&=(-1)^{|\alpha|}\langle u,\partial^\alpha\varphi\rangle_{\mathcal{S}'\times\mathcal{S}}.
 \end{aligned}
 \]
 所以，我们仍然有类似于分布情形的公式：
@@ -173,7 +166,7 @@ x^\alpha&: \mathcal{S}'(\mathbb{R}^n)\rightarrow  \mathcal{S}'(\mathbb{R}^n),  \
 证明是简单（乏味）的：我们已经说明了$\partial^\alpha u, x^\beta u \in \mathcal{S}'(\mathbb{R}^n)$。
 为了说明连续性，我们有
 \[
-\langle \partial^\alpha u_k, \varphi \rangle=\lim_{k\rightarrow \infty}\langle u_k,(-1)^{|\alpha|}\varphi\rangle=\langle u,(-1)^{|\alpha|}\varphi\rangle=\langle \partial^{\alpha}u,\varphi\rangle.
+\lim_{k\rightarrow \infty}\langle \partial^\alpha u_k, \varphi \rangle=\lim_{k\rightarrow \infty}\langle u_k,(-1)^{|\alpha|}\partial^\alpha\varphi\rangle=\langle u,(-1)^{|\alpha|}\partial^\alpha\varphi\rangle=\langle \partial^{\alpha}u,\varphi\rangle.
 \]
 关于乘法的证明是类似的。
 :::
@@ -321,7 +314,7 @@ $u_k\stackrel{\mathcal{S}'}{\longrightarrow}u$，
 
 - 2\) 对任意的$a\in \mathbb{R}^n$，任意的多重指标$\alpha$，我们有
   \[
-  \widehat{\partial^\alpha \delta_a}=(i\xi)^\alpha e^{-ix\cdot a}, \ \ \widehat{x^\alpha }=(2\pi)^n (i\partial)^\alpha\delta_0.
+  \widehat{\partial^\alpha \delta_a}=(i\xi)^\alpha e^{-i\xi\cdot a}, \ \ \widehat{x^\alpha }=(2\pi)^n (i\partial)^\alpha\delta_0.
   \]
   特别地，
   \[
@@ -488,9 +481,9 @@ Dirac函数$\delta_0$是次数为$-n$的齐次分布，因为它的Fourier变换
   \]
   这样子，我们就回到了第二次作业中的形式，通过在原点处计算，我们可以将待定的系数$C$算出来。
 
-  在那次作业中，我们已经证明了当$n\geqslant 3$时，我们用。令
+  在那次作业中，我们已经证明了当$n\geqslant 3$时，
   \[
-  E =\frac{|x|^{2-n}}{(2-n)\big|\mathbf{S}^{n-1}\big|}.
+  E =\frac{|x|^{2-n}}{(2-n)\big|\mathbf{S}^{n-1}\big|}
   \]
   是$\triangle$的基本解，其中$\big|\mathbf{S}^{n-1}\big|$表示$\mathbf{S}^{n-1}$的测度。
   由于$E$在$0$附近可积并且在$\infty$处衰减，所以这是一个缓增的分布，据此，我们知道

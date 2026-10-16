@@ -1,13 +1,5 @@
 ---
 title: 子流形上的积分计算，散度定理与 Green 公式
-notices:
-  - name: 问题
-    items:
-      - “一个积分的计算”一节中“因为 $\nu_2$，这个边界落在……”一句似乎缺少内容，可能应为 $\nu_2=0$。
-      - “一个积分的计算”一节的注记中，区域 $\Omega$ 似乎应取为标准球体而不是球面。
-      - “第二型曲线积分”一节中，右边的内积 $\langle X(\gamma(t)), \gamma(t)\rangle$ 似乎应为 $\langle X(\gamma(t)), \gamma'(t)\rangle$。
-      - “$\mathbb{R}^n$ 上向量场的运算”一节中，$n=2$ 时旋度的符号似乎与 $\omega_{12}$ 相反；引理中 $(X \cdot \nabla) Y$ 的表达式 $\sum_i X_i \partial Y_i/\partial x_i$ 似乎应为 $\sum_i X_i \partial Y/\partial x_i$。
-      - “Stokes公式的应用”一节中，$\Phi_t$ 的体积变化式 ${\Phi_t}_*m = e^{\int_{0}^t {\rm div}(\Phi_\tau(x))d\tau}m$ 中似乎漏写了 $X$；最后一个公式右端的 $dx$ 似乎应为 $d\sigma$。
 ---
 
 ## 一个积分的计算
@@ -82,7 +74,7 @@ x=a\arccos(1-\frac{y}{a})-\sqrt{y(2a-y)}.
 \end{aligned}
 \]
 这恰好就是在Stokes公式的证明中所出现的步骤。
-此时，$\Omega$ 的下边界对积分没有贡献，因为 $\nu_2$，这个边界落在向 $y$ 轴投影的奇异点集中。
+此时，$\Omega$ 的下边界（$x$ 轴上的线段）对积分没有贡献，因为在这个边界上 $\varphi=\dfrac{1}{3}y^3=0$。
 
 上述的讨论还建议我们实际上可以用Stokes公式来计算，想法是直接把积分化到边界上，
 从而用曲线上的积分计算：
@@ -93,7 +85,7 @@ x=a\arccos(1-\frac{y}{a})-\sqrt{y(2a-y)}.
 
 ::: remark*
 上周的Stokes公式的证明是值得研究的，核心的想法是把边界上的积分分解为一些函数图像上的积分，
-为了搞清楚证明，假设 $\Omega$ 为 $\mathbb{R}^n$ 的标准球面，
+为了搞清楚证明，假设 $\Omega$ 为 $\mathbb{R}^n$ 的标准球体，
 然后就这个例子把证明的每一步搞清楚是很有帮助的。
 :::
 
@@ -124,7 +116,7 @@ x=a\arccos(1-\frac{y}{a})-\sqrt{y(2a-y)}.
 \int_{\gamma} X \cdot d\gamma \coloneqq\int_a^b \langle X(\gamma(t)), \gamma'(t)\rangle dt.
 \]
 在上面的表达式中，左边我们认为是形式的记号，
-右边 $\displaystyle \langle X(\gamma(t)), \gamma(t)\rangle$ 表示的是向量的内积。
+右边 $\displaystyle \langle X(\gamma(t)), \gamma'(t)\rangle$ 表示的是向量的内积。
 有时候（从微分流形的观点看更自然，我们或许在下个学期会严格地定义一般流形上对微分形式的积分），
 人们把这个积分也写成：
 \[
@@ -192,7 +184,7 @@ X=P\frac{\partial}{\partial x}+Q\frac{\partial}{\partial y}+R\frac{\partial}{\pa
 我们在 $\mathbb{R}^n$ 上固定直角坐标系 $(x_1,\cdots,x_n)$。
 对于 $\Omega \subset \mathbb{R}^n$ 上的光滑向量场
 \[
-X = \sum_{i=1}^{n} X_k \frac{\partial}{{\partial} x_k},
+X = \sum_{k=1}^{n} X_k \frac{\partial}{{\partial} x_k},
 \]
 我们定义 $X$ 的**旋度**$\nabla \wedge X$ 是在反对称矩阵中取值的映射（这实际上是一个 $2$-形式）
 \[
@@ -216,7 +208,7 @@ X = \sum_{i=1}^{n} X_k \frac{\partial}{{\partial} x_k},
 当 $n=2$ 时，由于 $\omega$ 只有一个分量，我们将 $X$ 的旋度用 $\mathbb{R}^2$ 中的函数表示，记作
 \[
 \begin{aligned}
-  \operatorname{curl} X =\frac{{\partial} X_1}{{\partial} x_2} - \frac{{\partial} X_2}{{\partial} x_1}.
+  \operatorname{curl} X =\frac{{\partial} X_2}{{\partial} x_1} - \frac{{\partial} X_1}{{\partial} x_2}.
   \end{aligned}
 \]
 
@@ -234,7 +226,7 @@ X = \sum_{i=1}^{n} X_k \frac{\partial}{{\partial} x_k},
 假设 $X,Y$ 是 $\mathbb{R}^3$ 上的光滑向量场，$\varphi$ 是 $\mathbb{R}^3$ 上实值光滑函数，
 我们用下面经典的记号：
 \[
-\nabla \cdot X = {\rm div} X, \ \ (X \cdot \nabla) Y = \nabla_X Y = \sum_{i=1}^{3}X_i \frac{{\partial}  Y_i}{{\partial}  x_i}, \ \ \triangle \varphi = \sum_{i=1}^{3} \frac{{\partial} ^2 \varphi}{{\partial}  x_i^2},
+\nabla \cdot X = {\rm div} X, \ \ (X \cdot \nabla) Y = \nabla_X Y = \sum_{i=1}^{3}X_i \frac{{\partial}  Y}{{\partial}  x_i}, \ \ \triangle \varphi = \sum_{i=1}^{3} \frac{{\partial} ^2 \varphi}{{\partial}  x_i^2},
 \]
 （其中，$\triangle$ 被称作是Laplace算子）那么，我们有
 \[
@@ -485,7 +477,7 @@ d\Phi_t(x)&=\mathbf{Id}+\int_{0}^t dX(\Phi_\tau(x))d\Phi_\tau(x)d\tau\\
 \]
 根据换元积分公式，我们有
 \[
-{\Phi_t}_*m = e^{\int_{0}^t {\rm div}(\Phi_\tau(x))d\tau}m,
+(\Phi_t)_*m = e^{-\int_{0}^t ({\rm div}X)(\Phi_{-\tau}(x))d\tau}m,
 \]
 所以，$\operatorname{div}X$ 衡量了 $\Phi_t$ 局部上体积的变化。
 特别地，如果 $\operatorname{div}X=0$，那么 $\Phi_t$ 是保持体积的（保持了Lebesgue测度）。
@@ -504,14 +496,14 @@ d\Phi_t(x)&=\mathbf{Id}+\int_{0}^t dX(\Phi_\tau(x))d\Phi_\tau(x)d\tau\\
 如果我们给定一个区域 $\Omega$，它是不动的，那么
 \[
 \begin{aligned}
-\frac{d}{dt}\Big|_{t=0}\int_{\Omega}1  d {\Phi_t}_* m
+\frac{d}{dt}\Big|_{t=0}\int_{\Omega}1  d (\Phi_t)_* m
 &=\frac{d}{dt}\Big|_{t=0} m(\Phi_{-t}(\Omega))\\
 &=-\int_{\Omega}\operatorname{div}X dx.
 \end{aligned}
 \]
 根据Stokes公式，我们有
 \[
-\frac{d}{dt}\Big|_{t=0} {\Phi_t}_* m(\Omega)=\int_{\partial \Omega}X\cdot (-\nu) dx.
+\frac{d}{dt}\Big|_{t=0} (\Phi_t)_* m(\Omega)=\int_{\partial \Omega}X\cdot (-\nu) d\sigma.
 \]
 上面左边代表瞬间有多少面积（质量）流入了 $\Omega$，右边可以解释为（$-\nu$ 是内法向量，
 指向区域的内部）通过这个边界瞬间进入了多少面积（质量）。

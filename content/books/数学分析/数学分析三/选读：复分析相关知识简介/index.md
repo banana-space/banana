@@ -1,10 +1,5 @@
 ---
 title: 选读：复分析相关知识简介
-notices:
-  - name: 问题
-    items:
-      - 本页面第一个定理中系数 $a_k$ 的公式里，分母似乎应为 $(\xi-z_0)^{k+1}$（与其证明最后得到的系数一致）。
-      - 留数的定义中，$F$ 在 $z_0$ 附近的 Laurent 展开似乎应写作 $\sum_k a_k(z-z_0)^k$。
 ---
 
 假设$\Omega\subset \mathbb{C}$是开集，$K\subset \Omega$是有界带边区域
@@ -29,7 +24,7 @@ F(z)=a_0+a_1(z-z_0)+a_2(z-z_0)^2+\cdots+a_n(z-z_0)^n+\cdots,
 \]
 其中
 \[
-a_k=\frac{1}{2\pi i}\int_{|\xi-z_0|=r}\frac{F(\xi)}{(\xi-z_0)^k}d\xi, \ \ r<R.
+a_k=\frac{1}{2\pi i}\int_{|\xi-z_0|=r}\frac{F(\xi)}{(\xi-z_0)^{k+1}}d\xi, \ \ r<R.
 \]
 这里，等式右边的幂级数对任意的$z\in B_R(z_0)$都是收敛的。
 上面系数定义中的$r$可以是$(0,R)$中的任意一个数。
@@ -314,9 +309,9 @@ F(z)=\frac{1}{2\pi i}\int_{C'_2}\frac{F(\xi)}{\xi}\sum_{k=0}^\infty\left(\frac{z
 假定$F(z)$在区域$\{z\bigm|0<|z-z_0|<r\}$上是复解析的，其中$r>0$，
 它的Laurent展开为
 \[
-F(z)=\sum_{k=-\infty}^\infty a_kz^k.
+F(z)=\sum_{k=-\infty}^\infty a_k(z-z_0)^k.
 \]
-我们称其中的$z^{-1}$的系数$a_{-1}$为$F$在$z_0$处的**留数**，并记作${\rm Res}(F;z_0)$。
+我们称其中的$(z-z_0)^{-1}$的系数$a_{-1}$为$F$在$z_0$处的**留数**，并记作${\rm Res}(F;z_0)$。
 :::
 
 ::: remark*

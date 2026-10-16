@@ -1,10 +1,5 @@
 ---
 title: $L^2$ 上的 Fourier 变换，Schwartz 空间
-notices:
-  - name: 问题
-    items:
-      - “Schwartz空间”一节最后一个定理的证明中，两处 $\left|N_{p_0}(\varphi_k)-N_{p_0}(\varphi_\ell)\right|=N_{p_0}(\varphi_k-\varphi_\ell)$ 型的等式似乎应为不等式 $\leqslant$，且要说明是 Cauchy 列的似乎应是 $\langle u,\varphi_k\rangle$ 本身。
-      - “Schwartz空间”一节中 $\mathcal{D}(\mathbb{R}^n)$ 在 $\mathcal{S}(\mathbb{R}^n)$ 中稠密的证明里，“对于第一项，……所以”一句没有写完。
 ---
 
 ## $L^2(\mathbb{R}^n)$上的Fourier变换
@@ -225,8 +220,8 @@ x^\alpha\partial^\beta(\varphi-\varphi_k)& =x^\alpha \partial^\beta\left(\left(1
 \end{aligned}
 \]
 上式的第二个求和部分有$k^{-1}$这样的衰减因子，所以极限为$0$。
-对于第一项，由于$\chi$在半径为$1$的球内部为$1$，所以
-然而，我们有
+对于第一项，由于$\chi$在半径为$1$的球内部为$1$，所以$1-\chi\left(\dfrac{x}{k}\right)$在$|x|<k$上为$0$；
+另外，$0\leqslant 1-\chi\leqslant 1$。从而，我们有
 \[
 \begin{aligned}
 \left|\left(1-\chi\Big(\frac{x}{k}\Big)\right)x^\alpha \partial^\beta\varphi\right|&\leqslant \mathbf{1}_{|x|\geqslant k}(x)\cdot |x|^{-2}\cdot |x^{\alpha+2}\partial^\beta \varphi|\\
@@ -365,8 +360,8 @@ N_{p_0}(\varphi_k-\varphi)\rightarrow 0.
 所以，我们有
 \[
 \begin{aligned}
-\left|N_{p_0}(\varphi_k)-N_{p_0}(\varphi_\ell)\right|&=N_{p_0}(\varphi_k-\varphi_\ell)\\
-&\leqslant N_{p_0}(\varphi_k-\varphi)+N_{p_0}(\varphi_\ell-\varphi) \stackrel{k,\ell\rightarrow \infty}{\longrightarrow} 0.
+\left|\langle u,\varphi_k \rangle-\langle u,\varphi_\ell \rangle\right|&\leqslant C_0N_{p_0}(\varphi_k-\varphi_\ell)\\
+&\leqslant C_0\bigl(N_{p_0}(\varphi_k-\varphi)+N_{p_0}(\varphi_\ell-\varphi)\bigr) \stackrel{k,\ell\rightarrow \infty}{\longrightarrow} 0.
 \end{aligned}
 \]
 这说明$\{\langle u,\varphi_k \rangle\}_{k\geqslant 1}$是Cauchy列，所以所讨论的极限是存在的。
@@ -376,7 +371,7 @@ N_{p_0}(\varphi_k-\varphi)\rightarrow 0.
 假设$\{\psi_k\}_{k\geqslant 1} \subset \mathcal{D}(\mathbb{R}^n)$是另一个逼近序列，那么，我们有
 \[
 \begin{aligned}
-\left|N_{p_0}(\varphi_k)-N_{p_0}(\psi_k)\right|&=N_{p_0}(\varphi_k-\psi_k)\\
+N_{p_0}(\varphi_k-\psi_k)\\
 &\leqslant N_{p_0}(\varphi_k-\varphi)+N_{p_0}(\psi_k-\varphi) \stackrel{k\rightarrow \infty}{\longrightarrow} 0.
 \end{aligned}
 \]

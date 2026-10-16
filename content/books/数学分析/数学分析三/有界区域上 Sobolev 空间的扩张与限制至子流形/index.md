@@ -1,10 +1,5 @@
 ---
 title: 有界区域上 Sobolev 空间的扩张与限制至子流形
-notices:
-  - name: 问题
-    items:
-      - '“从 $H^1(\Omega)$ 到 $H^1(\mathbb{R}^n)$ 扩张”引理中，扩张映射的值域写作 $H^1(\mathbb{H}^n)$，似乎应为 $H^1(\mathbb{R}^n)$。'
-      - '$H^{\frac{1}{2}}(\partial\Omega)$ 完备性的命题中，内积公式左端带平方、积分中的被积函数为 $(u_1(x)-u_2(y))(\overline{u_1(x)}-\overline{u_2(y)})$，似乎应为不带平方的 $(u_1,u_2)$ 与 $(u_1(x)-u_1(y))(\overline{u_2(x)}-\overline{u_2(y)})$；该命题与之后定理证明中的若干 $H^{\frac{1}{2}}(\Omega)$ 似乎应为 $H^{\frac{1}{2}}(\partial\Omega)$。'
 ---
 
 我们现在给出Sobolev函数的局部刻画。
@@ -110,7 +105,7 @@ $\chi_j\cdot u_0 \in H_0^1(\Omega)$，通过复合，
 \]
 是连续的满的线性映射并且存在连续线性的扩张映射
 \[
-{\rm Ext}:H^1\left(\Omega\right)\rightarrow H^1\left(\mathbb{H}^n\right)
+{\rm Ext}:H^1\left(\Omega\right)\rightarrow H^1\left(\mathbb{R}^n\right)
 \]
 使得
 \[
@@ -355,12 +350,12 @@ $u\in H^\frac{1}{2}(\partial \Omega)$。仍然利用这个范数，我们就有
 从而，我们证明了
 
 ::: proposition
-函数空间$\left(H^{\frac{1}{2}}(\Omega), \|\cdot\|_{H^{\frac{1}{2}(\Omega)}}\right)$是完备内积空间，
+函数空间$\left(H^{\frac{1}{2}}(\partial\Omega), \|\cdot\|_{H^{\frac{1}{2}}(\partial\Omega)}\right)$是完备内积空间，
 其中，我们用如下物理空间上的内积
 \[
-\left(u_1,u_2\right)_{H^{\frac{1}{2}}(\partial \Omega)}^2=(u_1,u_2)_{L^2(\partial\Omega)}+\int\!\!\!\int_{\partial\Omega \times \partial \Omega}\frac{\left(u_1(x)-u_2(y)\right)\left(\overline{u_1(x)}-\overline{u_2(y)}\right)}{|x-y|^{n}}d\sigma(x)d\sigma(y).
+\left(u_1,u_2\right)_{H^{\frac{1}{2}}(\partial \Omega)}=(u_1,u_2)_{L^2(\partial\Omega)}+\int\!\!\!\int_{\partial\Omega \times \partial \Omega}\frac{\left(u_1(x)-u_1(y)\right)\left(\overline{u_2(x)}-\overline{u_2(y)}\right)}{|x-y|^{n}}d\sigma(x)d\sigma(y).
 \]
-其中，$u_1,u_2\in H^{\frac{1}{2}}(\Omega)$。
+其中，$u_1,u_2\in H^{\frac{1}{2}}(\partial\Omega)$。
 :::
 
 我们现在来定义限制（迹）映射：
@@ -426,7 +421,7 @@ u_j\big|_{\partial \Omega}\circ \phi_j^{-1}=\left(u_j \circ \Phi_j\right)\big|_{
 \[
 u=\sum_{j\leqslant N}u_j\in H_0^1(\Omega).
 \]
-最后一个关于${\rm Res}$的满射性也可以同样的证明：对任意的$f\in H^{\frac{1}{2}}(\Omega)$，
+最后一个关于${\rm Res}$的满射性也可以同样的证明：对任意的$f\in H^{\frac{1}{2}}(\partial\Omega)$，
 我们把它写成
 \[
 f=\sum_{j\leqslant N}\chi_j\cdot f=\sum_{j\leqslant N}f_j.

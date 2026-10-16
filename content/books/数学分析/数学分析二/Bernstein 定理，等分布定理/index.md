@@ -1,12 +1,5 @@
 ---
 title: Bernstein 定理，等分布定理
-notices:
-  - name: 问题
-    items:
-      - “Hölder连续函数的Bernstein定理”一节命题的证明中，“我们将满足”一句不完整。
-      - 同一节第一个注记末尾的 $f\in C^\alpha(\mathbf{T})$ 似乎应为 $f_\alpha\in C^\alpha(\mathbf{T})$。
-      - “Fourier级数的应用：等分布问题”一节中三角多项式 $Q=\sum_{|\ell|\leqslant K}c_k e^{2\pi i kx}$ 及其后估计中的 $c_k$、$e^{2\pi i kx}$ 的下标似乎应为 $\ell$。
-      - 同一节最后一个例子中，第 1 项的 $O(n^{1-\delta})$ 似乎应为 $O(n^{1-\sigma})$；第 3 项积分逼近求和的式子中 $e^{i \log(k)}$ 似乎应为 $e^{i b\log(k)}$，最后一句的 $\neq o(1)$ 似乎应为 $\neq o(n)$。
 ---
 
 ## Hölder连续函数的Bernstein定理
@@ -40,7 +33,6 @@ notices:
 \[
 |f(x)-f(y)|\leqslant \|f\|_{C^{0,\alpha}}|x-y|^\alpha.
 \]
-我们将满足
 对任意的 $k\neq 0$，我们有
 \[
 \begin{aligned}
@@ -113,7 +105,7 @@ f_\alpha(x+h)-f_\alpha(x)=\underbrace{\sum_{2^k\leqslant \frac{1}{100}|h|^{-1}} 
 \[
 |f_\alpha(x+h)-f_\alpha(x)|\leqslant |I_1|+|I_2|\leqslant C'''|h|^\alpha.
 \]
-这表明，$f\in C^\alpha(\mathbf{T})$。
+这表明，$f_\alpha\in C^\alpha(\mathbf{T})$。
 :::
 
 我们已经介绍的几个关于Fourier级数逐点收敛的经典定理，都没有涉及到一致收敛性。
@@ -278,21 +270,24 @@ $\alpha \notin \mathbb{Q}$（三角级数对此类问题之所以有效就是因
 利用 $(\star)$ 的线性，对任何有限的三角级数 $Q$，结论都成立。
 对于任意给定的 $\mathbb{R}$ 上的周期连续函数 $f$，根据Weierstrass–Stone定理，
 对任意的 $\varepsilon>0$，
-存在有限的三角级数 $Q=\displaystyle \sum_{|\ell|\leqslant K}c_k e^{2\pi i kx}$，使得
+存在有限的三角级数 $Q=\displaystyle \sum_{|\ell|\leqslant K}c_\ell e^{2\pi i \ell x}$，使得
 \[
-\|Q-f\|_{L^\infty}<\frac{1}{2}\varepsilon.
+\|Q-f\|_{L^\infty}<\frac{1}{3}\varepsilon.
 \]
-此时，根据上面的计算，选择 $N$，使得当 $n>N$ 时，对每个 $\ell \in \mathbb{Z}\cap [-K,K]$，我们都有
+此时，根据上面的计算，选择 $N$，使得当 $n>N$ 时，对每个 $\ell \in \mathbb{Z}\cap [-K,K]$，$\ell\neq 0$，我们都有
 \[
-|c_k|\times \Big|\frac{1}{n}\sum_{k=1}^n e_\ell(\xi_k)\Big|<\frac{1}{2}\varepsilon.
+|c_\ell|\times \Big|\frac{1}{n}\sum_{k=1}^n e_\ell(\xi_k)\Big|<\frac{\varepsilon}{3(2K+1)}.
 \]
-所以，
+由于 $\displaystyle\int_0^1 Q(x)dx=c_0$，所以，
 \[
-\Big|\frac{1}{n}\sum_{k=1}^n Q(\xi_k)\Big|<\frac{1}{2}\varepsilon.
+\Big|\frac{1}{n}\sum_{k=1}^n Q(\xi_k)-\int_0^1 Q(x)dx\Big|\leqslant\sum_{0<|\ell|\leqslant K}|c_\ell|\times \Big|\frac{1}{n}\sum_{k=1}^n e_\ell(\xi_k)\Big|<\frac{1}{3}\varepsilon.
 \]
 从而，当 $n>N$ 时，
 \[
-\Big|\frac{1}{n}\sum_{k=1}^n f(\xi_k)\Big|<\Big|\frac{1}{n}\sum_{k=1}^n Q(\xi_k)\Big|+\frac{1}{n}\sum_{k=1}^n |Q(\xi_k)-f(\xi_k)|<\varepsilon,
+\begin{aligned}
+\Big|\frac{1}{n}\sum_{k=1}^n f(\xi_k)-\int_0^1 f(x)dx\Big|\leqslant{}&\frac{1}{n}\sum_{k=1}^n |f(\xi_k)-Q(\xi_k)|+\Big|\frac{1}{n}\sum_{k=1}^n Q(\xi_k)-\int_0^1 Q(x)dx\Big|\\
+&+\int_0^1|Q(x)-f(x)|dx<\varepsilon,
+\end{aligned}
 \]
 从而 $(\star)$ 对于周期连续函数成立。
 
@@ -421,7 +416,7 @@ $\{\xi_{k}\}_{k\geqslant 1}$ 是 $[0,1)$ 区间上的数列。
   \]
   通过将指数函数用 $1$ 来控制，我们有
   \[
-  \Big|\int_{1}^n e^{i b x^\sigma} x^{-\sigma}dx\Big|\leqslant \int_{1}^n  x^{-\sigma}dx=O(n^{1-\delta}).
+  \Big|\int_{1}^n e^{i b x^\sigma} x^{-\sigma}dx\Big|\leqslant \int_{1}^n  x^{-\sigma}dx=O(n^{1-\sigma}).
   \]
   最终，我们证明了
   \[
@@ -442,7 +437,7 @@ $\{\xi_{k}\}_{k\geqslant 1}$ 是 $[0,1)$ 区间上的数列。
   我们令 $b=2\pi \ell a$，现在用积分逼近求和
   \[
   \begin{aligned}
-  \sum_{k=1}^n e^{i b\log(k)}-\int_{0}^n e^{i b \log(x)}dx&=\sum_{k=0}^{n-1} \int_{k}^{k+1}\Bigl(e^{i \log(k)}-e^{i b\log(x)}\Bigr)dx.
+  \sum_{k=1}^n e^{i b\log(k)}-\int_{0}^n e^{i b \log(x)}dx&=\sum_{k=0}^{n-1} \int_{k}^{k+1}\Bigl(e^{i b\log(k)}-e^{i b\log(x)}\Bigr)dx.
   \end{aligned}
   \]
   根据Lagrange中值定理，对 $x\in [k,k+1]$，存在依赖于 $b$ 和 $\sigma$ 的常数 $C$，使得
@@ -469,6 +464,6 @@ $\{\xi_{k}\}_{k\geqslant 1}$ 是 $[0,1)$ 区间上的数列。
   \[
   \frac{1}{n}\int_{1}^n e^{ib\log x}dx+o(1)=\frac{e^{ib\log(n)}}{1+ib}.
   \]
-  这个复数的模长是固定的，所以 $\displaystyle \int_{1}^n e^{ib\log x}dx \neq o(1)$。
+  这个复数的模长是固定的，所以 $\displaystyle \int_{1}^n e^{ib\log x}dx \neq o(n)$。
 
 :::

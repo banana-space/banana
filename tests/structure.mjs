@@ -366,6 +366,12 @@ assert.throws(() => transformDocument('1. {@} A'), /引用标签无效/);
   assert.match(transformDocument('A4)\n    甲'), /^00\) \n    \{\{< _item-label >\}\}A4\)\{\{< \/_item-label >\}\}甲$/m);
   assert.match(transformDocument('A4)\n    \\[x\\]'), /^00\) \{\{< _item-label block="true" >\}\}A4\)/m);
   assert.match(transformDocument('(a) \\[x\\]'), /^00\) \{\{< _item-label block="true" >\}\}\(a\)/m);
+  // Alone on its line before a blank line: the label stays on the marker's line, so the item goes on to its
+  // indented lines after the blank line (a list, not code), whose formulas are converted.
+  const bare = transformDocument('B4)\n\n    1. {@w} 设 $x$，\n       \\[\n       y\n       \\]\n\n    2. 乙 $z$\n\n@w');
+  assert.match(bare, /^00\) \{\{< _item-label block="true" >\}\}B4\)/m);
+  assert.match(bare, /^    1\. \{\{< _item-target id="dw==" >\}\}设 @@math:eA==:math@@，\n       @@displaymath:eQ==:displaymath@@\n\n    2\. 乙 @@math:eg==:math@@$/m);
+  assert.equal(caption(bare, 'w'), 'B4 1');
   const chain = transformDocument('(3) (4) {@x} 甲\n\n(5) (a) (i)\n\n@x');
   assert.match(chain, /^00\) 00\) \{\{< _item-label outer="1" >\}\}\(3\)\{\{< \/_item-label >\}\}\{\{< _item-label >\}\}\(4\)\{\{< \/_item-label >\}\}\{\{< _item-target/m);
   assert.match(chain, /^00\) 00\) 00\) \{\{< _item-label outer="2" block="true" >\}\}\(5\)\{\{< \/_item-label >\}\}\{\{< _item-label outer="1" block="true" >\}\}\(a\)\{\{< \/_item-label >\}\}\{\{< _item-label block="true" >\}\}\(i\)/m);
@@ -410,7 +416,7 @@ try {
   await writeFile(join(customDirectory, 'index.md'), '---\ntitle: 自定义名称\n---\n::: theorem\n甲\n:::\n\n::: definition (条件) [同分布] {@cond}\n乙\n:::\n\n::: remark* (异议) {@objection}\n丙\n:::\n\n见 @cond 与 @objection。\n');
   const labelledDirectory = join(root, 'content/wiki/labelled-test');
   await mkdir(labelledDirectory, { recursive: true });
-  await writeFile(join(labelledDirectory, 'index.md'), `---\ntitle: 标签列表\n---\n设\n\n(a) {@la} 甲\n(b) 乙\n\n    第二段\n\n($\\ast$) 星\n\n1. 外\n\n   (i) {@li} 内\n\n由 @la、@li 与 @-la。\n\n(3) (4)\n        嵌套\n`);
+  await writeFile(join(labelledDirectory, 'index.md'), `---\ntitle: 标签列表\n---\n设\n\n(a) {@la} 甲\n(b) 乙\n\n    第二段\n\n($\\ast$) 星\n\n1. 外\n\n   (i) {@li} 内\n\n由 @la、@li 与 @-la。\n\n(3) (4)\n        嵌套\n\n见 @lb。\n\nB4)\n\n    1. {@lb} 设 $x~y$，\n       \\[\n       E(x) = x~y\n       \\]\n\n    2. 乙 $z$\n`);
   const build = () => buildProject(root);
   build();
   const html = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
@@ -470,6 +476,11 @@ try {
   assert.match(labelledHtml, /<ol>\s*<li>\s*<p>外<\/p>\s*<ol start="0">\s*<li><span class="item-label" style="--outer: 0"><span>\(i\)<\/span><\/span>/);
   assert.ok(labelledHtml.includes('由 <a href="#la">(a)</a>、<a href="#li">1 (i)</a> 与 <a href="#la">(a)</a>。'));
   assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<ol start="0">\s*<li><span class="item-label item-label-outer" style="--outer: 1"><span>\(3\)<\/span><\/span><span class="item-label" style="--outer: 0"><span>\(4\)<\/span><\/span>嵌套/);
+  // A sub-list under a label alone on its line, after a blank line: its formulas rendered (not raw TeX, ~ not
+  // strikethrough).
+  assert.ok(labelledHtml.includes('见 <a href="#lb">B4 1</a>。'));
+  assert.match(labelledHtml, /<li>\s*<span class="item-label item-label-block" style="--outer: 0"><span>B4\)<\/span><\/span>\s*<ol>\s*<li>[\s\S]*?设 <span class="math-rendered"[^>]*data-tex="x~y"[\s\S]*?class="math-rendered math-display"[\s\S]*?乙 <span class="math-rendered"[^>]*data-tex="z"/);
+  assert.doesNotMatch(labelledHtml, /<del>|\\\[/);
   const singular = await readFile(join(root, 'public/wiki/奇异上同调/index.html'), 'utf8');
   assert.match(singular, /theorem-title">定义 1\.1（奇异上链复形）/);
   assert.match(singular, /theorem-title">定义 1\.2（奇异闭上链, 奇异边界上链, 奇异上同调）/);

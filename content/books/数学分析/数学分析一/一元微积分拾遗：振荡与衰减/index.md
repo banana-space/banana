@@ -1,10 +1,5 @@
 ---
 title: 一元微积分拾遗：振荡与衰减
-notices:
-  - name: 问题
-    items:
-      - “Riemann–Lebesgue引理”一节中，对 $f\in C^1$ 的估计 $|A_n|\leqslant \frac{1}{n}\left( \int_{a}^b|f'|+2\right)$ 似乎默认了 $|f|\leqslant 1$，一般应为 $|f(a)|+|f(b)|$ 而非 $2$；阶梯函数情形的等式 $\int_{a}^b \mathbf{1}_{[c,d]}f =\int_c^d \sin(nx) dx$ 左边似乎应为 $\int_a^b \mathbf{1}_{[c,d]}(x)\sin(nx)dx$。
-      - “van der Corput估计”一节中，van der Corput 估计的归纳证明里的 $\phi'(c)=0$、$|\phi'(x)|\geqslant \delta$ 似乎应为 $\phi^{(k-1)}(c)=0$、$|\phi^{(k-1)}(x)|\geqslant \delta$；最后一个命题的证明中 $J_\lambda$ 的积分下限 $a$ 似乎应为 $-M$，结尾的不等式左边似乎应为 $|I(\lambda)|$。
 ---
 
 **修正：** 上次课中关于Liouville对于用初等函数表示原函数的定义中，
@@ -68,7 +63,7 @@ A_n&=\int_{a}^b f(x) \sin(nx)dx=-\frac{1}{n}\int_a^b f(x)\!\!\!\!\!\!\!\!\!\!\!\
 \]
 从而，我们有
 \[
-|A_n|\leqslant \frac{1}{n}\left( \int_{a}^b|f'|+2\right).
+|A_n|\leqslant \frac{1}{n}\left( \int_{a}^b|f'|+|f(a)|+|f(b)|\right).
 \]
 这说明 $A_n\rightarrow 0$。特别地，我们对 $A_n$ 衰减的速度还有估计（$O(\dfrac{1}{n})$）。
 
@@ -144,7 +139,7 @@ A_n=\int_{a}^b f(x) \sin(nx)dx.
 先假设 $f\in \mathcal{E}([a,b])$，根据线性，我们只要对 $f=\mathbf{1}_{[c,d]}$ 来证明即可，
 而我们在课程的一开始就已经证明了
 \[
-\int_{a}^b \mathbf{1}_{[c,d]}f =\int_c^d \sin(nx) dx=O(\frac{1}{n}).
+\int_{a}^b \mathbf{1}_{[c,d]}(x)\sin(nx) dx =\int_c^d \sin(nx) dx=O(\frac{1}{n}).
 \]
 对于一般的函数，按照Riemann积分的定义（请注意我们采取简单函数逼近的定义，
 下个学期我们抽象积分的定义也采取这种方式，
@@ -294,11 +289,11 @@ van der Corput估计的一个关键点就是右边的界不依赖于所积分区
 我们用归纳法。当 $k=2$ 时，命题已经证明。
 现在假设 $k\geqslant 3$ 并且结论对 $k-1$ 成立，我们仿照上面的证明，
 不妨假设 $\phi^{(k)}(x)\geqslant 1$，从而 $\phi^{(k-1)}(x)$ 是单调递增的函数。
-假设存在 $c\in [a,b]$ 使得 $\phi'(c)=0$。此时，我们将 $[a,b]$ 分成三个区间
+假设存在 $c\in [a,b]$ 使得 $\phi^{(k-1)}(c)=0$。此时，我们将 $[a,b]$ 分成三个区间
 \[
 I=I_1\cup I_2 \cup I_3 =[a,c-\delta]\cup [c-\delta,c+\delta]\cup [c+\delta, b].
 \]
-所以在 $I_1$ 和 $I_3$ 上，我们有 $|\phi'(x)|\geqslant \delta$。根据前面的命题，我们有
+所以在 $I_1$ 和 $I_3$ 上，我们有 $|\phi^{(k-1)}(x)|\geqslant \delta$。根据前面的命题，我们有
 \[
 \Bigl|\int_{I_1}e^{i\lambda \phi(x)}dx \Bigr|\leqslant \frac{2^{k}}{(\delta\lambda)^{\frac{1}{k-1}}},  \ \ \Bigl|\int_{I_3}e^{i\lambda \phi(x)}dx\Bigr| \leqslant \frac{2^{k}}{(\delta\lambda)^{\frac{1}{k-1}}}.
 \]
@@ -332,7 +327,7 @@ I(\lambda)=\int_{\mathbb{R}} e^{i\lambda \phi(x)}a(x)dx.
 ::: proof
 回忆一下，我们利用振荡函数的原函数可以研究它的相消性。据此，我们自然地定义
 \[
-J_\lambda(x)=\int_a^x e^{i\lambda \phi(t)}dt.
+J_\lambda(x)=\int_{-M}^x e^{i\lambda \phi(t)}dt.
 \]
 所以，
 \[
@@ -344,7 +339,7 @@ I(\lambda)&=\int_{\mathbb{R}} J_\lambda(x)' a(x)dx\\
 我们可以对 $J_\lambda(x)$ 用上面的估计，所以
 \[
 \begin{aligned}
-I(\lambda)\leqslant \frac{4\sqrt{3}}{\lambda^{\frac{1}{2}}}  \int_{\mathbb{R}}|a(x)'|dx.
+|I(\lambda)|\leqslant \frac{4\sqrt{3}}{\lambda^{\frac{1}{2}}}  \int_{\mathbb{R}}|a(x)'|dx.
 \end{aligned}
 \]
 这就完成了证明。

@@ -1,9 +1,5 @@
 ---
 title: 凸函数与 Jensen 不等式
-notices:
-  - name: 问题
-    items:
-      - “用凸函数证明常见的不等式”一节中，$\|x\|_p$ 的定义式似乎应使用 $|x_k|^p$ 而不是 $x_k^p$（否则对含负分量的 $x$ 没有意义或不是范数）。
 ---
 
 ## 凸函数的性质和 Jensen 不等式
@@ -367,7 +363,7 @@ f^{\prime+}(x_0)=\lim_{x\rightarrow x_0^+}\frac{f(x)-f(x_0)}{x-x_0}\geqslant m.
   \]
   作为推论，对于线性空间 $V=\mathbb{R}^n$，我们定义
   \[
-  \|x\|_{p}= \Bigl(\sum_{k=1}^n x_k^p\Bigr)^{\frac{1}{p}},
+  \|x\|_{p}= \Bigl(\sum_{k=1}^n |x_k|^p\Bigr)^{\frac{1}{p}},
   \]
   其中，$x=(x_1,\cdots,x_n)$。此时，Minkowski不等式讲的是
   \[

@@ -1,9 +1,5 @@
 ---
 title: 子流形的原像定理，切空间
-notices:
-  - name: 问题
-    items:
-      - '“子流形的切空间”一节定理的证明第 2) 部分中，由 $T_pM\subset\bigcap\ker df_i$ 和 $\dim T_pM=d$ 比较维数时，似乎需要 $\dim \bigcap \ker df_i = d$（由 $df_i$ 线性无关得到），而不是 $\geqslant d$。'
 ---
 
 ::: remark* (寄语)
@@ -251,7 +247,7 @@ $T_pM$ 是 $\mathbb{R}^n$ 的一个 $d$ 维线性子空间。
   并且对任意的 $x \in U \cap M$，$n-d$ 个线性函数 $df_1(x), \cdots, df_{n-d}(x)$ 是线性无关的，
   那么
   \[
-  T_pM = \bigcap_{k=1}^{n-d} \operatorname{ker} df_i\big|_{x=p} = \operatorname{ker} df\big|_{x=p}.
+  T_pM = \bigcap_{i=1}^{n-d} \operatorname{ker} df_i\big|_{x=p} = \operatorname{ker} df\big|_{x=p}.
   \]
   其中 $f = (f_1, \cdots, f_{n-d})$。
 
@@ -288,9 +284,10 @@ $T_pM$ 是 $\mathbb{R}^n$ 的一个 $d$ 维线性子空间。
 df_i(p) \bigl(\gamma'(0)\bigr) = 0
 \ \ \Leftrightarrow  \ \ df_i(p) \bigl(v\bigr)=0.
 \]
-这表明 $T_pM \displaystyle \subset \bigcap_{k=1}^{n-d} \operatorname{ker} df_i$。
+这表明 $T_pM \displaystyle \subset \bigcap_{i=1}^{n-d} \operatorname{ker} df_i$。
 另外，
-由于 $\displaystyle \operatorname{dim} \bigcap_{k=1}^{n-d} \operatorname{ker} df_i \geqslant d$，
+由于 $df_1(p),\cdots,df_{n-d}(p)$ 线性无关，我们有 $\displaystyle \operatorname{dim} \bigcap_{i=1}^{n-d} \operatorname{ker} df_i = d$，
+而由1)，$\operatorname{dim} T_pM = d$，
 通过比较维数，我们就知道这两个空间是一致的。
 :::
 

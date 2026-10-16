@@ -1,11 +1,5 @@
 ---
 title: 分布的简单应用：Cauchy 积分公式
-notices:
-  - name: 问题
-    items:
-      - “分布与Stokes理论的第一个应用：Cauchy积分公式”一节中，Cauchy–Riemann 方程的证明在“比较系数”一步写出的等式末尾的“$=0$”似乎不成立（$a$、$b$ 一般不为零）。
-      - 引理（$\frac{1}{\pi z}$ 是 $\overline{\partial}$ 的基本解）的证明中，$\frac{1}{\varepsilon^2}h\left(\frac{1}{\varepsilon}\right)$ 似乎应为 $\frac{1}{\varepsilon^2}h\left(\frac{z}{\varepsilon}\right)$。
-      - 计算 $\frac{1}{2\pi i}\int_{|z|=r_0}z^{k}dz$ 的例子中，第二行的被积函数 $e^{i(k\vartheta+1)}$ 似乎应为 $e^{i(k+1)\vartheta}$。
 ---
 
 ## 跳跃公式
@@ -178,7 +172,7 @@ F(x,y)-F(x_0,y_0)-\begin{pmatrix}
 \]
 比较系数，我们有
 \[
-\frac{\partial f}{\partial x }=a=\frac{\partial g}{\partial y}=0, \ \ \frac{\partial g}{\partial x }=b=-\frac{\partial f}{\partial y}=0.
+\frac{\partial f}{\partial x }=a=\frac{\partial g}{\partial y}, \ \ \frac{\partial g}{\partial x }=b=-\frac{\partial f}{\partial y}.
 \]
 所以，Cauchy–Riemann方程成立。
 
@@ -296,7 +290,7 @@ f_\varepsilon(z)=\frac{\overline{z}}{\pi \varepsilon^2}\cdot \mathbf{1}_{|z|\leq
 \]
 取极限。我们发现这就是
 \[
-\frac{1}{\varepsilon^2}h\left(\frac{1}{\varepsilon}\right), \ \ h(z)=\frac{1}{\pi }\mathbf{1}_{|z|\leqslant 1}(z),
+\frac{1}{\varepsilon^2}h\left(\frac{z}{\varepsilon}\right), \ \ h(z)=\frac{1}{\pi }\mathbf{1}_{|z|\leqslant 1}(z),
 \]
 的极限，其中 $h\in L^1(\mathbb{R}^2)$ 并且积分为 $1$。根据我们之前已经学过的例子，我们有
 \[
@@ -348,7 +342,7 @@ s\mapsto \gamma(s)=x(s)+iy(s).
 \[
 \begin{aligned}
 \frac{1}{2\pi i}\int_{|z|=r_0}z^{k}dz&=\frac{1}{2\pi i}\int_{0}^{2\pi}(r_0)^k e^{ik\vartheta} (-r_0\sin\vartheta+r_0i\cos\vartheta)d\vartheta\\
-&=\frac{1}{2\pi }\int_{0}^{2\pi}(r_0)^{k+1} e^{i(k\vartheta+1)}d\vartheta\\
+&=\frac{1}{2\pi }\int_{0}^{2\pi}(r_0)^{k+1} e^{i(k+1)\vartheta}d\vartheta\\
 &=\begin{cases}
 1, \ \ &k=-1;\\
 0, \ \ &k\neq -1.

@@ -1,10 +1,5 @@
 ---
 title: 奇性传播定理
-notices:
-  - name: 问题
-    items:
-      - “奇性传播定理的证明：条件”一节中，利用 Lebesgue 数的一句里，“对任意的 $t$”之后的公式似乎有残缺，混入了多余的一段。
-      - “奇性传播定理的证明：完成”一节中，控制 $H(\xi)$ 的条件 (c) 的陈述（“都有”之后）以及其后“所以我们可以运用非驻相法引理，从而，”一句不完整。
 ---
 
 给定区域$\Omega$上的$m$-次微分算子$P$和分布
@@ -325,7 +320,7 @@ $\gamma$的开覆盖，利用紧性，我们就得到了结论。
 所以，存在$r_0>0$和$\alpha_0>0$，对任意的$t\in [0,1]$，
 $B_{r_0}(x(t))\times \Gamma(\xi(t),\alpha_0)\subset \Gamma(\gamma)$。
 特别地，根据Lebesgue数的存在性（第一学期第11次课），对任意的$t$，
-$B_{r_0}(x(t))\times \Gamma(\xi(t),\alpha_0)\\xi \in  \Gamma(\xi(t),\alpha_0)$必然落在某个
+$B_{r_0}(x(t))\times \Gamma(\xi(t),\alpha_0)$必然落在某个
 $B_{r(t_j)}(x(t_j))\times \Gamma(\xi(t_j),\alpha(t_j))$中（这里我们可以先在
 $\Omega \times \mathbf{S}^{n-1}$这个紧集上考虑）。
 通过选取最小的$C_N$和最大的$M(N)$，我们就得到了如下的结论：
@@ -642,7 +637,6 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
 
   (c) 由于$(x(1),\xi(1))\notin WF(u)$，对任意的$N\geqslant 1$，存在常数$C_N$，
       使得对任意的$\xi \in \Gamma(\xi(1),\beta)$，都有
-      我们就有
       \[
       \left|\widehat{f}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
       \]
@@ -652,9 +646,8 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
   \[
   \left|\frac{\nabla_x \phi(x,\xi)}{|\nabla_x \phi(x,\xi)|}-\eta_0\right|<\beta.
   \]
-  所以我们可以运用非驻相法引理，从而，
-
-  此时，引理的结论表明，对任意的$N\geqslant 1$，存在$C_N>0$，使得对任意的$\Gamma(\xi(0),\alpha_0)$，
+  所以我们可以运用非驻相法引理。
+  引理的结论表明，对任意的$N\geqslant 1$，存在$C_N>0$，使得对任意的$\xi\in\Gamma(\xi(0),\alpha_0)$，
   有
   \[
   \left|H(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
@@ -665,7 +658,7 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
   这一部分的控制和$H(\xi)$是完全一致的，唯一的不同在于把$u$换成了$Pu$。
   另外，我们可以对$t$一致地选取$\chi$。
   重复上面的过程，我们就得到对任意的$N\geqslant 1$，存在$C_N>0$，
-  使得对任意的$\Gamma(\xi(0),\alpha_0)$，有
+  使得对任意的$\xi\in\Gamma(\xi(0),\alpha_0)$，有
   \[
   \left|I(\xi,t)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
   \]

@@ -1,9 +1,5 @@
 ---
 title: 习题课：Riemann 积分的定义2
-notices:
-  - name: 问题
-    items:
-      - R41) 中 $B\supset A\supset C$，不等式 $m(C)-m(B)<\varepsilon$ 似乎应为 $m(B)-m(C)<\varepsilon$。
 ---
 
 ## 有界区域上的Riemann积分
@@ -165,7 +161,7 @@ R40) $A\subset \mathbb{R}^n$ 是非空的有界集，我们强调它未必是抽
 R41) （抽象可铺集的测度刻画）$A$ 是抽象可铺的当且仅当对任意的 $\varepsilon>0$，
      存在可铺集 $B$ 和 $C$，使得
      \[
-     B\supset A\supset C, \ \ m(C)-m(B)<\varepsilon.
+     B\supset A\supset C, \ \ m(B)-m(C)<\varepsilon.
      \]
      （请与课程上关于在紧集上取值有限的测度的正则性定理比较）
 

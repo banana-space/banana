@@ -1,9 +1,5 @@
 ---
 title: 历史注记：微分与积分的交换定理，含参积分
-notices:
-  - name: 问题
-    items:
-      - '“应用：计算一些原函数不存在的定积分”一节例子第 1 项中，$\int_0^\infty x^n e^{-tx}dx = n!\frac{1}{t^n}$ 的右边似乎应为 $n!\frac{1}{t^{n+1}}$。'
 ---
 
 ## Newton 与 Leibniz 时代的微积分
@@ -236,7 +232,7 @@ $B(x_n,\delta_n)$（其中 $\delta_k=\delta_{x_k}$），它们构成了 $X$ 的�
   \]
   我们对 $t$ 求 $n$ 次导数，得到
   \[
-  \displaystyle \int_0^\infty x^n e^{-tx}dx = n!\frac{1}{t^n}.
+  \displaystyle \int_0^\infty x^n e^{-tx}dx = n!\frac{1}{t^{n+1}}.
   \]
   令 $t=1$ 即可。
   当然，我们并不知道上面的关于积分和导数可以交换的性质在此情况下是否能够运用，但是，不难看出，

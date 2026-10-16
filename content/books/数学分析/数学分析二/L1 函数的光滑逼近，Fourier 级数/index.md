@@ -1,10 +1,5 @@
 ---
 title: $L^1$ 函数的光滑逼近，Fourier 级数
-notices:
-  - name: 问题
-    items:
-      - “Hilbert空间的基”一节第一个命题的证明中，展开后的两个式子里的 $S_{m+1},\dots,S_n$ 似乎应为 $x_{m+1},\dots,x_n$。
-      - “Fourier级数”一节中 $\mathbf{T}$ 上卷积的定义式里，第一个积分的被积函数与积分变量似乎应为 $f(\eta)$ 与 $d\eta$。
 ---
 
 我们先证明一个经常用到的简单事实：
@@ -179,11 +174,11 @@ $\displaystyle\sum_{k=1}^\infty x_k$ 在 $H$ 中收敛
 这等价于对任意的 $\varepsilon>0$，存在 $N>0$，
 使得对任意的 $n>m\geqslant N$，$\|S_n-S_m\|<\varepsilon$。这个不等式等价于
 \[
-\langle S_{m+1}+\cdots+S_n, S_{m+1}+\cdots+S_n\rangle <\varepsilon^2.
+\langle x_{m+1}+\cdots+x_n, x_{m+1}+\cdots+x_n\rangle <\varepsilon^2.
 \]
 利用正交性，这个不等式展开之后等价于
 \[
-\langle S_{m+1},S_{m+1}\rangle+\cdots+\langle S_{n},S_{n}\rangle = \|S_{m+1}\|^2+\cdots+\|S_n\|^2<\varepsilon^2.
+\langle x_{m+1},x_{m+1}\rangle+\cdots+\langle x_{n},x_{n}\rangle = \|x_{m+1}\|^2+\cdots+\|x_n\|^2<\varepsilon^2.
 \]
 这自然是 $\displaystyle\sum_{k=1}^\infty \|x_k\|^2$ 收敛的等价条件。
 :::
@@ -449,8 +444,8 @@ $L^1(\mathbf{T})$、$L^2(\mathbf{T})$ 和 $L^\infty(\mathbf{T})$。
 对任意的 $f\in L^p(\mathbf{T})$，我们定义
 \[
 \chi_\varepsilon * f (\theta)
-=\int_{0}^{2\pi} \chi_{\varepsilon}(\theta-\eta)f(\theta)\frac{d\theta}{2\pi}
-=\int_{\mathbf{T}}\chi_{\varepsilon}(z z'^{-1})f(z') d\mu(z').
+=\int_{0}^{2\pi} \chi_{\varepsilon}(\theta-\eta)f(\eta)d\eta
+=2\pi\int_{\mathbf{T}}\chi_{\varepsilon}(z z'^{-1})f(z') d\mu(z').
 \]
 我们现在可以把 $\mathbb{R}$ 上的证明一字不差地照搬过来证明这个结论，
 证明的细节留给对此仍然持有怀疑态度的同学去验证。

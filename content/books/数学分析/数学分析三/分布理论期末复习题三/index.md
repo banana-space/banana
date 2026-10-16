@@ -1,10 +1,5 @@
 ---
 title: 分布理论期末复习题三
-notices:
-  - name: 问题
-    items:
-      - 题目 A10) 中的 $T$ 没有定义，似乎应为 $P\cdot u$ 或 $u$。
-      - 题目 B26) 中 $\Omega_{13}$ 的定义 $z>\sqrt{x^2+y^2}$ 给出的只是 $\Omega_1$，与等式右边的 $\Omega_1\cup H_0^+\cup \Omega_3$ 似乎不符（后者似乎是 $z>-\sqrt{x^2+y^2}$ 的区域去掉原点）。
 ---
 
 **题目A.**  我们定义$\mathbb{R}$上的分布
@@ -57,7 +52,7 @@ A10) 考虑如下的缓增分布：
      \[
      U=\sum_{k\in \mathbb{Z}}\delta_k,
      \]
-     证明，$T*U$是$\mathbb{R}$上的连续周期函数并在一个周期上用初等函数表示它。
+     证明，$(P\cdot u)*U$是$\mathbb{R}$上的连续周期函数并在一个周期上用初等函数表示它。
 
 **题目B.**
 我们先引入如下的记号：
@@ -391,7 +386,7 @@ B25) 假设$T\in \mathcal{D}'(\mathbb{R}^3)^{\rm inv}$并且满足Klein–Gordon
 
 B26) 我们在$\mathbb{R}^3$上定义开集
      \[
-     \Omega_{13}=\big\{(x,y,z)\in \mathbb{R}^3\big|z>\sqrt{x^2+y^2}\big\}=\Omega_1\cup H_0^+\cup \Omega_3.
+     \Omega_{13}=\big\{(x,y,z)\in \mathbb{R}^3\big|z>-\sqrt{x^2+y^2}\big\}=\Omega_1\cup H_0^+\cup \Omega_3.
      \]
 
      证明，对任意的$T\in \mathcal{D}'(\Omega_{13})^{\rm inv}$，

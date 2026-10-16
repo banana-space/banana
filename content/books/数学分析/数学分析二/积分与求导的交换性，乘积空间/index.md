@@ -1,10 +1,5 @@
 ---
 title: 积分与求导的交换性，乘积空间
-notices:
-  - name: 问题
-    items:
-      - '“乘积测度与Fubini公式”一节中，验证 $\{A_j\}$、$\{B_j\}$ 两两不交情形的公式里，$\mu\bigl(B_j\bigr)$、$\mu\bigl(B_{j''}\bigr)$ 似乎应为 $\nu\bigl(B_j\bigr)$、$\nu\bigl(B_{j''}\bigr)$，求和范围 $j,j''\leqslant m$ 似乎应为 $\leqslant n$。'
-      - '“条件 $(\mathbf{C}_\infty)$ 的验证”中 $\theta(S\cap X_i)$ 似乎应为 $\theta(S\cap Z_i)$；“条件 $(\mathbf{C})$ 的验证”中序列从 $S_1$ 开始，$S_0$、$f_0$ 似乎应为 $S_1$、$f_1$。'
 ---
 
 ## 积分与求导的可交换性
@@ -208,19 +203,26 @@ $B_j$ 均为 $B$ 的子集并且 $\displaystyle \bigcup_{j\leqslant n}B_j=B$，�
 \[
 \sum_{j\leqslant n} \mu\bigl(A_j\bigr)\nu\bigl(B_j\bigr)=\mu(A)\nu(B).
 \]
-如果 $\{A_j\}_{j\leqslant n}$ 是两两不交的，$\{B_j\}_{j\leqslant n}$ 也是两两不交的，
-那么命题上述公式是显然的，因为
+我们先假设 $A=\coprod_{k\leqslant p}C_k$，$B=\coprod_{l\leqslant q}D_l$，
+其中 $\{C_k\}$ 两两不交，$\{D_l\}$ 两两不交，并且 $A\times B$ 的分解恰好是
+$A\times B=\coprod_{k,l}C_k\times D_l$，那么上述公式是显然的，因为
 \[
 \begin{aligned}
-\mu(A)\nu(B)&=\left(\sum_{j\leqslant n} \mu\bigl(A_j\bigr)\right)\left(\sum_{j\leqslant n} \mu\bigl(B_j\bigr)\right)\\
-&=\sum_{j,j'\leqslant m}  \mu\bigl(A_j\bigr) \mu\bigl(B_{j'}\bigr).
+\mu(A)\nu(B)&=\left(\sum_{k\leqslant p} \mu\bigl(C_k\bigr)\right)\left(\sum_{l\leqslant q} \nu\bigl(D_l\bigr)\right)\\
+&=\sum_{k,l}  \mu\bigl(C_k\bigr) \nu\bigl(D_l\bigr).
 \end{aligned}
 \]
-对于一般的情形，我们要 $A_j$ 和 $B_j$ 进一步分解成不相交的集合即可。我们考虑
+对于一般的情形，我们把 $A_j$ 和 $B_j$ 进一步分解成不相交的集合即可。我们考虑
 \[
-\bigl\{X_1\cap X_2\cap \cdots \cap X_n\bigm| X_i = A_i ~\text{或}~(A_i)^c\bigr\},
+\bigl\{X_1\cap X_2\cap \cdots \cap X_n\bigm| X_i = A_i ~\text{或}~A-A_i\bigr\},
 \]
-它们是两两不交的并且可以把 $A_j$ 都并出来。
+它们是两两不交的（记其中非空者为 $C_1,\cdots,C_p$）并且可以把每个 $A_j$ 都并出来；
+类似地，用 $Y_i=B_i$ 或 $B-B_i$ 得到 $B$ 的分解 $D_1,\cdots,D_q$。
+不难验证这些 $C_k\times D_l$ 两两不交且可以把每个 $A_j\times B_j$ 并出来。
+对每个 $A_j\times B_j$ 以及对 $A\times B$ 分别运用前面的情形，我们就得到
+\[
+\sum_{j\leqslant n} \mu\bigl(A_j\bigr)\nu\bigl(B_j\bigr)=\sum_{j\leqslant n}\sum_{C_k\subset A_j,\atop D_l\subset B_j}\mu(C_k)\nu(D_l)=\sum_{k,l}\mu(C_k)\nu(D_l)=\mu(A)\nu(B).
+\]
 
 据此，我们有
 
@@ -302,8 +304,8 @@ $(\mathbf{C}_\infty)$**：
 **条件 $(\mathbf{C}_\infty)$** 的验证：
 
 根据 $\sigma$-有限性，存在上升的序列 $\{A_i\}_{i\geqslant 1} \subset \mathcal{A}$，$A_i\nearrow X$，
-$\{B_i\}_{i\geqslant 1} \subset \mathcal{B}$，$B_j\nearrow Y$，其中对每个 $i$，
-$\mu(A_i)$ 和 $\nu(B_j)$ 是有限的。
+$\{B_i\}_{i\geqslant 1} \subset \mathcal{B}$，$B_i\nearrow Y$，其中对每个 $i$，
+$\mu(A_i)$ 和 $\nu(B_i)$ 是有限的。
 令 $Z=X\times Y$ 为整个乘积空间，考虑上升的集合的序列 $\{Z_i=A_i\times B_i\}_{i\geqslant 1}$，
 很明显，
 我们有 $Z_i\nearrow Z$ 并且每个 $Z_i$ 的 $\theta$ 体积有限。**条件
@@ -313,7 +315,7 @@ $(\mathbf{C}_\infty)$** 要求我们证明：对于任意的 $S\in \widetilde{R}
 \]
 
 由于 $S\in \widetilde{R}$ 为有限个矩形的并，
-所以只要对某个 $S=A\times B$ 的情形证明 $\theta(S\cap X_i)\rightarrow \infty$
+所以只要对某个 $S=A\times B$ 的情形证明 $\theta(S\cap Z_i)\rightarrow \infty$
 即可（这里和Lebesgue测度的构造又是一样的）。
 由于我们假设了 $\theta(A\times B)=\infty$，不妨 $\mu(A)=\infty$ 而 $\nu(B)>0$（可以是 $\infty$）。
 根据 $Z_i=A_i\times B_i$，所以
@@ -332,7 +334,7 @@ $(\mathbf{C}_\infty)$** 要求我们证明：对于任意的 $S\in \widetilde{R}
 **条件 $(\mathbf{C})$** 的验证：
 
 任意选取 $\widetilde{R}$ 中下降的序列 $\{S_i\}_{i\geqslant 1}$，
-如果 $\theta(S_0)<\infty$ 并且 $S_i \searrow \emptyset$，那么，**条件 $(\mathbf{C})$** 要求我们证明
+如果 $\theta(S_1)<\infty$ 并且 $S_i \searrow \emptyset$，那么，**条件 $(\mathbf{C})$** 要求我们证明
 \[
 \lim_{i\rightarrow \infty}\theta(S_i)= 0.
 \]
@@ -350,7 +352,7 @@ f_i(x)= \nu\left(({S_i})_x\right).
 $\nu\bigl((S_i)_x\bigr) \searrow 0$。
 那么，从而对任意的 $x$，$f_i(x)\rightarrow 0$，即函数列 $\{f_i\}_{i\geqslant 1}$ 逐点收敛到 $0$。
 我们对函数列 $\{f_i(x)\}_{i\geqslant 1}$ 运用Lebesgue控制收敛定理，其中，
-这列函数中的第一项 $f_0$ 可以作为控制函数。根据上面粗糙版本的Fubini定理，我们就有
+这列函数中的第一项 $f_1$ 可以作为控制函数（$\int_X f_1 d\mu=\theta(S_1)<\infty$）。根据上面粗糙版本的Fubini定理，我们就有
 \[
 \theta(S_i) =\int_{X}f_i(x)d\mu(x)\rightarrow 0,
 \]

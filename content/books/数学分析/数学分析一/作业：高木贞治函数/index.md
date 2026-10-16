@@ -1,9 +1,5 @@
 ---
 title: 作业：高木贞治函数
-notices:
-  - name: 问题
-    items:
-      - 习题 T4) 中，差商 $\dfrac{T(x+h_n)-T(x)}{h_n}$ 里的 $x$ 似乎应为题中给定的 $x_0$。
 ---
 
 ## 基本习题
@@ -245,7 +241,7 @@ T3) 对于 $x\in [0,1]$，
 T4) 假设 $x_0=\dfrac{k_0}{2^{m_0}}\in(0,1]$，其中 $k_0\in\mathbb{Z}_{\geqslant 1}$ 是奇数，
     $m_0\in \mathbb{Z}_{\geqslant 0}$。
     令 $h_n=\dfrac{1}{2^n}$，其中 $n\in \mathbb{Z}_{\geqslant m_0}$。
-    证明，数列 $\bigl\{\dfrac{T(x+h_n)-T(x)}{h_n}\bigr\}_{n\geqslant m_0}$ 不收敛。
+    证明，数列 $\bigl\{\dfrac{T(x_0+h_n)-T(x_0)}{h_n}\bigr\}_{n\geqslant m_0}$ 不收敛。
 
 T5) $f$ 是定义在非空的开区间 $I$ 上实数值函数。如果 $f$ 在 $a$ 处可导，证明，
     \[

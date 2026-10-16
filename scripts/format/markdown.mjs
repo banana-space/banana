@@ -100,7 +100,7 @@ function listLayout(body) {
   let masked = body;
   for (const { from, to } of formulaRanges(body)) masked = masked.slice(0, from) + body.slice(from, to).replace(/[^\n]/g, 'x') + masked.slice(to);
   const { labelled } = parseLists(body);
-  for (const { start, end, marker } of [...labelled].reverse()) masked = masked.slice(0, start) + marker + masked.slice(end);
+  for (const { start, end, marker, standIn } of [...labelled].reverse()) masked = masked.slice(0, start) + marker + standIn + masked.slice(end);
   // Each labelled item's marker, by its line and column in masked.
   const labelledAt = new Set(labelled.map(({ start }) => {
     const lineStart = body.lastIndexOf('\n', start - 1) + 1;

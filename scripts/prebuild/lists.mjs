@@ -5,6 +5,19 @@ import { labelText, readLabelledMarker } from '../shared/scan.mjs';
 // The widest projected marker: nine digits, ")" and four spaces (CommonMark's limits).
 const maxTextColumn = 14;
 
+/** 行首的块（公式、代码、列表、标题等）：标签不写到这样的文字前面。 */
+export const blockStart = /^(?:\\\[|\$\$|`{3,}|~{3,}|:::|[-+*][ \t]|\d{1,9}[.)](?:[ \t]|$)|#|>|\||<|\{\{)/;
+
+/**
+ * 标签标记之后本行没有文字（lineEnd 为行末）：下一行是段落的文字时，返回文字开头（缩进和引用标记之后），
+ * 标签写到那里；否则返回 -1，标签留在标记所在的行（scripts/prebuild/structure.mjs）。
+ */
+export function movedLabelStart(source, lineEnd) {
+  if (lineEnd >= source.length) return -1;
+  const next = lineEnd + 1 + source.slice(lineEnd + 1).match(/^[ \t>]*/)[0].length;
+  return next < source.length && source[next] !== '\n' && !blockStart.test(source.slice(next, next + 10)) && !readLabelledMarker(source, next) ? next : -1;
+}
+
 /**
  * 标签列表项（(a)、(iii)、A1) 等）在投影中写成同宽的有序列表标记 0)、00) …，由 CommonMark 决定列表结构：
  * 起始值不是 1，所以新列表不能打断段落，同一列表的后续项目可以。项目的文字列（续行的缩进）与标签后的文字对齐，
@@ -15,8 +28,13 @@ function projectedMarker(source, marker) {
   const spaces = source.slice(marker.end).match(/^[ \t]*/)[0];
   const rest = source.slice(marker.end + spaces.length).match(/^[^\n]*/)[0];
   if (!rest) {
-    // Nothing after the marker on its line: its text is on the next lines, one column after it.
-    return { text: `${'0'.repeat(Math.min(9, Math.max(1, width - 1)))})`, consumed: marker.end + spaces.length - marker.start };
+    // Nothing after the marker on its line: its text is on the next lines, one column after it. Unless that
+    // text is a paragraph's, the label stays on the marker's line in the Markdown given to Hugo, so the item
+    // does not start with a blank line (which would end it at a blank line, its indented lines becoming code
+    // after the list): an opaque token stands for the label.
+    const text = `${'0'.repeat(Math.min(9, Math.max(1, width - 1)))})`;
+    const standIn = movedLabelStart(source, marker.end + spaces.length) < 0 ? ' @@label@@' : '';
+    return { text, standIn, consumed: marker.end + spaces.length - marker.start };
   }
   // Five spaces or more: the item starts with indented code, one space after the marker (as in CommonMark).
   const after = spaces.length >= 5 ? 1 : spaces.length;
@@ -32,7 +50,8 @@ function projectedMarker(source, marker) {
  * 正文仍交给 Hugo 渲染，这里不使用 CommonMark 的 HTML 渲染器。
  *
  * 返回的 labelled 是确实成为列表项的标签标记：{ start, end }（源码中替换的区间）、Markdown 标记 marker、
- * 标签 label 与 parenthesized；problems 为错误 { key, offset }（由调用者报告）。
+ * 投影中标记之后代替标签的 standIn（标记行没有文字时，否则为空串）、标签 label 与 parenthesized；
+ * problems 为错误 { key, offset }（由调用者报告）。
  */
 export function parseLists(source) {
   let projection = '', cursor = 0;
@@ -60,9 +79,10 @@ export function parseLists(source) {
       if (!marker) return found;
       const projected = projectedMarker(source, { start: q, end: marker.end });
       append(source.slice(cursor, q), cursor);
-      candidates.set(projection.length, { ...marker, start: q, end: q + projected.consumed, marker: projected.text, delimiter: projection.length + projected.text.indexOf(')') });
+      candidates.set(projection.length, { ...marker, start: q, end: q + projected.consumed, marker: projected.text, standIn: projected.standIn ?? '', delimiter: projection.length + projected.text.indexOf(')') });
       append(projected.text, q, false);
       cursor = found = p = q + projected.consumed;
+      append(projected.standIn, cursor, false);
     }
   }
   for (let i = 0; i < source.length;) {
@@ -158,7 +178,7 @@ export function parseLists(source) {
     const marker = labelledItem(node);
     if (marker) {
       ordinals.set(node, { label: labelText(marker.label), parenthesized: marker.parenthesized });
-      labelled.push({ start: marker.start, end: marker.end, marker: marker.marker, label: labelText(marker.label), parenthesized: marker.parenthesized });
+      labelled.push({ start: marker.start, end: marker.end, marker: marker.marker, standIn: marker.standIn, label: labelText(marker.label), parenthesized: marker.parenthesized });
     } else ordinals.set(node, (ordinals.get(node.prev) ?? node.parent.listStart - 1) + 1);
     const paragraph = node.firstChild;
     if (paragraph?.type !== 'paragraph' || paragraph.sourcepos[0][0] !== node.sourcepos[0][0]) continue;

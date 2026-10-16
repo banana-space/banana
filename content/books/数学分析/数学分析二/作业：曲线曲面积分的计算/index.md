@@ -1,12 +1,5 @@
 ---
 title: 作业：曲线曲面积分的计算
-notices:
-  - name: 问题
-    items:
-      - A6) 中开集记作 $\Omega$，而映射和函数的定义域记作 $U$，两者似乎应为同一集合。
-      - 坐标变换第 5 项椭圆坐标中的 $(c \cosh u \cos v,c \sinh u, \sin v)$ 似乎应为 $(c \cosh u \cos v, c \sinh u \sin v)$。
-      - C1) 第 4 小题中的条件 $\alpha \theta \beta$ 缺少不等号，似乎应为 $\alpha \leqslant \theta \leqslant \beta$。
-      - C2) 第 2 小题的参数曲面中第二个分量的 $(b+a\sin\vartheta)$ 似乎应为 $(b+a\cos\vartheta)$（环面）。
 ---
 
 ## 课堂补充
@@ -76,12 +69,12 @@ A5) 假设 $M\subset \mathbb{R}^{n}$ 是 $n-1$-维的子流形，考虑投影映
     使得 $p \in L_{x'}$ 并且 $T_p L_{x'} \subset T_p M$。
 
 A6) （一个“扭曲”的Fubini）$\Omega\subset \mathbb{R}^n$ 是开集，
-    $F\colon U\rightarrow \mathbb{R}$ 是光滑映射。
-    假设对任意的 $x\in U$，$dF(x)\neq 0$（从而，$\Sigma_t=F^{-1}(t)$ 是余 $1$ 维子流形）。
+    $F\colon \Omega\rightarrow \mathbb{R}$ 是光滑映射。
+    假设对任意的 $x\in \Omega$，$dF(x)\neq 0$（从而，$\Sigma_t=F^{-1}(t)$ 是余 $1$ 维子流形）。
 
     ![](MathAnalysis_H0801.svg)
 
-    那么，对任意的 $U$ 上的可积函数 $f$，我们有
+    那么，对任意的 $\Omega$ 上的可积函数 $f$，我们有
     \[
     \int_\Omega f(x)dx = \int_\mathbb{R} \left(\int_{\Sigma_t}\frac{f}{|\nabla F|}d\sigma_t\right)dt,
     \]
@@ -102,7 +95,7 @@ A6) （一个“扭曲”的Fubini）$\Omega\subset \mathbb{R}^n$ 是开集，
 
 4. 抛物坐标 $(u,v) \mapsto (x,y) = (u^2 - v^2, 2uv)$；
 
-5. 椭圆坐标 $(u,v) \mapsto (x,y) = (c \cosh u \cos v,c \sinh u, \sin v)$，$c > 0$ 是常数。
+5. 椭圆坐标 $(u,v) \mapsto (x,y) = (c \cosh u \cos v,c \sinh u \sin v)$，$c > 0$ 是常数。
 
 B1) 计算体积或者面积（如果需要对参数分类讨论，那么请至少处理一种情形）
 
@@ -201,7 +194,7 @@ C1) 计算下列的曲线积分：
        计算积分 $\displaystyle \int_C y^2 ds$。
 
     4. 平面上的曲线 $C$ 在极坐标系下的方程为 $r=f(\theta)$，其中 $f$ 是连续可微的，
-       $\alpha \theta \beta$。证明，$C$ 的长度为
+       $\alpha \leqslant \theta \leqslant \beta$。证明，$C$ 的长度为
        \[
        \int_{\alpha}^\beta \sqrt{|f(\theta)|^2+|f'(\theta)|^2}d\theta.
        \]
@@ -212,7 +205,7 @@ C2) 计算下列的曲面积分：
 
     2. 试计算参数曲面 $\Sigma$ 的面积，其中 $\Sigma$ 如下定义：
        \[
-       [0,2\pi]\times [0,2\pi]\rightarrow \mathbb{R}^3, \ \ (\vartheta,\varphi) \mapsto \bigl((b+a\cos\vartheta)\cos \varphi, (b+a\sin\vartheta)\sin \varphi, a\sin\vartheta\bigr),
+       [0,2\pi]\times [0,2\pi]\rightarrow \mathbb{R}^3, \ \ (\vartheta,\varphi) \mapsto \bigl((b+a\cos\vartheta)\cos \varphi, (b+a\cos\vartheta)\sin \varphi, a\sin\vartheta\bigr),
        \]
        其中，我们要求 $0<a<b$。
 

@@ -8,11 +8,11 @@ import { t } from '../shared/i18n.mjs';
  */
 import { katexError } from './katex-check.mjs';
 import { authorTags, looksLikeTag, readTag } from './tags.mjs';
-import { labelledMarkerSource, readLabelledMarker } from '../shared/scan.mjs';
+import { labelledMarkerSource } from '../shared/scan.mjs';
 import { escaped, protectedToken, readMath, readMarkdownLink, readWiki, normalizeTarget, transformMarkup, typographer, validReferenceName, markdownText, unclosedProtected } from './markup.mjs';
 import { readBibliography, prepareBibliography, bibliographyMarkdown } from './bibliography.mjs';
 import { readTerms } from './terms.mjs';
-import { parseLists } from './lists.mjs';
+import { blockStart, movedLabelStart, parseLists } from './lists.mjs';
 import { Parser } from 'commonmark';
 import { normalizeTokens } from '../shared/typography.mjs';
 import { readFileSync } from 'node:fs';
@@ -578,7 +578,6 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
     const shown = marker.parenthesized ? `(${marker.label})` : `${marker.label})`;
     return `{{< _item-label${outer ? ` outer="${outer}"` : ''}${block ? ' block="true"' : ''} >}}${render(shown, marker.start)}{{< /_item-label >}}`;
   };
-  const blockStart = /^(?:\\\[|\$\$|`{3,}|~{3,}|:::|[-+*][ \t]|\d{1,9}[.)](?:[ \t]|$)|#|>|\||<|\{\{)/;
   const sorted = [...labelled].sort((a, b) => a.start - b.start);
   for (let i = 0; i < sorted.length;) {
     let j = i;
@@ -587,11 +586,11 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
     const labels = block => chain.map((outer, n) => label(outer, chain.length - 1 - n, block)).join('');
     const lineEnd = text.indexOf('\n', last.end) < 0 ? text.length : text.indexOf('\n', last.end);
     const rest = text.slice(last.end, lineEnd);
-    // Where the text of an item alone on its line starts: the next line's, after its indentation and quote marks.
-    const next = !rest.trim() && lineEnd < text.length ? lineEnd + 1 + text.slice(lineEnd + 1).match(/^[ \t>]*/)[0].length : -1;
-    const inline = rest.trim() ? !blockStart.test(rest)
-      : next >= 0 && next < text.length && text[next] !== '\n' && !blockStart.test(text.slice(next, next + 10)) && !readLabelledMarker(text, next);
-    const moved = inline && !rest.trim();
+    // Where the text of an item alone on its line starts, when it is the next line's paragraph's (the list
+    // structure, scripts/prebuild/lists.mjs, reads the same).
+    const next = rest.trim() ? -1 : movedLabelStart(text, lineEnd);
+    const inline = rest.trim() ? !blockStart.test(rest) : next >= 0;
+    const moved = next >= 0;
     chain.forEach((marker, k) => edits.push({ start: marker.start, end: marker.end, output: () => k < chain.length - 1 ? marker.marker
       // Nothing after the marker on its line: a space after it, or the marker is text.
       : marker.marker + (marker.marker.endsWith(' ') ? '' : ' ') + (moved ? '' : labels(!inline)) }));

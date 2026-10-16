@@ -1,9 +1,5 @@
 ---
 title: 波动方程和热方程的基本解
-notices:
-  - name: 问题
-    items:
-      - “$\mathbb{R}^n$ 中波动方程基本解的推导”一节中，“从而”之后的等式左端似乎应为 $\left(\partial_t^2+|\xi|^2\right)\widehat{W}(t,\xi)$，右端在 $t=0$ 处取值后似乎应为 $\delta_{t=0}\otimes b(\xi)|\xi|$。
 ---
 
 我们现在考虑函数$\varphi \in \mathcal{S}(\mathbb{R}^m\times \mathbb{R}^{n})$，其中，
@@ -127,7 +123,7 @@ a(\xi)\cos(t|\xi|)+b(\xi)\sin(t|\xi|).
 \]
 从而，
 \[
-\partial_t^2\left(\widehat{W}(t,\xi)+|\xi|^2\right)=\delta_{t=0}\cdot b(\xi)|\xi|\cos(t|\xi|).
+\left(\partial_t^2+|\xi|^2\right)\widehat{W}(t,\xi)=\delta_{t=0}\otimes b(\xi)|\xi|.
 \]
 据此，我们令
 \[

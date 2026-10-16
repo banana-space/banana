@@ -1,10 +1,5 @@
 ---
 title: 利用特征函数刻画函数空间
-notices:
-  - name: 问题
-    items:
-      - 第一个注记中，$\int_0^\pi \sin(kx)dx$ 似乎只在 $k$ 为奇数时等于 $\dfrac{2}{k}$（$k$ 为偶数时为 $0$），且 $c_k$ 似乎还应除以 $\|\sin(kx)\|_{L^2}^2=\dfrac{\pi}{2}$；随后的求和中 $|c_k|^2$ 似乎应为 $\dfrac{4}{k^2}$ 量级。结论 $\sum\lambda_k|c_k|^2=+\infty$ 不受影响。
-      - 第二个注记中，$(\triangle f,\varphi_k)_{L^2}$ 先写作 $-\lambda_k c_k$，末段又写作 $\lambda_k c_k$，符号似乎不一致。
 ---
 
 由于$\{\varphi_k\}_{k\geqslant 1}$是$L^2(\Omega)$的一族Hilbert基，所以
@@ -92,11 +87,14 @@ f=\sum_{k=1}^\infty c_k \varphi_k,
 令$f(x)\equiv 1$，很明显，$f\in H^1(\Omega)-H^1_0(\Omega)$（它在端点处不为$0$）。
 我们首先计算它在$L^2$意义下的展开：
 \[
-(f,\varphi_k)_{L^2}=\int_0^\pi \sin(kx)dx=\frac{2}{k}.
+(f,\varphi_k)_{L^2}=\int_0^\pi \sin(kx)dx=\begin{cases}
+\dfrac{2}{k}, \ \ &k~\text{为奇数};\\
+0, \ \ &k~\text{为偶数}.
+\end{cases}
 \]
-从而，$c_k=\dfrac{2}{k}$。特别地，我们知道
+由于$\|\varphi_k\|^2_{L^2}=\dfrac{\pi}{2}$，从而，当$k$为奇数时$c_k=\dfrac{4}{\pi k}$，当$k$为偶数时$c_k=0$。特别地，我们知道
 \[
-\sum_{k\geqslant 1}\lambda_k |c_k|^2=\sum_{k\geqslant 1} k^2 \frac{2}{k^2}=+\infty
+\sum_{k\geqslant 1}\lambda_k |c_k|^2=\sum_{k~\text{为奇数}} k^2 \frac{16}{\pi^2k^2}=+\infty
 \]
 :::
 
@@ -123,7 +121,7 @@ g=\sum_{k\geqslant 1}b_k \varphi_k,
 \[
 \langle -\triangle f ,\overline{g}\rangle = \sum_{k\geqslant 1}\lambda_k c_k \overline{b_k},
 \]
-这由$(\triangle f,\varphi_k)_{L^2}=\lambda_k c_k$以及$H^{-1}$作为$H_0^1(\Omega)$
+这由$(-\triangle f,\varphi_k)_{L^2}=\lambda_k c_k$以及$H^{-1}$作为$H_0^1(\Omega)$
 上的连续线性泛函的性质所决定。
 :::
 

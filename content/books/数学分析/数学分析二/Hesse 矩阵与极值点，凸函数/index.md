@@ -1,10 +1,5 @@
 ---
 title: Hesse 矩阵与极值点，凸函数
-notices:
-  - name: 问题
-    items:
-      - “Hesse矩阵与极值点的二阶导数判定”一节第二个命题的证明中，Taylor 展开后的下界 $\lambda_1 |x-x_0|^2$ 似乎应为 $\frac{\lambda_1}{2} |x-x_0|^2$，其后两处的 $\lambda$ 似乎应为 $\lambda_1$。
-      - “二阶导数与凸函数”一节中用切平面刻画凸函数的命题，其证明第 1) 部分得到的不等式 $df(x)(y-x)\leqslant f(x)$ 似乎应为 $df(x)(y-x)\leqslant f(y)-f(x)$。
 ---
 
 ## Hesse矩阵与极值点的二阶导数判定
@@ -92,21 +87,21 @@ w=a_1v_1+\cdots+a_nv_n, \ \ \sqrt{\sum_{i\leqslant n}(a_i)^2}=|w|.
 \]
 由于 $\nabla^2 f (x_0)(w)=\lambda_1 a_1 v_1+\cdots +\lambda_n a_n v_n$，所以，我们有
 \[
-|\nabla^2 f (x_0)(w)|= \sqrt{\sum_{i\leqslant n}(\lambda_i a_i)^2}\geqslant \lambda_1 |w|.
+\langle w, \nabla^2 f (x_0)(w)\rangle= \sum_{i\leqslant n}\lambda_i (a_i)^2\geqslant \lambda_1 |w|^2.
 \]
 根据 Taylor 公式（一阶导数项自动为零），我们有
 \[
 \begin{aligned}
 f(x)&=f(x_0)+\frac{1}{2}\langle x-x_0, \nabla^2f(x_0)(x-x_0)\rangle+o(|x-x_0|^2)\\
-&\geqslant f(x_0)+\lambda_1 |x-x_0|^2+o(|x-x_0|^2)
+&\geqslant f(x_0)+\frac{\lambda_1}{2} |x-x_0|^2+o(|x-x_0|^2)
 \end{aligned}
 \]
 根据 $o(|x-x_0|^2)$ 的定义，存在 $\varepsilon>0$，
 当 $|x-x_0|<\varepsilon$ 时（我们就选取 $U=B_{\varepsilon}(x_0)$），
-我们有 $\displaystyle o(|x-x_0|^2)<\frac{1}{2}|\lambda| \frac{|x-x_0|^2}{2}$。从而
+我们有 $\displaystyle o(|x-x_0|^2)<\frac{1}{2}\lambda_1 \frac{|x-x_0|^2}{2}$。从而
 \[
 \begin{aligned}
-f(x)>f(x_0)+\lambda \times \frac{|x-x_0|^2}{4}>f(x_0)
+f(x)>f(x_0)+\lambda_1 \times \frac{|x-x_0|^2}{4}>f(x_0)
 \end{aligned}
 \]
 这说明 $x_0$ 是 $U$ 中的最小值点。
@@ -290,7 +285,7 @@ T\Gamma_f(x_0)=\bigl\{(x_0,f(x_0))+df(x_0)(x-x_0)\bigm|x\in \mathbb{R}^n\bigr\}.
   \]
   令 $t\rightarrow 0$，我们就得到
   \[
-  df(x)(y-x)\leqslant f(x).
+  df(x)(y-x)\leqslant f(y)-f(x).
   \]
   令 $x=x_0$，$y=x$，整理就得到 2) 中的不等式。
 

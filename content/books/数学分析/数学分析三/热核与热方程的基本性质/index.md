@@ -1,12 +1,5 @@
 ---
 title: 热核与热方程的基本性质
-notices:
-  - name: 问题
-    items:
-      - “热核的构造”一节中，验证热核满足方程的计算里，后两项 $\frac{\lambda_k}{2}\lambda_k e^{-\lambda_k t}\cdots$ 似乎多了一个因子 $\lambda_k$。
-      - “热核的构造”一节中，对算子 $\partial_t-\frac{1}{2}(\triangle_x+\triangle_y)$ 的基本解 $E(t,x,y)$，归一化因子似乎应为 $(2\pi t)^{-n}$ 而不是 $(4\pi t)^{-n}$。
-      - 极大值原理（命题）的证明中，由边界上 $u\leqslant 0$ 似乎得不到 $u_\varepsilon$ 在边界上 $>0$，而且若 $u_\varepsilon$ 在边界上为正，则 $u_\varepsilon\leqslant 0$ 不可能成立；这一步的论证似乎有误。
-      - 从代数角度证明热核为实值的注记中，“特征子空间 $E_\lambda\subset$”一句缺少包含它的空间。
 ---
 
 ## 热核的构造
@@ -132,7 +125,7 @@ p(t,x,y)\in \mathcal{D}'\big((0,\infty)\times \Omega\times \Omega\big).
 \begin{aligned}
 &\left(\partial_t-\frac{1}{2}\left(\triangle_x+\triangle_y\right)\right)\left(\sum_{k\geqslant 1} e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\right) \\
 =&\lim_{m\rightarrow \infty}\sum_{k=1}^{m}  \left(\partial_t-\frac{1}{2}\left(\triangle_x+\triangle_y\right)\right)\left(e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\right)\\
-=& \lim_{m\rightarrow \infty}\sum_{k=1}^{m}  -\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2}\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2}\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\\
+=& \lim_{m\rightarrow \infty}\sum_{k=1}^{m}  -\lambda_k e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2} e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}+\frac{\lambda_k}{2} e^{-\lambda_k t}\varphi_k(x)\overline{\varphi_k(y)}\\
 =&0.
 \end{aligned}
 \]
@@ -343,7 +336,7 @@ p(t,x,y)\in C^\infty\big((0,\infty)\times \Omega \times \Omega\big).
 ::: remark*
 关于$p(t,x,y)$的光滑性我们还可以仿照Cauchy–Riemann方程的情况进行证明：我们注意到
 \[
-E(t,x,y)=\frac{H(t)}{(4\pi t)^{n}}e^{-\frac{|x|^2+|y|^2}{2t}}
+E(t,x,y)=\frac{H(t)}{(2\pi t)^{n}}e^{-\frac{|x|^2+|y|^2}{2t}}
 \]
 是$C^\infty(\mathbb{R}^1 \times \mathbb{R}^n\times \mathbb{R}^n-\{0\})$上的光滑函数并且
 \[
@@ -676,13 +669,12 @@ $u(t,x) \in C^\infty\big((0,\infty)\times\Omega\big)\cap C^0 \big([0,\infty)\tim
 ::: proof
 我们考虑$u$的一个扰动：
 \[
-u_\varepsilon(t,x)=u(t,x)+\varepsilon |x-a|^2.
+u_\varepsilon(t,x)=u(t,x)-\varepsilon t,
 \]
-此时，通过选取$a\notin \overline{\Omega}$（然后固定这个$a$），
-我们知道$u_\varepsilon\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}>0$。
+其中$\varepsilon>0$。此时，我们知道$u_\varepsilon\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}\leqslant u\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}\leqslant 0$。
 通过直接计算，我们还有
 \[
-\partial_t u_\varepsilon-\triangle u_\varepsilon < 0.
+\partial_t u_\varepsilon-\triangle u_\varepsilon =\partial_t u-\triangle u-\varepsilon< 0.
 \]
 我们只要证明在$(0,\infty)\times\overline{\Omega}$上，$u_\varepsilon(t,x)\leqslant 0$即可，
 因为我们令$\varepsilon \rightarrow 0$就可以给出我们要证明的结论。
@@ -693,9 +685,10 @@ u_\varepsilon(t,x)=u(t,x)+\varepsilon |x-a|^2.
 \[
 u_\varepsilon(t_*,x_*)=\sup_{(t,x) \in [0,t_0]\times \overline{\Omega}} u_\varepsilon(t,x).
 \]
-根据$u_\varepsilon$的构造，我们知道$t_*>0$并且$x_*\in \Omega$。
+由于$u_\varepsilon(t_*,x_*)\geqslant u_\varepsilon(t_0,x_0)>0$，而$u_\varepsilon$在$\partial \big( [0,\infty)\times\overline{\Omega}\big)$上$\leqslant 0$，
+我们知道$t_*>0$并且$x_*\in \Omega$。
 根据最大性，
-我们还知道$\partial_t u_\varepsilon(t_*,x_*)\geqslant 0$并且
+我们还知道$\partial_t u_\varepsilon(t_*,x_*)\geqslant 0$（当$t_*=t_0$时考虑左导数）并且
 $\triangle u_\varepsilon(t_*,x_*)\leqslant 0$，所以，
 \[
 \partial_t u_\varepsilon-\triangle u_\varepsilon \geqslant 0.
@@ -781,7 +774,7 @@ u_0 \in C_0^\infty(\Omega), \ \ u_0\geqslant 0 \ \ \Rightarrow \ \ \int_{\Omega}
 
 ::: remark*
 我们也可以从代数的角度来证明这个结论：我们要说明，总是可以把$\varphi_k(x)$选做实函数。
-对任意的特征值$\lambda$，我们考虑$-\triangle$的特征子空间$E_\lambda\subset$。
+对任意的特征值$\lambda$，我们考虑$-\triangle$的特征子空间$E_\lambda\subset H^1_0(\Omega)$。
 这是一个有限维的特征子空间，如果$\varphi\in E_\lambda$，那么，
 \[
 -\triangle \varphi =\lambda \varphi  \ \ \Rightarrow \ \ -\triangle \overline{\varphi} =\lambda \overline{\varphi}.

@@ -1,10 +1,5 @@
 ---
 title: 作业：Fourier 逆变换，分布的扩张与张量积
-notices:
-  - name: 问题
-    items:
-      - 习题 A7 中连续性的不等式左边 $\sup_{|\alpha|\leqslant p}\|\partial^\beta(T\varphi)\|_{L^\infty(K)}$ 里的 $\partial^\beta$ 似乎应为 $\partial^\alpha$。
-      - 习题 C6、C7 中的 $f*\delta_{\varepsilon}$ 似乎应为 C3 中定义的 $f*d_{\varepsilon}$；C7 中序列记作 $\{\varepsilon_k\}$，而收敛写作 $\varepsilon_n \rightarrow 0$，卷积中也似乎应为 $\varepsilon_k$。
 ---
 
 **习题A（课堂细节的补充）**  我们总假设$\Omega\subset \mathbb{R}^n$是非空的开集。
@@ -61,7 +56,7 @@ A7) （平移不变算子与卷积）给定连续$\mathbb{C}$-线性映射（线
     存在紧集$L\subset \mathbb{R}^n$、非负整数$q$和常数$C>0$，
     使得对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，我们都有
     \[
-    \sup_{|\alpha|\leqslant p}\|\partial^\beta(T\varphi)\|_{L^\infty(K)}\leqslant  C\sup_{|\beta|\leqslant q}\|\partial^\beta \varphi\|_{L^\infty(L)}.
+    \sup_{|\alpha|\leqslant p}\|\partial^\alpha(T\varphi)\|_{L^\infty(K)}\leqslant  C\sup_{|\beta|\leqslant q}\|\partial^\beta \varphi\|_{L^\infty(L)}.
     \]
     我们假设$T$与$\mathbb{R}^n$上的平移算子交换，即对任意的$a \in \mathbb{R}^n$，
     对任意的$\varphi \in C_0^\infty (\mathbb{R}^n)$，我们都有
@@ -152,12 +147,12 @@ C5) 证明，函数
 
 C6) 证明，当$\varepsilon\rightarrow 0$时，我们有
     \[
-    \|f*\delta_{\varepsilon}-f\|_{L^1}\rightarrow 0.
+    \|f*d_{\varepsilon}-f\|_{L^1}\rightarrow 0.
     \]
 
-C7) 证明，存在序列$\{\varepsilon_k\}_{k\geqslant 1}$，使得$\varepsilon_n \rightarrow 0$并且
+C7) 证明，存在序列$\{\varepsilon_k\}_{k\geqslant 1}$，使得$\varepsilon_k \rightarrow 0$并且
     \[
-    (f*\delta_{\varepsilon})(x)\rightarrow f(x)
+    (f*d_{\varepsilon_k})(x)\rightarrow f(x)
     \]
     几乎处处成立。
 

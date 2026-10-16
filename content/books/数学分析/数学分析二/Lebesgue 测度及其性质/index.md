@@ -1,9 +1,5 @@
 ---
 title: Lebesgue 测度及其性质
-notices:
-  - name: 问题
-    items:
-      - “Lebesgue 测度的基本性质”一节中平移不变性刻画的证明第 2) 步，不等式最后一项 $(N+1)E$ 似乎应为 $(N+1)\mu(E)$，求和上限似乎应为 $N$。
 ---
 
 ## 知识的回顾和总结
@@ -479,10 +475,10 @@ $\big(\tau_{v}\big)^{-1}(S)\in \mathcal{A}(\mathbb{R}^n) \subset \mathcal{B}(\ma
   \]
   很明显，对任意的 $N$，
   我们可以把 $E$ 的 $N+1$
-  个平移（两两不相交）$\displaystyle \big\{\tau_{\frac{i}{Nk}}(E)\big\}_{i=0,1,\cdots,N}$ 放到 $E$
+  个平移（两两不相交）$\displaystyle \big\{\tau_{\frac{i}{Nk}}(E)\big\}_{i=0,1,\cdots,N}$ 放到 $C_{\frac{1}{k}}$
   中去，所以
   \[
-  \mu(C_1)\geqslant \mu(C_{\frac{1}{k}})\geqslant \sum_{i=0}^{N+1}\mu\left(\tau_{\frac{i}{Nk}}(E)\right)=(N+1)E.
+  \mu(C_1)\geqslant \mu(C_{\frac{1}{k}})\geqslant \sum_{i=0}^{N}\mu\left(\tau_{\frac{i}{Nk}}(E)\right)=(N+1)\mu(E).
   \]
   令 $N\rightarrow \infty$，我们就知道 $E$ 的测度为零。
 

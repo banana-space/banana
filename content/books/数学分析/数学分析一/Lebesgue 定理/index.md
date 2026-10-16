@@ -1,9 +1,5 @@
 ---
 title: Lebesgue 定理
-notices:
-  - name: 问题
-    items:
-      - '“Lebesgue 定理”一节中“关键的引理”的证明最后一句里，$\bigcup_{i=1}^n I_m$ 似乎应为 $\bigcup_{j=1}^m I_j$。'
 ---
 
 我们这一次给出Riemann可积性的最后一个刻画，这就是所谓的Lebesgue定理。
@@ -182,7 +178,7 @@ X_k \subset \displaystyle \bigcup_{i\geqslant 1}I_{k,i},\ \ \  \displaystyle \su
   \]
   从而，$|I_j|$ 的长度总和小于 $2\delta$。
 
-由于 $\delta$ 是任意选取的并且 $\displaystyle \Omega_{\varepsilon}(f)\subset \bigcup_{i=1}^n I_m$，
+由于 $\delta$ 是任意选取的并且 $\displaystyle \Omega_{\varepsilon}(f)\subset \bigcup_{j=1}^m I_j$，
 所以 $\Omega_{\varepsilon}(f)$ 是零测集。
 :::
 

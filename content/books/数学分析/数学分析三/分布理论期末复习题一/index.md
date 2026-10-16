@@ -1,10 +1,5 @@
 ---
 title: 分布理论期末复习题一
-notices:
-  - name: 问题
-    items:
-      - 题目 C8) 中 $V(z)$ 的积分限与定义域似乎有误：按 $\int_\infty^{0}$ 定义，对 $z\in \mathbb{H}$ 有 $V=-U$，且 $x-i\varepsilon\notin \mathbb{H}$；似乎应为 $\int_{-\infty}^{0}$ 并对下半平面中的 $z$ 定义。
-      - 题目 D 中有两个小题都编号为 D6)。
 ---
 
 **题目A.**  $u(x)$是在$\mathbb{R}$上定义的以$1$为周期的函数。对于$x\in [0,1]$，我们有
@@ -134,9 +129,9 @@ C7) 对任意的$\varepsilon>0$，我们定义$\mathbb{R}$上的分布：
     \lim_{\varepsilon\rightarrow 0^+} u_\varepsilon.
     \]
 
-C8) 对于$z\in \mathbb{H}$，我们定义
+C8) 对于满足${\rm Im}(z)<0$的$z\in \mathbb{C}$，我们定义
     \[
-    V(z):=\int_\infty^{0} \widehat{u}(\xi)e^{i\xi z}d\xi
+    V(z):=\int_{-\infty}^{0} \widehat{u}(\xi)e^{i\xi z}d\xi
     \]
     并令
     \[
@@ -184,9 +179,9 @@ D6) 给定$R>0$，证明，如下的线性形式
     \lim_{R\rightarrow +\infty} u_R \stackrel{\mathcal{S}'(\mathbb{R}^2)}{=}u.
     \]
 
-D6) 计算Fourier变换$\widehat{u_R}(\xi)$
+D7) 计算Fourier变换$\widehat{u_R}(\xi)$
     （提示：考虑算子$\dfrac{\partial }{\partial x}+2\dfrac{\partial }{\partial y}$）
 
-D7) 证明，对任意的$s\in \mathbb{R}$，$u\notin H^s(\mathbb{R}^2)$。
+D8) 证明，对任意的$s\in \mathbb{R}$，$u\notin H^s(\mathbb{R}^2)$。
 
-D8) 给定$R>0$。试找出所有的$s$，使得$u_R \in H^s(\mathbb{R}^2)$。
+D9) 给定$R>0$。试找出所有的$s$，使得$u_R \in H^s(\mathbb{R}^2)$。

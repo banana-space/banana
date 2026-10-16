@@ -1,10 +1,5 @@
 ---
 title: 热核的估计、Weyl 渐近公式
-notices:
-  - name: 问题
-    items:
-      - '“热核的比较定理”一节中，对 $\int_{\Omega}\frac{1}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{d(x,\partial \Omega)^2}{4t}}dx$ 预告的阶 $O(t^{-\frac{n}{2}+1})$ 似乎应为 $O(t^{-\frac{n}{2}+\frac{1}{2}})$，与随后证明的估计 $Ct^{-\frac{n}{2}}t^{\frac{1}{2}}$ 一致。'
-      - '“Karamata的Tauber型渐近公式”一节中，取 $f(x)=x^{-1}\mathbf{1}_{[e^{-1},1]}(x)$ 后，右边的积分 $\int_{1}^\infty e^{t}\times t^{\alpha-1}e^{-t}dt$ 的积分区间似乎应为 $[0,1]$（这样才等于 $\frac{1}{\alpha}$）；左边积分的下限 $1$ 似乎也应为 $0$。'
 ---
 
 ## 热核的比较定理
@@ -136,7 +131,7 @@ d\big({\rm supp}(u_0), \partial \Omega\big)=d\left(y_0, \partial \Omega\right)+O
 
 我们将证明，如果对$x\in \Omega$积分，当$t\rightarrow 0^+$时，
 \[
-\int_{\Omega}\frac{1}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{d(x,\partial \Omega)^2}{4t}}dx = O(t^{-\frac{n}{2}+1}),
+\int_{\Omega}\frac{1}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{d(x,\partial \Omega)^2}{4t}}dx = O(t^{-\frac{n}{2}+\frac{1}{2}}),
 \]
 然而，
 \[
@@ -481,14 +476,14 @@ f(x)=x^{-1}\mathbf{1}_{[e^{-1},1]}(x).
 此时，定理结论的左边可以写成：
 \[
 \begin{aligned}
-\lim_{t\rightarrow 0^+} t^\alpha \int_{1}^{t^{-1}} e^{t\lambda}\times e^{-t\lambda}d\mu(\lambda)&=\lim_{t\rightarrow 0^+} t^\alpha \left|\big\{\lambda_k\big|\lambda_k\leqslant t^{-1}\big\}\right|\\
+\lim_{t\rightarrow 0^+} t^\alpha \int_{0}^{t^{-1}} e^{t\lambda}\times e^{-t\lambda}d\mu(\lambda)&=\lim_{t\rightarrow 0^+} t^\alpha \left|\big\{\lambda_k\big|\lambda_k\leqslant t^{-1}\big\}\right|\\
 &=\lim_{\lambda\rightarrow \infty} \lambda^{-\alpha} \left|\big\{\lambda_k\big|\lambda_k\leqslant \lambda\big\}\right|.
 \end{aligned}
 \]
 右边可以写成
 \[
 \begin{aligned}
-\frac{C_0}{\Gamma(\alpha)}\int_{0}^\infty f\left(e^{-t}\right)t^{\alpha-1}e^{-t}dt&=\frac{C_0}{\Gamma(\alpha)}\int_{1}^\infty e^{t}\times t^{\alpha-1}e^{-t}dt\\
+\frac{C_0}{\Gamma(\alpha)}\int_{0}^\infty f\left(e^{-t}\right)t^{\alpha-1}e^{-t}dt&=\frac{C_0}{\Gamma(\alpha)}\int_{0}^1 e^{t}\times t^{\alpha-1}e^{-t}dt\\
 &=\frac{C_0}{\alpha\Gamma(\alpha)}=\frac{C_0}{\Gamma(\alpha+1)}.
 \end{aligned}
 \]

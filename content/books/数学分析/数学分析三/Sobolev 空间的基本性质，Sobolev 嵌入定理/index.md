@@ -1,13 +1,5 @@
 ---
 title: Sobolev 空间的基本性质，Sobolev 嵌入定理
-notices:
-  - name: 问题
-    items:
-      - Hilbert 空间定理之后，“下降的链”的包含关系似乎写反了，应为 $s\geqslant s'\Rightarrow H^{s}(\mathbb{R}^n)\subset H^{s'}(\mathbb{R}^n)$。
-      - 同一段末尾的 $\mathcal{D}'(\mathbb{R}^n) \subset \bigcup_{s} H^{s}(\mathbb{R}^n)$ 似乎不成立（例如常数函数 $1$，见本页的例子），似乎应为 $\mathcal{E}'(\mathbb{R}^n)$；那里的 $\varprojlim$ 似乎也应为 $\varinjlim$。
-      - “Sobolev 空间的映射性质”命题及其证明中的 $(1+\triangle)^{\pm\frac{p}{2}}$ 似乎应为 $(1-\triangle)^{\pm\frac{p}{2}}$，乘子 $(1+|\xi|)^{\pm\frac{p}{2}}$ 似乎应为 $(1+|\xi|^2)^{\pm\frac{p}{2}}$。
-      - $H^s$ 版本的结构定理的证明中，$g(\xi)$ 的指数与 $N$ 的定义似乎应为 $N=\left\lfloor \frac{p}{2} \right\rfloor+n+1$，$g(\xi)=(1+|\xi|^2)^{-N}\widehat{c}(\xi)$。
-      - “$H^s$ 是代数”的定理的证明中，$\|g\|_{L^2}\leqslant C_2\|v\|_{H^s}$ 似乎应为 $\|g\|_{L^1}\leqslant C_2\|v\|_{H^s}$。
 ---
 
 在后面的课程中，我们会经常用所谓的**Plancherel公式**：对任意的$f\in L^2(\mathbb{R}^n)$，我们有
@@ -83,7 +75,7 @@ $\{\widehat{u_k}\}_{k\geqslant 1}\subset L^2\left(\mathbb{R}^n,d\mu_s\right)$是
 根据Sobolev空间的定义，我们知道$\{H^s(\mathbb{R}^n)\}_{s\in \mathbb{R}}$构成了一个下降的链，
 即对任意的$s,s'\in \mathbb{R}$
 \[
-s\geqslant s' \ \ \Rightarrow \ \ H^{s'}(\mathbb{R}^n)\subset H^s(\mathbb{R}^n).
+s\geqslant s' \ \ \Rightarrow \ \ H^{s}(\mathbb{R}^n)\subset H^{s'}(\mathbb{R}^n).
 \]
 我们观察到，Schwartz函数生活在所有的Sobolev空间中：
 \[
@@ -100,7 +92,7 @@ s\geqslant s' \ \ \Rightarrow \ \ H^{s'}(\mathbb{R}^n)\subset H^s(\mathbb{R}^n).
 \]
 我们在之后会证明
 \[
-\mathcal{D}'(\mathbb{R}^n) \subset  \varprojlim_{s\in \mathbb{R}} H^{s}(\mathbb{R}^n)=\bigcup_{s\in \mathbb{R}}H^{s}(\mathbb{R}^n).
+\mathcal{E}'(\mathbb{R}^n) \subset  \varinjlim_{s\in \mathbb{R}} H^{s}(\mathbb{R}^n)=\bigcup_{s\in \mathbb{R}}H^{s}(\mathbb{R}^n).
 \]
 
 ::: proposition [正整数阶的Sobolev空间]
@@ -230,9 +222,9 @@ P: H^s(\mathbb{R}^n)\rightarrow H^{s-d}(\mathbb{R}^n), \ \ \forall s.
 \]
 另外，对任意的$s$，我们还有连续的线性同构：
 \[
-(1+\triangle)^\frac{p}{2}: H^s(\mathbb{R}^n)\rightarrow H^{s-p}(\mathbb{R}^n).
+(1-\triangle)^\frac{p}{2}: H^s(\mathbb{R}^n)\rightarrow H^{s-p}(\mathbb{R}^n).
 \]
-其中，上述映射的逆映射是$(1+\triangle)^{-\frac{p}{2}}$。
+其中，上述映射的逆映射是$(1-\triangle)^{-\frac{p}{2}}$。
 :::
 
 ::: proof
@@ -251,13 +243,13 @@ P: H^s(\mathbb{R}^n)\rightarrow H^{s-d}(\mathbb{R}^n), \ \ \forall s.
 \]
 这表明$m(D)$是从$H^s(\mathbb{R}^n)$到$H^{s-p}(\mathbb{R}^n)$的连续线性映射。
 
-微分算子的情形是一个特例。为了说明$m(D)=(1+\triangle)^\frac{p}{2}$有逆，我们用
+微分算子的情形是一个特例。为了说明$m(D)=(1-\triangle)^\frac{p}{2}$有逆，我们用
 \[
-n(\xi)=(1+|\xi|)^{-\frac{p}{2}}
+n(\xi)=(1+|\xi|^2)^{-\frac{p}{2}}
 \]
 作为乘子即可，这是因为
 \[
-\widehat{m(D)n(D)u}=(1+|\xi|)^{\frac{p}{2}}(1+|\xi|)^{-\frac{p}{2}}\widehat{u}(\xi)=u(\xi).
+\widehat{m(D)n(D)u}=(1+|\xi|^2)^{\frac{p}{2}}(1+|\xi|^2)^{-\frac{p}{2}}\widehat{u}(\xi)=\widehat{u}(\xi).
 \]
 命题得证。
 :::
@@ -337,7 +329,7 @@ $(1+|\xi|^2)^{-\frac{p}{2}-\frac{n}{4}-\varepsilon}\widehat{c}(\xi)$是平方可
 \[
 g(\xi)=(1+|\xi|^2)^{-\left\lfloor {\frac{p}{2}} \right\rfloor-n-1}\widehat{c}(\xi)\in L^2(\mathbb{R}^n).
 \]
-令$N=\left\lfloor {\dfrac{p}{2}} \right\rfloor-n-1$，所以，
+令$N=\left\lfloor {\dfrac{p}{2}} \right\rfloor+n+1$，所以，
 \[
 (1-\triangle)^N f = c.
 \]
@@ -471,7 +463,7 @@ f(\xi)=\big(1+|\xi|^2)^{\frac{s}{2}}|\widehat{u}(\xi)|\in L^2(\mathbb{R}^n_\xi).
 我们在Sobolev不等式的证明中已经证明了$g(\xi)=\widehat{v}\in L^1(\mathbb{R}^n)$。
 特别地，存在常数$C_1$和$C_2$，使得
 \[
-\|f\|_{L^2}\leqslant C_1\|u\|_{H^s}, \ \ \|g\|_{L^2}\leqslant C_2\|v\|_{H^s}.
+\|f\|_{L^2}\leqslant C_1\|u\|_{H^s}, \ \ \|g\|_{L^1}\leqslant C_2\|v\|_{H^s}.
 \]
 我们观察到，上面就是控制$f*g$的$L^2$范数的大小。
 我们回忆上学期（5月9日的课程，利用Fubini定理）已经证明了

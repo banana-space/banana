@@ -1,9 +1,5 @@
 ---
 title: 习题课：Riemann 积分的定义3
-notices:
-  - name: 问题
-    items:
-      - R65) 括注中“Borel集未必是Lebesgue可测集”似乎说反了：Borel 集都是 Lebesgue 可测集，而 Lebesgue 可测集未必是 Borel 集。
 ---
 
 我们沿用上次习题课的记号。
@@ -103,7 +99,7 @@ R64) 假设 $A\subset \mathbb{R}^n$ 是紧的抽象可铺集，$f$ 是 $A$ 上�
 R65) 假设 $A\subset \mathbb{R}^n$ 是抽象可铺集。
      证明，$A$ 是Lebesgue可测集（按定义，
      一个集合 $A\subset \mathbb{R}^n$ 是Lebesgue可测的指的是存在Borel集 $B_1$ 和 $B_2$，
-     使得 $B_1\subset A\subset B_2$ 并且 $m(B_1)=m(B_2)$。Borel集未必是Lebesgue可测集。
+     使得 $B_1\subset A\subset B_2$ 并且 $m(B_1)=m(B_2)$。Lebesgue可测集未必是Borel集。
      Lebesgue可测集是Borel代数对于Lebesgue测度的完备化。）
 
 R66) 假设 $A\subset \mathbb{R}^n$ 是抽象可铺集，$f\in \mathcal{R}(A)$。

@@ -1,10 +1,5 @@
 ---
 title: 抽象换元积分，Borel 测度的正则性
-notices:
-  - name: 问题
-    items:
-      - 抽象换元积分公式的证明中，用 Beppo Levi 定理的一步第一行 $\int_Y f d\nu =\lim_{i\rightarrow \infty} \int_Y f d\nu$ 右边的 $f$ 似乎应为 $f_i$。
-      - 换元积分公式的证明中，“第五步”的 $f$ 似乎应是 $\Omega_2$ 上的正可测函数；开头说“五个步骤”，但证明共有六步。
 ---
 
 ## 回顾：Fubini 定理
@@ -180,7 +175,7 @@ $(X,\mathcal{A},\mu)$ 上可积。在此情形下，我们还有
 使得它们逐点收敛到 $f$。那么，根据Beppo Levi定理，我们有
 \[
 \begin{aligned}
-\int_Y f d\nu &=\lim_{i\rightarrow \infty} \int_Y f d\nu\\
+\int_Y f d\nu &=\lim_{i\rightarrow \infty} \int_Y f_i d\nu\\
 &=\lim_{i\rightarrow \infty} \int_X f_i\circ\Phi d\mu\\
 &=\int_X f\circ\Phi d\mu.
 \end{aligned}
@@ -446,7 +441,7 @@ $U$ 显然是开集。但是，我们并不能保证 $\widetilde{F}$ 为闭集�
 我们现在正式开始换元积分公式的证明。
 
 ::: proof [换元积分公式的证明]
-我们分成五个步骤来完成这一任务：
+我们分成六个步骤来完成这一任务：
 
 **第一步**，正方体的体积在 $\Phi$ 下变换的控制：假定 $Q$ 是一个边长为 $h>0$ 的闭正方体，那么
 \[
@@ -585,7 +580,7 @@ m(\Phi(B))&\leqslant m(\Phi(U))\leqslant \int_{U} |{\mathbf J}_\Phi (x)|dx\\
 \]
 其中，倒数第二个不等号我们用了第三步的结论。令 $\varepsilon\rightarrow 0$，第四步的结论成立。
 
-**第五步**，$f$ 是 $\Omega_1$ 上定义的正可测函数，那么，我们有
+**第五步**，$f$ 是 $\Omega_2$ 上定义的正可测函数，那么，我们有
 \[
 \int_{\Omega_2}f(y)dy = \int_{\Omega_1} \bigl(f\circ \Phi\bigr)(x)|{\mathbf J}_\Phi (x)|dx.
 \]

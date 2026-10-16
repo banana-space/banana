@@ -1,10 +1,5 @@
 ---
 title: 测度空间上的积分，Beppo Levi 定理
-notices:
-  - name: 问题
-    items:
-      - '“测度空间上积分的定义”一节中，几乎处处为零的函数积分为零的命题的证明里，等式 $\int_{X} f(x)d\mu = \sum_{i=0}^m \lambda \mu(f^{-1}(\lambda))>0$ 似乎应是简单函数 $\varphi$ 的积分 $\int_X \varphi d\mu = \sum_{\lambda} \lambda \mu(\varphi^{-1}(\lambda))$。'
-      - “Beppo Levi 定理”一节中推论的陈述中没有 $\sigma$-有限的假设，但证明中假设了 $(X,\mathcal{A},\mu)$ 是 $\sigma$-有限的。
 ---
 
 ## 测度空间上积分的定义
@@ -225,9 +220,9 @@ f^+(x) = f(x)\mathbf{1}_{\{x|f(x)\geqslant 0\}},\ \ f^-(x) = -f(x)\mathbf{1}_{\{
 所以，存在简单函数 $0\leqslant  \varphi \leqslant f$，使得 $\displaystyle \int_X \varphi d\mu >0$。
 这显然是不可能的，否则，根据简单函数积分的定义，我们有
 \[
-\int_{X} f(x)d\mu = \sum_{i=0}^m \lambda \mu(f^{-1}(\lambda))>0.
+\int_{X} \varphi d\mu = \sum_{\lambda} \lambda \mu(\varphi^{-1}(\lambda))>0.
 \]
-所以，有某个 $\lambda>0$，使得 $ \mu(f^{-1}(\lambda))>0$，所以在测度非零集合 $f^{-1}(\lambda)$ 上，
+所以，有某个 $\lambda>0$，使得 $ \mu(\varphi^{-1}(\lambda))>0$，所以在测度非零集合 $\varphi^{-1}(\lambda)$ 上，
 \[
 f(x)\geqslant \varphi(x)=\lambda >0.
 \]
@@ -363,18 +358,17 @@ $f(x)> \varphi(x)$ 并且 $f(x)=\displaystyle \lim_{i\rightarrow \infty} f_i(x)$
 :::
 
 ::: proof
-由于 $(X,\mathcal{A},\mu)$ 是 $\sigma$-有限的，我们选取上升序列 $\{X_i\}_{i\geqslant 1}$，
-使得对每个 $i$ 都有 $\mu(X_i)<\infty$ 并且 $\displaystyle \bigcup_{i\geqslant 1} X_i = X$。我们定义
+我们定义
 \[
 \varphi_i(x)=
 \begin{cases}
-0,\ \ &x\notin X_i;\\
-i,\ \ &x\in X_i~\text{且}~f(x)\geqslant i;\\
-\frac{k}{2^i},\ \  &x\in X_i, f(x)<i~\text{且}~\frac{k}{2^i}\leqslant f(x)<\frac{k+1}{2^i}.
+i,\ \ &f(x)\geqslant i;\\
+\frac{k}{2^i},\ \  &f(x)<i~\text{且}~\frac{k}{2^i}\leqslant f(x)<\frac{k+1}{2^i}.
 \end{cases}
 \]
-这是上升的函数序列。对任给定的 $x\in X$，不妨设 $x\in X_{i_0}$ 并且 $f(x)< i_0$。
-根据 $\varphi_i$ 的定义，对任意的 $i\geqslant i_0$，我们有
+每个 $\varphi_i$ 只取有限多个值，所以是正的简单函数，
+并且这是上升的函数序列。对任给定的 $x\in X$，如果 $f(x)=+\infty$，那么 $\varphi_i(x)=i\rightarrow +\infty$；
+否则选取 $i_0>f(x)$，根据 $\varphi_i$ 的定义，对任意的 $i\geqslant i_0$，我们有
 \[
 0\leqslant f(x)-\varphi_i(x) \leqslant 2^{-i}.
 \]

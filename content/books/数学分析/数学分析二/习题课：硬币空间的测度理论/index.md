@@ -1,11 +1,5 @@
 ---
 title: 习题课：硬币空间的测度理论
-notices:
-  - name: 问题
-    items:
-      - 'A3) 中的 $\mathcal{F}_\infty \neq \Omega$ 似乎应为“$\mathcal{F}_\infty$ 不是 $\sigma$-代数”之类的结论。'
-      - 'A11) 中的 $\Psi_* m=P = m$ 似乎应为 $\Psi_* m=P$。'
-      - 'B7) 中 $s=(s_1,s_2,\cdots,s_n)\in \{0,1\}^{\mathbb{Z}_{>0}}$ 似乎应为 $s\in \{0,1\}^n$。'
 ---
 
 ::: remark* (寄语)
@@ -38,7 +32,7 @@ A2) 对于每个 $s=(s_1,\cdots,s_n)\in \{0,1\}^n$，我们定义
 A3) 证明，
     $\mathcal{F}_1 \subset \mathcal{F}_2 \subset \cdots$ 是上升的序列并且
     $\displaystyle\mathcal{F}_\infty=\bigcup_{n\geqslant 1} \mathcal{F}_n$ 也是代数但是
-    $\mathcal{F}_\infty \neq \Omega$。
+    $\mathcal{F}_\infty$ 不是 $\sigma$-代数。
 
 A4) 证明，对每个 $A\in \mathcal{F}_\infty$，总存在 $n$ 和 $s_1,\cdots, s_k \in \{0,1\}^n$，
     使得 $A=C_{s_1}\cup\cdots\cup C_{s_k}$。
@@ -83,7 +77,7 @@ A11) 我们定义
      \Psi\colon ([0,1],\mathcal{B}([0,1]))\rightarrow (\Omega,\mathcal{B}(\Omega))
      \]
      如下：$\Psi(x)$ 为 $x$ 的二进制展开，如果展开方式超过一种，则取从某位开始都是零的那种展开。
-     证明 $\Psi$ 是可测映射且 $\Psi_* m=P = m$。
+     证明 $\Psi$ 是可测映射且 $\Psi_* m=P$。
 
      **注记。** 从而 $(\Omega,\mathcal{B}(\Omega),P)$ 作为测度空间与 $[0,1]$
      加上 Lebesgue 测度同构（在
@@ -164,7 +158,7 @@ B6) 对每个 $\alpha\in[0,1]$，定义
     \]
     证明：$X_\alpha$ 是一个不可数集合并且 $X_\alpha \in \mathcal{B}(\Omega)-\mathcal{F}_\infty$。
 
-B7) 给定 $s=(s_1,s_2,\cdots,s_n)\in \{0,1\}^{\mathbb{Z}_{>0}}$，我们定义算子
+B7) 给定 $s=(s_1,s_2,\cdots,s_n)\in \{0,1\}^n$，我们定义算子
     \[
     T_s\colon\Omega \rightarrow \Omega, \ \omega\mapsto (s_1,\cdots,s_n, \omega_1,\omega_2,\cdots).
     \]

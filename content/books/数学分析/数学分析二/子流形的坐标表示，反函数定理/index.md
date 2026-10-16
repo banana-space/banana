@@ -1,10 +1,5 @@
 ---
 title: 子流形的坐标表示，反函数定理
-notices:
-  - name: 问题
-    items:
-      - '反函数定理证明第二步中证明单射的等式 $0=\|f(x)-f(x'')\|=\int_0^1\cdots$ 中，范数似乎应去掉（右边的积分是向量）。'
-      - 反函数定理证明第三步由前一个不等式似乎只能得到系数 $\frac{10}{9}$ 而不是 $1.1$，不影响连续性的结论。
 ---
 
 ## 子流形定义的一个注解
@@ -265,7 +260,7 @@ h(t)=f\bigl(tx+(1-t)x'\bigr).
 那么，我们通过对 $h(t)$ 用Newton–Leibniz公式，就有
 \[
 \begin{aligned}
-0&=\|f(x)-f(x')\|=\int_{0}^1 df\bigl(tx+(1-t)x'\bigr)(x-x')\,dt\\
+0&=f(x)-f(x')=\int_{0}^1 df\bigl(tx+(1-t)x'\bigr)(x-x')\,dt\\
 &= x-x' + \int_{0}^1 \Bigl(df\bigl(tx+(1-t)x'\bigr)-{\rm Id}\Bigr)(x-x')\,dt.
 \end{aligned}
 \]
@@ -289,7 +284,7 @@ h(t)=f\bigl(tx+(1-t)x'\bigr).
 \]
 从而
 \[
-|g(y)-g(y')|\leqslant 1.1\times |y-y'|.
+|g(y)-g(y')|\leqslant \frac{10}{9}|y-y'|.
 \]
 这表明 $g$ 是连续的。
 :::

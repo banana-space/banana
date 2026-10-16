@@ -1,10 +1,5 @@
 ---
 title: 非驻相法与微局部椭圆正则性
-notices:
-  - name: 问题
-    items:
-      - '“一个非驻相法的引理”一节中，条件 (c) 的叙述在“都有”之后紧接“我们就有”，语句似乎不完整。'
-      - '“微局部椭圆正则性定理的证明”一节中，$J(\xi)$ 的估计 $|J(\xi)|\leqslant \frac{C''_m}{(1+|\xi|)^{m-k-1}}$ 的指数似乎应为 $k+1-m$，这样 $k$ 足够大时才得到衰减。'
 ---
 
 ## 一个非驻相法的引理
@@ -29,10 +24,9 @@ notices:
     \]
 
 (c) （被作用函数）假设$K\subset \mathbb{R}^n$是紧集，
-    $u\in \mathcal{E}'(\mathbb{R}^n)$使得${\rm supp}(u)\subset K$。
-    如果存在$\alpha_0>0$和$\eta_0\in \mathbf{S}^{n-1}$，使得对任意的$N\geqslant 1$，存在常数$C_N$，
+    $u\in \mathcal{E}'(\mathbb{R}^n)$使得${\rm supp}(u)\subset K$，
+    并且存在$\alpha_0>0$和$\eta_0\in \mathbf{S}^{n-1}$，使得对任意的$N\geqslant 1$，存在常数$C_N$，
     使得对任意的$\xi \in \Gamma(\eta_0,\alpha_0)$，都有
-    我们就有
     \[
     \left|\widehat{u}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
     \]
@@ -666,7 +660,7 @@ $x_0\in \Omega$，存在常数$\beta>0$，$C>0$，使得
 \]
 所以，
 \[
-|J(\xi)|\leqslant \frac{C'_m}{(1+|\xi|)^{m-k-1}},
+|J(\xi)|\leqslant \frac{C'_m}{(1+|\xi|)^{k+1-m}},
 \]
 其中，$k$是任意的正整数。
 
