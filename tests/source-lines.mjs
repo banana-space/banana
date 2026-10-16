@@ -39,6 +39,8 @@ assert.equal(show(body, 4), [
   '::: theorem', '<26>定理内容 `代码', '跨行` 之后', ':::', '![图](a.png)', '[^1]: <30>脚注', '[链接]: https://example.org',
 ].join('\n'));
 // A mark ends in punctuation, as a line start counts for emphasis; it holds no ordinary character.
+// Not within a tag continued on the next lines.
+assert.equal(show('**甲**\n<person lang="de"\n  ipa="/x/" />，\n乙'), '<1>**甲**\n<person lang="de"\n  ipa="/x/" />，\n<4>乙');
 const mark = markSourceLines('甲', 0).slice(0, -1);
 assert.match(mark.at(-1), /\p{P}/u);
 assert.doesNotMatch(mark, /[\p{L}\p{N}\s]/u);

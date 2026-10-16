@@ -118,6 +118,11 @@ assert.ok(has('[^1]: 脚注 $x$。\n    续行 $y$。\n', 'InlineMath', '$y$'), 
 assert.ok(has('正文[^1]。\n', 'FootnoteMark', '[^1]'));
 assert.deepEqual(['<', 'lang', 'grc', 'person', 'name', '"甲"', '</'].map(piece => classesOf('<lang grc>x</lang> <person name="甲">\n', piece)[0]),
   ['hl-structure', 'hl-code-language', 'hl-key', 'hl-code-language', 'hl-key', 'hl-yaml-value', 'hl-structure']);
+// A tag continued on the next lines is one tag (tests/components.mjs builds it).
+assert.ok(has('**甲**\n<person lang="de"\n  ipa="/x/" />，乙\n', 'Tag', '<person lang="de"\n  ipa="/x/" />'));
+assert.deepEqual(classesOf('**甲** <person lang="de"\n  ipa="/x/" />\n', 'ipa')[0], 'hl-key');
+assert.ok(has('> **甲** <person lang="de"\n>   ipa="/x/" />\n', 'Tag', '<person lang="de"\n>   ipa="/x/" />'));
+assert.ok(!has('**甲** <person lang="de"\n> ipa="/x/" />\n', 'Tag', '<person lang="de"\n> ipa="/x/" />'));
 // A line starting with a tag is a paragraph's, its Markdown read as usual (not an HTML block).
 assert.ok(has('<align right>\n**甲** $x$\n</align>\n', 'InlineMath', '$x$'));
 const table = '| 名称 | 公式 |\n| --- | --- |\n| [[同调群|同调]] | $|x|$ |\n';

@@ -627,6 +627,8 @@ build_shortcode_syntax:
   other: "页面中不能写 Hugo 短代码（{{ .Text }}）：请改用标签，如 <see>…</see>；字面的大括号写成 \\{"
 build_tag_unknown:
   other: "不能使用 HTML 标签 <{{ .Name }}>：页面中只能使用 {{ .Allowed }}；字面的 “<” 写成 &lt;，或放进公式、代码"
+build_tag_layout:
+  other: "<{{ .Name }}> 的写法有误：参数之间可以换行，但参数的值不能分在两行，标签中也不能有空行；在引用中，续行开头的 “>” 应与首行一样多"
 build_tag_void:
   other: "<{{ .Name }}> 单独使用，没有结束标签 </{{ .Name }}>"
 build_tag_closing_parameters:

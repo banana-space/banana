@@ -224,10 +224,12 @@ export function completionSources(namesURL, text, otherLabels = () => []) {
     const { state, pos } = context;
     if (!inText(state, pos)) return null;
     const line = state.doc.lineAt(pos), before = line.text.slice(0, pos - line.from), after = line.text.slice(pos - line.from);
+    // With the lines before in its paragraph: a <person …> or <spoiler …> may continue on the next lines.
+    const paragraph = state.sliceDoc(Math.max(0, line.from - 1000), line.from).split(/\n[ \t]*\n/).at(-1) + before;
     let match;
     // A bare parameter (<lang en>, <align right>) shows as a parameter, a quoted one (lang="en") as a value.
     const bareLanguage = before.match(/<lang[ \t]+([a-zA-Z-]*)$/);
-    if ((match = bareLanguage ?? before.match(/<person\b[^<>]*[ \t]lang="([a-zA-Z-]*)$/))) {
+    if ((match = bareLanguage ?? paragraph.match(/<person\b[^<>]*\slang="([a-zA-Z-]*)$/))) {
       const data = await loadNames();
       if (!data?.languages) return null;
       const type = bareLanguage ? 'attribute' : 'value';
@@ -240,7 +242,7 @@ export function completionSources(namesURL, text, otherLabels = () => []) {
       return { from: pos - match[1].length, validFor: /^[a-z]*$/, options: ['right', 'center'].map(side => ({ label: side, detail: text(`completion_align_${side}`), type: 'attribute' })) };
     }
     // A parameter's name, not within a quoted value.
-    if ((match = before.match(/<(person|spoiler)\b([^<>]*[ \t])([a-z]*)$/)) && match[2].split('"').length % 2 === 1) {
+    if ((match = paragraph.match(/<(person|spoiler)\b([^<>]*\s)([a-z]*)$/)) && match[2].split('"').length % 2 === 1) {
       if (!match[3] && !context.explicit) return null;
       const written = new Set([...`${match[2]} ${after.split('>')[0]}`.matchAll(/([a-z]+)=/g)].map(found => found[1]));
       const options = tagParameters[match[1]].filter(key => !written.has(key)).map(key => snippetCompletion(`${key}="\${}"`, {

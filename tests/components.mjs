@@ -173,7 +173,9 @@ try {
     '---', 'title: 人名测试',
     'categories: [数学家]', '---',
     '**Nobuo Yoneda** <person original="[米田]<よねだ> 信<のぶ>夫<お>" lang="ja" translit="Yoneda Nobuo" years="1930--1996" />，',
-    'Armand Borel <person lang="fr" ipa="/a/">。', '',
+    'Armand Borel <person lang="fr" ipa="/a/">。',
+    // Continued on the next lines (a long tag within the line width).
+    '**Peter Dirichlet**', '<person lang="de" years="1805--1859"', '  ipa="/x/"', '  />，德国数学家。', '',
     '<see>[[奇异上同调]]、[[不存在的条目]]</see>', '',
     '![图](pic.png?width=120)', '', '![](pic.png "替代文字")', '', '<align right>', '——某人\\', '*某书*', '</align>', '', '```terms', '米田 信夫:', '  lang: ja', '  zh: 米田信夫', '$\\infty$-范畴:', '  en: $\\infty$-category', '```', '',
   ].join('\n'));
@@ -183,6 +185,7 @@ try {
   assert.match(personHTML, /<span class="person-annotations">（<span class="person-label" data-typography-boundary="true">日语<\/span> <span lang="ja"><ruby>米田<rp> \(<\/rp><rt>よねだ<\/rt><rp>\) <\/rp><\/ruby> <ruby>信<rp> \(<\/rp><rt>のぶ<\/rt>[\s\S]*?，<span class="person-years">1930(?:–|&ndash;)1996<\/span>）/);
   // The note follows the name (the space between them goes); years are Markdown ("--" is a dash).
   assert.match(personHTML, /<strong>Nobuo Yoneda<\/strong><span class="person-annotations">/);
+  assert.match(personHTML, /<strong>Peter Dirichlet<\/strong><span class="person-annotations">（<span class="person-label" data-typography-boundary="true">德语<\/span> <span class="person-label" data-typography-boundary="true">IPA<\/span> <span class="person-ipa"[\s\S]*?1805(?:–|&ndash;)1859<\/span>）<\/span>，德国数学家/);
   assert.match(personHTML, /Armand Borel<span class="person-annotations">（<span class="person-label" data-typography-boundary="true">法语<\/span> <span class="person-label" data-typography-boundary="true">IPA<\/span> <span class="person-ipa"/);
   assert.match(personHTML, /，<span class="person-label" data-typography-boundary="true">拉丁转写<\/span> <i class="person-transliteration" lang="ja-Latn">Yoneda Nobuo<\/i>/);
   assert.match(personHTML, /<p class="terms-title">译名<\/p>/);
@@ -240,5 +243,20 @@ try {
   assert.throws(build, /<person> 没有参数 name/);
   await writeFile(page, '---\ntitle: 组件示例\n---\n示例 <person lang="en" />\n');
   assert.throws(build, /<person> 至少需要 original、translit、ipa、years 之一/);
+  // A tag continues on the next lines between its parameters, not within a value or across a blank line.
+  for (const tag of ['<person lang="en" ipa="/a\n  b/" />', '<person lang="en"\n\n  ipa="/a/" />', '<person lang="en"\n> ipa="/a/" />']) {
+    await writeFile(page, `---\ntitle: 组件示例\n---\n示例 ${tag}\n`);
+    assert.throws(build, /<person> 的写法有误/, tag);
+    assert.throws(() => execFileSync(process.execPath, ['scripts/check.mjs', 'content/wiki/components-example'], { cwd: root, stdio: 'pipe' }), error => /<person> 的写法有误/.test(error.stdout), tag);
+  }
+  await writeFile(page, '---\ntitle: 组件示例\n---\n示例 <person lang="en"\n  ipa="/a/" />\n');
+  execFileSync(process.execPath, ['scripts/check.mjs', 'content/wiki/components-example'], { cwd: root, stdio: 'pipe' });
+  // In a quote, the continuation lines carry the quote's marks (or none, a lazy line), as many as the first line.
+  await writeFile(page, '---\ntitle: 组件示例\n---\n> > 甲 <person lang="en"\n> >   ipa="/a/"\n  years="1900" />，乙\n');
+  build();
+  assert.match(normalizeHTML(await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8')),
+    /<blockquote>\s*<blockquote>\s*<p>甲<span class="person-annotations">[\s\S]*?1900<\/span>）<\/span>，乙<\/p>/);
+  await writeFile(page, '---\ntitle: 组件示例\n---\n> 甲 <person lang="en"\n> > ipa="/a/" />\n');
+  assert.throws(build, /<person> 的写法有误/);
   console.log('内容内组件定义排除及清理、提示图标、列表参数、列表字段与模板段落、人名注音与生卒年、参见、图片宽度、默认地址、术语汇总与段落排版、导航当前页识别与自定义地址、分组与链接、假名、人名及最终 Hugo 输出验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }
