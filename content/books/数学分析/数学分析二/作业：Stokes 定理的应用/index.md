@@ -151,6 +151,7 @@ B3) $\Omega \subset \mathbb{R}^2$ 是有界光滑带边区域，
        其中 $\nu=(\nu_1,\nu_2)$。
 
 B4)
+
     1. 假设空间 $\mathbb{R}^3$ 有 $N$ 个点电荷，
        它们的位置和电量分别为 ${x_i} \in \mathbb{R}^3$ 和 $q_i\in \mathbb{R}$，其中 $i=1,\cdots,N$。
        根据Coulomb定律，它们在 $x\in \mathbb{R}^3$ 处产生的电场（向量场）为
@@ -189,6 +190,7 @@ B4)
        是无旋的，即 $\nabla \times E = 0$。
 
 B5)
+
     1. （只用区域边界的信息来计算区域的面积）假设光滑闭曲线
        \[
        \gamma\colon [a,b] \to \mathbb{R}^2, t \mapsto (x(t),y(t))
