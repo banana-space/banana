@@ -1,9 +1,5 @@
 ---
 title: 微分同胚与光滑子流形
-notices:
-  - name: 问题
-    items:
-      - “多元函数的Taylor展开”一节定理中的 $(x-y)^{\alpha}$ 似乎应为 $(y-x)^{\alpha}$（与证明中的写法一致）。
 ---
 
 ## 微分同胚与坐标变换
@@ -355,12 +351,12 @@ $f$ 在 $\Omega$ 上 $k+1$ 次可微分（我们通常要求更多的条件：$f
 存在 $\vartheta \in  [0,1]$（可能依赖于 $x$ 和 $y$），使得
 \[
 \begin{aligned}
-f(y)&=\sum_{|\alpha|\leqslant k}\frac{\partial^\alpha f(x)}{\alpha!}(x-y)^{\alpha}+\sum_{|\alpha|= k+1}\frac{\partial^\alpha f\bigl(x+\vartheta (y-x)\bigr)}{\alpha!}(x-y)^{\alpha},
+f(y)&=\sum_{|\alpha|\leqslant k}\frac{\partial^\alpha f(x)}{\alpha!}(y-x)^{\alpha}+\sum_{|\alpha|= k+1}\frac{\partial^\alpha f\bigl(x+\vartheta (y-x)\bigr)}{\alpha!}(y-x)^{\alpha},
 \end{aligned}
 \]
 其中，
 \[
-(x-y)^{\alpha}=(x_1-y_1)^{\alpha_1}\cdots(x_n-y_n)^{\alpha_n}, \ \ \alpha! = {\alpha_1!\cdots\alpha_n!}.
+(y-x)^{\alpha}=(y_1-x_1)^{\alpha_1}\cdots(y_n-x_n)^{\alpha_n}, \ \ \alpha! = {\alpha_1!\cdots\alpha_n!}.
 \]
 :::
 

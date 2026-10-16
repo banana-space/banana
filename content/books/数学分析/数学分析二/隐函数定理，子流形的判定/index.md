@@ -1,9 +1,5 @@
 ---
 title: 隐函数定理，子流形的判定
-notices:
-  - name: 问题
-    items:
-      - '“子流形的判断准则”的证明最后一句中，$f^{-1}(c)$ 似乎应是 $n-p$ 维（余维数为 $p$）的子流形，而不是 $p$ 维。'
 ---
 
 ## 隐函数定理
@@ -206,11 +202,11 @@ f^{-1}(c)=\{x\in \mathbb{R}^{n}|f(x)=c\}.
 根据 $\operatorname{Rank}df(x)=p$，通过调整 $x_1,\cdots,x_n$ 的标号，
 我们可以使得后面 $p$ 个坐标 $x_{n-p+1},\cdots,x_n$ 满足
 \[
-\Bigl(\dfrac{\partial f_i}{\partial{x_{n+1-j}}}\Bigr)_{1\leqslant i,j\leqslant p} (x)\neq 0,
+\det\Bigl(\dfrac{\partial f_i}{\partial{x_{n+1-j}}}\Bigr)_{1\leqslant i,j\leqslant p} (x)\neq 0,
 \]
 其中 $x$ 是任意选定的 $x\in f^{-1}(c)$ 上的点。
 我们选取函数 $f-c$ 并且将后 $p$ 个坐标用 $y_1,\cdots,y_p$ 来表示，这就化成了隐函数定理的情况。
-特别地，纤维 $f^{-1}(c)$ 在任意一点附近都是 $p$ 维子流形，所以 $f^{-1}(c)$ 是 $p$-维子流形。
+特别地，纤维 $f^{-1}(c)$ 在任意一点附近都是 $n-p$ 维子流形，所以 $f^{-1}(c)$ 是 $n-p$ 维（余维数为 $p$）的子流形。
 :::
 
 ::: remark*

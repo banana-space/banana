@@ -1,9 +1,5 @@
 ---
 title: 常用的换元积分，子流形上的积分
-notices:
-  - name: 问题
-    items:
-      - '“Gauss积分的计算”中，$\int_0^\infty e^{-r^2}r\,dr=\frac{1}{2}$，因此 $I^2$ 似乎应为 $\pi$，$I$ 似乎应为 $\sqrt{\pi}$。'
 ---
 
 ## 回顾：换元积分公式
@@ -15,7 +11,7 @@ notices:
 \]
 那么，对任意的 $\Omega_2$ 上对 $dy$ 可积的函数 $f$，我们有
 \[
-\int_{\Omega_2}f(y)dy = \int_X \bigl(f\circ \Phi\bigr)(x)|{\mathbf J}_\Phi (x)|dx.
+\int_{\Omega_2}f(y)dy = \int_{\Omega_1} \bigl(f\circ \Phi\bigr)(x)|{\mathbf J}_\Phi (x)|dx.
 \]
 
 ::: example*
@@ -64,10 +60,10 @@ notices:
 I^2&=\left(\int_{\mathbb{R}}e^{-x^2}dx\right)\left(\int_{\mathbb{R}}e^{-y^2}dy\right)\\
 &=\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}dxdy\\
 &=\int_0^\infty\int_0^{2\pi}e^{-r^2}r drd\vartheta\\
-&=2\pi \int_0^\infty e^{-r^2}rdr=2\pi.
+&=2\pi \int_0^\infty e^{-r^2}rdr=\pi.
 \end{aligned}
 \]
-所以，$I=\sqrt{2\pi}$。
+所以，$I=\sqrt{\pi}$。
 :::
 
 ::: example* [行列式的几何含义]

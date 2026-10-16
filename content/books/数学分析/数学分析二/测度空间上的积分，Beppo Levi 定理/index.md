@@ -3,7 +3,6 @@ title: 测度空间上的积分，Beppo Levi 定理
 notices:
   - name: 问题
     items:
-      - '“测度空间上积分的定义”一节中，几乎处处为零的函数积分为零的命题的证明里，等式 $\int_{X} f(x)d\mu = \sum_{i=0}^m \lambda \mu(f^{-1}(\lambda))>0$ 似乎应是简单函数 $\varphi$ 的积分 $\int_X \varphi d\mu = \sum_{\lambda} \lambda \mu(\varphi^{-1}(\lambda))$。'
       - “Beppo Levi 定理”一节中推论的陈述中没有 $\sigma$-有限的假设，但证明中假设了 $(X,\mathcal{A},\mu)$ 是 $\sigma$-有限的。
 ---
 
@@ -225,9 +224,9 @@ f^+(x) = f(x)\mathbf{1}_{\{x|f(x)\geqslant 0\}},\ \ f^-(x) = -f(x)\mathbf{1}_{\{
 所以，存在简单函数 $0\leqslant  \varphi \leqslant f$，使得 $\displaystyle \int_X \varphi d\mu >0$。
 这显然是不可能的，否则，根据简单函数积分的定义，我们有
 \[
-\int_{X} f(x)d\mu = \sum_{i=0}^m \lambda \mu(f^{-1}(\lambda))>0.
+\int_{X} \varphi d\mu = \sum_{\lambda} \lambda \mu(\varphi^{-1}(\lambda))>0.
 \]
-所以，有某个 $\lambda>0$，使得 $ \mu(f^{-1}(\lambda))>0$，所以在测度非零集合 $f^{-1}(\lambda)$ 上，
+所以，有某个 $\lambda>0$，使得 $ \mu(\varphi^{-1}(\lambda))>0$，所以在测度非零集合 $\varphi^{-1}(\lambda)$ 上，
 \[
 f(x)\geqslant \varphi(x)=\lambda >0.
 \]
