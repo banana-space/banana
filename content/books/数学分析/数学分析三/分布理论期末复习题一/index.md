@@ -1,9 +1,5 @@
 ---
 title: 分布理论期末复习题一
-notices:
-  - name: 问题
-    items:
-      - 题目 D 中有两个小题都编号为 D6)。
 ---
 
 **题目A.**  $u(x)$是在$\mathbb{R}$上定义的以$1$为周期的函数。对于$x\in [0,1]$，我们有
@@ -183,9 +179,9 @@ D6) 给定$R>0$，证明，如下的线性形式
     \lim_{R\rightarrow +\infty} u_R \stackrel{\mathcal{S}'(\mathbb{R}^2)}{=}u.
     \]
 
-D6) 计算Fourier变换$\widehat{u_R}(\xi)$
+D7) 计算Fourier变换$\widehat{u_R}(\xi)$
     （提示：考虑算子$\dfrac{\partial }{\partial x}+2\dfrac{\partial }{\partial y}$）
 
-D7) 证明，对任意的$s\in \mathbb{R}$，$u\notin H^s(\mathbb{R}^2)$。
+D8) 证明，对任意的$s\in \mathbb{R}$，$u\notin H^s(\mathbb{R}^2)$。
 
-D8) 给定$R>0$。试找出所有的$s$，使得$u_R \in H^s(\mathbb{R}^2)$。
+D9) 给定$R>0$。试找出所有的$s$，使得$u_R \in H^s(\mathbb{R}^2)$。

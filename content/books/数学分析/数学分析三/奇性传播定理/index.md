@@ -1,9 +1,5 @@
 ---
 title: 奇性传播定理
-notices:
-  - name: 问题
-    items:
-      - “奇性传播定理的证明：完成”一节中，控制 $H(\xi)$ 的条件 (c) 的陈述（“都有”之后）以及其后“所以我们可以运用非驻相法引理，从而，”一句不完整。
 ---
 
 给定区域$\Omega$上的$m$-次微分算子$P$和分布
@@ -641,7 +637,6 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
 
   (c) 由于$(x(1),\xi(1))\notin WF(u)$，对任意的$N\geqslant 1$，存在常数$C_N$，
       使得对任意的$\xi \in \Gamma(\xi(1),\beta)$，都有
-      我们就有
       \[
       \left|\widehat{f}(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
       \]
@@ -651,9 +646,8 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
   \[
   \left|\frac{\nabla_x \phi(x,\xi)}{|\nabla_x \phi(x,\xi)|}-\eta_0\right|<\beta.
   \]
-  所以我们可以运用非驻相法引理，从而，
-
-  此时，引理的结论表明，对任意的$N\geqslant 1$，存在$C_N>0$，使得对任意的$\Gamma(\xi(0),\alpha_0)$，
+  所以我们可以运用非驻相法引理。
+  引理的结论表明，对任意的$N\geqslant 1$，存在$C_N>0$，使得对任意的$\xi\in\Gamma(\xi(0),\alpha_0)$，
   有
   \[
   \left|H(\xi)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
@@ -664,7 +658,7 @@ e^{-ix\cdot \xi}\varphi(x)&=e^{-i\phi(1,x,\xi)}a_k(1,x,\xi)
   这一部分的控制和$H(\xi)$是完全一致的，唯一的不同在于把$u$换成了$Pu$。
   另外，我们可以对$t$一致地选取$\chi$。
   重复上面的过程，我们就得到对任意的$N\geqslant 1$，存在$C_N>0$，
-  使得对任意的$\Gamma(\xi(0),\alpha_0)$，有
+  使得对任意的$\xi\in\Gamma(\xi(0),\alpha_0)$，有
   \[
   \left|I(\xi,t)\right|\leqslant \frac{C_{N}}{\left(1+|\xi|\right)^N}.
   \]

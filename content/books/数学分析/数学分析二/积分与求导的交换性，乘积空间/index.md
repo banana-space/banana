@@ -203,19 +203,26 @@ $B_j$ 均为 $B$ 的子集并且 $\displaystyle \bigcup_{j\leqslant n}B_j=B$，�
 \[
 \sum_{j\leqslant n} \mu\bigl(A_j\bigr)\nu\bigl(B_j\bigr)=\mu(A)\nu(B).
 \]
-如果 $\{A_j\}_{j\leqslant n}$ 是两两不交的，$\{B_j\}_{j\leqslant n}$ 也是两两不交的，
-那么命题上述公式是显然的，因为
+我们先假设 $A=\coprod_{k\leqslant p}C_k$，$B=\coprod_{l\leqslant q}D_l$，
+其中 $\{C_k\}$ 两两不交，$\{D_l\}$ 两两不交，并且 $A\times B$ 的分解恰好是
+$A\times B=\coprod_{k,l}C_k\times D_l$，那么上述公式是显然的，因为
 \[
 \begin{aligned}
-\mu(A)\nu(B)&=\left(\sum_{j\leqslant n} \mu\bigl(A_j\bigr)\right)\left(\sum_{j\leqslant n} \nu\bigl(B_j\bigr)\right)\\
-&=\sum_{j,j'\leqslant n}  \mu\bigl(A_j\bigr) \nu\bigl(B_{j'}\bigr).
+\mu(A)\nu(B)&=\left(\sum_{k\leqslant p} \mu\bigl(C_k\bigr)\right)\left(\sum_{l\leqslant q} \nu\bigl(D_l\bigr)\right)\\
+&=\sum_{k,l}  \mu\bigl(C_k\bigr) \nu\bigl(D_l\bigr).
 \end{aligned}
 \]
-对于一般的情形，我们要 $A_j$ 和 $B_j$ 进一步分解成不相交的集合即可。我们考虑
+对于一般的情形，我们把 $A_j$ 和 $B_j$ 进一步分解成不相交的集合即可。我们考虑
 \[
-\bigl\{X_1\cap X_2\cap \cdots \cap X_n\bigm| X_i = A_i ~\text{或}~(A_i)^c\bigr\},
+\bigl\{X_1\cap X_2\cap \cdots \cap X_n\bigm| X_i = A_i ~\text{或}~A-A_i\bigr\},
 \]
-它们是两两不交的并且可以把 $A_j$ 都并出来。
+它们是两两不交的（记其中非空者为 $C_1,\cdots,C_p$）并且可以把每个 $A_j$ 都并出来；
+类似地，用 $Y_i=B_i$ 或 $B-B_i$ 得到 $B$ 的分解 $D_1,\cdots,D_q$。
+不难验证这些 $C_k\times D_l$ 两两不交且可以把每个 $A_j\times B_j$ 并出来。
+对每个 $A_j\times B_j$ 以及对 $A\times B$ 分别运用前面的情形，我们就得到
+\[
+\sum_{j\leqslant n} \mu\bigl(A_j\bigr)\nu\bigl(B_j\bigr)=\sum_{j\leqslant n}\sum_{C_k\subset A_j,\atop D_l\subset B_j}\mu(C_k)\nu(D_l)=\sum_{k,l}\mu(C_k)\nu(D_l)=\mu(A)\nu(B).
+\]
 
 据此，我们有
 

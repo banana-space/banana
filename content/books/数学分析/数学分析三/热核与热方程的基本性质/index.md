@@ -1,9 +1,5 @@
 ---
 title: 热核与热方程的基本性质
-notices:
-  - name: 问题
-    items:
-      - 从代数角度证明热核为实值的注记中，“特征子空间 $E_\lambda\subset$”一句缺少包含它的空间。
 ---
 
 ## 热核的构造
@@ -778,7 +774,7 @@ u_0 \in C_0^\infty(\Omega), \ \ u_0\geqslant 0 \ \ \Rightarrow \ \ \int_{\Omega}
 
 ::: remark*
 我们也可以从代数的角度来证明这个结论：我们要说明，总是可以把$\varphi_k(x)$选做实函数。
-对任意的特征值$\lambda$，我们考虑$-\triangle$的特征子空间$E_\lambda\subset$。
+对任意的特征值$\lambda$，我们考虑$-\triangle$的特征子空间$E_\lambda\subset H^1_0(\Omega)$。
 这是一个有限维的特征子空间，如果$\varphi\in E_\lambda$，那么，
 \[
 -\triangle \varphi =\lambda \varphi  \ \ \Rightarrow \ \ -\triangle \overline{\varphi} =\lambda \overline{\varphi}.

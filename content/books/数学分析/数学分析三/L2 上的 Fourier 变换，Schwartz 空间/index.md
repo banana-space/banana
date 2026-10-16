@@ -1,9 +1,5 @@
 ---
 title: $L^2$ 上的 Fourier 变换，Schwartz 空间
-notices:
-  - name: 问题
-    items:
-      - “Schwartz空间”一节中 $\mathcal{D}(\mathbb{R}^n)$ 在 $\mathcal{S}(\mathbb{R}^n)$ 中稠密的证明里，“对于第一项，……所以”一句没有写完。
 ---
 
 ## $L^2(\mathbb{R}^n)$上的Fourier变换
@@ -224,8 +220,8 @@ x^\alpha\partial^\beta(\varphi-\varphi_k)& =x^\alpha \partial^\beta\left(\left(1
 \end{aligned}
 \]
 上式的第二个求和部分有$k^{-1}$这样的衰减因子，所以极限为$0$。
-对于第一项，由于$\chi$在半径为$1$的球内部为$1$，所以
-然而，我们有
+对于第一项，由于$\chi$在半径为$1$的球内部为$1$，所以$1-\chi\left(\dfrac{x}{k}\right)$在$|x|<k$上为$0$；
+另外，$0\leqslant 1-\chi\leqslant 1$。从而，我们有
 \[
 \begin{aligned}
 \left|\left(1-\chi\Big(\frac{x}{k}\Big)\right)x^\alpha \partial^\beta\varphi\right|&\leqslant \mathbf{1}_{|x|\geqslant k}(x)\cdot |x|^{-2}\cdot |x^{\alpha+2}\partial^\beta \varphi|\\
