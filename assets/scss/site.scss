@@ -3,6 +3,7 @@ $font-path: "{{ "fonts/" | relURL }}";
 @import "variables";
 @import "base";
 @import "content";
+@import "home";
 @import "katex";
 @import "tikz";
 @import "navigation";

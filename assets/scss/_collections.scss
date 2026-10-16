@@ -125,24 +125,29 @@
   }
 }
 
-// The lecture index (/books/): groups of books, one item each; see partials/collections/book-list.html.
-// Laid out like the recent changes (_recent-changes.scss): items divided by rules, which reach a little
-// into the margins; the whole item is the title's link.
-// Narrow screens have a 1.6rem gutter (_base.scss), so the bleed is smaller there.
-$book-item-bleed: 1.5rem;
-$book-item-bleed-narrow: 1.2rem;
+// The lecture index (/books/): groups of books, one card each; see partials/collections/book-list.html.
+// Cards like the home page's (_home.scss): soft fill, no frame, the whole card is the title's link.
+// The page has no sidebar, so it takes the navigation bar's full width, three cards to a row.
+.content > .container.lecture-index {
+  max-width: $site-frame-width;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .book-group {
-  margin-top: 3.2rem;
+  margin-top: 3.6rem;
 }
 
 .book-group-title {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.6rem;
   font-size: 2rem;
   line-height: 2.8rem;
 }
 
 .book-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -150,67 +155,85 @@ $book-item-bleed-narrow: 1.2rem;
 
 .book-item {
   position: relative;
-  margin: 0 (-$book-item-bleed);
-  padding: 1.2rem $book-item-bleed;
-  border-bottom: 1.5px solid rgba($border-color, .6);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 1.5rem 1.8rem 1.4rem;
+  border-radius: 1.5rem;
+  background: $alt-bg-color;
   transition: background-color .15s ease;
-
-  // The hover background is a rounded block per group.
-  &:first-child {
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
-  }
-
-  &:last-child {
-    border-bottom: 0;
-    border-bottom-left-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
-  }
-
-  @media (max-width: $search-breakpoint) {
-    margin: 0 (-$book-item-bleed-narrow);
-    padding-left: $book-item-bleed-narrow;
-    padding-right: $book-item-bleed-narrow;
-  }
 
   &:hover,
   &:focus-within {
-    background: $alt-bg-color;
+    background: #e6eaf0;
+
+    .book-item-title a {
+      color: $link-color;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
 
-  // The title's link covers the item.
-  .book-item-title a::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+  // The title's link covers the card.
+  .book-item-title a {
+    border-bottom: 0;
+    color: $alt-fg-color;
+    transition: color .15s;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
   }
 }
 
 .book-item-title {
-  // Static, unlike other headings: the link's overlay then covers the item.
+  // Static, unlike other headings: the link's overlay then covers the card.
   position: static;
   margin: 0;
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 2.4rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+
+.book-item-meta {
+  margin: .1rem 0 0;
+  color: $muted-color;
+  font-size: 1.3rem;
+  line-height: 2.1rem;
 }
 
 .book-item-description {
-  margin: .2rem 0 0;
+  margin: .6rem 0 0;
   color: #4b4f53;
   font-size: 1.45rem;
   line-height: 2.3rem;
 }
 
-.book-item-meta {
-  margin: .2rem 0 0;
-  color: $muted-color;
-  font-size: 1.3rem;
-  line-height: 2.2rem;
+@media (max-width: 1000px) {
+  .book-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .book-list {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .book-item {
+    padding: 1.4rem 1.6rem 1.3rem;
+  }
+
+  .book-item-title {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
 }
 
 @media (min-width: $collection-sidebar-breakpoint) {

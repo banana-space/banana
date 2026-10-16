@@ -1,4 +1,4 @@
-<section class="container list">
+<section class="container list{{ if .Params.lectureIndex }} lecture-index{{ end }}">
   <header>
     <h1 class="title"{{ if .Params.structuredPage }} id="page-title"{{ end }}>
       <a class="title-link" href="{{ .Permalink | safeURL }}">

@@ -327,3 +327,61 @@ if (navigation) {
     openSearch();
   }
 }
+
+// The home page has its own search field (layouts/index.html). It shows results in a panel like the header's,
+// through the same module; on a narrow screen, typing hands the query over to the header's full-screen search.
+// The header's field stays out of the way while the page's is in view (styles in _home.scss).
+const homeSearch = document.querySelector('.home-search');
+if (navigation && homeSearch) {
+  const input = homeSearch.querySelector('input');
+  const compact = window.matchMedia('(max-width: 760px)');
+  const headerInput = navigation.querySelector('.site-search input');
+  const headerToggle = navigation.querySelector('.search-toggle');
+  let controller = null;
+  let loading = null;
+  const load = () => {
+    let settings;
+    try { settings = JSON.parse(document.getElementById('search-config').textContent); }
+    catch { return; }
+    loading ??= import(settings.module).then(module => {
+      controller = module.headerSearch({ search: homeSearch, input, compact: () => false, onNavigate: () => {} });
+    }).catch(() => { loading = null; });
+  };
+  const open = () => {
+    if (compact.matches) return;
+    homeSearch.classList.add('is-open');
+    load();
+  };
+  const close = () => {
+    homeSearch.classList.remove('is-open');
+    controller?.reset();
+  };
+  // The header's compact search covers the page; the toggle opens it and focuses its field.
+  const handOver = () => {
+    if (!headerInput || !headerToggle) return false;
+    headerInput.value = input.value;
+    input.value = '';
+    homeSearch.classList.remove('has-query');
+    headerToggle.click();
+    headerInput.dispatchEvent(new Event('input'));
+    return true;
+  };
+  input.addEventListener('focus', open);
+  input.addEventListener('input', () => {
+    if (compact.matches && input.value && handOver()) return;
+    if (!homeSearch.classList.contains('is-open')) open();
+  });
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { close(); input.blur(); }
+  });
+  homeSearch.addEventListener('focusout', event => {
+    if (document.hasFocus && !document.hasFocus()) return;
+    if (!homeSearch.contains(event.relatedTarget)) close();
+  });
+  if (typeof IntersectionObserver !== 'undefined') {
+    const navHeight = Math.round(navigation.getBoundingClientRect().height) || 72;
+    new IntersectionObserver(([entry]) => {
+      navigation.classList.toggle('home-search-visible', entry.isIntersecting);
+    }, { rootMargin: `-${navHeight}px 0px 0px 0px` }).observe(homeSearch);
+  }
+}
