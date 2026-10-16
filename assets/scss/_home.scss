@@ -1,0 +1,367 @@
+// 首页（layouts/index.html）：居中的首屏（标题、一句话、搜索框）窄一些，下面“浏览网站内容”一节宽一些．
+$home-hero-width: 56rem;
+$home-browse-width: 72rem;
+$home-tile-bg: $alt-bg-color;
+$home-tile-bg-hover: #e6eaf0;
+
+.home {
+  &.container {
+    // 首页没有目录栏，整页居中．
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  header {
+    margin-top: 3rem;
+    margin-bottom: 4.8rem;
+    text-align: center;
+  }
+
+  // 标题：字距略开，下面一道香蕉黄的短线．
+  article h1 {
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-indent: .1em; // 抵消末字之后的字距，保持居中．
+
+    &::after {
+      content: "";
+      display: block;
+      width: 4.8rem;
+      height: 3px;
+      margin: 1.4rem auto 0;
+      background: $banana-color;
+    }
+  }
+}
+
+.home-lede {
+  max-width: 38rem;
+  margin: 3rem auto 0;
+  color: $muted-color;
+  font-size: 1.7rem;
+  line-height: 1.75;
+  text-wrap: balance;
+}
+
+// 页内搜索框：与导航栏的搜索框同一样式，大一号；结果在下方的面板里（static/js/site.js）．
+.home-search {
+  position: relative;
+  max-width: $home-hero-width;
+  margin: 0 auto;
+
+  .search-panel {
+    width: 100%;
+    max-width: none;
+  }
+
+  &.is-open.has-query .search-panel {
+    display: block;
+  }
+}
+
+.home-search-field {
+  gap: 1.4rem;
+  padding: 1.3rem 2rem;
+  border-radius: 1.4rem;
+  background: rgba($white, .6);
+  cursor: text;
+
+  .ui-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  &.search-field input {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+}
+
+// 导航栏的搜索框在页内搜索框可见时隐藏（static/js/site.js 加类），滚过之后再出现；
+// 窄屏上打开的全屏搜索不受影响．
+.navigation .site-search,
+.navigation .search-toggle {
+  transition: opacity .2s;
+}
+
+.navigation.home-search-visible:not(.is-searching) {
+  .site-search,
+  .search-toggle {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+// 浏览网站内容
+.home-browse {
+  max-width: $home-browse-width;
+  margin: 6rem auto 0;
+}
+
+.home article .home-browse-title {
+  margin: 0 0 2.8rem;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2.8rem;
+}
+
+.home-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+}
+
+// 卡片：整块可点，浅底无框；数目是脚注的一行，略加重．
+.home-tile {
+  display: flex;
+  flex-direction: column;
+  padding: 2.2rem 2.4rem 2rem;
+  border-radius: 1.5rem;
+  border-bottom: 0;
+  background: $home-tile-bg;
+  color: $fg-color;
+  transition: background-color .15s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-bottom: 0;
+    background: $home-tile-bg-hover;
+    color: $fg-color;
+  }
+
+  &:hover .home-tile-arrow {
+    transform: translateX(.3rem);
+  }
+
+  &:hover .home-tile-name,
+  &:focus-visible .home-tile-name {
+    color: $link-color;
+  }
+}
+
+.home-tile-name {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.6rem;
+  color: $alt-fg-color;
+  transition: color .15s;
+}
+
+.home-tile-text {
+  margin-top: .4rem;
+  font-size: 1.45rem;
+  line-height: 1.7;
+  color: #4b4f53;
+}
+
+.home-tile-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 2.4rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  color: $muted-color;
+  font-variant-numeric: tabular-nums;
+}
+
+.home article .home-count {
+  margin-right: .3rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: $fg-color;
+}
+
+.home-tile-arrow {
+  color: $link-color;
+  transition: transform .15s;
+}
+
+// 三个链接：上下留同样的空．
+.home-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 6rem 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+
+  // 链接之间一道淡淡的竖线．
+  li + li {
+    border-left: 1.5px solid rgba($border-color, .6);
+  }
+
+  li {
+    margin: 0;
+    padding: 0 1.2rem;
+    padding: 0;
+  }
+
+  a {
+    display: block;
+    border-bottom: 0;
+    color: $fg-color;
+
+    &:hover,
+    &:focus-visible {
+      border-bottom: 0;
+      color: $link-color;
+    }
+  }
+
+  .icon-external {
+    color: $semi-light-text-color;
+  }
+}
+
+.home-link-name {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.4rem;
+}
+
+.home-link-text {
+  display: block;
+  margin-top: .2rem;
+  font-size: 1.35rem;
+  line-height: 2rem;
+  color: $muted-color;
+}
+
+// _notice.scss 在后面引入，这里要更具体．
+.home .home-notice {
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+  border-radius: 0 1rem 1rem 0;
+
+  .notice-body p {
+    color: #4b4f53;
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .home {
+    header {
+      margin-top: 3rem;
+      margin-bottom: 0;
+    }
+
+    article h1 {
+      font-size: 3rem;
+      line-height: 3.6rem;
+
+      &::after {
+        margin-top: .8rem;
+      }
+    }
+  }
+
+  .home-lede {
+    margin-top: 2.4rem;
+    font-size: 1.5rem;
+    line-height: 1.7;
+  }
+
+  .home-search {
+    margin: 4.8rem auto 6rem;
+  }
+
+  .home-search-field {
+    gap: 1rem;
+    padding: 1rem 1.6rem;
+    border-radius: 1.2rem;
+
+    .ui-icon {
+      width: 1.9rem;
+      height: 1.9rem;
+    }
+
+    &.search-field input {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+    }
+  }
+
+  .home-browse {
+    margin-top: 4.8rem;
+  }
+
+  .home article .home-browse-title {
+    margin-bottom: 2.4rem;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+  }
+
+  .home-tiles {
+    gap: 1.2rem;
+  }
+
+  .home-tile {
+    padding: 1.6rem 1.5rem 1.4rem;
+  }
+
+  .home-tile-name {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+
+  .home-tile-text {
+    margin-top: 1.2rem;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .home-tile-foot {
+    padding-top: 2.4rem;
+    font-size: 1.3rem;
+  }
+
+  .home article .home-count {
+    font-size: 1.6rem;
+  }
+
+  .home-links {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2.4rem;
+    margin: 3.6rem 0;
+
+    // 第三个链接独占一行，不要竖线．
+    li:last-child {
+      grid-column: 1 / -1;
+      border-left: 0;
+    }
+  }
+
+  .home-link-name {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+  }
+
+  .home-link-text {
+    font-size: 1.3rem;
+  }
+
+  .home .home-notice {
+    margin-top: 2.4rem;
+  }
+
+  .home .home-notice .notice-body {
+    font-size: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-tile,
+  .home-tile-name,
+  .home-tile-arrow,
+  .navigation .site-search,
+  .navigation .search-toggle {
+    transition: none;
+  }
+}

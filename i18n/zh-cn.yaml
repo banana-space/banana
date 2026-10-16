@@ -89,10 +89,29 @@ person_transliteration_label:
   other: 拉丁转写
 see_also_label:
   other: 参见：
-home_stats:
-  other: 香蕉空间目前有 <strong class="home-stat">{{ .Wiki }}</strong> 篇百科文章和 <strong class="home-stat">{{ .Books }}</strong> 本讲义。
-home_recent_changes:
-  other: 你可以在<a href="{{ . }}">最近更改</a>查看网站的最新动态．
+# 首页（layouts/index.html）
+home_lede:
+  other: 中文数学百科及讲义集
+home_search_placeholder:
+  other: 搜索条目或讲义…
+home_browse:
+  other: 浏览网站内容
+home_wiki:
+  other: 百科
+home_wiki_text:
+  other: 按分类浏览条目，或在上方搜索．
+home_wiki_count:
+  other: <strong class="home-count">{{ .Count }}</strong>个条目
+home_books_text:
+  other: 课程讲义与专题讲义，可在线阅读．
+home_books_count:
+  other: <strong class="home-count">{{ .Count }}</strong>本讲义
+home_recent_changes_text:
+  other: 网站的最新动态
+home_help_text:
+  other: 如何编辑条目与讲义
+home_github_text:
+  other: 报告问题或发起讨论
 redirected_from:
   other: 跳转自：{{ .Name }}
 related_search_more:

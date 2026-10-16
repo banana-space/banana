@@ -27,19 +27,6 @@
         {{- $content = replace $content . (printf "%s%s" $toc .) 1 -}}
       {{- end -}}
     {{- end -}}
-    {{- /* 首页：条目与讲义的数目在构建时统计，放在第一个二级标题之前。 */ -}}
-    {{- if .IsHome -}}
-      {{- $wiki := len (where site.RegularPages "Section" "wiki") -}}
-      {{- $books := len (where (where site.Pages "Params.collectionHome" true) "Params.collectionKind" "lecture") -}}
-      {{- $stats := i18n "home_stats" (dict "Wiki" $wiki "Books" $books) -}}
-      {{- with site.GetPage "/recent-changes" -}}{{- $stats = printf "%s%s" $stats (i18n "home_recent_changes" .RelPermalink) -}}{{- end -}}
-      {{- $stats = printf "<p>%s</p>\n" $stats -}}
-      {{- with first 1 (findRE "<h2\\b[^>]*>" $content) -}}
-        {{- $content = replace $content (index . 0) (printf "%s%s" $stats (index . 0)) 1 -}}
-      {{- else -}}
-        {{- $content = printf "%s%s" $content $stats -}}
-      {{- end -}}
-    {{- end -}}
     {{ $content | safeHTML }}
     {{- range .Params.referenceTargets -}}
       {{- if and (not (in (slice "heading" "page") .kind)) (gt ($.Fragments.Identifiers.Count .id) 0) -}}
