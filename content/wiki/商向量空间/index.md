@@ -114,9 +114,11 @@ $V / 0 \simeq V$，这里 $0$ 表示[[零向量空间]]。
 
 - 若 $W' \subset V$ 是 $W$ 的补空间，即 $V = W \oplus W'$，
   则 $\pi$ 限制为同构 $W' \simeq V / W$。
-  补空间总是存在的，见[[向量空间]]。
+  补空间总是存在的，见[[子向量空间]]。
 
 ### 万有性质
+
+<see>[[万有性质]]</see>
 
 ::: proposition [万有性质] {@prop:universal}
 设 $k$ 是域，$V$ 是 $k$-向量空间，$W \subset V$ 是子向量空间，
@@ -132,38 +134,15 @@ $\pi \colon V \to V / W$ 是投影。
 容易验证 $\bar{f}$ 是线性的。
 :::
 
-::: theorem [第一同构定理]
-设 $f \colon V \to U$ 是向量空间之间的线性映射。
-则 $f$ 诱导同构
-\[
-V / \ker f \overset{\sim}{\longrightarrow} \operatorname{im} f ,
-\]
-其中 $\ker f$、$\operatorname{im} f$ 分别是 $f$ 的[[核 (代数)|核]]与[[像]]。
-:::
-
-::: proof
-由 @prop:universal，$f$ 诱导线性映射
-$\bar{f} \colon V / \ker f \to \operatorname{im} f$，
-它显然是满射。
-若 $\bar{f} ([x]) = f (x) = 0$，则 $x \in \ker f$，即 $[x] = 0$，
-故 $\bar{f}$ 是单射。
-:::
-
 ### 维数
 
-设 $W$ 是向量空间 $V$ 的子向量空间。
+设 $W$ 是向量空间 $V$ 的子向量空间，$W'$ 是 $W$ 的补空间。
 由于 $V = W \oplus W'$ 且 $W' \simeq V / W$，有
 \[
 \dim V = \dim W + \dim (V / W) .
 \]
-商空间的维数 $\dim (V / W)$ 称为 $W$ 在 $V$ 中的**[[余维数]]**。
+商空间的维数 $\dim (V / W)$ 称为 $W$ 在 $V$ 中的 **[[余维数]]**。
 例如，[[超平面]]是余维数为 $1$ 的子空间。
-
-结合第一同构定理，对有限维向量空间 $V$ 上的线性映射 $f$，
-就得到[[秩–零化度定理]]
-\[
-\dim V = \dim \ker f + \dim \operatorname{im} f .
-\]
 
 ### 子空间的对应
 
@@ -183,7 +162,7 @@ $\bar{f} \colon V / \ker f \to \operatorname{im} f$，
 由于 $\pi$ 是满射，对 $V / W$ 的任意子空间 $\bar{U}$，
 有 $\pi (\pi^{-1} (\bar{U})) = \bar{U}$。
 最后，$\pi$ 在 $U$ 上的限制是满射 $U \to \pi (U)$，其核为 $W$，
-由第一同构定理得 $\pi (U) \simeq U / W$。
+由[[第一同构定理]]得 $\pi (U) \simeq U / W$。
 :::
 
 ```terms

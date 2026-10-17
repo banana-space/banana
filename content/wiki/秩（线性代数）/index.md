@@ -75,7 +75,7 @@ navboxes: [线性代数]
   - $\operatorname{rank}(AB) \leq \min\{\operatorname{rank}A, \operatorname{rank}B\}$。
   - 若 $P,Q$[[可逆阵|可逆]]，则 $\operatorname{rank}(PAQ) = \operatorname{rank}A$。
 
-- **[[秩-零度定理]]**：对有限维向量空间之间的线性映射 $f \colon V\to W$，有
+- **[[秩–零度定理]]**：对有限维向量空间之间的线性映射 $f \colon V\to W$，有
   \[
   \operatorname{rank} f + \dim\ker f = \dim V.
   \]

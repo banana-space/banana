@@ -78,10 +78,6 @@ $f \colon \mathbb{R} \to \mathbb{R}$ 的空间。
 
 - [[线性映射]]的[[核 (代数)|核]]、[[像]]都是子向量空间。
 
-- 每个子向量空间 $W \subset V$ 都有补空间，
-  即子向量空间 $W' \subset V$，使得 $V = W \oplus W'$。
-  见[[向量空间]]与[[直和（线性代数）]]。
-
 ### 交与和
 
 ::: proposition [交与和]
@@ -109,7 +105,7 @@ $(1, 0) + (0, 1) = (1, 1)$ 不在其中。
 
 ::: proof
 $W$ 的基是 $V$ 中线性无关的子集，
-可以扩充为 $V$ 的基（见[[向量空间]]中补空间存在性的证明），
+与[[基存在定理]]的证明相同，由 [[Zorn 引理]]，它可以扩充为 $V$ 的基，
 故 $\dim W \leq \dim V$。
 若 $V$ 是有限维的，且 $\dim W = \dim V$，
 则扩充时没有添加新的向量，故 $W$ 的基也是 $V$ 的基，从而 $W = V$。
@@ -142,6 +138,33 @@ $W$ 的基是 $V$ 中线性无关的子集，
 再由 $u_1, \dotsc, u_r, v_1, \dotsc, v_s$ 线性无关，所有 $a_i = b_j = 0$。
 :::
 
+### 补空间
+
+与一般的[[模]]不同，向量空间的每个子空间都有补空间：
+
+::: proposition [补空间]
+设 $k$ 是域，$V$ 是 $k$-向量空间，$W \subset V$ 是[[子向量空间]]。
+则存在（不唯一的）子向量空间 $W' \subset V$，
+称为 $W$ 在 $V$ 中的**补空间**，
+使得 $V = W \oplus W'$，
+即 $V$ 的每个元素都唯一地写成 $w + w'$，其中 $w \in W$，$w' \in W'$。
+
+此时，[[商向量空间|投影]] $V \to V / W$ 限制为同构 $W' \simeq V / W$。
+:::
+
+::: proof
+取 $W$ 的基 $B$。
+与[[基存在定理]]的证明相同，由 [[Zorn 引理]]，
+在 $V$ 的包含 $B$ 的线性无关子集中取极大元，
+得到 $V$ 的基 $B \cup B'$，其中 $B \cap B' = \varnothing$。
+令 $W'$ 为 $B'$ 的[[线性生成空间]]，
+则由基的定义，$V$ 的每个元素都唯一地写成 $w + w'$ 的形式。
+投影 $V \to V / W$ 在 $W'$ 上的限制的核是 $W \cap W' = 0$，
+且它是满射，因为 $w + w'$ 与 $w'$ 在 $V / W$ 中的像相同。
+:::
+
+用范畴论的语言说，向量空间的每个[[短正合列]]都[[分裂正合列|分裂]]。
+
 ```terms
 子向量空间:
   en: vector subspace
@@ -151,4 +174,8 @@ $W$ 的基是 $V$ 中线性无关的子集，
   en: linear subspace
   fr: sous-espace linéaire :m
   de: linearer Unterraum :m
+补空间:
+  en: [complement, complementary subspace]
+  fr: supplémentaire :m
+  de: Komplementärraum :m
 ```
