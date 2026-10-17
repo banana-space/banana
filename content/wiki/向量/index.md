@@ -19,4 +19,6 @@ $k$ 的元素称为[[标量]]，而 $V$ 的元素称为向量。
   en: vector
   de: Vektor :m
   fr: vecteur :m
+  grc: διάνυσμα :n
+  la: vector :m
 ```

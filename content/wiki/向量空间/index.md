@@ -2,10 +2,6 @@
 title: 向量空间
 aliases: [线性空间]
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中，$n$ 为无限基数时，若 $k^n$ 指直积，其维数似乎大于 $n$；维数为 $n$ 的是直和 $k^{\oplus n}$。
 navboxes: [线性代数, 代数结构]
 ---
 
@@ -13,15 +9,15 @@ navboxes: [线性代数, 代数结构]
 是[[线性代数]]的主要研究对象。
 我们最熟悉的向量空间包括坐标平面
 \[
-\mathbb{R}^2 = \set{ (x, y) | x, y \in \mathbb{R} },
+\mathbb{R}^2 = \{ (x, y) \mid x, y \in \mathbb{R} \},
 \]
 以及我们所处的三维空间
 \[
-\mathbb{R}^3 = \set{ (x, y, z) | x, y, z \in \mathbb{R} }.
+\mathbb{R}^3 = \{ (x, y, z) \mid x, y, z \in \mathbb{R} \}.
 \]
 一般地，也有 $\mathbb{R}$ 上的 $n$ 维向量空间
 \[
-\mathbb{R}^n = \set{ (x_1, \dotsc, x_n) | x_1, \dotsc, x_n \in \mathbb{R} }.
+\mathbb{R}^n = \{ (x_1, \dotsc, x_n) \mid x_1, \dotsc, x_n \in \mathbb{R} \}.
 \]
 向量空间的元素称为[[向量]]。
 向量可以相加而得到新的向量，也可以将向量乘以一个数而得到新的向量。
@@ -30,7 +26,7 @@ navboxes: [线性代数, 代数结构]
 除了上述例子外，还可以有无限维的向量空间。
 例如，考虑 $\mathbb{R}$ 上的所有实值[[连续函数]]的空间
 \[
-C (\mathbb{R}) = \set{f \colon \mathbb{R} \to \mathbb{R} | f \text{ 连续}}.
+C (\mathbb{R}) = \{ f \colon \mathbb{R} \to \mathbb{R} \mid f \text{ 连续} \}.
 \]
 使用线性代数的术语，我们将这样的连续函数称为向量。
 在 $C (\mathbb{R})$ 中，连续函数可以相加而得到新的连续函数，
@@ -39,7 +35,7 @@ C (\mathbb{R}) = \set{f \colon \mathbb{R} \to \mathbb{R} | f \text{ 连续}}.
 
 ## 定义
 
-::: definition [向量空间] {@def-vector-space}
+::: definition [向量空间] {@def:vector-space}
 设 $k$ 是[[域]]。
 则 $k$-**向量空间**就是 $k$-[[模]]。
 
@@ -106,7 +102,7 @@ C (\mathbb{R}) = \set{f \colon \mathbb{R} \to \mathbb{R} | f \text{ 连续}}.
 元素 $0 \in V$ 有时称为 $V$ 的**原点**。
 :::
 
-::: definition [线性映射] {@def-linear-map}
+::: definition [线性映射] {@def:linear-map}
 设 $k$ 是域，设 $V, W$ 是 $k$-向量空间。
 [[映射]]
 \[
@@ -129,8 +125,8 @@ f \colon V \to W
 :::
 
 ::: definition [向量空间范畴]
-所有向量空间（@def-vector-space）
-和它们之间的线性映射（@def-linear-map）
+所有向量空间（@def:vector-space）
+和它们之间的线性映射（@def:linear-map）
 构成[[范畴]]，
 称为 $k$-[[向量空间范畴]]，
 记为 $\mathsf{Vect}_{k}$。
@@ -138,29 +134,58 @@ f \colon V \to W
 
 ## 例子
 
-- 对任何域 $k$，[[单点集]]可以视为 $k$-向量空间，
-  称为 **[[零向量空间]]**，记为 $0$。
+::: example [零向量空间]
+设 $k$ 是域。
+[[单点集]]可以视为 $k$-向量空间，
+称为 **[[零向量空间]]**，记为 $0$。
+:::
 
-- 域 $k$ 可以看成自身上的向量空间，其[[维数 (线性代数)|维数]]为 $1$。
+::: example [域自身]
+域 $k$ 可以看成自身上的向量空间，其[[维数 (线性代数)|维数]]为 $1$。
+:::
 
-- 对任何[[自然数]]（乃至[[基数]]）$n$，
-  集合 $k^n$ 上带有自然的 $k$-向量空间结构，其维数为 $n$。
+::: example [坐标空间]
+设 $k$ 是域，$n$ 是[[自然数]]。
+集合 $k^n$ 带有逐个分量的加法和数乘，构成 $n$ 维 $k$-向量空间。
 
-- 对任何[[扩域]] $K/k$，都能将 $K$ 看作 $k$-向量空间。
-  例如，[[复数]]域 $\mathbb{C}$ 就是 $\mathbb{R}$-向量空间，其维数为 $2$。
+更一般地，设 $I$ 是[[集合]]。
+则[[直和（线性代数）|直和]] $\bigoplus_{i \in I} k$ 是 $k$-向量空间，
+其[[维数（线性代数）|维数]]等于 $I$ 的[[势]]，可能是无限的。
+:::
 
-- 对任何[[拓扑空间]] $X$，[[连续函数]]空间
-  \[
-  C (X) = \set{f \colon X \to \mathbb{R} | f \text{ 连续}}
-  \]
-  是 $\mathbb{R}$ 上的向量空间。
+::: example [多项式空间]
+设 $k$ 是域。
+一元[[多项式]]的集合 $k[x]$ 是 $k$-向量空间，
+单项式 $1, x, x^2, \dotsc$ 构成它的一组基，
+因此它是可数无限维的。
+次数不超过 $n$ 的多项式构成 $k[x]$ 的 $n + 1$ 维子空间。
+:::
+
+::: example [矩阵空间]
+设 $k$ 是域，$m$、$n$ 是正整数。
+所有 $m \times n$ [[矩阵]]的集合 $\mathrm{M}_{m \times n} (k)$，
+带有逐个元素的加法和数乘，构成 $mn$ 维 $k$-向量空间。
+:::
+
+::: example [域扩张]
+设 $K/k$ 是[[域扩张]]。则 $K$ 可以看作 $k$-向量空间。
+例如，[[复数]]域 $\mathbb{C}$ 是 $\mathbb{R}$-向量空间，其维数为 $2$。
+:::
+
+::: example [连续函数空间]
+设 $X$ 是[[拓扑空间]]。则[[连续函数]]空间
+\[
+C (X) = \{ f \colon X \to \mathbb{R} \mid f \text{ 连续} \}
+\]
+是 $\mathbb{R}$ 上的向量空间。
+:::
 
 ## 性质
 
 ### 基
 
 每个 $k$-向量空间中，都能找到一组[[基]]，也就是一组[[向量]]，
-例如 $\{ e_1, \dotsc, e_n \}$，
+例如 $B = \{ e_1, \dotsc, e_n \}$，
 使得该向量空间的任意向量 $v$ 都能唯一地写成这些向量的[[线性组合]]：
 \[
 v = a_1 e_1 + \cdots + a_n e_n ,
@@ -178,6 +203,26 @@ v = \begin{pmatrix}
 同一个向量空间的所有基都具有同样多的向量，
 这一数目称为该向量空间的[[维数 (线性代数)|维数]]。
 
+从[[模]]的角度看，向量空间是由一组基生成的[[自由模]]，
+从而基存在定理表明域上的模都是自由模。
+
+### 维数与同构
+
+::: proposition [按维数分类]
+设 $k$ 是域，$V$、$W$ 是 $k$-向量空间。
+则 $V$ [[同构]]于 $W$ 当且仅当 $\dim V = \dim W$。
+:::
+
+::: proof
+“$\Rightarrow$” 是显然的。
+对 “$\Leftarrow$”，只需取 $V$、$W$ 的基，
+而由假设，这两组基之间存在[[双射]]，
+该双射及其逆映射可延拓为 $V$、$W$ 间互逆的线性映射。
+:::
+
+特别地，给定[[自然数]] $n$，每个 $n$ 维 $k$-向量空间都同构于 $k^n$，
+但同构的选取依赖于基的选取。
+
 ```terms
 向量空间:
   en: vector space
@@ -191,10 +236,4 @@ v = \begin{pmatrix}
   fr: espace linéaire :m
   grc: γραμμικὸς χῶρος :m
   la: spatium lineare :n
-向量:
-  en: vector
-  de: Vektor :m
-  fr: vecteur :m
-  grc: διάνυσμα :n
-  la: vector :m
 ```
