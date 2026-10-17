@@ -49,11 +49,15 @@ navboxes: [线性代数]
 
 ::: definition [内直和] {@def:internal}
 设 $k$ 是域，$V$ 是 $k$-向量空间，$(W_i)_{i \in I}$ 是 $V$ 的一族子向量空间。
-如果和 $W = \sum_{i \in I} W_i$ 中的每个元素都唯一地写成
+定义**和空间**
 \[
-\sum_{i \in I} w_i ,
+\sum_{i \in I} W_i =
+\biggl\{ \sum_{i \in I} w_i \in V \biggm| w_i \in W_i
+\text{ 且只有有限个 $w_i$ 非零} \biggr\}.
 \]
-其中 $w_i \in W_i$，且只有有限个 $w_i$ 非零，
+如果和空间 $W = \sum_{i \in I} W_i$
+的每个元素都唯一地写成 $\sum_{i \in I} w_i$ 的形式，
+其中 $w_i \in W_i$ 且只有有限个 $w_i$ 非零，
 则称这个和是**直和**，或**内直和**，记为
 \[
 W = \bigoplus_{i \in I} W_i \subset V .

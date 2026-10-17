@@ -210,7 +210,7 @@ v = \begin{pmatrix}
 
 ::: proposition [按维数分类]
 设 $k$ 是域，$V$、$W$ 是 $k$-向量空间。
-则 $V \simeq W$ 当且仅当 $\dim V = \dim W$。
+则 $V$ [[同构]]于 $W$ 当且仅当 $\dim V = \dim W$。
 :::
 
 ::: proof
