@@ -326,15 +326,21 @@ $home-tile-bg-hover: #e6eaf0;
     font-size: 1.6rem;
   }
 
+  // 三个链接上下排，之间一道淡淡的短横线．
   .home-links {
-    grid-template-columns: 1fr 1fr;
-    row-gap: 2.4rem;
+    grid-template-columns: 1fr;
     margin: 3.6rem 0;
 
-    // 第三个链接独占一行，不要竖线．
-    li:last-child {
-      grid-column: 1 / -1;
+    li + li {
       border-left: 0;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 6rem;
+        margin: 2.2rem auto;
+        border-top: 1.5px solid rgba($border-color, .6);
+      }
     }
   }
 
