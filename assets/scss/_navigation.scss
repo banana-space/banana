@@ -243,8 +243,9 @@
     width: 11.25rem;
   }
 
+  // 目录、搜索、菜单三个按钮之间多留些空，免得手指点错．
   .navigation-actions {
-    gap: 0.2rem;
+    gap: 1.6rem;
   }
 
   .navigation-links,
