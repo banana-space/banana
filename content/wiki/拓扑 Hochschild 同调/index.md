@@ -112,7 +112,7 @@ $\mathbb{S} \to \mathbb{S}^{hC_p} \to \mathbb{S}^{tC_p}$ 诱导，
 
 - 有限域 $\mathbb{F}_p$ 的拓扑 Hochschild 同调的同伦环
 $\pi_*\operatorname{THH}(\mathbb{F}_p)$
-同构于[[多项式|多项式环]] $\mathbb{F}_p[u]$，
+同构于[[多项式环]] $\mathbb{F}_p[u]$，
 其中 $u \in \pi_2 \operatorname{THH}(\mathbb{F}_p)$。
 这是 [[Bökstedt 定理]]。
 
