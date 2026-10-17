@@ -185,7 +185,10 @@ async function readJSON(request) {
 }
 
 function send(response, status, body, headers = {}) {
-  const text = JSON.stringify(body);
+  sendJSON(response, status, JSON.stringify(body), headers);
+}
+/** send, with the body already serialized. */
+function sendJSON(response, status, text, headers = {}) {
   response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': Buffer.byteLength(text), 'Cache-Control': 'no-store', ...headers });
   response.end(text);
 }
@@ -353,20 +356,27 @@ const routes = {
     await sourcesReady;
     const page = Number(url.searchParams.get('page') ?? 1);
     if (!Number.isInteger(page) || page < 1 || page > 100) throw new RequestError(400, 'page must be a number from 1 to 100');
-    const { pulls, more } = await recentPulls.list(page).catch(githubFailed);
+    const listed = await recentPulls.list(page).catch(githubFailed), { pulls, more } = listed;
     const live = await Promise.all(pulls.map(pull => isLive(pull.mergeCommit)));
-    send(response, 200, {
+    const pages = pulls.map(pull => pull.files.map(changedPageCached).filter(Boolean));
+    // The same list from GitHub, with the same pages and the same live states, is the same answer: written once.
+    const known = recentResponses.get(listed);
+    if (known && sameItems(known.live, live) && known.pages.every((each, index) => sameItems(each, pages[index]))) {
+      return sendJSON(response, 200, known.text, { 'Cache-Control': 'public, max-age=60' });
+    }
+    const text = JSON.stringify({
       ok: true, more,
       pulls: pulls.map(({ files, fileCount, author, mergeCommit, ...pull }, index) => {
-        const pages = files.map(changedPage).filter(Boolean);
         // The online editor names its pull requests after the page (its title as written, formulas in TeX).
-        const namesPage = pages.some(page => page.title === pull.title || page.source === pull.title);
+        const namesPage = pages[index].some(page => page.title === pull.title || page.source === pull.title);
         return {
-          ...pull, author: author.login, live: live[index], pages: pages.map(({ source, ...page }) => page), otherFiles: fileCount - pages.length, namesPage,
+          ...pull, author: author.login, live: live[index], pages: pages[index].map(({ source, ...page }) => page), otherFiles: fileCount - pages[index].length, namesPage,
           additions: files.reduce((sum, file) => sum + file.additions, 0), deletions: files.reduce((sum, file) => sum + file.deletions, 0),
         };
       }),
-    }, { 'Cache-Control': 'public, max-age=60' });
+    });
+    recentResponses.set(listed, { live, pages, text });
+    sendJSON(response, 200, text, { 'Cache-Control': 'public, max-age=60' });
   },
   'GET /api/recent-changes/diff': async (request, response, url) => {
     if (!recentPulls) throw new RequestError(503, 'recent changes are not configured (--github-repo)');
@@ -379,7 +389,7 @@ const routes = {
       if (error.status === 404) throw new RequestError(404, error.message);
       return githubFailed(error);
     });
-    const { source, ...page } = changedPage(file);
+    const { source, ...page } = changedPageCached(file);
     // What the page's edit button opens: an open pull request from the online editor in the editor (?pull=, which the
     // editor can add to, also when the page is new in it), otherwise the page on the site. A page that exists only in
     // another kind of pull request cannot be edited online.
@@ -534,6 +544,29 @@ function changedPage(file) {
     status: file.status, previous: file.previous?.replace(/^content\//, '') ?? null, group, letter: sortGroup(title, sortKey), sortKey,
   };
 }
+
+/**
+ * changedPage, remembered: a page of the recent changes is listed again on every request, and a bulk change has
+ * hundreds (front matter, KaTeX, pinyin each time). What it depends on, the page's source, its book's and its address,
+ * is compared on each use, so a change to the site's pages shows at once. Callers must not change the result.
+ */
+const changedPages = new Map(); // "path\0status\0previous" -> { source, book, url, page }
+function changedPageCached(file) {
+  const path = file.path.replace(/^content\//, ''), parts = path.split('/');
+  const source = service.source(path), book = parts[0] === 'books' ? service.source(`books/${parts[1]}/_index.md`) : undefined;
+  const url = file.status === 'removed' ? null : service.url(path);
+  const key = `${file.path}\0${file.status}\0${file.previous ?? ''}`, known = changedPages.get(key);
+  if (known && known.source === source && known.book === book && known.url === url) return known.page;
+  const page = changedPage(file);
+  changedPages.delete(key);
+  changedPages.set(key, { source, book, url, page });
+  if (changedPages.size > 5000) changedPages.delete(changedPages.keys().next().value);
+  return page;
+}
+
+/** A page of /api/recent-changes as sent, by the list it was made from (recentPulls keeps a list for a minute). */
+const recentResponses = new WeakMap(); // list -> { live, pages, text }
+const sameItems = (a, b) => a.length === b.length && a.every((item, index) => item === b[index]);
 
 async function draft(request) {
   const body = await readJSON(request);

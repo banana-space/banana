@@ -163,6 +163,11 @@ try {
     [pulls.find(pull => pull.number === 4).merged_at, pulls.find(pull => pull.number === 4).merged_at],
   ], '时间是最新提交的时间，不是合并的时间；读不到提交时退回合并的时间');
   assert.deepEqual(first.map(pull => pull.live), [null, null, null, true, false], '已合并的 PR 是否已在网站上：部署的提交包含合并提交');
+  // The same list again is the same answer (written once and kept, as are the pages in it).
+  const text = () => fetch(`${base}/api/recent-changes`).then(response => response.text());
+  const [once1, once2] = [await text(), await text()];
+  assert.equal(once1, once2, '一分钟内重复的请求得到相同的回答');
+  assert.deepEqual(JSON.parse(once1), json, '缓存的回答与第一次相同');
 
   // Pages of 30: the next page continues, the last says there is no more.
   assert.equal(json.more, true);

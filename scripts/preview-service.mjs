@@ -474,11 +474,20 @@ export function previewService({ baseURL, output, content = '.build/content', en
     return site.collectionLabels(relative);
   }
 
-  /** 页面当前的网址路径；不存在或未发布的页面为 undefined。 */
+  /**
+   * 页面当前的网址路径；不存在或未发布的页面为 undefined。生成的元数据很长（数 KB），解析它占了最近更改的大部分时间，
+   * 所以按生成的文本缓存：文本变了才重新解析。
+   */
+  const urls = new Map(); // relative -> { text, url }
   function url(relative) {
     ready();
     const text = site.generatedText(relative);
-    return text === undefined ? undefined : pageURL(relative, text);
+    if (text === undefined) return undefined;
+    const known = urls.get(relative);
+    if (known?.text === text) return known.url;
+    const result = pageURL(relative, text);
+    urls.set(relative, { text, url: result });
+    return result;
   }
 
     /** 只检查稿件，不渲染：返回 { missingLinks }，错误照常抛出。 */
