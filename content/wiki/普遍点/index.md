@@ -1,6 +1,6 @@
 ---
 title: 普遍点
-aliases: [普遍点]
+aliases: [一般点]
 categories: [概形论]
 notices:
   - name: 问题
