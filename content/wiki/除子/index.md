@@ -82,7 +82,7 @@ $R (X) = \mathcal{M}_X (X)$ 为 $X$ 的有理函数[[域]]。
 记 $R (X)^\times = R (X) \setminus \{ 0 \}$ 为该域的乘法[[群]]。
 
 设 $Z \subset X$ 为素除子（@thm:Weil-除子），
-记 $\xi \in X$ 为 $Z$ 的[[一般点]]。
+记 $\xi \in X$ 为 $Z$ 的[[普遍点]]。
 将[[茎]] $\mathcal{O}_{X, \xi}$ 视为 $R (X)$ 的[[子环]]，
 则后者是前者的[[分式域]]。
 
@@ -92,7 +92,7 @@ $R (X) = \mathcal{M}_X (X)$ 为 $X$ 的有理函数[[域]]。
   \operatorname{ord}_Z (f) =
   \operatorname{length} \mathcal{O}_{X, \xi} / (f),
   \]
-  其中 $\xi$ 是 $Z$ 的[[一般点]]，
+  其中 $\xi$ 是 $Z$ 的[[普遍点]]，
   右边表示 $\mathcal{O}_{X, \xi}$-[[模]]
   $\mathcal{O}_{X, \xi} / (f)$ 的[[长度 (交换代数)|长度]]。
 

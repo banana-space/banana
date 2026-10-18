@@ -23,10 +23,10 @@ $\operatorname{Spa}(A, A^+)$。
 则有很丰富的结构；
 又如，
 由于不存在 $\operatorname{Spf}(\mathbb{Q}_p)$，
-形式谱的[[一般纤维]]需要手动定义。
-但在进制谱的语境下，一般纤维则有简洁定义：
+形式谱的[[普遍纤维]]需要手动定义。
+但在进制谱的语境下，普遍纤维则有简洁定义：
 [[进制空间]] $X \to \operatorname{Spa}(\mathbb{Z}_p)$
-的一般纤维就是纤维积
+的普遍纤维就是纤维积
 $X \times_{\operatorname{Spa}(\mathbb{Z}_p)}
 \operatorname{Spa}(\mathbb{Q}_p)$。
 

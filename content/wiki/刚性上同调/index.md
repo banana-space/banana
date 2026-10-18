@@ -45,7 +45,7 @@ $H^{\bullet}_{\mathrm{crys}}(X/W)[1/p]$。
   我们用记号 $\mathcal{P}_k$ 来代表概形
   $\mathcal{P} \times_S \operatorname{Spec}k$，
   $\mathcal{P}_K$ 来代表
-  $\mathcal{P}$ 的 Raynaud [[一般纤维]]
+  $\mathcal{P}$ 的 Raynaud [[普遍纤维]]
   （它是 $K$ 上的[[刚性解析簇]]）。
 
 - 令 $X$ 为 $k$ 上的代数簇。
