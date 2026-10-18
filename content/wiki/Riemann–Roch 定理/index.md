@@ -58,7 +58,7 @@ $$
 满足 $\deg(\mathcal{O}_X)=0$，
 且对任意闭点 $P\in X$，$\deg(\mathcal{O}_P)=1$；
 $\operatorname{rk}(\mathcal{F})$ 为秩，
-即 $\mathcal{F}$ 在[[一般点]]处[[茎]]的维数。
+即 $\mathcal{F}$ 在[[普遍点]]处[[茎]]的维数。
 :::
 
 ## 证明
@@ -90,10 +90,10 @@ $$
 由于 $\mathcal{O}_X(P)$ [[丰沛线丛|丰沛]]，对充分大的 $n$，
 $\mathcal{F}(nP)$ 被整体截面生成。特别地，存在
 $r=\operatorname{rk}(\mathcal{F})$ 个整体截面，
-在一般点 $\eta$ 上组成 $\mathcal{F}_\eta$ 的一组基。
+在普遍点 $\eta$ 上组成 $\mathcal{F}_\eta$ 的一组基。
 这些整体截面给出映射 $\mathcal{O}_X^{\oplus r}\to
-\mathcal{F}(nP)$，在一般点上是同构。于是由 $X$ 是[[整概形]]，
-该映射是单射。其余核 $\mathcal{G}$ 是个凝聚层，支集不含一般点。
+\mathcal{F}(nP)$，在普遍点上是同构。于是由 $X$ 是[[整概形]]，
+该映射是单射。其余核 $\mathcal{G}$ 是个凝聚层，支集不含普遍点。
 于是由 $X$ 一维，$\mathcal{G}$ 支在有限个闭点上。
 这样它就[[有限长模|有限长]]，于是不难发现它在 $K$ 群中被 $X$
 的闭点的结构层生成。

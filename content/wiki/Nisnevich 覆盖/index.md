@@ -115,7 +115,7 @@ $Y=\bigcap_{\alpha\in\Alpha}Y_\alpha$ 上成立；
 所以由 [[Zorn 引理]]，如{@nis方}不成立，
 则存在极小的使之不成立的闭子概形 $Y\subseteq X$。把 $X$
 换成 $Y$，可设{@nis方}对 $X$ 不成立，但对 $X$
-的真闭子概形都成立。显然 $X\ne\varnothing$。在其中取[[一般点]]
+的真闭子概形都成立。显然 $X\ne\varnothing$。在其中取[[普遍点]]
 $x$，即没有非平凡一般化的点。由[[极小素理想]]的存在性这可以取到。
 于是 $\mathcal{O}_{X,x}^\mathrm{red}=k(x)$。由
 {@有理点}，对某个 $i\in I$ 存在态射

@@ -96,7 +96,7 @@ X_0 = X ,
 使得 $X$ 的[[余维数]] $\geq 2$。
 在 @理想消解 中，
 考虑三元组 $(\mathbb{A}^n, \mathcal{I}_X, 0)$，
-记 $\eta_X \in \mathbb{A}^n$ 为 $X$ 的[[一般点]]。
+记 $\eta_X \in \mathbb{A}^n$ 为 $X$ 的[[普遍点]]。
 由于 $\mathcal{I}_X$ 在 $\eta_X$ 处不是局部主理想，
 因此必有某次沿着 $Z_k$ 爆破时有 $\eta_X \in Z_k$。
 但由于该定理中的 $\Pi$ 在 $X$ 之外是同构，

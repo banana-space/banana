@@ -51,7 +51,7 @@ H^2(\mathbb{P}^1_{\mathbb{C}}, \mathbb{Q})
 具体地说，对[[紧合态射|紧合]][[光滑态射|光滑]][[形式概形]]
 $\mathfrak{X}/\mathbb{Z}_p$，有以下三种上同调理论：
 
-- $\mathfrak{X}$ 的几何[[一般纤维]] $\mathfrak{X}_{\bar{\eta}}$
+- $\mathfrak{X}$ 的几何[[普遍纤维]] $\mathfrak{X}_{\bar{\eta}}$
 的平展上同调 $H_{\text{\'et}}^*(\mathfrak{X}_{\bar{\eta}}, \mathbb{Z}_p)$。
 
 - $\mathfrak{X}$ 的代数 de Rham 上同调

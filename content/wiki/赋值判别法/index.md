@@ -44,12 +44,12 @@ $$
   &\operatorname{Spec}R&
 \end{tikzcd}
 $$
-这里 $X$ 是整概形，一般点是 $\eta$ 的像，$f$ 是闭映射，
+这里 $X$ 是整概形，普遍点是 $\eta$ 的像，$f$ 是闭映射，
 要给 $f$ 找个截面。由于 $K$ 是 $R$ 的分式域，观察以上图表的分式域映射
 $K\to K(X)\to K$，这复合起来是 $\operatorname{id}$，
-故 $X$ 的分式域也是 $K$。将 $X$ 和 $\operatorname{Spec}R$ 的一般点也记作 $\eta$。
+故 $X$ 的分式域也是 $K$。将 $X$ 和 $\operatorname{Spec}R$ 的普遍点也记作 $\eta$。
 则图表本身首先说明 $\eta\in f(X)$。由 $f$ 闭知 $f(X)$ 闭，
-但 $\eta\in f(X)$ 是 $\operatorname{Spec}R$ 的一般点，
+但 $\eta\in f(X)$ 是 $\operatorname{Spec}R$ 的普遍点，
 故 $f(X)=\operatorname{Spec}R$。于是 $\operatorname{Spec}R$
 的闭点具有原像。取其一个原像 $x\in X$，给出局部环同态
 $f_x\colon R\to\mathcal{O}_{X,x}$。由以上交换图表，$f_x$

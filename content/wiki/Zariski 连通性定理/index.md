@@ -124,7 +124,7 @@ $f\colon X\to S$ 是紧合[[双有理态射]]，
 只需证 $f_*\mathcal{O}_X=\mathcal{O}_S$。作分解
 $X\to S'=\mathbf{Spec}_S(f_*\mathcal{O}_X)\to S$，
 则 $S'\to S$ 仿射、泛闭，所以[[整态射|整]]。记 $\eta\in S$
-为[[一般点]]，则由双有理，$(f_*\mathcal{O}_X)_\eta=
+为[[普遍点]]，则由双有理，$(f_*\mathcal{O}_X)_\eta=
   \mathcal{O}_{S,\eta}$ 为分式域。这样由 $S$ 正规便知
 $f_*\mathcal{O}_X=\mathcal{O}_S$。
 :::
