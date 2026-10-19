@@ -27,6 +27,8 @@ Lie 理论:
   parent: 代数学
 代数群理论:
   parent: 代数学
+量子代数:
+  parent: 代数学
 模论:
   parent: 代数学
 初等代数:
