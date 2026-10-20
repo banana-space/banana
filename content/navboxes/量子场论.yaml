@@ -10,9 +10,9 @@ groups:
           - '[[真空]]'
           - '[[定域性]]'
           - '[[幺正性]]'
-      - title: 多点函数
+      - title: 关联函数
         items:
-          - '[[多点函数]]'
+          - '[[关联函数]]'
           - '[[传播子]]'
           - '[[配分函数]]'
           - '[[生成泛函]]'
@@ -34,7 +34,7 @@ groups:
           - '[[Lehmann–Symanzik–Zimmermann 约化公式|LSZ 约化公式]]'
   - title: 数学表述
     subgroups:
-      - title: 场与相关函数
+      - title: 场与关联函数
         items:
           - '[[Wightman 公理]]'
           - '[[Wightman 重构定理]]'
