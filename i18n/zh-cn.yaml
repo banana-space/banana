@@ -476,12 +476,6 @@ build_reading_invalid:
   other: "{{ .File }}: {{ .Field }} 的读音只能由小写字母和数字组成的词构成，词之间用一个空格分隔（ü 写作 v），例如 qi yi shang tong diao；当前为 {{ .Value }}"
 build_reading_length:
   other: reading 列表必须与 text 逐字对应
-build_reference_group_item:
-  other: 引用组中的每一项必须以 @标签 开始
-build_reference_group_separator:
-  other: 引用组应使用逗号添加附注、分号分隔文献，并以 ] 结束
-build_reference_group_unclosed:
-  other: 引用组缺少结束 ]
 build_reference_unclosed:
   other: 引用缺少结束 }
 build_reserved_section_attributes:

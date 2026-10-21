@@ -13,7 +13,7 @@
 // Nothing else changes: code, formulas' contents, headings, tables, environment fences, the front matter.
 import { Parser } from 'commonmark';
 import { parseLists } from '../prebuild/lists.mjs';
-import { protectedToken, readMarkdownLink, readMath, readReference, readReferenceGroup, readWiki } from '../prebuild/markup.mjs';
+import { protectedToken, readMarkdownLink, readMath, readReference, readWiki } from '../prebuild/markup.mjs';
 import { formulaRanges } from '../prebuild/source-lines.mjs';
 import { escaped, labelledMarkerSource, readLabelledMarker, readTag } from '../shared/scan.mjs';
 
@@ -249,7 +249,7 @@ function breaks(text) {
   for (let i = 0; i < text.length;) {
     // Atoms: code, comments, tags and autolinks, formulas, links, references; never broken inside.
     const atomEnd = protectedToken(text, i) ?? readMath(text, i)?.end ?? readWiki(text, i)?.end ?? readMarkdownLink(text, i)?.end
-      ?? readReferenceGroup(text, i)?.end ?? readReference(text, i)?.end;
+      ?? readReference(text, i)?.end;
     if (atomEnd && atomEnd > i) {
       const math = readMath(text, i);
       if (math) {

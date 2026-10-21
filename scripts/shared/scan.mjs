@@ -48,8 +48,8 @@ function withoutQuoteMarkers(text, start, value) {
 // The last formula that did not close: its scan reached the end of its paragraph (or of the text) without a
 // closing delimiter at its depth. An opener after it in that stretch is taken not to close either, without
 // scanning again: otherwise text full of openers ("${${${…") takes quadratic time. A page that builds has no
-// unclosed formula (the first is an error), so this changes nothing there; \[@ (an escaped citation group,
-// which stays open) does not count.
+// unclosed formula (the first is an error), so this changes nothing there; \[@ (an escaped bracket before a
+// citation, which stays open) does not count.
 let failedText = null, failedFrom = -1, failedTo = -1;
 /**
  * 读取 $、$$、\(、\[ 公式并返回 TeX、行间标志及 end；未闭合时不消费文字。

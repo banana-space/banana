@@ -145,6 +145,9 @@ assert.match(transformDocument('式 @eq:a–@eq:b\n\n```math {@eq:a}\nx\n```\n\n
 // 标题标签不覆盖由标题计算的 HTML ID。
 assert.match(transformDocument('## 标题 {@h}\n@h'), /id=%E6%A0%87%E9%A2%98/);
 
+// Citations anywhere, brackets around them being text: a note, several citations, other words.
+const bracketed = transformDocument('[@book, §2; @otherbook 等] 与 [参见 @book]\n\n' + first + second);
+assert.match(bracketed.split('\n')[0], /^\[\[Smith 2020a\]\(citation:[^)]*\), §2; \[Smith 2020b\]\(citation:[^)]*\) 等\] 与 \[参见 \[Smith 2020a\]\(citation:[^)]*\)\]$/);
 const note = transformDocument('[@book, **附注** $x;y$ [文字](https://example.com); @otherbook, `a;b` [a,b]]\n\n' + first + second);
 assert.match(note, /\*\*附注\*\* @@math:/);
 assert.match(note, /\[文字\]\(https:\/\/example.com\)/);
@@ -157,13 +160,13 @@ const protectedSources = [
   '<!-- @missing -->',
   '[文字 @missing](https://example.com/@missing)', '![图](@missing)',
   '[id]: https://example.com/@missing', 'person@example.com', '<person@example.com>',
-  String.raw`\@missing`, String.raw`\{@missing}`, String.raw`\[@missing; @also-missing]`,
+  String.raw`\@missing`, String.raw`\{@missing}`, String.raw`[\@missing; \@also-missing]`,
 ];
 for (const source of protectedSources) assert.equal(transformDocument(source), source);
 assert.match(transformDocument('$@missing$'), /^@@math:/);
 
 for (const [source, error] of [
-  ['@missing', /引用标签不存在/], ['{@missing', /缺少结束/], ['[@missing', /以 ] 结束/],
+  ['@missing', /引用标签不存在/], ['{@missing', /缺少结束/], ['[@missing 等]', /引用标签不存在/],
   ['[[文章@key]]', /保留给跨页面引用/],
   ['::: theorem {@bad:}\n:::', /引用标签无效/],
   [block('bad,: {type: book, title: Test}'), /引用标签无效/],
@@ -295,7 +298,7 @@ ${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendie
   assert.throws(build, /引用标签与标题自动锚点重复/);
   // 脚注定义中的引用与百科链接照常转换；引用式链接定义保持原样。
   const footnote = transformDocument('正文[^1]。\n\n[^1]: 见 [@fn, 命题 1] 与 [[群]]。\n\n[x]: https://example.com/[[群]]\n\n' + block('fn: {type: book, title: Footnote book, author: Ann Lee, year: 2017}'));
-  assert.match(footnote, /^\[\^1\]: 见 &#91;\[Lee 2017\]\(citation:\?id=bib-fn&key=fn\), 命题 1&#93; 与 \[群\]\(wiki:/m);
+  assert.match(footnote, /^\[\^1\]: 见 \[\[Lee 2017\]\(citation:\?id=bib-fn&key=fn\), 命题 1\] 与 \[群\]\(wiki:/m);
   assert.match(footnote, /^\[x\]: https:\/\/example\.com\/\[\[群\]\]$/m);
   console.log('统一 @ 引用、作者排版、自定义文献标签、多块消歧、代码保护、脚注内引用、目录及嵌套引用验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

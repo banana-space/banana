@@ -353,7 +353,7 @@ const labelledList = {
 
 /**
  * Brackets that are not a link: [text] without (url) or [label] after it is text in the build (shortcut
- * reference links have no definitions on this site), as are citation groups [@a, note] and an escaped
+ * reference links have no definitions on this site), as are brackets around citations [@a, note] and an escaped
  * \[[x]]. The opening bracket is taken as text, so that the Link parser does not see it.
  */
 const plainBracket = {
