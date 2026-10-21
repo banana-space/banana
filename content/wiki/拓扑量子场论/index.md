@@ -1,12 +1,12 @@
 ---
 title: 拓扑量子场论
 aliases: [拓扑场论, TQFT]
-categories: [量子场论]
+categories: [拓扑量子场论]
 notices:
   - name: 问题
     items:
       - “分类”一节中，二维拓扑量子场论似乎应由交换 Frobenius 代数（而不是对称 Frobenius 代数）分类，与“Frobenius 代数”条目中的说法不同。
-navboxes: [量子场论]
+navboxes: [拓扑量子场论]
 ---
 
 **拓扑量子场论**，
@@ -118,8 +118,8 @@ Z \colon \mathsf{Cob}_{(\infty,n)}
 ## 例子
 
 - 当 $ n = 3 $ 时，给定一个[[融合范畴]]$\mathcal{D}$，
-  基于$\mathcal{D}$的[[Turaev–Viro 拓扑场论]]给出了一个完全扩展拓扑量子场论。
-  Turaev–Viro 拓扑场论是[[无手性拓扑序]]的红外极限，其[[中心荷]]是$0$，
+  基于$\mathcal{D}$的[[Turaev–Viro 理论]]给出了一个完全扩展拓扑量子场论。
+  Turaev–Viro 理论是[[无手性拓扑序]]的红外极限，其[[中心荷]]是$0$，
   对应的[[格点模型]]是[[弦网模型]]。
 
 ## 分类

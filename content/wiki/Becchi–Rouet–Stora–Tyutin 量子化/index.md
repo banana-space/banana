@@ -1,7 +1,8 @@
 ---
 title: Becchi–Rouet–Stora–Tyutin 量子化
 aliases: [BRST 量子化, Becchi-Rouet-Stora-Tyutin 量子化]
-categories: [量子场论]
+categories: [规范场论]
+navboxes: [规范场论]
 notices:
   - name: 问题
     items:

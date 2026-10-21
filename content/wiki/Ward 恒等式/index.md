@@ -2,6 +2,7 @@
 title: Ward 恒等式
 aliases: [Ward–Takahashi 恒等式, Ward-Takahashi 恒等式]
 categories: [量子场论]
+navboxes: [量子场论]
 notices:
   - name: 提示
     text: '本条目中定理的叙述和证明使用了[[路径积分]]，因此是半严格的。'

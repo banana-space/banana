@@ -1,6 +1,7 @@
 ---
 title: Virasoro 代数
 categories: [Lie 理论, 共形场论]
+navboxes: [共形场论]
 notices:
   - name: 问题
     items:

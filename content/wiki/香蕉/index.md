@@ -1,6 +1,7 @@
 ---
 title: 香蕉
-categories: [量子场论]
+categories: [微扰量子场论]
+navboxes: [量子场论]
 ---
 
 **香蕉**是一种 [[Feynman 图]]，
