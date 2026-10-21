@@ -663,12 +663,9 @@ $recent-time-width: 5.2rem;
   @extend .recent-changes-status;
 }
 
-.diff-view {
-  overflow: hidden;
-  border: 1.5px solid $border-color;
-  border-radius: 1rem;
-  background: $white;
-
+// CodeMirror showing a change with its deleted lines inline: the diff page's, and the editor's view of one change
+// (_editor.scss, editor-change-peek-diff).
+%diff-codemirror {
   .cm-editor {
     font-size: 1.4rem;
 
@@ -680,16 +677,6 @@ $recent-time-width: 5.2rem;
   .cm-scroller {
     font-family: $code-font-family;
     line-height: 1.6;
-  }
-
-  .cm-content {
-    padding: 0.8rem 0;
-  }
-
-  .cm-gutters {
-    border-right: 1px solid rgba($border-color, 0.6);
-    background: $bg-color;
-    color: $semi-light-text-color;
   }
 
   // Deleted and inserted lines, and the changed text within them: stronger than CodeMirror's faint tints.
@@ -708,6 +695,24 @@ $recent-time-width: 5.2rem;
 
   .cm-editor .cm-changedText {
     background: rgba(#30a46c, 0.3);
+  }
+}
+
+.diff-view {
+  @extend %diff-codemirror;
+  overflow: hidden;
+  border: 1.5px solid $border-color;
+  border-radius: 1rem;
+  background: $white;
+
+  .cm-content {
+    padding: 0.8rem 0;
+  }
+
+  .cm-gutters {
+    border-right: 1px solid rgba($border-color, 0.6);
+    background: $bg-color;
+    color: $semi-light-text-color;
   }
 
   .cm-collapsedLines {

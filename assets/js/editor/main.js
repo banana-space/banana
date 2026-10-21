@@ -1,9 +1,9 @@
 // The online editor on /edit/ (layouts/_default/editor.html), bundled by Hugo's js.Build.
 // The page's source comes from /api/source; previews, checks and submissions go to /api/
 // (scripts/editor-api.mjs). Drafts are kept in localStorage until they are submitted.
-import { ChangeSet, Compartment, EditorState, Prec, Text } from '@codemirror/state';
+import { ChangeSet, Compartment, EditorState, Prec, RangeSet, StateEffect, StateField, Text } from '@codemirror/state';
 import {
-  EditorView, crosshairCursor, drawSelection, dropCursor, highlightActiveLine, highlightActiveLineGutter,
+  Decoration, EditorView, GutterMarker, WidgetType, crosshairCursor, drawSelection, dropCursor, gutter, highlightActiveLine, highlightActiveLineGutter,
   highlightSpecialChars, keymap, lineNumbers, rectangularSelection,
 } from '@codemirror/view';
 import { bracketMatching, foldGutter, foldKeymap, indentOnInput, indentUnit, syntaxHighlighting } from '@codemirror/language';
@@ -22,7 +22,7 @@ let bookLabels = [];
 /** CodeMirror's basicSetup, spelled out so that the fold markers can be the site's chevron. */
 function setup() {
   return [
-    lineNumbers(), highlightActiveLineGutter(), highlightSpecialChars(), history(),
+    lineNumbers(), changeGutter, highlightActiveLineGutter(), highlightSpecialChars(), history(),
     foldGutter({
       markerDOM: open => {
         const marker = Object.assign(document.createElement('span'), { className: `editor-fold${open ? '' : ' is-folded'}` });
@@ -47,6 +47,158 @@ function setup() {
     keymap.of([{ key: 'Enter', run: closeDisplayFormula }, { key: 'Enter', run: newlineAndIndent }, { key: 'Backspace', run: deleteFormulaDelimiters }, indentWithTab, ...closeBracketsKeymap, ...defaultKeymap, ...searchKeymap, ...historyKeymap, ...foldKeymap, ...completionKeymap, ...lintKeymap]),
   ];
 }
+
+// Each line's change since the version the server has (lineChanges.init, setOriginal when it changes): beside the
+// line number, a bar for a line added or changed, a wedge where lines were deleted. Lines are compared whole, as
+// git does: each distinct line becomes one character, and the two strings are diffed. Clicking a marker shows the
+// change's original lines below it (changePeek), with a button that puts them back.
+const setOriginal = StateEffect.define();
+class ChangeMarker extends GutterMarker {
+  constructor(kind) { super(); this.elementClass = `editor-change-${kind}`; }
+  eq(other) { return other.elementClass === this.elementClass; }
+}
+const changeMarkers = Object.fromEntries(['added', 'changed', 'deleted', 'deleted-after'].map(kind => [kind, new ChangeMarker(kind)]));
+/** A text's lines as a string of one character per line, by codes (a line's text -> its character, shared). */
+function lineString(doc, codes) {
+  let result = '';
+  for (const line of doc.iterLines()) {
+    let code = codes.get(line);
+    // Below the surrogates, so that no character of the diff is half of one.
+    if (code === undefined) codes.set(line, code = String.fromCharCode(0x100 + codes.size % 0xd700));
+    result += code;
+  }
+  return result;
+}
+/** The lines that differ: { original, changes: [{ fromA, toA, fromB, toB }] (lines from 0, ends excluded), markers }. */
+function compareLines(original, doc) {
+  const codes = new Map(), changes = diff(lineString(original, codes), lineString(doc, codes)), marks = [];
+  for (const { fromA, toA, fromB, toB } of changes) {
+    // A deletion at the foot of the line before it (at the top of the first line, before that), where its panel opens.
+    if (fromB === toB) {
+      marks.push(fromB > 0 ? changeMarkers['deleted-after'].range(doc.line(fromB).from) : changeMarkers.deleted.range(0));
+      continue;
+    }
+    // Lines replaced by more lines: as many changed as there were, the rest added.
+    for (let number = fromB + 1; number <= toB; number++) marks.push(changeMarkers[number - fromB > toA - fromA ? 'added' : 'changed'].range(doc.line(number).from));
+  }
+  return { original, changes, markers: RangeSet.of(marks, true) };
+}
+const lineChanges = StateField.define({
+  create: () => null,
+  update(value, transaction) {
+    const reset = transaction.effects.find(effect => effect.is(setOriginal));
+    if (!value || (!reset && !transaction.docChanged)) return value;
+    return compareLines(reset ? Text.of(reset.value.split('\n')) : value.original, transaction.state.doc);
+  },
+});
+const changesFrom = text => lineChanges.init(state => compareLines(Text.of(text.split('\n')), state.doc));
+/** The change shown on a line (from 1): the one with the line, or the deletion marked on it (after it, or before line 1). */
+function changeAt(state, number) {
+  const { changes } = state.field(lineChanges);
+  return changes.find(({ fromB, toB }) => fromB < number && number <= toB)
+    ?? changes.find(({ fromB, toB }) => fromB === toB && (fromB === number || (fromB === 0 && number === 1)));
+}
+
+// The change whose original lines are shown ({ change, original, decorations }), or null; closed by any edit.
+const showChange = StateEffect.define(); // { change, original } or null
+const changePeek = StateField.define({
+  create: () => null,
+  update(value, transaction) {
+    for (const effect of transaction.effects) {
+      if (!effect.is(showChange)) continue;
+      if (!effect.value) return null;
+      // Below the change's lines; for a deletion, below the line before it (above the first line, before that).
+      const { change, original } = effect.value, { doc } = transaction.state;
+      const below = change.toB > 0;
+      const at = below ? doc.line(change.toB).to : 0;
+      const widget = Decoration.widget({ widget: new ChangePeek(change, changeTexts(original, doc, change)), block: true, side: below ? 1 : -1 });
+      return { change, original, decorations: Decoration.set(widget.range(at)) };
+    }
+    return transaction.docChanged || transaction.effects.some(effect => effect.is(setOriginal)) ? null : value;
+  },
+  provide: field => EditorView.decorations.from(field, value => value?.decorations ?? Decoration.none),
+});
+/** Puts a change's original lines back, in place of its lines in the current text (one edit, undone as one). */
+function revertChange(view, { fromA, toA, fromB, toB }) {
+  const { doc } = view.state, original = view.state.field(lineChanges).original;
+  const lines = fromA < toA ? original.sliceString(original.line(fromA + 1).from, original.line(toA).to) : null;
+  let changes;
+  if (fromB === toB) changes = fromB < doc.lines ? { from: doc.line(fromB + 1).from, insert: `${lines}\n` } : { from: doc.length, insert: `\n${lines}` };
+  else if (lines !== null) changes = { from: doc.line(fromB + 1).from, to: doc.line(toB).to, insert: lines };
+  // Lines added: with the line break before them at the end of the text, after them elsewhere.
+  else if (toB < doc.lines) changes = { from: doc.line(fromB + 1).from, to: doc.line(toB + 1).from };
+  else changes = { from: fromB > 0 ? doc.line(fromB).to : 0, to: doc.length };
+  // The cursor at the lines put back (or where the added ones were), kept in sight.
+  view.dispatch({ changes, selection: { anchor: changes.from + (fromB === toB && fromB >= doc.lines ? 1 : 0) }, userEvent: 'input.revert', scrollIntoView: true });
+  view.focus();
+}
+/**
+ * A change's lines before and after it, as the page history's diff shows them: { before, after }, each with one more
+ * empty line at the end, which matches the other's and is not shown (the panel's last line). Without it, a side with
+ * no lines would be an empty text, one empty line, and an empty line among the lines (or one replacing a line) would
+ * match it, showing as unchanged.
+ */
+function changeTexts(original, doc, { fromA, toA, fromB, toB }) {
+  const lines = (text, from, to) => Array.from({ length: to - from }, (_, i) => `${text.line(from + i + 1).text}\n`).join('');
+  return { before: lines(original, fromA, toA), after: lines(doc, fromB, toB) };
+}
+/**
+ * The change in a small read-only editor, as on the diff page (assets/js/diff/main.js): its lines now, the original
+ * ones above them, the changed text within marked; buttons to put the original back and to close.
+ */
+class ChangePeek extends WidgetType {
+  constructor(change, texts) { super(); this.change = change; this.texts = texts; }
+  eq(other) { return ['fromA', 'toA', 'fromB', 'toB'].every(key => other.change[key] === this.change[key]) && other.texts.before === this.texts.before && other.texts.after === this.texts.after; }
+  toDOM(view) {
+    const element = Object.assign(document.createElement('div'), { className: 'editor-change-peek' });
+    const bar = Object.assign(document.createElement('div'), { className: 'editor-change-peek-bar' });
+    const revert = Object.assign(document.createElement('button'), { type: 'button', className: 'editor-link-button', textContent: text('change_revert') });
+    revert.addEventListener('click', () => revertChange(view, this.change));
+    const close = Object.assign(document.createElement('button'), { type: 'button', className: 'editor-banner-close', title: text('close') });
+    close.setAttribute('aria-label', text('close'));
+    close.append(icon('close'));
+    close.addEventListener('click', () => { view.dispatch({ effects: showChange.of(null) }); view.focus(); });
+    bar.append(revert, close);
+    const { fromA, toA, fromB, toB } = this.change;
+    const lines = Object.assign(document.createElement('div'), { className: 'editor-change-peek-diff' });
+    const { before, after } = this.texts;
+    element.peekView = new EditorView({
+      parent: lines,
+      state: EditorState.create({
+        doc: after,
+        extensions: [
+          EditorState.readOnly.of(true), EditorView.editable.of(false), bananaMarkdown(), syntaxHighlighting(bananaHighlighter),
+          // Lines added or deleted only: marking every character in them adds nothing.
+          unifiedMergeView({ original: before, mergeControls: false, gutter: false, highlightChanges: fromA < toA && fromB < toB }),
+        ],
+      }),
+    });
+    element.append(bar, lines);
+    return element;
+  }
+  destroy(element) { element.peekView?.destroy(); }
+  ignoreEvent() { return true; }
+}
+const changeGutter = [
+  gutter({
+    class: 'editor-change-gutter',
+    markers: view => view.state.field(lineChanges, false)?.markers ?? RangeSet.empty,
+    // A click on a marker shows its change, or closes it again.
+    domEventHandlers: {
+      mousedown(view, block) {
+        if (!view.state.field(lineChanges, false)) return false;
+        const change = changeAt(view.state, view.state.doc.lineAt(block.from).number), open = view.state.field(changePeek)?.change;
+        if (!change) return false;
+        const same = open?.fromB === change.fromB && open?.toB === change.toB;
+        view.dispatch({ effects: showChange.of(same ? null : { change, original: view.state.field(lineChanges).original }) });
+        return true;
+      },
+    },
+  }),
+  changePeek,
+  keymap.of([{ key: 'Escape', run: view => { if (!view.state.field(changePeek)) return false; view.dispatch({ effects: showChange.of(null) }); return true; } }]),
+];
+
 const config = JSON.parse(document.getElementById('editor-config').textContent);
 // CodeMirror's own words, by its phrases.
 const codemirrorPhrases = {
@@ -279,13 +431,18 @@ async function openPage(path, user, title) {
     parent: $('.editor-source'),
     extensions: [
       // No line wrapping: indentation stays visible, and long lines are better broken in the source.
-      setup(), bananaMarkdown(), lintGutter(), merge.of([]), lint.of([]),
+      setup(), bananaMarkdown(), lintGutter(), merge.of([]), lint.of([]), changesFrom(baseline),
       keymap.of([{ key: 'Mod-s', preventDefault: true, run: () => { if (current() !== previewed) schedulePreview(0); return true; } }]),
       EditorView.updateListener.of(update => { if (update.docChanged) { follow(update.changes); dropTouched(update); changed(); } }),
     ],
   });
   root.editorView = view; // For tests and debugging.
   const current = () => view.state.doc.toString();
+  /** A new version on the server: what drafts and the lines' changes are measured against. */
+  function setBaseline(value) {
+    baseline = value;
+    view.dispatch({ effects: setOriginal.of(value) });
+  }
   function changed() {
     const value = current();
     if (value === baseline) storage.remove(draftKey);
@@ -838,7 +995,7 @@ async function openPage(path, user, title) {
       // The page as committed: formatted (scripts/format/markdown.mjs). Unless typing went on meanwhile, the editor
       // shows it, changing only the lines that differ (the cursor and the marks stay where they were).
       const committed = typeof json.text === 'string' ? json.text : value;
-      baseline = committed;
+      setBaseline(committed);
       if (committed !== value && current() === value) {
         view.dispatch({ changes: diff(value, committed).map(({ fromA, toA, fromB, toB }) => ({ from: fromA, to: toA, insert: committed.slice(fromB, toB) })) });
         // It renders as the previewed text did.
@@ -861,7 +1018,7 @@ async function openPage(path, user, title) {
       // Someone changed the page: compare with their version, then submit against it.
       dialog.close();
       original = json.current.original;
-      baseline = json.current.text;
+      setBaseline(json.current.text);
       compareWith(json.current.text, pull ? text('pull_conflict', { number: pull.number }) : text('conflict'));
       return;
     }
@@ -880,7 +1037,7 @@ async function openPage(path, user, title) {
         // Merged as it was, and nothing else changed since: only the user's own edits differ.
         banner(`${gone} ${text('resubmit_new')}`, [{ label: text('resubmit_button'), run: () => { clearBanner(); openSubmitDialog(); } }], { closable: true });
       } else {
-        baseline = latest;
+        setBaseline(latest);
         compareWith(latest, `${gone} ${pull ? text('resubmit_own_compare', { number: pull.number }) : text('resubmit_new_compare')}`);
       }
       changed(); // The saved draft now starts from the new version.

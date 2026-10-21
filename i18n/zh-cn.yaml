@@ -1025,6 +1025,8 @@ editor_pull_conflict:
   other: "PR #{number} 在你编辑期间有了新的提交．下面标出了你的版本与最新版本的差异，请确认后再提交．"
 editor_merge_done:
   other: 完成比较
+editor_change_revert:
+  other: 还原
 editor_submit_title:
   other: 提交编辑
 editor_submit_intro:
