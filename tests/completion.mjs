@@ -81,6 +81,8 @@ const page = '## 定义 {@sec:def}\n\n::: theorem [万有] {@thm:uct}\n正文\n:
 assert.deepEqual(declaredLabels(page), [
   { name: 'sec:def', detail: '定义' }, { name: 'thm:uct', detail: 'theorem [万有]' }, { name: 'item:a', detail: '第一项' }, { name: 'eq:x', detail: 'math' },
 ]);
+// A title with brackets of its own: a link, or text and a link.
+assert.deepEqual(declaredLabels('::: example [[[Springer 对应]]] {@ex:springer}\n正文\n:::\n\n::: proposition [形式[[分部积分]]] {@prop:parts}\n:::\n').map(({ name }) => name), ['ex:springer', 'prop:parts']);
 assert.deepEqual(await complete(page + '由 @th¦'), ['th', ['sec:def', 'thm:uct', 'item:a', 'eq:x']]);
 assert.deepEqual(await complete(page + '由{@¦'), ['', ['sec:def', 'thm:uct', 'item:a', 'eq:x']]);
 assert.equal(await complete(page + 'a@b¦'), null, 'not in an address');
