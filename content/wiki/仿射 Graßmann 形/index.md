@@ -6,7 +6,7 @@ notices:
   - name: 问题
     items:
       - “作为归纳概形”“性质”各节需要扩充。
-navboxes: [代数群理论]
+navboxes: [代数群理论, 几何表示论]
 ---
 
 **仿射 Graßmann 形**是

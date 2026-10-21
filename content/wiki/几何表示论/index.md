@@ -1,6 +1,7 @@
 ---
 title: 几何表示论
-categories: [表示论]
+categories: [几何表示论]
+navboxes: [几何表示论]
 ---
 
 **几何表示论**是[[表示论]]的分支，

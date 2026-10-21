@@ -8,7 +8,7 @@ notices:
       - “对偶模”定义中，对偶 Verma 模 $M(\lambda)^\vee$ 的唯一单子模似乎应为 $L(\lambda)$ 而不是 $L(-w_0\lambda)$（Chevalley 对合给出的对偶保持单模不变）；其后“有限维表示的对偶就是通常的对偶”一句也似乎与此不符。
       - “BGG 互反律”中，$P(\lambda)$ 具有的似乎是以 Verma 模为因子的标准滤链，而不是合成列。
       - “例子”一节中，$\lambda \in \mathbb{Z}_{\ge 0}$ 时 $P(\lambda)$ 似乎就是 $M(\lambda)$；具有子模 $L(-\lambda-2)$、商 $M(\lambda)$ 的投射模似乎应是 $P(-\lambda-2)$。
-navboxes: [Lie 理论]
+navboxes: [Lie 理论, 几何表示论]
 ---
 
 **范畴 $\mathcal{O}$** 是由 Bernstein、
