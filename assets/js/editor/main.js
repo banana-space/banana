@@ -12,7 +12,7 @@ import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
 import { autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
-import { bananaHighlighter, bananaMarkdown } from '../scripts/shared/markdown-language.mjs';
+import { bananaHighlighter, bananaMarkdown, newlineAndIndent } from '../scripts/shared/markdown-language.mjs';
 import { afterComposition, closeDisplayFormula, completionSources, deleteFormulaDelimiters, pairFormulaDelimiters } from '../scripts/editor/completion.mjs';
 
 const root = document.getElementById('editor');
@@ -44,7 +44,7 @@ function setup() {
     // Tab and Shift+Tab indent and outdent the lines, by two spaces (the site's indentation, as in YAML; a list
     // item's continuation lines are at its text, two spaces after "-", three after "1.").
     indentUnit.of('  '),
-    keymap.of([{ key: 'Enter', run: closeDisplayFormula }, { key: 'Backspace', run: deleteFormulaDelimiters }, indentWithTab, ...closeBracketsKeymap, ...defaultKeymap, ...searchKeymap, ...historyKeymap, ...foldKeymap, ...completionKeymap, ...lintKeymap]),
+    keymap.of([{ key: 'Enter', run: closeDisplayFormula }, { key: 'Enter', run: newlineAndIndent }, { key: 'Backspace', run: deleteFormulaDelimiters }, indentWithTab, ...closeBracketsKeymap, ...defaultKeymap, ...searchKeymap, ...historyKeymap, ...foldKeymap, ...completionKeymap, ...lintKeymap]),
   ];
 }
 const config = JSON.parse(document.getElementById('editor-config').textContent);

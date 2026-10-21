@@ -5,9 +5,9 @@ import { parse as parseHTML } from 'parse5';
 import { createProject, buildProject } from './helpers/project.mjs';
 import { execFileSync } from 'node:child_process';
 import { highlightTree } from '@lezer/highlight';
-import { EditorState } from '@codemirror/state';
+import { EditorSelection, EditorState } from '@codemirror/state';
 import { foldable } from '@codemirror/language';
-import { bananaHighlighter, bananaMarkdown, bananaParser } from '../scripts/shared/markdown-language.mjs';
+import { bananaHighlighter, bananaMarkdown, bananaParser, newlineAndIndent } from '../scripts/shared/markdown-language.mjs';
 import { formulaRanges } from '../scripts/prebuild/source-lines.mjs';
 import { readWiki } from '../scripts/prebuild/markup.mjs';
 import { transformDocument } from '../scripts/prebuild/structure.mjs';
@@ -144,6 +144,32 @@ assert.equal(nodes(table).filter(([name]) => name === 'TableCell').length, 4);
 // No GFM extras the site does not have: ~x~ is text.
 assert.ok(!nodes('a ~x~ b\n').some(([name]) => /Subscript|Strikethrough/.test(name)));
 
+// Enter: a new line at the indentation of the line's text (a list item's, also from its first line), no new list
+// marker; CodeMirror's own Enter in the front matter, code and display formulas ("¦": the cursor).
+function enter(text) {
+  let state = EditorState.create({ doc: text.replace('¦', ''), extensions: bananaMarkdown(), selection: EditorSelection.cursor(text.indexOf('¦')) });
+  if (!newlineAndIndent({ state, dispatch: transaction => { state = transaction.state; } })) return null;
+  const doc = state.doc.toString(), head = state.selection.main.head;
+  return doc.slice(0, head) + '¦' + doc.slice(head);
+}
+assert.equal(enter('- a¦\n\n- b'), '- a\n  ¦\n\n- b');
+assert.equal(enter('- a\n  b¦'), '- a\n  b\n  ¦');
+assert.equal(enter('1. a¦'), '1. a\n   ¦');
+assert.equal(enter('10. a¦'), '10. a\n    ¦');
+assert.equal(enter('- [ ] a¦'), '- [ ] a\n  ¦', 'at the text, not after the task box');
+assert.equal(enter('- a\n\n  - b¦'), '- a\n\n  - b\n    ¦');
+assert.equal(enter('(i) a¦'), '(i) a\n    ¦', 'a labelled item');
+assert.equal(enter('- (i) a¦'), '- (i) a\n      ¦');
+assert.equal(enter('[^1]: 注¦'), '[^1]: 注\n    ¦');
+assert.equal(enter('> - a¦'), '> - a\n>   ¦');
+assert.equal(enter('正文¦'), '正文\n¦');
+assert.equal(enter('- a  ¦  b'), '- a\n  ¦b', 'the spaces around the cursor go');
+assert.equal(enter('- a\n  ¦'), '- a\n\n  ¦', 'a line of spaces is left empty');
+assert.equal(enter('¦- a'), '\n¦- a');
+assert.equal(enter('---\ncategories:\n  - a¦\n---\n'), null);
+assert.equal(enter('```\n- a¦\n```'), null);
+assert.equal(enter('\\[\n- x¦\n\\]'), null);
+
 // Folding: the front matter, and environments (nested ones counted, fences in code are not fences); each
 // keeps its first and last lines.
 {
@@ -233,4 +259,4 @@ for (const file of files.filter(file => /^content\/(?:wiki|books|help)\//.test(f
   try { transformDocument(text.slice(front.length), { file, lineOffset: front.split('\n').length - 1, checkMath: true, pageAnchor: true }); }
   catch (error) { assert.doesNotMatch(error.message, /公式无法渲染/); }
 }
-console.log(`编辑器语法：页面各部分的高亮、公式内的行、脚注、标签、表格、折叠、站点代码块的高亮，以及全部 ${files.length} 页的 ${formulas} 个公式（与构建一致）、${wikiLinks} 个百科链接、${fences} 个环境围栏验证通过`);
+console.log(`编辑器语法：页面各部分的高亮、公式内的行、脚注、标签、表格、折叠、回车的缩进、站点代码块的高亮，以及全部 ${files.length} 页的 ${formulas} 个公式（与构建一致）、${wikiLinks} 个百科链接、${fences} 个环境围栏验证通过`);

@@ -111,6 +111,22 @@ export function readLabelledMarker(text, start) {
   return { end: start + match[0].length, label: match[0].slice(parenthesized ? 1 : 0, -1), parenthesized };
 }
 
+// What a line starts with before its text: indentation and quote markers, and a list item's marker (with a task
+// box) or a footnote's label.
+export const markerPattern = /^([ \t]*(?:>[ \t]?)*[ \t]*)((?:[-*+]|\d{1,9}[.)])[ \t]+(?:\[[ xX]\][ \t]+)?|\[\^[^\]\s]+\]:[ \t]*)?/;
+
+/** The prefix for lines continuing a line's block: its indentation and quote markers, a list marker as spaces. */
+export function continuation(line) {
+  const [, lead, marker = ''] = line.match(markerPattern);
+  if (!marker) return lead;
+  if (marker.startsWith('[^')) return `${lead}    `;
+  return lead + ' '.repeat(marker.replace(/\[[ xX]\][ \t]+$/, '').length);
+}
+
+// Where a labelled list item's text is, from its marker's start: after the marker and a space, at most at
+// column fourteen (scripts/prebuild/lists.mjs).
+export const labelledWidth = marker => Math.min([...marker].length + 1, 14);
+
 /** A label as shown: "'" outside its formula is a prime (1' → 1′). */
 export function labelText(label) {
   return label.replace(/(\$[^$]*\$|\\\(.*?\\\))|'/g, (all, formula) => formula ?? '′');
