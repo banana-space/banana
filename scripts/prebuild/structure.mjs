@@ -11,6 +11,7 @@ import { authorTags, looksLikeTag, readTag } from './tags.mjs';
 import { labelledMarkerSource } from '../shared/scan.mjs';
 import { escaped, protectedToken, readMath, readMarkdownLink, readWiki, normalizeTarget, transformMarkup, typographer, validReferenceName, markdownText, unclosedProtected } from './markup.mjs';
 import { readBibliography, prepareBibliography, bibliographyMarkdown } from './bibliography.mjs';
+import { MARK_OPEN, encodeLine } from './source-lines.mjs';
 import { readTerms } from './terms.mjs';
 import { blockStart, movedLabelStart, parseLists } from './lists.mjs';
 import { Parser } from 'commonmark';
@@ -385,7 +386,10 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
       register(entry.key, { kind: 'bibliography', anchor: entry.anchor, entry }, entry.offset);
       bibliography.push(entry);
     }
-    edits.push({ start: i, end: block.end, output: () => bibliographyMarkdown(block.entries) });
+    // On the editor's previewed page (its lines marked, source-lines.mjs), each entry is marked with its key's line:
+    // the block's own lines are code, which has no marks.
+    const mark = text.includes(MARK_OPEN) ? entry => encodeLine(lineOffset + text.slice(0, entry.offset).split('\n').length) : undefined;
+    edits.push({ start: i, end: block.end, output: () => bibliographyMarkdown(block.entries, mark) });
     return block.end;
   }
 

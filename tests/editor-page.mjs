@@ -300,6 +300,87 @@ try {
   assert.equal(editor.$('.editor-status').textContent, '尚未编辑．');
   assert.ok(!dialog.open);
   // Not yet previewed: the button waits (a spinner) for the preview, and opens the dialog once it succeeds.
+  // The lines' changes since the version on the server show beside the line numbers. Clicking a marker shows the
+  // change's original lines below it, and puts them back; again, Esc or an edit closes it. (Lines from 1; jsdom has
+  // no layout, and its estimated heights go stale after edits, so the clicked line is given to CodeMirror directly.)
+  const lineChanges = () => [...editor.document.querySelectorAll('.editor-change-gutter .cm-gutterElement')].map(element => element.className.match(/editor-change-(\S+)/)?.[1]).filter(Boolean);
+  const press = number => {
+    const view = editor.view(), at = view.lineBlockAtHeight;
+    view.lineBlockAtHeight = () => view.lineBlockAt(view.state.doc.line(number).from);
+    try { editor.$('.editor-change-gutter').dispatchEvent(new editor.window.MouseEvent('mousedown', { bubbles: true, cancelable: true })); }
+    finally { view.lineBlockAtHeight = at; }
+  };
+  const peek = () => editor.$('.editor-change-peek');
+  // The panel's lines: those deleted (as the diff page shows them) and those now, "+" before each marked changed;
+  // not the empty line both sides end with, which is hidden.
+  const shown = () => [
+    [...peek().querySelectorAll('.cm-deletedChunk .cm-deletedLine')].map(line => line.textContent),
+    [...peek().querySelector('.cm-content').children].filter(line => line.matches('.cm-line')).slice(0, -1)
+      .map(line => (line.matches('.cm-changedLine') ? '+' : '') + line.textContent),
+  ];
+  const revert = () => peek().querySelector('.editor-link-button').click();
+  const key = (key, options = {}) => editor.view().contentDOM.dispatchEvent(new editor.window.KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...options }));
+  assert.deepEqual(lineChanges(), [], '未修改时没有行标记');
+  editor.type('修改一。\n');
+  assert.deepEqual(lineChanges(), ['added'], '新增的行');
+  press(7);
+  assert.deepEqual(shown(), [[], ['+修改一。']], 'lines added alone');
+  key('Escape');
+  assert.equal(peek(), null, 'Esc 关闭');
+  press(7);
+  editor.type('x');
+  assert.equal(peek(), null, '编辑后关闭');
+  editor.view().dispatch({ changes: { from: editor.text().length - 1, to: editor.text().length } });
+  // A line changed, and the line added after it: one change, the original line in place of both.
+  editor.view().dispatch({ changes: { from: source.indexOf('正文'), insert: '新' } });
+  assert.deepEqual(lineChanges(), ['changed', 'added'], '修改的行');
+  press(7);
+  assert.deepEqual(shown(), [['正文。'], ['+新正文。', '+修改一。']], '原来的内容与现在的内容');
+  press(6);
+  assert.equal(peek(), null, '再次点击关闭');
+  press(6);
+  revert();
+  assert.equal(editor.text(), source, '还原修改的行');
+  assert.deepEqual([lineChanges(), peek()], [[], null]);
+  // A deletion: its lines go back where they were, undone as one edit.
+  const categories = source.indexOf('categories');
+  editor.view().dispatch({ changes: { from: categories, to: categories + 'categories: []\n'.length } });
+  // Its mark is at the foot of the line before it, and its panel below that line.
+  assert.deepEqual(lineChanges(), ['deleted-after'], '删除的行');
+  press(2);
+  assert.equal(peek().closest('.cm-content') && peek().previousElementSibling?.textContent, 'title: 甲');
+  assert.deepEqual(shown(), [['categories: []'], []], 'deleted lines alone');
+  revert();
+  assert.equal(editor.text(), source, '还原删除的行');
+  key('z', { ctrlKey: true });
+  assert.equal(editor.text(), source.replace('categories: []\n', ''), '撤销还原');
+  key('z', { ctrlKey: true, shiftKey: true });
+  assert.equal(editor.text(), source);
+  // An empty line at the end of the lines deleted is shown deleted too.
+  const close = source.indexOf('---\n\n');
+  editor.view().dispatch({ changes: { from: close, to: close + '---\n\n'.length } });
+  press(3);
+  assert.deepEqual(shown(), [['---', ''], []], 'deleted lines ending with an empty line');
+  revert();
+  assert.equal(editor.text(), source);
+  // A line replaced by an empty one, and an empty line by text: each side shown.
+  const line = source.indexOf('正文。');
+  editor.view().dispatch({ changes: { from: line, to: line + '正文。'.length } });
+  press(6);
+  assert.deepEqual(shown(), [['正文。'], ['+']], 'a line replaced by an empty line');
+  revert();
+  editor.view().dispatch({ changes: { from: line - 1, insert: 'x' } });
+  press(5);
+  assert.deepEqual(shown(), [[''], ['+x']], 'an empty line replaced by text');
+  revert();
+  assert.equal(editor.text(), source);
+  // Lines deleted at the start: the mark at the top of the first line, the panel above it.
+  editor.view().dispatch({ changes: { from: 0, to: '---\n'.length } });
+  assert.deepEqual(lineChanges(), ['deleted']);
+  press(1);
+  assert.deepEqual([shown()[0], peek().previousElementSibling], [['---'], null]);
+  revert();
+  assert.equal(editor.text(), source);
   editor.type('修改一。\n');
   const submitButton = editor.$('.editor-submit-button');
   submitButton.click();
@@ -328,6 +409,7 @@ try {
   assert.deepEqual(pullLink(confirmation.querySelector('.editor-submit-done-text a')), ['PR #7', 'https://github.example/pull/7'], '成功提示中的 PR 链接');
   assert.equal(editor.window.localStorage.getItem('banana-editor:wiki/甲/index.md'), null, '提交后清除草稿');
   assert.equal(editor.text(), `${source}修改一（已排版）。\n`, '编辑器显示提交（排版）后的文本');
+  assert.deepEqual(lineChanges(), [], '提交后的版本没有行标记');
   assert.equal(editor.window.localStorage.getItem('banana-editor:wiki/甲/index.md'), null, '排版后的文本不是草稿');
   confirmation.querySelector('.editor-submit-done-close').click();
   assert.ok(!dialog.open);
@@ -530,7 +612,7 @@ try {
   editor.window.close();
 
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、提交与成功提示、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
+  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、提交与成功提示、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }

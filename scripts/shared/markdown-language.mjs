@@ -16,11 +16,13 @@
 // See docs/syntax.md for the syntax itself.
 import { parseMixed } from '@lezer/common';
 import { Tag, highlightTree, styleTags, tags, tagHighlighter } from '@lezer/highlight';
-import { Autolink, Strikethrough, TaskList } from '@lezer/markdown';
-import { LanguageSupport, StreamLanguage, ensureSyntaxTree, foldService } from '@codemirror/language';
-import { commonmarkLanguage, markdown } from '@codemirror/lang-markdown';
+import { Autolink, InlineContext, Strikethrough, TaskList } from '@lezer/markdown';
+import { LanguageSupport, StreamLanguage, ensureSyntaxTree, foldService, syntaxTree } from '@codemirror/language';
+import { commonmarkLanguage, deleteMarkupBackward, markdown } from '@codemirror/lang-markdown';
+import { EditorSelection, Prec } from '@codemirror/state';
+import { keymap } from '@codemirror/view';
 import { yaml } from '@codemirror/lang-yaml';
-import { escaped, labelledMarkerSource, readMath, readTag, referenceStop, referenceTail } from './scan.mjs';
+import { continuation, escaped, labelledMarkerSource, labelledWidth, markerPattern, readLabelledMarker, readMath, readTag, referenceStop, referenceTail } from './scan.mjs';
 
 /** Highlighting tags of the dialect's own syntax. */
 export const bananaTags = {
@@ -353,7 +355,7 @@ const labelledList = {
 
 /**
  * Brackets that are not a link: [text] without (url) or [label] after it is text in the build (shortcut
- * reference links have no definitions on this site), as are citation groups [@a, note] and an escaped
+ * reference links have no definitions on this site), as are brackets around citations [@a, note] and an escaped
  * \[[x]]. The opening bracket is taken as text, so that the Link parser does not see it.
  */
 const plainBracket = {
@@ -630,6 +632,20 @@ const table = {
   }],
 };
 
+/**
+ * "**" opens or closes bold text also between a letter and punctuation (文字**[[链接]]**文字), as the build lets it
+ * (scripts/prebuild/markup.mjs, strongRun): only a space after it keeps it from opening, before it from closing.
+ */
+const strongRun = {
+  name: 'StrongRun',
+  before: 'Emphasis',
+  parse(cx, next, pos) {
+    if (next !== 42 /* * */ || cx.char(pos + 1) !== 42 || cx.char(pos - 1) === 42 || cx.char(pos + 2) === 42) return -1;
+    const space = char => char < 0 || /\s/.test(String.fromCharCode(char));
+    return cx.addDelimiter(InlineContext.emphasisAsterisk, pos, pos + 2, !space(cx.char(pos + 2)), !space(cx.char(pos - 1)));
+  },
+};
+
 const dialect = {
   defineNodes: [
     // The whole formula, down into its TeX.
@@ -694,7 +710,7 @@ const dialect = {
     // fence, the fence's closing mark no longer matches FencedCode/CodeMark.)
     'InlineCode/CodeMark': tags.processingInstruction,
   })],
-  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, tag],
+  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, tag, strongRun],
   // A line starting with a tag (<align right>, <see>) is a paragraph's: as an HTML block it would hide the
   // Markdown that follows. (Comments are still read inline.)
   remove: ['HTMLBlock'],
@@ -715,7 +731,7 @@ function codeLanguage(info) {
 }
 
 let bodyLanguage;
-const body = markdown({ base: commonmarkLanguage, extensions: [table, TaskList, Strikethrough, Autolink, dialect], codeLanguages: codeLanguage, completeHTMLTags: false });
+const body = markdown({ base: commonmarkLanguage, extensions: [table, TaskList, Strikethrough, Autolink, dialect], codeLanguages: codeLanguage, completeHTMLTags: false, addKeymap: false });
 bodyLanguage = body.language;
 // Extensions' checks for the end of a paragraph come after the built-in ones; this one must come first.
 body.language.parser.endLeafBlock.unshift(continueFormula);
@@ -752,9 +768,45 @@ const folding = foldService.of((state, lineStart, lineEnd) => {
   return close && close.number > line.number + 1 ? { from: lineEnd, to: state.doc.line(close.number - 1).to } : null;
 });
 
+/** Where a line's text starts (after indentation, quote and list markers), and the prefix of lines continuing it. */
+function linePrefix(text) {
+  const lead = text.match(markerPattern)[0], labelled = readLabelledMarker(text, lead.length);
+  if (!labelled) return { start: lead.length, next: continuation(text) };
+  return {
+    start: labelled.end + text.slice(labelled.end).match(/^[ \t]*/)[0].length,
+    next: continuation(text) + ' '.repeat(labelledWidth(text.slice(lead.length, labelled.end))),
+  };
+}
+/**
+ * Enter: a new line at the indentation of the cursor's line's text, as the formatter indents a block's continuation
+ * lines (a list item's at its text, also from its first line; quote markers kept). No new list marker: the site's
+ * list items run over several lines, and its lists are loose. The spaces around the cursor go (a line of spaces is
+ * left empty); in a line's markers, a plain line break. Not in the front matter, code or display formulas (CodeMirror's own Enter there).
+ */
+export function newlineAndIndent({ state, dispatch }) {
+  for (const range of state.selection.ranges) {
+    for (let node = syntaxTree(state).resolveInner(range.from, -1); node; node = node.parent) {
+      if (/^(?:FrontMatter|FencedCode|CodeBlock|DisplayMath)$/.test(node.name)) return false;
+    }
+  }
+  const changes = state.changeByRange(range => {
+    const line = state.doc.lineAt(range.from), column = range.from - line.from;
+    const { start, next } = linePrefix(line.text);
+    if (column < start) return { range: EditorSelection.cursor(range.from + 1), changes: { from: range.from, to: range.to, insert: '\n' } };
+    // A line of spaces alone is left empty.
+    const from = /\S/.test(line.text.slice(0, column)) ? line.from + Math.max(start, column - line.text.slice(0, column).match(/[ \t]*$/)[0].length) : line.from;
+    const to = range.to + state.sliceDoc(range.to, state.doc.lineAt(range.to).to).match(/^[ \t]*/)[0].length;
+    return { range: EditorSelection.cursor(from + 1 + next.length), changes: { from, to, insert: `\n${next}` } };
+  });
+  dispatch(state.update(changes, { scrollIntoView: true, userEvent: 'input' }));
+  return true;
+}
+// Backspace after a list marker or quote mark removes it (CodeMirror's markdown keymap, without its Enter).
+const markupKeymap = Prec.high(keymap.of([{ key: 'Backspace', run: deleteMarkupBackward }]));
+
 /** The dialect with its front matter: a LanguageSupport for the editor. */
 export function bananaMarkdown() {
-  return new LanguageSupport(body.language, [body.support, folding]);
+  return new LanguageSupport(body.language, [body.support, folding, markupKeymap]);
 }
 
 /** The parser, for highlighting outside an editor (code blocks at build time, tests). */

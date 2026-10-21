@@ -206,8 +206,9 @@ function formattedName(name) {
 /**
  * 在文献块原位置生成带稳定锚点的 Markdown 无序列表。
  * 自定义 label 位于条目开头；作者只突出姓氏；资料链接各自带括号并以空格分隔。
+ * mark(entry)：条目开头的源码行号标记（只用于编辑器的预览，见 source-lines.mjs）。
  */
-export function bibliographyMarkdown(entries) {
+export function bibliographyMarkdown(entries, mark = () => '') {
   return '\n{{< _bibliography-start >}}\n\n' + entries.map(entry => {
     const names = entry.author.length ? entry.author : entry.editor;
     const authors = entry.type === 'online' ? `**${text(entry.site)}**`
@@ -221,7 +222,7 @@ export function bibliographyMarkdown(entries) {
     if (entry.zbmath) links.push(`[zbMATH](https://zbmath.org/${destination(entry.zbmath)})`);
     if (entry.url && entry.type !== 'online') links.push(`[${text(t('bibliography_link'))}](${destination(entry.url)})`);
     const anchor = Buffer.from(entry.anchor).toString('base64');
-    return `- {{< _bibliography-anchor id="${anchor}" >}}${[
+    return `- ${mark(entry)}{{< _bibliography-anchor id="${anchor}" >}}${[
       label, heading, ...bibliographyFormats[entry.type](entry), sentence([text(entry.howpublished), text(entry.note)]), links.map(link => `(${link})`).join(' '),
     ].filter(Boolean).join(' ')}`;
   }).join('\n\n') + '\n\n{{< _bibliography-end >}}\n\n';

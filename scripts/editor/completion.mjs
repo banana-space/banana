@@ -433,7 +433,10 @@ export function afterComposition(state) {
   return /\[\[[^\]|\n]*[^$\]|\n][^\]|\n]*$/.test(before) || /^(?:categories:\s*\[.*|\s+-\s+.+)$/.test(before);
 }
 
-/** The labels a page declares, in order: at the end of headings and environment fences, at the start of list items, after a math fence's language. */
+/**
+ * The labels a page declares, in order: at the end of headings and environment fences, at the start of list items,
+ * after a math fence's language. An environment's title may hold brackets itself ("[[[链接]]]", "[[文字](网址)]").
+ */
 export function declaredLabels(text) {
   const found = [], seen = new Set();
   let fence = null;
@@ -448,7 +451,7 @@ export function declaredLabels(text) {
     }
     let match;
     if ((match = line.match(/^(#{1,6})\s+(.*?)\s*\{@([^}\s]+)\}\s*\*?\s*$/))) add(match[3], match[2]);
-    else if ((match = line.match(/^\s*(?:>\s*)*:::\s*([\w-]+\*?(?:[ \t]+\([^()\n]*\))?)(?:\s*\[([^\]]*)\])?\s*\{@([^}\s]+)\}/))) add(match[3], match[2] ? `${match[1]} [${match[2]}]` : match[1]);
+    else if ((match = line.match(/^\s*(?:>\s*)*:::\s*([\w-]+\*?(?:[ \t]+\([^()\n]*\))?)(?:\s*\[(.*)\])?\s*\{@([^}\s]+)\}/))) add(match[3], match[2] ? `${match[1]} [${match[2]}]` : match[1]);
     else if ((match = line.match(itemLabel))) add(match[1], match[2].slice(0, 20));
   }
   function add(name, detail) {

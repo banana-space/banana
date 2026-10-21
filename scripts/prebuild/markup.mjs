@@ -16,9 +16,9 @@ export { escaped, readMath, validReferenceName };
 
 /**
  * 读取 @标签 或 {@标签}，返回 key 与不含末尾正文标点的 end。
- * 裸引用检查前边界以保护邮箱/URL；group 控制附注分隔符，ignoreEscape 仅供字面转义保护使用。
+ * 裸引用检查前边界以保护邮箱/URL；ignoreEscape 仅供字面转义保护使用。
  */
-export function readReference(text, start, { group = false, ignoreEscape = false } = {}) {
+export function readReference(text, start, { ignoreEscape = false } = {}) {
   if (!ignoreEscape && escaped(text, start)) return;
   if (text.startsWith('{@', start)) {
     const close = text.indexOf('}', start + 2);
@@ -30,57 +30,10 @@ export function readReference(text, start, { group = false, ignoreEscape = false
   // 连字符后的 @ 也是引用（范围 @a-@b）；字母、数字等之后的 @ 不是（邮箱、网址）。
   if (text[start] !== '@' || (start > 0 && /[\p{L}\p{N}_@./%+\\]/u.test(text[start - 1]))) return;
   let end = start + 1;
-  while (end < text.length && !referenceStop.test(text[end])) {
-    if (group && text[end] === ',' && /\s/.test(text[end + 1] ?? ' ')) break;
-    if (group && text[end] === ';' && /^\s*(?:@|\{@)/.test(text.slice(end + 1))) break;
-    end++;
-  }
+  while (end < text.length && !referenceStop.test(text[end])) end++;
   const key = text.slice(start + 1, end).replace(referenceTail, '');
   if (!key) return;
   return { end: start + 1 + key.length, key };
-}
-
-/**
- * 读取 [@a, 附注; @b]，返回各项 key、附注及其原始偏移量，或返回可定位的语法错误。
- * 扫描附注时跳过代码、公式和链接，避免把其中的分号/方括号误当作引用组边界。
- */
-export function readReferenceGroup(text, start, { ignoreEscape = false } = {}) {
-  if ((!ignoreEscape && escaped(text, start)) || !/^\[[ \t]*(?:@|\{@)/.test(text.slice(start))) return;
-  const items = [];
-  let i = start + 1;
-  while (i < text.length) {
-    while (/\s/.test(text[i] ?? '') && i < text.length) i++;
-    const position = i;
-    const ref = readReference(text, i, { group: true });
-    if (!ref || ref.error) return { end: Math.max(i + 1, ref?.end ?? i), error: ref?.error ?? t('build_reference_group_item') };
-    i = ref.end;
-    while (/[ \t]/.test(text[i] ?? '') && i < text.length) i++;
-    let note = '', notePosition = i;
-    if (text[i] === ',') {
-      const noteStart = ++i;
-      let depth = 0;
-      for (; i < text.length;) {
-        const protectedEnd = protectedToken(text, i);
-        if (protectedEnd) { i = protectedEnd; continue; }
-        const token = readMath(text, i) ?? readMarkdownLink(text, i);
-        if (token) { i = token.end; continue; }
-        if (!escaped(text, i)) {
-          if (text[i] === '[') depth++;
-          if (text[i] === ']') { if (depth === 0) break; depth--; }
-          if (depth === 0 && text[i] === ';' && /^\s*(?:@|\{@)/.test(text.slice(i + 1))) break;
-        }
-        i++;
-      }
-      const rawNote = text.slice(noteStart, i);
-      notePosition = noteStart + rawNote.length - rawNote.trimStart().length;
-      note = rawNote.trim();
-    }
-    items.push({ ...ref, position, note, notePosition });
-    if (text[i] === ']') return { end: i + 1, items };
-    if (text[i] !== ';') return { end: Math.max(i, start + 1), error: t('build_reference_group_separator') };
-    i++;
-  }
-  return { end: text.length, error: t('build_reference_group_unclosed') };
 }
 
 /** 数据字段按文字输出，防止被当成 HTML、shortcode 或另一段引用语法。 */
@@ -379,6 +332,33 @@ function tikzCaption(code, extensions, options) {
     (match, head, caption, tail) => head + transformMarkup(caption, extensions, options).replace(/"/g, '&quot;') + tail);
 }
 
+const flankingSpace = /\s/u;
+// CommonMark's punctuation: Unicode's punctuation and symbols.
+const flankingPunctuation = /[\p{P}\p{S}]/u;
+/**
+ * "**" at i (not "*" or "***"), as the opening or the closing of bold text (strong: whether one is open, the runs
+ * of a paragraph taken in turn): { output, strong }. CommonMark's flanking rules keep a run between a letter and
+ * punctuation from opening or closing, as in 文字**[[链接]]**文字 (its "[" and the link's ")"), and written so the
+ * bold would not show; a space beside it makes it one (the space next to Chinese goes again in postbuild).
+ * A run between spaces is neither, and left alone.
+ */
+/** Whether "**" comes again before the end of the paragraph (from i). */
+function closes(text, i) {
+  const end = text.slice(i).search(/\n[ \t>]*\n/);
+  return text.slice(i, end < 0 ? undefined : i + end).includes('**');
+}
+function strongRun(text, i, result, strong) {
+  if (!text.startsWith('**', i) || text[i - 1] === '*' || text[i + 2] === '*' || escaped(text, i)) return;
+  const before = result.match(/[\s\S]$/u)?.[0] ?? ' ', after = text.slice(i + 2).match(/^[\s\S]/u)?.[0] ?? ' ';
+  const space = char => flankingSpace.test(char), mark = char => flankingPunctuation.test(char);
+  if (space(before) && space(after)) return { output: '**', strong };
+  // Opening: not before punctuation unless after a space or punctuation. Closing: not after punctuation unless
+  // before a space or punctuation.
+  // A run with no other after it in its paragraph is text, as written.
+  if (!strong) return { output: !space(after) && mark(after) && !space(before) && !mark(before) && closes(text, i + 2) ? ' **' : '**', strong: true };
+  return { output: !space(before) && mark(before) && !space(after) && !mark(after) ? '** ' : '**', strong: false };
+}
+
 /**
  * 共同转换入口。
  * options.wiki=false 关闭 wiki 转换；resolveWiki(wiki, offset) 可覆盖目标和文字。
@@ -388,6 +368,7 @@ function tikzCaption(code, extensions, options) {
  */
 export function transformMarkup(text, extensions = [], options = {}) {
   let result = '';
+  let strong = false; // Within **…** in this paragraph (see strongRun).
   for (let i = 0; i < text.length;) {
     const blockEnd = options.blockCodeEnd?.(i);
     const protectedEnd = blockEnd ?? protectedToken(text, i, { indentedCode: options.indentedCode !== false });
@@ -437,7 +418,7 @@ export function transformMarkup(text, extensions = [], options = {}) {
     }
     // A formula that does not close by the end of its paragraph: report it, rather than let it be text whose
     // remaining delimiters pair up wrongly. (Literal dollars are written \$, a bracket after a backslash
-    // &#91;; \[@ is an escaped citation group.) Only where errors have a place.
+    // &#91;; \[@ is an escaped bracket before a citation.) Only where errors have a place.
     if (options.fail && /^(?:\$|\\\(|\\\[(?![ \t]*\{?@))/.test(text.slice(i, i + 8)) && !escaped(text, i)) {
       options.fail(t('build_formula_unclosed', { Formula: text.slice(i, i + 12).split('\n')[0] }), i);
     }
@@ -449,32 +430,22 @@ export function transformMarkup(text, extensions = [], options = {}) {
       continue;
     }
     if (options.resolveReference) {
-      if (escaped(text, i) && (text.startsWith('{@', i) || /^\[[ \t]*@/.test(text.slice(i)))) {
-        const literal = readReferenceGroup(text, i, { ignoreEscape: true }) ?? readReference(text, i, { ignoreEscape: true });
+      if (escaped(text, i) && text.startsWith('{@', i)) {
+        const literal = readReference(text, i, { ignoreEscape: true });
         if (literal && !literal.error) {
           result += text.slice(i, literal.end);
           i = literal.end;
           continue;
         }
       }
-      const group = readReferenceGroup(text, i);
-      const reference = group ?? readReference(text, i);
+      // Anywhere in the text, also in brackets: [@a, 定理 1; @b 等] is text around two citations.
+      const reference = readReference(text, i);
       if (reference) {
         if (reference.error) {
           if (options.fail) options.fail(reference.error, i);
           throw new Error(reference.error);
         }
-        if (group) {
-          result += '&#91;' + group.items.map(item =>
-            referenceMarkdown(item.key, item.position, options)
-            + (item.note ? ', ' + transformMarkup(item.note, extensions, {
-              ...options,
-              resolveReference: (key, p, label) => options.resolveReference(key, item.notePosition + p, label),
-              ...(options.resolveWiki ? { resolveWiki: (wiki, p) => options.resolveWiki(wiki, item.notePosition + p) } : {}),
-              ...(options.fail ? { fail: (message, p) => options.fail(message, item.notePosition + p) } : {}),
-            }) : '')
-          ).join('; ') + '&#93;';
-        } else result += referenceMarkdown(reference.key, i, options);
+        result += referenceMarkdown(reference.key, i, options);
         i = reference.end;
         continue;
       }
@@ -490,6 +461,14 @@ export function transformMarkup(text, extensions = [], options = {}) {
       i = custom.end;
       continue;
     }
+    const run = strongRun(text, i, result, strong);
+    if (run) {
+      result += run.output;
+      strong = run.strong;
+      i += 2;
+      continue;
+    }
+    if (text[i] === '\n' && blankLineAt(text, i)) strong = false;
     result += text[i++];
   }
   return result;

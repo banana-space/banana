@@ -13,9 +13,9 @@
 // Nothing else changes: code, formulas' contents, headings, tables, environment fences, the front matter.
 import { Parser } from 'commonmark';
 import { parseLists } from '../prebuild/lists.mjs';
-import { protectedToken, readMarkdownLink, readMath, readReference, readReferenceGroup, readWiki } from '../prebuild/markup.mjs';
+import { protectedToken, readMarkdownLink, readMath, readReference, readWiki } from '../prebuild/markup.mjs';
 import { formulaRanges } from '../prebuild/source-lines.mjs';
-import { escaped, labelledMarkerSource, readLabelledMarker, readTag } from '../shared/scan.mjs';
+import { continuation, escaped, labelledMarkerSource, labelledWidth, markerPattern, readLabelledMarker, readTag } from '../shared/scan.mjs';
 
 export const maxWidth = 100;
 
@@ -46,21 +46,6 @@ const labelledItem = new RegExp(`^ {0,3}(${labelledMarkerSource})( *)`);
 
 // What a line starts with before its text: indentation and quote markers.
 const containerPattern = /^[ \t]*(?:>[ \t]?)*[ \t]*/;
-// …and a list item's marker (with a task box) or a footnote's label.
-const markerPattern = /^([ \t]*(?:>[ \t]?)*[ \t]*)((?:[-*+]|\d{1,9}[.)])[ \t]+(?:\[[ xX]\][ \t]+)?|\[\^[^\]\s]+\]:[ \t]*)?/;
-
-/** The prefix for lines continuing a line's block: its indentation and quote markers, a list marker as spaces. */
-function continuation(line) {
-  const [, lead, marker = ''] = line.match(markerPattern);
-  if (!marker) return lead;
-  if (marker.startsWith('[^')) return `${lead}    `;
-  return lead + ' '.repeat(marker.replace(/\[[ xX]\][ \t]+$/, '').length);
-}
-
-// Where a labelled list item's text is, from its marker's start: after the marker and a space, at most at
-// column fourteen (scripts/prebuild/lists.mjs).
-const labelledWidth = marker => Math.min([...marker].length + 1, 14);
-
 /**
  * The markers of labelled list items ((a), iv), …), by the offset of their line: { from, to } in the line. Only
  * those CommonMark reads as list items (scripts/prebuild/lists.mjs); a line can have more than one, the last
@@ -249,7 +234,7 @@ function breaks(text) {
   for (let i = 0; i < text.length;) {
     // Atoms: code, comments, tags and autolinks, formulas, links, references; never broken inside.
     const atomEnd = protectedToken(text, i) ?? readMath(text, i)?.end ?? readWiki(text, i)?.end ?? readMarkdownLink(text, i)?.end
-      ?? readReferenceGroup(text, i)?.end ?? readReference(text, i)?.end;
+      ?? readReference(text, i)?.end;
     if (atomEnd && atomEnd > i) {
       const math = readMath(text, i);
       if (math) {

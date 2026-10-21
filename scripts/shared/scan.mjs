@@ -48,8 +48,8 @@ function withoutQuoteMarkers(text, start, value) {
 // The last formula that did not close: its scan reached the end of its paragraph (or of the text) without a
 // closing delimiter at its depth. An opener after it in that stretch is taken not to close either, without
 // scanning again: otherwise text full of openers ("${${${…") takes quadratic time. A page that builds has no
-// unclosed formula (the first is an error), so this changes nothing there; \[@ (an escaped citation group,
-// which stays open) does not count.
+// unclosed formula (the first is an error), so this changes nothing there; \[@ (an escaped bracket before a
+// citation, which stays open) does not count.
 let failedText = null, failedFrom = -1, failedTo = -1;
 /**
  * 读取 $、$$、\(、\[ 公式并返回 TeX、行间标志及 end；未闭合时不消费文字。
@@ -110,6 +110,22 @@ export function readLabelledMarker(text, start) {
   const parenthesized = match[0][0] === '(';
   return { end: start + match[0].length, label: match[0].slice(parenthesized ? 1 : 0, -1), parenthesized };
 }
+
+// What a line starts with before its text: indentation and quote markers, and a list item's marker (with a task
+// box) or a footnote's label.
+export const markerPattern = /^([ \t]*(?:>[ \t]?)*[ \t]*)((?:[-*+]|\d{1,9}[.)])[ \t]+(?:\[[ xX]\][ \t]+)?|\[\^[^\]\s]+\]:[ \t]*)?/;
+
+/** The prefix for lines continuing a line's block: its indentation and quote markers, a list marker as spaces. */
+export function continuation(line) {
+  const [, lead, marker = ''] = line.match(markerPattern);
+  if (!marker) return lead;
+  if (marker.startsWith('[^')) return `${lead}    `;
+  return lead + ' '.repeat(marker.replace(/\[[ xX]\][ \t]+$/, '').length);
+}
+
+// Where a labelled list item's text is, from its marker's start: after the marker and a space, at most at
+// column fourteen (scripts/prebuild/lists.mjs).
+export const labelledWidth = marker => Math.min([...marker].length + 1, 14);
 
 /** A label as shown: "'" outside its formula is a prime (1' → 1′). */
 export function labelText(label) {
