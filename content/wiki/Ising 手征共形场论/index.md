@@ -1,6 +1,7 @@
 ---
 title: Ising 手征共形场论
 categories: [共形场论]
+navboxes: [共形场论]
 ---
 
 **Ising 手征共形场论**是中心荷 $c=1/2$ 的

@@ -1,6 +1,7 @@
 ---
 title: 顶点代数
 categories: [共形场论]
+navboxes: [共形场论]
 ---
 
 **顶点代数**

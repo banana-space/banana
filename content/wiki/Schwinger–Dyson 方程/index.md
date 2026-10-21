@@ -2,6 +2,7 @@
 title: Schwinger–Dyson 方程
 aliases: [Schwinger-Dyson 方程]
 categories: [量子场论]
+navboxes: [量子场论]
 notices:
   - name: 提示
     text: '本条目中的证明使用了[[路径积分]]，因此是半严格的。'

@@ -1,6 +1,7 @@
 ---
 title: 算子乘积展开
 categories: [共形场论]
+navboxes: [共形场论]
 notices:
   - name: 问题
     items:

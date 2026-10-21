@@ -1,6 +1,7 @@
 ---
 title: Feynman 规则
-categories: [量子场论]
+categories: [微扰量子场论]
+navboxes: [量子场论]
 notices:
   - name: 问题
     items:

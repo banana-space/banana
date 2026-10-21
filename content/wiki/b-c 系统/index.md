@@ -1,6 +1,7 @@
 ---
 title: $b$-$c$ 系统
 categories: [共形场论]
+navboxes: [共形场论]
 notices:
   - name: 问题
     items:

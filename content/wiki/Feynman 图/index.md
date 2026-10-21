@@ -1,6 +1,7 @@
 ---
 title: Feynman 图
-categories: [量子场论]
+categories: [微扰量子场论]
+navboxes: [量子场论]
 ---
 
 **Feynman 图**是[[量子场论]]中的概念，

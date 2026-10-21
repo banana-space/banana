@@ -1,6 +1,7 @@
 ---
 title: 量子电动力学
-categories: [电动力学, 量子场论]
+categories: [电动力学, 规范场论]
+navboxes: [规范场论]
 notices:
   - name: 问题
     items:
