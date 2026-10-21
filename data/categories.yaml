@@ -39,6 +39,8 @@ Lie 理论:
   parent: 代数学
 群表示论:
   parent: 表示论
+几何表示论:
+  parent: 表示论
 半群论:
   parent: 代数学
 范畴论:

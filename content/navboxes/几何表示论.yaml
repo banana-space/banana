@@ -1,0 +1,40 @@
+title: '[[几何表示论]]'
+groups:
+  - title: 基本工具
+    items:
+      - '[[错致层]]'
+      - '[[D-模]]'
+      - '[[Riemann–Hilbert 对应]]'
+      - '[[Fourier–Deligne 变换]]'
+      - '[[层–函数对应]]'
+      - '[[分解定理]]'
+  - title: Springer 理论
+    items:
+      - '[[幂零锥]]'
+      - '[[Springer 消解]]'
+      - '[[Grothendieck–Springer 消解]]'
+      - '[[Springer 对应]]'
+      - '[[广义 Springer 对应]]'
+  - title: 有限约化群
+    items:
+      - '[[Lie 型有限群]]'
+      - '[[Deligne–Lusztig 理论]]'
+      - '[[特征层]]'
+      - '[[几乎特征标]]'
+  - title: 局部化
+    items:
+      - '[[Beilinson–Bernstein 局部化定理]]'
+      - '[[范畴 $\mathcal{O}$]]'
+      - '[[Kazhdan–Lusztig 猜想]]'
+      - '[[Hecke 范畴]]'
+  - title: Satake 与 Langlands
+    items:
+      - '[[仿射 Graßmann 形]]'
+      - '[[几何 Satake 等价]]'
+      - '[[几何 Langlands 纲领]]'
+  - title: 箭图
+    items:
+      - '[[箭图表示]]'
+      - '[[Nakajima 箭簇]]'
+      - '[[Hall 代数]]'
+      - '[[典范基]]'

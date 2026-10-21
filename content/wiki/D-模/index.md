@@ -6,6 +6,7 @@ notices:
   - name: 区分
     pages:
       - D 膜
+navboxes: [几何表示论]
 ---
 
 **D-模**是一种几何结构。

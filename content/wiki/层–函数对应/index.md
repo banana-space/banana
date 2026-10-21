@@ -1,6 +1,7 @@
 ---
 title: 层–函数对应
 categories: [代数几何]
+navboxes: [几何表示论]
 ---
 
 ::: convention

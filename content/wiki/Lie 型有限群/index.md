@@ -7,7 +7,7 @@ notices:
     items:
       - “Lie 型单群”的定义中没有列举不给出单群的例外情况。
       - “Suzuki 群”“Ree 群”各节需要扩充。
-navboxes: [群论]
+navboxes: [群论, 几何表示论]
 ---
 
 ::: convention
