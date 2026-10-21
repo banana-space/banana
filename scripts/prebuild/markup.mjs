@@ -332,6 +332,33 @@ function tikzCaption(code, extensions, options) {
     (match, head, caption, tail) => head + transformMarkup(caption, extensions, options).replace(/"/g, '&quot;') + tail);
 }
 
+const flankingSpace = /\s/u;
+// CommonMark's punctuation: Unicode's punctuation and symbols.
+const flankingPunctuation = /[\p{P}\p{S}]/u;
+/**
+ * "**" at i (not "*" or "***"), as the opening or the closing of bold text (strong: whether one is open, the runs
+ * of a paragraph taken in turn): { output, strong }. CommonMark's flanking rules keep a run between a letter and
+ * punctuation from opening or closing, as in 文字**[[链接]]**文字 (its "[" and the link's ")"), and written so the
+ * bold would not show; a space beside it makes it one (the space next to Chinese goes again in postbuild).
+ * A run between spaces is neither, and left alone.
+ */
+/** Whether "**" comes again before the end of the paragraph (from i). */
+function closes(text, i) {
+  const end = text.slice(i).search(/\n[ \t>]*\n/);
+  return text.slice(i, end < 0 ? undefined : i + end).includes('**');
+}
+function strongRun(text, i, result, strong) {
+  if (!text.startsWith('**', i) || text[i - 1] === '*' || text[i + 2] === '*' || escaped(text, i)) return;
+  const before = result.match(/[\s\S]$/u)?.[0] ?? ' ', after = text.slice(i + 2).match(/^[\s\S]/u)?.[0] ?? ' ';
+  const space = char => flankingSpace.test(char), mark = char => flankingPunctuation.test(char);
+  if (space(before) && space(after)) return { output: '**', strong };
+  // Opening: not before punctuation unless after a space or punctuation. Closing: not after punctuation unless
+  // before a space or punctuation.
+  // A run with no other after it in its paragraph is text, as written.
+  if (!strong) return { output: !space(after) && mark(after) && !space(before) && !mark(before) && closes(text, i + 2) ? ' **' : '**', strong: true };
+  return { output: !space(before) && mark(before) && !space(after) && !mark(after) ? '** ' : '**', strong: false };
+}
+
 /**
  * 共同转换入口。
  * options.wiki=false 关闭 wiki 转换；resolveWiki(wiki, offset) 可覆盖目标和文字。
@@ -341,6 +368,7 @@ function tikzCaption(code, extensions, options) {
  */
 export function transformMarkup(text, extensions = [], options = {}) {
   let result = '';
+  let strong = false; // Within **…** in this paragraph (see strongRun).
   for (let i = 0; i < text.length;) {
     const blockEnd = options.blockCodeEnd?.(i);
     const protectedEnd = blockEnd ?? protectedToken(text, i, { indentedCode: options.indentedCode !== false });
@@ -433,6 +461,14 @@ export function transformMarkup(text, extensions = [], options = {}) {
       i = custom.end;
       continue;
     }
+    const run = strongRun(text, i, result, strong);
+    if (run) {
+      result += run.output;
+      strong = run.strong;
+      i += 2;
+      continue;
+    }
+    if (text[i] === '\n' && blankLineAt(text, i)) strong = false;
     result += text[i++];
   }
   return result;

@@ -69,6 +69,14 @@ assert.equal(transformMarkup('[标签][id]\n\n[id]: /$a$'), '[标签][id]\n\n[id
 assert.equal(transformMarkup('[标签 [[交换环]]](https://example.com)'), '[标签 [[交换环]]](https://example.com)');
 assert.equal(readMath('$a % } $ \n b$', 0).value, 'a % } $ \n b');
 assert.equal(transformMarkup('@@', [(text, start) => text.startsWith('@@', start) ? { end: start + 2, output: '扩展' } : undefined]), '扩展');
+// Bold between a letter and punctuation (CommonMark's flanking rules would leave its "**" as text): a space
+// beside it, which postbuild takes out again next to Chinese. Only where a run could not open or close.
+assert.equal(transformMarkup('文字**[[模]]**文字'), `文字 **[模](${link('模')})** 文字`);
+assert.equal(transformMarkup('文字**（注）**文字，**$x$**是'), '文字 **（注）** 文字，**@@math:eA==:math@@** 是');
+assert.equal(transformMarkup('**粗体**[[模]]'), `**粗体**[模](${link('模')})`, 'a closing after a letter');
+assert.equal(transformMarkup('文字**普通**文字 a ** b'), '文字**普通**文字 a ** b');
+assert.equal(transformMarkup('- K2**) 证明\n\n**甲**'), '- K2**) 证明\n\n**甲**', 'a stray run');
+assert.equal(transformMarkup('**甲**\n\n文字**[[模]]**'), `**甲**\n\n文字 **[模](${link('模')})**`, 'each paragraph in turn');
 
 const root = await createProject('links');
 try {
@@ -105,12 +113,15 @@ A[[t]] \text{$b$}
 
 &#91;[字面双括号]]
 
+加粗的链接：文字**[[顶点代数]]**文字。
+
 ` + '```tex\n$A[[t]]$ [[顶点代数]]\n```';
   await article('link-test', 'title: 链接测试', body);
   const source = await readFile(join(root, 'content/wiki/link-test/index.md'), 'utf8');
   const build = (extra = []) => buildProject(root, extra);
   build();
   const html = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
+  assert.match(html, /加粗的链接：文字 <strong><a [^>]*>顶点代数<\/a><\/strong> 文字/, 'bold around a link, between Chinese');
   assert.ok(html.includes(`href="/wiki/${encodeURIComponent('顶点代数')}/" class="wiki-link"`));
   assert.match(html, /href="\/custom-infinity\/" class="wiki-link"><span class="math-rendered" data-tex="\\infty"/);
   assert.match(html, /class="wiki-link">块内链接<\/a>/);

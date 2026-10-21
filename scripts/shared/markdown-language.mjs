@@ -16,7 +16,7 @@
 // See docs/syntax.md for the syntax itself.
 import { parseMixed } from '@lezer/common';
 import { Tag, highlightTree, styleTags, tags, tagHighlighter } from '@lezer/highlight';
-import { Autolink, Strikethrough, TaskList } from '@lezer/markdown';
+import { Autolink, InlineContext, Strikethrough, TaskList } from '@lezer/markdown';
 import { LanguageSupport, StreamLanguage, ensureSyntaxTree, foldService } from '@codemirror/language';
 import { commonmarkLanguage, markdown } from '@codemirror/lang-markdown';
 import { yaml } from '@codemirror/lang-yaml';
@@ -630,6 +630,20 @@ const table = {
   }],
 };
 
+/**
+ * "**" opens or closes bold text also between a letter and punctuation (文字**[[链接]]**文字), as the build lets it
+ * (scripts/prebuild/markup.mjs, strongRun): only a space after it keeps it from opening, before it from closing.
+ */
+const strongRun = {
+  name: 'StrongRun',
+  before: 'Emphasis',
+  parse(cx, next, pos) {
+    if (next !== 42 /* * */ || cx.char(pos + 1) !== 42 || cx.char(pos - 1) === 42 || cx.char(pos + 2) === 42) return -1;
+    const space = char => char < 0 || /\s/.test(String.fromCharCode(char));
+    return cx.addDelimiter(InlineContext.emphasisAsterisk, pos, pos + 2, !space(cx.char(pos + 2)), !space(cx.char(pos - 1)));
+  },
+};
+
 const dialect = {
   defineNodes: [
     // The whole formula, down into its TeX.
@@ -694,7 +708,7 @@ const dialect = {
     // fence, the fence's closing mark no longer matches FencedCode/CodeMark.)
     'InlineCode/CodeMark': tags.processingInstruction,
   })],
-  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, tag],
+  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, tag, strongRun],
   // A line starting with a tag (<align right>, <see>) is a paragraph's: as an HTML block it would hide the
   // Markdown that follows. (Comments are still read inline.)
   remove: ['HTMLBlock'],
