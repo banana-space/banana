@@ -671,7 +671,10 @@ $u(t,x) \in C^\infty\big((0,\infty)\times\Omega\big)\cap C^0 \big([0,\infty)\tim
 \[
 u_\varepsilon(t,x)=u(t,x)-\varepsilon t,
 \]
-其中$\varepsilon>0$。此时，我们知道$u_\varepsilon\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}\leqslant u\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}\leqslant 0$。
+其中$\varepsilon>0$。
+此时，
+我们知道
+$u_\varepsilon\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}\leqslant u\big|_{\partial \big( [0,\infty)\times\overline{\Omega}\big)}\leqslant 0$。
 通过直接计算，我们还有
 \[
 \partial_t u_\varepsilon-\triangle u_\varepsilon =\partial_t u-\triangle u-\varepsilon< 0.
@@ -685,7 +688,8 @@ u_\varepsilon(t,x)=u(t,x)-\varepsilon t,
 \[
 u_\varepsilon(t_*,x_*)=\sup_{(t,x) \in [0,t_0]\times \overline{\Omega}} u_\varepsilon(t,x).
 \]
-由于$u_\varepsilon(t_*,x_*)\geqslant u_\varepsilon(t_0,x_0)>0$，而$u_\varepsilon$在$\partial \big( [0,\infty)\times\overline{\Omega}\big)$上$\leqslant 0$，
+由于$u_\varepsilon(t_*,x_*)\geqslant u_\varepsilon(t_0,x_0)>0$，
+而$u_\varepsilon$在$\partial \big( [0,\infty)\times\overline{\Omega}\big)$上$\leqslant 0$，
 我们知道$t_*>0$并且$x_*\in \Omega$。
 根据最大性，
 我们还知道$\partial_t u_\varepsilon(t_*,x_*)\geqslant 0$（当$t_*=t_0$时考虑左导数）并且

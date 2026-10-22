@@ -452,7 +452,8 @@ C_s=\int_{\mathbb{R}}\frac{dy}{(1+y^2)^{s}}.
 \mathcal{F}'(\varphi(\cdot,0))(\xi')&=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{\varphi}(\xi',\xi_n)d\xi_n,
 \end{aligned}
 \]
-的提示，对任意的$u\in H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})$，我们构造一个$U \in H^{s}(\mathbb{R}^n)$，
+的提示，对任意的$u\in H^{s-\frac{1}{2}}(\mathbb{R}^{n-1})$，
+我们构造一个$U \in H^{s}(\mathbb{R}^n)$，
 使得
 \[
 \mathcal{F}'(u)(\xi')=\frac{1}{2\pi}\int_{\mathbb{R}}\widehat{U}(\xi',\xi_n)d\xi_n.

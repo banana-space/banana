@@ -92,7 +92,8 @@ f=\sum_{k=1}^\infty c_k \varphi_k,
 0, \ \ &k~\text{为偶数}.
 \end{cases}
 \]
-由于$\|\varphi_k\|^2_{L^2}=\dfrac{\pi}{2}$，从而，当$k$为奇数时$c_k=\dfrac{4}{\pi k}$，当$k$为偶数时$c_k=0$。特别地，我们知道
+由于$\|\varphi_k\|^2_{L^2}=\dfrac{\pi}{2}$，从而，当$k$为奇数时$c_k=\dfrac{4}{\pi k}$，
+当$k$为偶数时$c_k=0$。特别地，我们知道
 \[
 \sum_{k\geqslant 1}\lambda_k |c_k|^2=\sum_{k~\text{为奇数}} k^2 \frac{16}{\pi^2k^2}=+\infty
 \]

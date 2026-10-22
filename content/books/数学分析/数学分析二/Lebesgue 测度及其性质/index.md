@@ -475,7 +475,8 @@ $\big(\tau_{v}\big)^{-1}(S)\in \mathcal{A}(\mathbb{R}^n) \subset \mathcal{B}(\ma
   \]
   很明显，对任意的 $N$，
   我们可以把 $E$ 的 $N+1$
-  个平移（两两不相交）$\displaystyle \big\{\tau_{\frac{i}{Nk}}(E)\big\}_{i=0,1,\cdots,N}$ 放到 $C_{\frac{1}{k}}$
+  个平移（两两不相交）$\displaystyle \big\{\tau_{\frac{i}{Nk}}(E)\big\}_{i=0,1,\cdots,N}$ 放到
+  $C_{\frac{1}{k}}$
   中去，所以
   \[
   \mu(C_1)\geqslant \mu(C_{\frac{1}{k}})\geqslant \sum_{i=0}^{N}\mu\left(\tau_{\frac{i}{Nk}}(E)\right)=(N+1)\mu(E).

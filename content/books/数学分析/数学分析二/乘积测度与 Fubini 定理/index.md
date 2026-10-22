@@ -311,7 +311,8 @@ x\mapsto \int_{Y} f(x,y)d\nu(y)=\int_{Y} f^+(x,y)d\nu(y)-\int_{Y} f^-(x,y)d\nu(y
 如果不加说明，$\mathbb{R}^n$ 上的测度总是Lebesgue测度 $m$，我们还用 $dx_1\cdot dx_n$ 表示 $dm$。
 
 ::: corollary [积分的降维计算]
-给定 $\mathbb{R}^n$ 中的开集（或者闭集）$\Omega\subset \mathbb{R}^n$ 以及 $\Omega$ 上的可积函数 $f$。
+给定 $\mathbb{R}^n$ 中的开集（或者闭集）$\Omega\subset \mathbb{R}^n$ 以及 $\Omega$ 上的可积函数
+$f$。
 对任意的 $x_n \in \mathbb{R}$，我们定义 $x_n$ 对于在 $\Omega$ 的截面：
 \[
 \Omega_{x_n}=\bigl\{(x_1,\cdots,x_{n-1})\in\mathbb{R}^{n-1}\bigm| (x_1,\cdots,x_{n-1},x_n)\in \Omega\bigr\}.

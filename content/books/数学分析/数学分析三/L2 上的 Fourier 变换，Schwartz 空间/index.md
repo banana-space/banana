@@ -220,7 +220,8 @@ x^\alpha\partial^\beta(\varphi-\varphi_k)& =x^\alpha \partial^\beta\left(\left(1
 \end{aligned}
 \]
 上式的第二个求和部分有$k^{-1}$这样的衰减因子，所以极限为$0$。
-对于第一项，由于$\chi$在半径为$1$的球内部为$1$，所以$1-\chi\left(\dfrac{x}{k}\right)$在$|x|<k$上为$0$；
+对于第一项，由于$\chi$在半径为$1$的球内部为$1$，
+所以$1-\chi\left(\dfrac{x}{k}\right)$在$|x|<k$上为$0$；
 另外，$0\leqslant 1-\chi\leqslant 1$。从而，我们有
 \[
 \begin{aligned}

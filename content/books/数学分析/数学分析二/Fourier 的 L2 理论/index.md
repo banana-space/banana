@@ -140,7 +140,8 @@ f(x)= \sum_{k\in \mathbb{Z}}\widehat{f}(k) e^{ik\cdot x}.
   \]
   其中 $F(z)$ 在 $|z|\geqslant z_0$ 处用 $0$ 来延拓。
   由于 $1-\cos(y)=\dfrac{y^2}{2}+O(y^4)$，我们有 $y'(0)=\sqrt{2}$，从而 $F(0)=\sqrt{2}f(x)$；
-  另外，$\displaystyle\sqrt{\frac{\lambda}{\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}dz=1$。从而，我们有
+  另外，$\displaystyle\sqrt{\frac{\lambda}{\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}dz=1$。
+  从而，我们有
   \[
   \begin{aligned}
   \mathbf{A}-f(x)&=\frac{1}{\sqrt{2}}\sqrt{\frac{\lambda}{\pi}}\int_{\mathbb{R}} e^{-\lambda z^2}\left(F(z)-F(0)\right)dz\\

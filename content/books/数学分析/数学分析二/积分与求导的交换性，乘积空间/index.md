@@ -352,7 +352,8 @@ f_i(x)= \nu\left(({S_i})_x\right).
 $\nu\bigl((S_i)_x\bigr) \searrow 0$。
 那么，从而对任意的 $x$，$f_i(x)\rightarrow 0$，即函数列 $\{f_i\}_{i\geqslant 1}$ 逐点收敛到 $0$。
 我们对函数列 $\{f_i(x)\}_{i\geqslant 1}$ 运用Lebesgue控制收敛定理，其中，
-这列函数中的第一项 $f_1$ 可以作为控制函数（$\int_X f_1 d\mu=\theta(S_1)<\infty$）。根据上面粗糙版本的Fubini定理，我们就有
+这列函数中的第一项 $f_1$ 可以作为控制函数（$\int_X f_1 d\mu=\theta(S_1)<\infty$）。
+根据上面粗糙版本的Fubini定理，我们就有
 \[
 \theta(S_i) =\int_{X}f_i(x)d\mu(x)\rightarrow 0,
 \]

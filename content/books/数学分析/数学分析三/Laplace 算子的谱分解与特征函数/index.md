@@ -227,7 +227,8 @@ u(x)=C \sin\big(\frac{\pi }{d}k  x\big).
 \lim_{p\rightarrow \infty}\left\|\varphi_j^{(p)}(x)-\sin\left(\dfrac{\pi}{d}k_j\cdot x\right)\right\|_{H^1}=0.
 \]
 记 $f_j=\varphi_j^{(p)}$，$g_j(x)=\sin\left(\dfrac{\pi}{d}k_j\cdot x\right)$。
-对 $(0,d)$ 上的函数 $h_1,\cdots,h_n$，直接计算可知 $\bigl\|\prod_{j=1}^n h_j(x_j)\bigr\|_{H^1}\leqslant \prod_{j=1}^n\|h_j\|_{H^1}$。
+对 $(0,d)$ 上的函数 $h_1,\cdots,h_n$，
+直接计算可知 $\bigl\|\prod_{j=1}^n h_j(x_j)\bigr\|_{H^1}\leqslant \prod_{j=1}^n\|h_j\|_{H^1}$。
 逐个替换因子，并注意到 $\|f_j\|_{H^1}$ 关于 $p$ 有界，我们有
 \[
 \begin{aligned}

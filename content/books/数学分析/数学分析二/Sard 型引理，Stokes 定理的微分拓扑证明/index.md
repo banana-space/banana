@@ -357,7 +357,8 @@ $x'\mapsto  b_j(x')$ 将 $\partial \Omega \cap \pi^{-1}(U_i)$ 的一部分 $\Ome
 &=\int_{\partial \Omega_{i,b_j}}\nu_1 \varphi d\sigma.
 \end{aligned}
 \]
-类似地，由于在 $\partial \Omega_{i,a_j}$ 上外法向量指向 $x_1$ 减小的方向，即 $\nu_1=-\dfrac{1}{\sqrt{1+|\nabla a_j|^2}}<0$，我们有
+类似地，由于在 $\partial \Omega_{i,a_j}$ 上外法向量指向 $x_1$ 减小的方向，
+即 $\nu_1=-\dfrac{1}{\sqrt{1+|\nabla a_j|^2}}<0$，我们有
 \[
 \begin{aligned}
 \int_{U_i}\varphi(a_{j}(x'),x')dx'&=-\int_{\partial \Omega_{i,a_j}}\nu_1 \varphi d\sigma.

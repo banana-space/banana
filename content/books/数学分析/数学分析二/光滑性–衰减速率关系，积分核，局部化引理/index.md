@@ -274,7 +274,9 @@ N, \ &x=2k\pi.\end{cases}
   \]
 
   证明是直截了当的：当 $|x|\in [\delta, \pi]$ 时，
-  由于 $\big|\sin\bigl(\frac{x}{2}\bigr)\big|\geqslant \frac{|x|}{\pi}\geqslant\frac{\delta}{\pi}$（$\sin$ 在 $[0,\frac{\pi}{2}]$ 上是凹函数），我们有
+  由于
+  $\big|\sin\bigl(\frac{x}{2}\bigr)\big|\geqslant \frac{|x|}{\pi}\geqslant\frac{\delta}{\pi}$（$\sin$
+  在 $[0,\frac{\pi}{2}]$ 上是凹函数），我们有
   \[
   |F_N(x)|\leqslant \frac{1}{N}\bigl(\frac{\pi}{\delta}\bigr)^2 \bigl(\sin(\frac{N}{2}x)\bigr)^2\leqslant \frac{\pi^2}{N\delta^2}.
   \]
@@ -378,7 +380,8 @@ F_N(x)=\frac{1}{N}\sum_{|k|\leqslant N}(N-|k|)e^{ikx},
 
 ## Fejér核的一个应用：$L^1$ 函数的原函数与Fatou的反例
 
-根据Riemann–Lebesgue引理，如果 $f\in L^1(\mathbf{T})$，那么 $\displaystyle \lim_{|k|\rightarrow\infty}\widehat{f}(k)=0$。
+根据Riemann–Lebesgue引理，如果 $f\in L^1(\mathbf{T})$，
+那么 $\displaystyle \lim_{|k|\rightarrow\infty}\widehat{f}(k)=0$。
 那么，是不是每个极限是 $0$ 序列 $\{a_k\}_{k\in\mathbb{Z}}$，它必为某个可积函数的Fourier系数呢，
 即是否存在 $f\in L^1(\mathbf{T})$，使得对任意的 $k$，我们都有 $\widehat{f}=a_k$？
 
