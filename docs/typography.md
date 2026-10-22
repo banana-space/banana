@@ -35,7 +35,7 @@ typography:
 
 排版规则和 HTML 处理器位于 `scripts/shared/typography.mjs` 与 `scripts/postbuild/`，不会复制到公开目录，网页也不会调用这些模块。正式构建和开发预览都通过 parse5 解析 HTML，在 postbuild 完成空白及标点替换；预览浏览器只接收完成的页面和构建刷新通知。直接运行 Hugo 不会执行后处理，请使用 `npm run build` 或 `npm run serve`。
 
-代码字体为 Commit Mono。它没有西里尔字母，希腊字母也不全；缺少的字母用 JetBrains Mono 的子集 `JetBrains Mono Cyrillic`（普通代码用字重 350 的固定字重文件，与 Commit Mono 的粗细相近；粗体用可变字重文件；`static/fonts/JetBrainsMono-Cyrillic*.woff2`，由 `scripts/fonts/jetbrains-mono-cyrillic.py` 生成，OFL），两者字宽同为 600/1000，代码对齐不变；只有代码中出现这些字母的页面才下载它。
+代码字体为 Commit Mono。它没有西里尔字母，希腊字母也不全；缺少的字母用 JetBrains Mono 的子集 `JetBrains Mono Cyrillic`（普通代码用字重 350 的固定字重文件 `-350`，与 Commit Mono 的粗细相近；粗体用可变字重文件 `-Variable`；`static/fonts/JetBrainsMono-Cyrillic*.woff2`，由 `scripts/fonts/jetbrains-mono-cyrillic.py` 生成，OFL），两者字宽同为 600/1000，代码对齐不变；只有代码中出现这些字母的页面才下载它。
 
 标点字体家族为 `Banana Punctuation`，普通字重使用 `static/fonts/BananaPunctuation-Regular.woff2`，500 和 600 分别使用 `BananaPunctuation-Medium.woff2` 和 `BananaPunctuation-SemiBold.woff2`。字符范围在 `_base.scss` 的 `@font-face` 中声明，仅覆盖中文标点和弯引号 `‘’“”`，不覆盖 ASCII 句点、逗号和数学符号。
 

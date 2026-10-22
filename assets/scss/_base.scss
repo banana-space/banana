@@ -7,7 +7,7 @@
 // aligned; scripts/fonts/jetbrains-mono-cyrillic.py). Loaded only by pages that show such letters in code.
 // Normal code uses a fixed instance at weight 350, closer to Commit Mono; bold code the variable font.
 @each $style, $name in (normal: "JetBrainsMono-Cyrillic", italic: "JetBrainsMono-Cyrillic-Italic") {
-  @each $weight, $file in ("100 400": "#{$name}-Regular", "401 800": $name) {
+  @each $weight, $file in ("100 400": "#{$name}-350", "401 800": "#{$name}-Variable") {
     @font-face {
       font-family: "JetBrains Mono Cyrillic";
       src: url("#{$font-path}#{$file}.woff2") format("woff2");

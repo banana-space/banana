@@ -3,8 +3,8 @@
 Commit Mono (the code font) has no Cyrillic and only part of the Greek block. JetBrains Mono has the same
 advance width (600 of 1000 units) and similar heights, so a code line mixing the two stays aligned. Only the
 Cyrillic and Greek letters that Commit Mono does not have are kept. For each style (upright, italic) there are
-two files: -Regular, a fixed instance at weight 350 for normal code, as JetBrains Mono at 400 looks heavier
-than Commit Mono; and the variable font (weights 100–800) for bold code. The script prints the unicode-range
+two files: -350, a fixed instance at weight 350 for normal code, as JetBrains Mono at 400 looks heavier
+than Commit Mono; and -Variable, the variable font (weights 100–800), for bold code. The script prints the unicode-range
 for the @font-face rules in _base.scss.
 
 Takes the variable fonts of a JetBrains Mono release (https://github.com/JetBrains/JetBrainsMono, OFL;
@@ -35,10 +35,10 @@ for source, name in ((upright, 'JetBrainsMono-Cyrillic'), (italic, 'JetBrainsMon
     subsetter = subset.Subsetter(options)
     subsetter.populate(unicodes=wanted)
     subsetter.subset(font)
-    subset.save_font(font, f'static/fonts/{name}.woff2', options)
+    subset.save_font(font, f'static/fonts/{name}-Variable.woff2', options)
     regular = instancer.instantiateVariableFont(font, {'wght': REGULAR})
     regular['OS/2'].usWeightClass = REGULAR
-    subset.save_font(regular, f'static/fonts/{name}-Regular.woff2', options)
+    subset.save_font(regular, f'static/fonts/{name}-{REGULAR}.woff2', options)
     print(f'{name}: {len(wanted)} characters')
 
 # Consecutive characters as ranges, for unicode-range.

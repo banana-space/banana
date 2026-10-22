@@ -130,8 +130,10 @@ try {
   assert.doesNotMatch(subpath, /cdn\.jsdelivr\.net/);
   const css = await readFile(join(root, 'public', cssPath), 'utf8');
   const fontURLs = [...css.matchAll(/url\(["']?([^\s)'"\n]+)["']?\)/g)].map(match => match[1]);
-  assert.equal(fontURLs.length, 11);
+  // Commit Mono, Banana Math, Banana Punctuation (3), Inter (6) and the JetBrains Mono Cyrillic subsets (4).
+  assert.equal(fontURLs.length, 15);
   assert.ok(fontURLs.every(url => url.startsWith('/docs/fonts/')));
+  for (const url of fontURLs) await readFile(join(root, 'public', url.slice('/docs/'.length)));
   assert.doesNotMatch(css, /sourceMappingURL/);
   const homepage = await html('');
   assert.match(homepage, /href="\/docs\/wiki\/">全部条目/);
