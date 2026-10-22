@@ -393,7 +393,7 @@ d^{n+1} \circ d^n = 0
 
 ## 参考文献
 
-参考文献数据放在 `bibliography` 围栏中，在原位置生成 Markdown 无序列表，不自动插入标题。一个页面可以有多个块，块之间直接写普通 Markdown 简介。每个块保留文献的声明顺序，全文先收集所有文献，再解析引用和计算消歧后缀。
+参考文献数据放在 `bibliography` 围栏中，在原位置生成文献列表，不自动插入标题。一个页面可以有多个块，块之间直接写普通 Markdown 简介。每个块保留文献的声明顺序，全文先收集所有文献，再解析引用和计算消歧后缀。
 
 ````markdown
 ## 参考文献
@@ -434,11 +434,13 @@ nlab:b:
 | `preprint` | 未发表预印本 | `arxiv`、`url` |
 | `online` | 在线百科、问答、网页等 | `site`、`url`、`author`、`urldate` |
 
-每项必须有 `type` 和 `title`，在线资料还必须有 `site` 和完整的 HTTP(S) `url`。其他字段按已知信息填写，不强制补齐全部出版数据。共同字段包括 `author`、`editor`、`year`、`doi`、`arxiv`、`zbmath`、`url`、`shorttitle`、`howpublished`、`note`、`label`。未知字段报错，避免拼写错误悄悄丢失数据。
+每项必须有 `type`，以及 `title` 或 `translatedtitle`；在线资料还必须有 `site` 和完整的 HTTP(S) `url`。其他字段按已知信息填写，不强制补齐全部出版数据。共同字段包括 `author`、`editor`、`translator`、`year`、`language`、`translatedtitle`、`doi`、`arxiv`、`zbmath`、`url`、`shorttitle`、`howpublished`、`note`、`label`、`versions`。未知字段报错，避免拼写错误悄悄丢失数据。字段的种类集中在 `scripts/prebuild/bibliography.mjs` 的字段表 `fieldKinds`：文字、行内 Markdown、姓名、标识符、地址、日期、版本等，种类决定校验与显示。
 
-`year` 是四位年份，不能手写 `2020a`；`urldate` 使用带引号的 `YYYY-MM-DD`。DOI、arXiv 和 zbMATH 字段只填标识符，程序生成链接；老式 arXiv 标识符如 `q-alg/9706008` 同样支持。数字标识符建议加引号以保留前导零。数据字段按文字排版，不展开字段内的 Markdown、HTML、shortcode 或引用语法，但行内公式（如 `title: '$\infty$-Categories in Topology'`）照常渲染；需要丰富的介绍时写在文献块外。
+`year` 是四位年份，不能手写 `2020a`；`urldate` 使用带引号的 `YYYY-MM-DD`；`language` 是语言代码（`ru`、`de`）。DOI、arXiv 和 zbMATH 字段只填标识符，程序生成链接；老式 arXiv 标识符如 `q-alg/9706008` 同样支持。数字标识符建议加引号以保留前导零。`url` 的链接文字是 PDF 文件的“pdf”或不含 `www.` 的主机名。数据字段按文字排版，不展开字段内的 Markdown、HTML、shortcode 或引用语法，但行内公式（如 `title: '$\infty$-Categories in Topology'`）照常渲染。`note` 与 `howpublished` 是行内 Markdown：百科链接、`@` 引用（包括同一文献块中的文献）、强调与公式照常转换，错误指向源文件中的字段；需要更丰富的介绍时写在文献块外。
 
-作者和编者支持字符串、姓名对象以及它们的列表：
+`title` 是作品原文的标题（或其拉丁字母转写），`translatedtitle` 是译名，显示在方括号中。只知道译名时省略 `title`。`language` 是作品的语言，显示为“(俄文)”；英文、中文作品的标题与语言一致时不显示。条目文字的语言（HTML 的 `lang`，也决定标点）按显示的标题判断：含汉字为中文条目，使用中文标点与书名号《》；西里尔字母、希腊字母为 `language` 或俄文、希腊文；拉丁字母为 `language`（以拉丁字母书写的语言）或英文。不能把英文译名写在 `title` 中再标 `language: ru`。
+
+作者、编者和译者支持字符串、姓名对象以及它们的列表：
 
 ```yaml
 author: Jean-Pierre Serre
@@ -455,32 +457,54 @@ author: 张三
 
 # 机构或复杂姓名可以明确要求整体保留：
 author: {literal: A research group}
+
+# 指定或取消作者条目的链接：
+author: {family: Borel, given: A., page: Armand Borel}
+author: {family: Serre, given: Jean-Pierre, page: false}
 ```
 
-西文姓名中有逗号时按 `Family, First` 拆分；没有逗号时，最后一个词作为姓，其余作为名。多词姓等复杂情况使用逗号格式或对象，不依赖自动猜测。含汉字的字符串整体保留；`editor` 使用同样的规则。以上 YAML 示例是分别可选的写法，不要在同一条文献里重复声明 `author`。
+西文姓名中有逗号时按 `Family, First` 拆分；没有逗号时，最后一个词作为姓，其余作为名。多词姓等复杂情况使用逗号格式或对象，不依赖自动猜测。含汉字的字符串整体保留；`editor`、`translator` 使用同样的规则。以上 YAML 示例是分别可选的写法，不要在同一条文献里重复声明 `author`。
 
-默认正文显示一位作者的姓（或整体姓名）、两位作者的姓，三位及以上显示第一位加 `等`；没有作者时尝试编者，再回退到 `shorttitle` 或 `title`。文献列表显示完整姓名，只加粗姓氏及其后的逗号，名字保持普通字体；中文全名、整体姓名和站点名整体加粗。书名、期刊名和文集名使用斜体。DOI、arXiv、zbMATH 和普通资料链接各自带括号，中间用空格分隔。
+姓名链接到人物分类（`人物` 及其下级分类）中已发布的条目：全名与条目标题或别名相同；或者姓相同、名字依次相符（`J.-P.` 对应 `Jean-Pierre`，`P. G. L.` 对应 `Peter Gustav Lejeune`，第一个名字必须相符，作者名中的中间名缩写可以在条目中缺少），且恰好一个条目相符。忽略大小写与变音符号。条目自己的参考文献不把作者链接到条目本身（如 Peter Dirichlet 条目中 Dirichlet 的著作）。`page` 指定条目（不存在时报错），`page: false` 不链接。索引由 prebuild 从全站 front matter 建立（`personIndex`）；常驻预览只为转换的页面重建，其他页面的链接在完整构建时更新。
 
-发表文献显示年份；缺失年份时显示“无日期”。`preprint` 不显示年份或额外的 preprint 字样，即使数据中保留了 `year`。已发表的 `article` 可以同时有 arXiv 链接，仍显示发表年份。
+默认正文显示一位作者的姓（或整体姓名），两位作者的姓以连接号相连（`Bott–Tu`；有中文姓名时用顿号，如 `张三、李四`），三位及以上显示第一位加 `等`，年份前加逗号（`Sklyanin 等, 1979`）；没有作者时尝试编者，再回退到 `shorttitle`、`title` 或 `translatedtitle`。
+
+文献列表没有项目符号，左对齐，每条悬挂缩进 2em。开头的作者姓名完整显示，以分号隔开（有中文姓名时以顿号隔开，与条目的语言无关；编者、译者的列表相同），只加粗姓（中文全名、整体姓名整体加粗），其后是括号中的年份；有 `label` 时标签加粗写在最前，作者不再加粗。书名、期刊名和文集名在西文条目中为斜体，在中文条目中用书名号。编者在西文条目中写作“编者：…”或“… 编”，文集论文写作“载于 *文集*”。资料链接（doi、arXiv、zbMATH、pdf 或主机名、访问日期）以 `·` 隔开，放在条目末尾。从正文的引用跳转到的条目（`:target`）以浅橙色底色和边框标出，约 2.5 秒后淡出；再次点击同一引用时，`static/js/site.js` 让它重新标出。条目中的界面文字（编者、载于、预印本、版本说明等）与中文数据标为中文，随正文排版；西文数据不受中文排版规则影响。
+
+发表文献显示年份；缺失年份时显示“无日期”。`preprint` 在年份的位置显示“预印本”，正文引用也是（`Winges 预印本`），即使数据中保留了 `year`。已发表的 `article` 可以同时有 arXiv 链接，仍显示发表年份。
 
 `online` 的默认引用作者始终是 `site`，不是页面标题或实际贡献者。实际作者可保存在 `author` 中并在列表中显示。在线资料的 `year` 可作为元数据保留，但默认不用于引用的日期位置；访问日期也不当作发表年份。
 
-同页中默认引用作者和日期相同的文献自动加 `a`、`b`、`c`……，超过 `z` 后使用 `aa`、`ab`。后缀按全文声明顺序分配，包括未被引用的文献，并跨所有文献块计算。正文与文献列表一致：
+`versions` 列出同一作品的其他版本，每项是一个版本的字段，显示在条目下方，以加粗的灰色说明开头：
+
+| `relation` | 显示 |
+| --- | --- |
+| `translation` | 英译、法译……（版本的 `language`；没有时为“译本”） |
+| `original` | 俄文原文……（没有 `language` 时为“原文”） |
+| `edition` | 第 2 版（版本的 `edition`；文字版次原样显示；没有时为“其他版本”） |
+| `reprint` | 重印 |
+| `collected` | 收入（默认类型为 `incollection`，写出文集的 `booktitle`） |
+
+版本沿用条目的 `type`、`author`、`title`、`translatedtitle`、`shorttitle` 与 `site`；`editor` 与 `translator` 除收入文集、译本、原文外也沿用；`language` 除译本、原文外沿用。沿用的作者与标题不重复显示，只显示版本自己写出的字段；不是书或文集的版本也显示出版社（重印的论文通常是书）。版本的 `key` 可选：有 `key` 时注册为引用目标（如 `@Manin2018` 显示“Manin 2018”），参与消歧，并有自己的锚点；有 `key` 时才能有 `label`。版本中不能再有 `versions`。
+
+同页中默认引用作者和日期相同的文献（及有 `key` 的版本）自动加 `a`、`b`、`c`……，超过 `z` 后使用 `aa`、`ab`。后缀按全文声明顺序分配，包括未被引用的文献，并跨所有文献块计算。正文与文献列表一致：
 
 | 情况 | 正文 | 文献列表的作者日期部分 |
 | --- | --- | --- |
-| 同作者同年份 | `Smith 2020a`、`Smith 2020b` | `**Smith,** Alice (2020a)`、`**Smith,** Alice (2020b)` |
+| 同作者同年份 | `Smith 2020a`、`Smith 2020b` | `**Smith**, Alice (2020a)`、`**Smith**, Alice (2020b)` |
 | 单个在线来源 | `nLab` | `nLab` |
 | 同站点多个来源 | `nLab a`、`nLab b` | `nLab (a)`、`nLab (b)` |
-| 同作者多篇 preprint | `Sella a`、`Sella b` | `**Sella,** Yehonatan (a)`、`**Sella,** Yehonatan (b)` |
+| 同作者多篇 preprint | `Sella 预印本 a`、`Sella 预印本 b` | `**Sella**, Yehonatan (预印本 a)`、`**Sella**, Yehonatan (预印本 b)` |
 
-可以用 `label: "EGA I"` 覆盖正文引用文字，程序不再附加作者与年份。文献列表在作者之前显示 `[**EGA I**]`，后面仍保留正常的作者与出版信息。多个文献使用同一个显式 label 时，按声明顺序显示 `EGA I a`、`EGA I b`，条目前缀同步显示相同后缀。
+可以用 `label: "EGA I"` 覆盖正文引用文字，程序不再附加作者与年份。文献列表在作者之前加粗显示 `EGA I`，与作者之间留出间距（`data-typography-boundary`），后面仍保留正常的作者与出版信息。多个文献使用同一个显式 label 时，按声明顺序显示 `EGA I a`、`EGA I b`，条目前缀同步显示相同后缀。有无 label 的条目可以在同一块中混用。
+
+生成的列表由 shortcode 组成：`_bibliography-start`/`_bibliography-end` 包住整个块（`div.bibliography`）；每条文献与版本是 `_bibliography-entry`（`div.bibliography-entry`、`div.bibliography-version`，带锚点与 `lang`）到 `_bibliography-entry-end`，其中一段 Markdown；`_bibliography-span` 到 `_bibliography-span-end` 是行内的标签、姓名、版本说明、资料链接（`bibliography-label`、`-names`、`-relation`、`-links`）与外语片段（只有 `lang`）。样式在 `assets/scss/_bibliography.scss`。
 
 标题中的引用在正文和目录里使用相同的渲染结果。目录与自定义引用文字只保留内层引用的显示文字，避免嵌套链接；未编号标题之间若形成显示文字的循环引用，构建会明确报错。
 
 页内锚点跳转统一避开顶部导航栏。`site.js` 根据导航栏实际高度设置滚动偏移，CSS 提供平滑滚动；系统设置“减少动态效果”时关闭动画。直接打开带 fragment 的 URL 也会在页面加载完成后重新校准。
 
-默认排版策略集中在 `scripts/prebuild/bibliography.mjs` 的 `citationPolicy` 与 `bibliographyFormats`。构建副本保留规范化后的 `bibliographyEntries` 元数据，正文文献链接带 `data-reference`，为以后更换模板或增加读者偏好留出接口；当前尚未实现运行时样式切换和完整 BibLaTeX 导入。
+默认排版策略集中在 `scripts/prebuild/bibliography.mjs` 的 `citationPolicy` 与 `bibliographyFormats`。构建副本保留规范化后的 `bibliographyEntries` 元数据（含版本），正文文献链接带 `data-reference`，为以后更换模板或增加读者偏好留出接口；当前尚未实现运行时样式切换和完整 BibLaTeX 导入。
 
 ## 百科链接与普通链接
 

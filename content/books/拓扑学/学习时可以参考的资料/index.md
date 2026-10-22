@@ -81,7 +81,14 @@ Gramain71:
   title: Topologie des surfaces
   publisher: Presses Universitaires de France
   location: Paris
-  note: "English translation by Boron, Christenson, and Smith (1984): Topology of surfaces. Moscow, ID: BCS Associates"
+  versions:
+    - relation: translation
+      language: en
+      translator: [Boron, Christenson, Smith]
+      title: Topology of surfaces
+      publisher: BCS Associates
+      location: Moscow, ID
+      year: 1984
 
 Guillemin74:
   type: book
@@ -141,7 +148,16 @@ Seifert34:
   title: Lehrbuch der Topologie
   publisher: Teubner
   location: Leipzig
-  note: "English translation by W. Heil (1980): Seifert and Threlfall: a textbook of topology. Pure and Applied Mathematics 89. London: Academic Press Inc."
+  versions:
+    - relation: translation
+      language: en
+      translator: W. Heil
+      title: "Seifert and Threlfall: a textbook of topology"
+      series: Pure and Applied Mathematics
+      volume: 89
+      publisher: Academic Press Inc.
+      location: London
+      year: 1980
 
 Vassiliev01:
   type: book
@@ -152,7 +168,11 @@ Vassiliev01:
   volume: 14
   publisher: American Mathematical Society
   location: Providence, RI
-  note: Translated from the 1997 Russian original by A. Sossinski
+  translator: A. Sossinski
+  versions:
+    - relation: original
+      language: ru
+      year: 1997
 
 Viro08:
   type: book

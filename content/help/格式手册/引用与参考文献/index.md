@@ -160,7 +160,8 @@ Scholze:
 | `online` | 网页 | `site`、`url` |
 
 各类型都可以使用的字段：
-`author`、`editor`、`year`、`doi`、`arxiv`、`zbmath`、`url`、`note`、`label`。
+`author`、`editor`、`translator`、`year`、`language`、`translatedtitle`、
+`doi`、`arxiv`、`zbmath`、`url`、`note`、`label`、`versions`。
 
 正文中的引用文字由作者和年份组成；`preprint` 和 `online` 不显示年份，
 `online` 的作者名显示成网站名。
@@ -177,24 +178,105 @@ Scholze:
 - 字段含有特殊符号时，也应加引号，例如 `title: '$K$-theory: An introduction'`。
 
 - `label` 指定正文中显示的引用文字，例如 `label: EGA I` 显示为 [EGA I]。
+  文献列表中，标签写在条目开头。
 
-### 文献组织
+- 对外文作品，`title` 只写作品原文的标题，翻译的标题使用 `translatedtitle`。
+  作品原文的语言代码写在 `language` 中：
 
-一个页面可以有多个 `bibliography` 代码块，块之间可以写说明文字。
-我们鼓励按类型分组，并用简短的说明引出各组：
+  ```yaml
+  title: Квантовая линейная задача...  # 可以不写这行
+  translatedtitle: Quantum linear problem...
+  language: ru
+  ```
+
+### 译本与其他版本
+
+同一作品的译本、新版、重印或收入文集的版本写在 `versions` 中，显示在条目下方。
+每个版本用 `relation` 说明它与上面的条目的关系：
+
+| `relation` | 含义 | 显示 |
+| --- | --- | --- |
+| `translation` | 译本 | 英译、法译等（按版本的 `language`） |
+| `original` | 原文 | 俄文原文等 |
+| `edition` | 其他版次 | 第 2 版（按版本的 `edition`） |
+| `reprint` | 重印 | 重印 |
+| `collected` | 收入文集、全集 | 收入 |
+
+版本沿用上面条目的作者和标题，只需写不同的字段。
+有 `key` 的版本可以单独引用，例如下例中的 `@Manin2018`。
 
 ````markdown
-## 参考文献
-
-入门读物：
-
 ```bibliography
-...
-```
+KulishReshetikhin1981:
+  type: article
+  author: [P. P. Kulish, N. Yu. Reshetikhin]
+  translatedtitle: Quantum linear problem for the sine-Gordon equation and higher representations
+  language: ru
+  journaltitle: Zapiski Nauchnykh Seminarov LOMI
+  volume: 101
+  year: 1981
+  pages: 101--110
+  versions:
+    - relation: translation
+      language: en
+      journaltitle: Journal of Soviet Mathematics
+      volume: 23
+      number: 4
+      year: 1983
+      pages: 2435--2441
 
-原始论文：
-
-```bibliography
-...
+Manin1988:
+  type: book
+  author: Yuri I. Manin
+  title: Quantum Groups and Noncommutative Geometry
+  year: 1988
+  publisher: Université de Montréal
+  versions:
+    - key: Manin2018
+      relation: edition
+      edition: 2
+      year: 2018
+      series: CRM Short Courses
+      publisher: Springer
 ```
 ````
+
+显示效果：
+
+```bibliography
+KulishReshetikhin1981:
+  type: article
+  author: [P. P. Kulish, N. Yu. Reshetikhin]
+  translatedtitle: Quantum linear problem for the sine-Gordon equation and higher representations
+  language: ru
+  journaltitle: Zapiski Nauchnykh Seminarov LOMI
+  volume: 101
+  year: 1981
+  pages: 101--110
+  versions:
+    - relation: translation
+      language: en
+      journaltitle: Journal of Soviet Mathematics
+      volume: 23
+      number: 4
+      year: 1983
+      pages: 2435--2441
+
+Manin1988:
+  type: book
+  author: Yuri I. Manin
+  title: Quantum Groups and Noncommutative Geometry
+  year: 1988
+  publisher: Université de Montréal
+  versions:
+    - key: Manin2018
+      relation: edition
+      edition: 2
+      year: 2018
+      series: CRM Short Courses
+      publisher: Springer
+```
+
+译者写在 `translator` 中，写法与 `author` 相同。
+文集中的论文（`incollection`）显示为“载于”文集；先发表在期刊、后来收入全集的论文，
+用 `relation: collected` 的版本表示，并写出文集的 `booktitle`。

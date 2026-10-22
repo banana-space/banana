@@ -46,7 +46,7 @@ do-carmo:
   author: "do Carmo, M. P."
   year: 1992
   title: Riemannian Geometry
-  note: Translated by F. Flaherty.
+  translator: F. Flaherty
   publisher: Birkhäuser
 
 griffiths-harris:

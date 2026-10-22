@@ -221,31 +221,55 @@ reference_item:
 reference_section:
   other: 第 {{ .Number }} 节
 
-# 参考文献
+# 参考文献（scripts/prebuild/bibliography.mjs）。条目中的界面文字标为中文，与西文的数据分开排版。
 bibliography_accessed:
-  other: 访问日期：{{ .Date }}.
+  other: 访问于 {{ .Date }}
 bibliography_by:
   other: 作者：{{ .Names }}
+bibliography_collected:
+  other: 收入
 bibliography_edition:
   other: "{{ .Edition }} ed."
+bibliography_edition_number:
+  other: 第 {{ .Edition }} 版
 bibliography_edited_by:
   other: 编者：{{ .Names }}
-bibliography_editor:
-  other: " (ed.)"
 bibliography_editors:
-  other: " (eds.)"
-bibliography_link:
-  other: 链接
+  other: "{{ .Names }} 编"
+bibliography_in:
+  other: 载于
+bibliography_language:
+  other: "{{ .Language }}文"
 bibliography_no_date:
   other: 无日期
+bibliography_original:
+  other: "{{ .Language }}文原文"
+bibliography_original_unknown:
+  other: 原文
+bibliography_other_edition:
+  other: 其他版本
 bibliography_others:
   other: "{{ .Name }} 等"
+bibliography_others_date:
+  other: "{{ .Name }} 等, {{ .Date }}"
+bibliography_pdf:
+  other: pdf
+bibliography_preprint:
+  other: 预印本
+bibliography_reprint:
+  other: 重印
 bibliography_thesis:
   other: Thesis
 bibliography_thesis_master:
   other: Master's thesis
 bibliography_thesis_phd:
   other: PhD thesis
+bibliography_translated_by:
+  other: 译者：{{ .Names }}
+bibliography_translation:
+  other: "{{ .Language }}译"
+bibliography_translation_unknown:
+  other: 译本
 
 # 预处理与作者提示（只使用简单的 {{ .Name }} 参数）
 build_aliases_scope:
@@ -255,7 +279,11 @@ build_anchor_duplicate:
 build_author_complex:
   other: 复杂姓名请使用 {family, given} 或 {literal}
 build_author_invalid:
-  other: 作者/编者必须是姓名字符串、{family, given} 或 {literal}
+  other: 作者/编者必须是姓名字符串、{family, given} 或 {literal}（可加 page）
+build_author_page:
+  other: 姓名的 page 必须是条目标题或 false
+build_author_page_missing:
+  other: page 指向的条目不存在：{{ .Name }}
 build_authors_empty:
   other: 作者/编者列表不能为空
 build_bibliography_fields:
@@ -264,6 +292,8 @@ build_bibliography_key:
   other: 文献 key 必须是字符串
 build_bibliography_label:
   other: label 必须是非空字符串
+build_bibliography_language:
+  other: language 必须是语言代码，如 ru、de
 build_bibliography_mapping:
   other: bibliography 必须是非空的 key 到文献数据的映射
 build_bibliography_online:
@@ -272,8 +302,10 @@ build_bibliography_parameters:
   other: bibliography 块不接受围栏参数
 build_bibliography_position:
   other: bibliography 块必须放在定理/证明环境之外
+build_bibliography_relation:
+  other: relation 必须是 translation、original、edition、reprint 或 collected
 build_bibliography_title:
-  other: title 必须是非空字符串
+  other: title 或 translatedtitle 必须是非空字符串
 build_bibliography_type:
   other: type 必须是 book、article、incollection、thesis、preprint 或 online
 build_bibliography_unclosed:
@@ -286,6 +318,12 @@ build_bibliography_urldate:
   other: urldate 必须使用 YYYY-MM-DD
 build_bibliography_yaml:
   other: 文献 YAML 无效：{{ .Message }}
+build_bibliography_version_label:
+  other: 版本有 key 时才能有 label
+build_bibliography_versions:
+  other: versions 必须是非空列表，每项是一个版本的字段
+build_bibliography_versions_nested:
+  other: 版本中不能再有 versions
 build_bibliography_year:
   other: year 必须是四位年份；字母后缀由程序分配
 build_body_name:

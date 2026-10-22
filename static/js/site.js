@@ -20,6 +20,21 @@ if (navigation) {
   });
 }
 
+// A bibliography entry is highlighted while it is the fragment target, fading out (_bibliography.scss). Following a
+// citation to the entry that already is the target changes nothing for CSS: restart the highlight.
+document.addEventListener('click', event => {
+  const link = event.target.closest?.('a[href*="#"]');
+  if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  if (link.origin !== window.location.origin || link.pathname !== window.location.pathname || link.hash !== window.location.hash) return;
+  let target;
+  try { target = document.getElementById(decodeURIComponent(link.hash.slice(1))); }
+  catch { return; }
+  if (!target?.matches('.bibliography-entry, .bibliography-version')) return;
+  target.style.animation = 'none';
+  void target.offsetWidth; // Applies the removal, so that the animation starts again.
+  target.style.animation = '';
+});
+
 // Reading controls share one directory, moved into the header only while it is open.
 // Native details and fragment links remain usable without JavaScript.
 if (navigation) {

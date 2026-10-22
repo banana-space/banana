@@ -45,7 +45,7 @@ matsumura:
   label: Mat86
   author: H. Matsumura
   title: Commutative Ring Theory
-  note: 英译：M. Reid
+  translator: M. Reid
   series: Cambridge Studies in Advanced Mathematics
   number: 8
   publisher: Cambridge University Press

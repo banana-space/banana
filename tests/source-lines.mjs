@@ -46,10 +46,11 @@ const mark = markSourceLines('甲', 0).slice(0, -1);
 assert.match(mark.at(-1), /\p{P}/u);
 assert.doesNotMatch(mark, /[\p{L}\p{N}\s]/u);
 // Formulas, for double clicks on one in the preview: delimiters included, none in code.
-// A bibliography's entries (code in the source, a list on the page) are marked with their keys' lines; a page
+// A bibliography's entries (code in the source, paragraphs on the page) are marked with their keys' lines; a page
 // without marks (any but the previewed one) gets none.
 const bibliography = '见 @a。\n\n```bibliography\na:\n  type: book\n  title: A\n\nb:\n  type: book\n  title: B\n```\n';
-const entryLines = text => text.split('\n').filter(line => line.startsWith('- ')).map(line => [...line.matchAll(markPattern)].map(mark => decodeLine(mark[1])));
+const entryLines = text => text.split('\n').flatMap((line, i, lines) => line.startsWith('{{< _bibliography-entry ') ? [lines[i + 2]] : [])
+  .map(line => [...line.matchAll(markPattern)].map(mark => decodeLine(mark[1])));
 assert.deepEqual(entryLines(transformDocument(markSourceLines(bibliography, 3), { lineOffset: 3 })), [[7], [11]]);
 assert.ok(!transformDocument(bibliography, { lineOffset: 3 }).includes('\uE000'));
 const formulaText = '甲 $a$ `$b$` \\[\nc\n\\] \\$d$e$\n```\n$f$\n```\n';

@@ -242,7 +242,13 @@ Zorich2004:
   publisher: Springer-Verlag
   location: Berlin
   year: 2004
-  note: Translated from the 2002 fourth Russian edition by Roger Cooke. xviii+574 pp.
+  translator: Roger Cooke
+  note: xviii+574 pp.
+  versions:
+    - relation: original
+      language: ru
+      edition: 4
+      year: 2002
 Zorich2004b:
   type: book
   author: Vladimir A. Zorich
@@ -251,7 +257,13 @@ Zorich2004b:
   publisher: Springer-Verlag
   location: Berlin
   year: 2004
-  note: Translated from the 2002 fourth Russian edition by Roger Cooke. xvi+681 pp.
+  translator: Roger Cooke
+  note: xvi+681 pp.
+  versions:
+    - relation: original
+      language: ru
+      edition: 4
+      year: 2002
 Chen2009:
   type: book
   author: 陈天权
