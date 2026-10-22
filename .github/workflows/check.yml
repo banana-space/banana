@@ -1,0 +1,43 @@
+# Fast checks on every pull request: the prebuild checks (npm run check) and formatting.
+# Neither runs Hugo or compiles TikZ, so this takes about a minute.
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Check pages
+        run: |
+          status=0
+          node scripts/check.mjs --json > "$RUNNER_TEMP/check.json" || status=$?
+          # Each error becomes an annotation on its line; missing-article links are not reported.
+          jq -r '
+            def esc: gsub("%"; "%25") | gsub("\r"; "%0D") | gsub("\n"; "%0A");
+            def at: (if .file then "file=\(.file)" else "" end) + (if .line then ",line=\(.line)" else "" end);
+            .errors[] | "::error \(at)::\(.message | esc)"
+          ' "$RUNNER_TEMP/check.json"
+          jq -r '"\(.errors | length) 个错误"' "$RUNNER_TEMP/check.json"
+          exit $status
+
+      - name: Check formatting
+        run: npm run format -- --check
