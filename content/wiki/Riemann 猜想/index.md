@@ -76,7 +76,12 @@ riemann59:
   year: 1859
   title: Über die Anzahl der Primzahlen unter einer gegebenen Grösse
   journaltitle: Monatsberichte der Berliner Akademie
-  note: In Gesammelte Werke, Teubner, Leipzig (1892).
+  versions:
+    - relation: collected
+      booktitle: Gesammelte Werke
+      publisher: Teubner
+      location: Leipzig
+      year: 1892
 edwards74:
   type: book
   label: Edw74

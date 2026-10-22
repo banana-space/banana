@@ -8,6 +8,7 @@ import { parse, stringify } from 'yaml';
 import { transformMarkup } from './markup.mjs';
 import { pageName, nameList, pageTitleMarkup } from './names.mjs';
 import { transformDocument } from './structure.mjs';
+import { personIndex } from './bibliography.mjs';
 import { eachLimit, publishContent } from './publish.mjs';
 import { categoryTree } from './categories.mjs';
 import { gitDates } from './git-dates.mjs';
@@ -76,6 +77,20 @@ export async function prebuild({ destination: generated = `${root}.build/content
   const modifiedAt = await timer.time('git dates', () => gitDates(root));
   let wikiNames = new Map();
   let records = new Map();
+  // Biographies (the published articles in 人物 and below) by name, so that bibliographies link their authors;
+  // built when first needed, and again for the pages a change transforms (update()).
+  let peopleIndex;
+  const peopleIn = state => {
+    const published = [...state.values()].filter(record => record.isWiki && record.normalized && isPublished(record.metadata));
+    return personIndex(
+      published.filter(record => record.metadata.categories?.includes('人物'))
+        .map(record => ({ key: record.metadata.wikiName, names: [record.metadata.wikiName, ...record.metadata.wikiAliases] })),
+      new Set(published.flatMap(record => [record.metadata.wikiName, ...record.metadata.wikiAliases])));
+  };
+  const people = {
+    match: name => (peopleIndex ??= peopleIn(records)).match(name),
+    exists: key => (peopleIndex ??= peopleIn(records)).exists(key),
+  };
   const links = [];
   /**
    * names：条目名与别名 → 文件；增量更新时传入副本，成功后才替换。
@@ -143,6 +158,8 @@ export async function prebuild({ destination: generated = `${root}.build/content
       onHeadings: headings => { metadata.referenceHeadings = headings; },
       onSectionNumbers: numbers => { metadata.sectionNumbers = numbers; },
       onWikiLink: (target, line, column) => { if (!wikiLinks.has(`${line}\0${target}`)) wikiLinks.set(`${line}\0${target}`, { line, column, target }); },
+      // An article's bibliography does not link its own subject to the article itself.
+      people: isWiki ? { ...people, self: metadata.wikiName } : people,
     };
   }
   // Generated directory contents, published only after every page succeeds.
@@ -320,6 +337,10 @@ export async function prebuild({ destination: generated = `${root}.build/content
     }
     async function apply() {
       const next = new Map(records), names = new Map(wikiNames), changed = [], whole = new Set();
+      try { return await changePages(next, names, changed, whole); }
+      finally { peopleIndex = undefined; }
+    }
+    async function changePages(next, names, changed, whole) {
       for (const [relative, text] of changes) {
         const collection = roots.find(prefix => relative.startsWith(prefix));
         if (collection) { whole.add(collection); continue; }
@@ -352,6 +373,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
         await prepareCollections({ source, records: next, dates: modifiedAt, normalize, roots: [`${source}/${prefix.slice(0, -1)}`] });
         for (const [relative, record] of next) if (relative.startsWith(prefix)) changed.push(record);
       }
+      peopleIndex = peopleIn(next);
       const result = new Map(changed.map(record => [record.relative, transformRecord(record, true)]));
       const published = new Set();
       for (const record of next.values()) {

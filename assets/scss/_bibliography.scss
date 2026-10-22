@@ -1,0 +1,106 @@
+// 参考文献列表（scripts/prebuild/bibliography.mjs）：没有项目符号，左对齐，各条悬挂缩进 2em；
+// 标签加粗写在开头，版本（译本、再版等）在条目下方缩进，资料链接在末尾。
+.bibliography {
+  margin: 1.6rem 0;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  text-align: left;
+  overflow-wrap: break-word;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.4rem;
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  // Chinese inside a Western entry (notes, 英译, 编者): its punctuation in Banana Punctuation, as in the body.
+  [lang]:lang(zh) {
+    font-family: var(--prose-font);
+  }
+}
+
+.bibliography-entry {
+  margin: 0 0 1.4rem;
+
+  > p {
+    padding-left: 2em;
+    text-indent: -2em;
+  }
+}
+
+.bibliography-version {
+  margin-top: 0.2rem;
+  padding-left: 2em;
+}
+
+// 从正文的引用跳转到的条目：浅橙色底色与边框，停留片刻后淡出（再次点击同一引用时，site.js 重新开始）。
+// 外边距与内边距不变，淡出时文字不移动。
+$bibliography-target-background: #fff2e2;
+$bibliography-target-border: #f7cc9b;
+$bibliography-target-border-width: 1.5px;
+
+.bibliography-entry:target,
+.bibliography-version:target {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: calc(0.4rem - #{$bibliography-target-border-width}) calc(1rem - #{$bibliography-target-border-width});
+  border: $bibliography-target-border-width solid transparent;
+  border-radius: 8px;
+  animation: bibliography-target 4s ease-in forwards;
+}
+
+.bibliography-version:target {
+  padding-left: calc(2em + 1rem - #{$bibliography-target-border-width});
+}
+
+@keyframes bibliography-target {
+  0%,
+  60% {
+    background-color: $bibliography-target-background;
+    border-color: $bibliography-target-border;
+  }
+
+  100% {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+.bibliography-label {
+  margin-right: 1.1em;
+  font-weight: 600;
+}
+
+.bibliography-relation {
+  color: $muted-color;
+  font-weight: 600;
+}
+
+// 链接到传记条目的作者：保持文字颜色，以浅色下划线标出；悬停时下划线与文字一同变色。
+.bibliography-names a {
+  color: inherit;
+  border-bottom: 1px solid $light-text-color;
+  transition: color 0.15s ease-in, border-bottom-color 0.15s ease-in;
+
+  &:focus,
+  &:hover {
+    color: $link-color;
+    border-bottom-color: $link-color;
+  }
+}
+
+.bibliography-links {
+  color: $muted-color;
+  font-size: 0.9em;
+
+  a {
+    white-space: nowrap;
+  }
+
+  .link-icon {
+    display: none;
+  }
+}

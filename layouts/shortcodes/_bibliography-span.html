@@ -1,0 +1,8 @@
+{{- /* 文献中的行内容器，由 _bibliography-span-end 结束：class 为 bibliography-<class>（label、names、relation、links），
+  lang 为其中文字的语言（西文条目中的中文等），boundary 阻止排版跨越它补空格（标签与姓名之间的间距由样式给出）。 */ -}}
+{{- $class := .Get "class" -}}
+{{- $lang := .Get "lang" -}}
+{{- if and $class (not (in (slice "label" "names" "relation" "links") $class)) -}}{{ errorf "_bibliography-span: class %q" $class }}{{- end -}}
+{{- if and $lang (not (findRE `^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$` $lang)) -}}{{ errorf "%s" (i18n "build_tag_language" (dict "Name" "_bibliography-span" "Value" $lang)) }}{{- end -}}
+<span{{ with $class }} class="bibliography-{{ . }}"{{ end }}{{ with $lang }} lang="{{ . }}"{{ end }}{{ if .Get "boundary" }} data-typography-boundary="true"{{ end }}>
+{{- /**/ -}}

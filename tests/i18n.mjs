@@ -21,20 +21,20 @@ try {
     navbox_expand: 'Expand', navbox_collapse: 'Collapse',
     missing_content: '{{ .Name }} has no content.', missing_quoted_name: '[{{ .Name }}]',
     missing_page_title: 'Missing: {{ .Name }}', bibliography_no_date: 'No date',
-    bibliography_accessed: 'Accessed {{ .Date }}.', bibliography_link: 'Source',
+    bibliography_accessed: 'Accessed {{ .Date }}', bibliography_pdf: 'PDF file',
     build_label_missing: 'Unknown label: {{ .Name }}',
   })) table[key] = { other };
   await writeFile(path, stringify(table));
   const directory = join(root, 'content/wiki/i18n-test');
   await mkdir(directory, { recursive: true });
-  const source = `---\ntitle: Translation test\nnavboxes: [代数拓扑]\n---\n\n::: proof\n正文\n:::\n\n\`\`\`terms\n群: {de: 'Gruppe :m'}\n\`\`\`\n\n\`\`\`bibliography\nbook: {type: book, title: Book, url: 'https://example.com/book'}\nweb: {type: online, title: Web, site: Test, url: 'https://example.com', urldate: '2024-06-01'}\n\`\`\`\n`;
+  const source = `---\ntitle: Translation test\nnavboxes: [代数拓扑]\n---\n\n::: proof\n正文\n:::\n\n\`\`\`terms\n群: {de: 'Gruppe :m'}\n\`\`\`\n\n\`\`\`bibliography\nbook: {type: book, title: Book, url: 'https://example.com/book.pdf'}\nweb: {type: online, title: Web, site: Test, url: 'https://example.com', urldate: '2024-06-01'}\n\`\`\`\n`;
   await writeFile(join(directory, 'index.md'), source);
   const output = execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, encoding: 'utf8' });
   assert.match(output, /^prebuild: \d+ pages -> \.build\/content \(\d+ ms\)$/m, 'Build progress is in English with timings');
   const generated = await readFile(join(root, '.build/content/wiki/i18n-test/index.md'), 'utf8');
   assert.match(generated, /No date/);
   assert.match(generated, /Accessed 2024-06-01/);
-  assert.match(generated, /\[Source\]\(https:\/\/example.com\/book\)/);
+  assert.match(generated, /\[PDF file\]\(https:\/\/example.com\/book\.pdf\)/);
   buildProject(root);
   const html = normalizeHTML(await readFile(join(root, 'public/wiki/i18n-test/index.html'), 'utf8'));
   assert.match(html, /placeholder="Find 香蕉空间"/);

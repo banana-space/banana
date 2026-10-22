@@ -10,7 +10,7 @@ import { katexError } from './katex-check.mjs';
 import { authorTags, looksLikeTag, readTag } from './tags.mjs';
 import { labelledMarkerSource } from '../shared/scan.mjs';
 import { escaped, protectedToken, readMath, readMarkdownLink, readWiki, normalizeTarget, transformMarkup, typographer, validReferenceName, markdownText, unclosedProtected } from './markup.mjs';
-import { readBibliography, prepareBibliography, bibliographyMarkdown } from './bibliography.mjs';
+import { readBibliography, prepareBibliography, bibliographyMarkdown, bibliographyData } from './bibliography.mjs';
 import { MARK_OPEN, encodeLine } from './source-lines.mjs';
 import { readTerms } from './terms.mjs';
 import { blockStart, movedLabelStart, parseLists } from './lists.mjs';
@@ -170,8 +170,9 @@ export function headingId(title, { lang = 'zh' } = {}) {
  * onHeadings 保留可供 Hugo 渲染的标题文字，
  * onSectionNumbers 提供目录与正文共用的节号（不编号节为空字符串）。
  * onWikiLink(目标匹配键, 行号, 列号) 报告每个百科链接（列号从 1 起），供检查命令查找缺失条目；同一处可能报告多次。
+ * people：传记条目的姓名索引（bibliography.mjs 的 personIndex），文献作者据此链接到条目；省略时不链接。
  */
-export function transformDocument(source, { file = t('build_body_name'), lang = 'zh', lineOffset = 0, onLabels, onBibliography, onTerms, onHeadings, onSectionNumbers, onWikiLink, context, page, numbers, referenceFormat, prepareOnly = false, allowLevelOne = false, pageAnchor = false, checkMath = false } = {}) {
+export function transformDocument(source, { file = t('build_body_name'), lang = 'zh', lineOffset = 0, onLabels, onBibliography, onTerms, onHeadings, onSectionNumbers, onWikiLink, people, context, page, numbers, referenceFormat, prepareOnly = false, allowLevelOne = false, pageAnchor = false, checkMath = false } = {}) {
   const text = source.replace(/\r\n/g, '\n');
   // checkMath: each formula checked with KaTeX (the online editor; see katex-check.mjs).
   const katexProblem = (tex, display) => { const error = katexError(tex, display); return error && t('build_katex', { Message: error }); };
@@ -309,13 +310,14 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
     }
     return { destination: `reference:?${query}`, label: target.name };
   }
-  const render = (value, offset) => transformMarkup(value, [], {
+  const render = (value, offset, { data = false } = {}) => transformMarkup(value, [], {
     resolveWiki: (wiki, i) => resolveWiki(wiki, offset + i),
     resolveReference: (key, i, label) => resolveReference(key, offset + i, label),
     fail: (message, i) => fail(message, offset + i),
     checkMath: checkMath ? katexProblem : undefined,
     indentedCode: false,
-    blockCodeEnd: i => {
+    // Data in a fence (a bibliography's notes) is text, though the fence is code to the Markdown parser.
+    blockCodeEnd: data ? () => undefined : i => {
       const end = blockCodeEnd(offset + i);
       return end === undefined ? undefined : Math.min(value.length, end - offset);
     },
@@ -384,12 +386,18 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
     for (const entry of block.entries) {
       entry.key = labelName(entry.key, entry.offset);
       register(entry.key, { kind: 'bibliography', anchor: entry.anchor, entry }, entry.offset);
+      // A version with a key (a translation, a later edition) is cited on its own.
+      for (const version of entry.versions) {
+        if (!version.key) continue;
+        version.key = labelName(version.key, version.offset);
+        register(version.key, { kind: 'bibliography', anchor: version.anchor, entry: version }, version.offset);
+      }
       bibliography.push(entry);
     }
     // On the editor's previewed page (its lines marked, source-lines.mjs), each entry is marked with its key's line:
     // the block's own lines are code, which has no marks.
     const mark = text.includes(MARK_OPEN) ? entry => encodeLine(lineOffset + text.slice(0, entry.offset).split('\n').length) : undefined;
-    edits.push({ start: i, end: block.end, output: () => bibliographyMarkdown(block.entries, mark) });
+    edits.push({ start: i, end: block.end, output: () => bibliographyMarkdown(block.entries, { mark, render: (value, offset) => render(value, offset, { data: true }), people, fail }) });
     return block.end;
   }
 
@@ -619,7 +627,7 @@ export function transformDocument(source, { file = t('build_body_name'), lang = 
     anchors.set(anchor, name);
   }
   const finish = () => {
-    onBibliography?.(bibliography.map(({ offset, ...entry }) => entry));
+    onBibliography?.(bibliography.map(bibliographyData));
     onTerms?.(terms);
     onHeadings?.(Object.fromEntries(headings.map(heading => [heading.anchor, render(heading.title, heading.offset)])));
     onSectionNumbers?.(Object.fromEntries(headings.map(heading => [heading.anchor, heading.number])));

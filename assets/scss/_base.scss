@@ -3,6 +3,24 @@
   src: url("#{$font-path}CommitMono.woff2") format("woff2");
 }
 
+// The Cyrillic and Greek letters Commit Mono lacks, from JetBrains Mono (same advance width, so code stays
+// aligned; scripts/fonts/jetbrains-mono-cyrillic.py). Loaded only by pages that show such letters in code.
+// Normal code uses a fixed instance at weight 350, closer to Commit Mono; bold code the variable font.
+@each $style, $name in (normal: "JetBrainsMono-Cyrillic", italic: "JetBrainsMono-Cyrillic-Italic") {
+  @each $weight, $file in ("100 400": "#{$name}-350", "401 800": "#{$name}-Variable") {
+    @font-face {
+      font-family: "JetBrains Mono Cyrillic";
+      src: url("#{$font-path}#{$file}.woff2") format("woff2");
+      font-weight: #{$weight};
+      font-style: $style;
+      font-display: swap;
+      unicode-range: U+0374-0375, U+037E, U+0387, U+03CF, U+03D6-03D7, U+0401-040C, U+040E-044F, U+0451-045C,
+        U+045E-045F, U+0490-0493, U+049A-049B, U+04A2-04A3, U+04AE-04B1, U+04B6-04B7, U+04BA-04BB, U+04D8-04D9,
+        U+04DC-04DF, U+04E4-04E9, U+04F4-04F5;
+    }
+  }
+}
+
 // Each static face has its own weight metadata and glyphs.
 @each $weight, $file in (400: "BananaPunctuation-Regular", 500: "BananaPunctuation-Medium", 600: "BananaPunctuation-SemiBold") {
   @font-face {

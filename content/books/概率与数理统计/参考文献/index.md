@@ -10,7 +10,13 @@ Kolmogorov1933:
   publisher: Springer
   location: Berlin, Heidelberg
   year: 1933
-  note: "English edition: A. N. Kolmogorov, Foundations of the theory of probability, Dover Publications, Inc., 2018."
+  versions:
+    - relation: translation
+      language: en
+      author: "Kolmogorov, A. N."
+      title: Foundations of the theory of probability
+      publisher: Dover Publications, Inc.
+      year: 2018
 williams1991probability:
   type: book
   author: "Williams, D."
@@ -159,7 +165,10 @@ linnik1968statistical:
   title: Statistical problems with nuisance parameters
   publisher: American Mathematical Society
   year: 1968
-  note: Translated from the Russian by Scripta Technica.
+  translator: {literal: Scripta Technica}
+  versions:
+    - relation: original
+      language: ru
 scheffe1943solutions:
   type: article
   author: "Scheffé, H."
@@ -183,7 +192,11 @@ hsu1938contribution:
   volume: 2
   pages: 1–24
   year: 1938
-  note: 同时收录于《许宝𫘧文集》，科学出版社，1981。
+  versions:
+    - relation: collected
+      booktitle: 许宝𫘧文集
+      publisher: 科学出版社
+      year: 1981
 welch1949further:
   type: article
   author: "Welch, B. L."

@@ -151,7 +151,7 @@ try {
   await mkdir(join(root, 'content/wiki/disabled'), { recursive: true });
   await mkdir(join(root, 'content/wiki/korean'), { recursive: true });
   await writeFile(join(root, 'data/categories.yaml'), '数学: {}\n');
-  let source = '---\ntitle: 维 数 ( 向 量 空 间 )\n---\n## 中文API与$f$ {@sec:test}\n\n[[维数(向量空间)]] [[维数（向量空间）]] [[维数 (向量空间)]]\n\n中文[API](https://example.com)与$f$。见 @sec:test。\n\n<lang ko>한 글ABC 漢 字。</lang>\n\n## 维数 ( 向量空间 )\n\n```bibliography\nbook:\n  type: book\n  title: 汉 字。\n  author: Example\n  year: 2026\n```\n';
+  let source = '---\ntitle: 维 数 ( 向 量 空 间 )\n---\n## 中文API与$f$ {@sec:test}\n\n[[维数(向量空间)]] [[维数（向量空间）]] [[维数 (向量空间)]]\n\n中文[API](https://example.com)与$f$。见 @sec:test。\n\n<lang ko>한 글ABC 漢 字。</lang>\n\n## 维数 ( 向量空间 )\n\n```bibliography\nbook:\n  type: book\n  title: Hello , world ( A )\n  author: Example\n  year: 2026\n  note: 汉 字。\n```\n';
   source += String.raw`
 间距：汉$x$字，汉[式 $x$](https://example.com)字。汉[$x$](https://example.com/formula)字。汉$\text{汉 字。}$字。
 
@@ -203,8 +203,10 @@ $$x + y$$
   }
   assert.match(html, /<p>中文 <a[^>]*>API/);
   assert.match(html, /<span lang="ko">한 글ABC 漢 字。<\/span>/);
+  // A bibliography is typeset as prose, its Western data (marked English) as written; its Chinese note as Chinese.
   const bibliography = built.find(node => attr(node, 'class') === 'bibliography');
-  assert.match(text(bibliography), /汉 字。/);
+  assert.match(text(bibliography), /Hello , world \( A \)/);
+  assert.match(text(bibliography), /汉字．/);
   const disabled = await readFile(join(root, 'public/wiki/disabled/index.html'), 'utf8');
   assert.match(disabled, /中文 API。定理 X.Y。/);
   assert.doesNotMatch(disabled, /中文 API．/);
@@ -216,4 +218,4 @@ $$x + y$$
   assert.equal(await readFile(join(root, 'content/wiki/dimension/index.md'), 'utf8'), source);
   assert.equal(normalizeHTML(html), html);
 } finally { await rm(root, { recursive: true, force: true }); }
-console.log('排版：链接/公式边界、特殊空格、韩文、括号与引号、标题/锚点、三种条目名称、句号开关、参考文献保护及重复构建验证通过');
+console.log('排版：链接/公式边界、特殊空格、韩文、括号与引号、标题/锚点、三种条目名称、句号开关、参考文献按语言排版及重复构建验证通过');

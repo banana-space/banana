@@ -5,16 +5,25 @@ import { runInNewContext } from 'node:vm';
 const script = await readFile(new URL('../static/js/site.js', import.meta.url), 'utf8');
 const anchorScript = script.split('// Reading controls')[0];
 let height = 60, resize;
-const offsets = [], scrolls = [], handlers = new Map();
+const offsets = [], scrolls = [], handlers = new Map(), documentHandlers = new Map();
 const navigation = { getBoundingClientRect: () => ({ height }) };
-const location = { hash: '#bib-nlab%3A%E4%B8%AD%E6%96%87' };
+const location = { hash: '#bib-nlab%3A%E4%B8%AD%E6%96%87', origin: 'https://example.org', pathname: '/wiki/a/' };
+// A bibliography entry: its highlight animation, restarted by clearing and restoring the inline animation.
+const animations = [];
+const entry = {
+  matches: selector => selector.split(', ').includes('.bibliography-entry'),
+  style: { set animation(value) { animations.push(value); }, get animation() { return animations.at(-1) ?? ''; } },
+  get offsetWidth() { animations.push('reflow'); return 0; },
+  scrollIntoView: options => scrolls.push({ ...options }),
+};
 const document = {
   querySelector: selector => { assert.equal(selector, '.navigation'); return navigation; },
   documentElement: { style: { setProperty: (...args) => offsets.push(args) } },
   getElementById: id => {
     assert.equal(id, 'bib-nlab:中文');
-    return { scrollIntoView: options => scrolls.push({ ...options }) };
+    return entry;
   },
+  addEventListener: (type, callback) => documentHandlers.set(type, callback),
 };
 runInNewContext(anchorScript, {
   document,
@@ -39,14 +48,24 @@ assert.equal(scrolls.length, 1);
 const fallback = new Map();
 runInNewContext(anchorScript, { document, window: { location, addEventListener: (type, callback) => fallback.set(type, callback) } });
 assert.ok(fallback.has('resize'));
-runInNewContext(anchorScript, { document: { querySelector: () => null } });
+runInNewContext(anchorScript, { document: { querySelector: () => null, addEventListener: () => {} } });
+// Following a citation to the entry that already is the target restarts its highlight; other links do nothing.
+const click = (link, event = {}) => documentHandlers.get('click')({ button: 0, target: { closest: () => link }, ...event });
+const citation = { origin: location.origin, pathname: location.pathname, hash: '#bib-nlab%3A%E4%B8%AD%E6%96%87' };
+location.hash = citation.hash;
+click(citation);
+assert.deepEqual(animations, ['none', 'reflow', '']);
+for (const [link, event] of [[{ ...citation, hash: '#other' }], [{ ...citation, pathname: '/wiki/b/' }], [citation, { metaKey: true }], [citation, { defaultPrevented: true }], [null]]) {
+  click(link, event);
+}
+assert.equal(animations.length, 3);
 
 const css = await readFile(new URL('../assets/scss/_base.scss', import.meta.url), 'utf8');
 assert.match(css, /\.content \[id\]\s*\{\s*scroll-margin-top: var\(--anchor-offset, 8rem\)/);
 assert.doesNotMatch(css, /scroll-padding-top\s*:/);
 assert.match(css, /scroll-behavior: smooth/);
 assert.match(css, /prefers-reduced-motion: reduce[\s\S]*scroll-behavior: auto/);
-console.log('导航栏动态滚动偏移、直接锚点 URL、无效 fragment、动画与减少动态效果偏好验证通过');
+console.log('导航栏动态滚动偏移、直接锚点 URL、无效 fragment、再次点击文献引用时重新标出、动画与减少动态效果偏好验证通过');
 
 // Exercise the reading controls with a small DOM fixture; the actual responsive
 // layout and native fragment scrolling are also checked in a browser.

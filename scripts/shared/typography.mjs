@@ -102,7 +102,7 @@ export function normalizeText(text, options) {
 
 const blocks = new Set('html head body main article section header footer nav div p h1 h2 h3 h4 h5 h6 ul ol li dl dt dd table thead tbody tfoot tr th td blockquote figure figcaption details summary title'.split(' '));
 const excluded = new Set('script style pre code textarea svg math template noscript select option button'.split(' '));
-const ignoredClasses = new Set(['heading-link', 'section-number', 'toc-section-number', 'bibliography-anchor', 'item-target', 'item-label']);
+const ignoredClasses = new Set(['heading-link', 'section-number', 'toc-section-number', 'item-target', 'item-label']);
 
 /** Normalize rendered HTML through a tree adapter. */
 export function normalizeTree(root, adapter, options = {}) {

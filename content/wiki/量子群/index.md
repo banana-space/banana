@@ -774,23 +774,31 @@ SklyaninTakhtajanFaddeev1979:
 KulishReshetikhin1981:
   type: article
   author: [P. P. Kulish, N. Yu. Reshetikhin]
-  title: Quantum linear problem for the sine-Gordon equation and higher representations
+  translatedtitle: Quantum linear problem for the sine-Gordon equation and higher representations
+  language: ru
   journaltitle: Zapiski Nauchnykh Seminarov LOMI
   volume: 101
   year: 1981
   pages: 101--110
-  note: '原文为俄文．英译 (1983)：Journal of Soviet Mathematics 23 (4), 2435–2441'
+  versions:
+    - relation: translation
+      language: en
+      journaltitle: Journal of Soviet Mathematics
+      volume: 23
+      number: 4
+      year: 1983
+      pages: 2435--2441
 
 Drinfeld1985:
   type: article
   author: V. G. Drinfeld
-  title: Hopf algebras and the quantum Yang–Baxter equation
+  translatedtitle: Hopf algebras and the quantum Yang–Baxter equation
+  language: ru
   journaltitle: Doklady Akademii Nauk SSSR
   volume: 283
   number: 5
   year: 1985
   pages: 1060--1064
-  note: '原文为俄文'
 
 Jimbo1985:
   type: article
@@ -825,7 +833,7 @@ Manin1988:
   title: Quantum Groups and Noncommutative Geometry
   year: 1988
   publisher: Centre de Recherches Mathématiques, Université de Montréal
-  note: '第二版见 Manin 2018'
+  note: 第二版见 @Manin2018
 
 ReshetikhinTakhtajanFaddeev1990:
   type: article
@@ -836,7 +844,14 @@ ReshetikhinTakhtajanFaddeev1990:
   number: 1
   year: 1990
   pages: 193--225
-  note: '俄文原文 (1989)：Algebra i Analiz 1 (1), 178–206'
+  versions:
+    - relation: original
+      language: ru
+      journaltitle: Algebra i Analiz
+      volume: 1
+      number: 1
+      year: 1989
+      pages: 178--206
 
 EtingofKazhdan1996:
   type: article
