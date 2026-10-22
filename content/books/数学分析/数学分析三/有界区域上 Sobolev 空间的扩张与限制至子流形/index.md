@@ -350,7 +350,8 @@ $u\in H^\frac{1}{2}(\partial \Omega)$。仍然利用这个范数，我们就有
 从而，我们证明了
 
 ::: proposition
-函数空间$\left(H^{\frac{1}{2}}(\partial\Omega), \|\cdot\|_{H^{\frac{1}{2}}(\partial\Omega)}\right)$是完备内积空间，
+函数空间$\left(H^{\frac{1}{2}}(\partial\Omega), \|\cdot\|_{H^{\frac{1}{2}}(\partial\Omega)}\right)$
+是完备内积空间，
 其中，我们用如下物理空间上的内积
 \[
 \left(u_1,u_2\right)_{H^{\frac{1}{2}}(\partial \Omega)}=(u_1,u_2)_{L^2(\partial\Omega)}+\int\!\!\!\int_{\partial\Omega \times \partial \Omega}\frac{\left(u_1(x)-u_1(y)\right)\left(\overline{u_2(x)}-\overline{u_2(y)}\right)}{|x-y|^{n}}d\sigma(x)d\sigma(y).

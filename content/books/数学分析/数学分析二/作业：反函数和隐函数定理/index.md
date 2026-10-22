@@ -177,7 +177,8 @@ C6) 证明，映射
 \[
 \|A\|=\sup_{x\in \mathbb{R}^n, x\neq 0}\frac{|A\cdot x|}{|x|}.
 \]
-其中 $|x|=\sqrt{|x_1|^2+\cdots+|x_n|^2}$。假设 $\lambda_1,\cdots,\lambda_n$ 是 $A^{\mathrm{T}}A$ 的特征值（它们都是非负实数）。
+其中 $|x|=\sqrt{|x_1|^2+\cdots+|x_n|^2}$。
+假设 $\lambda_1,\cdots,\lambda_n$ 是 $A^{\mathrm{T}}A$ 的特征值（它们都是非负实数）。
 
 D1) 试证明，$\|A\|=\sup_{k=1,\cdots,n}\sqrt{\lambda_k}$。
     进一步证明这是一个范数并且和之前定义的 $\|\cdot \|_1$，

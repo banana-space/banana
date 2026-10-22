@@ -183,7 +183,8 @@ B4)
        \]
        其中 $Q = \displaystyle \int_{\Omega} \rho(x)dx$ 是 $\Omega$ 内的总电荷。
 
-    3. 证明，如果电荷密度函数 $\rho \in C_0^{\infty}(\mathbb{R}^3)$ 是具有紧支集的光滑函数，那么静电场
+    3. 证明，如果电荷密度函数 $\rho \in C_0^{\infty}(\mathbb{R}^3)$ 是具有紧支集的光滑函数，
+       那么静电场
        \[
        \displaystyle E(x) =  \frac{1}{4 \pi \varepsilon_0} \int_{\mathbb{R}^3} \frac{\rho(y)(x-y)}{|x-y|^3}dy
        \]

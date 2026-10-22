@@ -222,7 +222,8 @@ f^+(x) = f(x)\mathbf{1}_{\{x|f(x)\geqslant 0\}},\ \ f^-(x) = -f(x)\mathbf{1}_{\{
 \[
 \int_{X} \varphi d\mu = \sum_{\lambda} \lambda \mu(\varphi^{-1}(\lambda))>0.
 \]
-所以，有某个 $\lambda>0$，使得 $ \mu(\varphi^{-1}(\lambda))>0$，所以在测度非零集合 $\varphi^{-1}(\lambda)$ 上，
+所以，有某个 $\lambda>0$，使得 $ \mu(\varphi^{-1}(\lambda))>0$，
+所以在测度非零集合 $\varphi^{-1}(\lambda)$ 上，
 \[
 f(x)\geqslant \varphi(x)=\lambda >0.
 \]
@@ -367,7 +368,8 @@ i,\ \ &f(x)\geqslant i;\\
 \end{cases}
 \]
 每个 $\varphi_i$ 只取有限多个值，所以是正的简单函数，
-并且这是上升的函数序列。对任给定的 $x\in X$，如果 $f(x)=+\infty$，那么 $\varphi_i(x)=i\rightarrow +\infty$；
+并且这是上升的函数序列。
+对任给定的 $x\in X$，如果 $f(x)=+\infty$，那么 $\varphi_i(x)=i\rightarrow +\infty$；
 否则选取 $i_0>f(x)$，根据 $\varphi_i$ 的定义，对任意的 $i\geqslant i_0$，我们有
 \[
 0\leqslant f(x)-\varphi_i(x) \leqslant 2^{-i}.

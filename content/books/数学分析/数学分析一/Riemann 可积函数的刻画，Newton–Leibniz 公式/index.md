@@ -33,7 +33,8 @@ title: Riemann 可积函数的刻画，Newton–Leibniz 公式
 对任意的 $(\sigma,\xi)$ 我们都有 $|S(f;\sigma,\xi)-\mathbf{I}|<\varepsilon$。
 我们选定一个分划 $\sigma=\{a_0<a_1<\cdots<a_n\}$，使得 $|\sigma|<\delta$。
 
-任意取定 $1\leqslant i_0\leqslant n$，我们令 $\xi_i=a_i, i\neq i_0$，$\xi_{i_0}=x\in [a_{i_0-1},a_{i_0}]$ 可以任意选择。
+任意取定 $1\leqslant i_0\leqslant n$，我们令 $\xi_i=a_i, i\neq i_0$，
+$\xi_{i_0}=x\in [a_{i_0-1},a_{i_0}]$ 可以任意选择。
 根据 $|S(f;\sigma,\xi)|<\mathbf{I}+\varepsilon$，我们知道
 \[
 \begin{aligned}

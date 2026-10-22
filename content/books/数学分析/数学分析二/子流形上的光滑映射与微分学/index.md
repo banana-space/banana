@@ -137,7 +137,8 @@ b) 我们要说明1)和2)是等价的。
 - 2\) 假设 $f\in C^\infty(M)$。
   如果对任意的 $x\in M$，$f(x)\neq 0$，那么 $\dfrac{1}{f}$ 也是光滑函数。
 
-另外，对于一般的 $N\subset \mathbb{R}^n$，$C^k(M,N)$ 通常不是线性空间，因为对于任意的 $f,g\in C^k(M,N)$，
+另外，对于一般的 $N\subset \mathbb{R}^n$，$C^k(M,N)$ 通常不是线性空间，
+因为对于任意的 $f,g\in C^k(M,N)$，
 $x\in M$，点 $f(x)+g(x)$ 不见得在 $N$ 上。
 :::
 
@@ -592,7 +593,8 @@ $f\colon M \rightarrow N$ 是光滑映射，$p\in M$，$f(p)=q$。假设
 df(p)\colon T_{p}M\rightarrow T_{f(p)}N
 \]
 是可逆的，
-那么存在 $\mathbb{R}^m$ 中包含 $p$ 的开邻域 $U\subset \mathbb{R}^m$ 和 $\mathbb{R}^n$ 中包含 $q$ 的开邻域
+那么存在 $\mathbb{R}^m$ 中包含 $p$ 的开邻域 $U\subset \mathbb{R}^m$ 和 $\mathbb{R}^n$ 中包含 $q$
+的开邻域
 $V\subset \mathbb{R}^n$，使得
 \[
 f\big|_{U\cap M}\colon U\cap M \rightarrow V\cap N

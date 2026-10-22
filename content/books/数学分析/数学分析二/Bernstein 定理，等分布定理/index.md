@@ -274,7 +274,8 @@ $\alpha \notin \mathbb{Q}$（三角级数对此类问题之所以有效就是因
 \[
 \|Q-f\|_{L^\infty}<\frac{1}{3}\varepsilon.
 \]
-此时，根据上面的计算，选择 $N$，使得当 $n>N$ 时，对每个 $\ell \in \mathbb{Z}\cap [-K,K]$，$\ell\neq 0$，我们都有
+此时，根据上面的计算，选择 $N$，使得当 $n>N$ 时，对每个 $\ell \in \mathbb{Z}\cap [-K,K]$，
+$\ell\neq 0$，我们都有
 \[
 |c_\ell|\times \Big|\frac{1}{n}\sum_{k=1}^n e_\ell(\xi_k)\Big|<\frac{\varepsilon}{3(2K+1)}.
 \]
