@@ -1,5 +1,6 @@
 ---
 title: Fock 空间
+aliases: [Bose Fock 空间, Fermi Fock 空间]
 categories: [自由场论]
 navboxes: [自由场论]
 ---
@@ -20,7 +21,7 @@ Fock 构造自然带有粒子数分解、真空和产生、湮灭算子。
 以及场算子与单粒子态之间的对应。
 
 某些[[相互作用]]模型仍可在 Fock 空间上定义，
-此时 [[Hamilton 算符|Hamilton 算子]]含有相互作用项，粒子数未必守恒。
+此时 [[Hamilton 算子]]含有相互作用项，粒子数未必守恒。
 在相互作用场论的散射描述中，Fock 空间还可用于组织渐近的入射、出射多粒子态。
 要以这些[[散射态]]得到全部物理态，还需满足[[渐近完备性]]
 [@DerezinskiGerard2022, 第 22.2.5、22.3.3 节; @Tong, 第 3.2 节]。
@@ -77,14 +78,14 @@ $\mathcal{F}_s$、$\mathcal{F}_a$ 表示这两个空间。
 设 $\mathfrak{h} = \mathbb{C} e$，$\| e \| = 1$。
 Bose 情形每个粒子数扇区都是一维的，因而
 \[
-\Gamma_+ (\mathbb{C}) \simeq \ell^2 (\{ 0, 1, 2, \dotsc \}) .
+\Gamma_+ (\mathfrak{h}) \simeq \ell^2 (\{ 0, 1, 2, \dotsc \}) .
 \]
 其标准正交基为 $|n\rangle = e^{\otimes n}$，并取 $|0\rangle = \Omega$。
 这正是[[量子谐振子]]的粒子数基。
 
 Fermi 情形有 $e \wedge e = 0$，因此
 \[
-\Gamma_- (\mathbb{C}) = \mathbb{C} \Omega \oplus \mathbb{C} e .
+\Gamma_- (\mathfrak{h}) = \mathbb{C} \Omega \oplus \mathbb{C} e .
 \]
 一个模式只能有零个或一个 Fermi 子。
 :::
@@ -247,7 +248,7 @@ Tong:
   type: preprint
   author: David Tong
   title: Quantum Field Theory
-  url: 'https://www.damtp.cam.ac.uk/user/tong/qft/qfthtml/qfthtml.html'
+  url: 'https://davidtong.org/teaching/quantum-field-theory/qfthtml/qfthtml.html'
   note: 第 2 节讨论自由场，第 3.2 节讨论散射态。
 ```
 
