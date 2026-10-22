@@ -5,7 +5,7 @@ notices:
   - name: 问题
     items:
       - “性质”一节中的 Lie 括号关系 $[\sigma_i, \sigma_j] = \varepsilon_{ijk} \sigma_k$ 似乎应为 $[\sigma_i, \sigma_j] = 2\mathrm i \varepsilon_{ijk} \sigma_k$。
-      - “应用”一节中旋转算符的第一个表达式 $\exp\frac{S_i \hat n^i}{\mathrm i \hbar}$ 似乎缺少因子 $\theta$。
+      - “应用”一节中旋转算子的第一个表达式 $\exp\frac{S_i \hat n^i}{\mathrm i \hbar}$ 似乎缺少因子 $\theta$。
       - “应用”一节中的 $\gamma^\mu = \sigma^2 \otimes \sigma^\mu$ 似乎不满足 Minkowski 度量下 Dirac 矩阵的反对易关系，可能缺少虚数单位或符号约定的说明。
 ---
 
@@ -57,7 +57,7 @@ Pauli 矩阵都是迹为 $0$、行列式为 $-1$ 的 Hermite 矩阵。
 [[自旋]]为 $1/2$ 系统的角动量（在 $s, m_s$ 表象下，即 $\ket{\pm}$）
 通常可用 Pauli 矩阵写作 $S_i = \hbar \sigma_i / 2$，这里 $\hbar$ 是 [[Planck 常量]]。
 在该表象下，绕单位矢量 $\hat n$
-旋转 $\theta$ 角度的算符可写成
+旋转 $\theta$ 角度的算子可写成
 \[
 \exp\frac{S_i \hat n^i}{\mathrm i \hbar}
 = \exp \left(
