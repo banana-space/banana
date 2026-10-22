@@ -230,7 +230,8 @@ try {
   const answers = [];
   for (let i = 0; i < 22; i++) answers.push(await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7' }));
   assert.deepEqual(answers.map(answer => answer.status).slice(19), [200, 429, 429], '同一地址连续请求时限频');
-  assert.equal(answers.at(-1).headers.get('retry-after'), '2');
+  // 2 s while the requests come within a second of the first refusal; a slow machine has refilled half a token since.
+  assert.ok(['1', '2'].includes(answers.at(-1).headers.get('retry-after')), answers.at(-1).headers.get('retry-after'));
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7, 203.0.113.9' })).status, 200, '以 Apache 加上的最后一项为准');
   for (let i = 0; i < 20; i++) await history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2::${i + 1}` });
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:2:ffff::1' })).status, 429, 'IPv6 地址按 /64 网段限频');
