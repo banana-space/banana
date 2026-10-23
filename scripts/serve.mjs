@@ -84,6 +84,21 @@ function notify(response) {
   response.write(`event: build\ndata: ${data}\n\n`);
 }
 
+// A wiki alias's address redirects to its page, as Apache does with the same map (docs/deploy.md).
+let aliasMap, aliasSource;
+function aliasTarget(pathname) {
+  const source = snapshot.get('/alias-redirects.txt');
+  if (source !== aliasSource) {
+    aliasSource = source;
+    aliasMap = new Map();
+    for (const line of source?.toString('utf8').split('\n') ?? []) {
+      const [key, target] = line.split(' ');
+      if (target && !aliasMap.has(key)) aliasMap.set(key, target);
+    }
+  }
+  return aliasMap.get(decodeURIComponent(pathname).replace(/\/$/, ''));
+}
+
 const server = createServer((request, response) => {
   let path, url;
   try { url = new URL(request.url, origin); path = decodeURIComponent(url.pathname); }
@@ -116,6 +131,11 @@ const server = createServer((request, response) => {
   if (!snapshot.has(path) && snapshot.has(`${path}/index.html`)) {
     // A header carries only Latin-1: redirect to the percent-encoded path.
     response.writeHead(302, { Location: `${url.pathname}/${url.search}` }).end();
+    return;
+  }
+  const alias = !snapshot.has(path) && aliasTarget(url.pathname);
+  if (alias) {
+    response.writeHead(302, { Location: alias }).end();
     return;
   }
   const found = snapshot.has(path), file = found ? path : '/404.html';

@@ -69,7 +69,25 @@ git clone https://github.com/banana-space/banana.git ~/banana/live
 - 切换后删除（或改名）`/var/www/html/.htaccess`：`/legacy/w/` 的请求映射到 `/var/www/html/banana-space/`，Apache 仍会读取上级目录的 `.htaccess`，其中的规则会重复生效。原来以 `/var/www/html` 为 DocumentRoot 的默认站点（如 `000-default.conf`）也要停用或改为跳转，否则它继续以旧的方式提供旧站。
 - 产生 `/run/cpu-overloaded` 的监控也会看到完整构建：构建期间旧站可能返回 503。构建以 `Nice=10` 运行，监控若只计正常优先级的 CPU 时间（`/proc/stat` 的 user 与 system，不含 nice），则不受影响。
 
-旧的 `/wiki/<页面>` 由新站接管：迁移过来、名称相同的条目，Apache 自动补上末尾的 `/`；改了名或没有迁移的页面显示新站的 404 页面。
+旧的 `/wiki/<页面>` 由新站接管：迁移过来、名称相同的条目，Apache 自动补上末尾的 `/`；名称是某个条目的别名时跳转到该条目（见下）；其余页面显示新站的 404 页面。
+
+### 别名跳转
+
+条目的别名（front matter 的 `aliases`）在站内链接中直接指向条目；直接访问别名的地址 `/wiki/<别名>/` 时由 Apache 跳转到条目，地址带上 `?from=<别名>`，与站内链接一样在条目顶部显示“重定向自”。别名的地址按新建条目时的目录名规则（`directoryName`，公式转为纯文本）得到，空格改为 `_`，因此通常与别名本身一致。构建生成对照表 `alias-redirects.txt`（每行“别名地址 条目地址”，由 `layouts/index.aliasredirects.txt` 输出），在站点配置的 `bananaspace.org` 虚拟主机中加入：
+
+```apache
+RewriteEngine On
+RewriteMap wikialias "txt:/var/www/banana/current/alias-redirects.txt"
+RewriteCond %{DOCUMENT_ROOT}$1 !-d
+RewriteCond ${wikialias:$1} ^([^?]+)\?(.+)$
+RewriteRule ^(/wiki/[^/]+?)/?$ %1?%2 [R=302,NE,L]
+```
+
+- 存在的页面优先：第一个条件排除已有的目录，对照表只在其余地址上查找。
+- 第二个条件把条目地址与 `from=…` 分开，跳转目标中的 `?` 写在规则里：Apache 2.4.60 起拒绝来自反向引用的 `?`（错误 AH10508）。
+- `RewriteMap` 只能写在服务器或虚拟主机配置中，不能写在 `.htaccess` 或 `<Directory>` 中。mod_rewrite 在对照表文件的修改时间变化时重新读取它，所以切换 `current` 之后立即生效，不需要重新加载 Apache。
+- 使用 302 而不是 301：别名以后可能成为独立的条目，浏览器会长期缓存 301。MediaWiki 的重定向页面也不是永久跳转。
+- `npm run serve` 读取同一张对照表，以同样的方式跳转。以上规则已在本地用 Apache 2.4.69 验证，包括切换 `current` 后读取新的对照表。
 
 ## 旧站只读
 
