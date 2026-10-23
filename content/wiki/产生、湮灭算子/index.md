@@ -6,16 +6,17 @@ navboxes: [自由场论]
 ---
 
 在[[量子场论]]中，**产生算子**和**湮灭算子**
-分别把多粒子态变成粒子数增加或减少一个的态。
-它们把[[单粒子空间]]中的[[波函数]]与 [[Fock 空间]]中的多粒子态联系起来：
-产生算子把给定的单粒子态加入原有多粒子态，
-湮灭算子则用给定波函数与一个粒子的波函数作内积，留下其余粒子的态。
-对于[[全同粒子]]，这些作用还需遵守相应的统计规律：
-[[Bose 子]]和 [[Fermi 子]]的算子分别满足
-[[正则交换关系]]和[[正则反交换关系]]。
+分别指将[[粒子]]数增加或减少一个的算子。
+产生算子把给定的单粒子态加入多粒子态；
+湮灭算子则把多粒子态中的一个粒子与给定的单粒子态作内积，留下其余粒子的态。
+这里单粒子态、多粒子态分别由[[单粒子空间]]、[[Fock 空间]]描述。
+[[Bose 子]]的产生、湮灭算子满足[[正则交换关系]]，
+[[Fermi 子]]的则满足[[正则反交换关系]]。
 
-最简单的例子是[[量子谐振子]]的升降算子。
-将谐振子的第 $n$ 个[[能级]]解释成同一模式中有 $n$ 个粒子的态，
+产生、湮灭算子最基本的例子是[[量子谐振子]]的升降算子。
+虽然谐振子描述的是单个粒子的[[量子力学]]，
+它也可以视为 $0$ 维空间上的标量场论，
+其第 $n$ 个[[能级]]就是该场论中有 $n$ 个粒子的态，
 升高或降低一个能级就对应产生或湮灭一个粒子。
 自由 Bose 场的各个模式对应量子谐振子；
 更一般地，[[自由场]]算子可由产生、湮灭算子的线性组合构造。
@@ -25,7 +26,7 @@ navboxes: [自由场论]
 
 设 $\mathfrak{h}$ 是复 [[Hilbert 空间]]，
 [[内积空间|内积]] $\langle f, g \rangle$ 对第二个变量线性。
-在相应的 Bose 或 Fermi Fock 空间
+在相应的 Bose 或 Fermi [[Fock 空间]]
 \[
 \Gamma_+ (\mathfrak{h})
 = \bigoplus_{n = 0}^\infty \operatorname{Sym}^n \mathfrak{h},
@@ -103,7 +104,7 @@ $V$ 是描述内部自由度的[[小群]]表示空间。
 \[
 \langle p, v | q, w \rangle = \delta_{vw} \delta_\mu (p, q),
 \]
-其中 $\delta_\mu$ 是相对于 $d\mu$ 的 [[Dirac $\delta$ 函数]]，即
+其中 $\delta_\mu$ 是相对于 $d\mu$ 的 [[$\delta$ 函数|Dirac $\delta$ 函数]]，即
 $\int \delta_\mu (p, q) g (q) \, d\mu (q) = g (p)$。
 
 ::: definition [动量标记的产生、湮灭算子]
@@ -142,10 +143,10 @@ a^\dagger_{p, v} \Omega = |p, v\rangle .
   [a_{p, v}, a^\dagger_{q, w}] &= \delta_{vw} \delta_\mu (p, q) I
   && \text{（Bose）}, \\
   \{ a_{p, v}, a^\dagger_{q, w} \} &= \delta_{vw} \delta_\mu (p, q) I
-  && \text{（Fermi）},
+  && \text{（Fermi）} .
 \end{aligned}
 \]
-例如在 $3 + 1$ 维 [[Minkowski 空间]]中，设粒子的[[质量]]为 $m \geq 0$，
+例如，在 $3 + 1$ 维 [[Minkowski 空间]]中，设粒子的[[质量]]为 $m \geq 0$，
 取 $c = 1$、$p = (E_{\boldsymbol{p}}, \boldsymbol{p})$，
 $E_{\boldsymbol{p}} = \sqrt{|\boldsymbol{p}|^2 + m^2}$，并令
 \[
@@ -184,7 +185,7 @@ a (e) |n\rangle = \sqrt{n} \, |n - 1\rangle,
 a^\dagger (e) |n\rangle = \sqrt{n + 1} \, |n + 1\rangle .
 \]
 其中 $a (e) |0\rangle = 0$。
-[[频率]]为 $\omega > 0$ 的量子谐振子的 [[Hamilton 算子]]是
+[[频率]]为 $\omega > 0$ 的[[量子谐振子]]的 [[Hamilton 算子]]是
 \[
 H = \hbar \omega \bigl( a^\dagger (e) a (e) + I / 2 \bigr),
 \]
@@ -193,7 +194,7 @@ H = \hbar \omega \bigl( a^\dagger (e) a (e) + I / 2 \bigr),
 :::
 
 ::: example [单个 Fermi 模式]
-设 $e$ 是单位单粒子向量。
+设 $e \in \mathfrak{h}$ 为单位向量。
 在 $\Gamma_- (\mathbb{C} e)$ 中只有 $|0\rangle = \Omega$、$|1\rangle = e$ 两种占据态，
 并且
 \[
@@ -293,12 +294,13 @@ a (f) a^\dagger (g) \psi_n
 相应的 [[Weyl 算子]] $W (f) = \mathrm{e}^{\mathrm{i} \Phi (f)}$ 满足
 \[
 W (f) W (g)
-= \mathrm{e}^{-\mathrm{i} \operatorname{Im} \langle f, g \rangle / 2} W (f + g) .
+= \mathrm{e}^{-\mathrm{i} \operatorname{Im} \langle f, g \rangle / 2}
+W (f + g) .
 \]
 这些场算子及其指数形式见 [@DerezinskiGerard2022, 第 9.1.1、9.1.2 节]。
 
 若 $K \colon S \to \mathfrak{h}$ 是经典实解空间 $S$ 上的
-[单粒子结构](/wiki/单粒子空间/#由经典线性场构造)，相应自由场算子为
+[单粒子结构](/wiki/单粒子空间/#由经典线性场构造)，相应[[自由场]]算子为
 \[
 \Phi_K (u) = a (K u) + a^\dagger (K u) = \sqrt{2} \, \Phi (K u),
 \qquad u \in S .
@@ -306,7 +308,7 @@ W (f) W (g)
 
 ### 对称性与自由动力学
 
-设 $U$ 是单粒子空间上的[[酉映射]]，
+设 $U$ 是[[单粒子空间]]上的[[酉映射]]，
 其[[二次量子化]] $\Gamma_\pm (U)$ 满足
 \[
 \begin{aligned}
@@ -354,8 +356,6 @@ Tong:
   en: creation operator
 湮灭算子:
   en: annihilation operator
-粒子数算子:
-  en: number operator
 占据数:
   en: occupation number
 正则交换关系:
