@@ -41,8 +41,14 @@ mediaType = 'application/json'
 baseName = 'search-manifest'
 isPlainText = true
 notAlternative = true
+# 以及百科条目别名的地址到条目的对照表，供 Apache 的 RewriteMap 跳转（见 docs/deploy.md）与 serve 使用。
+[outputFormats.aliasredirects]
+mediaType = 'text/plain'
+baseName = 'alias-redirects'
+isPlainText = true
+notAlternative = true
 [outputs]
-home = ['html', 'searchmanifest']
+home = ['html', 'searchmanifest', 'aliasredirects']
 
 [frontmatter]
 lastmod = ['gitLastmod']

@@ -55,6 +55,9 @@ try {
   await article('draft', { title: '草稿', aliases: ['草稿别名'], draft: true });
   await article('future', { title: '未来', aliases: ['未来别名'], date: '2999-01-01' });
   await article('case', { title: '$p$ 条目', categories: ['$q$ 空间', 'p 进几何'] });
+  // An alias's address is its name with formulas as plain text (directoryName); the address of a page with a
+  // non-ASCII directory is percent-encoded in the redirect map.
+  await article('拓扑', { title: '拓扑空间', aliases: ['Topological space', String.raw`$\mathbb{R}$-空间`] });
   // L^p and L_p are different names; equivalent spellings of a formula link to the same article.
   await article('lp-upper', { title: '$L^p$ 空间' });
   await article('lp-lower', { title: '$L_p$ 空间' }, String.raw`[[$L^{p}$ 空间]] [[$L_p$  空间|下标]] [[$H^1(X;\mathbb Z)$ 的计算]]`);
@@ -71,6 +74,15 @@ try {
   assert.equal(generated.aliases, undefined);
   assert.equal(generated.urlAliases, undefined);
   assert.deepEqual(generated.categories, ['C 空间', 'p 进几何', '数学']);
+  assert.deepEqual(generated.wikiAliasPaths, [{ path: '/wiki/无穷范畴/', name: '无穷范畴' }, { path: '/wiki/∞范畴/', name: '∞ 范畴' }]);
+  // Each alias's address and its page, for Apache's RewriteMap and serve; unpublished pages have none.
+  const redirects = async () => (await readFile(join(root, 'public/alias-redirects.txt'), 'utf8')).split('\n').filter(Boolean).sort();
+  assert.deepEqual(await redirects(), [
+    '/wiki/R-空间 /wiki/%E6%8B%93%E6%89%91/?from=R-%E7%A9%BA%E9%97%B4',
+    '/wiki/Topological_space /wiki/%E6%8B%93%E6%89%91/?from=Topological+space',
+    '/wiki/∞范畴 /custom-infinity/?from=%E2%88%9E+%E8%8C%83%E7%95%B4',
+    '/wiki/无穷范畴 /custom-infinity/?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4',
+  ]);
   const articleHTML = await html('custom-infinity');
   assert.match(articleHTML, /<title>\s*∞-范畴 - 香蕉空间/);
   assert.match(articleHTML, /property="og:title" content="∞-范畴"/);
@@ -117,6 +129,7 @@ try {
   assert.match(await html('wiki/lp-upper'), /<title>\s*L\^p 空间 - 香蕉空间/);
   build(['--baseURL', 'https://example.org/docs/', '--buildDrafts', '--buildFuture']);
   const subpath = await html('custom-infinity');
+  assert.ok((await redirects()).includes('/docs/wiki/草稿别名 /docs/wiki/draft/?from=%E8%8D%89%E7%A8%BF%E5%88%AB%E5%90%8D'));
   assert.match(subpath, /href="\/docs\/custom-infinity\/\?from=/);
   assert.doesNotMatch(subpath, /条目尚未创建：草稿别名|条目尚未创建：未来别名/);
   assert.match(subpath, /navbox-current/);

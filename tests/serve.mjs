@@ -32,7 +32,7 @@ try {
   await mkdir(join(root, 'content/wiki/live'), { recursive: true });
   await writeFile(page, body('@missing'));
   await mkdir(join(root, 'content/wiki/other'), { recursive: true });
-  await writeFile(join(root, 'content/wiki/other/index.md'), '---\ntitle: Other\n---\n[[Live]]\n');
+  await writeFile(join(root, 'content/wiki/other/index.md'), '---\ntitle: Other\naliases: [别名 $x$]\n---\n[[Live]]\n');
   await writeFile(join(root, 'data/categories.yaml'), '测试: {}\n');
   const navbox = join(root, 'content/navboxes/预览导航.yaml');
   const navContent = title => `title: ${title}\ngroups:\n- title: 分组\n  items: ["[[Live]]"]\n`;
@@ -71,6 +71,12 @@ try {
   await until(() => output.includes('search index updated'), '搜索索引');
   await until(async () => (await fetch(base + '/pagefind/pagefind.js')).status === 200, '提供搜索索引');
   assert.equal((await fetch(base + '/search-manifest.json')).status, 404, '搜索清单不应发布');
+  // An alias's address redirects to its page, as Apache does (docs/deploy.md); with or without the final slash.
+  for (const path of ['/wiki/别名_x/', '/wiki/别名_x']) {
+    const redirect = await fetch(base + encodeURI(path), { redirect: 'manual' });
+    assert.equal(redirect.status, 302, path);
+    assert.equal(redirect.headers.get('location'), '/wiki/other/?from=%E5%88%AB%E5%90%8D+x');
+  }
   assert.match(initial, /<h2 id="参考文献"><a class="heading-link"[^>]*>§<\/a>参考文献<\/h2>/);
   assert.doesNotMatch(initial, /class="section-number"/);
   const cssPath = initial.match(/href="([^"]+\/css\/[^" ]+\.css)"/)?.[1] ?? initial.match(/href="(\/css\/[^" ]+\.css)"/)[1];

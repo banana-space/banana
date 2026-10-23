@@ -6,7 +6,7 @@ import { readFile, readlink, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parse, stringify } from 'yaml';
 import { transformMarkup } from './markup.mjs';
-import { pageName, nameList, pageTitleMarkup } from './names.mjs';
+import { directoryName, pageName, nameList, pageTitleMarkup } from './names.mjs';
 import { transformDocument } from './structure.mjs';
 import { personIndex } from './bibliography.mjs';
 import { eachLimit, publishContent } from './publish.mjs';
@@ -22,6 +22,15 @@ import { pageURL } from '../shared/pages.mjs';
 import { loadReadingDictionary, normalizeReading, readingMetadata } from './reading.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
+
+/**
+ * The address of a page at this directory path in content/ (wiki/C＊-代数): spaces as underscores, as on the old site,
+ * and the fullwidth ＊ that stands for * in directory names as * again (Windows cannot write a file with *: kept there).
+ */
+function pathAddress(path) {
+  const url = path.replace(/\s+/g, '_');
+  return `/${process.platform === 'win32' ? url : url.replace(/＊/g, '*')}/`;
+}
 
 /**
  * 预处理整站：content/ 是编辑来源，所有派生编号、标签元数据只写入生成目录。
@@ -123,9 +132,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     }
     // 首页与顶层栏目页（如 /wiki/）沿用 Hugo 的地址。
     if (!/^(?:[^/]+\/)?_index\.md$/.test(relativePath) && metadata.url === undefined && metadata.slug === undefined) {
-      const path = relativePath.replace(/\/(_?index)\.md$/, '').replace(/\.md$/, '');
-      const url = path.replace(/\s+/g, '_');
-      metadata.url = `/${process.platform === 'win32' ? url : url.replace(/＊/g, '*')}/`;
+      metadata.url = pathAddress(relativePath.replace(/\/(_?index)\.md$/, '').replace(/\.md$/, ''));
     }
     if (metadata.categories !== undefined && !isWiki) throw new Error(`${sourcePath}: categories 仅用于 wiki 页面`);
     if (metadata.categories) Object.assign(metadata, categories.membership(metadata.categories, sourcePath, { register }));
@@ -135,7 +142,17 @@ export async function prebuild({ destination: generated = `${root}.build/content
     metadata.titleParts = title.parts;
     if (isWiki) {
       metadata.wikiName = title.key;
-      metadata.wikiAliases = [...new Set(nameList(metadata.aliases, sourcePath, 'aliases', { lang: metadata.lang ?? 'zh', typeset: true }).map(alias => alias.key))].filter(name => name !== metadata.wikiName);
+      const aliases = nameList(metadata.aliases, sourcePath, 'aliases', { lang: metadata.lang ?? 'zh', typeset: true });
+      metadata.wikiAliases = [...new Set(aliases.map(alias => alias.key))].filter(name => name !== metadata.wikiName);
+      // The address each alias would have as an article of its own (directoryName: formulas as plain text), which
+      // the site redirects to this page (layouts/index.aliasredirects.txt). Usually the same as its name.
+      const own = pageURL(relativePath, metadata), paths = new Map();
+      aliases.forEach((alias, i) => {
+        const path = pathAddress(`wiki/${directoryName(metadata.aliases[i])}`);
+        if (alias.key !== metadata.wikiName && path !== own && !path.includes('#') && !paths.has(path)) paths.set(path, alias.key);
+      });
+      if (paths.size) metadata.wikiAliasPaths = [...paths].map(([path, name]) => ({ path, name }));
+      else delete metadata.wikiAliasPaths;
       for (const name of [metadata.wikiName, ...metadata.wikiAliases]) {
         if (names.has(name)) throw new Error(t('build_duplicate_article', { Name: name, FirstFile: names.get(name), File: sourcePath }));
         names.set(name, sourcePath);
