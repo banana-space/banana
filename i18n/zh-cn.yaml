@@ -15,6 +15,8 @@ articles:
   other: 条目
 categories:
   other: 分类
+category_article_count:
+  other: "{{ .Count }} 个条目"
 child_categories:
   other: 子分类
 copyright:
@@ -77,6 +79,8 @@ navbox_table:
   other: "{{ .Name }}导航表"
 navigation_menu:
   other: 导航菜单
+other_categories:
+  other: 其他
 page_does_not_exist:
   other: 所访问的页面不存在．
 name_translations:
@@ -330,8 +334,6 @@ build_body_name:
   other: <正文>
 build_category_cycle:
   other: 分类存在循环：{{ .Path }}
-build_category_depth:
-  other: categoryDepth 必须是非负整数
 build_category_duplicate:
   other: 分类名称重复：{{ .Name }}（{{ .FirstName }}、{{ .Value }}）
 build_category_invalid:

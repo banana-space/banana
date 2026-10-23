@@ -227,7 +227,7 @@ try {
   await writeFile(categoryTemp, '测试: {parent: 总类}\n总类: {}\n');
   await rename(categoryTemp, join(root, 'data/categories.yaml'));
   await until(async () => (await readFile(generated, 'utf8')).includes('总类'), '分类树原子保存');
-  await until(async () => (await html('/categories/总类/')).includes('>测试</a>'), '分类页刷新');
+  await until(async () => (await html('/categories/总类/')).includes('</svg>测试</span>'), '分类页刷新');
   await until(async () => (await html('/categories/测试/')).includes('>总类</a>'), '分类导航刷新');
   const navTemp = join(root, 'content/navboxes/预览导航.tmp');
   await writeFile(navTemp, navContent('导航更新'));

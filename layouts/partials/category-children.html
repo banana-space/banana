@@ -1,0 +1,14 @@
+{{- /* The categories directly under the category titled `.` ("" for the top level), as pages. */ -}}
+{{- $parent := . -}}
+{{- $children := slice -}}
+{{- range partial "sort-pages.html" (site.GetPage "/categories").Pages -}}
+  {{- if eq (.Params.categoryParent | default "") $parent -}}
+    {{- $children = $children | append (dict "page" . "count" (len .RegularPages)) -}}
+  {{- end -}}
+{{- end -}}
+{{- /* Larger categories first; Hugo's sort is stable, so ties keep the reading order. */ -}}
+{{- $pages := slice -}}
+{{- range sort $children "count" "desc" -}}
+  {{- $pages = $pages | append .page -}}
+{{- end -}}
+{{- return $pages -}}

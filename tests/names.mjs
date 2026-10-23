@@ -102,7 +102,7 @@ try {
   assert.match(await html('categories/q-空间'), /data-tex="q"/); // Undeclared categories also render formulas.
   const overview = await html('categories');
   assert.match(overview, /data-tex="p"/);
-  assert.match(overview, />数学<\/a><sup>2<\/sup>/);
+  assert.match(overview, />数学<\/a> ?<span class="category-group-count">2 个条目<\/span>/);
   const footer = articleHTML.match(/<footer class="article-footer">[\s\S]*?<\/footer>/)[0];
   assert.match(footer, /data-tex="\\mathcal\{C\}"/);
   assert.doesNotMatch(footer, /data-tex="p"/);
