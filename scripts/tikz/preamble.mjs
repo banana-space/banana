@@ -156,12 +156,18 @@ const used = (line, tex) => {
   return !code || tex.includes(String.fromCodePoint(parseInt(code, 16)));
 };
 
+// Loading a TikZ library leaves stray spaces, which would widen the box holding the
+// diagram and push the picture off centre. Load the libraries a source names in the
+// preamble instead; loading them again in the diagram itself then does nothing.
+const tikzLibrary = /\\usetikzlibrary\s*\{[^{}]*\}/g;
+
 /** The preamble for one diagram: fixed definitions, plus the optional ones its source uses. */
 export function preambleFor(tex) {
   const fixed = (cjkPreamble + glyphPreamble).split('\n').filter(line => used(line, tex)).join('\n');
   const declarations = [...new Set(tex.match(cjkCharacter) ?? [])].map(char => {
     const code = char.codePointAt(0);
     return `\\DeclareUnicodeCharacter{${code.toString(16).toUpperCase()}}{\\BananaCJK{${code}}}`;
-  }).concat([...new Set(tex.match(accentedLetter) ?? [])].map(accentDeclaration).filter(Boolean));
+  }).concat([...new Set(tex.match(accentedLetter) ?? [])].map(accentDeclaration).filter(Boolean))
+    .concat([...new Set(tex.match(tikzLibrary) ?? [])]);
   return fixed + declarations.join('\n');
 }
