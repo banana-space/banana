@@ -1,0 +1,36 @@
+{{- /*
+  首页的最近更改：构建时从 Git 历史取出的最近几次修改（scripts/prebuild/recent-changes.mjs），每次一行，
+  下面是到最近更改页面的链接．页面名称链接到页面本身，新页面后标一个上标的加号；批量修改只列出前几个页面，
+  接着写“等 N 个页面”，全在一部讲义中的修改只写讲义名；修改了不止一个页面时，下面另起一行写 PR 的标题，
+  与页数同用小一号的字．日期与时间在右边，由 static/js/local-time.js 换成读者的时区，
+  今天、昨天的日期写作“今天”“昨天”；没有脚本时显示 UTC 的日期与时间．
+*/ -}}
+{{- $recent := site.GetPage "/recent-changes" -}}
+<section class="home-recent" aria-labelledby="home-recent-title">
+  <h2 class="home-recent-title" id="home-recent-title">{{ i18n "recent_changes_title" }}</h2>
+  <ol class="home-recent-list">
+    {{- range . }}
+    {{- $time := time.AsTime .time | time.In "UTC" }}
+    {{- $instant := $time.Format "2006-01-02T15:04:05Z07:00" }}
+    <li class="home-recent-item">
+      <span class="home-recent-pages">
+        {{- if .book -}}
+          {{- partial "home/recent-name.html" (dict "book" .book "added" .added) | chomp -}}
+          <span class="home-recent-more">{{ i18n "home_recent_in_book" (dict "Count" .pages) }}</span>
+          {{- with .title }}<span class="home-recent-summary">{{ . }}</span>{{ end -}}
+        {{- else -}}
+          {{- range $index, $item := .items -}}
+            {{- if $index }}<span class="home-recent-separator"><span aria-hidden="true">·</span><span class="sr-only">、</span></span>{{ end -}}
+            {{- partial "home/recent-name.html" $item | chomp -}}
+          {{- end -}}
+          {{- if .more }}<span class="home-recent-more">{{ i18n "home_recent_more" (dict "Count" .pages) }}</span>{{ end -}}
+          {{- with .title }}<span class="home-recent-summary">{{ . }}</span>{{ end -}}
+        {{- end -}}
+      </span>
+      <time class="home-recent-day" datetime="{{ $instant }}" data-local-time data-format="{{ i18n "recent_changes_date" }}" data-year-format="{{ i18n "home_recent_year_date" }}" data-today="{{ i18n "recent_changes_today" }}" data-yesterday="{{ i18n "recent_changes_yesterday" }}">{{ replace (replace (i18n "recent_changes_date") "{month}" ($time.Format "1")) "{day}" ($time.Format "2") }}</time>
+      <time class="home-recent-clock" datetime="{{ $instant }}" data-local-time data-format="{hour}:{minute}">{{ $time.Format "15:04" }}</time>
+    </li>
+    {{- end }}
+  </ol>
+  {{ with $recent }}<div class="home-recent-all"><a href="{{ .RelPermalink }}">{{ i18n "home_recent_all" }} <span aria-hidden="true">→</span></a></div>{{ end }}
+</section>

@@ -9,7 +9,8 @@
   <nav class="collection-breadcrumbs" aria-label="{{ i18n "collection_navigation" }}">
     {{- range .Params.collectionAncestors -}}
       {{- with $.Site.GetPage (printf "/%s" .) -}}
-        <a href="{{ .RelPermalink }}">{{ with .Params.collectionNumber }}{{ . }} {{ end }}{{ partial "display-title.html" . }}</a><span class="breadcrumb-separator" aria-hidden="true">›</span>
+        {{- /* A lecture's own name, first in the trail, has the book icon (as a category's name has the folder icon). */ -}}
+        <a href="{{ .RelPermalink }}">{{ if and .Params.collectionHome (eq .Params.collectionKind "lecture") }}{{ partial "ui-icon.html" "book" }}{{ end }}{{ with .Params.collectionNumber }}{{ . }} {{ end }}{{ partial "display-title.html" . }}</a><span class="breadcrumb-separator" aria-hidden="true">›</span>
       {{- end -}}
     {{- end -}}
     <span aria-current="page">{{ with .Params.collectionNumber }}{{ . }} {{ end }}{{ partial "display-title.html" . }}</span>

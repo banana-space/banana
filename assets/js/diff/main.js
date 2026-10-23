@@ -25,7 +25,8 @@ function header(pull, page, edit) {
   document.title = fill(strings.pageTitle, { title: page.title });
   root.querySelector('.diff-title-text').innerHTML = page.titleHTML;
   const title = root.querySelector('.diff-title');
-  if (page.group.kind === 'book') title.append(Object.assign(element('span', 'recent-page-group'), { innerHTML: page.group.titleHTML }));
+  // The page's book, after the book icon as on the recent changes page.
+  if (page.group.kind === 'book') title.append(Object.assign(element('span', 'recent-page-group'), { innerHTML: (strings.icons?.book ?? '') + page.group.titleHTML }));
   if (page.status === 'added') title.append(element('span', 'recent-badge recent-badge-added', strings.added));
   if (page.status === 'removed') title.append(element('span', 'recent-badge recent-badge-removed', strings.removed));
   if (page.status === 'renamed' && page.previous) title.append(element('span', 'recent-badge', fill(strings.renamed, { name: page.previous.replace(/\/_?index\.md$/, '').split('/').at(-1) })));

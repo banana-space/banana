@@ -1,0 +1,18 @@
+{{- /*
+  首页最近更改中的一个名称：一个页面（{ page }）、一部讲义或指南（{ book }，讲义前有书的图标），或其中的一页
+  （{ book, page }，写作“书名 › 页面”）；added 时名称右上方标一个加号，表示新页面．
+*/ -}}
+<span class="home-recent-name">
+  {{- with .book -}}
+    {{- with site.GetPage (printf "/%s" .) -}}
+      <a href="{{ .RelPermalink }}">{{ if eq .Params.collectionKind "lecture" }}{{ partial "ui-icon.html" "book" }}{{ end }}{{ partial "display-title.html" . }}</a>
+    {{- end -}}
+  {{- end -}}
+  {{- if and .book .page }}<span class="home-recent-path" aria-hidden="true">›</span>{{ end -}}
+  {{- with .page -}}
+    {{- with site.GetPage (printf "/%s" .) -}}
+      <a href="{{ .RelPermalink }}">{{ partial "display-title.html" . }}</a>
+    {{- end -}}
+  {{- end -}}
+  {{- if .added }}<sup class="home-recent-new"><span aria-hidden="true">+</span><span class="sr-only">{{ i18n "recent_changes_added" }}</span></sup>{{ end -}}
+</span>

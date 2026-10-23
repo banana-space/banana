@@ -148,17 +148,21 @@ $search-divider: rgba($border-color, 0.6);
   line-height: 1.5;
   transition: color 0.15s;
 
-  .icon-folder {
+  .icon-folder,
+  .icon-book {
     color: $muted-color;
     transition: color 0.15s;
   }
 }
 
+// Name the hover colour rather than inherit it: an inherited colour follows the title's own transition, so the
+// icon would pass through the title's resting colour on its way to the link colour.
 .search-hit:hover,
 .search-hit.is-active {
-  .icon-folder,
+  .search-hit-title .icon-folder,
+  .search-hit-title .icon-book,
   .search-number {
-    color: inherit;
+    color: $link-color;
   }
 }
 

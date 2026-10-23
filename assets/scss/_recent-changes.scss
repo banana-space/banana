@@ -190,17 +190,10 @@ $recent-time-width: 5.2rem;
   color: $muted-color;
 }
 
+// A page's book: the book icon marks it, as in breadcrumbs and search results (no book-title marks).
 .recent-page-group {
   color: $muted-color;
   font-size: 1.3rem;
-
-  &::before {
-    content: "《";
-  }
-
-  &::after {
-    content: "》";
-  }
 }
 
 .recent-pull-title {

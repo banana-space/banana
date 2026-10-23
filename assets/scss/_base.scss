@@ -430,9 +430,16 @@ h1 {
   pointer-events: none;
 }
 
-.ui-icon.icon-folder {
+.ui-icon.icon-folder,
+.ui-icon.icon-book {
   margin-inline-end: 0.25em;
   vertical-align: -0.05em;
+}
+
+// 书的线条多，笔画细一些；往下移，使图形的中心与文字对齐．
+.ui-icon.icon-book {
+  stroke-width: 2;
+  vertical-align: -0.15em;
 }
 
 .ui-icon.icon-external {
