@@ -293,6 +293,13 @@ try {
   const categoryResult = ui.renderResult(categoryView);
   assert.equal(categoryResult.querySelector('.search-breadcrumb'), null);
   assert.ok(categoryResult.querySelector('.search-hit-title > svg.icon-folder'));
+  // A lecture's name has the book icon: first in a page's trail, and in the title of the lecture's own home page.
+  assert.ok(rendered.querySelector('.search-breadcrumb > span:first-child > svg.icon-book'));
+  assert.equal(rendered.querySelectorAll('svg.icon-book').length, 1);
+  const bookHome = ui.renderResult(ui.resultView({
+    url: '/books/demo/', excerpt: '', meta: { title: '演示讲义', data: encodeSearchData({ kind: 'lecture', number: '', titleHTML: '演示讲义', breadcrumb: [], aliases: [], lead: '' }) },
+  }, '演示'));
+  assert.ok(bookHome.querySelector('.search-hit-title > svg.icon-book'));
   // Formulas in titles stay rendered and are never highlighted inside.
   const formula = ui.renderResult(ui.resultView(raw.infinity[0], 'infinity 范畴'));
   assert.ok(formula.querySelector('.search-title-text .katex'));

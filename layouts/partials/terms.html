@@ -10,8 +10,27 @@
     </h1>
   </header>
   {{ .Content }}
-  {{ $depth := int (site.Params.categoryDepth | default 1) }}
-  {{ if isset site.Params "categorydepth" }}{{ $depth = int site.Params.categoryDepth }}{{ end }}
-  {{ if lt $depth 0 }}{{ errorf "%s" (i18n "build_category_depth") }}{{ end }}
-  {{ partial "category-tree.html" (dict "parent" "" "remaining" $depth) }}
+  {{- /* A top-level category with subcategories gets a section of its own; the others share the last one. */ -}}
+  {{ $groups := slice }}
+  {{ $others := slice }}
+  {{ range partialCached "category-children.html" "" "" }}
+    {{ $children := partialCached "category-children.html" .Title .Title }}
+    {{ if $children }}
+      {{ $groups = $groups | append (dict "page" . "children" $children) }}
+    {{ else }}
+      {{ $others = $others | append . }}
+    {{ end }}
+  {{ end }}
+  {{ range $groups }}
+  <section class="category-group">
+    <h2 class="category-group-title"><a href="{{ .page.RelPermalink }}">{{ partial "display-title.html" .page }}</a><span class="category-group-count">{{ i18n "category_article_count" (dict "Count" (len .page.RegularPages)) }}</span></h2>
+    {{ partial "category-cards.html" .children }}
+  </section>
+  {{ end }}
+  {{ with $others }}
+  <section class="category-group">
+    {{ if $groups }}<h2 class="category-group-title">{{ i18n "other_categories" }}</h2>{{ end }}
+    {{ partial "category-cards.html" . }}
+  </section>
+  {{ end }}
 </section>

@@ -198,7 +198,8 @@ export function renderResult(view, { subLimit = 3, compact = false, option = fal
     const trail = element('span', 'search-breadcrumb');
     view.breadcrumb.forEach((item, index) => {
       if (index) trail.append(element('span', 'search-breadcrumb-separator', '›'));
-      trail.append(element('span', '', item.title));
+      // A lecture's trail starts with the book's name, which has the book icon.
+      trail.append(element('span', '', ...(index === 0 && view.kind === 'lecture' ? [icon('book')] : []), item.title));
     });
     link.append(trail);
   }
@@ -206,6 +207,8 @@ export function renderResult(view, { subLimit = 3, compact = false, option = fal
   const title = element('span', 'search-hit-title');
   title.id = `${id}-title`;
   if (view.kind === 'category') title.append(icon('folder'));
+  // A lecture's own home page (no trail above it) is the book itself.
+  if (view.kind === 'lecture' && !view.breadcrumb.length) title.append(icon('book'));
   if (view.number) title.append(element('span', 'search-number', view.number), ' ');
   const name = element('span', 'search-title-text');
   name.innerHTML = view.titleHTML;

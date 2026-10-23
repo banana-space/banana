@@ -60,19 +60,31 @@ $home-tile-bg-hover: #e6eaf0;
   }
 }
 
-.home-search-field {
+// 浮起的白色搜索框：没有边框，一圈极淡的轮廓加柔和的阴影；聚焦时阴影渐渐退去，轮廓换成香蕉黄．
+// 导航栏的 .search-field（_navigation.scss）在后面引入，这里要更具体．
+.home-search .home-search-field {
   gap: 1.4rem;
   padding: 1.3rem 2rem;
-  border-radius: 1.4rem;
-  background: rgba($white, .6);
+  border: 0;
+  border-radius: 1.6rem;
+  background: $white;
+  box-shadow: 0 0 0 1px rgba($shadow-color, .07), 0 1px 2px rgba($shadow-color, .06), 0 12px 32px -12px rgba($shadow-color, .22);
   cursor: text;
+  transition: box-shadow .3s ease;
 
-  .ui-icon {
-    width: 2.2rem;
-    height: 2.2rem;
+  // 阴影的层数与上面相同，才能逐层过渡．
+  &:focus-within {
+    box-shadow: 0 0 0 1px rgba($banana-color, .6), 0 0 0 4px rgba($banana-color, .12), 0 12px 32px -12px rgba($shadow-color, 0);
   }
 
-  &.search-field input {
+  .ui-icon {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    stroke-width: 2;
+  }
+
+  input {
     font-size: 1.6rem;
     line-height: 2.4rem;
   }
@@ -181,10 +193,138 @@ $home-tile-bg-hover: #e6eaf0;
   transition: transform .15s;
 }
 
-// 三个链接：上下留同样的空．
+// 最近更改：每次修改一行，像页面历史那样不加底色，行间一道极淡的线．名称在左；日期与时间在右，
+// 时间用等宽数字，各行一样宽，日期是“今天”还是完整的日期，时间都对齐．
+// 与首屏的搜索框同宽，比上面两张卡窄．
+.home-recent {
+  max-width: $home-hero-width;
+  margin: 4.8rem auto 0;
+}
+
+// 标题与“浏览网站内容”同样，居中；到第一行名称的距离与“浏览网站内容”到卡片的相同（行自己上面还有 1.1rem）．
+.home article .home-recent-title {
+  margin: 0 0 1.7rem;
+  font-size: 2rem;
+  line-height: 2.8rem;
+  text-align: center;
+}
+
+// 列表下面居中的“全部更改”：灰色，悬停时变蓝．
+.home-recent-all {
+  margin-top: .8rem;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  text-align: center;
+
+  a {
+    border-bottom: 0;
+    color: $muted-color;
+    transition: color .15s;
+
+    &:hover,
+    &:focus-visible {
+      border-bottom: 0;
+      color: $link-color;
+    }
+  }
+}
+
+// 有最近更改时，下面的链接一行离“全部更改”近一些．
+.home-recent + .home-links {
+  margin-top: 4rem;
+}
+
+.home-recent-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// 名称与日期时间垂直居中：标题另起一行时，日期与时间在两行之间．
+.home-recent-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  column-gap: .7rem;
+  align-items: center;
+  margin: 0;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba($border-color, .6);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+// 名称用正文的字号与字重．
+.home-recent-pages {
+  min-width: 0;
+  margin-inline-end: .7rem;
+  line-height: 2.4rem;
+  // 名称不是正文，换行时不两端对齐．
+  text-align: start;
+}
+
+// 名称整个换到下一行，除非它本身比一行还宽．
+.home-recent-name {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.home-recent-separator {
+  margin: 0 .35em;
+  color: $semi-light-text-color;
+}
+
+.home-recent-path {
+  margin: 0 .3em;
+  color: $semi-light-text-color;
+}
+
+// 新页面：名称右上方一个香蕉橙的加号．
+.home-recent-new {
+  margin-inline-start: .1em;
+  color: #e0a20a;
+  font-size: .8em;
+  font-weight: 700;
+  line-height: 0;
+}
+
+// “等 N 个页面”前的空隙留在前一个名称之后，换行时不让下一行缩进（排版会去掉汉字之间的空格）．
+.home-recent-name:has(+ .home-recent-more) {
+  margin-inline-end: .35em;
+}
+
+// 页数与 PR 的标题：小一号的字．标题另起一行．
+.home-recent-more,
+.home-recent-summary {
+  color: $muted-color;
+  font-size: 1.35rem;
+}
+
+.home-recent-more {
+  white-space: nowrap;
+}
+
+.home-recent-summary {
+  display: block;
+  line-height: 2rem;
+}
+
+.home-recent-day,
+.home-recent-clock {
+  color: $muted-color;
+  font-size: 1.3rem;
+  line-height: 2.4rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+// 链接（两个或三个）：上下留同样的空．
 .home-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
   margin: 6rem 0;
   padding: 0;
   list-style: none;
@@ -271,20 +411,8 @@ $home-tile-bg-hover: #e6eaf0;
     margin: 4.8rem auto 6rem;
   }
 
-  .home-search-field {
-    gap: 1rem;
-    padding: 1rem 1.6rem;
-    border-radius: 1.2rem;
-
-    .ui-icon {
-      width: 1.9rem;
-      height: 1.9rem;
-    }
-
-    &.search-field input {
-      font-size: 1.6rem;
-      line-height: 2.4rem;
-    }
+  .home-search .home-search-field {
+    padding: 1.2rem 2rem;
   }
 
   .home-browse {
@@ -326,9 +454,55 @@ $home-tile-bg-hover: #e6eaf0;
     font-size: 1.6rem;
   }
 
-  // 三个链接上下排，之间一道淡淡的短横线．
+  // 日期在上、时间在下，同在右边一栏．名称与日期时间都在行中垂直居中：上下两道弹性的行吃掉多出的高度，
+  // 日期与时间之间的距离不随行高变化．
+  .home-recent {
+    margin-top: 4rem;
+  }
+
+  .home article .home-recent-title {
+    margin-bottom: 1.3rem;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+  }
+
+  .home-recent-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr auto auto 1fr;
+    column-gap: 1.2rem;
+  }
+
+  .home-recent-pages {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin-inline-end: 0;
+  }
+
+  .home-recent-day {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .home-recent-clock {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .home-recent-day,
+  .home-recent-clock {
+    font-size: 1.25rem;
+    line-height: 1.7rem;
+  }
+
+  .home-recent-more,
+  .home-recent-summary {
+    font-size: 1.3rem;
+  }
+
+  // 链接上下排，之间一道淡淡的短横线．
   .home-links {
-    grid-template-columns: 1fr;
+    grid-auto-flow: row;
     margin: 3.6rem 0;
 
     li + li {
@@ -342,6 +516,10 @@ $home-tile-bg-hover: #e6eaf0;
         border-top: 1.5px solid rgba($border-color, .6);
       }
     }
+  }
+
+  .home-recent + .home-links {
+    margin-top: 2.8rem;
   }
 
   .home-link-name {
@@ -363,6 +541,8 @@ $home-tile-bg-hover: #e6eaf0;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-search .home-search-field,
+  .home-recent-all a,
   .home-tile,
   .home-tile-name,
   .home-tile-arrow,

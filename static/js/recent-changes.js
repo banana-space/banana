@@ -49,6 +49,16 @@ function titleNode(className, item) {
   else node.textContent = item.title ?? strings.groups[item.kind] ?? item.kind;
   return node;
 }
+/** A part of the site by name: a book's name has the book icon, as in breadcrumbs and search results. */
+function groupNode(className, group) {
+  const node = titleNode(className, group);
+  if (group.kind === 'book') {
+    const template = document.createElement('template');
+    template.innerHTML = strings.icons?.book ?? '';
+    node.prepend(template.content);
+  }
+  return node;
+}
 const diffURL = (pull, page) => `${config.diff}?${new URLSearchParams({ pr: pull.number, path: page.path })}`;
 const byReading = (a, b) => a.sortKey.localeCompare(b.sortKey) || a.title.localeCompare(b.title, 'zh-CN');
 
@@ -63,7 +73,7 @@ function pageLink(pull, page, withBook = true) {
   if (page.status === 'removed') badges.push(element('span', 'recent-badge recent-badge-removed', strings.removed));
   if (page.status === 'renamed' && page.previous) badges.push(element('span', 'recent-badge', fill(strings.renamed, { name: page.previous.replace(/\/_?index\.md$/, '').split('/').at(-1) })));
   // A page in a book carries the book's name, since chapter titles repeat across books.
-  const book = withBook && page.group.kind === 'book' ? titleNode('recent-page-group', page.group) : null;
+  const book = withBook && page.group.kind === 'book' ? groupNode('recent-page-group', page.group) : null;
   return element('span', 'recent-page-item', node, book, ...badges);
 }
 
@@ -133,7 +143,7 @@ function bulkPages(pull) {
   }
   const sorted = [...groups.values()].sort((a, b) => b.pages.length - a.pages.length);
   const summary = element('div', 'recent-groups', ...sorted.map(({ group, pages }) =>
-    element('span', 'recent-group', titleNode('recent-group-name', group), element('span', 'recent-group-count', String(pages.length)))));
+    element('span', 'recent-group', groupNode('recent-group-name', group), element('span', 'recent-group-count', String(pages.length)))));
   const toggle = element('button', 'recent-expand', strings.showPages);
   toggle.type = 'button';
   toggle.setAttribute('aria-expanded', 'false');
@@ -158,7 +168,7 @@ function fillPanel(panel, pull, groups) {
   for (const { group, pages } of groups) {
     pages.sort(byReading);
     const section = element('section', 'recent-page-section',
-      element('h3', 'recent-page-panel-title', titleNode(null, group), element('span', 'recent-group-count', String(pages.length))));
+      element('h3', 'recent-page-panel-title', groupNode(null, group), element('span', 'recent-group-count', String(pages.length))));
     if (pages.length < lettersFrom) {
       section.append(element('ul', 'recent-page-grid', ...pages.map(page => element('li', null, pageLink(pull, page, false)))));
     } else {

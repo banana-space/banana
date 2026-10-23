@@ -201,7 +201,9 @@ if (navigation) {
     searchToggle.hidden = false;
     searchToggle.addEventListener('click', openSearch);
     input.addEventListener('focus', openSearch);
-    input.addEventListener('input', () => {
+    input.addEventListener('input', event => {
+      // Text copied from the home page's field updates the results but does not open the search (see below).
+      if (event.copied) return;
       // Typing reopens a search that was closed while the box kept focus.
       if (!search.classList.contains('is-open')) openSearch();
       if (searchHistory()) window.history.replaceState({ ...window.history.state, search: input.value }, '');
@@ -345,7 +347,8 @@ if (navigation) {
 
 // The home page has its own search field (layouts/index.html). It shows results in a panel like the header's,
 // through the same module; on a narrow screen, typing hands the query over to the header's full-screen search.
-// The header's field stays out of the way while the page's is in view (styles in _home.scss).
+// The header's field stays out of the way while the page's is in view (styles in _home.scss). The two fields show
+// the same text.
 const homeSearch = document.querySelector('.home-search');
 if (navigation && homeSearch) {
   const input = homeSearch.querySelector('input');
@@ -375,14 +378,14 @@ if (navigation && homeSearch) {
   const handOver = () => {
     if (!headerInput || !headerToggle) return false;
     headerInput.value = input.value;
-    input.value = '';
     homeSearch.classList.remove('has-query');
     headerToggle.click();
     headerInput.dispatchEvent(new Event('input'));
     return true;
   };
   input.addEventListener('focus', open);
-  input.addEventListener('input', () => {
+  input.addEventListener('input', event => {
+    if (event.copied) return;
     if (compact.matches && input.value && handOver()) return;
     if (!homeSearch.classList.contains('is-open')) open();
   });
@@ -393,6 +396,25 @@ if (navigation && homeSearch) {
     if (document.hasFocus && !document.hasFocus()) return;
     if (!homeSearch.contains(event.relatedTarget)) close();
   });
+  // Typing in either field fills in the other. An input event marked as copied updates the other's results at once
+  // (its results script searches on input), so they are ready when it is next focused; the handlers above skip it,
+  // so the other field does not open. Escape clears the page's field (type="search") with a search event and no
+  // input event.
+  if (headerInput) {
+    const mirror = (from, to) => {
+      const copy = () => {
+        if (to.value === from.value) return;
+        to.value = from.value;
+        const event = new Event('input');
+        event.copied = true;
+        to.dispatchEvent(event);
+      };
+      from.addEventListener('input', copy);
+      from.addEventListener('search', copy);
+    };
+    mirror(input, headerInput);
+    mirror(headerInput, input);
+  }
   if (typeof IntersectionObserver !== 'undefined') {
     const navHeight = Math.round(navigation.getBoundingClientRect().height) || 72;
     new IntersectionObserver(([entry]) => {

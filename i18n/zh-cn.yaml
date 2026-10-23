@@ -15,6 +15,8 @@ articles:
   other: 条目
 categories:
   other: 分类
+category_article_count:
+  other: "{{ .Count }} 个条目"
 child_categories:
   other: 子分类
 copyright:
@@ -77,6 +79,8 @@ navbox_table:
   other: "{{ .Name }}导航表"
 navigation_menu:
   other: 导航菜单
+other_categories:
+  other: 其他
 page_does_not_exist:
   other: 所访问的页面不存在．
 name_translations:
@@ -106,6 +110,14 @@ home_books_text:
   other: 课程讲义与专题讲义，可在线阅读．
 home_books_count:
   other: <strong class="home-count">{{ .Count }}</strong>本讲义
+home_recent_all:
+  other: 全部更改
+home_recent_more:
+  other: 等 {{ .Count }} 个页面
+home_recent_in_book:
+  other: 中的 {{ .Count }} 个页面
+home_recent_year_date:
+  other: "{year} 年 {month} 月 {day} 日"
 home_recent_changes_text:
   other: 网站的最新动态
 home_help_text:
@@ -330,8 +342,6 @@ build_body_name:
   other: <正文>
 build_category_cycle:
   other: 分类存在循环：{{ .Path }}
-build_category_depth:
-  other: categoryDepth 必须是非负整数
 build_category_duplicate:
   other: 分类名称重复：{{ .Name }}（{{ .FirstName }}、{{ .Value }}）
 build_category_invalid:

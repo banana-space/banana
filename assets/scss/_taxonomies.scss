@@ -1,31 +1,147 @@
-.taxonomy-element {
-  a {
-    border-bottom: none;
-  }
-  
-  a:active {
-    color: $fg-color;
-  }
+// The overview (/categories/) has no sidebar, so it takes the navigation bar's full width, like the lecture index.
+.content > .container.taxonomy {
+  max-width: $site-frame-width;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  sup {
-    margin-inline-start: 0.35em;
-    color: $muted-color;
-    font-size: 0.75em;
+// Overview sections: a top-level category, with its article count, over its subcategories.
+.category-group {
+  margin-top: 4.8rem;
+}
+
+.category-group-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 1.2rem;
+  margin: 0 0 1.6rem;
+  font-size: 2.2rem;
+  line-height: 3rem;
+
+  a {
+    color: $alt-fg-color;
+    border-bottom: 0;
+
+    &:hover,
+    &:focus-visible {
+      color: $link-color;
+    }
   }
 }
 
-// Folder icons replace bullets only in category trees, including subcategories.
-.container ul.category-tree {
+.category-group-count {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: $muted-color;
+  font-variant-numeric: tabular-nums;
+}
+
+// Category cards (partials/category-cards.html): soft fill and no frame, like the lecture cards;
+// the whole card is the link, with the name on the left and the article count on the right.
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  padding-left: 0;
 
   li {
-    padding-inline-start: 0;
-    margin: 0.4rem 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.taxonomy .category-cards {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.category-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1.1rem 1.6rem;
+  border-radius: 1.2rem;
+  border-bottom: 0;
+  background: $alt-bg-color;
+  color: $alt-fg-color;
+  transition: background-color .15s ease, color .15s;
+
+  &:hover,
+  &:focus-visible {
+    border-bottom: 0;
+    background: #e6eaf0;
+    color: $link-color;
   }
 
-  ul.category-tree {
-    padding-left: 1.6em;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.category-card-name {
+  min-width: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.6rem;
+  overflow-wrap: anywhere;
+
+  .icon-folder {
+    margin-right: .6rem;
+    color: $muted-color;
+  }
+}
+
+.category-card-count {
+  flex: none;
+  font-size: 1.35rem;
+  color: $muted-color;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1000px) {
+  .taxonomy .category-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $search-breakpoint) {
+  .category-group {
+    margin-top: 3.6rem;
+  }
+
+  .category-group-title {
+    margin-bottom: 1.2rem;
+    font-size: 1.9rem;
+    line-height: 2.6rem;
+  }
+
+  .category-group-count {
+    font-size: 1.3rem;
+  }
+
+  .category-cards,
+  .taxonomy .category-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8rem;
+  }
+
+  .category-card {
+    padding: 1rem 1.4rem;
+    border-radius: 1rem;
+  }
+
+  .category-card-name {
+    font-size: 1.5rem;
+    line-height: 2.4rem;
+  }
+
+  .category-card-count {
+    font-size: 1.25rem;
   }
 }
 

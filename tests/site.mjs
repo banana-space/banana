@@ -69,7 +69,7 @@ console.log('导航栏动态滚动偏移、直接锚点 URL、无效 fragment、
 
 // Exercise the reading controls with a small DOM fixture; the actual responsive
 // layout and native fragment scrolling are also checked in a browser.
-function readingFixture(hasDirectory = true) {
+function readingFixture(hasDirectory = true, hasHomeSearch = false) {
   const frames = [], media = new Map();
   let doc;
   const node = () => {
@@ -91,6 +91,7 @@ function readingFixture(hasDirectory = true) {
       },
       contains(child) { for (let item = child; item; item = item.parent) if (item === this) return true; return false; },
       dispatchEvent(event) { this.emit(event.type, event); },
+      click() { this.emit('click'); },
       setAttribute(name, value) { attributes.set(name, value); },
       getAttribute(name) { return attributes.get(name); },
       removeAttribute(name) { attributes.delete(name); },
@@ -103,6 +104,7 @@ function readingFixture(hasDirectory = true) {
   const navbar = node(), details = node(), summary = node(), directory = node(), panel = node();
   const toggle = node(), menu = node(), menuSummary = node(), search = node(), input = node();
   const searchToggle = node(), back = node(), clear = node(), searchPanel = node(), searchAll = node();
+  const homeSearch = node(), homeInput = node();
   const pageClasses = node().classList, visits = [];
   const headings = [node(), node(), node()], links = [node(), node(), node()];
   const win = node();
@@ -122,7 +124,10 @@ function readingFixture(hasDirectory = true) {
     directory.append(links[index]);
   });
   navbar.queries = { '.header-toc-button': hasDirectory ? toggle : null, '.navigation-menu': menu,
-    '.site-search': search, '.search-toggle': searchToggle, '.search-back': back, '.search-clear': clear };
+    '.site-search': search, '.search-toggle': searchToggle, '.search-back': back, '.search-clear': clear,
+    '.site-search input': input };
+  homeSearch.queries = { input: homeInput };
+  homeSearch.append(homeInput);
   search.queries = { input, '.search-panel': searchPanel };
   searchPanel.queries = { '.search-all': searchAll };
   searchPanel.style = { setProperty() {} };
@@ -135,7 +140,8 @@ function readingFixture(hasDirectory = true) {
   doc = Object.assign(node(), {
     activeElement: null,
     documentElement: { scrollHeight: 3000, style: { setProperty() {} }, classList: pageClasses },
-    querySelector: selector => ({ '.navigation': navbar, '.toc-disclosure': hasDirectory ? details : null, '.page > article': null })[selector],
+    querySelector: selector => ({ '.navigation': navbar, '.toc-disclosure': hasDirectory ? details : null, '.page > article': null,
+      '.home-search': hasHomeSearch ? homeSearch : null })[selector],
     getElementById: id => ({ TableOfContents: hasDirectory ? directory : null,
       'header-toc-panel': hasDirectory ? panel : null,
       '第一节': headings[0], '小节': headings[1], '第二节': headings[2] })[id],
@@ -148,7 +154,8 @@ function readingFixture(hasDirectory = true) {
   const flush = () => { while (frames.length) frames.shift()(); };
   runInNewContext(script, { document: doc, window: win, Event: class { constructor(type) { this.type = type; } } });
   flush();
-  return { doc, win, navbar, details, directory, panel, toggle, menu, search, input, searchToggle, back, clear, pageClasses, visits, headings, links, media, flush, branch, ancestor };
+  return { doc, win, navbar, details, directory, panel, toggle, menu, search, input, searchToggle, back, clear, pageClasses, visits, headings, links, media, flush, branch, ancestor,
+    homeSearch, homeInput };
 }
 
 const reading = readingFixture();
@@ -222,7 +229,29 @@ const withoutDirectory = readingFixture(false);
 withoutDirectory.searchToggle.emit('click');
 withoutDirectory.back.emit('click');
 assert.equal(withoutDirectory.navbar.classList.contains('is-searching'), false);
-console.log('目录滚动高亮、浮层迁移、原生链接、互斥面板、键盘焦点、手机全屏搜索及无目录页面验证通过');
+// The home page's search field and the header's show the same text. On a narrow screen, typing in the page's field
+// hands the query to the header's full-screen search and keeps it in both.
+const home = readingFixture(true, true);
+home.homeInput.value = '群'; home.homeInput.emit('input');
+assert.equal(home.navbar.classList.contains('is-searching'), true, '窄屏上在首页的搜索框输入时转入全屏搜索');
+assert.deepEqual([home.input.value, home.homeInput.value], ['群', '群'], '转入全屏搜索后两个搜索框文字相同');
+home.input.value = '群论'; home.input.emit('input');
+assert.equal(home.homeInput.value, '群论', '在顶栏的搜索框输入时首页的搜索框跟着变');
+home.back.emit('click');
+// On a wide screen the other field's results follow at once (its results script searches on input), so they are
+// ready when it is focused; the copied text does not open the other field.
+home.media.get('(max-width: 760px)').matches = false;
+let headerSearches = 0;
+home.input.addEventListener('input', () => { headerSearches += 1; });
+home.doc.activeElement = home.homeInput;
+home.homeInput.value = '环'; home.homeInput.emit('input');
+assert.equal(home.input.value, '环');
+assert.equal(headerSearches, 1, '复制过去的文字立即更新另一个搜索框的结果');
+assert.equal(home.search.classList.contains('is-open'), false, '另一个搜索框不因此打开');
+assert.equal(home.doc.activeElement, home.homeInput, '焦点留在正在输入的搜索框');
+home.homeInput.value = ''; home.homeInput.emit('search');
+assert.equal(home.input.value, '', 'Esc 清空首页的搜索框时顶栏的也清空');
+console.log('目录滚动高亮、浮层迁移、原生链接、互斥面板、键盘焦点、手机全屏搜索、首页两个搜索框的文字同步及无目录页面验证通过');
 
 // The missing-article page fills in the name after the typography pass, so it
 // applies the curly-quote spacing itself.

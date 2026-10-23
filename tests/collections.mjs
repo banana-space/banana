@@ -72,6 +72,11 @@ try {
   assert.match(await html('books/test/first/custom'), /Smith 2020a/);
   // Pages inside a collection name it in <title>; its home page does not repeat it.
   assert.match(await html('books/test/second'), /<title>[^<]* - 测试讲义 - 香蕉空间<\/title>/);
+  // The lecture's name, first in the trail, has the book icon; a guide's has none.
+  const trail = (await html('books/test/second')).match(/<nav class="collection-breadcrumbs"[\s\S]*?<\/nav>/)[0];
+  assert.match(trail, /^[^›]*<a href="[^"]+"><svg class="ui-icon link-icon icon-book"[^>]*>[\s\S]*?<\/svg>测试讲义<\/a>/);
+  assert.equal((trail.match(/icon-book/g) ?? []).length, 1);
+  assert.doesNotMatch((await html('projects/manual/start')).match(/<nav class="collection-breadcrumbs"[\s\S]*?<\/nav>/)?.[0] ?? '', /icon-book/);
   assert.match(await html('books/test'), /<title>测试讲义 - 香蕉空间<\/title>/);
   assert.match(await html('books/test/second'), /section-number">2\.7/);
   assert.match(await html('books/test/second'), /section-number">2\.8/);

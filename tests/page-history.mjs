@@ -5,10 +5,11 @@ import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createProject, buildProject } from './helpers/project.mjs';
 import { pageHistories } from '../scripts/prebuild/page-history.mjs';
+import { recentChanges } from '../scripts/prebuild/recent-changes.mjs';
 
 // 页面历史（scripts/prebuild/page-history.mjs）：从本地 Git 历史中读出每个页面的 PR 与提交，跟随改名，
 // 认出 PR 的作者与时间；从旧站迁移来的页面另带旧站的修订（legacy/history.json，以导入时的路径为键，页面不晚于键加入）；
-// 构建写出 /history/data/<页面>.json，页面底部链接到 /history/。
+// 构建写出 /history/data/<页面>.json，页面底部链接到 /history/；首页列出最近的几次修改（scripts/prebuild/recent-changes.mjs）。
 const root = await createProject('page-history');
 const page = (title, body) => `---\ntitle: '${title}'\n---\n\n${body}\n`;
 const at = (path, text) => mkdir(join(root, path, '..'), { recursive: true }).then(() => writeFile(join(root, path), text));
@@ -114,11 +115,52 @@ try {
   assert.ok(html.includes(`href="/history/?path=${query}"`), '页面历史的链接');
   assert.ok(html.includes(`href="/edit/?path=${query}"`), '编辑的链接');
 
+  // The home page lists the latest changes, newest first: pages link to themselves, new pages carry a plus, a guide's page
+  // follows its guide's name; the import and pages outside the site's articles, lectures and guides are left out.
+  const home = await readFile(join(root, 'public/index.html'), 'utf8');
+  const rows = [...home.matchAll(/<li class="home-recent-item">([\s\S]*?)<\/li>/g)].map(match => match[1]);
+  assert.equal(rows.length, 4, '四次修改：直接提交、PR 3、2、1；导入与 books/ 中不属于讲义的页面不列出');
+  assert.match(rows[0], /写作指南<\/a><span class="home-recent-path" aria-hidden="true">›<\/span><a href="\/help\/style\/">风格指引<\/a>/);
+  assert.doesNotMatch(rows[0], /icon-book/, '指南不是讲义，没有书的图标');
+  assert.match(rows[1], /href="\/wiki\/%E4%B8%81\/">丁<\/a><sup class="home-recent-new"><span aria-hidden="true">\+<\/span><span class="sr-only">新页面<\/span><\/sup>/);
+  assert.match(rows[2], /href="\/wiki\/%E4%B8%99\/"><span class="math-rendered"/);
+  assert.doesNotMatch(rows[2], /home-recent-new/, '改名不是新页面');
+  assert.match(rows[3], /href="\/wiki\/%E7%94%B2\/">甲<\/a>/);
+  assert.match(rows[3], /<time class="home-recent-day" datetime="2026-03-01T23:00:00Z" data-local-time[^>]*>3 月 1 日<\/time>/, '日期与时间：写作的时间，没有脚本时为 UTC');
+  assert.match(rows[3], /<time class="home-recent-clock" datetime="2026-03-01T23:00:00Z" data-local-time data-format="\{hour\}:\{minute\}">23:00<\/time>/);
+  assert.doesNotMatch(home.match(/<ul class="home-links">[\s\S]*?<\/ul>/)[0], /recent-changes/, '有最近更改一节时，链接一行不再重复');
+
   // Without Git history: no history, and no link to it.
   await rm(join(root, '.git'), { recursive: true, force: true });
   assert.equal((await pageHistories(root)).size, 0);
   buildProject(root);
   assert.equal(existsSync(join(root, 'public/history/data/wiki/丙/index.md.json')), false);
   assert.equal((await readFile(join(root, 'public/wiki/丙/index.html'), 'utf8')).includes('/history/?path='), false);
-  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、没有 Git 历史时验证通过');
+  const plain = await readFile(join(root, 'public/index.html'), 'utf8');
+  assert.doesNotMatch(plain, /home-recent/, '没有 Git 历史时首页没有最近更改一节');
+
+  // Grouping: a bulk change names its first pages, then how many in all; the pages of one book stand as the book;
+  // a change within one book names only the book; a change to more than one page has its title; at most `limit`
+  // changes, newest first.
+  const article = (name, extra = {}) => [`wiki/${name}/index.md`, { normalized: true, isWiki: true, metadata: { title: name, ...extra } }];
+  const lecture = (name, home = false) => [`books/书/${home ? '_index' : `${name}/index`}.md`,
+    { normalized: true, metadata: { title: name, collectionRoot: 'books/书', collectionTitle: '书', collectionHome: home, collectionKind: 'lecture' } }];
+  const records = new Map([article('Abel 群'), article('环'), article('域'), article('模'), article('草稿', { draft: true }), lecture('书', true), lecture('一'), lecture('二')]);
+  const history = (...changes) => ({ changes: changes.map(([id, status = 'modified']) => ({ pr: id, time: `2026-01-0${id}T00:00:00Z`, merged: `2026-01-0${id}T01:00:00Z`, status, title: `PR ${id}` })) });
+  const recent = recentChanges(new Map([
+    ['content/wiki/环/index.md', history([1], [3], [5])], ['content/wiki/域/index.md', history([3, 'added'])],
+    ['content/wiki/模/index.md', history([3])], ['content/wiki/Abel 群/index.md', history([3], [4])],
+    ['content/wiki/草稿/index.md', history([5])], ['content/books/书/一/index.md', history([2], [3])], ['content/books/书/二/index.md', history([2], [4])],
+    ['content/books/书/_index.md', history([4, 'added'])],
+  ]), records, { limit: 4 });
+  assert.deepEqual(recent, [
+    { time: '2026-01-05T00:00:00Z', pages: 1, items: [{ page: 'wiki/环', added: false }], more: false },
+    { time: '2026-01-04T00:00:00Z', pages: 3, items: [{ book: 'books/书', added: true }, { page: 'wiki/Abel 群', added: false }], more: true, title: 'PR 4' },
+    { time: '2026-01-03T00:00:00Z', pages: 5, items: [{ page: 'wiki/域', added: true }, { page: 'wiki/Abel 群', added: false }, { page: 'wiki/环', added: false }], more: true, title: 'PR 3' },
+    { time: '2026-01-02T00:00:00Z', pages: 2, book: 'books/书', added: false, title: 'PR 2' },
+  ], '新的页面与讲义在前，其余条目按读音，讲义随后；草稿不算；只在一部讲义中的修改只写讲义名；不止一个页面的修改带标题');
+  assert.deepEqual(recentChanges(new Map([['content/wiki/环/index.md', history([6])], ['content/wiki/域/index.md', history([6])]]), records),
+    [{ time: '2026-01-06T00:00:00Z', pages: 2, items: [{ page: 'wiki/环', added: false }, { page: 'wiki/域', added: false }], more: false, title: 'PR 6' }],
+    '全部列出的两个页面也带标题');
+  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序）、没有 Git 历史时验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

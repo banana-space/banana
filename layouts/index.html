@@ -1,7 +1,8 @@
 {{ define "content" }}
 {{- /*
   首页：居中的标题、一句话与搜索框；下面“浏览网站内容”一节是两张卡（百科、讲义，附构建时统计的数目）、
-  三个链接（最近更改、写作指南、GitHub）与 content/_index.md 的正文．正文的第一个二级标题是说明的标题，
+  最近更改（构建时从 Git 历史取出，见 partials/home/recent-changes.html；没有时改为一个链接）、
+  写作指南与 GitHub 的链接，以及 content/_index.md 的正文．正文的第一个二级标题是说明的标题，
   其余是说明的内容（没有正文时不显示说明）．页内搜索框像导航栏的一样下拉显示结果，窄屏上输入时转入全屏搜索；
   导航栏的搜索框在页内搜索框可见时隐藏（static/js/site.js）．
 */ -}}
@@ -45,8 +46,9 @@
         </a>
         {{ end }}
       </div>
+      {{ with .Params.recentChanges }}{{ partial "home/recent-changes.html" . }}{{ end }}
       <ul class="home-links">
-        {{ with site.GetPage "/recent-changes" }}
+        {{ with and (not .Params.recentChanges) (site.GetPage "/recent-changes") }}
         <li><a href="{{ .RelPermalink }}"><span class="home-link-name">{{ i18n "recent_changes_title" }}</span><span class="home-link-text">{{ i18n "home_recent_changes_text" }}</span></a></li>
         {{ end }}
         {{ with site.GetPage "/help" }}

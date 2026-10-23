@@ -13,6 +13,7 @@ import { eachLimit, publishContent } from './publish.mjs';
 import { categoryTree } from './categories.mjs';
 import { gitDates } from './git-dates.mjs';
 import { pageHistories } from './page-history.mjs';
+import { recentChanges } from './recent-changes.mjs';
 import { titleHTML } from '../shared/display-title.mjs';
 import { defaultNumbering, numbering, pageNumbering } from './numbering.mjs';
 import { discoverCollections, isPublished, lectureGroups, prepareCollections } from './collections.mjs';
@@ -252,6 +253,25 @@ export async function prebuild({ destination: generated = `${root}.build/content
     if (groups && records.has('books/_index.md')) records.get('books/_index.md').metadata.lectureGroups = groups;
     return true;
   }, source));
+  // Each page's Git history: written for the history pages (/history/), and the home page lists the latest changes.
+  let histories;
+  if (!check) histories = await timer.time('git history', async () => {
+    const repository = (await readFile(`${root}hugo.toml`, 'utf8')).match(/^repository\s*=\s*['"]([^'"]+)['"]/m)?.[1];
+    return pageHistories(root, { repository });
+  });
+  /** The home page's latest changes: set on its record (a copy when given one that is shared); true when they changed. */
+  function listRecentChanges(state, copy = false) {
+    const home = state.get('_index.md');
+    if (!histories || !home) return false;
+    const recent = recentChanges(histories, state);
+    if (JSON.stringify(recent) === JSON.stringify(home.metadata.recentChanges ?? [])) return false;
+    const record = copy ? { ...home, metadata: { ...home.metadata } } : home;
+    if (recent.length) record.metadata.recentChanges = recent;
+    else delete record.metadata.recentChanges;
+    state.set('_index.md', record);
+    return record;
+  }
+  listRecentChanges(records);
   /** The generated page: final metadata and transformed body (unless the body is not wanted). Runs once per record. */
   function transformRecord(record, wanted = !frontMatterOnly && (!pages || pages.has(record.relative))) {
     const metadata = record.metadata;
@@ -298,8 +318,6 @@ export async function prebuild({ destination: generated = `${root}.build/content
    * the page itself: its title (plain and with formulas rendered) and address.
    */
   async function writePageHistories(destination) {
-    const repository = (await readFile(`${root}hugo.toml`, 'utf8')).match(/^repository\s*=\s*['"]([^'"]+)['"]/m)?.[1];
-    const histories = await pageHistories(root, { repository });
     const output = new Map();
     for (const [path, { changes, legacy }] of histories) {
       const relative = path.slice('content/'.length), record = records.get(relative);
@@ -391,6 +409,9 @@ export async function prebuild({ destination: generated = `${root}.build/content
         for (const [relative, record] of next) if (relative.startsWith(prefix)) changed.push(record);
       }
       peopleIndex = peopleIn(next);
+      // Which pages are published, and where, decides which changes the home page lists.
+      const home = listRecentChanges(next, !changed.includes(next.get('_index.md')));
+      if (home && !changed.includes(home)) changed.push(home);
       const result = new Map(changed.map(record => [record.relative, transformRecord(record, true)]));
       const published = new Set();
       for (const record of next.values()) {
