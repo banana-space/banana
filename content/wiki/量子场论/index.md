@@ -392,7 +392,7 @@ $Z (J)$ 一般无法精确算出。
   Z (J) & = \int_{-\infty}^{\infty} \exp \Bigl(
     -\frac{1}{2} m^2 q^2 - \frac{\lambda}{4!} q^4 + J q
   \Bigr) \, d q \\
-  & = 
+  & =
   \sum_{a, b = 0}^\infty
   \frac{(-\lambda / 4!)^a}{a!} \cdot
   \frac{J^b}{b!} \cdot
