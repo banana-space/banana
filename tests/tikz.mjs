@@ -5,9 +5,12 @@ import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { JSDOM } from 'jsdom';
 import { splitTag } from '../scripts/tikz/compiler.mjs';
+import { preambleFor } from '../scripts/tikz/preamble.mjs';
 import { sharedTikzWorker, tikzRenderer } from '../scripts/postbuild/tikz.mjs';
 import { createProject, buildProject } from './helpers/project.mjs';
 
+assert.ok(preambleFor('\\usetikzlibrary{calc, arrows.meta}\n\\begin{tikzpicture}\\end{tikzpicture}')
+  .includes('\\usetikzlibrary{calc, arrows.meta}'), 'TikZ libraries load in the preamble, outside the diagram box');
 assert.deepEqual(splitTag(String.raw`x \tag{2.1}`), { tex: 'x ', tag: '(2.1)' });
 assert.equal(splitTag(String.raw`x \tag*{\text{甲}}`).tag, String.raw`\text{甲}`);
 assert.equal(splitTag('x % \\tag{ignored}\n').tag, undefined);
