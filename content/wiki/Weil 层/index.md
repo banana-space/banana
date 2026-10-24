@@ -34,7 +34,7 @@ $\mathbb{Z}$-下降数据。
 上的基变换。注意 $X_0$ 的 $q$ 次方 Frobenius 自同态
 $F_0\colon X_0\to X_0$ 是 $X_0$ 作为 $\mathbb{F}_q$-概形的自同态。
 把它从 $\mathbb{F}_q$ 基变换到 $\mathbb{F}$，所得映射记作 $F\colon X\to X$，
-称为 **[[几何 Frobenius 自同态]]**。
+称为 **[[Frobenius 态射|几何 Frobenius 自同态]]**。
 
 $X_0$ 上的 **Weil 层**指序对 $(A,F_A)$，其中 $A$
 是 $X$ 上[[平展景|平展]][[层]]，$F_A\colon F^*A\cong A$

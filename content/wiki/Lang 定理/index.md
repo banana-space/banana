@@ -22,7 +22,7 @@ navboxes: [代数群理论]
 
 这里展示一个加强版，由 Steinberg 证明。
 
-::: definition [[[几何 Frobenius 态射|几何 Frobenius 自同态]]]
+::: definition [[[Frobenius 态射|几何 Frobenius 自同态]]]
 设 $X$ 是 $\mathbb{F}$ 上有限型概形。则
 $X$ 必然定义在某个 $\mathbb{F}_q$ 上。$X$
 的一个**几何 Frobenius 自同态**指其某个下降

@@ -19,7 +19,7 @@ navboxes: [几何表示论]
 指给 $\mathbb{F}_q$-[[代数簇]] $X_0$ 上的
 $\ell$ 进[[平展景|平展]][[层]]或 [[Weil 层]]赋予
 $X_0(\mathbb{F}_q)$ 上的函数的一种典范方法，大体上只记录
-Frobenius 态射的[[迹]]。
+[[Frobenius 态射]]的[[迹]]。
 
 ## 定义
 
@@ -146,7 +146,7 @@ $A\in\mathcal{D}(X)=\operatorname{Hom}_{\mathsf{K}_{\mathcal{D}}}(X,\mathrm{pt})
 $\operatorname{tr}(A)\colon(X^f)_!(\mathbb{1}_{X^f})\to\mathbb{1}_\mathrm{pt}$。
 把六函子理论 $\mathcal{D}$ 取成 $\mathbb{F}$ 上代数簇的
 $\ell$ 进平展层，$f$ 取成 $X=X_0\otimes_{\mathbb{F}_q}\mathbb{F}$
-的几何 Frobenius，则 Weil 层自带同构 $f^*A\cong A$，
+的[[Frobenius 态射|几何 Frobenius]]，则 Weil 层自带同构 $f^*A\cong A$，
 且总是满足此右伴随条件。此时 $X^f=X_0(\mathbb{F}_q)$，
 $\operatorname{Hom}_{\mathcal{D}(X^f)}((X^f)_!(\mathbb{1}_{X^f}),\mathbb{1}_\mathrm{pt})
 =\operatorname{Fun}(X_0(\mathbb{F}_q),\Lambda)$，上述构造给出的 $\operatorname{tr}(A)$

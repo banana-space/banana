@@ -17,12 +17,12 @@ navboxes: [群表示论, 代数群理论]
 :::
 
 **Steinberg 自同态**是[[有限域]][[代数闭包]]上[[连通概形|连通]][[代数群]]的一种[[自同态]]，
-是[[几何 Frobenius 态射]]的推广。它是 [[Lie 型有限群]]理论中的基本概念，
+是[[Frobenius 态射|几何 Frobenius 态射]]的推广。它是 [[Lie 型有限群]]理论中的基本概念，
 因为 Lie 型有限群就是由约化群的 Steinberg 自同态取不动点得到的。
 
 ## 定义
 
-::: definition [[[几何 Frobenius 态射|几何 Frobenius 自同态]]]
+::: definition [[[Frobenius 态射|几何 Frobenius 自同态]]]
 设 $X$ 是 $\mathbb{F}$ 上[[有限型态射|有限型]][[概形]]。则
 $X$ 必然定义在某个[[有限域]] $\mathbb{F}_q$ 上。$X$
 的一个**几何 Frobenius 自同态**指其某个下降

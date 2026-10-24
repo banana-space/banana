@@ -107,7 +107,7 @@ $$
 
 ::: theorem [[[Cartier 同构]]]
 设 $f\colon X\to S$ 是 $\mathbb{F}_p$-概形的光滑态射。
-考虑[[相对 Frobenius]] $F_{X/S}\colon X\to X^{(p)}$
+考虑[[Frobenius 态射|相对 Frobenius]] $F_{X/S}\colon X\to X^{(p)}$
 定义为
 \[
 \begin{tikzcd}
