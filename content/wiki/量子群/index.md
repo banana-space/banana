@@ -627,7 +627,7 @@ $U_\varepsilon^\mathrm{res} (\mathfrak{g}) \to U (\mathfrak{g})$，
 在函数代数一侧，在适当的条件下，
 $\mathcal{O} (G)$ 可以实现为 $\mathcal{O}_\varepsilon (G)$ 的中心 Hopf 子代数，
 即有量子群的同态 $G_\varepsilon \to G$，
-它类似于正特征域上代数群的 [[Frobenius 同态|Frobenius 态射]]。
+它类似于正特征域上代数群的 [[Frobenius 态射]]。
 
 ## 其他类型的量子群
 

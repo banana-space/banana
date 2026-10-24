@@ -105,7 +105,7 @@ Chevalley 群大致是[[分裂约化群|分裂]]单群的 $\mathbb{F}_q$-点之�
 当 $G = \mathbf{G}_0(\mathbb{F}_q)$
 为 $\mathbb{F}_q$ 上[[分裂约化群|分裂]]单群 $\mathbf{G}_0$ 的 $\mathbb{F}_q$-点之集，
 $\mathbf{G} = \mathbf{G}_0 \times_{\mathbb{F}_q} \mathbb{F}$ 为其基变换，
-$F$ 为相应的[[几何 Frobenius 态射]]时，相应的单群称为 Chevalley 群。
+$F$ 为相应的[[Frobenius 态射|几何 Frobenius 态射]]时，相应的单群称为 Chevalley 群。
 根系 $R$ 在 $\mathbb{F}_q$ 上对应的单群记为 $R(q)$。
 :::
 
