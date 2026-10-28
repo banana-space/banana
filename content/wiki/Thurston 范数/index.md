@@ -1,11 +1,11 @@
 ---
 title: Thurston 范数
 categories: [几何拓扑]
-notices:
-  - name: 问题
-    items:
-      - 本文尚不符合百科页面的格式。
 ---
+
+<problems>
+- 本文尚不符合百科页面的格式。
+</problems>
 
 设 $M$ 是一个紧致、可定向、不可约的连通三维流形（可能带边），则 $M$ 的 **Thurston
 范数**是一个定义在 $H_2(M,\partial M;\mathbb R)$ 上的半范数，

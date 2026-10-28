@@ -1,21 +1,21 @@
 ---
 title: 紧性
-notices:
-  - name: 问题
-    items:
-      - "“紧开拓扑”一节的脚注中，“等度连续”定义里的量词似乎有误（$y$ 未被使用，$x$ 未被量化）。"
-      - "“环绕数”一节中，$W(l)$ 的定义式似乎与“映射 $c$ 的环绕数是 $n$”相差一个符号。"
-      - "“环绕数”一节中，“非常接近”的定义及其后出现的交 $\\bigcap_{0=1}^{r-1}$ 的下标似乎有误，与开集 $U_1,\\ldots,U_r$ 的编号也不一致。"
-      - "“环绕数”一节中，$W(l)$ 是整数的证明未定义 $\\omega$；$\\vartheta_U$ 的值域似乎应为 $\\left]0,2\\pi\\right[$；$\\vartheta_U$ 的公式中 $\\frac{x}{x^2+y^2}$ 似乎应为 $\\frac{x}{\\sqrt{x^2+y^2}}$。"
-      - "“紧拓扑空间的无限乘积”一节中，超滤的定义似乎应要求 $\\mathfrak{F}'$ 严格包含 $\\mathfrak{F}$。"
 ---
+
+<problems>
+- “紧开拓扑”一节的脚注中，“等度连续”定义里的量词似乎有误（$y$ 未被使用，$x$ 未被量化）。
+- “环绕数”一节中，$W(l)$ 的定义式似乎与“映射 $c$ 的环绕数是 $n$”相差一个符号。
+- “环绕数”一节中，“非常接近”的定义及其后出现的交 $\bigcap_{0=1}^{r-1}$ 的下标似乎有误，与开集 $U_1,\ldots,U_r$ 的编号也不一致。
+- “环绕数”一节中，$W(l)$ 是整数的证明未定义 $\omega$；$\vartheta_U$ 的值域似乎应为 $\left]0,2\pi\right[$；$\vartheta_U$ 的公式中 $\frac{x}{x^2+y^2}$ 似乎应为 $\frac{x}{\sqrt{x^2+y^2}}$。
+- “紧拓扑空间的无限乘积”一节中，超滤的定义似乎应要求 $\mathfrak{F}'$ 严格包含 $\mathfrak{F}$。
+</problems>
 
 ::: remark* (Bourbaki 的讣告里说)
 \(\ldots\) car « Dieu est le compactifié
 d'Alexandrov[^1] de l'univers » (*Groth*, IV, 22).
 :::
 
-![图 1：[Jean-Paul Benzécri](https://en.wikipedia.org/wiki/Jean-Paul_Benzécri)](Jean-paul.png?width=600)
+![图 1：[Jean-Paul Benzécri](https://en.wikipedia.org/wiki/Jean-Paul_Benzécri)](Jean-paul.png){width=600}
 
 紧性似乎肇源于无穷小分析。微积分学中的闭区间套原理，
 [Heine–Borel 定理](https://en.wikipedia.org/wiki/Heine-Borel_theorem)，

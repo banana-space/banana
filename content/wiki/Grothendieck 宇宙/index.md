@@ -1,12 +1,12 @@
 ---
 title: Grothendieck 宇宙
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节之后所说的平凡情况 $U = \mathbb{N}$ 似乎不满足二元集条件（例如 $\{1\} \notin \mathbb{N}$）；满足定义的似乎是遗传有限集的集合 $V_\omega$。
 navboxes: [集合论]
 ---
+
+<problems>
+- “定义”一节之后所说的平凡情况 $U = \mathbb{N}$ 似乎不满足二元集条件（例如 $\{1\} \notin \mathbb{N}$）；满足定义的似乎是遗传有限集的集合 $V_\omega$。
+</problems>
 
 在[[集合论]]中，
 **Grothendieck 宇宙**是一类[[集合]]，该集合包含的集合全体满足

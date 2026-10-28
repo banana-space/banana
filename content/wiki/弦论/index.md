@@ -2,12 +2,12 @@
 title: 弦论
 aliases: [弦理论]
 categories: [弦论]
-notices:
-  - name: 问题
-    items:
-      - 本条目需要扩充。
 navboxes: [弦论]
 ---
+
+<problems>
+- 本条目需要扩充。
+</problems>
 
 **弦论**是[[物理学]]中的一种理论。
 当代物理学的一个首要问题是，

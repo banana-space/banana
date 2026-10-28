@@ -1,12 +1,12 @@
 ---
 title: 幺半群
 categories: [半群论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [代数结构]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **幺半群**是一种[[代数结构]]，
 是指带有[[乘法]][[运算]]的[[集合]]，

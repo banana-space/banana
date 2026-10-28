@@ -2,12 +2,12 @@
 title: 微积分学
 aliases: [微积分]
 categories: [实分析]
-notices:
-  - name: 问题
-    items:
-      - 本条目需要扩充。
 navboxes: [微积分学]
 ---
+
+<problems>
+- 本条目需要扩充。
+</problems>
 
 **微积分学**
 是[[微分学]]与[[积分学]]的统称，

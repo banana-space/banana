@@ -3,12 +3,12 @@ title: Jean-Pierre Serre
 sort: serre jean pierre
 aliases: [Serre]
 categories: [数学家]
-notices:
-  - name: 问题
-    items:
-      - “生平”一节需要扩充。
-      - “书籍”一节的列表不完整。
 ---
+
+<problems>
+- “生平”一节需要扩充。
+- “书籍”一节的列表不完整。
+</problems>
 
 **Jean-Pierre Serre** <person lang="fr" ipa="/ʒɑ̃ pjɛʁ sɛʁ/" years="1926–" />，法国数学家，
 在[[代数几何]]、[[代数数论]]、[[代数拓扑]]等方向均有突出贡献。

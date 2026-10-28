@@ -1,12 +1,12 @@
 ---
 title: 伸展范畴
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “$n$-伸展范畴”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “$n$-伸展范畴”一节需要扩充。
+</problems>
 
 在[[范畴论]]中，[[范畴]] $\mathcal{C}$ 的**伸展范畴**（也称为**对应范畴**）
 是范畴 $\mathsf{Span} (\mathcal{C})$，

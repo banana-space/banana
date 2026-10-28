@@ -1,12 +1,12 @@
 ---
 title: Poisson 流形
 categories: [辛几何]
-notices:
-  - name: 问题
-    items:
-      - “由 Poisson 双向量场”一节中，双向量场按通常的约定似乎应是 $(2, 0)$ 型张量场。
 navboxes: [辛几何]
 ---
+
+<problems>
+- “由 Poisson 双向量场”一节中，双向量场按通常的约定似乎应是 $(2, 0)$ 型张量场。
+</problems>
 
 在[[微分几何]]中，
 **Poisson 流形**是[[辛流形]]的推广，

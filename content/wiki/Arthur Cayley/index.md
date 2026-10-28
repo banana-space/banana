@@ -2,11 +2,11 @@
 title: Arthur Cayley
 sort: cayley arthur
 categories: [数学家]
-notices:
-  - name: 问题
-    items:
-      - “主要贡献”一节需要扩充。
 ---
+
+<problems>
+- “主要贡献”一节需要扩充。
+</problems>
 
 **Arthur Cayley** <person lang="en" years="1821–1895" />，
 英国数学家。

@@ -1,6 +1,0 @@
-{{- /* 标签列表项目的标签：(a)、iv)、($\ast$)（scripts/prebuild/structure.mjs 写在项目的文字开头）。内容为行内 Markdown。
-  outer（可省略）：外层项目的标签写在嵌套项目的开头时（(3) (4) …），向外的层数。
-  block（可省略）：标签所在行没有文字（之后是行间公式等），标签放在项目旁，不在文字中。 */ -}}
-{{- $outer := int (.Get "outer" | default "0") -}}
-<span class="item-label{{ if $outer }} item-label-outer{{ end }}{{ if .Get "block" }} item-label-block{{ end }}" style="--outer: {{ $outer }}"><span>{{ .Inner | strings.TrimSpace | .Page.RenderString }}</span></span>
-{{- /**/ -}}

@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { runInNewContext } from 'node:vm';
 import { parse, stringify } from 'yaml';
-import { directoryName, pageName } from '../scripts/prebuild/names.mjs';
+import { directoryName, pageName } from '../scripts/shared/names.mjs';
 
 // Titles and aliases are typeset as Markdown text is, outside formulas; the key, and so every link, is unchanged.
 {
@@ -26,6 +26,7 @@ assert.equal(pageName(String.raw`\(p\) 进几何`, 'example.md').name, 'p 进几
 for (const title of ['$p', '$$p$$', String.raw`\[p\]`, String.raw`p\)`, String.raw`$\unknown$`]) {
   assert.throws(() => pageName(title, 'example.md'), /example.md: title/);
 }
+
 const project = projectRoot;
 const root = await createProject('names');
 try {
@@ -33,7 +34,7 @@ try {
   await mkdir(join(root, 'content/wiki'), { recursive: true });
   await rm(join(root, 'content/navboxes'), { recursive: true, force: true });
   await mkdir(join(root, 'content/navboxes'), { recursive: true });
-  await writeFile(join(root, 'content/wiki/_index.md'), '---\ntitle: 全部条目\n---\n');
+  await writeFile(join(root, 'content/wiki/index.md'), '---\ntitle: 全部条目\n---\n');
   const categoryName = '$p$ 进几何', childName = String.raw`$\mathcal{C}$ 空间`;
   const tree = { 数学: {}, [categoryName]: { parent: '数学' }, [childName]: { parent: categoryName } };
   await writeFile(join(root, 'data/categories.yaml'), stringify(tree));
@@ -91,15 +92,15 @@ try {
   assert.equal((summary.match(/∞/g) ?? []).length, 1);
   assert.match(articleHTML, /<h1 class="title" id="page-title">[\s\S]*data-tex="\\infty" data-display="false">[\s\S]*?<\/span>-范畴/);
   assert.match(articleHTML, /href="\/custom-infinity\/\?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4"/);
-  assert.match(articleHTML, /href="\/custom-infinity\/\?from=%E2%88%9E(?:\+|&#43;)%E8%8C%83%E7%95%B4"[^>]*>别名 <span class="math-rendered" data-tex="p"/);
-  assert.match(articleHTML, /href="\/custom-infinity\/" class="wiki-link"><span class="math-rendered"/);
+  assert.match(articleHTML, /href="\/custom-infinity\/\?from=%E2%88%9E(?:\+|&#43;)%E8%8C%83%E7%95%B4"[^>]*>别名 <span class="bm-math-rendered" data-tex="p"/);
+  assert.match(articleHTML, /href="\/custom-infinity\/" class="bm-wiki-link"><span class="bm-math-rendered"/);
   assert.match(articleHTML, /条目尚未创建：草稿别名/);
   assert.match(articleHTML, /条目尚未创建：未来别名/);
   assert.match(articleHTML, /<strong class="navbox-current" aria-current="page">当前条目<\/strong>/);
   assert.match(articleHTML, /<a href="\/custom-infinity\/#chapter">页内章节<\/a>/);
   assert.match(articleHTML, /<link rel="canonical" href="https:\/\/example.org\/custom-infinity\/">/);
   const listing = await html('wiki');
-  assert.match(listing, /<span class="title"><span class="math-rendered" data-tex="p" data-display="false">[\s\S]*?<\/span> 条目<\/span>/);
+  assert.match(listing, /<span class="title"><span class="bm-math-rendered" data-tex="p" data-display="false">[\s\S]*?<\/span> 条目<\/span>/);
   const pCategory = await html('categories/p-进几何');
   assert.match(pCategory, /<title>分类: p 进几何 - 香蕉空间<\/title>/);
   assert.match(pCategory, /data-tex="p" data-display="false">[\s\S]*?<\/span> 进几何/);
@@ -109,7 +110,7 @@ try {
   assert.doesNotMatch(pCategory, /href="\/custom-infinity\/"/); // Only direct members are listed.
   const child = await html('categories/c-空间');
   const breadcrumb = child.match(/<nav aria-label="祖先分类"[\s\S]*?<\/nav>/)[0];
-  assert.match(breadcrumb, /href="\/categories\/p-%E8%BF%9B%E5%87%A0%E4%BD%95\/"[^>]*><span class="math-rendered" data-tex="p"/);
+  assert.match(breadcrumb, /href="\/categories\/p-%E8%BF%9B%E5%87%A0%E4%BD%95\/"[^>]*><span class="bm-math-rendered" data-tex="p"/);
   assert.match(breadcrumb, /data-tex="\\mathcal\{C\}"/);
   assert.match(await html('categories/q-空间'), /data-tex="q"/); // Undeclared categories also render formulas.
   const overview = await html('categories');
@@ -120,11 +121,11 @@ try {
   assert.doesNotMatch(footer, /data-tex="p"/);
   const lower = await html('wiki/lp-lower');
   assert.match(lower, /<title>\s*L_p 空间 - 香蕉空间/);
-  assert.match(lower, /href="\/wiki\/lp-upper\/" class="wiki-link"/);
-  assert.match(lower, /href="\/wiki\/lp-lower\/" class="wiki-link">下标/);
+  assert.match(lower, /href="\/wiki\/lp-upper\/" class="bm-wiki-link"/);
+  assert.match(lower, /href="\/wiki\/lp-lower\/" class="bm-wiki-link">下标/);
   // A missing article is shown by its display text, not its lookup key.
   // The missing page also gets the target as written, the title should someone create the article.
-  assert.match(lower, /href="\/missing\/\?title=H%5E1%28X%3B&#43;%E2%84%A4%29&#43;%E7%9A%84%E8%AE%A1%E7%AE%97&amp;source=%24H%5E1%28X%3B%5Cmathbb&#43;Z%29%24&#43;%E7%9A%84%E8%AE%A1%E7%AE%97"/);
+  assert.match(lower, /href="\/missing\/\?title=H%5E1%28X%3B\+%E2%84%A4%29\+%E7%9A%84%E8%AE%A1%E7%AE%97&amp;source=%24H%5E1%28X%3B%5Cmathbb\+Z%29%24\+%E7%9A%84%E8%AE%A1%E7%AE%97"/);
   assert.match(lower, /title="条目尚未创建：H\^1\(X; ℤ\) 的计算"/);
   assert.match(await html('wiki/lp-upper'), /<title>\s*L\^p 空间 - 香蕉空间/);
   build(['--baseURL', 'https://example.org/docs/', '--buildDrafts', '--buildFuture']);
@@ -168,19 +169,11 @@ try {
   // A front matter without its closing --- would make the whole file the body.
   await writeFile(join(root, 'content/wiki/infinity/index.md'), `---\n${stringify(metadata)}\n正文。\n`);
   assert.throws(prebuild, /infinity\/index.md:1: 导言区没有结束/);
-  // No shortcodes in a page, anywhere (Hugo runs them in code blocks too, and in strings it renders, such as
-  // the front matter's): authors write tags, which the preprocessing turns into shortcodes.
-  await article('infinity', metadata, '正文\n\n{{< _theorem-start >}}');
-  assert.throws(prebuild, /infinity\/index.md:\d+: 页面中不能写 Hugo 短代码（\{\{< _theorem-start/);
-  for (const body of ['```\n{{< youtube x >}}\n```', '`{{</* see */>}}`', '{{% see %}}', '<!-- {{< param x >}} -->']) {
-    await article('infinity', metadata, body);
-    assert.throws(prebuild, /页面中不能写 Hugo 短代码/, body);
-  }
-  // Nor in the front matter, also when YAML's escapes spell it.
-  await article('infinity', { ...metadata, notices: [{ name: '{{< youtube x >}}' }] });
-  assert.throws(prebuild, /infinity\/index.md:\d+: 页面中不能写 Hugo 短代码/);
-  await writeFile(join(root, 'content/wiki/infinity/index.md'), `---\ntitle: "∞-范畴\\x7B\\x7B< youtube x >}}"\n---\n\n正文\n`);
-  assert.throws(prebuild, /infinity\/index.md:1: 页面中不能写 Hugo 短代码（\{\{< youtube/);
+  // Hugo's shortcodes are text like any other, in code too; what bananamark writes for itself is an error.
+  await article('infinity', metadata, '正文 {{< _theorem-start >}}\n\n```\n{{< youtube x >}}\n```\n\n{{% see %}}');
+  prebuild();
+  await article('infinity', metadata, '正文 @@node:0:node@@');
+  assert.throws(prebuild, /infinity\/index.md:\d+: 页面中不能出现 bananamark 内部使用的写法：@@node:/);
   await article('infinity', metadata, '`\\{\\{<` 与 <see>[[无穷范畴]]</see>');
   prebuild();
   // A page's own address stays within the site.

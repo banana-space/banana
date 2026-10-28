@@ -2,12 +2,12 @@
 title: Krull–Akizuki 定理
 aliases: [Krull-Akizuki 定理]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节第二个引理的证明中，由第一个引理得到的似乎应为 $\ell_A(M/aM)\le n\ell_A(A/a)$ 而非等式，因为 $M$ 的秩可能小于 $V$ 的维数 $n$；后文 $\ell_A(M'/aM')=n\ell_A(A/a)$ 同此。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “证明”一节第二个引理的证明中，由第一个引理得到的似乎应为 $\ell_A(M/aM)\le n\ell_A(A/a)$ 而非等式，因为 $M$ 的秩可能小于 $V$ 的维数 $n$；后文 $\ell_A(M'/aM')=n\ell_A(A/a)$ 同此。
+</problems>
 
 ::: convention
 在本文中，

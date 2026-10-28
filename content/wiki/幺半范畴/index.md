@@ -2,12 +2,12 @@
 title: 幺半范畴
 aliases: [张量范畴]
 categories: [范畴代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 在[[范畴论]]中，
 **幺半范畴**（也称为**张量范畴**）

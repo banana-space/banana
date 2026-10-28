@@ -1,13 +1,13 @@
 ---
 title: 负性引理
 categories: [双有理几何]
-notices:
-  - name: 问题
-    items:
-      - “第一种证明”一节需要扩充。
-      - “第二种证明”一节中，关于 $v(W)$ 性质的命题缺少 (1)、(2) 的证明。
-      - “定理及推论”一节的注中，条件“$f^{-1}(y) \subsetneq \mathrm{Supp}(D)$”似乎应为“$f^{-1}(y) \not\subset \mathrm{Supp}(D)$”。
 ---
+
+<problems>
+- “第一种证明”一节需要扩充。
+- “第二种证明”一节中，关于 $v(W)$ 性质的命题缺少 (1)、(2) 的证明。
+- “定理及推论”一节的注中，条件“$f^{-1}(y) \subsetneq \mathrm{Supp}(D)$”似乎应为“$f^{-1}(y) \not\subset \mathrm{Supp}(D)$”。
+</problems>
 
 ::: convention
 在本文中，

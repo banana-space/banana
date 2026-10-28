@@ -1,11 +1,11 @@
 ---
 title: 解析集
-notices:
-  - name: 问题
-    items:
-      - “Souslin定理”一节中 Luzin 分离定理与 Souslin 定理没有证明。
-      - “Souslin定理”一节第一个定理的证明中，集合 $\mathcal{A}$ 的定义用到的 $\mathcal{F}$ 似乎应为前文的泛在集 $\mathcal{U}$，且 $\mathcal{A}_y$ 与 $G$ 中坐标的顺序似乎前后不一致。
 ---
+
+<problems>
+- “Souslin定理”一节中 Luzin 分离定理与 Souslin 定理没有证明。
+- “Souslin定理”一节第一个定理的证明中，集合 $\mathcal{A}$ 的定义用到的 $\mathcal{F}$ 似乎应为前文的泛在集 $\mathcal{U}$，且 $\mathcal{A}_y$ 与 $G$ 中坐标的顺序似乎前后不一致。
+</problems>
 
 ## Souslin定理
 

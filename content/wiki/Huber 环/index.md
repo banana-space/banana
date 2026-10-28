@@ -2,13 +2,13 @@
 title: Huber 环
 aliases: [Huber 对]
 categories: [$p$ 进几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
-      - “定义”一节中 Huber 对的定义似乎缺少条件 $A^+ \subset A^\circ$（$A^+$ 由幂有界元构成）。
 navboxes: [P 进几何]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+- “定义”一节中 Huber 对的定义似乎缺少条件 $A^+ \subset A^\circ$（$A^+$ 由幂有界元构成）。
+</problems>
 
 **Huber 环**是 [[$p$ 进几何]]中的概念，
 它是“带有 [[$p$ 进拓扑]]的环”这一直观的具体实现：

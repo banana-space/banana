@@ -8,7 +8,7 @@ title: 模型范畴
 这些信息将帮助我们在无穷范畴中进行具体计算。
 我们回忆上一节中的图式：
 
-![](HAHA-局部化.svg?width=360)
+![](HAHA-局部化.svg){width=360}
 
 模型范畴的实用性主要体现于以下两点。
 
@@ -430,7 +430,7 @@ $\operatorname{Cyl}(X)\to\operatorname{Cyl}(\operatorname{Cyl}(X))$，
 证明的想法是构造一个“从 $X\times I$ 到 $Y^I$ 的映射”$k$，
 如下图所示。
 
-![](HAHA-左右同伦等价.svg?width=560)
+![](HAHA-左右同伦等价.svg){width=560}
 
 我们想要将右同伦 $\mathbb{1}_f$
 沿着端点处的左同伦 $h$ 和 $\mathbb{1}_f$ 进行转移。

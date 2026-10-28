@@ -1,13 +1,13 @@
 ---
 title: '$(\infty, 1)$-意象'
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “通过下降”一节中有效余极限的定义似乎应要求诱导的余锥之间的自然变换是拉回自然变换，而不只是“诱导出自然变换”。
-      - “极限与余极限”一节的定理中，$\mathsf{Topos} \to \mathsf{Cat}_{\infty}$ 似乎应保持滤极限（即 $\mathsf{Logos}$ 中的滤余极限），而不是滤余极限。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “通过下降”一节中有效余极限的定义似乎应要求诱导的余锥之间的自然变换是拉回自然变换，而不只是“诱导出自然变换”。
+- “极限与余极限”一节的定理中，$\mathsf{Topos} \to \mathsf{Cat}_{\infty}$ 似乎应保持滤极限（即 $\mathsf{Logos}$ 中的滤余极限），而不是滤余极限。
+</problems>
 
 ::: convention
 在本文中，

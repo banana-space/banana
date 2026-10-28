@@ -1,13 +1,13 @@
 ---
 title: Weil 猜想
 categories: [代数几何]
-notices:
-  - name: 问题
-    items:
-      - “背景和历史”“Deligne 对 Riemann 猜想的证明”各节需要扩充。
-      - “陈述”一节中 Riemann 猜想的部分写作 $|\alpha_{i,k}| = q^{-\frac{i}{2}}$，指数似乎应为 $-\frac{k}{2}$。
-      - 本条目中 $\alpha$ 有时指多项式的根（模长 $q^{-k/2}$），有时在 $Z_X(T)$、$N_m$ 等公式中却作为根的倒数出现（如函数方程中的 $\frac{q^{n}}{\alpha_{1,2n-k}}$、椭圆曲线例子中的 $Z_X(T)$ 与 $N_m$），记号似乎前后不一致。
 ---
+
+<problems>
+- “背景和历史”“Deligne 对 Riemann 猜想的证明”各节需要扩充。
+- “陈述”一节中 Riemann 猜想的部分写作 $|\alpha_{i,k}| = q^{-\frac{i}{2}}$，指数似乎应为 $-\frac{k}{2}$。
+- 本条目中 $\alpha$ 有时指多项式的根（模长 $q^{-k/2}$），有时在 $Z_X(T)$、$N_m$ 等公式中却作为根的倒数出现（如函数方程中的 $\frac{q^{n}}{\alpha_{1,2n-k}}$、椭圆曲线例子中的 $Z_X(T)$ 与 $N_m$），记号似乎前后不一致。
+</problems>
 
 ::: convention
 在本文中，

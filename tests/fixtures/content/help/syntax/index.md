@@ -20,6 +20,6 @@ title: Markdown 与引用
 
 ## 章节与编号
 
-章节顺序在根目录的 `collection.yaml` 中声明。具体开发与写作说明见项目的 `docs/collections.md`。
+章节顺序在根目录的 `book.yaml` 中声明。具体开发与写作说明见项目的 `docs/books.md`。
 
 排版建议见 @guide:style。

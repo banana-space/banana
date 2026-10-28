@@ -1,10 +1,10 @@
 ---
 title: 归纳与递归
-notices:
-  - name: 问题
-    items:
-      - 定理“良基归纳法，真类版本”的证明中，第 2 条改写式末尾的 $\forall x(\varphi_X(x)\to\varphi_X(s))$ 似乎应为 $\forall x(\varphi_X(x)\to\varphi_S(x))$。
 ---
+
+<problems>
+- 定理“良基归纳法，真类版本”的证明中，第 2 条改写式末尾的 $\forall x(\varphi_X(x)\to\varphi_X(s))$ 似乎应为 $\forall x(\varphi_X(x)\to\varphi_S(x))$。
+</problems>
 
 我们现在来考察良基关系的一些重要性质。首先，我们来指出良基的一个重要等价定义。
 

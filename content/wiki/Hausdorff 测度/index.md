@@ -1,15 +1,15 @@
 ---
 title: Hausdorff 测度
 categories: [测度论]
-notices:
-  - name: 问题
-    items:
-      - “定义与性质”一节 Carathéodory 判别法的证明中，$E_0$ 的定义似乎应为 $\operatorname{dist}(x,A)\ge 1$，否则 $E_0,E_1,\dots$ 不能覆盖 $E\setminus A$；后面的距离下界似乎应为 $1/(n+1)$ 而非 $1/n$。
-      - “与 Lebesgue 测度的关系”一节中，Lebesgue 零测集的引理的证明里，“$|A|\le \sum_{i\in \mathbb{N}} |I_i|$”似乎应为 $\sum_{i\in \mathbb{N}} |I_i|<\varepsilon$。
-      - “与 Lebesgue 测度的关系”一节中，“等直径不等式”说的似乎是给定直径的集合中球的体积最大，而不是周长最大；Steiner 对称化 $S_nA$ 的定义式似乎缺少 $\{z\}\times$；等直径不等式的证明中两点距离似乎应为 $\sqrt{|z_1-z_2|^2+|t_1-t_2|^2}$。
-      - “与 Lebesgue 测度的关系”一节末尾，“$\mathbb{R}^n$ 上的 $\mathcal{H}^n$ 限制在 $\pi$ 上就是 $\pi$ 上的 $\mathcal{H}^n$”中的 $\mathcal{H}^n$ 似乎应为 $\mathcal{H}^m$。
-      - “Hausdorff 维数与分形”一节中，关于 $s=\dim(A)$ 的注记所举的两个例子似乎与“前一种情况”（$\mathcal{H}^s(A)=0$）、“后一种情况”（$\mathcal{H}^s(A)=\infty$）的顺序对调了。
 ---
+
+<problems>
+- “定义与性质”一节 Carathéodory 判别法的证明中，$E_0$ 的定义似乎应为 $\operatorname{dist}(x,A)\ge 1$，否则 $E_0,E_1,\dots$ 不能覆盖 $E\setminus A$；后面的距离下界似乎应为 $1/(n+1)$ 而非 $1/n$。
+- “与 Lebesgue 测度的关系”一节中，Lebesgue 零测集的引理的证明里，“$|A|\le \sum_{i\in \mathbb{N}} |I_i|$”似乎应为 $\sum_{i\in \mathbb{N}} |I_i|<\varepsilon$。
+- “与 Lebesgue 测度的关系”一节中，“等直径不等式”说的似乎是给定直径的集合中球的体积最大，而不是周长最大；Steiner 对称化 $S_nA$ 的定义式似乎缺少 $\{z\}\times$；等直径不等式的证明中两点距离似乎应为 $\sqrt{|z_1-z_2|^2+|t_1-t_2|^2}$。
+- “与 Lebesgue 测度的关系”一节末尾，“$\mathbb{R}^n$ 上的 $\mathcal{H}^n$ 限制在 $\pi$ 上就是 $\pi$ 上的 $\mathcal{H}^n$”中的 $\mathcal{H}^n$ 似乎应为 $\mathcal{H}^m$。
+- “Hausdorff 维数与分形”一节中，关于 $s=\dim(A)$ 的注记所举的两个例子似乎与“前一种情况”（$\mathcal{H}^s(A)=0$）、“后一种情况”（$\mathcal{H}^s(A)=\infty$）的顺序对调了。
+</problems>
 
 **Hausdorff测度**是[[Lebesgue测度]]在[[度量空间]]中的推广，在[[分形]]的理论中被用于定义分数维数。
 

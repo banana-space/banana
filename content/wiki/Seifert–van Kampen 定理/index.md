@@ -2,13 +2,13 @@
 title: Seifert–van Kampen 定理
 aliases: [Van Kampen 定理, Seifert-van Kampen 定理]
 categories: [同伦论]
-notices:
-  - name: 问题
-    items:
-      - “陈述与证明”一节缺少两个定理的证明。
-      - “例子”一节中单点并的基本群是自由积的结论似乎需要对基点加条件（例如每个 $x_i$ 在 $X_i$ 中有可缩的开邻域），否则一般不成立。
 navboxes: [代数拓扑]
 ---
+
+<problems>
+- “陈述与证明”一节缺少两个定理的证明。
+- “例子”一节中单点并的基本群是自由积的结论似乎需要对基点加条件（例如每个 $x_i$ 在 $X_i$ 中有可缩的开邻域），否则一般不成立。
+</problems>
 
 **Seifert–van Kampen 定理**，
 也称为 **van Kampen 定理**，

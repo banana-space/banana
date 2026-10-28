@@ -2,14 +2,12 @@
 title: 最大模原理
 aliases: [极大模原理]
 categories: [复分析]
-notices:
-  - name: 消歧义
-    about: '[[全纯函数]]的性质'
-    see:
-      - topic: '[[偏微分方程]]论中的一般性质'
-        page: 最大值原理
 navboxes: [复分析]
 ---
+
+<disambiguation>
+本条目介绍的是[[全纯函数]]的性质。关于[[偏微分方程]]论中的一般性质，请参见[[最大值原理]]。
+</disambiguation>
 
 **最大模原理**，或称**极大模原理**，
 是[[复分析]]中的结论。

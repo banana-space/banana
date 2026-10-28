@@ -263,7 +263,7 @@ $$
 \dim L=1 < \dim H=2<\dim \mathbb{R}^3=3.
 $$
 
-![](Linear-algebra-1-3-1.png?width=300)
+![](Linear-algebra-1-3-1.png){width=300}
 :::
 
 ## 向量组的秩*

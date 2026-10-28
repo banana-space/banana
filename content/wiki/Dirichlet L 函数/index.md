@@ -1,12 +1,12 @@
 ---
 title: Dirichlet $L$ 函数
 categories: [解析数论, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - “零点”“应用”各节需要扩充。
-      - '“现代证明”一节的证明中，$\prod_p\sum_{k=1}^\infty\binom{g(p)+k-1}{k}p^{-kf(p)s}$ 的求和似乎应从 $k=0$ 开始。'
 ---
+
+<problems>
+- “零点”“应用”各节需要扩充。
+- “现代证明”一节的证明中，$\prod_p\sum_{k=1}^\infty\binom{g(p)+k-1}{k}p^{-kf(p)s}$ 的求和似乎应从 $k=0$ 开始。
+</problems>
 
 **Dirichlet $L$ 函数**是对
 [[Riemann $\zeta$ 函数]]的微小修改

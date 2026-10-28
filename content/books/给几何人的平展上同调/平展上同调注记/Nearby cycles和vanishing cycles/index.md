@@ -1,10 +1,10 @@
 ---
 title: Nearby cycles和vanishing cycles
-notices:
-  - name: 问题
-    items:
-      - 定义与命题的交换图中，$X_{\bar{t}}\to X$ 的箭头似乎应标为 $\bar{j}$（与正文中的 $\bar{j}^{-1}K$ 一致）。
 ---
+
+<problems>
+- 定义与命题的交换图中，$X_{\bar{t}}\to X$ 的箭头似乎应标为 $\bar{j}$（与正文中的 $\bar{j}^{-1}K$ 一致）。
+</problems>
 
 ::: definition
 设$S$是严格Hensel局部DVR（例如$\mathbb{C}[[t]],\mathbb{Z}_p$）。取闭点$s\to S$和几何一般点$t\to S$。

@@ -1,12 +1,12 @@
 ---
 title: 错致凝聚层
 categories: [层论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节需要扩充。
 navboxes: [层论]
 ---
+
+<problems>
+- “定义”一节需要扩充。
+</problems>
 
 在[[代数几何]]中，
 **错致凝聚层**是一种与[[错致层]]类似，但关于[[凝聚层]]的构造。

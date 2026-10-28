@@ -1,13 +1,13 @@
 ---
 title: Bernoulli 多项式
 categories: [组合函数]
-notices:
-  - name: 问题
-    items:
-      - Faulhaber 定理中最右边积分的上限似乎应为 $m+1$。
-      - “Fourier 展开”一节命题的证明中，“回代即得”之后的等式左边似乎缺少因子 $x$，右边的求和中似乎缺少因子 $e^{2\pi int}$。
-      - Euler 定理中的公式似乎应为 $\zeta(2k)=(-1)^{k+1}{(2\pi)^{2k}B_{2k}\over2(2k)!}$；按现在的写法取 $k=1$ 得到 $\zeta(2)=2\pi^2/3$，与下文不符。
 ---
+
+<problems>
+- Faulhaber 定理中最右边积分的上限似乎应为 $m+1$。
+- “Fourier 展开”一节命题的证明中，“回代即得”之后的等式左边似乎缺少因子 $x$，右边的求和中似乎缺少因子 $e^{2\pi int}$。
+- Euler 定理中的公式似乎应为 $\zeta(2k)=(-1)^{k+1}{(2\pi)^{2k}B_{2k}\over2(2k)!}$；按现在的写法取 $k=1$ 得到 $\zeta(2)=2\pi^2/3$，与下文不符。
+</problems>
 
 **Bernoulli 多项式**$B_n(t)$是一列有理多项式，满足：
 

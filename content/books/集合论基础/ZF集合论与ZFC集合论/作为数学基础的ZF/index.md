@@ -1,11 +1,11 @@
 ---
 title: 作为数学基础的ZF
-notices:
-  - name: 问题
-    items:
-      - 定义“加与乘”中乘法的第 2 条 $\cdot^\mathbb{N}(n,m\cup \{m\})=+^\mathbb{N}(\cdot^\mathbb{N}(n,m),m)$ 末尾的 $m$ 似乎应为 $n$。
-      - 定义“有序交换群，有序域”中的公理 $x\leq y\rightarrow x+z<y+z$ 似乎应为 $x\leq y\rightarrow x+z\leq y+z$（否则取 $x=y$ 即得矛盾）。
 ---
+
+<problems>
+- 定义“加与乘”中乘法的第 2 条 $\cdot^\mathbb{N}(n,m\cup \{m\})=+^\mathbb{N}(\cdot^\mathbb{N}(n,m),m)$ 末尾的 $m$ 似乎应为 $n$。
+- 定义“有序交换群，有序域”中的公理 $x\leq y\rightarrow x+z<y+z$ 似乎应为 $x\leq y\rightarrow x+z\leq y+z$（否则取 $x=y$ 即得矛盾）。
+</problems>
 
 接下来，我们要用$\mathrm{ZF}$给出数学的基础，而这就需要我们定义常见的数学操作。
 

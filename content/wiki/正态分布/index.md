@@ -1,12 +1,12 @@
 ---
 title: 正态分布
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - '“基本性质”一节中 $r$ 阶原点绝对矩的公式似乎只对标准正态分布 $\mathcal{N} (0, 1)$ 成立；对 $\mathcal{N} (0, \sigma^2)$ 应再乘以 $\sigma^r$，$\mu \neq 0$ 时形式更复杂。'
 navboxes: [概率论]
 ---
+
+<problems>
+- “基本性质”一节中 $r$ 阶原点绝对矩的公式似乎只对标准正态分布 $\mathcal{N} (0, 1)$ 成立；对 $\mathcal{N} (0, \sigma^2)$ 应再乘以 $\sigma^r$，$\mu \neq 0$ 时形式更复杂。
+</problems>
 
 在[[概率论]]中，
 **正态分布**（或 **Gauß 分布**）是一种[[概率分布]]，

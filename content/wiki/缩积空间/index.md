@@ -2,13 +2,12 @@
 title: 缩积空间
 aliases: [Smash product, 缩积]
 categories: [一般拓扑]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[范畴论]]中的缩积'
-        page: 缩积（范畴论）
 navboxes: [一般拓扑]
 ---
+
+<disambiguation>
+关于[[范畴论]]中的缩积，请参见[[缩积（范畴论）]]。
+</disambiguation>
 
 [[带点拓扑空间]] $(X, x_0)$ 与 $(Y, y_0)$ 的**缩积空间**
 $X \wedge Y$ 是一个新的带点拓扑空间，

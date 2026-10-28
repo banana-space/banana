@@ -1,11 +1,11 @@
 ---
 title: 一阶语言中的证明
-notices:
-  - name: 问题
-    items:
-      - '“自由替换”引理似乎一般不成立：例如 $\varphi=\forall y(P(x,y))$、$t=y$ 时，按定义 $\mathrm{sub}^x_t$ 对 $\varphi$ 不是无冲突替换。'
-      - “定义函数”中翻译操作第 4 项给出的 $\mathrm{T}(\phi')$ 似乎应为 $\neg\forall y_1(\dots(\mathrm{T}(t_1)\to(\dots\to\neg P_m(\dots))))$ 的形式（与第 2 项一致）；现在的写法要求所有 $y_i$ 都满足条件。
 ---
+
+<problems>
+- “自由替换”引理似乎一般不成立：例如 $\varphi=\forall y(P(x,y))$、$t=y$ 时，按定义 $\mathrm{sub}^x_t$ 对 $\varphi$ 不是无冲突替换。
+- “定义函数”中翻译操作第 4 项给出的 $\mathrm{T}(\phi')$ 似乎应为 $\neg\forall y_1(\dots(\mathrm{T}(t_1)\to(\dots\to\neg P_m(\dots))))$ 的形式（与第 2 项一致）；现在的写法要求所有 $y_i$ 都满足条件。
+</problems>
 
 ## Hilbert式推演系统一例
 

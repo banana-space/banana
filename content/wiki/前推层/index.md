@@ -2,13 +2,12 @@
 title: 前推层
 aliases: [推出层]
 categories: [层论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '其[[导出函子]]'
-        page: 导出前推层
 navboxes: [层论]
 ---
+
+<disambiguation>
+关于其[[导出函子]]，请参见[[导出前推层]]。
+</disambiguation>
 
 **前推层**是[[层论]]中的一种构造。
 对[[拓扑空间]]的[[连续映射]] $f \colon X \to Y$，

@@ -1,12 +1,12 @@
 ---
 title: 赋值环
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节的推论似乎需要假设 $\ker f\subseteq\mathfrak{p}$（例如 $f$ 是单射）；否则 $f^{-1}(\mathfrak{m}_R)$ 总包含 $\ker f$，不能等于不包含 $\ker f$ 的素理想 $\mathfrak{p}$。证明中的“局部环 $f(A_\mathfrak{p})$”也需要同样的假设才有意义。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “性质”一节的推论似乎需要假设 $\ker f\subseteq\mathfrak{p}$（例如 $f$ 是单射）；否则 $f^{-1}(\mathfrak{m}_R)$ 总包含 $\ker f$，不能等于不包含 $\ker f$ 的素理想 $\mathfrak{p}$。证明中的“局部环 $f(A_\mathfrak{p})$”也需要同样的假设才有意义。
+</problems>
 
 ::: convention
 在本文中，

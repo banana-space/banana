@@ -1,12 +1,12 @@
 ---
 title: Skorokhod 表示定理
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - '“叙述与证明”一节的引理 2 中，$a_x$、$b_x$ 定义里的不等号似乎写反了：按引理的证明与定理证明中 $Y(x)= a_x$ 的用法，似乎应为 $a_x= \sup\{y: F(y)<x\}$、$b_x= \inf\{y: F(y)>x\}$。相应地，引理 2 证明末段的“由 $y>a_x$ 知 $F(y)\le x$，而由 $y<b_x$ 知 $F(y)\ge x$”似乎应为 $F(y)\ge x$ 与 $F(y)\le x$，定理证明中 $a_x$、$b_x$ 的定义（包括 $b_x= \inf\{y_0: F(y_0)<x\}$ 一处）似乎也应相应改正。'
 navboxes: [概率论]
 ---
+
+<problems>
+- “叙述与证明”一节的引理 2 中，$a_x$、$b_x$ 定义里的不等号似乎写反了：按引理的证明与定理证明中 $Y(x)= a_x$ 的用法，似乎应为 $a_x= \sup\{y: F(y)<x\}$、$b_x= \inf\{y: F(y)>x\}$。相应地，引理 2 证明末段的“由 $y>a_x$ 知 $F(y)\le x$，而由 $y<b_x$ 知 $F(y)\ge x$”似乎应为 $F(y)\ge x$ 与 $F(y)\le x$，定理证明中 $a_x$、$b_x$ 的定义（包括 $b_x= \inf\{y_0: F(y_0)<x\}$ 一处）似乎也应相应改正。
+</problems>
 
 ::: convention
 在本文中，

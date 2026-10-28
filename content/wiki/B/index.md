@@ -1,11 +1,12 @@
 ---
 title: B
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Β]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Β]]”。
+</disambiguation>
 
 拉丁字母 **B，b** 用在以下记号中：
 

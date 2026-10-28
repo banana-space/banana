@@ -2,11 +2,11 @@
 title: Virasoro 代数
 categories: [Lie 理论, 共形场论]
 navboxes: [共形场论]
-notices:
-  - name: 问题
-    items:
-      - “有序后裔与商模关系”一节需要扩充。
 ---
+
+<problems>
+- “有序后裔与商模关系”一节需要扩充。
+</problems>
 
 **[[Miguel Virasoro|Virasoro]] 代数**是一个 [[Lie 代数]]，
 是[[二维共形场论]]和[[弦论]]中的基本构造。

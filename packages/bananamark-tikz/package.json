@@ -1,0 +1,47 @@
+{
+  "name": "bananamark-tikz",
+  "version": "0.1.0",
+  "description": "TikZ diagrams for bananamark: compiled to SVG with node-tikzjax in a worker thread (Node only)",
+  "keywords": [
+    "bananamark",
+    "tikz",
+    "tikz-cd",
+    "svg",
+    "latex",
+    "markdown"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banana-space/banana.git",
+    "directory": "packages/bananamark-tikz"
+  },
+  "homepage": "https://github.com/banana-space/banana/tree/main/packages/bananamark-tikz#readme",
+  "bugs": {
+    "url": "https://github.com/banana-space/banana/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node test/tikz.mjs"
+  },
+  "peerDependencies": {
+    "bananamark": "~0.1.0"
+  },
+  "dependencies": {
+    "jsdom": "23.2.0",
+    "katex": "0.18.4",
+    "node-tikzjax": "1.0.5"
+  }
+}

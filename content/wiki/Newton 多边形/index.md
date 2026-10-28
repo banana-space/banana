@@ -2,11 +2,11 @@
 title: Newton 多边形
 aliases: [Newton 折线, 牛顿多边形]
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节缺少收敛半径有限的幂级数的情形。
 ---
+
+<problems>
+- “性质”一节缺少收敛半径有限的幂级数的情形。
+</problems>
 
 ::: convention
 在本文中，

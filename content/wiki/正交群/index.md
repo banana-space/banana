@@ -1,13 +1,13 @@
 ---
 title: 正交群
 categories: [群论, 线性代数, Lie 理论, 代数群理论]
-notices:
-  - name: 问题
-    items:
-      - “表示论”“例子”各节需要扩充。
-      - “Lie 群结构”一节的命题中，“二者均是半单 Lie 群”似乎在 $n \le 2$ 时不成立（例如 $\operatorname{SO}(2,\mathbb{R})$ 是交换的）。
 navboxes: [Lie 群]
 ---
+
+<problems>
+- “表示论”“例子”各节需要扩充。
+- “Lie 群结构”一节的命题中，“二者均是半单 Lie 群”似乎在 $n \le 2$ 时不成立（例如 $\operatorname{SO}(2,\mathbb{R})$ 是交换的）。
+</problems>
 
 [[交换环]] $A$ 上的**正交群**是其上所有同阶[[正交矩阵]]
 （即转置等于逆的[[方阵]]）构成的群，

@@ -2,11 +2,11 @@
 title: Euclid 空间
 aliases: [欧氏空间]
 categories: [初等几何, 一般拓扑, 微分几何]
-notices:
-  - name: 问题
-    items:
-      - “作为流形”“性质”“历史注记”各节需要扩充。
 ---
+
+<problems>
+- “作为流形”“性质”“历史注记”各节需要扩充。
+</problems>
 
 **Euclid 空间**是指形如
 \[

@@ -1,13 +1,13 @@
 ---
 title: Schur 乘子
 categories: [群论]
-notices:
-  - name: 问题
-    items:
-      - “基本性质”一节中第一个命题对有限表现群似乎不成立（例如 $G = \mathbb{Z}^2$ 时 $H_2(G,\mathbb{Z}) \cong \mathbb{Z}$，而 $H^2(G,\mathbb{Q}/\mathbb{Z})^\wedge$ 是 $\mathbb{Q}/\mathbb{Z}$ 的对偶），对有限群成立。
-      - “例子”一节需要扩充。
 navboxes: [群论]
 ---
+
+<problems>
+- “基本性质”一节中第一个命题对有限表现群似乎不成立（例如 $G = \mathbb{Z}^2$ 时 $H_2(G,\mathbb{Z}) \cong \mathbb{Z}$，而 $H^2(G,\mathbb{Q}/\mathbb{Z})^\wedge$ 是 $\mathbb{Q}/\mathbb{Z}$ 的对偶），对有限群成立。
+- “例子”一节需要扩充。
+</problems>
 
 **Schur 乘子**是一个[[群论]]概念。
 给定[[群]] $G$，其Schur 乘子即$G$的整系数二阶[[群同调]] $H_2(G,\mathbb Z)$，

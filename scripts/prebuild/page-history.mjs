@@ -1,13 +1,15 @@
 import { execFile, spawn } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { promisify } from 'node:util';
+import { hasMarks, minorPages } from '../shared/minor-edits.mjs';
 
 const run = promisify(execFile);
 
 /**
  * 每个页面的编辑历史，供页面历史（/history/?path=<页面>）使用：
  * - changes：合并进当前分支的 PR（及直接提交到分支的提交）中修改了它的那些，最新的在前，来自本地 Git 历史
- *   （git log --first-parent：每项是分支上的一次变化，与它的第一个父提交比较），跟随改名；
+ *   （git log --first-parent：每项是分支上的一次变化，与它的第一个父提交比较），跟随改名（页面换了文件而地址不变也算）；小修改带 minor
+ *   （提交说明中的标记，scripts/shared/minor-edits.mjs）；
  * - legacy：从旧站迁移来的页面在旧站的修订，最新的在前（legacy/history.json，以页面导入时的路径为键，
  *   沿改名追溯到导入时的路径后取得）。旧站没有的页面（如帮助页面）为空。页面须不晚于它的键首次出现在
  *   legacy/history.json 的那次变化加入：网站的首次导入与之后迁移的讲义都是如此，此后以旧站用过的名字新建的页面不算。
@@ -45,7 +47,7 @@ export async function pageHistories(root, { repository } = {}) {
     const match = commit.subject.match(/^Merge pull request #(\d+) from ([\w.-]+)\/(\S+)$/);
     if (!match || commit.parents.length < 2) return;
     const [, number, from, branch] = match, head = branchCommits.get(commit.parents[1]);
-    // The online editor's branches are edit/<login>/<hash> (scripts/editor/github.mjs); a fork's owner wrote the
+    // The online editor's branches are edit/<login>/<hash> (scripts/api/github.mjs); a fork's owner wrote the
     // rest of its pull requests; otherwise the branch's last author, by GitHub login where the address gives one.
     const login = branch.match(/^edit\/([A-Za-z0-9-]+)\/[0-9a-f]{12}$/)?.[1]
       ?? (owner && from.toLowerCase() !== owner ? from : undefined)
@@ -53,11 +55,19 @@ export async function pageHistories(root, { repository } = {}) {
     return { number: Number(number), author: login ?? head?.name ?? null, time: head?.time ?? commit.time };
   };
 
+  // Minor edits: the marks in the messages of the commits each change brought, then in its own.
+  const marked = await markedMessages(git);
+  const brought = marked.size ? await commitsBrought(git) : new Map();
+  const minorOf = commit => {
+    const messages = [...(brought.get(commit.sha) ?? []).filter(sha => marked.has(sha)).map(sha => marked.get(sha)), `${commit.subject}\n\n${commit.body}`];
+    return messages.some(hasMarks) ? minorPages(messages, commit.changes.map(change => [change.path, change.previous])) : new Set();
+  };
+
   // Newest first: each page's name at that point in history (renames are followed back to where the page began).
   const histories = new Map(present.map(path => [path, { changes: [], legacy: [], origin: undefined, added: undefined }]));
   const names = new Map(present.map(path => [path, path]));
   for (const commit of commits) {
-    const pull = pullRequest(commit);
+    const pull = pullRequest(commit), minor = minorOf(commit);
     for (const change of commit.changes) {
       const page = names.get(change.path);
       if (!page) continue;
@@ -66,7 +76,7 @@ export async function pageHistories(root, { repository } = {}) {
         ...(pull ? { pr: pull.number } : { commit: commit.sha }),
         title: (pull ? commit.body.split('\n')[0].trim() : '') || commit.subject,
         author: pull ? pull.author : commit.author || null, time: pull ? pull.time : commit.time, merged: commit.time,
-        status: change.status, add: change.add, del: change.del,
+        status: change.status, add: change.add, del: change.del, ...(minor.has(change.path) ? { minor: true } : {}),
       };
       // The page's path then, where it differs from now (the diff page asks for the file as the pull request had it).
       if (change.path !== page) entry.path = change.path.replace(/^content\//, '');
@@ -104,6 +114,40 @@ export async function pageHistories(root, { repository } = {}) {
     delete history.added;
   }
   return histories;
+}
+
+/** The messages of the commits that mark minor or major edits: Map of commit → message. */
+async function markedMessages(git) {
+  const output = await git(['log', '-E', '--grep=^(Minor|Major)-edit:', '--format=%H%x1f%B%x1e', 'HEAD']);
+  return new Map(output.split('\x1e').map(chunk => chunk.replace(/^\n/, '')).filter(Boolean).map(chunk => chunk.split('\x1f')));
+}
+
+/**
+ * The commits each change on the branch brought besides itself (a merge's: those of the pull request it merged), by
+ * the change: Map of commit on the branch → its commits, oldest first. The branch is walked from its start; what is
+ * reachable from it so far is seen, so a merge brings what its other parents reach and was not seen.
+ */
+async function commitsBrought(git) {
+  const parents = new Map(), rank = new Map();
+  for (const line of (await git(['log', '--topo-order', '--reverse', '--format=%H %P', 'HEAD'])).split('\n').filter(Boolean)) {
+    const [sha, ...others] = line.split(' ');
+    parents.set(sha, others);
+    rank.set(sha, rank.size);
+  }
+  const seen = new Set(), brought = new Map();
+  for (const sha of (await git(['log', '--first-parent', '--reverse', '--format=%H', 'HEAD'])).split('\n').filter(Boolean)) {
+    const found = [], stack = (parents.get(sha) ?? []).slice(1);
+    while (stack.length) {
+      const commit = stack.pop();
+      if (seen.has(commit)) continue;
+      seen.add(commit);
+      found.push(commit);
+      stack.push(...parents.get(commit) ?? []);
+    }
+    seen.add(sha);
+    if (found.length) brought.set(sha, found.sort((a, b) => rank.get(a) - rank.get(b)));
+  }
+  return brought;
 }
 
 /** Runs git with input on its standard input (a list of commits too long for the command line). */
@@ -150,7 +194,27 @@ function parseLog(output) {
       counts.push([path, match[1] === '-' ? null : Number(match[1]), match[2] === '-' ? null : Number(match[2])]);
     }
     for (const [path, add, del] of counts) Object.assign(changes.get(path) ?? {}, { add, del });
+    pairMoves(changes);
     commits.push({ sha, parents: parents ? parents.split(' ') : [], time, author, subject, body, changes: [...changes.values()].filter(change => change.path.endsWith('.md') || change.previous?.endsWith('.md')) });
   }
   return commits;
+}
+
+/** A page's address, the same for its possible files: a/_index.md, a/index.md and a.md are all a. */
+const address = path => path.replace(/(?:\/_?index)?\.md$/, '');
+
+/**
+ * A page removed and added at the same address in one change (a/_index.md → a/index.md, a.md → a/index.md) moved
+ * there, however much it changed on the way: Git's rename detection misses a page more than half rewritten.
+ */
+function pairMoves(changes) {
+  const removed = new Map();
+  for (const change of changes.values()) if (change.status === 'removed' && change.path.endsWith('.md')) removed.set(address(change.path), change);
+  for (const change of changes.values()) {
+    const before = change.status === 'added' && change.path.endsWith('.md') ? removed.get(address(change.path)) : undefined;
+    if (!before) continue;
+    Object.assign(change, { previous: before.path, status: 'renamed', del: before.del });
+    changes.delete(before.path);
+    removed.delete(address(change.path));
+  }
 }

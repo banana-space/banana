@@ -1,12 +1,12 @@
 ---
 title: $27$ 条直线
 categories: [计数几何]
-notices:
-  - name: 问题
-    items:
-      - “直线构型”一节需要扩充。
 navboxes: [计数几何]
 ---
+
+<problems>
+- “直线构型”一节需要扩充。
+</problems>
 
 **$27$ 条直线**是[[代数几何]]中经典而美妙的结论，
 说的是对任意[[代数闭域]] $k$，$\mathbf{P}^3_k$

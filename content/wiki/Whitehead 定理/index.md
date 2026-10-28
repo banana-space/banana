@@ -1,11 +1,11 @@
 ---
 title: Whitehead 定理
 categories: [同伦论]
-notices:
-  - name: 问题
-    items:
-      - “定理与证明”一节最后的注中称 $\pi_n(X)$ 包含非平凡挠元素，这似乎不对：$\mathbb{Z}[1/2]$ 没有非零挠元；论证只需要 $\pi_n(X) \neq 0$。
 ---
+
+<problems>
+- “定理与证明”一节最后的注中称 $\pi_n(X)$ 包含非平凡挠元素，这似乎不对：$\mathbb{Z}[1/2]$ 没有非零挠元；论证只需要 $\pi_n(X) \neq 0$。
+</problems>
 
 **Whitehead 定理**是说，
 [[CW 复形]]之间的[[弱同伦等价]]一定是[[同伦等价]]。

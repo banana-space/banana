@@ -1,10 +1,10 @@
 ---
 title: Laplace 算子
-notices:
-  - name: 问题
-    items:
-      - 内容质量有待改进。
 ---
+
+<problems>
+- 内容质量有待改进。
+</problems>
 
 **Laplace 算子** 是[[偏微分方程]]中常见的微分算子。
 

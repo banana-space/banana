@@ -193,9 +193,9 @@ F_X(x) = \begin{cases}
 图 1 与图 2
 分别给出了一些离散型与连续型概率分布的分布函数图像。
 
-![一些离散型概率分布的分布函数。](Cdf_discrete_distributions.png?width=750)
+![一些离散型概率分布的分布函数。](Cdf_discrete_distributions.png){width=750}
 
-![一些连续型概率分布的分布函数。](Cdf_continuous_distributions.png?width=750)
+![一些连续型概率分布的分布函数。](Cdf_continuous_distributions.png){width=750}
 
 ::: example [均匀分布的分布函数]
 设$X$服从区间$[a,b]$上的均匀分布，其中$a<b$，

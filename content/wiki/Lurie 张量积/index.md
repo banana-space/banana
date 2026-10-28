@@ -1,12 +1,12 @@
 ---
 title: Lurie 张量积
 categories: [高阶代数]
-notices:
-  - name: 消歧义
-    see:
-      - page: 张量积（多义词）
 navboxes: [高阶范畴论, 高阶代数]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[张量积（多义词）]]。
+</disambiguation>
 
 ::: convention
 在本文中，

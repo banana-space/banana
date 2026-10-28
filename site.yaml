@@ -1,0 +1,9 @@
+# 站点设置（scripts/shared/config.mjs 读取）。
+# 站点地址（支持子目录）；构建与 serve 的 --baseURL 优先。
+baseURL: https://bananaspace.org/
+title: 香蕉空间
+description: 中文数学百科
+# 内容语言（<html lang>，搜索索引的语言）。
+language: zh-cn
+# 站点仓库（GitHub 上的 owner/name）：页面历史链接到其中的 PR 与提交，prebuild 据此认出复刻中的分支的作者。
+repository: banana-space/banana

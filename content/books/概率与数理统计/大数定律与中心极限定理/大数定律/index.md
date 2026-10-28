@@ -1,11 +1,11 @@
 ---
 title: 大数定律
-notices:
-  - name: 问题
-    items:
-      - 'Chebyshev 弱大数定律的证明中，最后一个显示公式的不等号右侧似乎应为 $\frac{\operatorname{Var}(Y_n)}{\epsilon^2}$；此外 $\mu$ 未加定义，应指 $\mathbb{E}[X_1]$。'
-      - '末尾例子第 3 项中，极限式左侧的分母似乎应为 $\mathrm{Fr}_n(B)$。'
 ---
+
+<problems>
+- Chebyshev 弱大数定律的证明中，最后一个显示公式的不等号右侧似乎应为 $\frac{\operatorname{Var}(Y_n)}{\epsilon^2}$；此外 $\mu$ 未加定义，应指 $\mathbb{E}[X_1]$。
+- 末尾例子第 3 项中，极限式左侧的分母似乎应为 $\mathrm{Fr}_n(B)$。
+</problems>
 
 给定一列随机变量$X_1,X_2,\ldots$，记
 \[

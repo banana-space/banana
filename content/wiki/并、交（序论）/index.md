@@ -2,13 +2,12 @@
 title: 并、交（序论）
 aliases: [交、并（序论）]
 categories: [序论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[集合论]]中的并、交'
-        page: [并集, 交集]
 navboxes: [序论]
 ---
+
+<disambiguation>
+关于[[集合论]]中的并、交，请参见[[并集]]、[[交集]]。
+</disambiguation>
 
 在[[偏序集]]中，一族元素的**并**、**交**分别指它们的[[上、下确界]]。
 

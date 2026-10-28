@@ -1,12 +1,12 @@
 ---
 title: Ford 化
 categories: [类型论]
-notices:
-  - name: 问题
-    items:
-      - 开头的例子中构造子 $\operatorname{f0}$ 的类型为 $\operatorname{Fin}1$，按此定义 $\operatorname{Fin}n$ 似乎不是 $n$ 元有限集合。
 navboxes: [类型论]
 ---
+
+<problems>
+- 开头的例子中构造子 $\operatorname{f0}$ 的类型为 $\operatorname{Fin}1$，按此定义 $\operatorname{Fin}n$ 似乎不是 $n$ 元有限集合。
+</problems>
 
 在[[类型论]]中，**Ford 化**是一种使用[[相等类型]]和[[归纳类型]]编码[[归纳族]]的手法。
 

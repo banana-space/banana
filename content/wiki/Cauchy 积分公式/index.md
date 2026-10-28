@@ -1,13 +1,12 @@
 ---
 title: Cauchy 积分公式
 categories: [复分析]
-notices:
-  - name: 区分
-    pages:
-      - Cauchy 积分定理
-      - Cauchy 重积分公式
 navboxes: [复分析]
 ---
+
+<disambiguation>
+注意与[[Cauchy 积分定理]]、[[Cauchy 重积分公式]]区分。
+</disambiguation>
 
 **Cauchy 积分公式**说明，
 [[全纯函数]]在某个点的值（及其各阶[[导数]]）

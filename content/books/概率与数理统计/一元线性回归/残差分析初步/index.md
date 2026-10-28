@@ -39,7 +39,7 @@ $e_i\approx\varepsilon_i$。这意味着，在上面提到的前3条假设
 分布在$x$轴上下两侧、不同横坐标处的残差之间不存在明显的变化规律，
 且残差上下波动的幅度在横坐标变化时近似保持一致。
 
-![图 1：几个典型的残差散点图示例。](Linear_regression_residual_plots.png?width=580)
+![图 1：几个典型的残差散点图示例。](Linear_regression_residual_plots.png){width=580}
 
 图 1 给出了几种典型的
 残差散点图的示例，直观上看，
@@ -126,7 +126,7 @@ $y=\sqrt{\widehat{\sigma^2}}\,x$以和图上的散点进行比对。
 图 2(b) 则意味着
 随机误差的正态性假设很有可能是被打破的。
 
-![图 2：几个典型的正态概率图示例。](Normal_probability_plots.png?width=800)
+![图 2：几个典型的正态概率图示例。](Normal_probability_plots.png){width=800}
 
 [^1]: 对于一元线性回归，横坐标用$x_i$或$\widehat{y}_i$均可，它们给出的散点图具有相似关系。
 [^2]: 有些地方将正态概率图的横坐标取为$e_{(j)}$而纵坐标取为$\Phi^{-1}((j-1/2)/n)$。

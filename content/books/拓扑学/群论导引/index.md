@@ -1,12 +1,12 @@
 ---
 title: 群论导引
-notices:
-  - name: 问题
-    items:
-      - “对称群”一节中轮换的记号 $\sigma=(i_1\; i_2 \; \cdots\; i_n)$ 的最后一项似乎应为 $i_k$。
-      - “自由 Abel 群”一节中 $\mathrm{Hom}(\mathbb{Z}\oplus \mathbb{Z}, G) = A \times A$ 左边的 $G$ 似乎应为 $A$。
-      - “自由群”一节中“存在唯一的群同态 $\coprod_{S} \mathbb{Z}$”似乎缺少同态 $f\colon \coprod_{S} \mathbb{Z} \to H$ 的完整陈述。
 ---
+
+<problems>
+- “对称群”一节中轮换的记号 $\sigma=(i_1\; i_2 \; \cdots\; i_n)$ 的最后一项似乎应为 $i_k$。
+- “自由 Abel 群”一节中 $\mathrm{Hom}(\mathbb{Z}\oplus \mathbb{Z}, G) = A \times A$ 左边的 $G$ 似乎应为 $A$。
+- “自由群”一节中“存在唯一的群同态 $\coprod_{S} \mathbb{Z}$”似乎缺少同态 $f\colon \coprod_{S} \mathbb{Z} \to H$ 的完整陈述。
+</problems>
 
 这段讲义还需要做一些磨光变换。希望有热心群众帮忙完善。
 

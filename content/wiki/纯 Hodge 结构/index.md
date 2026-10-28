@@ -1,12 +1,12 @@
 ---
 title: 纯 Hodge 结构
 categories: [复代数几何]
-notices:
-  - name: 问题
-    items:
-      - “复代数簇的奇异上同调”例子中，滤链 $F^p\Omega^\bullet_{X/\mathbb{C}}$ 似乎应是只保留 $\Omega^{\ge p}_{X/\mathbb{C}}$ 的截断，而所写的复形保留的是 $\Omega^{\le p}_{X/\mathbb{C}}$。
-      - “复代数簇的奇异上同调”例子的最后一句中，与 $\mathbb{Z}(-w)$ 同构的似乎应是复 $w$ 维连通簇的 $2w$ 阶上同调，而不是 $w$ 阶上同调。
 ---
+
+<problems>
+- “复代数簇的奇异上同调”例子中，滤链 $F^p\Omega^\bullet_{X/\mathbb{C}}$ 似乎应是只保留 $\Omega^{\ge p}_{X/\mathbb{C}}$ 的截断，而所写的复形保留的是 $\Omega^{\le p}_{X/\mathbb{C}}$。
+- “复代数簇的奇异上同调”例子的最后一句中，与 $\mathbb{Z}(-w)$ 同构的似乎应是复 $w$ 维连通簇的 $2w$ 阶上同调，而不是 $w$ 阶上同调。
+</problems>
 
 **纯 Hodge 结构**是[[复数域]]上[[光滑态射|光滑]][[紧合态射|紧合]][[代数簇]]的[[奇异上同调]]自然带有的结构的抽象。
 

@@ -2,12 +2,12 @@
 title: '$\mathbb{A}_\infty$-代数'
 aliases: [A∞-代数]
 categories: [高阶代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [高阶代数]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

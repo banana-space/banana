@@ -29,7 +29,7 @@ document.addEventListener('click', event => {
   let target;
   try { target = document.getElementById(decodeURIComponent(link.hash.slice(1))); }
   catch { return; }
-  if (!target?.matches('.bibliography-entry, .bibliography-version')) return;
+  if (!target?.matches('.bm-bibliography-entry, .bm-bibliography-version')) return;
   target.style.animation = 'none';
   void target.offsetWidth; // Applies the removal, so that the animation starts again.
   target.style.animation = '';
@@ -345,7 +345,7 @@ if (navigation) {
   }
 }
 
-// The home page has its own search field (layouts/index.html). It shows results in a panel like the header's,
+// The home page has its own search field (scripts/site/templates/home.mjs). It shows results in a panel like the header's,
 // through the same module; on a narrow screen, typing hands the query over to the header's full-screen search.
 // The header's field stays out of the way while the page's is in view (styles in _home.scss). The two fields show
 // the same text.

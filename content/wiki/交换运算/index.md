@@ -2,11 +2,11 @@
 title: 交换运算
 aliases: [交换律]
 categories: [一般代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **交换运算**是一类[[二元运算]]，
 满足**交换律**

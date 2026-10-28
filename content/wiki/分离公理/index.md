@@ -1,13 +1,12 @@
 ---
 title: 分离公理
 categories: [一般拓扑]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 集合论中的公理
-        page: 分出公理模式
 navboxes: [一般拓扑]
 ---
+
+<disambiguation>
+关于集合论中的公理，请参见[[分出公理模式]]。
+</disambiguation>
 
 **分离公理**是对[[拓扑空间]]的一系列限制条件，
 形象地说，通常是关于两个点或闭集之间能否用邻域、连续函数等分离的性质。

@@ -2,17 +2,16 @@
 title: Witt 环
 aliases: [Witt 向量环, Witt 向量]
 categories: [交换代数]
-notices:
-  - name: 消歧义
-    about: Witt 向量组成的环
-    see:
-      - topic: '[[二次型]]理论中的 Witt 环'
-        page: Witt 群
-  - name: 问题
-    items:
-      - “应用”“推广”各节需要扩充。
 navboxes: [交换代数]
 ---
+
+<disambiguation>
+本条目介绍的是Witt 向量组成的环。关于[[二次型]]理论中的 Witt 环，请参见[[Witt 群]]。
+</disambiguation>
+
+<problems>
+- “应用”“推广”各节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

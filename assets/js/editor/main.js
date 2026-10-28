@@ -1,23 +1,43 @@
-// The online editor on /edit/ (layouts/_default/editor.html), bundled by Hugo's js.Build.
+// The online editor on /edit/ (scripts/site/templates/special.mjs), bundled by esbuild (scripts/site/assets.mjs).
 // The page's source comes from /api/source; previews, checks and submissions go to /api/
-// (scripts/editor-api.mjs). Drafts are kept in localStorage until they are submitted.
-import { ChangeSet, Compartment, EditorState, Prec, RangeSet, StateEffect, StateField, Text } from '@codemirror/state';
+// (scripts/api.mjs). Drafts are kept in localStorage until they are submitted.
+import { ChangeSet, Compartment, EditorSelection, EditorState, Prec, RangeSet, StateEffect, StateField, Text, countColumn } from '@codemirror/state';
 import {
   Decoration, EditorView, GutterMarker, WidgetType, crosshairCursor, drawSelection, dropCursor, gutter, highlightActiveLine, highlightActiveLineGutter,
   highlightSpecialChars, keymap, lineNumbers, rectangularSelection,
 } from '@codemirror/view';
-import { bracketMatching, foldGutter, foldKeymap, indentOnInput, indentUnit, syntaxHighlighting } from '@codemirror/language';
-import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
+import { bracketMatching, foldGutter, foldKeymap, getIndentUnit, indentOnInput, indentUnit, syntaxHighlighting } from '@codemirror/language';
+import { defaultKeymap, history, historyKeymap, indentLess, indentMore } from '@codemirror/commands';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
-import { autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
+import { acceptCompletion, autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
-import { bananaHighlighter, bananaMarkdown, newlineAndIndent } from '../scripts/shared/markdown-language.mjs';
-import { afterComposition, closeDisplayFormula, completionSources, deleteFormulaDelimiters, pairFormulaDelimiters } from '../scripts/editor/completion.mjs';
+import { bananamarkKeymap, bananamarkLanguage, highlightClasses, pairFormulaDelimiters, problemRange } from 'bananamark-codemirror';
+import { dialectLanguages } from '../scripts/shared/dialect.mjs';
+import { afterComposition, completionSources } from '../scripts/editor/completion.mjs';
+
+/** The dialect with the site's data blocks highlighted (scripts/shared/dialect.mjs). */
+const bananaMarkdown = () => bananamarkLanguage({ codeLanguages: dialectLanguages, wikiLinks: true });
 
 const root = document.getElementById('editor');
 // A book page's labels on the book's other pages (from /api/source), offered with the page's own.
 let bookLabels = [];
+
+/**
+ * Tab: with nothing selected, spaces at the cursor up to the next multiple of the indentation (two columns); with a
+ * selection, its lines indented (indentMore).
+ */
+function insertIndentation(view) {
+  const { state } = view;
+  if (state.selection.ranges.some(range => !range.empty)) return indentMore(view);
+  const unit = getIndentUnit(state);
+  view.dispatch(state.changeByRange(range => {
+    const line = state.doc.lineAt(range.head);
+    const spaces = ' '.repeat(unit - countColumn(line.text.slice(0, range.head - line.from), state.tabSize) % unit);
+    return { changes: { from: range.head, insert: spaces }, range: EditorSelection.cursor(range.head + spaces.length) };
+  }), { scrollIntoView: true, userEvent: 'input.indent' });
+  return true;
+}
 
 /** CodeMirror's basicSetup, spelled out so that the fold markers can be the site's chevron. */
 function setup() {
@@ -31,7 +51,7 @@ function setup() {
       },
     }),
     drawSelection(), dropCursor(), EditorState.allowMultipleSelections.of(true), indentOnInput(),
-    syntaxHighlighting(bananaHighlighter), bracketMatching(), closeBrackets(),
+    syntaxHighlighting(highlightClasses), bracketMatching(), closeBrackets(),
     autocompletion({ override: completionSources(config.names, text, () => bookLabels), icons: true }),
     // Nothing is offered while an input method composes; once it commits, completion starts where names are typed.
     EditorView.domEventHandlers({
@@ -41,10 +61,14 @@ function setup() {
     EditorState.phrases.of(Object.fromEntries(Object.entries(codemirrorPhrases).map(([phrase, key]) => [phrase, config.strings[key]]))),
     // Ahead of the bracket pairing: "\[" closes with "\]", not "]".
     Prec.high(EditorView.inputHandler.of(pairFormulaDelimiters)),
-    // Tab and Shift+Tab indent and outdent the lines, by two spaces (the site's indentation, as in YAML; a list
-    // item's continuation lines are at its text, two spaces after "-", three after "1.").
+    // Tab accepts the completion offered; otherwise it indents (insertIndentation), and Shift+Tab outdents the lines,
+    // by two spaces (the site's indentation, as in YAML; a list item's continuation lines are at its text, two spaces
+    // after "-", three after "1.").
     indentUnit.of('  '),
-    keymap.of([{ key: 'Enter', run: closeDisplayFormula }, { key: 'Enter', run: newlineAndIndent }, { key: 'Backspace', run: deleteFormulaDelimiters }, indentWithTab, ...closeBracketsKeymap, ...defaultKeymap, ...searchKeymap, ...historyKeymap, ...foldKeymap, ...completionKeymap, ...lintKeymap]),
+    keymap.of([
+      ...bananamarkKeymap, { key: 'Tab', run: acceptCompletion }, { key: 'Tab', run: insertIndentation, shift: indentLess },
+      ...closeBracketsKeymap, ...defaultKeymap, ...searchKeymap, ...historyKeymap, ...foldKeymap, ...completionKeymap, ...lintKeymap,
+    ]),
   ];
 }
 
@@ -167,7 +191,7 @@ class ChangePeek extends WidgetType {
       state: EditorState.create({
         doc: after,
         extensions: [
-          EditorState.readOnly.of(true), EditorView.editable.of(false), bananaMarkdown(), syntaxHighlighting(bananaHighlighter),
+          EditorState.readOnly.of(true), EditorView.editable.of(false), bananaMarkdown(), syntaxHighlighting(highlightClasses),
           // Lines added or deleted only: marking every character in them adds nothing.
           unifiedMergeView({ original: before, mergeControls: false, gutter: false, highlightChanges: fromA < toA && fromB < toB }),
         ],
@@ -373,9 +397,11 @@ async function openPage(path, user, title) {
   status('');
   bookLabels = source.json.labels ?? [];
   let { original, pull } = source.json;
+  // Whether the pull request being edited marks the page a minor edit: what the dialog's checkbox starts from.
+  let minor = Boolean(source.json.minor);
   // The version the server has: drafts and "unchanged" are measured against it.
   // A new page starts from the front matter the editor requires (categories for an entry, even if empty).
-  const article = path.startsWith('wiki/') && !path.endsWith('/_index.md');
+  const article = path.startsWith('wiki/') && path !== 'wiki/index.md';
   let baseline = source.json.exists ? source.json.text
     : `---\ntitle: ${yamlString(title || (path.split('/').at(-2) ?? path.replace(/\.md$/, '')))}\n${article ? 'categories: []\nnavboxes: []\n' : ''}---\n\n`;
   if (source.json.file) file.href = source.json.file;
@@ -572,7 +598,7 @@ async function openPage(path, user, title) {
     const { doc, tracker } = shownSource, from = doc.line(Math.min(Math.max(line, 1), doc.lines)).from;
     return view.state.doc.lineAt(Math.min(tracker.changes.mapPos(from, 1), view.state.doc.length)).number;
   }
-  /** The shown preview's source-line marks (scripts/prebuild/source-lines.mjs) that are laid out. */
+  /** The shown preview's source-line marks (packages/bananamark/src/syntax/source-lines.mjs) that are laid out. */
   const lineMarks = doc => [...doc.querySelectorAll('[data-source-line]')].filter(mark => mark.getClientRects().length);
   /**
    * Anchors pairing lines of the current text with positions in the shown preview, or null without a
@@ -921,18 +947,6 @@ async function openPage(path, user, title) {
     const diagnostics = await lintNow();
     view.dispatch(setDiagnostics(view.state, diagnostics));
   }
-  /**
-   * The part of a text a problem points to: from its column to the end of the link or word there,
-   * or the whole line when the column is unknown.
-   */
-  function problemRange(doc, number, column) {
-    const line = doc.line(Math.min(Math.max(number, 1), doc.lines));
-    if (!column) return { from: line.from, to: line.to };
-    const rest = line.text.slice(column - 1);
-    const length = rest.startsWith('[[') ? (rest.indexOf(']]') + 1 || rest.length - 1) + 1 : rest.match(/^[^\s，。；、：！？,.;!?()（）]+/)?.[0].length ?? 1;
-    const from = Math.min(line.from + column - 1, line.to);
-    return { from, to: Math.min(from + Math.max(length, 1), line.to) };
-  }
   /** The browser's own findings on the current text, with the server's; the same message once. */
   function lintPage(local) {
     const doc = view.state.doc;
@@ -956,6 +970,7 @@ async function openPage(path, user, title) {
   const dialog = $('.editor-submit-dialog');
   const form = dialog.querySelector('.editor-submit-form'), done = dialog.querySelector('.editor-submit-done');
   const result = dialog.querySelector('.editor-submit-result');
+  const messageBox = dialog.querySelector('#editor-submit-message'), minorBox = dialog.querySelector('[name="minor"]');
   done.querySelector('.editor-submit-done-close').addEventListener('click', () => dialog.close());
   // The dialog opens once the text is previewed without errors: at once if it is, otherwise after its preview
   // (the button shows a spinner meanwhile); errors appear over the preview instead.
@@ -972,6 +987,7 @@ async function openPage(path, user, title) {
     update.hidden = !pull;
     if (pull) withPullLink(update, text(othersPull() ? 'submit_update_other' : 'submit_update', { number: pull.number, author: pull.author }), pull.url);
     result.replaceChildren();
+    minorBox.checked = minor;
     form.hidden = false;
     done.hidden = true;
     updateSubmit();
@@ -986,7 +1002,7 @@ async function openPage(path, user, title) {
     result.textContent = text('submitting');
     const value = current();
     const tracker = track();
-    const { status: code, json } = await request('POST', 'submit', { path, text: value, original, message: dialog.querySelector('input').value, ...(pull ? { pull: pull.number } : {}) });
+    const { status: code, json } = await request('POST', 'submit', { path, text: value, original, message: messageBox.value, minor: minorBox.checked, ...(pull ? { pull: pull.number } : {}) });
     trackers.delete(tracker);
     submitting = false;
     updateSubmit();
@@ -1002,12 +1018,13 @@ async function openPage(path, user, title) {
         previewed = approved = committed;
       }
       pull = { number: json.number, url: json.url, author: pull?.author ?? user.login };
+      minor = minorBox.checked;
       storage.remove(draftKey);
       showPull();
       // Reopening the editor (or reloading it) continues on this pull request.
       window.history.replaceState(null, '', `?${new URLSearchParams({ path, pull: json.number })}`);
       // The dialog turns into the confirmation.
-      dialog.querySelector('input').value = '';
+      messageBox.value = '';
       withPullLink(done.querySelector('.editor-submit-done-text'), text(json.updated ? 'submit_done_updated' : 'submit_done_opened', { number: json.number }), json.url);
       done.querySelector('.editor-submit-done-link').href = json.url;
       form.hidden = true;
@@ -1029,6 +1046,7 @@ async function openPage(path, user, title) {
       dialog.close();
       const gone = text(json.merged ? 'pull_merged' : 'pull_closed', { number: pull.number });
       pull = json.pull ?? null;
+      minor = false;
       showPull();
       window.history.replaceState(null, '', `?${new URLSearchParams({ path, pull: pull ? pull.number : 'none' })}`);
       original = json.current?.original ?? null;

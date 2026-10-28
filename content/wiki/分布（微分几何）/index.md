@@ -2,12 +2,12 @@
 title: 分布（微分几何）
 aliases: [对合分布, 可积分布]
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    see:
-      - page: 分布
 navboxes: [微分几何]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[分布]]。
+</disambiguation>
 
 [[光滑流形]]上的**分布**是指其[[切丛]]的子丛，
 即对每个点指定一个该点切空间的[[子向量空间|子空间]]，

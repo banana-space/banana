@@ -1,10 +1,10 @@
 ---
 title: '$\bmod p$ 的理论'
-notices:
-  - name: 问题
-    items:
-      - '“代数整数环的有限性”一节中“有限性”命题的证明里，$L=\big(A^\times\big)^{-1}B$ 中的 $A^\times$ 似乎应为 $A$ 的非零元之集 $A-\{0\}$。'
 ---
+
+<problems>
+- “代数整数环的有限性”一节中“有限性”命题的证明里，$L=\big(A^\times\big)^{-1}B$ 中的 $A^\times$ 似乎应为 $A$ 的非零元之集 $A-\{0\}$。
+</problems>
 
 ## 代数整数环的有限性
 

@@ -1,12 +1,12 @@
 ---
 title: 同余类（范畴论）
 categories: [高阶范畴论, 层论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节第一项中，$n$-连合态射对应的商意象写作 $n$-截断意象 $\mathcal{T}_{\leq n-1}$，指标似乎不一致。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “例子”一节第一项中，$n$-连合态射对应的商意象写作 $n$-截断意象 $\mathcal{T}_{\leq n-1}$，指标似乎不一致。
+</problems>
 
 ::: convention
 在本文中，

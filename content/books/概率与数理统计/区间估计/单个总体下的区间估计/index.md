@@ -78,7 +78,7 @@ $t$分布，因而$T$的确可以作为一个枢轴量。那么在置信水平�
 \right].
 ```
 
-![正态总体的方差未知时，利用枢轴量$\big(\overline{X}-\mu\big)/\sqrt{S^2/n}$求解期望的置信区间。](Confidence_interval_normal_mean_t.png?width=600)
+![正态总体的方差未知时，利用枢轴量$\big(\overline{X}-\mu\big)/\sqrt{S^2/n}$求解期望的置信区间。](Confidence_interval_normal_mean_t.png){width=600}
 
 ::: remark
 当样本容量$n$足够大（例如$n\geq 45$）时，可以在置信区间
@@ -134,7 +134,7 @@ $t$分布，因而$T$的确可以作为一个枢轴量。那么在置信水平�
 \right].
 ```
 
-![正态总体的期望未知时，利用枢轴量$(n-1)S^2/\sigma^2$求解方差的置信区间。](Confidence_interval_normal_var_chi2.png?width=700)
+![正态总体的期望未知时，利用枢轴量$(n-1)S^2/\sigma^2$求解方差的置信区间。](Confidence_interval_normal_var_chi2.png){width=700}
 
 ::: remark
 虽然$\chi^2$分布的概率密度函数不具有对称性，但在利用

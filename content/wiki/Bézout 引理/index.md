@@ -2,14 +2,12 @@
 title: Bézout 引理
 aliases: [Bézout 等式, Bézout 恒等式, 裴蜀定理]
 categories: [初等数论]
-notices:
-  - name: 消歧义
-    about: '[[初等数论]]中关于最大公因子的结论'
-    see:
-      - topic: '[[代数几何]]中关于曲线交点个数的定理'
-        page: 'Bézout 定理'
 navboxes: [初等数论]
 ---
+
+<disambiguation>
+本条目介绍的是[[初等数论]]中关于最大公因子的结论。关于[[代数几何]]中关于曲线交点个数的定理，请参见[[Bézout 定理]]。
+</disambiguation>
 
 在[[初等数论]]中，**Bézout 引理**（又称 **Bézout 等式**）是说，
 [[整数]] $a$、$b$ 的[[最大公因子]] $d$

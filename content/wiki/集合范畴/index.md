@@ -1,11 +1,11 @@
 ---
 title: 集合范畴
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 $\mathsf{Set}$
 

@@ -1,12 +1,12 @@
 ---
 title: Fitting 子群
 categories: [有限群论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
-      - 'Fitting 定理的证明中，按 $L_0:=L$、$L_n:=[L_{n-1},L]$ 的定义，$L_n$ 是 $n+1$ 个 $L$ 的交换子，与 $[\underbrace{L,\cdots,L}_n]$ 以及“$L_s$ 是 $2^s$ 个 $[X_1,\cdots,X_s]$ 的乘积”的下标似乎差一。'
 ---
+
+<problems>
+- “性质”一节需要扩充。
+- Fitting 定理的证明中，按 $L_0:=L$、$L_n:=[L_{n-1},L]$ 的定义，$L_n$ 是 $n+1$ 个 $L$ 的交换子，与 $[\underbrace{L,\cdots,L}_n]$ 以及“$L_s$ 是 $2^s$ 个 $[X_1,\cdots,X_s]$ 的乘积”的下标似乎差一。
+</problems>
 
 **Fitting 子群**是一个重要的有限群论研究对象，最早由[[Hans Fitting]]提出。
 对[[有限群]]$G$，它总是存在最大的[[正规子群|正规]][[幂零群|幂零子群]]$F(G)$，

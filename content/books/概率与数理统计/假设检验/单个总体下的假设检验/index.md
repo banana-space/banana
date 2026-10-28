@@ -21,7 +21,7 @@ $\mathcal{N}(\mu,\sigma^2)$，其中方差$\sigma^2>0$已知，
 | $\mu=\mu_0$ | $\mu<\mu_0$ | $Z=\dfrac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}$ | $z<-z_{\alpha}$ | $\Phi(z)$ |
 | $\mu=\mu_0$ | $\mu\neq \mu_0$ | $Z=\dfrac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}$ | $\vert z\vert>z_{\alpha/2}$ | $2(1-\Phi(\vert z\vert))$ |
 
-![图 1：方差$\sigma^2$已知时，正态总体期望$\mu$的假设检验拒绝域图示，其中显著性水平为$\alpha$。](Testing_normal_mean_z.png?width=750)
+![图 1：方差$\sigma^2$已知时，正态总体期望$\mu$的假设检验拒绝域图示，其中显著性水平为$\alpha$。](Testing_normal_mean_z.png){width=750}
 
 **方差$\sigma^2$未知的情形。** 设总体服从正态分布
 $\mathcal{N}(\mu,\sigma^2)$，其中期望$\mu$与方差$\sigma^2>0$
@@ -237,7 +237,7 @@ F^{\chi^2}_{n-1}\!\left(\frac{(n-1)s^2}{\sigma_0^2}\right)
 | $\sigma^2=\sigma_0^2$ | $\sigma^2<\sigma_0^2$ | $\dfrac{(n\mkern-2mu-\mkern-2mu1)S^2}{\sigma_0^2}$ | $\dfrac{(n\mkern-2mu-\mkern-2mu1)s^2}{\sigma_0^2}<\chi^2_{1-\alpha}(n\mkern-2mu-\mkern-2mu1)$ | $F^{\chi^2}_{n-1}\!\left(\dfrac{(n\mkern-2mu-\mkern-2mu1)s^2}{\sigma_0^2}\right)$ |
 | $\sigma^2=\sigma_0^2$ | $\sigma^2\neq\sigma_0^2$ | $\dfrac{(n\mkern-2mu-\mkern-2mu1)S^2}{\sigma_0^2}$ | $\begin{aligned} &\dfrac{(n\mkern-2mu-\mkern-2mu1)s^2}{\sigma_0^2}\mkern-1mu>\mkern-1mu\chi^2_{\alpha/2}(n\mkern-3mu-\mkern-3mu1)\text{\ 或} \\[3pt] &\dfrac{(n\mkern-2mu-\mkern-2mu1)s^2}{\sigma_0^2}<\chi^2_{1-\alpha/2}(n\mkern-2mu-\mkern-2mu1)\end{aligned}$ | $\begin{aligned} 2\min\bigg\{ F^{\chi^2}_{n-1}\!\left(\dfrac{(n\mkern-2mu-\mkern-2mu1)s^2}{\sigma_0^2}\right)\!,& \\ 1-F^{\chi^2}_{n-1}\!\left(\dfrac{(n\mkern-2mu-\mkern-2mu1)s^2}{\sigma_0^2}\right) \!\bigg\} \end{aligned}$ |
 
-![图 2：期望$\mu$未知时，正态总体方差$\sigma^2$的假设检验拒绝域图示，其中横坐标为${(n-1)}s^2/\sigma_0^2$，显著性水平取为$\alpha$。](Testing_normal_var_chi2.png?width=750)
+![图 2：期望$\mu$未知时，正态总体方差$\sigma^2$的假设检验拒绝域图示，其中横坐标为${(n-1)}s^2/\sigma_0^2$，显著性水平取为$\alpha$。](Testing_normal_var_chi2.png){width=750}
 
 ## 比例的假设检验*
 

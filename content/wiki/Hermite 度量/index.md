@@ -2,16 +2,16 @@
 title: Hermite 度量
 aliases: [Hermite 流形上的度量, 度量（Hermite 流形）]
 categories: [复几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '复[[向量丛]]上的 Hermite 度量'
-        page: Hermite 度量（向量丛）
-  - name: 问题
-    items:
-      - “Hermite 度量”一节需要扩充。
-      - “性质”一节中引理的证明不完整。
 ---
+
+<disambiguation>
+关于复[[向量丛]]上的 Hermite 度量，请参见[[Hermite 度量（向量丛）]]。
+</disambiguation>
+
+<problems>
+- “Hermite 度量”一节需要扩充。
+- “性质”一节中引理的证明不完整。
+</problems>
 
 **Hermite 度量**是[[复流形]]（或[[近复流形]]）
 上的一种结构，

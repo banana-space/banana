@@ -1,12 +1,12 @@
 ---
 title: Brauer 群
 categories: [代数论, 代数几何]
-notices:
-  - name: 问题
-    items:
-      - “概形”一节中 Grothendieck 定理的证明不完整。
 navboxes: [非交换代数]
 ---
+
+<problems>
+- “概形”一节中 Grothendieck 定理的证明不完整。
+</problems>
 
 一个[[域]] $k$ 的 **Brauer 群**指的是 $k$ 上[[中心单代数]]的
 [[Morita 等价]]类在[[张量积]]下构成的群。

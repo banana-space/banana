@@ -1,5 +1,5 @@
 # Fast checks on every pull request: the prebuild checks (npm run check) and formatting.
-# Neither runs Hugo or compiles TikZ, so this takes about a minute.
+# Neither builds pages or compiles TikZ, so this takes about a minute.
 name: Check
 
 on:

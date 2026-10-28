@@ -1,10 +1,10 @@
 ---
 title: 紧支高阶直像
-notices:
-  - name: 问题
-    items:
-      - 第一个命题的证明最后一句中 (iv)、(v) 的说法似乎互换了：(v) 才是 Mayer–Vietoris 序列，(iv) 是零扩张与闭子概形的正合列的导出版本。
 ---
+
+<problems>
+- 第一个命题的证明最后一句中 (iv)、(v) 的说法似乎互换了：(v) 才是 Mayer–Vietoris 序列，(iv) 是零扩张与闭子概形的正合列的导出版本。
+</problems>
 
 ::: definition [紧支高阶直像]
 设概形$S$拟紧拟分离且$f:X\to S$分离有限型，定义

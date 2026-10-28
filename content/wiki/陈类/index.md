@@ -2,17 +2,16 @@
 title: 陈类
 aliases: [Chern 类]
 categories: [示性类]
-notices:
-  - name: 消歧义
-    about: '[[拓扑学]]里的概念'
-    see:
-      - topic: '[[代数几何]]里的概念'
-        page: 陈类（代数几何）
-  - name: 问题
-    items:
-      - “几何性质”一节需要扩充（陈–Weil 理论与层论的定义）。
 navboxes: [向量丛与 K 理论]
 ---
+
+<disambiguation>
+本条目介绍的是[[拓扑学]]里的概念。关于[[代数几何]]里的概念，请参见[[陈类（代数几何）]]。
+</disambiguation>
+
+<problems>
+- “几何性质”一节需要扩充（陈–Weil 理论与层论的定义）。
+</problems>
 
 在[[代数拓扑]]中，
 **陈类**是对[[复数|复]][[向量丛]]定义的[[示性类]]，

@@ -2,16 +2,15 @@
 title: 映射（集合论）
 aliases: [集合映射, 映射集]
 categories: [集合论]
-notices:
-  - name: 消歧义
-    about: '[[集合]]之间的映射'
-    see:
-      - topic: 一般的概念
-        page: 映射
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<disambiguation>
+本条目介绍的是[[集合]]之间的映射。关于一般的概念，请参见[[映射]]。
+</disambiguation>
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 两个[[集合]] $X, Y$ 之间的**映射** $f \colon X \to Y$
 是给 $X$ 的每个元素 $x$ 指定一个 $Y$ 的元素 $f (x)$ 的方法，

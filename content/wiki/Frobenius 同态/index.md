@@ -2,13 +2,13 @@
 title: Frobenius 同态
 aliases: [Frobenius 映射, Frobenius 自同态]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节需要扩充，例如导出推广，以及代数数论中 Frobenius 同态的提升。
-      - “定义”一节中，相对 Frobenius 同态 $A\otimes_{F,A} B\to B$ 的公式 $a\otimes b\mapsto a\otimes b^p$ 的像不在 $B$ 中，似乎应为 $a\otimes b\mapsto f(a)\,b^p$。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “推广”一节需要扩充，例如导出推广，以及代数数论中 Frobenius 同态的提升。
+- “定义”一节中，相对 Frobenius 同态 $A\otimes_{F,A} B\to B$ 的公式 $a\otimes b\mapsto a\otimes b^p$ 的像不在 $B$ 中，似乎应为 $a\otimes b\mapsto f(a)\,b^p$。
+</problems>
 
 ::: convention
 在本文中，

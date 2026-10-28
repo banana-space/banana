@@ -2,12 +2,12 @@
 title: 极大、极小元
 aliases: [极大元, 极小元, 极大, 极小]
 categories: [序论]
-notices:
-  - name: 区分
-    pages:
-      - 最大、最小元
 navboxes: [序论]
 ---
+
+<disambiguation>
+注意与[[最大、最小元]]区分。
+</disambiguation>
 
 在[[偏序集]]中，**极大元**是指“不能更大”的元素，即没有别的元素比它大的元素；
 **极小元**是指“不能更小”的元素，即没有别的元素比它小的元素。

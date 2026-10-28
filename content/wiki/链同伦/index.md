@@ -2,13 +2,13 @@
 title: 链同伦
 aliases: [链同伦等价]
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “几何直观”一节需要扩充。
-      - '“推广”一节中高阶链同伦的定义似乎缺少符号：当 $d=2$ 时，$G^1-F^1$ 满足 $\partial\circ(G^1-F^1)+(G^1-F^1)\circ\partial=0$，而 $H^2\circ\partial+\partial\circ H^2$ 一般不满足这一点，通常的定义中两项之间带有符号 $(-1)^d$。'
 navboxes: [同调代数]
 ---
+
+<problems>
+- “几何直观”一节需要扩充。
+- “推广”一节中高阶链同伦的定义似乎缺少符号：当 $d=2$ 时，$G^1-F^1$ 满足 $\partial\circ(G^1-F^1)+(G^1-F^1)\circ\partial=0$，而 $H^2\circ\partial+\partial\circ H^2$ 一般不满足这一点，通常的定义中两项之间带有符号 $(-1)^d$。
+</problems>
 
 **链同伦**是[[链复形]]的映射之间的[[等价关系]]，
 是[[拓扑学]]中[[同伦]]概念在[[同调代数]]中的类比。

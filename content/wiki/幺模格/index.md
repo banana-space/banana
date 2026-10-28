@@ -1,11 +1,11 @@
 ---
 title: 幺模格
-notices:
-  - name: 问题
-    items:
-      - “例子”“性质”“应用”各节需要扩充。
-      - “例子”一节中 $\mathrm{II}_{p,q}$ 的同构分类似乎只在不定情形（$p>0$、$q>0$）成立；例如 $\mathrm{II}_{16,0}$ 似乎是 $\mathrm{D}_{16}^+$，而不同构于 $\mathrm{E}_8^{\oplus 2}$。
 ---
+
+<problems>
+- “例子”“性质”“应用”各节需要扩充。
+- “例子”一节中 $\mathrm{II}_{p,q}$ 的同构分类似乎只在不定情形（$p>0$、$q>0$）成立；例如 $\mathrm{II}_{16,0}$ 似乎是 $\mathrm{D}_{16}^+$，而不同构于 $\mathrm{E}_8^{\oplus 2}$。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,10 +1,10 @@
 ---
 title: derivative
-notices:
-  - name: 问题
-    items:
-      - '关于 $\mathrm{D} f(c) = q(c)$ 的定理的 (2) 中，$L_i (x)$ 的定义式里的因子 $(x_i - x_j)$ 似乎应为 $(x - x_j)$：按现在的写法 $L_i (x)$ 不依赖 $x$，与证明中的计算及“若 $i \neq v$，则 $L_v (x_i) = 0$”不符。'
 ---
+
+<problems>
+- 关于 $\mathrm{D} f(c) = q(c)$ 的定理的 (2) 中，$L_i (x)$ 的定义式里的因子 $(x_i - x_j)$ 似乎应为 $(x - x_j)$：按现在的写法 $L_i (x)$ 不依赖 $x$，与证明中的计算及“若 $i \neq v$，则 $L_v (x_i) = 0$”不符。
+</problems>
 
 本节，我们讨论整式的 derivative。
 这会是有用的工具。

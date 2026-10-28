@@ -1,11 +1,11 @@
 ---
 title: 非 Euclid 几何
 categories: [初等几何]
-notices:
-  - name: 问题
-    items:
-      - “历史注记”一节需要扩充。
 ---
+
+<problems>
+- “历史注记”一节需要扩充。
+</problems>
 
 **非 Euclid 几何**在现代的观点来看，
 是研究非[[平坦]]的[[单连通]][[常曲率空间]]的[[几何]]。

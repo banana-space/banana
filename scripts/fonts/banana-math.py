@@ -8,7 +8,7 @@
 The font is a modified KaTeX_Main (SIL OFL 1.1, Reserved Font Name KaTeX_Main; see
 static/fonts/BananaMath-OFL.txt), so it is renamed and keeps KaTeX_Main's metrics.
 _katex.scss serves it as KaTeX_Main for these code points only. Commutative diagrams
-draw 𝟙 with this font too, using its metrics in webGlyphs (scripts/tikz/compiler.mjs);
+draw 𝟙 with this font too, using its metrics in webGlyphs (packages/bananamark-tikz/src/compiler.mjs);
 update them when the glyph changes. Needs fontTools and brotli:
     python3 scripts/fonts/banana-math.py [font-with-𝟙] [KaTeX_Main-Regular.ttf] [output]
 """

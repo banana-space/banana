@@ -1,13 +1,12 @@
 ---
 title: 半环
 categories: [一般代数]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[集合论]]中的半环'
-        page: 集合半环
 navboxes: [代数结构]
 ---
+
+<disambiguation>
+关于[[集合论]]中的半环，请参见[[集合半环]]。
+</disambiguation>
 
 **半环**是一种[[代数结构]]，
 大致来说就是“不能做减法的[[环]]”。

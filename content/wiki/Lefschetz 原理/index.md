@@ -1,11 +1,11 @@
 ---
 title: Lefschetz 原理
 categories: [模型论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节中，特征 $0$ 的理论里的 $\neg \exists x (px=0)$ 似乎应为 $\neg \forall x (px=0)$（$x=0$ 总满足 $px=0$）；各处的 $\dashv$ 似乎应为 $\vdash$；$\mathcal{T} \bigcup_{p\leq q} \{\cdots\}$ 中似乎缺少并集符号。
 ---
+
+<problems>
+- “证明”一节中，特征 $0$ 的理论里的 $\neg \exists x (px=0)$ 似乎应为 $\neg \forall x (px=0)$（$x=0$ 总满足 $px=0$）；各处的 $\dashv$ 似乎应为 $\vdash$；$\mathcal{T} \bigcup_{p\leq q} \{\cdots\}$ 中似乎缺少并集符号。
+</problems>
 
 **[[Solomon Lefschetz|Lefschetz]] 原理**是说，
 对在[[环]]的[[一阶语言]]中的语句

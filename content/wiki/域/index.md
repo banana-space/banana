@@ -1,13 +1,12 @@
 ---
 title: 域
 categories: [域论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[集合论]]中的域'
-        page: 集合代数
 navboxes: [代数结构, 域论]
 ---
+
+<disambiguation>
+关于[[集合论]]中的域，请参见[[集合代数]]。
+</disambiguation>
 
 **域**是一种[[代数结构]]，
 它是具备[[加法|加]]、[[减法|减]]、[[乘法|乘]]、[[除法|除]]四则运算的[[集合]]，

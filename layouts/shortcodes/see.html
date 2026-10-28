@@ -1,4 +1,0 @@
-{{- /* 参见：<see>[[条目甲]]、[[条目乙]]</see>（scripts/prebuild/tags.mjs 写成本短代码）。不接受参数，内容为行内 Markdown。 */ -}}
-{{- if .Params -}}{{ errorf "%s" (i18n "build_see_parameters" (dict "Position" .Position)) }}{{- end -}}
-{{- if not (strings.TrimSpace .Inner) -}}{{ errorf "%s" (i18n "build_see_empty" (dict "Position" .Position)) }}{{- end -}}
-<div class="see-also"><span class="see-also-label">{{ i18n "see_also_label" }}</span>{{ .Inner | strings.TrimSpace | .Page.RenderString }}</div>

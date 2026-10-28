@@ -1,11 +1,12 @@
 ---
 title: N
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Ν]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Ν]]”。
+</disambiguation>
 
 拉丁字母 **N，n** 用在以下记号中：
 

@@ -1,11 +1,11 @@
 ---
 title: Kronecker 逼近定理
 categories: [Diophantos 逼近]
-notices:
-  - name: 问题
-    items:
-      - '“解析方法”一节中 $[f(t)]^k$ 的展开式及其后的积分式里，求和指标似乎应为 $r_1,\dots,r_n$（与 $z_1,\dots,z_n$ 对应），而不是 $r_1,\dots,r_k$。'
 ---
+
+<problems>
+- “解析方法”一节中 $[f(t)]^k$ 的展开式及其后的积分式里，求和指标似乎应为 $r_1,\dots,r_n$（与 $z_1,\dots,z_n$ 对应），而不是 $r_1,\dots,r_k$。
+</problems>
 
 ::: convention
 在本文中，

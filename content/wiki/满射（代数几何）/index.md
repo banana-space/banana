@@ -2,14 +2,12 @@
 title: 满射（代数几何）
 aliases: [满态射（代数几何）]
 categories: [概形论]
-notices:
-  - name: 消歧义
-    about: '[[概形]]之间的满射'
-    see:
-      - topic: '[[集合]]的满射'
-        page: 满射
 navboxes: [态射性质]
 ---
+
+<disambiguation>
+本条目介绍的是[[概形]]之间的满射。关于[[集合]]的满射，请参见[[满射]]。
+</disambiguation>
 
 在[[代数几何]]中，**满射**是一类[[概形态射]]，
 是诱导底[[拓扑空间]]的[[满射]]的态射。

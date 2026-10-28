@@ -1,12 +1,12 @@
 ---
 title: 有限群常表示论
 categories: [群表示论]
-notices:
-  - name: 问题
-    items:
-      - '“有限循环群”的例子中，直接给出 $\mathbb{Q}[C_n]$ 不可约特征标的轨道和似乎应为 $\operatorname{Tr}_{\mathbb{Q}(\chi_j)/\mathbb{Q}}(\chi_j)$；$\operatorname{Tr}_{K/\mathbb{Q}}(\chi_j)$ 是它的 $[K : \mathbb{Q}(\chi_j)]$ 倍。'
 navboxes: [群论, 群表示论]
 ---
+
+<problems>
+- “有限循环群”的例子中，直接给出 $\mathbb{Q}[C_n]$ 不可约特征标的轨道和似乎应为 $\operatorname{Tr}_{\mathbb{Q}(\chi_j)/\mathbb{Q}}(\chi_j)$；$\operatorname{Tr}_{K/\mathbb{Q}}(\chi_j)$ 是它的 $[K : \mathbb{Q}(\chi_j)]$ 倍。
+</problems>
 
 **有限群常表示论**，简称**常表示论**，指的是[[有限群]] $G$
 在 $k$-[[向量空间]]上的表示论，

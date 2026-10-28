@@ -1,12 +1,12 @@
 ---
 title: Banach 代数
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [泛函分析]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **Banach 代数**是带乘法的 [[Banach 空间]]。
 

@@ -1,12 +1,12 @@
 ---
 title: 开映射定理（复分析）
 categories: [复分析]
-notices:
-  - name: 消歧义
-    see:
-      - page: 开映射定理
 navboxes: [复分析]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[开映射定理]]。
+</disambiguation>
 
 [[复分析]]中的**开映射定理**是说，
 非[[常值函数|常值]]的[[全纯函数]]都是[[开映射]]，即把[[开集]]映为开集。

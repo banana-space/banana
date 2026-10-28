@@ -1,11 +1,11 @@
 ---
 title: 其他等价及Néron-Severi群
-notices:
-  - name: 问题
-    items:
-      - 定理的证明中先取的 $Y_1,\dots,Y_n$ 与之后使用的 $\alpha_1,\dots,\alpha_m$ 似乎应是同一组元素。
-      - 粉碎幂零等价的定义中，条件 $\prod^nX\sim_{\mathrm{rat}}0$ 似乎应是对 $Z$ 的 $n$ 次外积而言，而不是对 $X$。
 ---
+
+<problems>
+- 定理的证明中先取的 $Y_1,\dots,Y_n$ 与之后使用的 $\alpha_1,\dots,\alpha_m$ 似乎应是同一组元素。
+- 粉碎幂零等价的定义中，条件 $\prod^nX\sim_{\mathrm{rat}}0$ 似乎应是对 $Z$ 的 $n$ 次外积而言，而不是对 $X$。
+</problems>
 
 ::: definition
 设$X$是$d$维射影簇，定义映射

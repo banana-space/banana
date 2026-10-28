@@ -2,11 +2,11 @@
 title: 多胞体
 aliases: [凸多胞体]
 categories: [初等几何, 组合几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **多胞体**是 [[Euclid 几何]]以及组合几何中的概念，
 直观上来说，

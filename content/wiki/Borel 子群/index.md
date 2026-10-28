@@ -1,12 +1,12 @@
 ---
 title: Borel 子群
 categories: [代数群理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节定理的第三条 $N_G(B) = B$ 似乎需要假设 $G$ 连通（例如 $G$ 为非平凡有限群时 $B$ 平凡，$N_G(B) = G$）。
 navboxes: [代数群理论]
 ---
+
+<problems>
+- “性质”一节定理的第三条 $N_G(B) = B$ 似乎需要假设 $G$ 连通（例如 $G$ 为非平凡有限群时 $B$ 平凡，$N_G(B) = G$）。
+</problems>
 
 [[仿射代数群]]的 **[[Armand Borel|Borel]] 子群**是一类特殊的子群。
 在[[一般线性群]] $\mathrm{GL} (n)$ 中，所有[[上三角矩阵]]构成的子群是 Borel 子群。

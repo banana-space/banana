@@ -1,13 +1,13 @@
 ---
 title: 环簇
 categories: [代数几何]
-notices:
-  - name: 问题
-    items:
-      - “线丛”“周环”各节需要扩充。
-      - “定义”一节中对偶锥 $C^\vee$ 的定义里，条件 $\langle x,m \rangle \in \mathbb{N}$ 似乎应为 $\langle x,m \rangle \geq 0$（$C$ 中的 $m$ 不必是格点）。
 navboxes: [代数几何]
 ---
+
+<problems>
+- “线丛”“周环”各节需要扩充。
+- “定义”一节中对偶锥 $C^\vee$ 的定义里，条件 $\langle x,m \rangle \in \mathbb{N}$ 似乎应为 $\langle x,m \rangle \geq 0$（$C$ 中的 $m$ 不必是格点）。
+</problems>
 
 **环簇**是从[[组合几何]]对象出发构造的[[代数簇]]。
 大致来说，给定[[扇]] $F$，对其中的每个锥 $C$，

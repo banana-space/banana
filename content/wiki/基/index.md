@@ -2,15 +2,16 @@
 title: 基
 aliases: [基存在定理]
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “模的基”一节需要扩充。
-  - name: 消歧义
-    see:
-      - page: 基（多义词）
 navboxes: [线性代数]
 ---
+
+<problems>
+- “模的基”一节需要扩充。
+</problems>
+
+<disambiguation>
+关于其他含义，请参见[[基（多义词）]]。
+</disambiguation>
 
 在[[线性代数]]中，
 [[向量空间]]的一组**基**是其中的一组[[向量]]，

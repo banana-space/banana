@@ -33,7 +33,7 @@
   .navbox,
   .article-footer,
   .redirect-source,
-  .heading-link,
+  .bm-heading-link,
   .notice-icon,
   script {
     display: none !important;
@@ -68,7 +68,7 @@
     text-decoration: none;
   }
 
-  article a.wiki-link-missing {
+  article a.bm-wiki-link-missing {
     color: inherit;
     border-bottom: 0;
   }
@@ -93,12 +93,12 @@
   article h4,
   article h5,
   article h6,
-  article .theorem-block:not(.theorem-proof) > .theorem-title {
+  article .bm-env:not(.bm-envgroup-proof) > .bm-envtitle {
     break-after: avoid;
     break-inside: avoid;
   }
 
-  article .theorem-block > .theorem-content > :first-child {
+  article .bm-env > .bm-envcontent > :first-child {
     break-before: avoid;
   }
 
@@ -108,16 +108,16 @@
   }
 
   // Theorem blocks in black.
-  article .theorem-block {
+  article .bm-env {
     --theorem-accent: #000;
   }
 
-  article .theorem-block:not(.theorem-proof) {
+  article .bm-env:not(.bm-envgroup-proof) {
     margin: 1.6rem 0;
     padding-left: 1.2rem;
   }
 
-  .math-display,
+  .bm-math-display,
   .katex-display,
   pre,
   figure,

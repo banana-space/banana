@@ -2,12 +2,12 @@
 title: 导出完备
 aliases: [导出完备化, 导出 I-完备]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节称“下面将会看到”含入函子 $\mathsf{D}_{I\text{-comp}}(A)\to\mathsf{D}(A)$ 有左伴随，但条目中没有相应内容。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “定义”一节称“下面将会看到”含入函子 $\mathsf{D}_{I\text{-comp}}(A)\to\mathsf{D}(A)$ 有左伴随，但条目中没有相应内容。
+</problems>
 
 ::: convention
 在本文中，

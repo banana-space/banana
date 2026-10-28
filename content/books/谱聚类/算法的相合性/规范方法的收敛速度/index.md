@@ -1,10 +1,10 @@
 ---
 title: 规范方法的收敛速度
-notices:
-  - name: 问题
-    items:
-      - 最后一段中 Gauss 相似度函数情形下特征函数的收敛速度 $O(1/n)$ 似乎应为 $O(1/\sqrt n)$。
 ---
+
+<problems>
+- 最后一段中 Gauss 相似度函数情形下特征函数的收敛速度 $O(1/n)$ 似乎应为 $O(1/\sqrt n)$。
+</problems>
 
 从上面的讨论我们已经知道，若 $\mu = 1-\lambda$ 是 $T = I-U'$ 的一个单特征值，
 则当 $n$ 足够大时，$\mu_n = 1-\lambda_n$ 也是 $T_n' = I - U_n'$ 的一个单特征值，

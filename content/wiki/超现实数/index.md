@@ -1,12 +1,12 @@
 ---
 title: 超现实数
 categories: [域论, 数系, 组合博弈论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中“$y > x$ 定义为 $x \not\leq y$”似乎写反，应为 $y \not\leq x$（否则 $y > x$ 与 $x > y$ 含义相同，定义中的条件也随之出错）。
 navboxes: [域论]
 ---
+
+<problems>
+- “定义”一节中“$y > x$ 定义为 $x \not\leq y$”似乎写反，应为 $y \not\leq x$（否则 $y > x$ 与 $x > y$ 含义相同，定义中的条件也随之出错）。
+</problems>
 
 **超现实数**是一种[[数]]，它包含[[实数]]，
 也包含无穷大、无穷小的数；

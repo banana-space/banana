@@ -2,11 +2,11 @@
 title: Sharkovskii 序
 aliases: [Sharkovsky 定理, Sharkovsky 序, Sharkovskii 定理]
 categories: [动力系统]
-notices:
-  - name: 问题
-    items:
-      - “定理证明”“推广”各节需要扩充。
 ---
+
+<problems>
+- “定理证明”“推广”各节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

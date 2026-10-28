@@ -72,7 +72,7 @@ A8) 如果函数 $f$ 在点 $x_0$ 处的导数 $>0$，不能推出存在该点�
     \end{cases}
     \]
 
-    ![](MathAnalysis_HW6P1.png?width=400)
+    ![](MathAnalysis_HW6P1.png){width=400}
 
     证明，$f$ 在 $0$ 处导数存在且大于零，但是对任意的 $\varepsilon>0$，
     $f$ 在 $(-\varepsilon,\varepsilon)$ 上的限制都不是单调函数。
@@ -203,7 +203,7 @@ x, \ \ \ \ 0\leqslant x <\dfrac{1}{2};\\
 我们可以将 $\psi$ 延拓成 $\mathbb{R}$ 上的周期函数（连续）并且仍然将它记作 $\psi$，
 它的函数图像好像是锯齿一般：
 
-![](MathAnalysis_HW6T0.png?width=1000)
+![](MathAnalysis_HW6T0.png){width=1000}
 
 我们定义Takagi函数 $T\colon \mathbb{R}\rightarrow \mathbb{R}$ 如下：
 \[
@@ -212,17 +212,17 @@ T(x)=\sum_{k=0}^\infty \frac{1}{2^k}\psi(2^k x).
 我们实际上可以考虑*部分和*$\displaystyle T_n(x)=\sum_{k=0}^n \frac{1}{2^k}\psi(2^k x)$。
 当 $n=1,2,3$ 时，它们的图像如下：
 
-![](MathAnalysis_HW6T1.png?width=1000)
+![](MathAnalysis_HW6T1.png){width=1000}
 
 当 $n$ 越来越大的时候，它们的图像看起来逐渐地收敛：
 
-![](MathAnalysis_HW6T2.png?width=500)
+![](MathAnalysis_HW6T2.png){width=500}
 
 这个习题的目标是粗略地研究Takagi函数的性质。
 
 T1) 证明，$T(x)$ 是 $\mathbb{R}$ 上良好定义的有界连续函数。它图像貌似：
 
-    ![](MathAnalysis_HW6T3.png?width=600)
+    ![](MathAnalysis_HW6T3.png){width=600}
 
 T2) 对于 $x\in [0,1]$，
     假设 $x=\displaystyle\sum_{n=1}^\infty \frac{a_n}{2^n}$ 是 $x$ 的 $2$-进制展开，
@@ -346,7 +346,7 @@ T12) 令 $S_0=\{(x,y)\in \mathbb{R}^2 \mid 0\leqslant x\leqslant 1, 0\leqslant y
      证明，$S_n$ 是平面上一列单调下降的紧集并且 $\displaystyle  \Gamma=\bigcap_{n\geqslant 0}S_n$。
      我们有 $S_1$ 和 $S_2$ 的示意图：
 
-     ![](MathAnalysis_HW6T5.png?width=700)
+     ![](MathAnalysis_HW6T5.png){width=700}
 
 T13) 证明，$\displaystyle\sup_{x\in \mathbb{R}}T(x) \leqslant \dfrac{2}{3}$。
 

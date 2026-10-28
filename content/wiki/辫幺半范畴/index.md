@@ -2,12 +2,12 @@
 title: 辫幺半范畴
 aliases: [辫范畴]
 categories: [范畴代数]
-notices:
-  - name: 问题
-    items:
-      - “杨–Baxter 方程”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “杨–Baxter 方程”一节需要扩充。
+</problems>
 
 在[[范畴论]]中，**辫幺半范畴**是满足一种较弱的交换性的[[幺半范畴]]，
 弱于[[对称幺半范畴]]。

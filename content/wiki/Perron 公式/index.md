@@ -1,12 +1,12 @@
 ---
 title: Perron 公式
 categories: [解析数论]
-notices:
-  - name: 问题
-    items:
-      - '@thperrons 中的 $\sigma_0$ 似乎没有定义（似乎应为 $\sigma_a$）；误差项 $x^{1-\sigma}(\log x)^\alpha/T$ 似乎只在 $\sigma_a=1$ 时与 $c$ 的取法相符。'
-      - “调和数的渐近展开”一节中，围道左侧的横坐标先记作 $-k$，后又写作 $c=-A/\log T$，似乎应为 $k=A/\log T$；同一处等式两侧积分前的系数 ${1\over2\pi i}$ 似乎也不一致。
 ---
+
+<problems>
+- @thperrons 中的 $\sigma_0$ 似乎没有定义（似乎应为 $\sigma_a$）；误差项 $x^{1-\sigma}(\log x)^\alpha/T$ 似乎只在 $\sigma_a=1$ 时与 $c$ 的取法相符。
+- “调和数的渐近展开”一节中，围道左侧的横坐标先记作 $-k$，后又写作 $c=-A/\log T$，似乎应为 $k=A/\log T$；同一处等式两侧积分前的系数 ${1\over2\pi i}$ 似乎也不一致。
+</problems>
 
 **Perron 公式**一般指下列用于估计[[Dirichlet 级数]]部分和的积分公式：
 

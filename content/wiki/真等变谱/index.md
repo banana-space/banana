@@ -1,13 +1,13 @@
 ---
 title: 真等变谱
 categories: [等变同伦论]
-notices:
-  - name: 问题
-    items:
-      - “$G$-Mackey 函子”的定义中，$G$-Mackey 函子似乎应是 $\mathsf{Span}(\mathsf{Fin}_G)$（而非 $\mathsf{Fin}_G$）到 $\mathcal{A}$ 的半加性函子。
-      - “用 Mackey 函子”一节末尾所说谱值 $G$-Mackey 函子与真 $G$-谱等价的证明尚未给出。
-      - “与带作用谱的关系”“关于群的函子性”“例子”各节需要扩充。
 ---
+
+<problems>
+- “$G$-Mackey 函子”的定义中，$G$-Mackey 函子似乎应是 $\mathsf{Span}(\mathsf{Fin}_G)$（而非 $\mathsf{Fin}_G$）到 $\mathcal{A}$ 的半加性函子。
+- “用 Mackey 函子”一节末尾所说谱值 $G$-Mackey 函子与真 $G$-谱等价的证明尚未给出。
+- “与带作用谱的关系”“关于群的函子性”“例子”各节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,13 +1,11 @@
 ---
 title: $+$ 构造
 categories: [代数拓扑]
-notices:
-  - name: 消歧义
-    about: 拓扑空间的 $+$ 构造
-    see:
-      - topic: '[[代数 $K$ 理论]]的 $+$ 构造'
-        page: Quillen + 构造
 ---
+
+<disambiguation>
+本条目介绍的是拓扑空间的 $+$ 构造。关于[[代数 $K$ 理论]]的 $+$ 构造，请参见[[Quillen + 构造]]。
+</disambiguation>
 
 **$+$ 构造**是个[[代数拓扑]]构造，
 在不改变[[奇异同调|同调]]的情况下把空间的[[基本群]]变为特定[[商群]]。

@@ -2,12 +2,12 @@
 title: Hilbert 多项式
 aliases: [Hilbert 函数, Hilbert 级数]
 categories: [交换代数, 代数几何]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

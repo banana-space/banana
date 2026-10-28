@@ -1,12 +1,12 @@
 ---
 title: K3 曲面
 categories: [复几何, 代数曲面论]
-notices:
-  - name: 问题
-    items:
-      - “椭圆纤维化”一节需要扩充。
 navboxes: [代数几何]
 ---
+
+<problems>
+- “椭圆纤维化”一节需要扩充。
+</problems>
 
 在[[复几何]]中，
 **K3 曲面**是一类二维[[复流形]]，

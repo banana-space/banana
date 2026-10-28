@@ -1,10 +1,10 @@
 ---
 title: 群论的补充：可解群
-notices:
-  - name: 问题
-    items:
-      - '“可解群”一节中证明 $\mathbf{D}(\mathbf{GL}(n;K))=\mathbf{SL}(n;K)$ 的例子里，由 $\beta+1=(1+\nu)^{-1}$ 似乎应得到 $\beta=(1+\nu)^{-1}-1$，而不是 $\beta=(1+\nu)^{-1}$；其后的等式 $E_{ij}(-(1+\nu))E_{ji}((1+\nu)^{-1})E_{ij}(1)E_{ji}(\nu)=\cdots$ 也应相应修改。'
 ---
+
+<problems>
+- “可解群”一节中证明 $\mathbf{D}(\mathbf{GL}(n;K))=\mathbf{SL}(n;K)$ 的例子里，由 $\beta+1=(1+\nu)^{-1}$ 似乎应得到 $\beta=(1+\nu)^{-1}-1$，而不是 $\beta=(1+\nu)^{-1}$；其后的等式 $E_{ij}(-(1+\nu))E_{ji}((1+\nu)^{-1})E_{ij}(1)E_{ji}(\nu)=\cdots$ 也应相应修改。
+</problems>
 
 ## 滤链 {@section-filtration-and-Jordan-Holder}
 

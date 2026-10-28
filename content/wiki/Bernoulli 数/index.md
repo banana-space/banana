@@ -1,12 +1,12 @@
 ---
 title: Bernoulli 数
 categories: [复分析, 组合函数]
-notices:
-  - name: 问题
-    items:
-      - “Riemann $\zeta$ 函数的特殊值”一节中，沿 $C_N$ 的积分的估计似乎应为 $O(N^{1-2k})$（积分路径长度与 $N$ 同阶），这不影响令 $N\to+\infty$ 后的结论。
 navboxes: [计数组合]
 ---
+
+<problems>
+- “Riemann $\zeta$ 函数的特殊值”一节中，沿 $C_N$ 的积分的估计似乎应为 $O(N^{1-2k})$（积分路径长度与 $N$ 同阶），这不影响令 $N\to+\infty$ 后的结论。
+</problems>
 
 **Bernoulli 数**
 是一列[[有理数]]，记为 $B_n$，其前几项为

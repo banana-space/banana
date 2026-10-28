@@ -1,13 +1,13 @@
 ---
 title: Euclid 几何
 categories: [初等几何]
-notices:
-  - name: 问题
-    items:
-      - “研究论题”一节需要扩充。
-      - “分析型”一节中直线的定义似乎还需要 $x_2 \neq 0$。
 navboxes: [Euclid 几何]
 ---
+
+<problems>
+- “研究论题”一节需要扩充。
+- “分析型”一节中直线的定义似乎还需要 $x_2 \neq 0$。
+</problems>
 
 **Euclid 几何**是经典意义下的[[几何]]，
 描述点、直线、圆等直观对象的性质以及位置关系。

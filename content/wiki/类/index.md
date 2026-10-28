@@ -2,14 +2,15 @@
 title: 类
 aliases: [真类]
 categories: [集合论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 类（多义词）
-  - name: 问题
-    items:
-      - “映射”“乘积”“宇宙的观点”各节需要扩充。
 ---
+
+<disambiguation>
+关于其他含义，请参见[[类（多义词）]]。
+</disambiguation>
+
+<problems>
+- “映射”“乘积”“宇宙的观点”各节需要扩充。
+</problems>
 
 **类**是一种类似[[集合]]的概念。
 所有集合都是类，但类也包含那些比所有集合都大的“集合”。

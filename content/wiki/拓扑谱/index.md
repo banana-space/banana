@@ -2,12 +2,12 @@
 title: 拓扑谱
 aliases: [谱（拓扑学）]
 categories: [同伦论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 谱
 navboxes: [高阶代数, 高阶范畴论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[谱]]。
+</disambiguation>
 
 在[[代数拓扑]]中，
 **拓扑谱**（简称**谱**）

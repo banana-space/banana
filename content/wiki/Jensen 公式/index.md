@@ -2,12 +2,12 @@
 title: Jensen 公式
 aliases: [Jensen 公式（复分析）]
 categories: [复分析]
-notices:
-  - name: 问题
-    items:
-      - “陈述与证明”一节证明中 $n(r)$ 的第二个等号右端似乎缺少因子 $r$（由 $\mathrm dz=2\pi\mathrm{i}re^{2\pi it}\,\mathrm dt$），下一步对 $n(r)/r$ 积分时用到的正是带因子 $r$ 的形式。
 navboxes: [复分析]
 ---
+
+<problems>
+- “陈述与证明”一节证明中 $n(r)$ 的第二个等号右端似乎缺少因子 $r$（由 $\mathrm dz=2\pi\mathrm{i}re^{2\pi it}\,\mathrm dt$），下一步对 $n(r)/r$ 积分时用到的正是带因子 $r$ 的形式。
+</problems>
 
 [[复分析]]中，**Jensen 公式**将[[全纯函数]]在一个圆上的积分与其在圆中的零点联系起来。
 

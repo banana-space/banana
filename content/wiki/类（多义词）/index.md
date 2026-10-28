@@ -1,11 +1,11 @@
 ---
 title: 类（多义词）
 categories: [多义词]
-notices:
-  - name: 问题
-    items:
-      - '“等价类”一项下的例子需要扩充。'
 ---
+
+<problems>
+- “等价类”一项下的例子需要扩充。
+</problems>
 
 **类**可以指：
 

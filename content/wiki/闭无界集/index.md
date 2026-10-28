@@ -1,11 +1,11 @@
 ---
 title: 闭无界集
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节定理证明的“极限步”中，“找到 $\alpha<\beta\in\lambda$”似乎应为 $\beta\in C$，“$\beta_\theta(\eta\leq\theta<\lambda)$”中的 $\eta$ 似乎应为 $\xi$，“指出 $\beta\in\xi$”似乎应为 $\beta\in C_\xi$。
 ---
+
+<problems>
+- “性质”一节定理证明的“极限步”中，“找到 $\alpha<\beta\in\lambda$”似乎应为 $\beta\in C$，“$\beta_\theta(\eta\leq\theta<\lambda)$”中的 $\eta$ 似乎应为 $\xi$，“指出 $\beta\in\xi$”似乎应为 $\beta\in C_\xi$。
+</problems>
 
 闭无界集是集合论中一种常见的集合。
 

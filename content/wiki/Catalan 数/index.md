@@ -1,12 +1,12 @@
 ---
 title: Catalan 数
 categories: [组合函数]
-notices:
-  - name: 问题
-    items:
-      - “计数结果”一节中括号序列的条件“对任何 $0 \leq i \leq n$”似乎应为 $0 \leq i \leq 2n$（序列共有 $2n$ 个符号）。
 navboxes: [计数组合]
 ---
+
+<problems>
+- “计数结果”一节中括号序列的条件“对任何 $0 \leq i \leq n$”似乎应为 $0 \leq i \leq 2n$（序列共有 $2n$ 个符号）。
+</problems>
 
 **Catalan 数**
 是[[计数组合]]中的一个计数序列，记为 $C_n$，其前几项为

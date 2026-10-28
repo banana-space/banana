@@ -1,14 +1,12 @@
 ---
 title: 积范畴
 categories: [范畴论]
-notices:
-  - name: 消歧义
-    about: 范畴的积
-    see:
-      - topic: 范畴中对象的积
-        page: 积（范畴论）
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+本条目介绍的是范畴的积。关于范畴中对象的积，请参见[[积（范畴论）]]。
+</disambiguation>
 
 **积范畴**是[[范畴论]]中的一种构造。
 [[范畴]] $\mathcal{C}$ 与 $\mathcal{D}$ 的积范畴记为

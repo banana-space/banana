@@ -2,12 +2,12 @@
 title: 普遍自由
 aliases: [广泛自由]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

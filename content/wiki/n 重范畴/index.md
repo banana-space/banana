@@ -2,11 +2,12 @@
 title: $n$ 重范畴
 aliases: [N 重范畴, 多重范畴]
 categories: [高阶范畴论]
-notices:
-  - name: 区分
-    text: '注意区分本文与“[[$n$-范畴]]”。'
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+注意区分本文与“[[$n$-范畴]]”。
+</disambiguation>
 
 在[[范畴论]]中，
 **$n$ 重范畴**是[[范畴]]、[[双范畴]]等概念的推广，

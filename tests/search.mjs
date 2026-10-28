@@ -1,14 +1,13 @@
 import assert from 'node:assert/strict';
 import { access, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { execFileSync } from 'node:child_process';
 import { JSDOM } from 'jsdom';
 import katex from 'katex';
 import { parseFragment } from 'parse5';
 import { createProject, buildProject } from './helpers/project.mjs';
 import { loadSearch } from './helpers/pagefind.mjs';
 import { nameFromPath, relatedPages, relatedTerms, searchParts } from '../static/js/search-query.js';
-import { mathText } from '../scripts/shared/math-text.mjs';
+import { mathText } from 'bananamark/internal/math-text.mjs';
 import { decodeSearchData, encodeSearchData } from '../scripts/search/data.mjs';
 import { EXCLUDED_CLASSES, WORD_SEPARATOR, separateWords } from '../scripts/search/document.mjs';
 import { defaultReading, normalizeReading, readingForms, readingMetadata } from '../scripts/prebuild/reading.mjs';
@@ -92,15 +91,12 @@ async function browserSearch(site, file, url) {
 const root = await createProject('search');
 const write = async (file, text) => { await mkdir(join(root, file, '..'), { recursive: true }); await writeFile(join(root, file), text); };
 const page = (front, body = '') => `---\n${front}\n---\n${body}\n`;
-const build = (extra = []) => {
-  buildProject(root, extra);
-  execFileSync(process.execPath, ['scripts/postbuild.mjs'], { cwd: root, stdio: 'pipe' });
-};
+const build = (extra = []) => buildProject(root, extra);
 try {
   await rm(join(root, 'content'), { recursive: true, force: true });
   await write('data/categories.yaml', '数学: {}\n代数拓扑:\n  parent: 数学\n  sort: dai shu tuo pu\n');
   await write('data/readings.yaml', '重数: chong shu\n');
-  await write('content/wiki/_index.md', page('title: 全部条目'));
+  await write('content/wiki/index.md', page('title: 全部条目'));
   await write('content/wiki/cohomology/index.md', page('title: 奇异上同调\naliases: [奇异上同调群]\ncategories: [代数拓扑]', [
     '奇异上同调是拓扑空间的同伦不变量．对 $X$ 有 $C^n(X;A) = \\operatorname{Hom}_{\\mathbb Z}(C_n(X;\\mathbb Z), A)$．',
     '\n## 定义\n\n上链复形的定义．\n',
@@ -120,10 +116,10 @@ try {
   await write('content/missing/index.md', page('title: 条目尚未创建\nlayout: missing\nbuild:\n  list: never'));
   await write('content/wiki/english/index.md', page('title: Spectral sequence\nlang: en', 'A spectral sequence computes homology.'));
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目\nsearch: false', '隐藏条目独有的内容 zzqhidden．'));
-  await write('content/books/demo/collection.yaml', 'title: 演示讲义\ncontents:\n  - page: maps\n    children:\n      - page: kernel\n');
-  await write('content/books/demo/maps/_index.md', page('title: 线性映射', '映射的定义．'));
+  await write('content/books/demo/book.yaml', 'title: 演示讲义\ncontents:\n  - page: maps\n    children:\n      - page: kernel\n');
+  await write('content/books/demo/maps/index.md', page('title: 线性映射', '映射的定义．'));
   await write('content/books/demo/maps/kernel/index.md', page('title: 核与单射', '核的性质．'));
-  await write('content/books/private/collection.yaml', 'title: 私人笔记\nsearch: false\ncontents:\n  - page: note\n');
+  await write('content/books/private/book.yaml', 'title: 私人笔记\nsearch: false\ncontents:\n  - page: note\n');
   await write('content/books/private/note/index.md', page('title: 笔记', '私人笔记独有的内容 zzqprivate．'));
   build();
 
@@ -131,7 +127,7 @@ try {
   assert.match(serre, /sortKey: serre jean pierre/);
   assert.doesNotMatch(serre, /^sort:/m);
   assert.match(await readFile(join(root, '.build/content/wiki/multiplicity/index.md'), 'utf8'), /sortKey: dai shu chong shu/);
-  assert.match(await readFile(join(root, '.build/content/categories/代数拓扑/_index.md'), 'utf8'), /sortKey: dai shu tuo pu/);
+  assert.match(await readFile(join(root, '.build/content/categories/代数拓扑/index.md'), 'utf8'), /sortKey: dai shu tuo pu/);
 
   // Lists follow readings: `#` (∞-范畴) first, then dai < qi < serre < spectral < yin (search: false only affects search).
   const list = await readFile(join(root, 'public/wiki/index.html'), 'utf8');
@@ -320,10 +316,11 @@ try {
   assert.match(missingHTML, /<span data-related="none">请返回<a href="\/">首页<\/a>，或<a class="missing-create" href="\/edit\/">创建条目<\/a>．<\/span><span data-related="found" hidden(?:="")?>浏览下方的相关页面，或<a class="missing-create" href="\/edit\/">创建条目<\/a>．<\/span>/);
   for (const html of [html404, missingHTML]) assert.doesNotMatch(html, /浏览已有条目/);
 
-  // Every class the search document drops is still produced by the templates.
-  const templates = (await Promise.all((await readdir(join(root, 'layouts'), { recursive: true }))
-    .filter(file => file.endsWith('.html')).map(file => readFile(join(root, 'layouts', file), 'utf8')))).join('\n');
-  for (const name of EXCLUDED_CLASSES.filter(name => !name.startsWith('tikz-'))) assert.match(templates, new RegExp(`class="[^"]*\\b${name}\\b`), name);
+  // Every class the search document drops is still produced by the templates (the site's and bananamark's).
+  const templateDirectories = ['scripts/site/templates', 'node_modules/bananamark/src', 'node_modules/bananamark/src/render'];
+  const templates = (await Promise.all(templateDirectories.map(async directory => (await Promise.all((await readdir(join(root, directory)))
+    .filter(file => file.endsWith('.mjs')).map(file => readFile(join(root, directory, file), 'utf8')))).join('\n')))).join('\n');
+  for (const name of EXCLUDED_CLASSES.filter(name => !name.startsWith('bm-tikz-'))) assert.match(templates, new RegExp(`class="[^"]*\\b${name}\\b`), name);
 
   // Invalid settings fail in prebuild.
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目\nsearch: true'));
@@ -348,8 +345,7 @@ try {
   assert.equal(nestedUI.config.page, '/docs/search/');
 
   // The preview's diagnostic page is opt-in.
-  buildProject(root);
-  execFileSync(process.execPath, ['scripts/postbuild.mjs', 'public', '--playground'], { cwd: root, stdio: 'pipe' });
+  buildProject(root, ['--playground']);
   assert.ok((await readdir(join(root, 'public/pagefind'))).includes('playground'));
 } finally {
   await rm(root, { recursive: true, force: true });

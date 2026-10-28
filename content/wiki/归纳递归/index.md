@@ -1,12 +1,12 @@
 ---
 title: 归纳递归
 categories: [类型论]
-notices:
-  - name: 问题
-    items:
-      - “具现语义”“范畴语义”各节需要扩充，可参考 [Peter Dybjer 关于归纳定义的论文](https://www.cse.chalmers.se/~peterd/papers/inductive.html)。
 navboxes: [类型论]
 ---
+
+<problems>
+- “具现语义”“范畴语义”各节需要扩充，可参考 [Peter Dybjer 关于归纳定义的论文](https://www.cse.chalmers.se/~peterd/papers/inductive.html)。
+</problems>
 
 **归纳递归**是对[[归纳类型]]（或[[归纳族]]）的扩展，
 允许构造子的类型一定程度地违反[[严格正性]]，

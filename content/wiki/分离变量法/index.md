@@ -1,14 +1,14 @@
 ---
 title: 分离变量法
 categories: [常微分方程论]
-notices:
-  - name: 问题
-    items:
-      - '“‘线性方程组’型”一节中，分子分母同时除以 $x$ 后得到的式子里的 $\frac{x}{y}$ 似乎应为 $\frac{y}{x}$；情形 (1) 中的 $\frac{X}{Y}$ 似乎同样应为 $\frac{Y}{X}$，等式左边似乎应为 $\frac{\mathrm{d} Y}{\mathrm{d} X}$。'
-      - '情形 iii 中的函数 $g$ 未加说明，似乎指 $g(u) = f\left(\frac{ku + c_1}{u + c_2}\right)$。'
-      - '“‘线性方程组’型”一节最后的例子中，积分结果右边的 $\ln \left| u^2 + 2u - 1 \right|$ 似乎应为 $-\ln \left| u^2 + 2u - 1 \right|$（与之后的结果 $Y^2 + 2XY - X^2 = c_1$ 一致）。'
 navboxes: [常微分方程]
 ---
+
+<problems>
+- “‘线性方程组’型”一节中，分子分母同时除以 $x$ 后得到的式子里的 $\frac{x}{y}$ 似乎应为 $\frac{y}{x}$；情形 (1) 中的 $\frac{X}{Y}$ 似乎同样应为 $\frac{Y}{X}$，等式左边似乎应为 $\frac{\mathrm{d} Y}{\mathrm{d} X}$。
+- 情形 iii 中的函数 $g$ 未加说明，似乎指 $g(u) = f\left(\frac{ku + c_1}{u + c_2}\right)$。
+- “‘线性方程组’型”一节最后的例子中，积分结果右边的 $\ln \left| u^2 + 2u - 1 \right|$ 似乎应为 $-\ln \left| u^2 + 2u - 1 \right|$（与之后的结果 $Y^2 + 2XY - X^2 = c_1$ 一致）。
+</problems>
 
 求解[[常微分方程]]时，**分离变量法**是一种初等的求解方法。主要应用场景为以下特殊的一阶微分方程。
 

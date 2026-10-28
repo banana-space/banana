@@ -2,11 +2,12 @@
 title: Α
 aliases: [Alpha]
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与拉丁字母“[[A]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与拉丁字母“[[A]]”。
+</disambiguation>
 
 希腊字母 **Α，α** 用在以下记号中：
 

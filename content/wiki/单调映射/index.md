@@ -2,13 +2,12 @@
 title: 单调映射
 aliases: [严格单调映射]
 categories: [序论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[微积分学]]中的相关概念'
-        page: 单调函数
 navboxes: [序论]
 ---
+
+<disambiguation>
+关于[[微积分学]]中的相关概念，请参见[[单调函数]]。
+</disambiguation>
 
 在[[序论]]中，**单调映射**（也称为**保序映射**）
 是指[[偏序集]]或[[拟序集]]之间保持序关系的[[映射 (集合论)|映射]]。

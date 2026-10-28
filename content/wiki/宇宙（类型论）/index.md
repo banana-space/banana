@@ -2,12 +2,12 @@
 title: 宇宙（类型论）
 aliases: [Tarski 宇宙]
 categories: [类型论]
-notices:
-  - name: 问题
-    items:
-      - “宇宙多态”一节需要扩充，宜另立条目。
 navboxes: [类型论]
 ---
+
+<problems>
+- “宇宙多态”一节需要扩充，宜另立条目。
+</problems>
 
 [[依值类型论]]中的**宇宙**在思想上类似于“[[类型]]的类型”，一般记作 $\mathcal U$。
 为了规避 [[Russell 悖论]]，宇宙不能直接定义为“所有类型的类型”，

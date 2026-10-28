@@ -1,11 +1,11 @@
 ---
 title: Fourier 变换
 categories: [调和分析, 抽象调和分析]
-notices:
-  - name: 问题
-    items:
-      - “性质”“离散 Fourier 变换”“Fourier 级数”各节需要扩充。
 ---
+
+<problems>
+- “性质”“离散 Fourier 变换”“Fourier 级数”各节需要扩充。
+</problems>
 
 **Fourier 变换**是一种[[积分变换]]，
 它把函数 $f \colon \mathbb{R} \to \mathbb{C}$ 变成函数

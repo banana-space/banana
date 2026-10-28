@@ -1,10 +1,10 @@
 ---
 title: 自然数与归纳法
-notices:
-  - name: 问题
-    items:
-      - '递归函数可表示性的证明中，正则极小化一步的定义式 $\forall z\in y(f(x_1,...,x_{\mathfrak{n}},y)\not=\varnothing)$ 中的 $f(\dots,y)$ 似乎应为 $f(\dots,z)$；原始递归一步中 $F$ 的变元似乎应为 $x_1,...,x_{\mathfrak{n}}$，$h$ 的倒数第二个参数似乎应为 $i$ 而非 $y$。'
 ---
+
+<problems>
+- 递归函数可表示性的证明中，正则极小化一步的定义式 $\forall z\in y(f(x_1,...,x_{\mathfrak{n}},y)\not=\varnothing)$ 中的 $f(\dots,y)$ 似乎应为 $f(\dots,z)$；原始递归一步中 $F$ 的变元似乎应为 $x_1,...,x_{\mathfrak{n}}$，$h$ 的倒数第二个参数似乎应为 $i$ 而非 $y$。
+</problems>
 
 我们先来论证一个熟知的元定理。
 

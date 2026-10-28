@@ -1,10 +1,10 @@
 ---
 title: 其他比较定理
-notices:
-  - name: 问题
-    items:
-      - “代数de Rham上同调”的定义中，微分映射的像 $ab_0\wedge db_1\wedge\cdots\wedge db_q$ 似乎应为 $db_0\wedge db_1\wedge\cdots\wedge db_q$。
 ---
+
+<problems>
+- “代数de Rham上同调”的定义中，微分映射的像 $ab_0\wedge db_1\wedge\cdots\wedge db_q$ 似乎应为 $db_0\wedge db_1\wedge\cdots\wedge db_q$。
+</problems>
 
 ::: definition [代数de Rham上同调]
 设$f:X\to S$是概形映射，

@@ -2,11 +2,11 @@
 title: 集合论
 categories: [集合论]
 navboxes: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **集合论**是数学分支之一，
 其主要研究对象为[[集合]]，特别是不同大小的[[无限集]]。

@@ -1,4 +1,4 @@
-# 语言代码 → 名称，供 <person> 标注原名的语言，也供编辑器补全语言代码。由 Intl.DisplayNames 按 i18n 的
+# 语言代码 → 名称，供 <person> 标注原名的语言，也供编辑器补全语言代码。由 Intl.DisplayNames 按 bananamark 消息的
 # language_names_locale 生成，与术语翻译的语言名称一致。
 aa: "阿法尔语"
 ab: "阿布哈西亚语"

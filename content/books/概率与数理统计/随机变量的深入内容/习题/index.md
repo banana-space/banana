@@ -293,7 +293,7 @@ $(X,Y,Z)$服从单位球面上的均匀分布。
 
 :::
 
-![图 1：@exercise:Borel-Kolmogorov_paradox 图示。](Borel-Kolmogorov_paradox.png?width=750)
+![图 1：@exercise:Borel-Kolmogorov_paradox 图示。](Borel-Kolmogorov_paradox.png){width=750}
 
 ::: exercise [Rejection sampling]
 设非负函数$f,g:\mathbb{R}\rightarrow\left[0,+\infty\right[$与常数$c$满足

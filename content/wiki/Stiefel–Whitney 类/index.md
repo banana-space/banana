@@ -1,12 +1,12 @@
 ---
 title: Stiefel–Whitney 类
 categories: [示性类]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中，$\mathbb{R}\mathrm{P}^n$ 上重言丛 $\mathcal{O}(-1)$ 的全 Stiefel–Whitney 类似乎应为 $1+a$；$(1+a)^{n+1}$ 是切丛 $\mathrm{T}\mathbb{R}\mathrm{P}^n$ 的全 Stiefel–Whitney 类。
 navboxes: [向量丛与 K 理论]
 ---
+
+<problems>
+- “例子”一节中，$\mathbb{R}\mathrm{P}^n$ 上重言丛 $\mathcal{O}(-1)$ 的全 Stiefel–Whitney 类似乎应为 $1+a$；$(1+a)^{n+1}$ 是切丛 $\mathrm{T}\mathbb{R}\mathrm{P}^n$ 的全 Stiefel–Whitney 类。
+</problems>
 
 在[[代数拓扑]]中，
 **[[Stiefel]]–[[Whitney]] 类**是对[[实数|实]][[向量丛]]定义的[[示性类]]。

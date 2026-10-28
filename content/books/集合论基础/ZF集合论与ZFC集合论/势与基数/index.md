@@ -1,12 +1,12 @@
 ---
 title: 势与基数
-notices:
-  - name: 问题
-    items:
-      - Cantor 定理的证明中，反证假设的 $f:\wp A\hookrightarrow A$ 似乎应为满射 $f:A\twoheadrightarrow\wp A$（后文对 $x\in A$ 取 $f(x)$）。
-      - Hartogs 定理中的 $\neg(|\aleph(A)|\geq|A|)$ 似乎应为 $\neg(|\aleph(A)|\leq|A|)$（证明中反证的是存在 $\aleph(A)$ 到 $A$ 的单射）。
-      - 定理“$\kappa\times\kappa=\kappa$”的证明中，$(\alpha,\beta)<_C (0,\gamma)$ 与 $\kappa\times\kappa[(0,\gamma)]$ 中的 $\gamma$ 似乎应为 $\delta$（当 $\alpha=\gamma$ 时前者不成立，且后文说该真前段恰为 $\delta\times\delta$）。
 ---
+
+<problems>
+- Cantor 定理的证明中，反证假设的 $f:\wp A\hookrightarrow A$ 似乎应为满射 $f:A\twoheadrightarrow\wp A$（后文对 $x\in A$ 取 $f(x)$）。
+- Hartogs 定理中的 $\neg(|\aleph(A)|\geq|A|)$ 似乎应为 $\neg(|\aleph(A)|\leq|A|)$（证明中反证的是存在 $\aleph(A)$ 到 $A$ 的单射）。
+- 定理“$\kappa\times\kappa=\kappa$”的证明中，$(\alpha,\beta)<_C (0,\gamma)$ 与 $\kappa\times\kappa[(0,\gamma)]$ 中的 $\gamma$ 似乎应为 $\delta$（当 $\alpha=\gamma$ 时前者不成立，且后文说该真前段恰为 $\delta\times\delta$）。
+</problems>
 
 实数理论中，我们不会用到不可数的序数。不过，我们还得先定义不可数，这需要引入朴素的势的概念。
 

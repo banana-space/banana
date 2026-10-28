@@ -1,9 +1,0 @@
-{{- /* Titles, taxonomy trees, and navigation can contain formulas on any page.
-  The stylesheet is published beside the self-hosted fonts in /katex/, so its relative font URLs resolve. */ -}}
-{{- $katex := resources.Get "katex/katex.css" -}}
-{{- if eq hugo.Environment "development" -}}
-<link rel="stylesheet" href="{{ $katex.RelPermalink }}">
-{{- else -}}
-{{- $katex = $katex | minify | fingerprint -}}
-<link rel="stylesheet" href="{{ $katex.RelPermalink }}" integrity="{{ $katex.Data.Integrity }}" crossorigin="anonymous">
-{{- end -}}

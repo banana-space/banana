@@ -2,11 +2,11 @@
 title: 'Lefschetz $(1, 1)$ 定理'
 aliases: ['Lefschetz (1, 1) 定理']
 categories: [复几何]
-notices:
-  - name: 问题
-    items:
-      - 引言中称这是 Hodge 猜想“唯一已证明的非平凡情况”，似乎不准确：由硬 Lefschetz 定理，$(n-1, n-1)$-类的情形也随之成立。
 ---
+
+<problems>
+- 引言中称这是 Hodge 猜想“唯一已证明的非平凡情况”，似乎不准确：由硬 Lefschetz 定理，$(n-1, n-1)$-类的情形也随之成立。
+</problems>
 
 在[[复几何]]中，
 **[[Solomon Lefschetz|Lefschetz]] $\bm{(1, 1)}$ 定理**

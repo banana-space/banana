@@ -1,15 +1,15 @@
 ---
 title: 指数函数
 categories: [复分析, 特殊函数]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 几何学中的概念
-        page: 指数映射
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<disambiguation>
+关于几何学中的概念，请参见[[指数映射]]。
+</disambiguation>
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **指数函数** $\exp \colon \mathbb{C} \to \mathbb{C}$
 是一个[[全纯函数]]，它的两个最重要的性质是

@@ -38,7 +38,7 @@ fine-grained token 只能访问其所有者（个人或组织）名下的仓库�
 
    | 字段 | 填写 |
    | --- | --- |
-   | Token name | `banana-editor-local` |
+   | Token name | `banana-api-local` |
    | Expiration | 30 或 90 天 |
    | Resource owner | `<你的账号>` |
    | Repository access | Only select repositories → `<仓库名>` |
@@ -54,7 +54,7 @@ fine-grained token 只能访问其所有者（个人或组织）名下的仓库�
 openssl rand -hex 32
 ```
 
-在仓库根目录新建 `.env.editor`（已被 git 忽略）：
+在仓库根目录新建 `.env.api`（已被 git 忽略）：
 
 ```
 BANANA_SESSION_SECRET=上面生成的随机字符串
@@ -73,14 +73,14 @@ git push origin main
 
 ### 5. 启动
 
-serve 转发 `/api/`，编辑接口读取密钥文件：
+serve 转发 `/api/`，API 读取密钥文件：
 
 ```sh
 npm run serve -- --port 1414 --api http://127.0.0.1:8787
-npm run editor-api -- --env-file .env.editor --github-repo <你的账号>/<仓库名> --base-url http://127.0.0.1:1414/ --environment development
+npm run api -- --env-file .env.api --github-repo <你的账号>/<仓库名> --base-url http://127.0.0.1:1414/ --environment development
 ```
 
-编辑接口打印 `listening on http://127.0.0.1:8787/api/` 后即可使用；开头没有 “not configured” 的警告，说明密钥都已读到。
+API 打印 `listening on http://127.0.0.1:8787/api/` 后即可使用；开头没有 “not configured” 的警告，说明密钥都已读到。
 
 ### 6. 试一遍
 
@@ -100,18 +100,18 @@ npm run editor-api -- --env-file .env.editor --github-repo <你的账号>/<仓�
    2. 组织的 Settings → Personal access tokens：允许 fine-grained token 访问组织资源（可以设为需要批准）。
    3. 用机器人账号建 fine-grained token：Resource owner 选 `banana-space`，Repository access 只选 `banana`，权限同上（Contents、Pull requests 读写）。若组织要求批准，由组织管理员在 Settings → Personal access tokens → Pending requests 中批准。
    4. token 有有效期，到期前需要重新生成并更新密钥文件。
-3. **密钥文件**：`~/banana/editor.env`（权限 600），由 `deploy/install.sh` 生成，会话密钥已随机填好，只需填写 GitHub 的三个值。正式环境必须设置 `BANANA_SESSION_SECRET`，否则每次重启后所有人都需要重新登录。
+3. **密钥文件**：`~/banana/api.env`（权限 600），由 `deploy/install.sh` 生成，会话密钥已随机填好，只需填写 GitHub 的三个值。正式环境必须设置 `BANANA_SESSION_SECRET`，否则每次重启后所有人都需要重新登录。
 4. **启动参数**：
 
    ```sh
-   npm run editor-api -- --github-repo banana-space/banana --env-file ~/banana/editor.env
+   npm run api -- --github-repo banana-space/banana --env-file ~/banana/api.env
    ```
 
-   不加 `--base-url` 时使用 hugo.toml 的 `baseURL`（即站点地址），不加 `--environment` 时使用 production，与正式构建一致；不要使用 `--dev-user`。服务器上由 systemd 单元 `deploy/banana-editor.service` 以这些参数运行，见 [服务器部署](deploy.md)。
+   不加 `--base-url` 时使用 site.yaml 的 `baseURL`（即站点地址），不加 `--environment` 时使用 production，与正式构建一致；不要使用 `--dev-user`。服务器上由 systemd 单元 `deploy/banana-api.service` 以这些参数运行，见 [服务器部署](deploy.md)。
 
 ## 常见问题
 
 - **GitHub 提示 redirect_uri 不匹配**：OAuth App 的回调地址与 `--public-url`（默认为 `--base-url` 的源）不一致。
 - **登录回来后提示 “the login expired or did not start here”**：打开编辑器所用的主机名与回调地址不同（`localhost` 与 `127.0.0.1`），浏览器因此没有带上登录用的 cookie；或者登录超过 10 分钟没有完成。
-- **提交时提示 “GitHub refused the submission”**：token 过期、权限不足，或仓库名不对。编辑接口的终端输出中有 GitHub 返回的具体原因。
+- **提交时提示 “GitHub refused the submission”**：token 过期、权限不足，或仓库名不对。API 的终端输出中有 GitHub 返回的具体原因。
 - **总是提示页面已被修改**：GitHub 上目标分支的这个文件与编辑器读取的版本不同，通常是本地内容还没有推送，或服务器还没有部署最新的提交。

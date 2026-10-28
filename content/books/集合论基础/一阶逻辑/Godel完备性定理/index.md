@@ -1,10 +1,10 @@
 ---
 title: Gödel 完备性定理
-notices:
-  - name: 问题
-    items:
-      - 完备性定理证明的 Step 2 第 (2) 步中，由 $\neg\phi^x_c\not\in\Delta$ 和 Henkin 公理似乎应得到 $(\neg\forall x\phi)\not\in\Delta$，而不是 $(\neg\forall x\phi)\in\Delta$。
 ---
+
+<problems>
+- 完备性定理证明的 Step 2 第 (2) 步中，由 $\neg\phi^x_c\not\in\Delta$ 和 Henkin 公理似乎应得到 $(\neg\forall x\phi)\not\in\Delta$，而不是 $(\neg\forall x\phi)\in\Delta$。
+</problems>
 
 很显然，这一节的主要目的是像证明零阶语言即命题逻辑的可靠性和完备性一样，
 试着证明一阶逻辑的可靠性与完备性。Gödel于1929年首次得到了完备性的证明，并在1930年公之于世。

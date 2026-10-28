@@ -2,11 +2,11 @@
 title: 正合列
 aliases: [短正合列]
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”“性质”各节需要扩充。
 ---
+
+<problems>
+- “例子”“性质”各节需要扩充。
+</problems>
 
 **正合列**是指一列[[映射]]
 \[

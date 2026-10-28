@@ -1,14 +1,12 @@
 ---
 title: 极小多项式
 categories: [域论]
-notices:
-  - name: 消歧义
-    about: '[[域论]]中的概念'
-    see:
-      - topic: '[[线性代数]]中的同名概念'
-        page: 极小多项式（线性代数）
 navboxes: [域论]
 ---
+
+<disambiguation>
+本条目介绍的是[[域论]]中的概念。关于[[线性代数]]中的同名概念，请参见[[极小多项式（线性代数）]]。
+</disambiguation>
 
 在[[域论]]中，对[[域扩张]] $K \subset L$，
 域 $K$ 上的[[代数元]] $\alpha \in L$ 的**极小多项式**是 $K$ 上满足

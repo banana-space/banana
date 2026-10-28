@@ -1,12 +1,12 @@
 ---
 title: Noether 正规化
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 **Noether 正规化**是个[[交换代数]]定理，
 说的是[[域]]上的[[有限生成代数]]都是多项式环的[[有限同态|有限扩张]]。

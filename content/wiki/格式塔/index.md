@@ -1,10 +1,10 @@
 ---
 title: 格式塔
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充，缺少 $n$-平展、$n$-紧合的定义。
 ---
+
+<problems>
+- “性质”一节需要扩充，缺少 $n$-平展、$n$-紧合的定义。
+</problems>
 
 ::: convention
 在本文中，

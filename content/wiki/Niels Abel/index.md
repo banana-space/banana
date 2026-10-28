@@ -3,11 +3,11 @@ title: Niels Abel
 sort: abel niels
 aliases: [Abel]
 categories: [数学家]
-notices:
-  - name: 问题
-    items:
-      - “生平”一节需要扩充。
 ---
+
+<problems>
+- “生平”一节需要扩充。
+</problems>
 
 **Niels Henrik Abel** <person lang="no" ipa="/ˈnɪls ¹hɛn.rɪk ¹ɑː.bəl/" years="1802–1829" />，
 挪威数学家。

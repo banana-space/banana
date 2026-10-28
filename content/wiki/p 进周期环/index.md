@@ -1,12 +1,12 @@
 ---
 title: $p$ 进周期环
 categories: [$p$ 进几何]
-notices:
-  - name: 问题
-    items:
-      - “动机”一节中作用在平展上同调上的 Galois 群似乎应为 $\operatorname{Gal}(\bar{\mathbb{Q}}_p/\mathbb{Q}_p)$，而不是 $\operatorname{Gal}(\bar{\mathbb{Q}}/\mathbb{Q})$。
 navboxes: [P 进几何]
 ---
+
+<problems>
+- “动机”一节中作用在平展上同调上的 Galois 群似乎应为 $\operatorname{Gal}(\bar{\mathbb{Q}}_p/\mathbb{Q}_p)$，而不是 $\operatorname{Gal}(\bar{\mathbb{Q}}/\mathbb{Q})$。
+</problems>
 
 **$p$ 进周期环**是[[复代数几何]]中[[周期]]环的类比，
 这些环在 [[$p$ 进几何]]中有广泛应用。

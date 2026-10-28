@@ -2,11 +2,11 @@
 title: 数论
 aliases: [算术]
 categories: [数论]
-notices:
-  - name: 问题
-    items:
-      - “历史”“初等数论”各节需要扩充。
 ---
+
+<problems>
+- “历史”“初等数论”各节需要扩充。
+</problems>
 
 **数论**，也称为**算术**，是研究[[整数]]的数学分支。
 

@@ -22,7 +22,7 @@ f_X(x) = \begin{cases}
 表示$X$服从自由度为$n$的$\chi^2$分布。图 1
 给出了$\chi^2$分布概率密度函数的典型图像。
 
-![图 1：自由度为$n$的$\chi^2$分布概率密度函数图像。](Chi2-distribution_pdf.png?width=500)
+![图 1：自由度为$n$的$\chi^2$分布概率密度函数图像。](Chi2-distribution_pdf.png){width=500}
 
 我们马上将看到，$\chi^2$分布与来自正态总体的样本方差的分布直接相关。
 接下来先给出$\chi^2$分布自身的一些性质。
@@ -162,7 +162,7 @@ f_X(x) =
 这说明分布$t(n)$的概率密度函数在$n\rightarrow\infty$时
 将逐点收敛于标准正态分布的概率密度函数。
 
-![图 2：自由度为$n$的$t$分布概率密度函数图像。](Student-distribution_pdf.png?width=500)
+![图 2：自由度为$n$的$t$分布概率密度函数图像。](Student-distribution_pdf.png){width=500}
 
 以下定理给出了$t$分布的由来，其证明作为选读内容
 将在[第 6.3 节第 2 小节](@subsection:proof_t_distribution_basic)给出。
@@ -227,7 +227,7 @@ $(n_1,n_2)$的$F$分布，并用$X\sim F(n_1,n_2)$表示$X$服从
 自由度为$(n_1,n_2)$的$F$分布。图 3
 给出了$F$分布概率密度函数的典型图像。
 
-![图 3：$F$分布概率密度函数图像。](F-distribution_pdf.png?width=667)
+![图 3：$F$分布概率密度函数图像。](F-distribution_pdf.png){width=667}
 
 以下定理给出了$F$分布的由来，其证明作为选读内容
 将在[第 6.3 节第 3 小节](@subsection:proof_F_distribution_basic)给出。
@@ -368,7 +368,7 @@ F_{1-\alpha}(n_1,n_2) = \frac{1}{F_{\alpha}(n_2,n_1)},
 而由$F$分布的性质可知$1/X\sim F(n_2,n_1)$，故上式即意味着
 $F_\alpha(n_2,n_1)=1/F_{1-\alpha}(n_1,n_2)$。
 
-![图 4：四种抽样分布的上分位数图示。](Upper_quantile_sampling_distributions.png?width=667)
+![图 4：四种抽样分布的上分位数图示。](Upper_quantile_sampling_distributions.png){width=667}
 
 需要指出的是，以上讨论的几个分布的上$\alpha$分位数通常都不能表示为
 $\alpha$的初等函数。我们一般是通过查表或是数值计算的方法来获取这些

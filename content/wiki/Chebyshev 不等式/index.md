@@ -1,14 +1,12 @@
 ---
 title: Chebyshev 不等式
 categories: [概率论]
-notices:
-  - name: 消歧义
-    about: '[[概率论]]中的不等式'
-    see:
-      - topic: 初等数学的同名不等式
-        page: 排序不等式
 navboxes: [概率论]
 ---
+
+<disambiguation>
+本条目介绍的是[[概率论]]中的不等式。关于初等数学的同名不等式，请参见[[排序不等式]]。
+</disambiguation>
 
 **Chebyshev 不等式**是[[概率论]]中的不等式，
 它说明[[随机变量]]若存在[[方差]]，

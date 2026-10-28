@@ -2,11 +2,11 @@
 title: '$\mathrm{e}$'
 aliases: [E]
 categories: [实分析, 复分析, 常数]
-notices:
-  - name: 问题
-    items:
-      - “无理性”“超越性”各节需要扩充。
 ---
+
+<problems>
+- “无理性”“超越性”各节需要扩充。
+</problems>
 
 [[实数]] $\mathrm{e} \in \mathbb{R}$（有时称为 **Euler 数**）
 是[[指数函数]] $\exp$ 在 $1$ 处的取值，其近似值为

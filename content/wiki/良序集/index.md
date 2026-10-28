@@ -2,13 +2,13 @@
 title: 良序集
 aliases: [良序, 良序关系]
 categories: [序论]
-notices:
-  - name: 问题
-    items:
-      - “作为序数的解释”一节中，“将 $S\backslash \{ \perp \}$ 对应1”似乎应为将 $S\backslash \{ \perp \}$ 的最小元对应 1。
-      - “作为序数的解释”一节末尾，$r$ 似乎是 $S$ 与 $\operatorname{Im} r$（而不是 $(\operatorname{Im} r)^+$）之间的序同构。
 navboxes: [序论]
 ---
+
+<problems>
+- “作为序数的解释”一节中，“将 $S\backslash \{ \perp \}$ 对应1”似乎应为将 $S\backslash \{ \perp \}$ 的最小元对应 1。
+- “作为序数的解释”一节末尾，$r$ 似乎是 $S$ 与 $\operatorname{Im} r$（而不是 $(\operatorname{Im} r)^+$）之间的序同构。
+</problems>
 
 **良序集**是一[[全序集]]，满足对任意一个非空子集，在[[序论|序]][[关系]]下都有最小元。
 其上的序关系也称为**良序关系**或**良序**。

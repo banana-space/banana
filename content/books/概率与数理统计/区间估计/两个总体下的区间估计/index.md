@@ -1,10 +1,10 @@
 ---
 title: 两个总体下的区间估计
-notices:
-  - name: 问题
-    items:
-      - 开头定义 $\overline{X}_k$ 与 $S_k^2$ 的公式中，求和上限似乎应为 $n_k$ 而非 $n$，且 $S_k^2$ 的求和项似乎缺少平方。
 ---
+
+<problems>
+- 开头定义 $\overline{X}_k$ 与 $S_k^2$ 的公式中，求和上限似乎应为 $n_k$ 而非 $n$，且 $S_k^2$ 的求和项似乎缺少平方。
+</problems>
 
 在某些场合下，我们可能会面临对两个总体进行比较的问题。例如，
 为了验证一种新的食品添加剂在某个剂量下是否具有毒性，我们可能需要
@@ -169,7 +169,7 @@ F_{1-\alpha/2}(n_1\!-\!1,n_2\!-\!1)
 \right].
 \]
 
-![两个正态总体下，利用枢轴量$\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2}$求解方差之比的置信区间。](Confidence_interval_normal_var_ratio_F.png?width=750)
+![两个正态总体下，利用枢轴量$\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2}$求解方差之比的置信区间。](Confidence_interval_normal_var_ratio_F.png){width=750}
 
 ## 大样本情形下两个伯努利总体比例之差的区间估计* {@subsection:CI_two_Bernoulli_proportion}
 

@@ -1,10 +1,10 @@
 ---
 title: 基本定义
-notices:
-  - name: 问题
-    items:
-      - “轨道分解”注记中的公式 $X=\coprod_{g\in G}\mathrm{orb}(x)$ 的下标似乎应为对轨道代表元 $x$ 取无交并，而不是对 $g\in G$。
 ---
+
+<problems>
+- “轨道分解”注记中的公式 $X=\coprod_{g\in G}\mathrm{orb}(x)$ 的下标似乎应为对轨道代表元 $x$ 取无交并，而不是对 $g\in G$。
+</problems>
 
 ::: definition [群作用] {@definition-action-de-groupe}
 群$G$在集合$X$上的一个 **（左）作用**指的是映射：

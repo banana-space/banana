@@ -1,11 +1,11 @@
 ---
 title: Mittag-Leffler 模
 categories: [模论, 同调代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节命题的第 3 条中 $j$ 没有引入；按通常的表述，这一条似乎应为“存在 $k\ge i$，使得对任意 $R$-右模 $K$ 都有 $\ker(K\otimes_RM_i\to K\otimes_RM)=\ker(K\otimes_RM_i\to K\otimes_RM_k)$”。
 ---
+
+<problems>
+- “性质”一节命题的第 3 条中 $j$ 没有引入；按通常的表述，这一条似乎应为“存在 $k\ge i$，使得对任意 $R$-右模 $K$ 都有 $\ker(K\otimes_RM_i\to K\otimes_RM)=\ker(K\otimes_RM_i\to K\otimes_RM_k)$”。
+</problems>
 
 **Mittag-Leffler 模**是一类特殊的[[模]]，
 指其写成[[有限表现模]]的[[正向极限]]之后，

@@ -2,11 +2,11 @@
 title: Lindemann–Weierstraß 定理
 aliases: [Lindemann-Weierstraß 定理]
 categories: [超越数论]
-notices:
-  - name: 问题
-    items:
-      - “推论”一节第一、三个推论的证明中所取的 $n$、$u$ 似乎应为所引定理中的 $r$、$v_1$（取 $r=1$）。
 ---
+
+<problems>
+- “推论”一节第一、三个推论的证明中所取的 $n$、$u$ 似乎应为所引定理中的 $r$、$v_1$（取 $r=1$）。
+</problems>
 
 **Lindemann–Weierstraß 定理**
 给出一个[[复数]]是[[超越数]]的充分条件。

@@ -2,12 +2,12 @@
 title: 万有构造
 aliases: [万有性质, 泛性质, 泛构造]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **万有构造**（或**泛构造**）是[[范畴论]]中的一类构造，
 常见于数学的诸多领域中，

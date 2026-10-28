@@ -2,11 +2,11 @@
 title: 结合运算
 aliases: [结合律]
 categories: [一般代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中的命题缺少证明。
 ---
+
+<problems>
+- “性质”一节中的命题缺少证明。
+</problems>
 
 **结合运算**是一类[[二元运算]]，
 满足**结合律**

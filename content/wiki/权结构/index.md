@@ -2,11 +2,11 @@
 title: 权结构
 aliases: [衡结构]
 categories: [同调代数, $K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “与 t 结构的关系”一节需要扩充。
 ---
+
+<problems>
+- “与 t 结构的关系”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

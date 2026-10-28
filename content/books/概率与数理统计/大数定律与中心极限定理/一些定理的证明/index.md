@@ -1,10 +1,10 @@
 ---
 title: '（${}^\star$）一些定理的证明'
-notices:
-  - name: 问题
-    items:
-      - '“Borel–Cantelli引理与强大数定律”一节强大数定律的证明中，Chebyshev 不等式给出的上界似乎应为 $\frac{\sigma^2}{n^2\epsilon^2}$，相应地级数的上界似乎应为 $\frac{\sigma^2}{\epsilon^2}\sum_{n=1}^\infty \frac{1}{n^2}$。'
 ---
+
+<problems>
+- “Borel–Cantelli引理与强大数定律”一节强大数定律的证明中，Chebyshev 不等式给出的上界似乎应为 $\frac{\sigma^2}{n^2\epsilon^2}$，相应地级数的上界似乎应为 $\frac{\sigma^2}{\epsilon^2}\sum_{n=1}^\infty \frac{1}{n^2}$。
+</problems>
 
 ## 几乎处处收敛与依概率收敛* {@subsection:convergence_as_in_prob}
 

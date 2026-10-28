@@ -1,11 +1,11 @@
 ---
 title: Euler 函数
 categories: [初等数论, 解析数论]
-notices:
-  - name: 问题
-    items:
-      - “倒数和”一节中由分部求和得到的 $S_2(x)$ 的表达式里，${S_1(x)\over x}$ 一项的符号似乎应为负（不影响其后的估计）。
 ---
+
+<problems>
+- “倒数和”一节中由分部求和得到的 $S_2(x)$ 的表达式里，${S_1(x)\over x}$ 一项的符号似乎应为负（不影响其后的估计）。
+</problems>
 
 在数论中，
 Euler 函数 $\varphi(n)$

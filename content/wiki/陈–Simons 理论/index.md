@@ -1,12 +1,12 @@
 ---
 title: 陈–Simons 理论
 categories: [规范场论, 拓扑量子场论]
-notices:
-  - name: 问题
-    items:
-      - “量子场论”一节需要扩充。
 navboxes: [规范场论, 拓扑量子场论]
 ---
+
+<problems>
+- “量子场论”一节需要扩充。
+</problems>
 
 **陈–Simons 理论**是一种[[量子场论]]，
 也是一种[[拓扑量子场论]]。

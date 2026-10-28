@@ -1,10 +1,10 @@
 ---
 title: 应用：三等分已知角
-notices:
-  - name: 问题
-    items:
-      - 引理（$[L:K]=2$ 时存在 $x\in L-K$ 使 $x^2\in K$）对一般的域似乎不成立：证明中的配方需要除以 $2$，在特征 $2$ 的域上失效。本页只用到 $\mathbb{R}$ 的子域的情形。
 ---
+
+<problems>
+- 引理（$[L:K]=2$ 时存在 $x\in L-K$ 使 $x^2\in K$）对一般的域似乎不成立：证明中的配方需要除以 $2$，在特征 $2$ 的域上失效。本页只用到 $\mathbb{R}$ 的子域的情形。
+</problems>
 
 给定${\mathbb{R}}^2$的子集$\mathscr{S}$，
 由$\mathscr{S}$中两点$A,B\in \mathscr{S}$所决定的直线被称为 **$\mathscr{S}$-直线**；

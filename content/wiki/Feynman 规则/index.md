@@ -2,13 +2,13 @@
 title: Feynman 规则
 categories: [微扰量子场论]
 navboxes: [量子场论]
-notices:
-  - name: 问题
-    items:
-      - “陈述”一节中关于 $S$ 矩阵的定理缺少规则的具体内容。
-      - “证明”“例子”各节需要扩充。
-      - “例子”一节中，自由电子传播子的 $\langle \psi(x)\bar{\psi}(x) \rangle$ 似乎应为 $\langle \psi(x)\bar{\psi}(y) \rangle$，两个传播子积分中的指数 $\mathrm{e}^{-\mathrm{i} (x - y)}$ 似乎缺少动量因子（应为 $\mathrm{e}^{-\mathrm{i} p \cdot (x - y)}$、$\mathrm{e}^{-\mathrm{i} k \cdot (x - y)}$）；光子传播子中的 $g^{\mu\nu} (1 - \xi) \frac{k^\mu k^\nu}{k^2}$ 似乎缺少减号，应为 $g^{\mu\nu} - (1 - \xi) \frac{k^\mu k^\nu}{k^2}$。
 ---
+
+<problems>
+- “陈述”一节中关于 $S$ 矩阵的定理缺少规则的具体内容。
+- “证明”“例子”各节需要扩充。
+- “例子”一节中，自由电子传播子的 $\langle \psi(x)\bar{\psi}(x) \rangle$ 似乎应为 $\langle \psi(x)\bar{\psi}(y) \rangle$，两个传播子积分中的指数 $\mathrm{e}^{-\mathrm{i} (x - y)}$ 似乎缺少动量因子（应为 $\mathrm{e}^{-\mathrm{i} p \cdot (x - y)}$、$\mathrm{e}^{-\mathrm{i} k \cdot (x - y)}$）；光子传播子中的 $g^{\mu\nu} (1 - \xi) \frac{k^\mu k^\nu}{k^2}$ 似乎缺少减号，应为 $g^{\mu\nu} - (1 - \xi) \frac{k^\mu k^\nu}{k^2}$。
+</problems>
 
 **Feynman 规则**为每个 [[Feynman 图]]赋予一个数。
 从而对所有满足条件的 Feynman 图相应的数求和可以得到[[多点函数]]或

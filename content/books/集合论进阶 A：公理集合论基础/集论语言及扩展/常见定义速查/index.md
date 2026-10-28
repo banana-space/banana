@@ -1,12 +1,12 @@
 ---
 title: 常见定义速查
-notices:
-  - name: 问题
-    items:
-      - $\mathrm{isRelOn}(R,x)$的定义似乎循环引用了自身，右边似乎应为$\mathrm{isRel}(R,x,x)$；$\mathrm{isFunOn}(f,x,y)$的定义中$\mathrm{isRelOn}(R,x,y)$似乎应为$\mathrm{isRel}(f,x,y)$。
-      - 等价关系$\mathrm{isEquiOn}$的定义中$\mathrm{isPOon}$似乎应为$\mathrm{isPreOon}$（偏序加对称只给出恒等关系）。
-      - 良基关系$\mathrm{isWFOn}$与良序关系$\mathrm{isWOOn}$的定义中，$\forall b\in y((a,b)\in R)$似乎应为$\forall b\in y(\neg((b,a)\in R))$（$R$-极小元）。
 ---
+
+<problems>
+- $\mathrm{isRelOn}(R,x)$的定义似乎循环引用了自身，右边似乎应为$\mathrm{isRel}(R,x,x)$；$\mathrm{isFunOn}(f,x,y)$的定义中$\mathrm{isRelOn}(R,x,y)$似乎应为$\mathrm{isRel}(f,x,y)$。
+- 等价关系$\mathrm{isEquiOn}$的定义中$\mathrm{isPOon}$似乎应为$\mathrm{isPreOon}$（偏序加对称只给出恒等关系）。
+- 良基关系$\mathrm{isWFOn}$与良序关系$\mathrm{isWOOn}$的定义中，$\forall b\in y((a,b)\in R)$似乎应为$\forall b\in y(\neg((b,a)\in R))$（$R$-极小元）。
+</problems>
 
 我们来考虑一个最简单的弱集合论。
 

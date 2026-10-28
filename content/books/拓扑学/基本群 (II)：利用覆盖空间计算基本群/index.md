@@ -1,12 +1,12 @@
 ---
 title: 基本群 (II)：利用覆盖空间计算基本群
-notices:
-  - name: 问题
-    items:
-      - 本节主要定理（商空间的基本群同构于 $G$）的证明中，$B$ 似乎指商空间 ${}_G\backslash X$；证明满同态时取的 $\gamma \in \pi_{1}(X,x)$ 似乎应为 $\gamma \in \pi_{1}(B,p(x))$。
-      - 严格同伦提升的命题中，“$\widetilde{b} \in B$ 为 $E$ 上的点”似乎应为 $b \in B$、$\widetilde{b} \in E$。
-      - 提升定理证明中的记号似乎不一致：引理的证明里 $U\times \{y\}$ 似乎应为 $U\times \{y_1\}$，$U_1$ 似乎应为 $U'$；证明 $C(x_0)$ 闭时的 $V_1$ 似乎应为 $V'$，$C_0(x_0)$ 似乎应为 $C(x_0)$。
 ---
+
+<problems>
+- 本节主要定理（商空间的基本群同构于 $G$）的证明中，$B$ 似乎指商空间 ${}_G\backslash X$；证明满同态时取的 $\gamma \in \pi_{1}(X,x)$ 似乎应为 $\gamma \in \pi_{1}(B,p(x))$。
+- 严格同伦提升的命题中，“$\widetilde{b} \in B$ 为 $E$ 上的点”似乎应为 $b \in B$、$\widetilde{b} \in E$。
+- 提升定理证明中的记号似乎不一致：引理的证明里 $U\times \{y\}$ 似乎应为 $U\times \{y_1\}$，$U_1$ 似乎应为 $U'$；证明 $C(x_0)$ 闭时的 $V_1$ 似乎应为 $V'$，$C_0(x_0)$ 似乎应为 $C(x_0)$。
+</problems>
 
 这一小节介绍如何用覆盖空间来计算基本群。
 我们先节选一段 Analysis Situs 关于基本群的原文。
@@ -272,7 +272,7 @@ Poincaré 注意到沿着所谓“发卡型回路（lacets ramène）”延拓�
 @proposition:homotopy-lifting 可以帮助我们区分基本群中的元素是否相等。
 考虑 \(\mathbb{R}^{3}\) 中嵌入的具有两个环柄的曲面 \(S\)，它的一个覆盖空间如下图所示。
 
-![图 1：一张手绘的图](2-torus-covering.jpg?width=150)
+![图 1：一张手绘的图](2-torus-covering.jpg){width=150}
 
 在 \(S\) 上，黑色的回路的同伦类记为 \(\alpha\)，而红色记为 \(\beta\)。
 我们断言 \(\alpha\beta \neq \beta\alpha\)。事实上，利用图示的覆盖空间，

@@ -2,12 +2,12 @@
 title: Coxeter 群
 aliases: [Coxeter 系]
 categories: [群论]
-notices:
-  - name: 问题
-    items:
-      - “仿射 Coxeter 群的分类”一节需要扩充。
-      - “长度与偏序”一节的交换条件中，条件 $\ell(w) \leq \ell(sw)$ 似乎应为 $\ell(sw) < \ell(w)$。
 ---
+
+<problems>
+- “仿射 Coxeter 群的分类”一节需要扩充。
+- “长度与偏序”一节的交换条件中，条件 $\ell(w) \leq \ell(sw)$ 似乎应为 $\ell(sw) < \ell(w)$。
+</problems>
 
 **Coxeter 群**是一类群，
 它由一些反射生成，各个反射之间满足一定的关系（@def-coxeter-group）。

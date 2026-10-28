@@ -1,10 +1,10 @@
 ---
 title: 一些例子
-notices:
-  - name: 问题
-    items:
-      - '“Pauli矩阵与自旋”一节末尾的 $\text{Spin}(3,1)=SL^*(2,\mathbb{C})$ 似乎不成立：$\text{Spin}(3,1)$ 通常同构于 $SL(2,\mathbb{C})$，而 $\det A=-1$ 的矩阵 $A=iB$（$B\in SL(2,\mathbb{C})$）与 $B$ 给出相同的变换 $g_A=g_B$。'
 ---
+
+<problems>
+- “Pauli矩阵与自旋”一节末尾的 $\text{Spin}(3,1)=SL^*(2,\mathbb{C})$ 似乎不成立：$\text{Spin}(3,1)$ 通常同构于 $SL(2,\mathbb{C})$，而 $\det A=-1$ 的矩阵 $A=iB$（$B\in SL(2,\mathbb{C})$）与 $B$ 给出相同的变换 $g_A=g_B$。
+</problems>
 
 ## 极分解*
 

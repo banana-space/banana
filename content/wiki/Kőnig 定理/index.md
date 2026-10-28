@@ -2,12 +2,12 @@
 title: Kőnig 定理
 aliases: [König 定理, Konig 定理, Kőnig 不等式, Konig 不等式]
 categories: [集合论]
-notices:
-  - name: 区分
-    pages:
-      - Kőnig 引理
 navboxes: [集合论]
 ---
+
+<disambiguation>
+注意与[[Kőnig 引理]]区分。
+</disambiguation>
 
 **Kőnig 定理**，或称 **Kőnig 不等式**，
 是基数运算中的重要结论，大体说的是，如一族基数对应地小于另一族基数，

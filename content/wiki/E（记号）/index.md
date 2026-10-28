@@ -1,16 +1,16 @@
 ---
 title: E（记号）
 categories: [记号]
-notices:
-  - name: 消歧义
-    about: 字母 E 的记号
-    see:
-      - topic: 常数 e
-        page: '$\mathrm{e}$'
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Ε]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+本条目介绍的是字母 E 的记号。关于常数 e，请参见[[$\mathrm{e}$]]。
+</disambiguation>
+
+<disambiguation>
+注意区分本文与希腊字母“[[Ε]]”。
+</disambiguation>
 
 拉丁字母 **E，e** 用在以下记号中：
 

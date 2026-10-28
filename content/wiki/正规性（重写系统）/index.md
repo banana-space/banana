@@ -1,11 +1,11 @@
 ---
 title: 正规性（重写系统）
 categories: [重写系统]
-notices:
-  - name: 消歧义
-    see:
-      - page: 正规
 ---
+
+<disambiguation>
+关于其他含义，请参见[[正规]]。
+</disambiguation>
 
 在[[重写系统]]中，**正规性**说的是该重写系统在不同程度上满足的“停机性”。
 

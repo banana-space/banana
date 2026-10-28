@@ -1,12 +1,12 @@
 ---
 title: G-环
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

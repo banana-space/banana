@@ -2,11 +2,11 @@
 title: '$\mathrm{B}$ 函数'
 aliases: [Beta 函数]
 categories: [复分析, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - '“定义”一节中的积分似乎只在 $\operatorname{Re} a > 0$、$\operatorname{Re} b > 0$ 时收敛，正文没有说明其他 $a, b$ 处的定义（解析延拓）。'
 ---
+
+<problems>
+- “定义”一节中的积分似乎只在 $\operatorname{Re} a > 0$、$\operatorname{Re} b > 0$ 时收敛，正文没有说明其他 $a, b$ 处的定义（解析延拓）。
+</problems>
 
 **$\mathrm{B}$ 函数**是[[组合数]]的推广，
 是关于两个复变量的[[亚纯函数]]。

@@ -1,11 +1,11 @@
 ---
 title: 中心极限定理
-notices:
-  - name: 问题
-    items:
-      - '中心极限定理的证明中，第一个显示公式的第二个等号右侧的期望内似乎缺少指数函数，即似乎应为 $\mathbb{E}\!\left[\exp\left(\frac{t}{\sqrt{n}}Y_i\right)\right]$。'
-      - '中心极限定理证明之后的注中，特征函数的定义式左侧似乎应为 $\mathbb{E}[\cos (tY_1)] + \mathrm{i}\,\mathbb{E}[\sin (tY_1)]$。'
 ---
+
+<problems>
+- 中心极限定理的证明中，第一个显示公式的第二个等号右侧的期望内似乎缺少指数函数，即似乎应为 $\mathbb{E}\!\left[\exp\left(\frac{t}{\sqrt{n}}Y_i\right)\right]$。
+- 中心极限定理证明之后的注中，特征函数的定义式左侧似乎应为 $\mathbb{E}[\cos (tY_1)] + \mathrm{i}\,\mathbb{E}[\sin (tY_1)]$。
+</problems>
 
 对于一列独立同分布的随机变量$X_1,X_2,\ldots$，
 大数定律保证了样本均值$\overline{X}_n$时将（在某种意义下）收敛于期望，

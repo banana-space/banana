@@ -1,6 +1,6 @@
-// 参考文献列表（scripts/prebuild/bibliography.mjs）：没有项目符号，左对齐，各条悬挂缩进 2em；
+// 参考文献列表（packages/bananamark/src/syntax/bibliography.mjs）：没有项目符号，左对齐，各条悬挂缩进 2em；
 // 标签加粗写在开头，版本（译本、再版等）在条目下方缩进，资料链接在末尾。
-.bibliography {
+.bm-bibliography {
   margin: 1.6rem 0;
   font-size: 1.5rem;
   line-height: 1.8;
@@ -22,7 +22,7 @@
   }
 }
 
-.bibliography-entry {
+.bm-bibliography-entry {
   margin: 0 0 1.4rem;
 
   > p {
@@ -31,29 +31,32 @@
   }
 }
 
-.bibliography-version {
+.bm-bibliography-version {
   margin-top: 0.2rem;
   padding-left: 2em;
 }
 
 // 从正文的引用跳转到的条目：浅橙色底色与边框，停留片刻后淡出（再次点击同一引用时，site.js 重新开始）。
-// 外边距与内边距不变，淡出时文字不移动。
+// 框伸出文字之外，负的外边距抵消内边距与边框：条目的位置与不是目标时相同，上下不多出空白，淡出时文字也不移动。
 $bibliography-target-background: #fff2e2;
 $bibliography-target-border: #f7cc9b;
 $bibliography-target-border-width: 1.5px;
+$bibliography-target-padding-block: 0.4rem;
+$bibliography-target-padding-inline: 1rem;
 
-.bibliography-entry:target,
-.bibliography-version:target {
-  margin-left: -1rem;
-  margin-right: -1rem;
-  padding: calc(0.4rem - #{$bibliography-target-border-width}) calc(1rem - #{$bibliography-target-border-width});
+.bm-bibliography-entry:target,
+.bm-bibliography-version:target {
+  margin: (-$bibliography-target-padding-block) (-$bibliography-target-padding-inline) (1.4rem - $bibliography-target-padding-block);
+  padding: calc(#{$bibliography-target-padding-block} - #{$bibliography-target-border-width}) calc(#{$bibliography-target-padding-inline} - #{$bibliography-target-border-width});
   border: $bibliography-target-border-width solid transparent;
   border-radius: 8px;
   animation: bibliography-target 4s ease-in forwards;
 }
 
-.bibliography-version:target {
-  padding-left: calc(2em + 1rem - #{$bibliography-target-border-width});
+.bm-bibliography-version:target {
+  margin-top: 0.2rem - $bibliography-target-padding-block;
+  margin-bottom: -$bibliography-target-padding-block;
+  padding-left: calc(2em + #{$bibliography-target-padding-inline} - #{$bibliography-target-border-width});
 }
 
 @keyframes bibliography-target {
@@ -69,18 +72,18 @@ $bibliography-target-border-width: 1.5px;
   }
 }
 
-.bibliography-label {
+.bm-bibliography-label {
   margin-right: 1.1em;
   font-weight: 600;
 }
 
-.bibliography-relation {
+.bm-bibliography-relation {
   color: $muted-color;
   font-weight: 600;
 }
 
 // 链接到传记条目的作者：保持文字颜色，以浅色下划线标出；悬停时下划线与文字一同变色。
-.bibliography-names a {
+.bm-bibliography-names a {
   color: inherit;
   border-bottom: 1px solid $light-text-color;
   transition: color 0.15s ease-in, border-bottom-color 0.15s ease-in;
@@ -92,7 +95,7 @@ $bibliography-target-border-width: 1.5px;
   }
 }
 
-.bibliography-links {
+.bm-bibliography-links {
   color: $muted-color;
   font-size: 0.9em;
 

@@ -2,12 +2,12 @@
 title: Stone–Čech 紧化
 aliases: [Stone–Cech 紧化, Stone-Cech 紧化, Stone-Čech 紧化]
 categories: [一般拓扑]
-notices:
-  - name: 问题
-    items:
-      - “用超滤子”一节需要扩充。
-      - “例子”一节中离散空间的 Stone–Čech 紧化尚未写出。
 ---
+
+<problems>
+- “用超滤子”一节需要扩充。
+- “例子”一节中离散空间的 Stone–Čech 紧化尚未写出。
+</problems>
 
 **Stone–Čech 紧化**是个[[点集拓扑]]构造，
 典范地把[[拓扑空间]]变得[[紧空间|紧]] [[Hausdorff 空间|Hausdorff]]。

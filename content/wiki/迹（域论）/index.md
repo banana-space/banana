@@ -2,16 +2,17 @@
 title: 迹（域论）
 aliases: [迹（代数数论）, 迹（数论）]
 categories: [域论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 迹（多义词）
-  - name: 问题
-    items:
-      - “性质”一节第一个命题中的 $f_\alpha(t)$ 没有定义（由证明看是 $T_\alpha$ 的特征多项式）。
-      - “性质”一节需要扩充，后两个命题缺少证明。
 navboxes: [域论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[迹（多义词）]]。
+</disambiguation>
+
+<problems>
+- “性质”一节第一个命题中的 $f_\alpha(t)$ 没有定义（由证明看是 $T_\alpha$ 的特征多项式）。
+- “性质”一节需要扩充，后两个命题缺少证明。
+</problems>
 
 对[[域]]的[[有限扩张]] $L/K$，其**迹**是一个 $K$-[[线性映射]]
 $\operatorname{Tr}_{L/K} \colon L \to K$。

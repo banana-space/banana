@@ -1,13 +1,11 @@
 ---
 title: 满射
 categories: [集合论]
-notices:
-  - name: 消歧义
-    about: '[[集合]]间的满射'
-    see:
-      - topic: '[[代数几何]]中的满射'
-        page: 满射（代数几何）
 ---
+
+<disambiguation>
+本条目介绍的是[[集合]]间的满射。关于[[代数几何]]中的满射，请参见[[满射（代数几何）]]。
+</disambiguation>
 
 [[集合]]间[[映射 (集合论)|映射]] $f \colon X \to Y$
 称为**满射**，

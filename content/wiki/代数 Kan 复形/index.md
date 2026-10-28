@@ -1,12 +1,12 @@
 ---
 title: 代数 Kan 复形
 categories: [同伦代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
-      - 关于 $K_{2,2}$ 的低维例子中，由线段 $\overline{xy}$、$\overline{yz}$ 构成的角按本文的定义似乎是 $\Lambda_1[2]$（对应 $K_{2,1}$），而不是 $\Lambda_2[2]$。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+- 关于 $K_{2,2}$ 的低维例子中，由线段 $\overline{xy}$、$\overline{yz}$ 构成的角按本文的定义似乎是 $\Lambda_1[2]$（对应 $K_{2,1}$），而不是 $\Lambda_2[2]$。
+</problems>
 
 **代数 Kan 复形**是 [[$\infty$-群胚]]的一种定义。
 

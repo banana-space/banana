@@ -1,12 +1,12 @@
 ---
 title: Pell 方程
 categories: [初等数论]
-notices:
-  - name: 问题
-    items:
-      - 不符合本站的写作风格。
 navboxes: [初等数论]
 ---
+
+<problems>
+- 不符合本站的写作风格。
+</problems>
 
 在[[初等数论]]中，**Pell 方程**是指形如
 \[

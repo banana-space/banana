@@ -2,11 +2,11 @@
 title: Riemann 积分
 aliases: [黎曼积分, Riemann 可积]
 categories: [实分析]
-notices:
-  - name: 问题
-    items:
-      - “性质”“可积的条件”各节需要扩充。
 ---
+
+<problems>
+- “性质”“可积的条件”各节需要扩充。
+</problems>
 
 **Riemann 积分**是定义[[函数]]的[[积分]]的一种方法。
 直观地说，如果把积分看作函数的[[图像]]与坐标轴围成的[[面积]]，

@@ -1,11 +1,11 @@
 ---
 title: 未知参数的点估计
-notices:
-  - name: 问题
-    items:
-      - '“最小二乘估计的偏差与均方误差”一节中，$\mathbb{E}\!\left[\widehat\beta_1\right]$ 的计算第三行含 $\beta_0$ 的一项似乎多除了一个 $S_{xx}$（该项为 $0$，不影响结果）。'
-      - '“最小二乘估计的偏差与均方误差”一节中，$\operatorname{Var}(\widehat\beta_0)$ 的计算里，展开后的交叉项似乎应为 $-\frac{2\overline{x}}{nS_{xx}}(x_i-\overline{x})$，下一行的 $\frac{\overline{x}^2}{S_{xx}}\sum_{i=1}^n (x_i-\overline{x})^2$ 似乎应为 $\frac{\overline{x}^2}{S_{xx}^2}\sum_{i=1}^n (x_i-\overline{x})^2$（不影响最终结果）。'
 ---
+
+<problems>
+- “最小二乘估计的偏差与均方误差”一节中，$\mathbb{E}\!\left[\widehat\beta_1\right]$ 的计算第三行含 $\beta_0$ 的一项似乎多除了一个 $S_{xx}$（该项为 $0$，不影响结果）。
+- “最小二乘估计的偏差与均方误差”一节中，$\operatorname{Var}(\widehat\beta_0)$ 的计算里，展开后的交叉项似乎应为 $-\frac{2\overline{x}}{nS_{xx}}(x_i-\overline{x})$，下一行的 $\frac{\overline{x}^2}{S_{xx}}\sum_{i=1}^n (x_i-\overline{x})^2$ 似乎应为 $\frac{\overline{x}^2}{S_{xx}^2}\sum_{i=1}^n (x_i-\overline{x})^2$（不影响最终结果）。
+</problems>
 
 ## 系数$\beta_0$与$\beta_1$的点估计*
 
@@ -325,7 +325,7 @@ V = \left\{\beta_0 \mathbf{1}+\beta_1\boldsymbol{x} \mid
 上述方程组正是normal equations。
 :::
 
-![图 1：Normal equations几何直观示意图。](Normal_equations_geometric.png?width=500)
+![图 1：Normal equations几何直观示意图。](Normal_equations_geometric.png){width=500}
 
 ## 最小二乘估计的偏差与均方误差*
 

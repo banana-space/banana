@@ -1,12 +1,12 @@
 ---
 title: 光滑映射
 categories: [微分几何]
-notices:
-  - name: 问题
-    items:
-      - “对流形的映射”一节的定义中，复合映射 $\psi^{-1} \circ f \circ \varphi$ 的定义域似乎应为 $\varphi^{-1} (f^{-1} (\psi (V)))$，而非 $\varphi^{-1} (\psi (V))$。
 navboxes: [微分几何]
 ---
+
+<problems>
+- “对流形的映射”一节的定义中，复合映射 $\psi^{-1} \circ f \circ \varphi$ 的定义域似乎应为 $\varphi^{-1} (f^{-1} (\psi (V)))$，而非 $\varphi^{-1} (\psi (V))$。
+</problems>
 
 在[[微分几何]]中，**光滑映射**是指可以求任意多阶[[偏导数]]的[[映射]]，
 这里的映射可以是 [[Euclid 空间]]之间的映射，

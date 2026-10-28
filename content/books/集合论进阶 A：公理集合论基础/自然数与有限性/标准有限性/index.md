@@ -1,10 +1,10 @@
 ---
 title: 标准有限性
-notices:
-  - name: 问题
-    items:
-      - '定理“自然数有二重卡氏幂……”之后的引理的证明中，$\{x\}\times\mathrm{Succ}(n)=(x\times\{n\})\cup\{(x,n)\}$ 右边的 $x\times\{n\}$ 似乎应为 $\{x\}\times n$。'
 ---
+
+<problems>
+- 定理“自然数有二重卡氏幂……”之后的引理的证明中，$\{x\}\times\mathrm{Succ}(n)=(x\times\{n\})\cup\{(x,n)\}$ 右边的 $x\times\{n\}$ 似乎应为 $\{x\}\times n$。
+</problems>
 
 本节讨论依赖于自然数概念的标准有限性，并讨论其性质。
 

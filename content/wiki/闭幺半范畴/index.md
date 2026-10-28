@@ -2,12 +2,12 @@
 title: 闭幺半范畴
 aliases: [幂函子]
 categories: [范畴代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 在[[范畴论]]中，
 **闭幺半范畴**是指具有[[张量–幂伴随]]的[[幺半范畴]]。

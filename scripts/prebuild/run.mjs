@@ -1,26 +1,32 @@
 import { t } from '../shared/i18n.mjs';
-import { authorTagNames, generatedShortcodeProblem, shortcodeOffset, shortcodeText } from './tags.mjs';
 import { performance } from 'node:perf_hooks';
 import { stepTimer } from '../shared/timing.mjs';
 import { readFile, readlink, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { parse, stringify } from 'yaml';
-import { transformMarkup } from './markup.mjs';
-import { directoryName, pageName, nameList, pageTitleMarkup } from './names.mjs';
-import { transformDocument } from './structure.mjs';
-import { personIndex } from './bibliography.mjs';
+import { pack, unpack } from '../shared/compress.mjs';
+import { Document, parse, stringify } from 'yaml';
+import { transformFragment } from 'bananamark/internal/markup.mjs';
+import { directoryName, pageName, nameList, pageTitleMarkup } from '../shared/names.mjs';
+import { transformDocument } from 'bananamark/internal/structure.mjs';
+import { personIndex } from './people.mjs';
 import { eachLimit, publishContent } from './publish.mjs';
 import { categoryTree } from './categories.mjs';
 import { gitDates } from './git-dates.mjs';
 import { pageHistories } from './page-history.mjs';
 import { recentChanges } from './recent-changes.mjs';
 import { titleHTML } from '../shared/display-title.mjs';
-import { defaultNumbering, numbering, pageNumbering } from './numbering.mjs';
 import { discoverCollections, isPublished, lectureGroups, prepareCollections } from './collections.mjs';
 import { componentLoader } from './components.mjs';
-import { markPattern, markSourceLines } from './source-lines.mjs';
+import { markPattern, markSourceLines } from 'bananamark/internal/source-lines.mjs';
 import { pageURL } from '../shared/pages.mjs';
 import { loadReadingDictionary, normalizeReading, readingMetadata } from './reading.mjs';
+import { siteRenderer } from './render.mjs';
+import { environments } from '../shared/environments.mjs';
+import { pageTypography } from '../shared/typography.mjs';
+import { config } from '../shared/config.mjs';
+import { baseURL } from '../shared/urls.mjs';
+import { renderCache } from './render-cache.mjs';
+import { siteSyntax } from '../shared/syntax.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 
@@ -40,12 +46,14 @@ function pathAddress(path) {
  *
  * - destination：生成目录，默认 .build/content。
  * - pages：只转换这些页面（content/ 内的相对路径）的正文，其余页面只保留 front matter，
- *   供只渲染少数页面的预览使用；书册页面之间互相引用，总是全部转换。
+ *   供只看少数页面的检查使用；书册页面之间互相引用，总是全部转换，但也只有这些页面的正文渲染成 HTML。
  * - check：收集所有错误而不是在第一个错误处停止，且不写入生成目录。
  * - frontMatterOnly：所有页面（包括书册页面）只写 front matter，正文留空；update() 仍返回完整页面。
- *   供预览接口的 Hugo 使用：页面正文占它绝大部分内存，而渲染一个页面只需要其他页面的 front matter。
- * - publish：为 false 时不写入生成目录，由调用者用 files 发布（常驻预览服务要在 Hugo 监听时先知道哪些文件会变）。
- * - history：页面历史的数据写入的目录（Hugo 将 .build/history 发布为 /history/data/），默认只有写入
+ *   供预览接口使用：页面正文占内存的绝大部分，而渲染一个页面只需要其他页面的 front matter。
+ * - publish：为 false 时不写入生成目录，由调用者用 files 发布（常驻预览服务要先知道哪些文件会变）。
+ * - renderCache：渲染好的正文保存在这个目录中，下次运行时页面的文档与渲染时查询的全站信息都没变的就不再渲染
+ *   （render-cache.mjs；serve 用）。渲染了全部页面的运行之后，删去这次没用到的。
+ * - history：页面历史的数据写入的目录（站点生成器将 .build/history 发布为 /history/data/），默认只有写入
  *   默认生成目录的完整预处理才写；为 false 时不写。
  *
  * 返回 { errors, links, collections, update }：errors 为错误对象列表（仅 check 模式），
@@ -53,21 +61,7 @@ function pathAddress(path) {
  * collections 为各书册根目录（content/ 内的相对路径，以 / 结尾），
  * update 供常驻预览服务在页面源文件变化后增量转换（见下）。
  */
-/**
- * Checks that the shortcode templates in directory not starting with "_" (those not internal) are exactly the
- * authors' tags: a new template must come with its tag and parameters here, or be internal.
- */
-async function checkShortcodeTemplates(directory) {
-  const names = (await readdir(directory)).filter(file => file.endsWith('.html')).map(file => file.slice(0, -5));
-  const exposed = names.filter(name => !name.startsWith('_')).sort();
-  const expected = [...authorTagNames].sort();
-  if (exposed.join() !== expected.join()) {
-    throw new Error(`layouts/shortcodes: the shortcodes not starting with "_" (${exposed.join(', ')}) must be the authors' tags in scripts/prebuild/tags.mjs (${expected.join(', ')})`);
-  }
-  return new Set(names);
-}
-
-export async function prebuild({ destination: generated = `${root}.build/content`, pages, check = false, frontMatterOnly = false, publish = true, history } = {}) {
+export async function prebuild({ destination: generated = `${root}.build/content`, pages, check = false, frontMatterOnly = false, publish = true, history, renderCache: cacheDirectory } = {}) {
   history ??= generated === `${root}.build/content` && `${root}.build/history`;
   const errors = [];
   const attempt = async (action, file) => {
@@ -77,7 +71,6 @@ export async function prebuild({ destination: generated = `${root}.build/content
   };
   const timer = stepTimer();
   const prepareComponents = componentLoader(root);
-  const shortcodeTemplates = await checkShortcodeTemplates(`${root}layouts/shortcodes`);
   const source = `${root}content`;
   const categories = await timer.time('readings, categories', async () => {
     await loadReadingDictionary(root);
@@ -94,12 +87,15 @@ export async function prebuild({ destination: generated = `${root}.build/content
     const published = [...state.values()].filter(record => record.isWiki && record.normalized && isPublished(record.metadata));
     return personIndex(
       published.filter(record => record.metadata.categories?.includes('人物'))
-        .map(record => ({ key: record.metadata.wikiName, names: [record.metadata.wikiName, ...record.metadata.wikiAliases] })),
-      new Set(published.flatMap(record => [record.metadata.wikiName, ...record.metadata.wikiAliases])));
+        .map(record => ({ key: record.metadata.wikiName, names: [record.metadata.wikiName, ...record.metadata.wikiAliases] })));
   };
-  const people = {
-    match: name => (peopleIndex ??= peopleIn(records)).match(name),
-    exists: key => (peopleIndex ??= peopleIn(records)).exists(key),
+  /**
+   * bananamark's resolvePersonLink: a bibliography's author links to their biography, though not on that article
+   * itself (self: its name; Dirichlet's works in the article Peter Dirichlet).
+   */
+  const personLink = self => name => {
+    const key = (peopleIndex ??= peopleIn(records)).match(name);
+    return key && key !== self ? { target: key } : undefined;
   };
   const links = [];
   /**
@@ -119,7 +115,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     if (metadata.search !== undefined && metadata.search !== false) throw new Error(t('build_search_config', { File: sourcePath }));
     if (metadata.sort !== undefined) metadata.sort = normalizeReading(metadata.sort, sourcePath);
     if (metadata.tocDepth !== undefined && (!Number.isInteger(metadata.tocDepth) || metadata.tocDepth < 0 || metadata.tocDepth > 5)) throw new Error(`${sourcePath}: tocDepth 必须是 0 至 5 的整数`);
-    const isWiki = relativePath.startsWith('wiki/') && !relativePath.endsWith('/_index.md');
+    const isWiki = relativePath.startsWith('wiki/') && relativePath !== 'wiki/index.md';
     record.isWiki = isWiki;
     // 页面的默认地址取目录路径，保留大小写和标点（Hugo 默认会转小写并删去部分字符，如「、」），
     // 空格改为下划线，与旧站一致。页面自己设置的 url 或 slug 优先。
@@ -131,22 +127,26 @@ export async function prebuild({ destination: generated = `${root}.build/content
         throw new Error(t('build_page_address', { File: sourcePath, Key: key, Value: String(value) }));
       }
     }
-    // 首页与顶层栏目页（如 /wiki/）沿用 Hugo 的地址。
-    if (!/^(?:[^/]+\/)?_index\.md$/.test(relativePath) && metadata.url === undefined && metadata.slug === undefined) {
-      metadata.url = pathAddress(relativePath.replace(/\/(_?index)\.md$/, '').replace(/\.md$/, ''));
+    // 首页与顶层的页面（如 /wiki/、/search/）用默认的地址（小写，空格改为连字符）。
+    if (!/^(?:[^/]+\/)?index\.md$/.test(relativePath) && metadata.url === undefined && metadata.slug === undefined) {
+      metadata.url = pathAddress(relativePath.replace(/\/index\.md$/, '').replace(/\.md$/, ''));
     }
     if (metadata.categories !== undefined && !isWiki) throw new Error(`${sourcePath}: categories 仅用于 wiki 页面`);
+    if (metadata.notices !== undefined) throw new Error(t('build_notices_front_matter', { File: sourcePath }));
+    // An image's width as the Hugo site had it, in its address (a.png?width=200); now {width=200} after the image.
+    const widthInAddress = /\]\([^()\s]*\?(?:[^()\s]*&)?width=/.exec(record.body ?? '');
+    if (widthInAddress) throw new Error(t('build_image_width_address', { File: sourcePath, Line: record.lineOffset + record.body.slice(0, widthInAddress.index).split('\n').length }));
     if (metadata.categories) Object.assign(metadata, categories.membership(metadata.categories, sourcePath, { register }));
-    const fallback = relativePath.endsWith('/index.md') || relativePath.endsWith('/_index.md') ? relativePath.split('/').at(-2) : relativePath.replace(/\.md$/i, '').split('/').at(-1);
-    const title = pageName(metadata.title ?? fallback, sourcePath, 'title', { lang: metadata.lang ?? 'zh', typeset: metadata.title !== undefined });
+    const fallback = relativePath.endsWith('/index.md') ? relativePath.split('/').at(-2) : relativePath.replace(/\.md$/i, '').split('/').at(-1);
+    const title = pageName(metadata.title ?? fallback, sourcePath, 'title', { lang: metadata.lang ?? 'zh-cn', typeset: metadata.title !== undefined });
     metadata.title = title.parts.map(part => part.text).join('');
     metadata.titleParts = title.parts;
     if (isWiki) {
       metadata.wikiName = title.key;
-      const aliases = nameList(metadata.aliases, sourcePath, 'aliases', { lang: metadata.lang ?? 'zh', typeset: true });
+      const aliases = nameList(metadata.aliases, sourcePath, 'aliases', { lang: metadata.lang ?? 'zh-cn', typeset: true });
       metadata.wikiAliases = [...new Set(aliases.map(alias => alias.key))].filter(name => name !== metadata.wikiName);
       // The address each alias would have as an article of its own (directoryName: formulas as plain text), which
-      // the site redirects to this page (layouts/index.aliasredirects.txt). Usually the same as its name.
+      // the site redirects to this page (alias-redirects.txt). Usually the same as its name.
       const own = pageURL(relativePath, metadata), paths = new Map();
       aliases.forEach((alias, i) => {
         const path = pathAddress(`wiki/${directoryName(metadata.aliases[i])}`);
@@ -160,24 +160,18 @@ export async function prebuild({ destination: generated = `${root}.build/content
       }
       delete metadata.aliases;
     } else if (metadata.aliases !== undefined) throw new Error(t('build_aliases_scope', { File: sourcePath }));
-    const components = await prepareComponents(metadata, sourcePath, { isWiki });
-    if (components.notices.length) metadata.resolvedNotices = components.notices;
+    const components = await prepareComponents(metadata, sourcePath);
     if (components.navboxes.length) metadata.resolvedNavboxes = components.navboxes;
     metadata.structuredPage = !['missing/', 'search/'].some(prefix => relativePath.startsWith(prefix));
-    metadata.lectureIndex = relativePath === 'books/_index.md';
+    metadata.lectureIndex = relativePath === 'books/index.md';
     const wikiLinks = new Map();
     record.wikiLinks = wikiLinks;
     record.options = {
-      lang: metadata.lang ?? 'zh', file: sourcePath, lineOffset: record.lineOffset, pageAnchor: metadata.structuredPage,
+      lang: metadata.lang ?? 'zh-cn', file: sourcePath, lineOffset: record.lineOffset, pageAnchor: metadata.structuredPage,
+      typography: pageTypography(metadata),
       checkMath: record.checkMath,
-      onLabels: labels => { metadata.referenceTargets = labels; },
-      onBibliography: entries => { metadata.bibliographyEntries = entries; },
-      onTerms: terms => { if (terms.length) metadata.termTranslations = terms; },
-      onHeadings: headings => { metadata.referenceHeadings = headings; },
-      onSectionNumbers: numbers => { metadata.sectionNumbers = numbers; },
-      onWikiLink: (target, line, column) => { if (!wikiLinks.has(`${line}\0${target}`)) wikiLinks.set(`${line}\0${target}`, { line, column, target }); },
-      // An article's bibliography does not link its own subject to the article itself.
-      people: isWiki ? { ...people, self: metadata.wikiName } : people,
+      ...siteSyntax,
+      resolvePersonLink: personLink(isWiki ? metadata.wikiName : undefined),
     };
   }
   // Generated directory contents, published only after every page succeeds.
@@ -186,10 +180,12 @@ export async function prebuild({ destination: generated = `${root}.build/content
   async function walk(directory, pagePaths) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
       const path = `${directory}/${entry.name}`;
-      // Definitions live with source content, but are not Hugo pages or attachments.
-      if (directory === source && ['notices', 'navboxes'].includes(entry.name)) continue;
+      // Definitions live with source content, but are not pages or attachments.
+      if (directory === source && entry.name === 'navboxes') continue;
       if (entry.isDirectory()) await walk(path, pagePaths);
       else if (/\.md$/i.test(entry.name)) pagePaths.push(path);
+      // Files beside pages are published as they are: HTML there would be a page of its own, unchecked.
+      else if (/\.html?$/i.test(entry.name)) throw new Error(`${path}: content/ 中不能有 HTML 文件（页面用 Markdown 写）`);
       else if (entry.isSymbolicLink()) files.set(path.slice(source.length + 1), { symlink: await readlink(path) });
       else if (entry.isFile()) files.set(path.slice(source.length + 1), { link: path });
     }
@@ -207,12 +203,6 @@ export async function prebuild({ destination: generated = `${root}.build/content
       throw new Error(`${path}${line ? `:${line + 1}` : ''}: ${error.message}`);
     }
     const start = match?.[0].length ?? 0;
-    // No shortcodes anywhere, front matter included: only the preprocessing writes them (scripts/prebuild/tags.mjs).
-    const shortcode = shortcodeOffset(text);
-    if (shortcode >= 0) {
-      const before = text.slice(0, shortcode), line = before.split('\n').length;
-      throw Object.assign(new Error(`${path}:${line}: ${t('build_shortcode_syntax', { Text: shortcodeText(text, shortcode) })}`), { line, column: shortcode - before.lastIndexOf('\n') });
-    }
     return { titleProvided: metadata.title !== undefined, path, relative: path.slice(source.length + 1), metadata, source: text, body: text.slice(start), lineOffset: text.slice(0, start).split('\n').length - 1 };
   }
   async function load() {
@@ -242,60 +232,152 @@ export async function prebuild({ destination: generated = `${root}.build/content
   let collectionsReady = ![...records.values()].some(record => !record.normalized && inCollection(record));
   if (collectionsReady) collectionsReady = await timer.time('collections', () => attempt(async () => {
     const collections = await prepareCollections({ source, records, dates: modifiedAt, normalize });
-    for (const root of collections) files.delete(`${root.collectionPath}/collection.yaml`);
-    if (collections.some(record => record.relative.startsWith('books/')) && !records.has('books/_index.md')) {
-      const record = { path: `${source}/books/_index.md`, relative: 'books/_index.md', metadata: { title: t('lectures') }, body: '', lineOffset: 0, generated: true };
+    for (const root of collections) files.delete(`${root.collectionPath}/book.yaml`);
+    if (collections.some(record => record.relative.startsWith('books/')) && !records.has('books/index.md')) {
+      const record = { path: `${source}/books/index.md`, relative: 'books/index.md', metadata: { title: t('lectures') }, body: '', lineOffset: 0, generated: true };
       records.set(record.relative, record);
       await normalize(record);
     }
     const groups = await lectureGroups(source, collections);
     files.delete('books/books.yaml');
-    if (groups && records.has('books/_index.md')) records.get('books/_index.md').metadata.lectureGroups = groups;
+    if (groups && records.has('books/index.md')) records.get('books/index.md').metadata.lectureGroups = groups;
     return true;
   }, source));
   // Each page's Git history: written for the history pages (/history/), and the home page lists the latest changes.
   let histories;
   if (!check) histories = await timer.time('git history', async () => {
-    const repository = (await readFile(`${root}hugo.toml`, 'utf8')).match(/^repository\s*=\s*['"]([^'"]+)['"]/m)?.[1];
-    return pageHistories(root, { repository });
+    return pageHistories(root, { repository: config.repository });
   });
   /** The home page's latest changes: set on its record (a copy when given one that is shared); true when they changed. */
   function listRecentChanges(state, copy = false) {
-    const home = state.get('_index.md');
+    const home = state.get('index.md');
     if (!histories || !home) return false;
     const recent = recentChanges(histories, state);
     if (JSON.stringify(recent) === JSON.stringify(home.metadata.recentChanges ?? [])) return false;
     const record = copy ? { ...home, metadata: { ...home.metadata } } : home;
     if (recent.length) record.metadata.recentChanges = recent;
     else delete record.metadata.recentChanges;
-    state.set('_index.md', record);
+    state.set('index.md', record);
     return record;
   }
   listRecentChanges(records);
-  /** The generated page: final metadata and transformed body (unless the body is not wanted). Runs once per record. */
+  /**
+   * The generated page: final metadata, and its body as the document the renderer reads (bananamark's
+   * { markdown, nodes }; '' when the body is not wanted): { metadata, document }. Runs once per record.
+   */
   function transformRecord(record, wanted = !frontMatterOnly && (!pages || pages.has(record.relative))) {
     const metadata = record.metadata;
-    const page = record.isWiki ? undefined : { key: record.relative.replace(/\/(?:_?index)\.md$/, '').replace(/\.md$/, ''), title: pageTitleMarkup(metadata), number: '', vector: [] };
-    const numbers = !metadata.collectionRoot && (!record.isWiki || metadata.numbering !== undefined)
-      ? pageNumbering(page ?? { key: record.relative, vector: [] }, numbering(metadata.numbering ?? {}, { ...defaultNumbering, pages: false }, record.path)) : undefined;
-    // Titles are final only now: collection.yaml may rename a generated root.
+    // A page other than an article is its own page ({@label} at the start of its body is the page's), numbered
+    // by its numbering (or the default); an article by its numbering when it has one, otherwise by sections.
+    const page = record.isWiki ? {} : { key: record.relative.replace(/\/index\.md$/, '').replace(/\.md$/, ''), title: pageTitleMarkup(metadata) };
+    const pageNumbers = !metadata.collectionRoot && (!record.isWiki || metadata.numbering !== undefined) ? { numbering: metadata.numbering ?? {} } : {};
+    // Titles are final only now: book.yaml may rename a generated root.
     Object.assign(metadata, readingMetadata({ name: metadata.title, aliases: metadata.wikiAliases, manual: metadata.sort, file: record.path }));
     delete metadata.sort;
     // Collections are transformed whole: their pages keep bodies unless only front matter is wanted.
     const body = frontMatterOnly && !wanted ? '' : record.transformed ?? (!wanted ? '' : metadata.structuredPage ? transformDocument(record.body, {
-      ...record.options, allowLevelOne: !record.isWiki, page, numbers,
-    }) : transformMarkup(record.body));
-    const problem = generatedShortcodeProblem(metadata, body, shortcodeTemplates);
-    if (problem) throw new Error(`${record.path}:1: ${problem}`);
-    return `---\n${stringify(metadata)}---\n${body}`;
+      ...record.options, allowH1: !record.isWiki, ...page, ...pageNumbers,
+    }) : transformFragment(record.body, { ...siteSyntax, lang: record.options.lang }));
+    if (body?.meta) absorbMeta(record, body.meta);
+    return { metadata, document: body };
   }
+  /** What bananamark read of a page (document.meta) in its metadata, and its wiki links, once for each line. */
+  function absorbMeta(record, meta) {
+    const { metadata } = record;
+    metadata.bibliographyEntries = meta.bibliography;
+    if (meta.data.terms?.length) metadata.termTranslations = meta.data.terms.flat();
+    metadata.referenceHeadings = meta.headingTitles;
+    metadata.sectionNumbers = meta.sectionNumbers;
+    metadata.referenceTargets = meta.labels;
+    for (const { target, line, column } of meta.wikiLinks) if (!record.wikiLinks.has(`${line}\0${target}`)) record.wikiLinks.set(`${line}\0${target}`, { line, column, target });
+  }
+  /** The body renderer (bananamark) for the site as state has it: article names, page addresses, categories. */
+  const bodies = cacheDirectory && renderCache(cacheDirectory, { baseURL: baseURL.href });
+  const rendererFor = state => siteRenderer([...state.values()].map(({ relative, metadata }) => ({ relative, metadata })), {
+    categories: categories.names(), hasFile: relative => files.has(relative), cache: bodies,
+  });
+  /**
+   * A generated page's text: its front matter, and its body rendered to HTML (bananamark). The headings go into the
+   * front matter for the table of contents (tocHeadings, as Hugo's .Fragments.Headings had them), and the page's
+   * summary as text (summaryText, for its description: Hugo's .Summary and plainify ported). The document
+   * is kept (document) for the links it names and for rendering again.
+   */
+  /**
+   * The front matter's text that templates show (navboxes, headings in the table of contents) rendered to
+   * HTML, in a copy: the record keeps the documents, whose nodes name the links' targets (linkTargets).
+   */
+  function renderFrontMatter(renderer, relative, metadata) {
+    const inline = document => document?.nodes ? renderer.renderString(relative, document) : document;
+    const output = { ...metadata };
+    if (metadata.referenceHeadings) output.referenceHeadings = Object.fromEntries(Object.entries(metadata.referenceHeadings).map(([id, title]) => [id, inline(title)]));
+    if (metadata.resolvedNavboxes) output.resolvedNavboxes = metadata.resolvedNavboxes.map(box => ({
+      ...box, title: inline(box.title),
+      rows: box.rows?.map(row => ({ ...row, cells: row.cells?.map(cell => ({ ...cell, text: inline(cell.text) })), items: row.items?.map(inline) })),
+    }));
+    return output;
+  }
+  /**
+   * body false: the front matter alone (the body's HTML and what comes from it, the table of contents and the
+   * summary, serve that page only), the document still kept.
+   */
+  function renderRecord(renderer, record, { metadata: source, document }, { body = true } = {}) {
+    const metadata = renderFrontMatter(renderer, record.relative, source);
+    if (!document?.markdown || !body) return generatedPage(`---\n${stringify(metadata)}---\n`, document, metadata);
+    const page = renderer.render(record.relative, document);
+    const ids = new Set(page.headings.map(heading => heading.id));
+    for (const target of metadata.referenceTargets ?? []) {
+      if (!['heading', 'page'].includes(target.kind) && ids.has(target.anchor)) throw new Error(t('build_heading_anchor_conflict', { File: record.relative, Line: target.line, Id: target.anchor }));
+    }
+    const output = { ...metadata, ...(page.headings.length ? { tocHeadings: page.tree } : {}), ...(page.description ? { summaryText: page.description } : {}) };
+    // Long strings unfolded, and the summary quoted (a block would lose spaces at the end of its last line).
+    const yaml = new Document(output);
+    if (output.summaryText) yaml.get('summaryText', true).type = 'QUOTE_DOUBLE';
+    return generatedPage(`---\n${yaml.toString({ lineWidth: 0 })}---\n${page.html}`, document, output);
+  }
+  /**
+   * A buffer in memory of its own size. Small buffers are slices of shared 64 KB slabs (Buffer.poolSize), and one
+   * kept slice keeps its whole slab: the site's compressed pages (some 5 MB) held about 75 MB.
+   */
+  const exactCopy = buffer => {
+    const copy = Buffer.allocUnsafeSlow(buffer.length);
+    buffer.copy(copy);
+    return copy;
+  };
+  /**
+   * A generated page as kept in memory: its text compressed (KaTeX's HTML makes the site's pages over 400 MB,
+   * a fifteenth of that compressed, in about 0.2 s for all: shared/compress.mjs), its bytes and text unpacked when asked for; its body's
+   * document (document); and its front matter as an object (metadata, what parsing the text's front matter gives:
+   * the preview service's site generator takes it as it is).
+   */
+  const generatedPage = (text, document, metadata) => ({
+    compressed: exactCopy(pack(Buffer.from(text))),
+    document,
+    metadata,
+    get bytes() { return unpack(this.compressed); },
+    get text() { return this.bytes.toString('utf8'); },
+  });
   const transformStart = performance.now();
+  const transformed = new Map();
   for (const record of records.values()) {
     if (!record.normalized && !record.generated) continue;
     if (!collectionsReady && inCollection(record)) continue;
-    await attempt(async () => { files.set(record.relative, { text: transformRecord(record) }); }, record.path);
+    await attempt(async () => { transformed.set(record.relative, transformRecord(record)); }, record.path);
   }
   timer.add('transform pages', performance.now() - transformStart);
+  // Without bodies, a collection's converted documents are not needed again: a change converts its collection anew.
+  if (frontMatterOnly) for (const record of records.values()) delete record.transformed;
+  const renderStart = performance.now();
+  const renderer = rendererFor(records);
+  // With pages, only their bodies are rendered; the rest of a collection is transformed for its numbers and
+  // references, and that is all the pages wanted need of it.
+  const bodyWanted = relative => !pages || pages.has(relative);
+  for (const [relative, generated] of transformed) {
+    const record = records.get(relative);
+    await attempt(async () => { files.set(relative, renderRecord(renderer, record, generated, { body: bodyWanted(relative) })); }, record.path);
+  }
+  timer.add('render pages', performance.now() - renderStart);
+  // Every page rendered: what this run did not use is out of date.
+  if (bodies && !pages && !frontMatterOnly && !check) bodies.prune();
   // Drafts and other unpublished pages are missing from Hugo's article index.
   const published = new Set();
   for (const record of records.values()) {
@@ -336,7 +418,8 @@ export async function prebuild({ destination: generated = `${root}.build/content
    * 只转换这些页面（和所在书册）：其他页面若依赖它们的 front matter（链接颜色、分类页等），
    * 由调用者决定是否完整构建。front matter 中新出现的分类不生成分类页。
    *
-   * commit 为 false 时只计算结果，不改变已有状态（预览稿件）；为 true 时结果成为新的状态。
+   * commit 为 false 时只计算结果，不改变已有状态（预览稿件），且只有 changes 中的页面渲染正文（同组书册的其他页面
+   * 只有 front matter）；为 true 时结果成为新的状态。
    * marks 为一个页面的相对路径时，该页正文的每一行带上源码行号标记（source-lines.mjs，供编辑器预览），
    * 公式也先用 KaTeX 检查（katex-check.mjs），错误指向出错的公式；
    * 报告的错误与链接的列号仍按原始源码计算。
@@ -410,9 +493,14 @@ export async function prebuild({ destination: generated = `${root}.build/content
       }
       peopleIndex = peopleIn(next);
       // Which pages are published, and where, decides which changes the home page lists.
-      const home = listRecentChanges(next, !changed.includes(next.get('_index.md')));
+      const home = listRecentChanges(next, !changed.includes(next.get('index.md')));
       if (home && !changed.includes(home)) changed.push(home);
-      const result = new Map(changed.map(record => [record.relative, transformRecord(record, true)]));
+      const renderer = rendererFor(next);
+      // A draft's other pages (the rest of its collection, the home page) are shown by no preview: their bodies
+      // stay unrendered. Saved changes become the state, every page whole.
+      const body = record => commit || changes.has(record.relative);
+      const generated = new Map(changed.map(record => [record.relative, renderRecord(renderer, record, transformRecord(record, true), { body: body(record) })]));
+      const result = new Map([...generated].map(([relative, { text }]) => [relative, text]));
       const published = new Set();
       for (const record of next.values()) {
         if (record.isWiki && record.normalized && isPublished(record.metadata)) {
@@ -425,35 +513,44 @@ export async function prebuild({ destination: generated = `${root}.build/content
       if (commit) {
         records = next;
         wikiNames = names;
-        for (const [relative, text] of result) files.set(relative, { text });
+        for (const [relative, file] of generated) files.set(relative, file);
       }
       return { files: result, links: missing, categories: [...new Set(changed.flatMap(record => record.metadata.categories ?? []))] };
     }
+  }
+  /**
+   * Renders these pages (relative paths) again from their documents, with the site as it is now: a page's HTML holds
+   * what it shows of others (whether a linked article exists, its address), so a page that depends on a changed one
+   * changes too. Returns relative path → new text for the pages whose text changed (now in the state).
+   */
+  function rerender(paths) {
+    const renderer = rendererFor(records), result = new Map();
+    for (const relative of paths) {
+      const file = files.get(relative), record = records.get(relative);
+      if (!file?.document?.markdown || !record) continue;
+      const next = renderRecord(renderer, record, { metadata: record.metadata, document: file.document });
+      if (file.compressed && next.compressed.equals(file.compressed)) continue;
+      files.set(relative, next);
+      result.set(relative, next.text);
+    }
+    return result;
   }
   /** 当前状态下生成目录中的页面文本；不存在的页面为 undefined。 */
   const generatedText = relative => files.get(relative)?.text;
   /** 当前状态下页面的源文本（content/ 内的相对路径）；不存在或自动生成的页面为 undefined。 */
   const sourceText = relative => records.get(relative)?.source;
   /**
-   * The labels a book page can reference on the other pages of its book, in reading order: { name, detail,
-   * page } (detail: how a reference shows it, such as "定理 2.3"; page: the page's title). Empty outside books.
+   * The labels a book page can reference on the other pages of its book, in reading order: { name, text,
+   * page } (text: how a reference shows it, such as "定理 2.3"; page: the page's title). Empty outside books.
    */
   function collectionLabels(relative) {
     const prefix = roots.find(prefix => relative.startsWith(prefix));
-    const registry = prefix && records.get(`${prefix}_index.md`)?.referenceRegistry;
-    if (!registry) return [];
+    const labels = prefix && records.get(`${prefix}index.md`)?.bookLabels;
+    if (!labels) return [];
     const own = records.get(relative)?.path ?? `${source}/${relative}`;
     const titles = new Map([...records.values()].filter(record => record.metadata?.collectionPage).map(record => [record.metadata.collectionPage, record.metadata.title]));
     const plain = text => String(text ?? '').replace(/\s+/g, ' ').trim();
-    const shown = target => {
-      if (target.kind === 'bibliography') return plain(target.entry?.citationLabel);
-      if (target.referenceText !== undefined) return plain(target.referenceText);
-      if (target.name) return t(target.name, { Number: target.number ?? '', Name: target.custom ?? '' }) + (target.title ? ` [${plain(target.title)}]` : '');
-      return plain(target.label);
-    };
-    return [...registry]
-      .filter(([, target]) => target.file !== own)
-      .map(([name, target]) => ({ name, detail: shown(target), page: plain(titles.get(target.page) ?? target.page) }));
+    return labels.filter(label => label.file !== own).map(({ name, text, page }) => ({ name, text, page: plain(titles.get(page) ?? page) }));
   }
   /**
    * 当前状态下的每个页面（生成目录内的相对路径）：{ url（发布的网址路径，未发布为 undefined）,
@@ -472,32 +569,35 @@ export async function prebuild({ destination: generated = `${root}.build/content
     }
     return result;
   }
-  const targetCache = new Map(); // Relative path -> { text, targets }, recomputed when the page changes.
+  const targetCache = new Map(); // Relative path -> { file, targets }, recomputed when the page's entry is replaced.
   /**
-   * 每个页面中百科链接的目标（匹配键的集合），包括提示与导航框中的链接：取自页面的元数据与转换后的正文。
+   * 每个页面中百科链接的目标（匹配键的集合），包括提示与导航框中的链接：取自页面元数据与正文的文档中的 wiki 节点。
    */
   function linkTargets() {
     const result = new Map();
     for (const [relative, record] of records) {
-      const text = files.get(relative)?.text;
-      if (text === undefined) continue;
+      const file = files.get(relative);
+      if (file?.text === undefined && file?.bytes === undefined) continue;
       let cached = targetCache.get(relative);
-      if (cached?.text !== text) {
-        // The metadata in memory, not its YAML: long YAML strings are folded across lines.
-        const searched = JSON.stringify(record.metadata) + text.slice(text.indexOf('\n---\n', 3) + 5);
+      if (cached?.file !== file) {
+        // The documents before rendering, where links still name their targets.
         const targets = new Set();
-        for (const match of searched.matchAll(/wiki:\?([^)\s"\\]*)/g)) {
-          const target = new URLSearchParams(match[1]).get('title');
-          if (target) targets.add(target);
-        }
-        cached = { text, targets };
+        addWikiTargets([record.metadata, file.document], targets);
+        cached = { file, targets };
         targetCache.set(relative, cached);
       }
       result.set(relative, cached.targets);
     }
     return result;
   }
+  /** Adds the targets of the wiki links in the documents (bananamark's { markdown, nodes }) anywhere in value. */
+  function addWikiTargets(value, targets) {
+    if (Array.isArray(value)) for (const item of value) addWikiTargets(item, targets);
+    else if (value?.nodes && typeof value.markdown === 'string') {
+      for (const node of value.nodes) if (node.type === 'wiki' && node.target) targets.add(node.target);
+    } else if (value && typeof value === 'object') for (const item of Object.values(value)) addWikiTargets(item, targets);
+  }
   /** 分类表中的全部分类名称（含 front matter 中新出现、已生成分类页的）。 */
   const categoryNames = () => categories.names();
-  return { errors, links, collections: roots, timings: timer.lines(), pages: records.size, files, update, generatedText, sourceText, collectionLabels, pageIndex, linkTargets, categoryNames };
+  return { errors, links, collections: roots, timings: timer.lines(), pages: records.size, files, update, rerender, generatedText, sourceText, collectionLabels, pageIndex, linkTargets, categoryNames };
 }

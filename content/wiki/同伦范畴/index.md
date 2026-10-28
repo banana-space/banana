@@ -1,12 +1,12 @@
 ---
 title: 同伦范畴
 categories: [高阶范畴论, 同伦代数]
-notices:
-  - name: 问题
-    items:
-      - “对高阶范畴”一节需要扩充。
 navboxes: [同伦代数]
 ---
+
+<problems>
+- “对高阶范畴”一节需要扩充。
+</problems>
 
 **同伦范畴**是[[高阶范畴论]]中的一种构造，是[[截断范畴]]的特例。
 给定 [[$(\infty, 1)$-范畴]] $\mathcal{C}$，

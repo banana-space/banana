@@ -1,11 +1,11 @@
 ---
 title: 零维空间
-notices:
-  - name: 问题
-    items:
-      - 子空间维数等价描述的证明中，$\mathrm{dim}(E\cap\partial G)\leq\mathrm{dim}(E\cap\partial E)\leq n$ 里的 $\partial E$ 似乎应为 $\partial H$。
-      - Kuratowski 定理的证明中，“它最终有$f(x_n)=f_n$”似乎应为 $f(x_n)=x_n$。
 ---
+
+<problems>
+- 子空间维数等价描述的证明中，$\mathrm{dim}(E\cap\partial G)\leq\mathrm{dim}(E\cap\partial E)\leq n$ 里的 $\partial E$ 似乎应为 $\partial H$。
+- Kuratowski 定理的证明中，“它最终有$f(x_n)=f_n$”似乎应为 $f(x_n)=x_n$。
+</problems>
 
 我们在上一节已经注意到，树状空间是零维空间，也就是说它存在一组开闭基。
 不过，零维这个词与它的定义初看起来并无关系，我们来补全一些定义。

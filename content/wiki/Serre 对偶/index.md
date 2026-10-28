@@ -1,12 +1,12 @@
 ---
 title: Serre 对偶
 categories: [上同调论]
-notices:
-  - name: 问题
-    items:
-      - “代数几何情形”“复几何情形”各节需要扩充。
-      - “定理陈述”一节的推论中，Dolbeault 上同调完美配对的第二个因子 $H^{n-p, n-q} (X, \mathcal{E})$ 的系数似乎应为 $\mathcal{E}^\vee$。
 ---
+
+<problems>
+- “代数几何情形”“复几何情形”各节需要扩充。
+- “定理陈述”一节的推论中，Dolbeault 上同调完美配对的第二个因子 $H^{n-p, n-q} (X, \mathcal{E})$ 的系数似乎应为 $\mathcal{E}^\vee$。
+</problems>
 
 **[[Serre]] 对偶**是[[代数几何]]以及[[复几何]]中的定理，
 描述[[紧合态射|紧合]][[光滑态射|光滑]][[代数簇]]或[[紧]]

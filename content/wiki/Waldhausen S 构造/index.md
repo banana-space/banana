@@ -1,12 +1,12 @@
 ---
 title: 'Waldhausen $\mathsf{S}$ 构造'
 categories: [$K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中第一个定理没有证明，第二个定理的证明不完整。
 navboxes: [代数 K 理论]
 ---
+
+<problems>
+- “性质”一节中第一个定理没有证明，第二个定理的证明不完整。
+</problems>
 
 ::: convention
 在本文中，

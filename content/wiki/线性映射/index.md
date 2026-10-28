@@ -1,12 +1,12 @@
 ---
 title: 线性映射
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [线性代数]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **线性映射**是[[向量空间]]之间的一种[[映射]]，
 保持向量的加法、数乘。

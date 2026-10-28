@@ -1,0 +1,81 @@
+{
+  "name": "bananamark",
+  "version": "0.1.0",
+  "description": "A Markdown dialect for mathematical writing: formulas, numbered sections and theorems, cross-references, bibliographies, wiki links and Chinese typography, rendered to HTML",
+  "keywords": [
+    "markdown",
+    "commonmark",
+    "math",
+    "katex",
+    "theorem",
+    "cross-references",
+    "bibliography",
+    "wiki",
+    "chinese"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banana-space/banana.git",
+    "directory": "packages/bananamark"
+  },
+  "homepage": "https://github.com/banana-space/banana/tree/main/packages/bananamark#readme",
+  "bugs": {
+    "url": "https://github.com/banana-space/banana/issues"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": "./src/index.mjs",
+    "./typography": "./src/typography.mjs",
+    "./highlight": "./src/highlight/index.mjs",
+    "./grammar": "./src/highlight/grammar.mjs",
+    "./languages": "./src/highlight/languages.mjs",
+    "./rules": "./src/rules.mjs",
+    "./bibliography": "./src/bibliography.mjs",
+    "./scan": "./src/scan.mjs",
+    "./messages": "./src/messages.mjs",
+    "./messages/*": "./src/messages/*.mjs",
+    "./internal/*": "./src/syntax/*",
+    "./katex.css": "./src/katex.css",
+    "./style.css": "./src/style.css"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node test/index.mjs",
+    "test:update-spec": "node test/spec.mjs --update"
+  },
+  "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.12",
+    "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/lang-rust": "^6.0.2",
+    "@codemirror/legacy-modes": "^6.5.5",
+    "katex": "0.18.4",
+    "markdown-it": "15.0.2",
+    "markdown-it-footnote": "4.0.0",
+    "parse5": "^8.0.1",
+    "yaml": "^2.9.1"
+  },
+  "peerDependencies": {
+    "@codemirror/lang-markdown": "^6.5.2",
+    "@codemirror/lang-yaml": "^6.1.3",
+    "@codemirror/language": "^6.13.1",
+    "@lezer/common": "^1.5.3",
+    "@lezer/highlight": "^1.2.5",
+    "@lezer/markdown": "^1.8.0"
+  }
+}

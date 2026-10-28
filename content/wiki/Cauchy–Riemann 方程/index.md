@@ -1,12 +1,12 @@
 ---
 title: Cauchy–Riemann 方程
 categories: [复分析]
-notices:
-  - name: 问题
-    items:
-      - “陈述与证明”一节的证明中，乘以 $A = a + \mathrm{i} b$ 的线性映射 $x + \mathrm{i} y \mapsto (a x - b y) + \mathrm{i} (b x + a y)$ 的矩阵似乎应为 $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$；文中给出的矩阵是它的转置。
 navboxes: [复分析]
 ---
+
+<problems>
+- “陈述与证明”一节的证明中，乘以 $A = a + \mathrm{i} b$ 的线性映射 $x + \mathrm{i} y \mapsto (a x - b y) + \mathrm{i} (b x + a y)$ 的矩阵似乎应为 $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$；文中给出的矩阵是它的转置。
+</problems>
 
 在[[复分析]]中，
 **[[Augustin-Louis Cauchy|Cauchy]]–[[Bernhard Riemann|Riemann]] 方程**

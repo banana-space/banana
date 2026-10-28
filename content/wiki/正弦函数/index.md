@@ -2,12 +2,12 @@
 title: 正弦函数
 aliases: [Sin, 正弦]
 categories: [复分析, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [三角函数]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **正弦函数** $\sin \colon \mathbb{C} \to \mathbb{C}$ 是[[三角函数]]中的一个。
 对[[复数]] $x \in \mathbb{C}$ 而言，复数 $\sin (x) \in \mathbb{C}$ 称为 $x$ 的**正弦**。

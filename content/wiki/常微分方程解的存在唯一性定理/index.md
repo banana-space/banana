@@ -2,13 +2,13 @@
 title: 常微分方程解的存在唯一性定理
 aliases: [常微分方程解的存在唯一性, Picard–Lindelöf 定理, Cauchy–Lipschitz 定理]
 categories: [常微分方程论]
-notices:
-  - name: 问题
-    items:
-      - '“定理与证明”一节中延拓解的论证里，区间 $[t_0,t_0+t_1+b''/M]$ 似乎应为 $[t_0,t_1+b''/M]$；条件 $h^*\le t_1\le h$ 似乎应为 $t_0+h^*\le t_1\le t_0+h$。'
-      - “推广”一节需要扩充，例如 Peano 存在定理及 Arzelà–Ascoli 定理在其中的应用。
 navboxes: [常微分方程]
 ---
+
+<problems>
+- “定理与证明”一节中延拓解的论证里，区间 $[t_0,t_0+t_1+b'/M]$ 似乎应为 $[t_0,t_1+b'/M]$；条件 $h^*\le t_1\le h$ 似乎应为 $t_0+h^*\le t_1\le t_0+h$。
+- “推广”一节需要扩充，例如 Peano 存在定理及 Arzelà–Ascoli 定理在其中的应用。
+</problems>
 
 **常微分方程解的存在唯一性定理**，也叫
 **Picard–Lindelöf 定理**、

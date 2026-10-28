@@ -1,8 +1,0 @@
-{{- /* 术语与译名：有公式时逐段渲染（文字原样，公式用 KaTeX），否则输出文字。 */ -}}
-{{- with .parts -}}
-  {{- range . -}}
-    {{- if isset . "tex" -}}{{- partial "math.html" (dict "tex" .tex) -}}{{- else -}}{{- .text -}}{{- end -}}
-  {{- end -}}
-{{- else -}}
-  {{- .text -}}
-{{- end -}}

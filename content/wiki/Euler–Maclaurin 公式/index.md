@@ -2,12 +2,12 @@
 title: Euler–Maclaurin 公式
 aliases: [Euler-Maclaurin 公式]
 categories: [实分析, 复分析, 解析数论]
-notices:
-  - name: 问题
-    items:
-      - “通用形式”一节中，按注的取法计算 $\overline B_1(x)f(x)|_a^b$ 时，若 $b$ 为整数，定理左边的和式似乎不应包含 $n=b$ 一项；证明中第一个等式右边似乎缺少负号。
-      - “常用形式”一节中逐次分部积分的推导似乎有下标错误，例如第一行右边的积分似乎应为 $\frac12\int_a^b\overline B_2(x)f''(x)\mathrm dx$。
 ---
+
+<problems>
+- “通用形式”一节中，按注的取法计算 $\overline B_1(x)f(x)|_a^b$ 时，若 $b$ 为整数，定理左边的和式似乎不应包含 $n=b$ 一项；证明中第一个等式右边似乎缺少负号。
+- “常用形式”一节中逐次分部积分的推导似乎有下标错误，例如第一行右边的积分似乎应为 $\frac12\int_a^b\overline B_2(x)f''(x)\mathrm dx$。
+</problems>
 
 在数学分析中，**Euler–Maclaurin 公式**是一个能用来表达函数在指定区间上的部分和与积分之差的公式。
 这个公式在1735年前后由 Euler 和 Maclaurin 独立发现，前者用其估算级数的值而后者用其计算积分。

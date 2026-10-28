@@ -1,12 +1,12 @@
 ---
 title: Banach–Alaoglu 定理
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节需要扩充。
 navboxes: [泛函分析]
 ---
+
+<problems>
+- “推广”一节需要扩充。
+</problems>
 
 **Banach–Alaoglu 定理**是[[泛函分析]]中的重要定理，
 说的是 [[Banach 空间]]对偶空间的闭单位球在[[弱 * 拓扑]]下[[紧]]。

@@ -1,13 +1,13 @@
 ---
 title: Lax–Milgram 定理
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - 引言中双线性型 $B[u,v]$ 的一阶项似乎应为 $b_i u_{x_i} v$，以与算子 $L$ 对应。
-      - “定理与证明”一节中证明 $R(A)$ 是闭集时，似乎应设 $Au_i$ 收敛于任意的 $w\in H$，再证明 $w=Au'\in R(A)$；现在的写法预先假定了极限属于 $R(A)$。
 navboxes: [泛函分析]
 ---
+
+<problems>
+- 引言中双线性型 $B[u,v]$ 的一阶项似乎应为 $b_i u_{x_i} v$，以与算子 $L$ 对应。
+- “定理与证明”一节中证明 $R(A)$ 是闭集时，似乎应设 $Au_i$ 收敛于任意的 $w\in H$，再证明 $w=Au'\in R(A)$；现在的写法预先假定了极限属于 $R(A)$。
+</problems>
 
 在[[泛函分析]]中，
 **[[Peter Lax|Lax]]–[[Arthur Milgram|Milgram]] 定理**是 [[Riesz 表示定理]]的推广。

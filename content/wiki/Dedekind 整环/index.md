@@ -2,12 +2,12 @@
 title: Dedekind 整环
 aliases: [Dedekind 环]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “Dedekind 整环的局部化”一节中 $\mathcal O_{K,S}$ 的定义式要求分母 $g$ 不属于 $S$ 中的素理想，这似乎与其后“分母的素理想分解仅出现 $S$ 中理想”的描述相反；$S$ 既被当作素理想的集合又被当作乘性子集，记号也似乎不一致。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “Dedekind 整环的局部化”一节中 $\mathcal O_{K,S}$ 的定义式要求分母 $g$ 不属于 $S$ 中的素理想，这似乎与其后“分母的素理想分解仅出现 $S$ 中理想”的描述相反；$S$ 既被当作素理想的集合又被当作乘性子集，记号也似乎不一致。
+</problems>
 
 ::: convention
 在本文中，

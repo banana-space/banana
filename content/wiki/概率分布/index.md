@@ -1,12 +1,12 @@
 ---
 title: 概率分布
 categories: [概率论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 分布
 navboxes: [概率论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[分布]]。
+</disambiguation>
 
 **概率分布**，有时简称**分布**，是[[概率论]]中的基本概念，
 描述[[随机变量]]取值的方式。

@@ -2,12 +2,12 @@
 title: 可达范畴
 aliases: [紧生成范畴, 可达函子]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “可达 $(\infty,1)$-范畴”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “可达 $(\infty,1)$-范畴”一节需要扩充。
+</problems>
 
 **可达范畴**是一类[[范畴]]，其本身可以是大范畴，
 但被一小族对象沿[[滤余极限]]生成。

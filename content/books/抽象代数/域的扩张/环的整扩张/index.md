@@ -1,13 +1,13 @@
 ---
 title: 环的整扩张
-notices:
-  - name: 问题
-    items:
-      - “数域的整数环”一节中引理的结论 $\big(A^\times\big)^{-1}B=L$ 里，$A^\times$ 似乎应为 $A$ 的非零元之集 $A-\{0\}$（$A^\times$ 在本页其他地方表示可逆元群）。
-      - “二次数域的整数环”例子最后的公式中，条件 $a\equiv b \bmod 2$ 似乎应为 $m\equiv n \bmod 2$。
 ---
 
 {@sec:integral-extension}
+
+<problems>
+- “数域的整数环”一节中引理的结论 $\big(A^\times\big)^{-1}B=L$ 里，$A^\times$ 似乎应为 $A$ 的非零元之集 $A-\{0\}$（$A^\times$ 在本页其他地方表示可逆元群）。
+- “二次数域的整数环”例子最后的公式中，条件 $a\equiv b \bmod 2$ 似乎应为 $m\equiv n \bmod 2$。
+</problems>
 
 与域的代数扩张类似，我们还可以考虑环的整扩张。
 给定环$B$及其子环$A\subset B$，我们称$B$是$A$的**扩张**。

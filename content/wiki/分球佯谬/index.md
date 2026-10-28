@@ -2,11 +2,11 @@
 title: 分球佯谬
 aliases: [Banach-Tarski 定理, Banach–Tarski 佯谬, Banach–Tarski 定理]
 categories: [组合几何, 集合论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节的三个小节“在 $\operatorname{SO}(3)$ 中找 $F_2$”“划分球面”“划分球体”以及“后续影响”一节需要扩充。
 ---
+
+<problems>
+- “证明”一节的三个小节“在 $\operatorname{SO}(3)$ 中找 $F_2$”“划分球面”“划分球体”以及“后续影响”一节需要扩充。
+</problems>
 
 **Banach–Tarski 定理**，又称**分球怪论**、
 **分球佯谬**，指的是能将 $\mathbb{R}^3$ 中的一个球分为有限多块，

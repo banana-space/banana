@@ -1,11 +1,11 @@
 ---
 title: Coppel 定理
 categories: [动力系统]
-notices:
-  - name: 问题
-    items:
-      - “推论”一节最后一个定理的证明中，$a_0$ 的选取条件“$x\in[p,b_0]$ 时 $f(x)>a_0$”似乎应为 $x\in[p_*,b_0]$，后面的归纳用到的是这一情形。
 ---
+
+<problems>
+- “推论”一节最后一个定理的证明中，$a_0$ 的选取条件“$x\in[p,b_0]$ 时 $f(x)>a_0$”似乎应为 $x\in[p_*,b_0]$，后面的归纳用到的是这一情形。
+</problems>
 
 ::: convention
 在本文中，

@@ -2,12 +2,12 @@
 title: 浸入（代数几何）
 aliases: [既约子概形, 子概形, 局部闭子概形]
 categories: [概形论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 浸入
 navboxes: [态射性质]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[浸入]]。
+</disambiguation>
 
 [[概形]]间**浸入**是[[开浸入]]和[[闭浸入]]的复合，
 对应于[[微分几何]]中[[流形]]的[[嵌入 (微分几何)|嵌入]]。

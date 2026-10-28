@@ -2,11 +2,11 @@
 title: 算子乘积展开
 categories: [共形场论]
 navboxes: [共形场论]
-notices:
-  - name: 问题
-    items:
-      - “Virasoro 场的展开”“后裔的递归展开”“多变量展开”各节需要扩充。
 ---
+
+<problems>
+- “Virasoro 场的展开”“后裔的递归展开”“多变量展开”各节需要扩充。
+</problems>
 
 在[[共形场论]]中，
 **算子乘积展开**描述两个场的乘积在两点相撞处的行为。

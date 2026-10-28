@@ -1,11 +1,11 @@
 ---
 title: 范数
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节第二个例子中，$BC(X,K)$ 上的范数似乎应为 $\sup_{x\in X}|f(x)|$。
 ---
+
+<problems>
+- “例子”一节第二个例子中，$BC(X,K)$ 上的范数似乎应为 $\sup_{x\in X}|f(x)|$。
+</problems>
 
 **范数**是 [[Euclid 空间]]中向量的长度在一般[[向量空间]]上的推广。
 

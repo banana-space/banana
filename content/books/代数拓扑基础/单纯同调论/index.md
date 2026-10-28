@@ -1,12 +1,12 @@
 ---
 title: 单纯同调论
-notices:
-  - name: 问题
-    items:
-      - “$2$ 维闭曲面的同调群”一节的第一个引理中，第 (2) 条的条件 $d\in Z_2(K)$ 似乎应为 $d\in C_2(K)$（否则 $\partial d=0$，条件 $\partial d\in C_1(\operatorname{Bd} K)$ 是多余的）。
-      - “约化同调”一节中，关于 $\partial[v,c]$ 的引理的证明似乎与引理的陈述不完全对应：证明开头关于 $\tilde{H}_p(v*K)$ 的讨论似乎与该引理无关。
-      - “单纯映射诱导的链映射”一节的命题中，$f_*$ 的定义 $z_1+B_p(K)\mapsto f_\sharp(z_1)+B_p(K)$ 右侧似乎应为 $B_p(L)$。
 ---
+
+<problems>
+- “$2$ 维闭曲面的同调群”一节的第一个引理中，第 (2) 条的条件 $d\in Z_2(K)$ 似乎应为 $d\in C_2(K)$（否则 $\partial d=0$，条件 $\partial d\in C_1(\operatorname{Bd} K)$ 是多余的）。
+- “约化同调”一节中，关于 $\partial[v,c]$ 的引理的证明似乎与引理的陈述不完全对应：证明开头关于 $\tilde{H}_p(v*K)$ 的讨论似乎与该引理无关。
+- “单纯映射诱导的链映射”一节的命题中，$f_*$ 的定义 $z_1+B_p(K)\mapsto f_\sharp(z_1)+B_p(K)$ 右侧似乎应为 $B_p(L)$。
+</problems>
 
 ## 几何复形
 
@@ -156,13 +156,13 @@ K=\left\{ [m,m+1] : m\ne 0,\,m\in\mathbb{Z} \right\}
 
 所有的光滑流形都可以被三角剖分，一个例子是环面 $ \mathbb{T}^2 $ 可以被下图三角剖分：
 
-![$ \mathbb{T}^2 $ 的三角剖分](Sec1_torus.png?width=660)
+![$ \mathbb{T}^2 $ 的三角剖分](Sec1_torus.png){width=660}
 
 但需要注意的是下图的剖分方式并不是三角剖分，
 因标注 $ \alpha $ 和 $ \beta $ 的两个三角形同时相交于点 $ A $ 和线 $ BC $，
 它们不是公共面（*因不连通*）。
 
-![一种不是三角剖分的 $ \mathbb{T}^2 $ 的剖分方式](Sec1-2.png?width=210)
+![一种不是三角剖分的 $ \mathbb{T}^2 $ 的剖分方式](Sec1-2.png){width=210}
 
 ## 单纯映射
 
@@ -311,7 +311,7 @@ p+q+2-r\leqslant 2n+2-r<2n+2,
 例如 $ K_{\sigma^{2n+2}}^{(n)} $ 就不能嵌入 $ \mathbb{R}^{2n} $。
 最简单的情形，令 $ n=1 $，此时 $ K_{\sigma^4}^{(1)} $ 即为下图：
 
-![$ K_{\sigma^4}^{(1)}=K_5 $](Sec2-1.png?width=240)
+![$ K_{\sigma^4}^{(1)}=K_5 $](Sec2-1.png){width=240}
 
 它就是完全图 $ K_5 $，是一类不可平面化的图，于是它不能嵌入 $ \mathbb{R}^2 $。
 
@@ -324,7 +324,7 @@ p+q+2-r\leqslant 2n+2-r<2n+2,
 
 特别地，约定 $0$ 维情形下，$ [a_0] $ 与 $ -[a_0] $ 是两种不同的定向。
 
-![低维复形的定向](Sec3-1.png?width=600)
+![低维复形的定向](Sec3-1.png){width=600}
 
 ::: definition [定向复形]
 称 $ K $ 是一个**定向复形**，若 $ \forall \sigma\in K $，
@@ -392,7 +392,7 @@ c_p'(\tau)=\sum_{\sigma\in S_p^+(K)}n_\sigma c_p^\sigma(\tau)
 即 $ n_\sigma=n_\sigma' $，断言得证。
 :::
 
-![一个 $2$ 维定向复形的例子](Sec3-2.png?width=240)
+![一个 $2$ 维定向复形的例子](Sec3-2.png){width=240}
 
 考虑以上 $2$ 维复形的边界，计算 $ \partial[v_0,v_1,v_2] $ 得到
 \[
@@ -401,7 +401,7 @@ c_p'(\tau)=\sum_{\sigma\in S_p^+(K)}n_\sigma c_p^\sigma(\tau)
 \]
 并且注意到边界中的每一项符号与缺少的顶点标号有关。
 
-![一个 $3$ 维定向复形的例子](Sec3-3.png?width=240)
+![一个 $3$ 维定向复形的例子](Sec3-3.png){width=240}
 
 再考虑 $3$ 维复形的边界：这里所有 $2$ 维面的定向都使用右手法则来确定。
 计算 $ \partial[v_0,v_1,v_2,v_3] $ 得到
@@ -496,7 +496,7 @@ c_p\sim c_p'\Longleftrightarrow \exists d\in C_{p+1}(K)\,(\partial d=c_p-c_p').
 ::: example
 考虑以下的 $2$ 维复形，约定每一个 $2$ 维单形的定向都是逆时针。
 
-![](Sec3-4.png?width=270)
+![](Sec3-4.png){width=270}
 
 取
 \[
@@ -530,7 +530,7 @@ v\sim w\Longleftrightarrow\exists d\in C_1(K)\,(\partial d=w-v).
 在直观上，$ v\sim w $ 即是存在一列 $ \left\{ v_i \right\}_{i=0}^n $ 满足
 $ v_0=v $，$ v_n=w $ 使得 $ v $ 与 $ w $ 可以经由 $ [v_i,v_{i+1}] $ 相连。
 
-![](Sec3-5.png?width=510)
+![](Sec3-5.png){width=510}
 
 于是同调关系可以对 $ K^{(0)} $ 分类，以
 $ \bar{v}:=\left\{ w\sim v : w\in K^{(0)} \right\} $ 记 $ v $ 所在的等价类，则
@@ -622,7 +622,7 @@ $ \left| K \right|  $ 是道路连通的当且仅当 $ H_0(K)=\mathbb{Z} $。
 ::: example [$2$ 维闭曲面的代数表示]
 $2$ 维闭曲面一共两类，一类是可定向的：
 
-![可定向的 $2$ 维闭曲面](Sec3-6.png?width=720)
+![可定向的 $2$ 维闭曲面](Sec3-6.png){width=720}
 
 其中 $ \sharp $ 表示连通和。它在两个流形中各挖去一个球，
 并将球面边界粘贴在一起得到。而不可定向的一类为
@@ -639,7 +639,7 @@ $2$ 维闭曲面一共两类，一类是可定向的：
 对于不可定向曲面，无论做了多少次连通和，
 它永远可以通过连续变形构成一个定向曲面和一个 Möbius 带的形式。*）
 
-![一个 $ \mathbb{RP}^2 $ 和 $ \mathbb{RP}^2 $ 作连通和的例子](Sec3-7.png?width=720)
+![一个 $ \mathbb{RP}^2 $ 和 $ \mathbb{RP}^2 $ 作连通和的例子](Sec3-7.png){width=720}
 :::
 
 为了应用所谓的 push off 方法，我们约定所有的 $2$ 维单形定向均为逆时针定向。
@@ -661,7 +661,7 @@ $2$ 维闭曲面一共两类，一类是可定向的：
 若一个非边界的 $ [v_i,v_j] $ 使得 $ n_{ij}\ne 0 $，
 则可以取到一个使得 $ [v_i,v_j] $ 系数为负的 $2$ 维复形 $ \sigma_1 $：
 
-![](Sec3-8.png?width=240)
+![](Sec3-8.png){width=240}
 
 此时
 \[
@@ -679,7 +679,7 @@ d=\sum_{\dim\sigma=2}n_\sigma\sigma,\qquad\partial d\in Z_1(\operatorname{Bd} K)
 \]
 由此，考虑非边界上的 $1$ 维边，如下图所示
 
-![](Sec3-9.png?width=240)
+![](Sec3-9.png){width=240}
 
 于是对粉色边，应当有 $ n_\sigma=n_{\sigma'} $，
 再对蓝色边讨论，有 $ n_{\sigma'}=n_{\sigma''} $，
@@ -689,7 +689,7 @@ d=\sum_{\dim\sigma=2}n_\sigma\sigma,\qquad\partial d\in Z_1(\operatorname{Bd} K)
 ::: example [$ \mathbb{T}^2 $ 的同调群]
 考虑 $ \mathbb{T}^2 $ 的三角剖分
 
-![](Sec3-10.png?width=240)
+![](Sec3-10.png){width=240}
 
 对 $ p<0 $ 和 $ p>2 $ 自然有 $ H_p(\mathbb{T}^2)=0 $。
 
@@ -766,7 +766,7 @@ H_p(\mathbb{T}^2)=\begin{cases}
 ::: example [Klein 瓶的同调群]
 Klein 瓶 $ S $ 的三角剖分如下图所示：
 
-![](Sec3-11.png?width=240)
+![](Sec3-11.png){width=240}
 
 类似地记
 \[
@@ -884,7 +884,7 @@ v*K=K\cup\left\{ v \right\}\cup\bigcup_{\sigma\in K}v*\sigma,
 称作在 $ v $ 处的**锥**。
 :::
 
-![一个 $2$ 维复形 $ K $ 与点 $ v $ 形成的锥](Sec3-12.png?width=240)
+![一个 $2$ 维复形 $ K $ 与点 $ v $ 形成的锥](Sec3-12.png){width=240}
 
 从几何上来看，容易得到 $ \left| v*K \right| \cong\mathrm{pt} $。
 

@@ -1,13 +1,12 @@
 ---
 title: 整概形
 categories: [概形论]
-notices:
-  - name: 区分
-    pages:
-      - 整态射
-      - 整同态
 navboxes: [概形论]
 ---
+
+<disambiguation>
+注意与[[整态射]]、[[整同态]]区分。
+</disambiguation>
 
 **整概形**是[[整环]]的整体版本，
 也就是说它在局部上是整环的[[素谱|谱]]，

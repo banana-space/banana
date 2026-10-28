@@ -1,10 +1,10 @@
 ---
 title: '$\ell$-进上同调和有限性定理一瞥'
-notices:
-  - name: 问题
-    items:
-      - 有限性定理的证明中，同构 $H^i_{\operatorname{ét}}(X,\mathbb{Z}_{\ell})\cong\varprojlim_nH^i_{\operatorname{ét}}(X,\ell^{n-1}\ell\mathbb{Z}/\ell^n\mathbb{Z})$ 右端的系数似乎应为 $\ell\mathbb{Z}/\ell^n\mathbb{Z}$；图表中竖直方向的序列（含乘 $\ell$ 映射）似乎也不构成短正合列。
 ---
+
+<problems>
+- 有限性定理的证明中，同构 $H^i_{\operatorname{ét}}(X,\mathbb{Z}_{\ell})\cong\varprojlim_nH^i_{\operatorname{ét}}(X,\ell^{n-1}\ell\mathbb{Z}/\ell^n\mathbb{Z})$ 右端的系数似乎应为 $\ell\mathbb{Z}/\ell^n\mathbb{Z}$；图表中竖直方向的序列（含乘 $\ell$ 映射）似乎也不构成短正合列。
+</problems>
 
 我们来定义非挠层的上同调！
 

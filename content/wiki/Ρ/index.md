@@ -2,11 +2,12 @@
 title: Ρ
 aliases: [Rho]
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与拉丁字母“[[P]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与拉丁字母“[[P]]”。
+</disambiguation>
 
 希腊字母 **Ρ，ρ** 用在以下记号中：
 

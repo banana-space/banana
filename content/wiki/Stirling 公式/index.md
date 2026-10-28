@@ -1,11 +1,11 @@
 ---
 title: Stirling 公式
 categories: [实分析, 复分析]
-notices:
-  - name: 问题
-    items:
-      - “推导”一节的注中，$K\to\infty$ 似乎应为 $m\to\infty$。
 ---
+
+<problems>
+- “推导”一节的注中，$K\to\infty$ 似乎应为 $m\to\infty$。
+</problems>
 
 **Stirling 公式**描述[[阶乘]]的渐近行为，
 以James Stirling的名字命名。常见的形式如下：

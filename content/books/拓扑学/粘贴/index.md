@@ -1,11 +1,11 @@
 ---
 title: 粘贴
-notices:
-  - name: 问题
-    items:
-      - “商映射的判据”一节中，下半个开圆周上给出的映射 \((x,y) \mapsto \frac{1}{2\pi}\arccos x\) 似乎不是 \(p\) 的局部截面：它的值落在 \(\left]0,\frac{1}{2}\right[\) 中，似乎应为 \(-\frac{1}{2\pi}\arccos x\)，值域为 \(\left]-\frac{1}{2},0\right[\)。
-      - “粘贴开集”一节验证对称性时，等式 \(f_{ji} \circ f_{ij} = f_{jj} = \mathrm{Id}_{U_{j}}\) 似乎应为 \(f_{ji} \circ f_{ij} = f_{ii} = \mathrm{Id}_{U_{i}}\)（限制在 \(U_{ij}\) 上）。
 ---
+
+<problems>
+- “商映射的判据”一节中，下半个开圆周上给出的映射 \((x,y) \mapsto \frac{1}{2\pi}\arccos x\) 似乎不是 \(p\) 的局部截面：它的值落在 \(\left]0,\frac{1}{2}\right[\) 中，似乎应为 \(-\frac{1}{2\pi}\arccos x\)，值域为 \(\left]-\frac{1}{2},0\right[\)。
+- “粘贴开集”一节验证对称性时，等式 \(f_{ji} \circ f_{ij} = f_{jj} = \mathrm{Id}_{U_{j}}\) 似乎应为 \(f_{ji} \circ f_{ij} = f_{ii} = \mathrm{Id}_{U_{i}}\)（限制在 \(U_{ij}\) 上）。
+</problems>
 
 在这一节中，我们要介绍拓扑学中构造空间的一个基本手段：粘贴。
 比如，圆周 \(\mathbb{S}^{1}\) 应该可以通过将闭区间 \([0,1]\) 的两个端点 \(0\)、
@@ -81,7 +81,7 @@ Möbius 带应该可以通过将方形\([0,1]\times[0,1]\) 的一对对边沿相
 
 - \((0,b) \sim (1,b)\)，\(\forall b \in [0,1]\)
 
-![图 1：粘合正方形两条边](Topology_image6.svg?width=150)
+![图 1：粘合正方形两条边](Topology_image6.svg){width=150}
 
 则 \(S\) 关于 \(\sim\) 的商集，作为集合，就与圆柱的边界曲面一一对应了。
 :::
@@ -320,7 +320,7 @@ V = \bigcup_{i\in I} V \cap U_i
 
 3. 在研究曲面的时候经常会使用下面这样的示意图：
 
-   ![图 2：环面与 Klein 瓶](Topology_image7.svg?width=250)
+   ![图 2：环面与 Klein 瓶](Topology_image7.svg){width=250}
 
    它的意思是将用同一种方法标记的边按照所示方向粘接在一起。
    左图粘出了环面，而右图粘出了所谓的 Klein 瓶。
@@ -361,7 +361,7 @@ V = \bigcup_{i\in I} V \cap U_i
    令 \(c_n = \left(n,\frac{\sqrt{2}}{n}\right)\)。
    令 \(U_n\) 是如图 3 所示阴影区域构成的开集。
 
-   ![图 3：集合 \(U_{n}\)](Topology_image8.svg?width=400)
+   ![图 3：集合 \(U_{n}\)](Topology_image8.svg){width=400}
 
    令 \(U = \bigcup_{n=1}^{\infty} U_n\)。
    由于 \(c_n\) 的第二个坐标是无理数，\(U\) 是一个饱和开集。
@@ -467,12 +467,12 @@ x \sim y \Longleftrightarrow \exists i, j \in I, x \in U_{ij}, y \in U_{ji}, f_{
 所得到的空间叫做**有两个原点的仿射直线（affine line with double origin）**（见图 4）。
 它不是一个 Hausdorff 空间。红色的原点的任何邻域一定是蓝色原点的去心邻域。
 
-![图 4：有两个原点的仿射直线](Topology_image9.svg?width=250)
+![图 4：有两个原点的仿射直线](Topology_image9.svg){width=250}
 
 我们也可以用另一种方法来粘合 \(U_{12}\) 和 \(U_{21}\)，我们可以令
 \(\varphi_{12}(x)=1/x\)。如果这样粘合的话，我们得到了 \(\mathbb{S}^{1}\)。见图 5。
 
-![图 5：用两个实轴粘合圆周](Topology_image10.svg?width=250)
+![图 5：用两个实轴粘合圆周](Topology_image10.svg){width=250}
 
 具体的商映射可以用南极和北极分别的球极投影给出。
 :::

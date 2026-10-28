@@ -1,11 +1,11 @@
 ---
 title: 自然演绎系统
-notices:
-  - name: 问题
-    items:
-      - “符号注释”中关于 $\exists \mathrm{E}$ 的条件“$y$ 不在 $\varphi$ 和 $\mathcal{D}_2$ 的其他假设中自由出现”里的 $\varphi$ 似乎应为该规则的结论 $\psi$。
 navboxes: [逻辑学]
 ---
+
+<problems>
+- “符号注释”中关于 $\exists \mathrm{E}$ 的条件“$y$ 不在 $\varphi$ 和 $\mathcal{D}_2$ 的其他假设中自由出现”里的 $\varphi$ 似乎应为该规则的结论 $\psi$。
+</problems>
 
 **自然演绎系统**是一个基于假设的证明系统，用于模拟人们日常的推理模式。
 

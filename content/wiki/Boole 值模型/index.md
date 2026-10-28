@@ -1,12 +1,12 @@
 ---
 title: Boole 值模型
 categories: [模型论, 集合论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中定义“模型”之前的注里，不等式 $\chi(m_i)\le\bigwedge_{\varphi\in\Phi}\varphi(m_i)$ 的方向似乎写反了，按 $\Phi\vdash\chi$ 似乎应为 $\bigwedge_{\varphi\in\Phi}[\varphi(m_i)]\le[\chi(m_i)]$。
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “定义”一节中定义“模型”之前的注里，不等式 $\chi(m_i)\le\bigwedge_{\varphi\in\Phi}\varphi(m_i)$ 的方向似乎写反了，按 $\Phi\vdash\chi$ 似乎应为 $\bigwedge_{\varphi\in\Phi}[\varphi(m_i)]\le[\chi(m_i)]$。
+- “应用”一节需要扩充。
+</problems>
 
 **Boole 值模型**是[[数理逻辑]]中[[模型]]的推广，
 将其中语句的真值推广到任意[[完备 Boole 代数]]上。

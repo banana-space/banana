@@ -2,15 +2,16 @@
 title: 谱（泛函分析）
 aliases: [Gelfand–Mazur 定理, Gelfand-Mazur 定理]
 categories: [泛函分析]
-notices:
-  - name: 消歧义
-    see:
-      - page: 谱
-  - name: 问题
-    items:
-      - “性质”一节第一个定理的证明中，$(\lambda-a)^{-1}$ 关于 $\lambda$ 的导数似乎应为 $-(\lambda-a)^{-2}$（不影响论证）。
 navboxes: [泛函分析]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[谱]]。
+</disambiguation>
+
+<problems>
+- “性质”一节第一个定理的证明中，$(\lambda-a)^{-1}$ 关于 $\lambda$ 的导数似乎应为 $-(\lambda-a)^{-2}$（不影响论证）。
+</problems>
 
 **谱**是[[线性代数]]中算子[[特征值]]在[[泛函分析]]中的推广。
 

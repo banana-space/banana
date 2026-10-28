@@ -1,12 +1,12 @@
 ---
 title: 无幺环
 categories: [一般环论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [代数结构]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **无幺环**是一种[[代数结构]]，
 类似于[[环]]，但不一定带有幺元。

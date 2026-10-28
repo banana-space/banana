@@ -1,14 +1,14 @@
 ---
 title: 同调群的同伦不变性
-notices:
-  - name: 问题
-    items:
-      - “单纯逼近定理”一节中，单纯逼近定理之后的引理与命题没有证明，且引理中的 $K$ 似乎应为重分 $K'$（即 $w\in K'^{(0)}$，$\operatorname{St}(w,K')\subset\operatorname{St}(v,K)$）。
-      - 代数重分定理的证明中，“仍有 $g_\sharp\circ\lambda=\mathrm{id}_{\mathcal{C}(K)}$”似乎应为链同伦而非相等。
-      - Brouwer 不动点定理的证明中，$h$ 的值域似乎应为 $\mathbb{S}^{n-1}$ 而非 $\mathbb{S}^{n+1}$。
-      - Brouwer–Poincaré 定理的证明中，“$h(x)\ne x\land h(x)=-x$”似乎应为 $h(x)\ne -x$。
-      - “应用：Euler 示性数、Lefschetz 不动点定理”一节中，等式 $\operatorname{rank} C_p(K)=f_p=\beta_p(K)$ 的第二个等号似乎一般不成立。
 ---
+
+<problems>
+- “单纯逼近定理”一节中，单纯逼近定理之后的引理与命题没有证明，且引理中的 $K$ 似乎应为重分 $K'$（即 $w\in K'^{(0)}$，$\operatorname{St}(w,K')\subset\operatorname{St}(v,K)$）。
+- 代数重分定理的证明中，“仍有 $g_\sharp\circ\lambda=\mathrm{id}_{\mathcal{C}(K)}$”似乎应为链同伦而非相等。
+- Brouwer 不动点定理的证明中，$h$ 的值域似乎应为 $\mathbb{S}^{n-1}$ 而非 $\mathbb{S}^{n+1}$。
+- Brouwer–Poincaré 定理的证明中，“$h(x)\ne x\land h(x)=-x$”似乎应为 $h(x)\ne -x$。
+- “应用：Euler 示性数、Lefschetz 不动点定理”一节中，等式 $\operatorname{rank} C_p(K)=f_p=\beta_p(K)$ 的第二个等号似乎一般不成立。
+</problems>
 
 ## 单纯逼近定理
 
@@ -61,7 +61,7 @@ H(x,t)=tf(x)+(1-t)g(x).
 设 $ K $ 的几何实现为 $ \mathbb{S}^1 $，而 $ L $ 的几何实现是一个平环
 $ \left\{ z\in\mathbb{C} : 1\leqslant\left| z \right| \leqslant 2 \right\} $。
 
-![](Sec5-1.png?width=600)
+![](Sec5-1.png){width=600}
 
 这因任何 $ K\to L $ 的单纯映射必定落在 $ L $ 的一个 $2$-单形中。
 下面的问题就是：在什么条件下存在单纯逼近？
@@ -94,11 +94,11 @@ $ L=\left\{ \sigma\in K : v\notin\sigma \right\} $ 是 $ K $ 的子复形。
 
 但 $ \mathrm{Int}\,\sigma $ 在一般的情况下未必是 $ \left| K \right|  $ 中的开集。
 
-![一个 $ \mathrm{Int}\,\sigma $ 不是 $ \left| K \right|  $ 中开集的例子](Sec5-2.png?width=480)
+![一个 $ \mathrm{Int}\,\sigma $ 不是 $ \left| K \right|  $ 中开集的例子](Sec5-2.png){width=480}
 
 而 link 就要更复杂一些，下图给出了一个简单的$2$维复形中 link 的图示：
 
-![一个$2$维复形中顶点的闭 star、star 和 link](Sec5-3.png?width=840)
+![一个$2$维复形中顶点的闭 star、star 和 link](Sec5-3.png){width=840}
 
 ::: proposition {@prop:5.5}
 设 $ \left\{ v_0,\dots,v_p \right\}\subset K^{(0)} $，
@@ -192,7 +192,7 @@ $ g(x)=\sum\limits_{i=0}^pt_ig(v_i)\in\tau $。故 $ g $ 是 $ f $ 的一个单�
 
 单纯逼近不能解决所有问题，例如之前的例子
 
-![](Sec5-1.png?width=600)
+![](Sec5-1.png){width=600}
 
 中 $ f $ 不存在单纯逼近。此时就需要另外一种工具：重分。
 
@@ -249,7 +249,7 @@ $ p=1 $ 时，在 $ K^{(1)} $ 上
 为 $ K $ 的**标准重心重分**。
 类似地记 $ \operatorname{sd}^2=\operatorname{sd}(\operatorname{sd}\,K) $。
 
-![一个$2$维单形构成的复形及其标准重心重分](Sec5-4.png?width=480)
+![一个$2$维单形构成的复形及其标准重心重分](Sec5-4.png){width=480}
 
 也可以这样定义标准重心重分：
 
@@ -586,7 +586,7 @@ $ \dim\sigma\leqslant p-1 $ 都存在相应的 $ \varphi $ 被 $ \varPhi $ 承�
 存在唯一的 $ \theta $ 使得 $ \theta(\tau)\in\mathcal{C}(\Theta(\tau)) $
 对任意 $ \tau\in K' $ 成立。
 
-![](Sec5-5.png?width=660)
+![](Sec5-5.png){width=660}
 
 同样地，可以得到 $ \mathrm{id}_{\mathcal{C}(K)} $ 被 $ \Psi $ 承载，
 $ \mathrm{id}_{\mathcal{C}(K')} $ 被 $ \varPhi $ 承载。
@@ -977,7 +977,7 @@ $ \deg r=(-1)^{n+1} $。
 
 考虑 $ \mathbb{S}^n $ 的如下三角剖分：
 
-![](Sec7-1.png?width=240)
+![](Sec7-1.png){width=240}
 
 它由 $ \mathbb{R}^{n+1} $ 上典范正交基的顶点
 $ \left\{ \pm e_1,\pm e_2,\dots,\pm e_{n+1} \right\} $ 确定。

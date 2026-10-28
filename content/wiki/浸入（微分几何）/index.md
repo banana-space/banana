@@ -2,12 +2,12 @@
 title: 浸入（微分几何）
 aliases: [浸入子流形]
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    see:
-      - page: 浸入
 navboxes: [微分几何]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[浸入]]。
+</disambiguation>
 
 在[[微分几何]]中，**浸入**是[[光滑流形]]间的一类[[光滑映射]]。
 与[[嵌入 (微分几何)|嵌入]]类似，浸入也是将某个流形放入另一个流形中，

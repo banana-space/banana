@@ -1,11 +1,12 @@
 ---
 title: P
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Ρ]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Ρ]]”。
+</disambiguation>
 
 拉丁字母 **P，p** 用在以下记号中：
 

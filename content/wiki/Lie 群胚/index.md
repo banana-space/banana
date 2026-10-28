@@ -2,12 +2,12 @@
 title: Lie 群胚
 aliases: [李群胚]
 categories: [Lie 理论, 高阶几何]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [高阶几何]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **Lie 群胚**是“带有光滑结构的[[群胚]]”。
 也就是说，作为群胚，其所有对象构成的空间是[[光滑流形]]，

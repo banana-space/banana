@@ -1,12 +1,12 @@
 ---
 title: 数域
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [代数数论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **数域**是指[[有理数]] $\mathbb{Q}$ 的[[有限扩张]]，是[[代数数论]]的主要研究对象之一。
 

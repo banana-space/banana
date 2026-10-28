@@ -1,10 +1,10 @@
 ---
 title: 条件期望的计算
-notices:
-  - name: 问题
-    items:
-      - 本节定理两条的结论 $\mathbb{E}\!\left[X \mkern2mu|\mkern2mu Y\right]=\phi_X(Y)$ 中，左端似乎应为 $\mathbb{E}\!\left[h(X,Y) \mkern2mu|\mkern2mu Y\right]$（证明验证的是 $\mathbb{E}[\phi_X(Y)\cdot g(Y)]=\mathbb{E}[h(X,Y)\cdot g(Y)]$）。
 ---
+
+<problems>
+- 本节定理两条的结论 $\mathbb{E}\!\left[X \mkern2mu|\mkern2mu Y\right]=\phi_X(Y)$ 中，左端似乎应为 $\mathbb{E}\!\left[h(X,Y) \mkern2mu|\mkern2mu Y\right]$（证明验证的是 $\mathbb{E}[\phi_X(Y)\cdot g(Y)]=\mathbb{E}[h(X,Y)\cdot g(Y)]$）。
+</problems>
 
 本节中，我们给出$(X,Y)$为离散型或连续型随机向量时，
 条件期望$\mathbb{E}\!\left[h(X,Y) \mkern2mu|\mkern2mu Y\right]$的计算方法，

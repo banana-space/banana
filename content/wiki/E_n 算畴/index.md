@@ -2,12 +2,12 @@
 title: '$\mathbb{E}_n$ 算畴'
 aliases: [En 算畴]
 categories: [高阶代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节称 $\mathbb{E}_0$ 的多元运算只有恒同运算，但按定义 $\mathbb{E}_0(0)$ 似乎是单点，即 $\mathbb{E}_0$ 似乎还有一个零元运算。
 navboxes: [高阶代数]
 ---
+
+<problems>
+- “例子”一节称 $\mathbb{E}_0$ 的多元运算只有恒同运算，但按定义 $\mathbb{E}_0(0)$ 似乎是单点，即 $\mathbb{E}_0$ 似乎还有一个零元运算。
+</problems>
 
 **$\mathbb{E}_n$ 算畴**，
 也称为 $n$ 维**小圆盘算畴**或**小方体算畴**，

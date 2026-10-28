@@ -1,11 +1,11 @@
 ---
 title: 一些线性代数知识
-notices:
-  - name: 问题
-    items:
-      - 正定矩阵判别定理的证明中，令 $\boldsymbol{y}$ 为第 $j$ 个标准基向量后，按 $\boldsymbol{y}=\mathbf{Q}^\mathsf{T}\boldsymbol{x}$ 似乎应取 $\boldsymbol{x}=\mathbf{Q}\boldsymbol{y}$，而不是 $\mathbf{Q}^\mathsf{T}\boldsymbol{y}$。
-      - 奇异值分解定理第 3 条中，$\sigma_1,\ldots,\sigma_r$ 似乎应是 $\mathbf{A}^\mathsf{T}\mathbf{A}$ 与 $\mathbf{A}\mathbf{A}^\mathsf{T}$ 的非零特征值的算术平方根，即 $\sigma_i^2$ 才是这些特征值。
 ---
+
+<problems>
+- 正定矩阵判别定理的证明中，令 $\boldsymbol{y}$ 为第 $j$ 个标准基向量后，按 $\boldsymbol{y}=\mathbf{Q}^\mathsf{T}\boldsymbol{x}$ 似乎应取 $\boldsymbol{x}=\mathbf{Q}\boldsymbol{y}$，而不是 $\mathbf{Q}^\mathsf{T}\boldsymbol{y}$。
+- 奇异值分解定理第 3 条中，$\sigma_1,\ldots,\sigma_r$ 似乎应是 $\mathbf{A}^\mathsf{T}\mathbf{A}$ 与 $\mathbf{A}\mathbf{A}^\mathsf{T}$ 的非零特征值的算术平方根，即 $\sigma_i^2$ 才是这些特征值。
+</problems>
 
 ::: definition
 给定实的方阵$\mathbf{M}\in\mathbb{R}^{n\times n}$。

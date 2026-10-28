@@ -1,2 +1,0 @@
-<a class="category-link" href="{{ .RelPermalink }}">{{- if eq .Kind "term" -}}{{- partial "ui-icon.html" "folder" -}}{{- end -}}{{- if eq .Kind "taxonomy" -}}{{- i18n .Data.Plural -}}{{- else -}}{{- partial "display-title.html" . -}}{{- end -}}</a>
-{{- /* Keep category counts adjacent to the link. */ -}}

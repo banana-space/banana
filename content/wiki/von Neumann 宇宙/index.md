@@ -2,11 +2,11 @@
 title: von Neumann 宇宙
 aliases: [Von Neumann 宇宙, Von Neumann 层级]
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节第一个定理的证明取“这些 $\alpha$ 中最大者”，但 $x$ 无限时这些序数似乎不一定有最大者，应取上确界（并用到替换公理）。
 ---
+
+<problems>
+- “性质”一节第一个定理的证明取“这些 $\alpha$ 中最大者”，但 $x$ 无限时这些序数似乎不一定有最大者，应取上确界（并用到替换公理）。
+</problems>
 
 [[集合论]]中，**von Neumann 宇宙**是
 [[ZF 集合论]]里的所有[[集合]]构成的[[类]]，

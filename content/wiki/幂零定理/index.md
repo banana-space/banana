@@ -1,11 +1,11 @@
 ---
 title: 幂零定理
 categories: [色谱同伦论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节需要扩充。
 ---
+
+<problems>
+- “证明”一节需要扩充。
+</problems>
 
 **幂零定理**是[[色谱同伦论]]中的基本定理，
 说的是[[复配边谱]] $\mathrm{MU}$ 探测幂零。

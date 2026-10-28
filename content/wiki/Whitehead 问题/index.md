@@ -1,11 +1,11 @@
 ---
 title: Whitehead 问题
 categories: [集合论, 同调代数]
-notices:
-  - name: 问题
-    items:
-      - “准备”“相容性”“否定的相容性”各节需要扩充。
 ---
+
+<problems>
+- “准备”“相容性”“否定的相容性”各节需要扩充。
+</problems>
 
 **Whitehead 问题**是个关于[[交换群]]的[[同调代数]]问题：
 

@@ -1,11 +1,11 @@
 ---
 title: 上同调理论
-notices:
-  - name: 问题
-    items:
-      - “$\operatorname{Hom}$ 函子和单纯上同调”一节中有几处记号似乎有误：例如上边缘的定义中 $c^p\delta$ 似乎应为 $c^p\partial$，$\delta c^p$ 的值域似乎应为 $G$；对 $\tau$ 的展开中 $\delta\tau$ 似乎应为 $\partial\tau$。
-      - “$\operatorname{Ext}$ 函子和万有系数公式”一节最后的例子中，按前面的计算 $H^1(S;\mathbb{Z}/2\mathbb{Z})$ 似乎应为 $\mathbb{Z}/2\mathbb{Z}\oplus\mathbb{Z}/2\mathbb{Z}$。
 ---
+
+<problems>
+- “$\operatorname{Hom}$ 函子和单纯上同调”一节中有几处记号似乎有误：例如上边缘的定义中 $c^p\delta$ 似乎应为 $c^p\partial$，$\delta c^p$ 的值域似乎应为 $G$；对 $\tau$ 的展开中 $\delta\tau$ 似乎应为 $\partial\tau$。
+- “$\operatorname{Ext}$ 函子和万有系数公式”一节最后的例子中，按前面的计算 $H^1(S;\mathbb{Z}/2\mathbb{Z})$ 似乎应为 $\mathbb{Z}/2\mathbb{Z}\oplus\mathbb{Z}/2\mathbb{Z}$。
+</problems>
 
 ## $\operatorname{Hom}$ 函子和单纯上同调
 
@@ -298,7 +298,7 @@ $ c^p=\sum\limits_{\alpha}g_\alpha\sigma_\alpha^* $，于是命题得证。
 ::: example {@ex:一个计算例子}
 考虑下面的 $2$ 维单纯复形
 
-![](Sec15-1.png?width=240)
+![](Sec15-1.png){width=240}
 
 只需分别计算不同维数的基本上链的边缘即可。对 $2$-基本上链
 \[

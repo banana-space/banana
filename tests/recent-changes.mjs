@@ -17,16 +17,16 @@ const files = new Map([ // "commit:path" -> text
 const at = (sha, path, text) => files.set(`${sha}:${path}`, text);
 const pulls = [];
 const committed = number => `2026-09-${String(number % 28 + 1).padStart(2, '0')}T23:30:00Z`;
-function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, closed = false, changed, title }) {
+function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, closed = false, changed, title, messages = [title] }) {
   const head = String(number).padStart(40, 'b');
   for (const [path, text] of Object.entries(changed)) if (text !== null) at(head, path, text);
   pulls.push({
     number, title, html_url: `https://github.example/owner/site/pull/${number}`, user: { login: user },
     state: merged || closed ? 'closed' : 'open', merged_at: merged ? `2026-10-0${number % 9 + 1}T08:00:00Z` : null,
-    // A commit the editor API's checkout does not have: merged, not yet deployed. #6's is set to the checkout's below.
+    // A commit the API's checkout does not have: merged, not yet deployed. #6's is set to the checkout's below.
     merge_commit_sha: merged ? 'c'.repeat(40) : null,
     updated_at: `2026-10-1${number % 9}T08:00:00Z`, created_at: '2026-10-01T08:00:00Z', draft: false,
-    base: { sha: main }, head: { sha: head, ref, repo: { full_name: fork ? 'fork/site' : 'Owner/Site' } },
+    base: { sha: main }, head: { sha: head, ref, repo: { full_name: fork ? 'fork/site' : 'Owner/Site' } }, messages,
     files: Object.entries(changed).map(([path, text]) => ({
       filename: path, status: text === null ? 'removed' : files.has(`${main}:${path}`) ? 'modified' : 'added', additions: 1, deletions: 0,
     })),
@@ -34,13 +34,14 @@ function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, 
 }
 const page = (title, body) => `---\ntitle: ${title}\ncategories: []\n---\n\n${body}\n`;
 // Newest first, as GitHub lists them by update.
-pull(9, { ref: 'edit/octo/0123456789ab', title: '乙', changed: { 'content/wiki/乙/index.md': page('乙', '新条目。') } });
+// Its second commit marks the page a minor edit (scripts/shared/minor-edits.mjs).
+pull(9, { ref: 'edit/octo/0123456789ab', title: '乙', changed: { 'content/wiki/乙/index.md': page('乙', '新条目。') }, messages: ['编辑 乙\n\nMajor-edit: wiki/乙', '格式\n\nMinor-edit: wiki/乙'] });
 pull(8, { ref: 'new-page', user: 'hand', title: '手写的新页面', changed: { 'content/wiki/丙/index.md': page('丙', '手写。') } });
 pull(7, { ref: 'edit/evil/0123456789ab', fork: true, user: 'evil', title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '复刻中的修改。') } });
 pull(6, { ref: 'edit/hubot/fedcba987654', merged: true, title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '甲的新正文。') } });
 pull(5, { ref: 'closed', closed: true, title: '关闭的', changed: { 'content/wiki/甲/index.md': page('甲', '没有合并。') } });
 // The list of books is the site's own page, not a book's.
-pull(4, { ref: 'site-code', user: 'dev', merged: true, title: '网站代码', changed: { 'scripts/x.mjs': 'x', 'content/books/_index.md': '---\ntitle: 讲义\n---\n' } });
+pull(4, { ref: 'site-code', user: 'dev', merged: true, title: '网站代码', changed: { 'scripts/x.mjs': 'x', 'content/books/index.md': '---\ntitle: 讲义\n---\n' } });
 for (let number = 40; number < 70; number++) pull(number, { ref: `old-${number}`, merged: true, title: `旧 ${number}`, changed: { 'content/wiki/甲/index.md': page('甲', `旧 ${number}`) } });
 // A later page of GitHub's list holds older pull requests.
 pulls.sort((a, b) => (b.number < 10) - (a.number < 10) || b.number - a.number);
@@ -61,15 +62,17 @@ const github = createServer((request, response) => {
     const shown = state === 'open' ? pulls.filter(pull => pull.state === 'open') : pulls;
     return reply(200, shown.slice((number - 1) * size, number * size).map(({ files: _, ...pull }) => pull));
   }
-  let found = path.match(/^\/pulls\/(\d+)(\/files)?$/);
+  let found = path.match(/^\/pulls\/(\d+)(\/files|\/commits)?$/);
   if (found) {
     const pull = pulls.find(pull => pull.number === Number(found[1]));
     if (!pull) return reply(404, { message: 'Not Found' });
-    const { files: changed, ...rest } = pull;
+    const { files: changed, messages, ...rest } = pull;
+    if (found[2] === '/commits') return reply(200, messages.map(message => ({ commit: { message } })));
     return reply(200, found[2] ? (Number(url.searchParams.get('page')) > 1 ? [] : changed) : rest);
   }
   // The latest commit's date: written in the night, merged the next morning. #4's is missing.
   found = path.match(/^\/commits\/(\w+)$/);
+  if (found && pulls.some(pull => pull.merge_commit_sha === found[1])) return reply(200, { sha: found[1], commit: { message: 'Merge pull request', committer: { date: '2026-10-01T08:00:00Z' } } });
   if (found) {
     const pull = pulls.find(pull => pull.head.sha === found[1]);
     if (!pull || pull.number === 4) return reply(404, { message: 'Not Found' });
@@ -95,27 +98,27 @@ let child, output = '';
 try {
   await mkdir(join(root, 'content/wiki/甲'), { recursive: true });
   await writeFile(join(root, 'content/wiki/甲/index.md'), files.get(`${main}:content/wiki/甲/index.md`));
-  // The editor API runs in the deployed checkout: what its commit contains is on the site.
+  // The API runs in the deployed checkout: what its commit contains is on the site.
   const git = (...args) => execFileSync('git', ['-c', 'user.name=test', '-c', 'user.email=test@example.org', ...args], { cwd: root, encoding: 'utf8' }).trim();
   git('init', '-q');
   git('add', '-A');
   git('commit', '-q', '-m', 'deployed');
   pulls.find(pull => pull.number === 6).merge_commit_sha = git('rev-parse', 'HEAD');
-  /** Starts the editor API (no token: the repository is public). */
+  /** Starts the API (no token: the repository is public). */
   function start() {
     output = '';
-    child = spawn(process.execPath, ['scripts/editor-api.mjs', '--port', '0', '--github-repo', 'owner/site', '--cacheDir', join(root, 'cache')], {
+    child = spawn(process.execPath, ['scripts/api.mjs', '--port', '0', '--github-repo', 'owner/site'], {
       cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
       env: { ...process.env, BANANA_GITHUB_API: githubOrigin, BANANA_GITHUB_TOKEN: '' },
     });
     child.stdout.on('data', data => { output += data; });
     child.stderr.on('data', data => { output += data; });
   }
-  /** The editor API's address, once its log shows pattern. */
+  /** The API's address, once its log shows pattern. */
   async function logged(pattern) {
     const deadline = Date.now() + 60000;
     while (!pattern.test(output)) {
-      if (child.exitCode !== null || Date.now() > deadline) throw new Error(`editor-api 未启动：${output}`);
+      if (child.exitCode !== null || Date.now() > deadline) throw new Error(`API 未启动：${output}`);
       await delay(20);
     }
     return output.match(pattern)[1];
@@ -154,6 +157,7 @@ try {
   assert.deepEqual(bySomeoneNew.pages.map(({ path, title, url, status, letter }) => ({ path, title, url, status, letter })),
     [{ path: 'wiki/乙/index.md', title: '乙', url: null, status: 'added', letter: 'y' }], '新页面以目录名为标题，尚无网址');
   assert.equal(bySomeoneNew.namesPage, true, '编辑器的 PR 以页面命名');
+  assert.deepEqual([bySomeoneNew.pages[0].minor, merged.pages[0].minor], [true, undefined], 'PR 中后来的提交把页面标为小修改');
   assert.equal(byHandNew.namesPage, false);
   assert.deepEqual(merged.pages.map(page => [page.title, page.url, page.status]), [['甲', '/wiki/甲/', 'modified']]);
   assert.deepEqual([code.pages, code.otherFiles], [[], 2], '只改网站代码（与讲义列表）的 PR');
@@ -206,7 +210,7 @@ try {
   assert.equal(requests.filter(path => path === '/pulls/6/files').length, before, '文件列表按提交缓存');
 
   // A page's changes not yet on the site, for its history: open pull requests (also one renaming it), and merged ones
-  // the editor API's checkout does not have yet. Every page shares one list of open pull requests.
+  // the API's checkout does not have yet. Every page shares one list of open pull requests.
   const history = (path, headers = {}) => fetch(`${base}/api/page-history?path=${encodeURIComponent(path)}`, { headers })
     .then(async response => ({ status: response.status, json: await response.json(), headers: response.headers }));
   listed.length = 0;
@@ -219,7 +223,7 @@ try {
   assert.equal(json.pulls.some(pull => pull.number === 5), false, '关闭的 PR');
   assert.deepEqual(Object.keys(json.pulls[0]).filter(key => ['files', 'mergeCommit', 'fileCount'].includes(key)), []);
   ({ json } = await history('content/wiki/乙/index.md'));
-  assert.deepEqual(json.pulls.map(pull => [pull.number, pull.status, pull.additions, pull.deletions]), [[9, 'added', 1, 0]], '可带 content/ 前缀');
+  assert.deepEqual(json.pulls.map(pull => [pull.number, pull.status, pull.additions, pull.deletions, pull.minor]), [[9, 'added', 1, 0, true]], '可带 content/ 前缀；小修改');
   ({ json } = await history('wiki/没有/index.md'));
   assert.deepEqual(json.pulls, []);
   assert.equal(listed.filter(state => state === 'open').length, 1, '待审阅的 PR 列表由所有页面共用，一分钟内只读取一次');

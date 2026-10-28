@@ -115,7 +115,7 @@ d\sigma= \sqrt{\frac{1}{1-y^2}}dydz.
 \Phi\colon(0,\pi)\times (0,2\pi) \rightarrow \mathbf{S}^2,\ \ (\theta,\varphi)\mapsto (\sin(\theta)\cos(\varphi),\sin(\theta)\sin(\varphi),\cos(\theta)).
 \]
 
-![](MathAnalysis_N1605.jpg?width=400)
+![](MathAnalysis_N1605.jpg){width=400}
 
 由于 $z=\cos\theta$，所以 $\mathbf{S}^{2}(a,b)$ 由 $\theta\in [\arccos b,\arccos a]$ 所定义。
 此时，我们有

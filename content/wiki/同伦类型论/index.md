@@ -2,12 +2,12 @@
 title: 同伦类型论
 aliases: [HoTT, Hott]
 categories: [同伦类型论, 高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 navboxes: [类型论]
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **同伦类型论**是一种[[类型论]]，
 建立于[[同伦论]]和[[高阶范畴论]]的观点之上。

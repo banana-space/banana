@@ -2,11 +2,11 @@
 title: 多元组
 aliases: [有序对, 有序组]
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “定义”“性质”各节需要扩充。
 ---
+
+<problems>
+- “定义”“性质”各节需要扩充。
+</problems>
 
 **多元组**（或**有序组**）
 是一些对象按顺序组合在一起形成的组。

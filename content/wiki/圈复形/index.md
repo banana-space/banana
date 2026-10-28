@@ -2,12 +2,12 @@
 title: 圈复形
 aliases: [高阶周群]
 categories: [母题论, 相交论]
-notices:
-  - name: 问题
-    items:
-      - “函子性”“$\mathbb{A}^1$-不变性”“移送映射”各节需要扩充；其中函子性要用到参考文献中的移动引理。
 navboxes: [母题论, 相交论]
 ---
+
+<problems>
+- “函子性”“$\mathbb{A}^1$-不变性”“移送映射”各节需要扩充；其中函子性要用到参考文献中的移动引理。
+</problems>
 
 ::: convention
 在本文中，

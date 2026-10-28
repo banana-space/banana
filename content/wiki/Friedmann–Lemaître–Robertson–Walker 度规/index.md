@@ -2,12 +2,12 @@
 title: Friedmann–Lemaître–Robertson–Walker 度规
 aliases: [Friedmann-Lemaître-Robertson-Walker 度规]
 categories: [相对论]
-notices:
-  - name: 问题
-    items:
-      - “导出”一节中，截面曲率为 $k$ 的球面与双曲面的方程右端 $k^{-\frac1{2}}$、$|k|^{-\frac1{2}}$ 似乎应分别为 $k^{-1}$ 与 $-|k|^{-1}$。
-      - “大爆炸奇点”一节中，由连续性方程（$p \geq 0$ 时）得到的不等式似乎应为 $\rho \geq Ca^{-3}$。
 ---
+
+<problems>
+- “导出”一节中，截面曲率为 $k$ 的球面与双曲面的方程右端 $k^{-\frac1{2}}$、$|k|^{-\frac1{2}}$ 似乎应分别为 $k^{-1}$ 与 $-|k|^{-1}$。
+- “大爆炸奇点”一节中，由连续性方程（$p \geq 0$ 时）得到的不等式似乎应为 $\rho \geq Ca^{-3}$。
+</problems>
 
 **Friedmann–Lemaître–Robertson–Walker 度规**是[[Einstein 场方程]]的解。
 在物理上，

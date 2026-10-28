@@ -1,12 +1,12 @@
 ---
 title: 大数定律
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - “强大数定律”一节中 Kolmogorov 强大数定律充分性的证明里，等式 $\sum_{n=1}^\infty \mathbb{P}(|X_n| \geq n) = \mathbb{E}|X_1|$ 似乎应为不等式 $\leq$（左边等于 $\mathbb{E}\lfloor |X_1| \rfloor$），不影响结论。
 navboxes: [概率论]
 ---
+
+<problems>
+- “强大数定律”一节中 Kolmogorov 强大数定律充分性的证明里，等式 $\sum_{n=1}^\infty \mathbb{P}(|X_n| \geq n) = \mathbb{E}|X_1|$ 似乎应为不等式 $\leq$（左边等于 $\mathbb{E}\lfloor |X_1| \rfloor$），不影响结论。
+</problems>
 
 **大数定律**是[[概率论]]中的一系列结论。
 古典的大数定律是指如下观察：

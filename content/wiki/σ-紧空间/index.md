@@ -2,12 +2,12 @@
 title: '$\sigma$-紧空间'
 aliases: [Sigma-紧空间]
 categories: [一般拓扑]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中“$X\setminus Z$ 是 $\sigma$-紧空间”推出“$Z$ 是可数个开集之交”的方向似乎需要 $X$ 是 Hausdorff 空间（例如，不可数集上的余有限拓扑中，单点集的补集紧，但单点集不是可数个开集之交）。
 navboxes: [一般拓扑]
 ---
+
+<problems>
+- “例子”一节中“$X\setminus Z$ 是 $\sigma$-紧空间”推出“$Z$ 是可数个开集之交”的方向似乎需要 $X$ 是 Hausdorff 空间（例如，不可数集上的余有限拓扑中，单点集的补集紧，但单点集不是可数个开集之交）。
+</problems>
 
 **$\sigma$-紧空间**指[[紧集]]的可数并。
 

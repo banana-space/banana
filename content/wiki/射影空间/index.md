@@ -1,15 +1,15 @@
 ---
 title: 射影空间
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[代数几何]]中的射影空间'
-        page: 射影空间（代数几何）
-  - name: 问题
-    items:
-      - “作为流形”“性质”各节需要扩充。
 ---
+
+<disambiguation>
+关于[[代数几何]]中的射影空间，请参见[[射影空间（代数几何）]]。
+</disambiguation>
+
+<problems>
+- “作为流形”“性质”各节需要扩充。
+</problems>
 
 **射影空间**是[[几何学]]中的重要对象，
 起源于[[射影几何]]。

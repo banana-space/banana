@@ -1,11 +1,11 @@
 ---
 title: Categorical Logic and Type Theory
 categories: [作品, 类型论]
-notices:
-  - name: 问题
-    items:
-      - “内容”一节需要扩充。
 ---
+
+<problems>
+- “内容”一节需要扩充。
+</problems>
 
 **Categorical Logic and Type Theory**（中译**范畴逻辑与类型论**）
 是[[Bart Jacobs]]写的一本关于[[范畴逻辑]]和[[类型论]]的[[范畴语义]]的书。

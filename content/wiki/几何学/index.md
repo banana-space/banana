@@ -2,11 +2,11 @@
 title: 几何学
 aliases: [几何]
 categories: [几何学]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **几何学**是[[数学]]分支之一，
 是对各种形状及其性质的研究。

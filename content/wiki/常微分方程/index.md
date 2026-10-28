@@ -2,12 +2,12 @@
 title: 常微分方程
 aliases: [ODE]
 categories: [常微分方程论]
-notices:
-  - name: 问题
-    items:
-      - “定义”“例子”“性质”“解法”各节需要扩充。
 navboxes: [常微分方程]
 ---
+
+<problems>
+- “定义”“例子”“性质”“解法”各节需要扩充。
+</problems>
 
 **常微分方程**指关于单变量函数的[[微分方程]]，
 通常形如

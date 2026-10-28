@@ -1,12 +1,12 @@
 ---
 title: 非直谓性（类型论）
 categories: [类型论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 非直谓性
 navboxes: [类型论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[非直谓性]]。
+</disambiguation>
 
 **非直谓性**一般来说是指某种定义是自指的，
 在[[类型论]]中是[[宇宙 (类型论)|宇宙]]的性质。

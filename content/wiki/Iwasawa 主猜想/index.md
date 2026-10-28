@@ -1,12 +1,12 @@
 ---
 title: Iwasawa 主猜想
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “Rubin 的证明”一节中的证明不完整，只列出了所用的引理。
-      - “应用”“推广”各节需要扩充。
 ---
+
+<problems>
+- “Rubin 的证明”一节中的证明不完整，只列出了所用的引理。
+- “应用”“推广”各节需要扩充。
+</problems>
 
 Iwasawa 主猜想，一般是指 $\mathbb{Q}$ 上的 Iwasawa 主猜想，
 给出了 [[p 进 L 函数|$p$ 进 $L$ 函数]]和 $\mathbb{Z}_p$-扩张的[[理想类群]]塔之间的联系：

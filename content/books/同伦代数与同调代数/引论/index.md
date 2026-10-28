@@ -244,7 +244,7 @@ $\mathsf{hTop}\simeq\mathsf{Top}[\mathsf{HoEq}^{-1}]$。
 
 以上漫谈总结于下图。
 
-![](HAHA-局部化.svg?width=360)
+![](HAHA-局部化.svg){width=360}
 
 ## 第一次尝试
 

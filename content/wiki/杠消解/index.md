@@ -1,11 +1,11 @@
 ---
 title: 杠消解
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “对于单子”一节需要扩充。
 ---
+
+<problems>
+- “对于单子”一节需要扩充。
+</problems>
 
 **杠消解**是 \(\mathbb{Z}\) 作为 \(\mathbb{Z}[G]\)-模
 （\(\mathbb{Z}\) 作为平凡 \(G\)-模）的一个自由消解。

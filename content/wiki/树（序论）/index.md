@@ -1,13 +1,12 @@
 ---
 title: 树（序论）
 categories: [序论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[图论]]中的树'
-        page: 树
 navboxes: [序论]
 ---
+
+<disambiguation>
+关于[[图论]]中的树，请参见[[树]]。
+</disambiguation>
 
 在[[序论]]中，**树**是[[偏序集]]中的一类，
 它的序关系如果图示出来，则像是一棵树。

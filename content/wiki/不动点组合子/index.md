@@ -2,11 +2,11 @@
 title: 不动点组合子
 aliases: [Y 组合子]
 categories: [递归论]
-notices:
-  - name: 问题
-    items:
-      - “用法”一节需要扩充。
 ---
+
+<problems>
+- “用法”一节需要扩充。
+</problems>
 
 在[[$λ$ 演算]]或[[组合子逻辑]]中，
 **不动点组合子**是满足如下条件的表达式 \(Z\)：

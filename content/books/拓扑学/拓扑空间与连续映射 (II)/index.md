@@ -1,10 +1,10 @@
 ---
 title: 拓扑空间与连续映射 (II)
-notices:
-  - name: 问题
-    items:
-      - “空间上的空间”一节 Möbius 带例子的脚注中，参数化的 $z$ 分量 $z=0.5u\sin(u/2)$ 似乎应为 $z=0.5u\sin(v/2)$。
 ---
+
+<problems>
+- “空间上的空间”一节 Möbius 带例子的脚注中，参数化的 $z$ 分量 $z=0.5u\sin(u/2)$ 似乎应为 $z=0.5u\sin(v/2)$。
+</problems>
 
 ## 积空间
 
@@ -23,7 +23,7 @@ notices:
 “开箱子（[openbox](http://openbox.org/wiki/Main_Page)）”[^1] 的话，
 那么开箱子的并不一定是开箱子（图 1）。
 
-![图 1：开箱子的并不是开箱子，但交是](Topology_image3.svg?width=150)
+![图 1：开箱子的并不是开箱子，但交是](Topology_image3.svg){width=150}
 
 为了弥补这一点，我们强行**定义积拓扑**的开集为
 一堆开箱子的并。即：\(W\subset X \times Y\) 为开，如果存在一族 \(X\) 的开集
@@ -250,7 +250,7 @@ W \cap W' = \bigcup_{(i,j,k)\in I\times J\times K} W_{ij,k}.
 \(X_{b}=p^{-1}(b)\)（叫做点 \(b\) 的**纤维（fiber）**），
 并且 \(X_{b}\)“随着 \(b\) 连续变化”（图 2）。
 
-![图 2：一族连续变化的椭圆](Topology_image4.svg?width=250)
+![图 2：一族连续变化的椭圆](Topology_image4.svg){width=250}
 
 采取此观点时，一般习惯性将 \(B\) 叫做**底空间（base space）**，
 \(X\) 叫做**全空间（total space）**，并且我们在黑板上一般用竖着的箭头
@@ -271,7 +271,7 @@ W \cap W' = \bigcup_{(i,j,k)\in I\times J\times K} W_{ij,k}.
 ::: example [Möbius 带] {@example:mobius-strip}
 图 3 描述了著名的 **Möbius 带** \(M\)。
 
-![图 3：Möbius 带](Topology_image5.svg?width=250)
+![图 3：Möbius 带](Topology_image5.svg){width=250}
 
 即使我们没有明显地写出它在 \(\mathbb{R}^{3}\) 中的方程[^2]，读者应
 该能够想象出它的子空间拓扑结构。图中的黑线是一个与 \(\mathbb{S}^1\) 同胚的空间。

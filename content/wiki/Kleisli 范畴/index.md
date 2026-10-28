@@ -1,12 +1,12 @@
 ---
 title: Kleisli 范畴
 categories: [范畴代数]
-notices:
-  - name: 问题
-    items:
-      - “使用自由代数”“性质”各节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “使用自由代数”“性质”各节需要扩充。
+</problems>
 
 在[[范畴论]]中，**Kleisli 范畴**对于[[单子]] $T$ 和[[范畴]] $\mathcal C$ 而言，
 是指对象继承自 $\mathcal C$ 而态射形如 $\mathcal C(X, T(Y))$ 的范畴。

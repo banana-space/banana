@@ -1,12 +1,12 @@
 ---
 title: Einstein 场方程
 categories: [相对论]
-notices:
-  - name: 问题
-    items:
-      - '“陈述”之前的段落中，理想流体能动张量的公式 $T^{\mu\nu} = (p+g)U^\mu U^\nu + pg^{\mu\nu}$ 中的 $p+g$ 似乎应为 $\rho+p$（$\rho$ 为能量密度，$p$ 为压强，一般不是常数）。'
-      - “精确解”一节需要扩充。
 ---
+
+<problems>
+- “陈述”之前的段落中，理想流体能动张量的公式 $T^{\mu\nu} = (p+g)U^\mu U^\nu + pg^{\mu\nu}$ 中的 $p+g$ 似乎应为 $\rho+p$（$\rho$ 为能量密度，$p$ 为压强，一般不是常数）。
+- “精确解”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,10 +1,10 @@
 ---
 title: 有限生成交换群的分类
-notices:
-  - name: 问题
-    items:
-      - “有限生成交换群结构定理的存在性部分的证明”中 $d_1=\prod_{p}\beta(p)$、$d_2=\prod_{p}\gamma(p)$ 似乎应为 $\prod_{p}p^{\beta(p)}$、$\prod_{p}p^{\gamma(p)}$。
 ---
+
+<problems>
+- “有限生成交换群结构定理的存在性部分的证明”中 $d_1=\prod_{p}\beta(p)$、$d_2=\prod_{p}\gamma(p)$ 似乎应为 $\prod_{p}p^{\beta(p)}$、$\prod_{p}p^{\gamma(p)}$。
+</problems>
 
 我们用$+$表示交换群$A$中的乘法。
 若有有限个$x_1,\cdots,x_n\in A$，使得$A=\langle x_1,\cdots, x_n\rangle$，

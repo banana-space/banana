@@ -2,11 +2,11 @@
 title: 有限生成 Abel 群分类定理
 aliases: [有限 Abel 群分类定理]
 categories: [群论]
-notices:
-  - name: 问题
-    items:
-      - 定理与推论的不变因子分解中，只要求 $d_i > 0$ 时分解似乎不唯一（可以添加任意多个 $\mathbb{Z} / 1 \mathbb{Z}$），条件似乎应为 $d_i > 1$。
 ---
+
+<problems>
+- 定理与推论的不变因子分解中，只要求 $d_i > 0$ 时分解似乎不唯一（可以添加任意多个 $\mathbb{Z} / 1 \mathbb{Z}$），条件似乎应为 $d_i > 1$。
+</problems>
 
 **有限生成 Abel 群分类定理**说明，
 [[有限生成群|有限生成]] [[Abel 群]]一定能写成一些[[循环群]]的[[直和]]。

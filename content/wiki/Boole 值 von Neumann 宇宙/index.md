@@ -1,11 +1,11 @@
 ---
 title: Boole 值 von Neumann 宇宙
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “ZFC 的模型”“函子性”“序数、基数不变性”各节需要扩充。
 ---
+
+<problems>
+- “ZFC 的模型”“函子性”“序数、基数不变性”各节需要扩充。
+</problems>
 
 **Boole 值 von Neumann 宇宙**是 [[von Neumann 宇宙]]的
 Boole 值推广，是 [[ZFC]] 的 [[Boole 值模型]]。

@@ -3,15 +3,15 @@ title: Schubert 胞腔
 aliases: [Schubert 演算]
 categories: [相交论, 计数几何]
 navboxes: [相交论, 计数几何]
-notices:
-  - name: 问题
-    items:
-      - “Littlewood–Richardson 公式”“27 条直线和 2875 条直线”“推广”各节需要扩充。
-      - “Schubert 胞腔”一节的注中的公式使用了记号 $n$、$k$，与上文的 $N$、$n$ 不一致，似乎应把 $n-k$ 理解为 $N-n$。
-      - “一些特殊 Young 图”一节中 Plücker 嵌入的目标似乎应为 $\mathbb P^{\binom Nn-1}$。
-      - “Pieri 公式”一节最后一段中的 $A^*(\mathbf G(n,N-n))$ 与 $\sigma_{n^{N-n}}$ 似乎应为 $A^*(\mathbf G(n,N))$ 与 $\sigma_{(N-n)^n}$。
-      - “基本性质”一节中点的类 $[\mathrm{pt}]$ 似乎应位于 $A^{n(N-n)}$ 而不是 $A^0$；“$\mathbf G(2,4)$ 例子”一节的图中 $H^8$、$H^0$ 等标注的次数似乎与 $\sigma_a\in H^{2|a|}$ 的次数相反。
 ---
+
+<problems>
+- “Littlewood–Richardson 公式”“27 条直线和 2875 条直线”“推广”各节需要扩充。
+- “Schubert 胞腔”一节的注中的公式使用了记号 $n$、$k$，与上文的 $N$、$n$ 不一致，似乎应把 $n-k$ 理解为 $N-n$。
+- “一些特殊 Young 图”一节中 Plücker 嵌入的目标似乎应为 $\mathbb P^{\binom Nn-1}$。
+- “Pieri 公式”一节最后一段中的 $A^*(\mathbf G(n,N-n))$ 与 $\sigma_{n^{N-n}}$ 似乎应为 $A^*(\mathbf G(n,N))$ 与 $\sigma_{(N-n)^n}$。
+- “基本性质”一节中点的类 $[\mathrm{pt}]$ 似乎应位于 $A^{n(N-n)}$ 而不是 $A^0$；“$\mathbf G(2,4)$ 例子”一节的图中 $H^8$、$H^0$ 等标注的次数似乎与 $\sigma_a\in H^{2|a|}$ 的次数相反。
+</problems>
 
 **Schubert 胞腔** 是[[Graßmann 形]]中的一组特定的[[局部闭子概形]]。
 具体来说，它刻画了Graßmann 形 $\mathbf G(n,V)$ 中，

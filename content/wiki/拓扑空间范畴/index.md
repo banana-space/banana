@@ -1,12 +1,12 @@
 ---
 title: 拓扑空间范畴
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 $\mathsf{Top}$
 

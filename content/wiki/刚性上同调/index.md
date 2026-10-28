@@ -1,12 +1,12 @@
 ---
 title: 刚性上同调
 categories: [上同调论]
-notices:
-  - name: 问题
-    items:
-      - “一般系数”一节需要扩充。
 navboxes: [同调与上同调]
 ---
+
+<problems>
+- “一般系数”一节需要扩充。
+</problems>
 
 **刚性上同调**是由 P. Berthelot 引入的一种 $p$ 进[[同调与上同调|上同调]]。
 它对某个固定的正特征 $p$ 的域 $k$

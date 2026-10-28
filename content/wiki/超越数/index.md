@@ -1,12 +1,12 @@
 ---
 title: 超越数
 categories: [数系]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
-      - “Liouville 定理”中的条件似乎还需要要求 $p/q\neq\alpha$，否则有理数 $\alpha$ 也满足这一条件。
 ---
+
+<problems>
+- “例子”一节需要扩充。
+- “Liouville 定理”中的条件似乎还需要要求 $p/q\neq\alpha$，否则有理数 $\alpha$ 也满足这一条件。
+</problems>
 
 **超越数**指不是[[代数数]]的[[复数]]。
 换言之，如果一个数不是任何一个整系数[[代数方程]]的[[根]]，

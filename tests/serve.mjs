@@ -7,7 +7,7 @@ import { createServer } from 'node:net';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
-const root = await createProject('serve', ['scripts', 'layouts', 'assets', 'static', 'i18n', 'data', 'content/notices', 'content/navboxes', 'hugo.toml']);
+const root = await createProject('serve', ['scripts', 'assets', 'static', 'i18n', 'data', 'content/navboxes', 'site.yaml']);
 let child, output = '';
 async function until(check, description) {
   const deadline = Date.now() + 15000;
@@ -26,7 +26,7 @@ async function settle() {
   for (let length = -1; length !== output.length;) { length = output.length; await delay(1000); }
 }
 const completed = () => (output.match(/full build done|updated \d+ page/g) ?? []).length;
-const body = text => `---\ntitle: Live\ncategories: [测试]\nnotices: [缺少来源]\nnavboxes: [预览导航]\n---\n## 参考文献* {@sec:ref}\n\n${text}\n\n@sec:ref\n`;
+const body = text => `---\ntitle: Live\ncategories: [测试]\nnavboxes: [预览导航]\n---\n## 参考文献* {@sec:ref}\n\n${text}\n\n@sec:ref\n`;
 try {
   const page = join(root, 'content/wiki/live/index.md');
   await mkdir(join(root, 'content/wiki/live'), { recursive: true });
@@ -41,7 +41,7 @@ try {
   const chapter = join(root, 'content/books/讲义/甲/index.md');
   const chapterBody = text => `---\ntitle: 甲\n---\n${text}## 开头 {@sec:start}\n`;
   for (const name of ['甲', '乙']) await mkdir(join(root, 'content/books/讲义', name), { recursive: true });
-  await writeFile(join(root, 'content/books/讲义/collection.yaml'), 'title: 讲义\ncontents:\n  - page: 甲\n  - page: 乙\n');
+  await writeFile(join(root, 'content/books/讲义/book.yaml'), 'title: 讲义\ncontents:\n  - page: 甲\n  - page: 乙\n');
   await writeFile(chapter, chapterBody(''));
   await writeFile(join(root, 'content/books/讲义/乙/index.md'), '---\ntitle: 乙\n---\n见 @sec:start。\n');
   execFileSync('git', ['init'], { cwd: root, stdio: 'pipe' });
@@ -51,22 +51,21 @@ try {
   await new Promise(resolve => probe.close(resolve));
   const base = `http://127.0.0.1:${port}`;
   const html = async path => (await fetch(base + path, { signal: AbortSignal.timeout(2000) })).text();
-  child = spawn(process.execPath, ['scripts/serve.mjs', '--port', String(port), '--cacheDir', join(root, 'cache')], {
+  child = spawn(process.execPath, ['scripts/serve.mjs', '--port', String(port)], {
     cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
   });
   child.stdout.on('data', data => { output += data; });
   child.stderr.on('data', data => { output += data; });
   await until(() => output.includes('prebuild failed'), '首次语法错误提示');
   await writeFile(page, body('初始成功：如式(1.1)所示,成立.然后中文API。'));
-  await until(async () => (await html('/wiki/live/')).includes('初始成功'), '修正后启动 Hugo');
-  assert.ok(output.includes(`:${port}/`), 'Hugo 参数未透传');
+  await until(async () => (await html('/wiki/live/')).includes('初始成功'), '修正后完整构建');
   const initial = await html('/wiki/live/');
   assert.match(initial, /如式 \(1\.1\) 所示, 成立\. 然后中文 API．/);
   assert.doesNotMatch(initial, /(?:src|href)="[^"]*typography/);
   assert.equal((await fetch(base + '/js/typography.js')).status, 404);
   assert.equal((await fetch(base + '/js/typography-live.js')).status, 404);
   assert.match(await readFile(join(root, '.build/preview/wiki/live/index.html'), 'utf8'), /如式 \(1\.1\) 所示, 成立\. 然后中文 API．/);
-  for (const kind of ['notices', 'navboxes']) await assert.rejects(stat(join(root, '.build/content', kind)), { code: 'ENOENT' });
+  await assert.rejects(stat(join(root, '.build/content/navboxes')), { code: 'ENOENT' });
   // The pages come first; the search index follows in the background and is served once written.
   await until(() => output.includes('search index updated'), '搜索索引');
   await until(async () => (await fetch(base + '/pagefind/pagefind.js')).status === 200, '提供搜索索引');
@@ -77,22 +76,22 @@ try {
     assert.equal(redirect.status, 302, path);
     assert.equal(redirect.headers.get('location'), '/wiki/other/?from=%E5%88%AB%E5%90%8D+x');
   }
-  assert.match(initial, /<h2 id="参考文献"><a class="heading-link"[^>]*>§<\/a>参考文献<\/h2>/);
-  assert.doesNotMatch(initial, /class="section-number"/);
+  assert.match(initial, /<h2 id="参考文献"><a class="bm-heading-link"[^>]*>§<\/a>参考文献<\/h2>/);
+  assert.doesNotMatch(initial, /class="bm-section-number"/);
   const cssPath = initial.match(/href="([^"]+\/css\/[^" ]+\.css)"/)?.[1] ?? initial.match(/href="(\/css\/[^" ]+\.css)"/)[1];
   assert.match(await html(cssPath), /sourceMappingURL/);
-  const configFile = join(root, 'hugo.toml');
+  const configFile = join(root, 'site.yaml');
   const originalConfig = await readFile(configFile, 'utf8');
   const replacementConfig = join(root, 'config.tmp');
-  await writeFile(replacementConfig, originalConfig.replace("title = '香蕉空间'", "title = '预览站点一'"));
+  await writeFile(replacementConfig, originalConfig.replace('title: 香蕉空间', 'title: 预览站点一'));
   await rename(replacementConfig, configFile);
   await until(async () => (await html('/wiki/live/')).includes('预览站点一'), '配置替换保存');
-  await writeFile(configFile, originalConfig.replace("title = '香蕉空间'", "title = '预览站点二'"));
+  await writeFile(configFile, originalConfig.replace('title: 香蕉空间', 'title: 预览站点二'));
   await until(async () => (await html('/wiki/live/')).includes('预览站点二'), '替换后的配置继续监听');
   await writeFile(configFile, originalConfig);
   await until(async () => (await html('/wiki/live/')).includes('香蕉空间'), '恢复站点配置');
   // The prebuild runs in the resident preview service, which restarts after script changes.
-  for (const entry of ['prebuild/run', 'postbuild']) {
+  for (const entry of ['prebuild/run', 'generator']) {
     const script = join(root, `scripts/${entry}.mjs`);
     const old = await readFile(script, 'utf8');
     // Unchanged pages keep their revision; wait for the rebuild to finish instead.
@@ -111,30 +110,31 @@ try {
   await writeFile(page, body('初始成功：如式(1.1)所示,成立.然后中文API。'));
   await until(() => (output.match(/prebuild: \d+ pages|updated \d+ page/g) ?? []).length > builds, '内容相同的保存');
   assert.equal((await stat(generated)).mtimeMs, originalTime, '未变化的文件被重写');
-  const nextEvent = await Promise.race([reader.read(), delay(5000).then(() => { throw new Error('完成 postbuild 后未通知刷新'); })]);
+  const nextEvent = await Promise.race([reader.read(), delay(5000).then(() => { throw new Error('页面完成后未通知刷新'); })]);
   assert.notEqual(new TextDecoder().decode(nextEvent.value), firstEvent);
   await reader.cancel();
 
-  // Neither rendering failures nor postbuild failures may expose partial HTML.
+  // Neither failures of the templates nor of finishing the pages may expose partial HTML.
   const goodPreview = await html('/wiki/live/');
-  const template = join(root, 'layouts/partials/page.html');
+  const template = join(root, 'scripts/site/templates/page.mjs');
   const originalTemplate = await readFile(template, 'utf8');
-  await writeFile(template, '{{ if');
-  await until(() => output.includes('hugo failed'), '模板错误提示');
+  await writeFile(template, `${originalTemplate}\n{{ if\n`);
+  await until(() => output.includes('generating the site failed'), '模板错误提示');
   assert.equal(await html('/wiki/live/'), goodPreview, '模板错误破坏了成功预览');
   const beforeTemplate = completed();
   await writeFile(template, originalTemplate);
   await until(() => completed() > beforeTemplate, '模板恢复后重新构建');
   assert.equal(await html('/wiki/live/'), goodPreview, '内容未变的页面不应刷新');
-  const postbuild = join(root, 'scripts/postbuild/typography-html.mjs');
-  const originalPostbuild = await readFile(postbuild, 'utf8');
-  const beforePostbuildError = await html('/wiki/live/');
-  await writeFile(postbuild, originalPostbuild + '\nsyntax error\n');
-  await until(() => output.includes('postbuild failed'), '后处理错误提示');
-  assert.equal(await html('/wiki/live/'), beforePostbuildError, '后处理错误暴露了未排版的页面');
+  const finishing = join(root, 'scripts/site/finish.mjs');
+  const originalFinishing = await readFile(finishing, 'utf8');
+  const beforeFinishingError = await html('/wiki/live/');
+  const failures = () => (output.match(/generating the site failed/g) ?? []).length, failuresBefore = failures();
+  await writeFile(finishing, originalFinishing + '\nsyntax error\n');
+  await until(() => failures() > failuresBefore, '完成页面的错误提示');
+  assert.equal(await html('/wiki/live/'), beforeFinishingError, '完成页面的错误暴露了未排版的页面');
   const beforeRestore = completed();
-  await writeFile(postbuild, originalPostbuild);
-  await until(() => completed() > beforeRestore, '后处理恢复后重新构建');
+  await writeFile(finishing, originalFinishing);
+  await until(() => completed() > beforeRestore, '完成页面的模块恢复后重新构建');
 
   for (let i = 0; i < 12; i++) await writeFile(page, body(`连续保存 ${i}`));
   await until(async () => (await html('/wiki/live/')).includes('连续保存 11'), '连续保存自动刷新');
@@ -178,12 +178,12 @@ try {
   await writeFile(page, body('单页更新').replace('title: Live', 'title: Live 改名'));
   await until(() => updates() > partial, '修改 front matter 部分更新');
   assert.match(output, /front matter changed, updating these pages and those that depend on them: content\/wiki\/live\/index\.md/);
-  assert.match(await html('/wiki/other/'), /class="wiki-link wiki-link-missing"/, '链接到改名页面的页面未更新');
+  assert.match(await html('/wiki/other/'), /class="bm-wiki-link bm-wiki-link-missing"/, '链接到改名页面的页面未更新');
   assert.match(await html('/categories/测试/'), /Live 改名/, '分类页未更新');
   partial = updates();
   await writeFile(page, body('单页更新'));
   await until(() => updates() > partial, '恢复 front matter');
-  assert.doesNotMatch(await html('/wiki/other/'), /wiki-link-missing/, '恢复后链接未更新');
+  assert.doesNotMatch(await html('/wiki/other/'), /bm-wiki-link-missing/, '恢复后链接未更新');
   assert.equal((output.match(/^prebuild: \d+ pages/gm) ?? []).length, fullBuilds, '修改 front matter 触发了完整构建');
   assert.equal((await html('/wiki/live/')).replace(/ data-preview-revision="\d+"/, ''), fastHTML, '恢复 front matter 后页面不同');
   // A collection page's body renders the whole collection: other pages' numbers and references follow.
@@ -239,9 +239,6 @@ try {
   await writeFile(navTemp, navContent('导航更新'));
   await rename(navTemp, navbox);
   await until(async () => (await html('/wiki/live/')).includes('导航更新'), '导航框原子保存刷新');
-  const notice = join(root, 'content/notices/缺少来源.md');
-  await writeFile(notice, (await readFile(notice, 'utf8')) + '\n提示更新\n');
-  await until(async () => (await html('/wiki/live/')).includes('提示更新'), '提示内容更新刷新');
   const beforeDelete = (output.match(/prebuild failed/g) ?? []).length;
   await rm(navbox);
   await until(() => (output.match(/prebuild failed/g) ?? []).length > beforeDelete, '删除被使用的导航框时报错');
@@ -272,14 +269,14 @@ try {
   const fullPreview = await previewFiles();
   assert.deepEqual([...partialPreview.keys()].sort(), [...fullPreview.keys()].sort(), '部分更新与完整构建的文件不同');
   for (const [path, content] of fullPreview) assert.equal(partialPreview.get(path), content, `部分更新与完整构建不同：${path}`);
-  // Hugo is warmed up once per preview service, after the service's first full build.
+  // The preview service is warmed up once, after its first full build.
   assert.match(output, /\[preview\] warm-up done \(\d+ ms\)/);
   const closed = once(child, 'close');
   child.kill('SIGINT');
   const [code] = await Promise.race([closed, delay(5000, undefined, { ref: false }).then(() => { throw new Error('Ctrl+C 未停止预览'); })]);
   assert.equal(code, 0);
-  await assert.rejects(fetch(base + '/wiki/live/', { signal: AbortSignal.timeout(1000) }), 'Hugo 子进程未停止');
-  console.log('serve 的自动预处理、后台写入的搜索索引、front matter 与其他内容修改的部分更新（与完整构建一致）、正文修改单页更新与按页刷新、书册正文修改整组更新、连续保存、错误恢复、嵌套目录与附件增删改名、分类树、提示与导航组件刷新和恢复、参数透传、Hugo 预热及 Ctrl+C 验证通过');
+  await assert.rejects(fetch(base + '/wiki/live/', { signal: AbortSignal.timeout(1000) }), '预览服务器未停止');
+  console.log('serve 的自动预处理、后台写入的搜索索引、front matter 与其他内容修改的部分更新（与完整构建一致）、正文修改单页更新与按页刷新、书册正文修改整组更新、连续保存、错误恢复、嵌套目录与附件增删改名、分类树、提示与导航组件刷新和恢复、预览服务预热及 Ctrl+C 验证通过');
 } finally {
   if (child?.pid) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }

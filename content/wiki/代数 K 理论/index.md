@@ -1,12 +1,12 @@
 ---
 title: 代数 $K$ 理论
 categories: [$K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [代数 K 理论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **代数 $K$ 理论**是[[环]]、[[概形]]，
 乃至[[稳定 $\infty$-范畴]]的拓扑不变量，

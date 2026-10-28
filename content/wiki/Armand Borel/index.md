@@ -2,11 +2,11 @@
 title: Armand Borel
 sort: borel armand
 categories: [数学家]
-notices:
-  - name: 区分
-    pages:
-      - Émile Borel
 ---
+
+<disambiguation>
+注意与[[Émile Borel]]区分。
+</disambiguation>
 
 **Armand Borel** <person lang="fr" ipa="/aʁ.mɑ̃ bɔ.ʁɛl/" years="1923–2003" />，
 瑞士数学家。

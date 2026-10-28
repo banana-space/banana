@@ -1,12 +1,12 @@
 ---
 title: Jacobi 簇
 categories: [模空间论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [计数几何]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 [[代数曲线]] $X$ 的 **Jacobi 簇** $J (X)$
 是从它构造的一个[[代数簇]]，

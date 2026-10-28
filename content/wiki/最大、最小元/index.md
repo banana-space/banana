@@ -2,15 +2,16 @@
 title: 最大、最小元
 aliases: [最大元, 最小元, 最大, 最小]
 categories: [序论]
-notices:
-  - name: 区分
-    pages:
-      - 极大、极小元
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [序论]
 ---
+
+<disambiguation>
+注意与[[极大、极小元]]区分。
+</disambiguation>
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 在[[偏序集]]中，**最大元**是大于所有其它元素的元素；
 **最小元**是指小于所有其它元素的元素。

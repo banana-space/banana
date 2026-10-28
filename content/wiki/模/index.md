@@ -2,12 +2,12 @@
 title: 模
 aliases: [左模, 右模]
 categories: [模论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 模（多义词）
 navboxes: [代数结构, 模论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[模（多义词）]]。
+</disambiguation>
 
 **模**是一种[[代数结构]]。给定[[环]] $A$，
 则 $A$ 上的模是一个 [[Abel 群]]，其中的元素可以与 $A$ 的元素相乘，而得到模中的元素。

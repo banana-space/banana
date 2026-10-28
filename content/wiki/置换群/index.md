@@ -1,11 +1,11 @@
 ---
 title: 置换群
 categories: [有限群论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 $n$ 元**置换群**（也称为**对称群**）
 $\mathfrak{S}_n$ 是所有 $n$ 元[[置换]]构成的[[群]]，其中 $n$ 是非负整数。

@@ -2,12 +2,12 @@
 title: Calderón–Zygmund 理论
 aliases: [Calderón-Zygmund 理论]
 categories: [调和分析]
-notices:
-  - name: 问题
-    items:
-      - 关于 $K^\ast$ 的引理与 Calderón–Zygmund 分解缺少证明，Calderón–Zygmund 定理的证明也尚未给出。
-      - Calderón–Zygmund 分解的最后一条估计似乎应为 $\int_{B_i} |b_i| \leq C_d \lambda \mathscr{L}(B_i)$。
 ---
+
+<problems>
+- 关于 $K^\ast$ 的引理与 Calderón–Zygmund 分解缺少证明，Calderón–Zygmund 定理的证明也尚未给出。
+- Calderón–Zygmund 分解的最后一条估计似乎应为 $\int_{B_i} |b_i| \leq C_d \lambda \mathscr{L}(B_i)$。
+</problems>
 
 **Calderón–Zygmund理论**是[[调和分析]]、[[Fourier分析]]
 和[[奇异积分]]等相关领域中最重要的理论之一，它给出了一类重要的

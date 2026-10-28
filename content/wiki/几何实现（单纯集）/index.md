@@ -1,12 +1,12 @@
 ---
 title: 几何实现（单纯集）
 categories: [同伦代数]
-notices:
-  - name: 消歧义
-    see:
-      - page: 几何实现
 navboxes: [同伦代数]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[几何实现]]。
+</disambiguation>
 
 **几何实现**是一种将[[单纯集]]转化为[[拓扑空间]]的方式。
 给定单纯集 $X$，其几何实现是将 $X$ 中每个 $n$ 维单形

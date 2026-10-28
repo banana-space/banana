@@ -1,12 +1,12 @@
 ---
 title: 角形
 categories: [同伦代数]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节需要扩充。
 navboxes: [同伦代数]
 ---
+
+<problems>
+- “定义”一节需要扩充。
+</problems>
 
 **角形**是一类基本的[[单纯集]]。
 对整数 $0 \leq i \leq n$，

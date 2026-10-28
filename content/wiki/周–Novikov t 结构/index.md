@@ -1,11 +1,11 @@
 ---
 title: 周–Novikov t 结构
 categories: [母题同伦论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充，例如说明 $\mathrm{MGL}$ 同调集中的区域。
 ---
+
+<problems>
+- “性质”一节需要扩充，例如说明 $\mathrm{MGL}$ 同调集中的区域。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,13 +1,13 @@
 ---
 title: Schwarzschild 度规
 categories: [相对论]
-notices:
-  - name: 问题
-    items:
-      - “Kruskal 坐标系”一节中的几处公式似乎有误：按 $U$、$V$ 的定义，$r>r_{\text{s}}$ 似乎对应 $U<0<V$；$U$、$V$ 坐标下度规的系数似乎应为 $\frac{4r_{\text{s}}^3}{r}e^{-\frac{r}{r_{\text{s}}}}$，$T$、$X$ 坐标下也应带有因子 $e^{-\frac{r}{r_{\text{s}}}}$；$X^2-T^2$ 似乎应等于 $e^{\frac{r}{r_{\text{s}}}}\left(\frac{r}{r_{\text{s}}}-1\right)$，$r>0$ 的区域似乎应为 $X^2-T^2>-1$。
-      - “Kruskal 坐标系”一节的图中没有标出 I～IV 区。
-      - “近日点进动”一节中，$u_1$、$u_2$ 似乎应是远日点与近日点距离的倒数，而不是长轴、短轴的倒数；最后一式中的 $A$、$e$ 没有说明（似乎是轨道的半长轴与离心率）。
 ---
+
+<problems>
+- “Kruskal 坐标系”一节中的几处公式似乎有误：按 $U$、$V$ 的定义，$r>r_{\text{s}}$ 似乎对应 $U<0<V$；$U$、$V$ 坐标下度规的系数似乎应为 $\frac{4r_{\text{s}}^3}{r}e^{-\frac{r}{r_{\text{s}}}}$，$T$、$X$ 坐标下也应带有因子 $e^{-\frac{r}{r_{\text{s}}}}$；$X^2-T^2$ 似乎应等于 $e^{\frac{r}{r_{\text{s}}}}\left(\frac{r}{r_{\text{s}}}-1\right)$，$r>0$ 的区域似乎应为 $X^2-T^2>-1$。
+- “Kruskal 坐标系”一节的图中没有标出 I～IV 区。
+- “近日点进动”一节中，$u_1$、$u_2$ 似乎应是远日点与近日点距离的倒数，而不是长轴、短轴的倒数；最后一式中的 $A$、$e$ 没有说明（似乎是轨道的半长轴与离心率）。
+</problems>
 
 ::: convention
 在本文中，

@@ -62,19 +62,19 @@ try {
   // A book migrated later in a pull request: its pages first, then their legacy history, in two commits of the branch.
   const withLegacy = async entries => at('legacy/history.json', JSON.stringify({ ...JSON.parse(await readFile(join(root, 'legacy/history.json'), 'utf8')), ...entries }));
   git(['checkout', '-q', '-b', 'pr-4', 'main']);
-  await at('content/books/戊/_index.md', page('戊', '戊的正文。'));
+  await at('content/books/戊/index.md', page('戊', '戊的正文。'));
   git(['add', '-A']);
   git(['commit', '-q', '-m', '迁移讲义戊'], { date: '2026-07-01T00:00:00Z' });
-  await withLegacy({ 'content/books/戊/_index.md': [{ time: '2022-01-01T00:00:00Z', user: 'Dee', add: 1, del: 0 }] });
+  await withLegacy({ 'content/books/戊/index.md': [{ time: '2022-01-01T00:00:00Z', user: 'Dee', add: 1, del: 0 }] });
   git(['add', '-A']);
   git(['commit', '-q', '-m', '戊的旧站历史'], { date: '2026-07-01T01:00:00Z' });
   git(['checkout', '-q', 'main']);
   git(['merge', '-q', '--no-ff', 'pr-4', '-m', 'Merge pull request #4 from banana-space/book', '-m', '迁移讲义戊'], { date: '2026-07-02T00:00:00Z' });
   // The same straight on a branch: the page in one commit, its legacy history in a later one.
-  await at('content/books/己/_index.md', page('己', '己的正文。'));
+  await at('content/books/己/index.md', page('己', '己的正文。'));
   git(['add', '-A']);
   git(['commit', '-q', '-m', '迁移讲义己'], { date: '2026-08-01T00:00:00Z' });
-  await withLegacy({ 'content/books/己/_index.md': [{ time: '2022-02-01T00:00:00Z', user: 'Eve', add: 1, del: 0 }] });
+  await withLegacy({ 'content/books/己/index.md': [{ time: '2022-02-01T00:00:00Z', user: 'Eve', add: 1, del: 0 }] });
   git(['add', '-A']);
   git(['commit', '-q', '-m', '己的旧站历史'], { date: '2026-08-02T00:00:00Z' });
 
@@ -98,8 +98,8 @@ try {
   assert.deepEqual(shown('content/wiki/丁/index.md'), [{ id: 3, title: '新页面丁', author: 'writer', time: '2026-05-01T00:00:00Z', status: 'added', add: 5, del: 0 }],
     '仓库中的分支：作者取自 GitHub 的地址');
   assert.deepEqual(histories.get('content/wiki/丁/index.md').legacy, [], '导入之后新建的页面没有旧站的历史，即使旧站有同名页面');
-  assert.deepEqual(histories.get('content/books/戊/_index.md').legacy.map(revision => revision.user), ['Dee'], '之后在 PR 中迁移的讲义：页面与旧站历史一起合并');
-  assert.deepEqual(histories.get('content/books/己/_index.md').legacy.map(revision => revision.user), ['Eve'], '之后迁移的讲义：旧站历史晚于页面加入');
+  assert.deepEqual(histories.get('content/books/戊/index.md').legacy.map(revision => revision.user), ['Dee'], '之后在 PR 中迁移的讲义：页面与旧站历史一起合并');
+  assert.deepEqual(histories.get('content/books/己/index.md').legacy.map(revision => revision.user), ['Eve'], '之后迁移的讲义：旧站历史晚于页面加入');
   assert.deepEqual(shown('content/help/style/index.md').map(change => [change.id, change.title, change.author]), [[40, '补充帮助', 'Direct'], [40, '香蕉空间', 'Maintainer']],
     '直接提交到分支的提交');
   assert.deepEqual(histories.get('content/help/style/index.md').legacy, []);
@@ -108,7 +108,7 @@ try {
   buildProject(root);
   const data = JSON.parse(await readFile(join(root, 'public/history/data/wiki/丙/index.md.json'), 'utf8'));
   assert.deepEqual([data.path, data.title, data.url, data.legacy.length, data.changes.length], ['wiki/丙/index.md', '∞-丙', '/wiki/丙/', 1, 2]);
-  assert.match(data.titleHTML, /class="math-rendered"><span class="katex">/, '标题中的公式已渲染');
+  assert.match(data.titleHTML, /class="bm-math-rendered"><span class="katex">/, '标题中的公式已渲染');
   assert.ok(existsSync(join(root, 'public/history/index.html')));
   const html = await readFile(join(root, 'public/wiki/丙/index.html'), 'utf8');
   const query = encodeURIComponent('wiki/丙/index.md');
@@ -123,12 +123,57 @@ try {
   assert.match(rows[0], /写作指南<\/a><span class="home-recent-path" aria-hidden="true">›<\/span><a href="\/help\/style\/">风格指引<\/a>/);
   assert.doesNotMatch(rows[0], /icon-book/, '指南不是讲义，没有书的图标');
   assert.match(rows[1], /href="\/wiki\/%E4%B8%81\/">丁<\/a><sup class="home-recent-new"><span aria-hidden="true">\+<\/span><span class="sr-only">新页面<\/span><\/sup>/);
-  assert.match(rows[2], /href="\/wiki\/%E4%B8%99\/"><span class="math-rendered"/);
+  assert.match(rows[2], /href="\/wiki\/%E4%B8%99\/"><span class="bm-math-rendered"/);
   assert.doesNotMatch(rows[2], /home-recent-new/, '改名不是新页面');
   assert.match(rows[3], /href="\/wiki\/%E7%94%B2\/">甲<\/a>/);
   assert.match(rows[3], /<time class="home-recent-day" datetime="2026-03-01T23:00:00Z" data-local-time[^>]*>3 月 1 日<\/time>/, '日期与时间：写作的时间，没有脚本时为 UTC');
-  assert.match(rows[3], /<time class="home-recent-clock" datetime="2026-03-01T23:00:00Z" data-local-time data-format="\{hour\}:\{minute\}">23:00<\/time>/);
+  assert.match(rows[3], /<time class="home-recent-clock" datetime="2026-03-01T23:00:00Z" data-local-time="" data-format="\{hour\}:\{minute\}">23:00<\/time>/);
   assert.doesNotMatch(home.match(/<ul class="home-links">[\s\S]*?<\/ul>/)[0], /recent-changes/, '有最近更改一节时，链接一行不再重复');
+
+  // Minor edits (scripts/shared/minor-edits.mjs): a pull request rewrites 甲 and fixes links in 丁 and 丙, marked in its
+  // commits (a reviewer's later, empty commit overriding the author's mark for 丙); then a pull request of minor edits
+  // alone, marked in its merge message.
+  git(['checkout', '-q', '-b', 'pr-5', 'main']);
+  await at('content/wiki/甲/index.md', page('甲', '甲的又一版正文。\n\n第二段。'));
+  await at('content/wiki/丁/index.md', page('丁', '新的丁，链接。'));
+  await at('content/wiki/丙/index.md', page('$\\infty$-丙', '乙的正文，链接。'));
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '改写甲，统一链接', '-m', 'Minor-edit: all\nMajor-edit: wiki/甲'], { date: '2026-09-01T00:00:00Z' });
+  git(['commit', '-q', '--allow-empty', '-m', '审阅', '-m', 'Major-edit: content/wiki/丙/index.md'], { date: '2026-09-01T01:00:00Z' });
+  git(['checkout', '-q', 'main']);
+  git(['merge', '-q', '--no-ff', 'pr-5', '-m', 'Merge pull request #5 from banana-space/links', '-m', '改写甲，统一链接'], { date: '2026-09-02T00:00:00Z' });
+  git(['checkout', '-q', '-b', 'pr-6', 'main']);
+  await at('content/wiki/丁/index.md', page('丁', '新的丁，链接．'));
+  git(['commit', '-q', '-am', '格式'], { date: '2026-10-01T00:00:00Z' });
+  git(['checkout', '-q', 'main']);
+  git(['merge', '-q', '--no-ff', 'pr-6', '-m', 'Merge pull request #6 from banana-space/format', '-m', '格式\n\nMinor-edit: all'], { date: '2026-10-02T00:00:00Z' });
+  const marked = await pageHistories(root, { repository: 'banana-space/banana' });
+  const minor = path => marked.get(path).changes.filter(change => change.pr >= 5).map(change => [change.pr, Boolean(change.minor)]);
+  assert.deepEqual(minor('content/wiki/甲/index.md'), [[5, false]], '标为主要修改的页面');
+  assert.deepEqual(minor('content/wiki/丁/index.md'), [[6, true], [5, true]], '“all”标出的小修改；合并说明中的标记');
+  assert.deepEqual(minor('content/wiki/丙/index.md'), [[5, false]], '审阅者后来的提交改变了标记');
+  buildProject(root);
+  const marks = await readFile(join(root, 'public/history/data/wiki/丁/index.md.json'), 'utf8');
+  assert.deepEqual(JSON.parse(marks).changes.slice(0, 2).map(change => change.minor), [true, true], '页面历史的数据带着小修改');
+  const latest = [...(await readFile(join(root, 'public/index.html'), 'utf8')).matchAll(/<li class="home-recent-item">([\s\S]*?)<\/li>/g)].map(match => match[1]);
+  assert.equal(latest.length, 5, '只有小修改的 PR 6 不列出');
+  assert.match(latest[0], /甲[\s\S]*丙|丙[\s\S]*甲/);
+  assert.doesNotMatch(latest[0], /%E4%B8%81|>丁</, 'PR 5 中的小修改（丁）不列出');
+
+  // A page moved to another file of the same address and rewritten on the way (books/庚/_index.md → books/庚/index.md):
+  // Git sees a page removed and another added, the history a move.
+  await at('content/books/庚/_index.md', page('庚', '庚的正文。'));
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '新页面庚'], { date: '2026-10-03T00:00:00Z' });
+  await rm(join(root, 'content/books/庚/_index.md'));
+  await at('content/books/庚/index.md', page('庚', '<problems>\n\n本页面需要扩充。\n\n</problems>\n\n改写后的庚。'));
+  git(['add', '-A']);
+  git(['commit', '-q', '-m', '改写庚'], { date: '2026-10-04T00:00:00Z' });
+  assert.match(git(['show', '--first-parent', '-M', '--name-status', '--format=', 'HEAD']), /^D\t.*\nA\t/m, 'Git 认不出这次改名');
+  assert.deepEqual((await pageHistories(root)).get('content/books/庚/index.md').changes.map(({ status, path: then, previous }) => ({ status, then, previous })), [
+    { status: 'renamed', then: undefined, previous: 'books/庚/_index.md' },
+    { status: 'added', then: 'books/庚/_index.md', previous: undefined },
+  ], '同一地址的页面移到另一个文件');
 
   // Without Git history: no history, and no link to it.
   await rm(join(root, '.git'), { recursive: true, force: true });
@@ -143,7 +188,7 @@ try {
   // a change within one book names only the book; a change to more than one page has its title; at most `limit`
   // changes, newest first.
   const article = (name, extra = {}) => [`wiki/${name}/index.md`, { normalized: true, isWiki: true, metadata: { title: name, ...extra } }];
-  const lecture = (name, home = false) => [`books/书/${home ? '_index' : `${name}/index`}.md`,
+  const lecture = (name, home = false) => [`books/书/${home ? 'index' : `${name}/index`}.md`,
     { normalized: true, metadata: { title: name, collectionRoot: 'books/书', collectionTitle: '书', collectionHome: home, collectionKind: 'lecture' } }];
   const records = new Map([article('Abel 群'), article('环'), article('域'), article('模'), article('草稿', { draft: true }), lecture('书', true), lecture('一'), lecture('二')]);
   const history = (...changes) => ({ changes: changes.map(([id, status = 'modified']) => ({ pr: id, time: `2026-01-0${id}T00:00:00Z`, merged: `2026-01-0${id}T01:00:00Z`, status, title: `PR ${id}` })) });
@@ -151,7 +196,7 @@ try {
     ['content/wiki/环/index.md', history([1], [3], [5])], ['content/wiki/域/index.md', history([3, 'added'])],
     ['content/wiki/模/index.md', history([3])], ['content/wiki/Abel 群/index.md', history([3], [4])],
     ['content/wiki/草稿/index.md', history([5])], ['content/books/书/一/index.md', history([2], [3])], ['content/books/书/二/index.md', history([2], [4])],
-    ['content/books/书/_index.md', history([4, 'added'])],
+    ['content/books/书/index.md', history([4, 'added'])],
   ]), records, { limit: 4 });
   assert.deepEqual(recent, [
     { time: '2026-01-05T00:00:00Z', pages: 1, items: [{ page: 'wiki/环', added: false }], more: false },
@@ -162,5 +207,5 @@ try {
   assert.deepEqual(recentChanges(new Map([['content/wiki/环/index.md', history([6])], ['content/wiki/域/index.md', history([6])]]), records),
     [{ time: '2026-01-06T00:00:00Z', pages: 2, items: [{ page: 'wiki/环', added: false }, { page: 'wiki/域', added: false }], more: false, title: 'PR 6' }],
     '全部列出的两个页面也带标题');
-  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序）、没有 Git 历史时验证通过');
+  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序）、小修改的标记（PR 的提交与合并说明，后来的标记为准）、没有 Git 历史时验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

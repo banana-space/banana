@@ -1,12 +1,12 @@
 ---
 title: Dolbeault 上同调
 categories: [复几何]
-notices:
-  - name: 问题
-    items:
-      - Dolbeault 定理的公式中 $\Omega^{p,0}$ 似乎应为下文所说的全纯 $p$-形式层 $\Omega^p$；定理中的全纯向量丛 $E$ 也未在陈述中引入。
 navboxes: [同调与上同调]
 ---
+
+<problems>
+- Dolbeault 定理的公式中 $\Omega^{p,0}$ 似乎应为下文所说的全纯 $p$-形式层 $\Omega^p$；定理中的全纯向量丛 $E$ 也未在陈述中引入。
+</problems>
 
 在[[复几何]]中，
 **[[Pierre Dolbeault|Dolbeault]] 上同调**

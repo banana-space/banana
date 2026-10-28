@@ -1,11 +1,11 @@
 ---
 title: Lambert $W$ 函数
 categories: [复分析, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节第一个命题的推导中，最后一行 $( -cx + ac )\exp -cx + ac = -bc\exp ac$ 似乎应为 $( -cx + ac )\exp( -cx + ac ) = -bc\exp ac$。
 ---
+
+<problems>
+- “应用”一节第一个命题的推导中，最后一行 $( -cx + ac )\exp -cx + ac = -bc\exp ac$ 似乎应为 $( -cx + ac )\exp( -cx + ac ) = -bc\exp ac$。
+</problems>
 
 **Lambert $W$ 函数**（亦称**乘积对数函数**）是定义在 $\mathbb{C}$ 上的[[多值函数]]，
 定义为 $f(x) = x \exp x$ 的反函数。

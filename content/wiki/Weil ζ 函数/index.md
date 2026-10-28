@@ -2,12 +2,12 @@
 title: 'Weil $\zeta$ 函数'
 aliases: [Weil zeta 函数, Hasse–Weil zeta 函数, Hasse-Weil zeta 函数]
 categories: [特殊函数, 代数几何]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中椭圆曲线的例子尚未写完。
-      - “Weil 猜想”一节中，Riemann 猜想一项的 $|\alpha_{i,k}| = q^{-\frac{i}{2}}$ 似乎应为 $|\alpha_{i,k}| = q^{-\frac{k}{2}}$（指数应与多项式 $P_k$ 的下标一致）。
 ---
+
+<problems>
+- “例子”一节中椭圆曲线的例子尚未写完。
+- “Weil 猜想”一节中，Riemann 猜想一项的 $|\alpha_{i,k}| = q^{-\frac{i}{2}}$ 似乎应为 $|\alpha_{i,k}| = q^{-\frac{k}{2}}$（指数应与多项式 $P_k$ 的下标一致）。
+</problems>
 
 **Weil $\zeta$ 函数**是对[[有限域]]上[[代数簇]]
 定义的 $\mathbb{C}$ 上[[解析函数]]，

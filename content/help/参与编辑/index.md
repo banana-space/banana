@@ -52,7 +52,7 @@ title: 参与编辑
 条目用到的图片放在同一个文件夹中。详见 @help:typesetting。
 
 讲义位于 `content/books/<标题>/` 文件夹，
-其中 `collection.yaml` 定义章节结构，
+其中 `book.yaml` 定义章节结构，
 讲义的每一页位于一个子文件夹。详见 @help:books。
 
 分类树的结构在 `data/categories.yaml`。详见 @help:page。

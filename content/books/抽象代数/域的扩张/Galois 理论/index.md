@@ -1,11 +1,11 @@
 ---
 title: Galois 理论
-notices:
-  - name: 问题
-    items:
-      - “Galois群在根上的作用”一节中关于 $X^7-8$ 的分裂域的例子末尾称 Galois 群是 $42$ 阶循环群并且是两个子群的直积，这似乎不成立：该 Galois 群似乎同构于 $\mathbb{Z}/7\mathbb{Z}\rtimes(\mathbb{Z}/7\mathbb{Z})^\times$，不是交换群。
-      - “有限域”一节中定理的证明里，“${\rm Frob}^k(\xi)=\xi$ 当且仅当 $n-1\mid k-1$”似乎应为 $p^n-1\mid p^k-1$。
 ---
+
+<problems>
+- “Galois群在根上的作用”一节中关于 $X^7-8$ 的分裂域的例子末尾称 Galois 群是 $42$ 阶循环群并且是两个子群的直积，这似乎不成立：该 Galois 群似乎同构于 $\mathbb{Z}/7\mathbb{Z}\rtimes(\mathbb{Z}/7\mathbb{Z})^\times$，不是交换群。
+- “有限域”一节中定理的证明里，“${\rm Frob}^k(\xi)=\xi$ 当且仅当 $n-1\mid k-1$”似乎应为 $p^n-1\mid p^k-1$。
+</problems>
 
 ## Galois对应
 

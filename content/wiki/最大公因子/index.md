@@ -2,13 +2,13 @@
 title: 最大公因子
 aliases: [最大公因数]
 categories: [初等数论, 交换代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中 $(ma_1,ma_2,\cdots,ma_n)=m(a_1,a_2,\cdots a_n)$ 及其后一条的等式在 $m<0$ 时似乎应取 $\lvert m\rvert$。
-      - “推广”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “性质”一节中 $(ma_1,ma_2,\cdots,ma_n)=m(a_1,a_2,\cdots a_n)$ 及其后一条的等式在 $m<0$ 时似乎应取 $\lvert m\rvert$。
+- “推广”一节需要扩充。
+</problems>
 
 **最大公因子**，又叫**最大公约数**，
 是几个[[整数]]最大的公共[[因子]]，或更一般地，

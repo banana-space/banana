@@ -1,9 +1,0 @@
-{{- $category := .Title -}}
-{{- $pages := slice -}}
-{{- range where .RegularPages "Section" "wiki" -}}
-  {{- $direct := .Params.directCategories | default .Params.categories -}}
-  {{- if in $direct $category -}}
-    {{- $pages = $pages | append . -}}
-  {{- end -}}
-{{- end -}}
-{{- return $pages -}}

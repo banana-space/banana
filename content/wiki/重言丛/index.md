@@ -1,11 +1,11 @@
 ---
 title: 重言丛
 categories: [纤维丛论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节需要扩充。
 ---
+
+<problems>
+- “定义”一节需要扩充。
+</problems>
 
 **重言丛**是 [[Graßmann 形]]
 $k \mathbb{G} (n, N)$

@@ -1,12 +1,12 @@
 ---
 title: 线性方程组
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “解法”一节需要扩充。
 navboxes: [线性代数]
 ---
+
+<problems>
+- “解法”一节需要扩充。
+</problems>
 
 在[[线性代数]]中，**线性方程组**是指形如
 \[

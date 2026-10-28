@@ -1,12 +1,12 @@
 ---
 title: 次生陈类
 categories: [示性类]
-notices:
-  - name: 问题
-    items:
-      - “Beilinson–Deligne”“Cheeger–Simons”各节需要扩充。
 navboxes: [向量丛与 K 理论]
 ---
+
+<problems>
+- “Beilinson–Deligne”“Cheeger–Simons”各节需要扩充。
+</problems>
 
 **次生陈类**是对复线性[[局部系]]定义的[[示性类]]，
 比[[陈类]]更精细。对[[拓扑空间|空间]] $X$ 上的秩 $n$ 复局部系

@@ -1,12 +1,12 @@
 ---
 title: Mathieu 群
 categories: [有限群论]
-notices:
-  - name: 问题
-    items:
-      - '$M_{22}$ 似乎只是 Steiner 系 $S(3,6,22)$ 的自同构群中指数为 2 的子群，该 Steiner 系的完整自同构群似乎是 $M_{22} \rtimes \mathbb{Z}/2$。'
 navboxes: [群论]
 ---
+
+<problems>
+- $M_{22}$ 似乎只是 Steiner 系 $S(3,6,22)$ 的自同构群中指数为 2 的子群，该 Steiner 系的完整自同构群似乎是 $M_{22} \rtimes \mathbb{Z}/2$。
+</problems>
 
 **Mathieu 群**是一类[[有限单群|散在单群]]，
 它们是一些 [[Steiner 系]]的[[自同构]]群。

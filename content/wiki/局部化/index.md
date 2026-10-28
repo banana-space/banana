@@ -1,17 +1,16 @@
 ---
 title: 局部化
 categories: [交换代数]
-notices:
-  - name: 消歧义
-    about: '[[交换环|环]]的局部化'
-    see:
-      - topic: 其它含义
-        page: 局部化（多义词）
-  - name: 问题
-    items:
-      - “例子”一节中把 $\mathbb{C}(X)$ 在 $\mathfrak{m}_x$ 处的局部化描述为函数芽环，这似乎需要 $X$ 满足一定的分离性（例如完全正则），对一般的拓扑空间不成立。
 navboxes: [交换代数]
 ---
+
+<disambiguation>
+本条目介绍的是[[交换环|环]]的局部化。关于其它含义，请参见[[局部化（多义词）]]。
+</disambiguation>
+
+<problems>
+- “例子”一节中把 $\mathbb{C}(X)$ 在 $\mathfrak{m}_x$ 处的局部化描述为函数芽环，这似乎需要 $X$ 满足一定的分离性（例如完全正则），对一般的拓扑空间不成立。
+</problems>
 
 ::: convention
 在本文中，

@@ -2,12 +2,12 @@
 title: 嵌入（微分几何）
 aliases: [嵌入子流形]
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    see:
-      - page: 嵌入
 navboxes: [微分几何]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[嵌入]]。
+</disambiguation>
 
 在[[微分几何]]中，**嵌入**是[[光滑流形]]间的一类[[光滑映射]]，
 它将某个光滑流形放进另一个光滑流形中，作为其[[子流形]]。

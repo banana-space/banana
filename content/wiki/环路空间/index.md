@@ -2,12 +2,12 @@
 title: 环路空间
 aliases: [环路函子]
 categories: [一般拓扑, 同伦论]
-notices:
-  - name: 问题
-    items:
-      - “群结构”一节需要扩充。
 navboxes: [代数拓扑]
 ---
+
+<problems>
+- “群结构”一节需要扩充。
+</problems>
 
 [[带点拓扑空间]] $X$ 的**环路空间** $\Omega X$
 是 $X$ 中所有从基点出发的[[环路]]构成的空间，

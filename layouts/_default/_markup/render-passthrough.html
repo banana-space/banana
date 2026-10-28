@@ -1,8 +1,0 @@
-{{- $tex := .Inner | base64Decode -}}
-{{- $id := "" -}}
-{{- if hasPrefix $tex "@@numbered:" -}}
-  {{- $payload := strings.TrimPrefix "@@numbered:" $tex | transform.Unmarshal -}}
-  {{- $tex = $payload.tex -}}
-  {{- $id = $payload.id -}}
-{{- end -}}
-{{- partial "math.html" (dict "tex" $tex "display" (eq .Type "block") "id" $id) -}}

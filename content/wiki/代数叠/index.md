@@ -2,12 +2,12 @@
 title: 代数叠
 aliases: [Artin 叠]
 categories: [叠论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [代数几何, 高阶几何]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **代数叠**（又称为 **Artin 叠**）是一种[[叠]]，
 是在[[代数几何]]的意义下，带有几何结构的叠。

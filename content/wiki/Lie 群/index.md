@@ -2,12 +2,12 @@
 title: Lie 群
 aliases: [李群]
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [Lie 理论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **Lie 群**是带有[[光滑流形]]结构的[[群]]。
 群描述对象的[[对称性]]，

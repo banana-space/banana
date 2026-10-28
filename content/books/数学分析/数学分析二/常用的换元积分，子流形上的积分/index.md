@@ -40,7 +40,7 @@ title: 常用的换元积分，子流形上的积分
   \Phi\colon\Omega_1\rightarrow \Omega_2,\ \ (r,\vartheta,\varphi)\mapsto (r\cos(\varphi)\cos(\vartheta),r\cos(\varphi)\sin(\vartheta),r\sin(\varphi)).
   \]
 
-  ![](MathAnalysis_N1605.jpg?width=400)
+  ![](MathAnalysis_N1605.jpg){width=400}
 
   我们有
   \[

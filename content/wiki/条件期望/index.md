@@ -1,12 +1,12 @@
 ---
 title: 条件期望
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中正交分解命题缺少证明。
 navboxes: [概率论]
 ---
+
+<problems>
+- “性质”一节中正交分解命题缺少证明。
+</problems>
 
 **条件期望**是[[随机变量]]在某种限制条件下的[[期望]]。
 

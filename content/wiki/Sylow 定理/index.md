@@ -2,11 +2,11 @@
 title: Sylow 定理
 aliases: [Sylow 子群]
 categories: [有限群论]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 **[[Ludvig Sylow|Sylow]] 定理**
 是一组关于[[有限群]]的结论。

@@ -1,11 +1,11 @@
 ---
 title: Bochner 空间
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - 首段中“Bochner 空间是 Hölder 空间的推广”似乎应为 Lebesgue 空间（$L^p$ 空间）的推广。
 ---
+
+<problems>
+- 首段中“Bochner 空间是 Hölder 空间的推广”似乎应为 Lebesgue 空间（$L^p$ 空间）的推广。
+</problems>
 
 **Bochner 空间**是 [[Hölder 空间]]的推广，
 由取值在 [[Banach 空间]]的函数构成。

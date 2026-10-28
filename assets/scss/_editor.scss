@@ -1,4 +1,4 @@
-// The online editor on /edit/ (layouts/_default/editor.html, assets/js/editor/): source and preview
+// The online editor on /edit/ (scripts/site/templates/special.mjs, assets/js/editor/): source and preview
 // side by side, each at most as wide as the reading column, centred; on narrow screens, tabs switch
 // between them. The navigation bar and the footer take the same frame on this page.
 
@@ -961,6 +961,28 @@ $editor-changed-color: #6fa8dc;
 .editor-submit-intro,
 .editor-submit-update {
   color: $muted-color;
+}
+
+// Whether the page's change is a minor edit (scripts/shared/minor-edits.mjs), with what that means below it.
+.editor-dialog label.editor-submit-minor {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+  cursor: pointer;
+
+  input {
+    flex: none;
+    width: auto;
+    margin: 0;
+  }
+}
+
+.editor-submit-minor-hint {
+  display: block;
+  color: $muted-color;
+  font-size: 1.3rem;
+  font-weight: normal;
 }
 
 // Choosing a pull request of the page to edit.

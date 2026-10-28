@@ -1,12 +1,12 @@
 ---
 title: Steinberg 自同态
 categories: [代数群理论, 有限群论]
-notices:
-  - name: 问题
-    items:
-      - “分类”一节需要扩充。
 navboxes: [群表示论, 代数群理论]
 ---
+
+<problems>
+- “分类”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

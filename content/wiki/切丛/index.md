@@ -1,17 +1,16 @@
 ---
 title: 切丛
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    about: '[[微分几何]]中的切丛'
-    see:
-      - topic: '[[代数几何]]中的切丛'
-        page: 切丛（代数几何）
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [微分几何]
 ---
+
+<disambiguation>
+本条目介绍的是[[微分几何]]中的切丛。关于[[代数几何]]中的切丛，请参见[[切丛（代数几何）]]。
+</disambiguation>
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 [[光滑流形]] $X$ 的**切丛** $\mathrm{T} X \to X$
 是将 $X$ 每个点处的[[切空间]]拼起来，

@@ -1,12 +1,12 @@
 ---
 title: 群论
 categories: [群论]
-notices:
-  - name: 问题
-    items:
-      - “历史”“主要分支”各节需要扩充。
 navboxes: [群论]
 ---
+
+<problems>
+- “历史”“主要分支”各节需要扩充。
+</problems>
 
 **群论**是[[代数学]]的分支之一，
 研究[[群]]。

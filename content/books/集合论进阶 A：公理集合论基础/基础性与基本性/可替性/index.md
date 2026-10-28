@@ -1,10 +1,10 @@
 ---
 title: 可替性
-notices:
-  - name: 问题
-    items:
-      - “$\mathcal{R}_9$是$GJ_0$可替的”这一引理的证明中，$\mathcal{R}_8(x,y)$似乎应为$\mathcal{R}_9(x,y)$；其中用到的$\mathcal{A}_{14}$在本页没有定义。
 ---
+
+<problems>
+- “$\mathcal{R}_9$是$GJ_0$可替的”这一引理的证明中，$\mathcal{R}_8(x,y)$似乎应为$\mathcal{R}_9(x,y)$；其中用到的$\mathcal{A}_{14}$在本页没有定义。
+</problems>
 
 我们选出以下特殊的函数符号进行考察。
 

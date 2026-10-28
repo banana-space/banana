@@ -321,7 +321,7 @@ M^{d+k}=\bigl\{x\in U\,\bigm|\,f_1(x)=\cdots=f_{n-d-k}(x)=0\bigr\},
   由于在 $\mathbf{T}^2$ 上面，$x^2+y^2=1$，$z^2+w^2=1$，所以上面这个矩阵的秩是 $2$，
   从而 $\mathbf{T}^2$ 是 $2$ 维的子流形。它实际上是一个环面（甜甜圈）：
 
-  ![](MathAnalysis-N0505.png?width=350)
+  ![](MathAnalysis-N0505.png){width=350}
 
 ## $\mathbb{R}^3$ 中由方程定义的曲线和曲面
 
@@ -459,7 +459,7 @@ $y\mapsto (f_{n+1}(F^{-1}(y)),f_{n+2}(F^{-1}(y)),\cdots,f_{n+p}(F^{-1}(y)))$ 的
 所以，当 $\theta$ 从 $0$ 变化到 $2\pi$，基本圆周上的点旅行了一周又回到了原来的点，
 但是它上面所插的小线段只转动了 $180^\circ$。
 
-![](MathAnalysis-N0506.svg?width=250)
+![](MathAnalysis-N0506.svg){width=250}
 
 我们下面证明一个不明显的命题，为此，我们先选择好的记号：把 $r=0$ 光滑圆周写成参数形式：
 \[

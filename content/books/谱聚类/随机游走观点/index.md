@@ -1,10 +1,10 @@
 ---
 title: 随机游走观点
-notices:
-  - name: 问题
-    items:
-      - '“计算”一节中，由 $H_{ii} = 0$ 及 $\pi^T(I_N-P) = 0$，对角阵 $H - \mathbf1\mathbf1^T - PH$ 的对角元似乎应为 $-1/\pi_i$，相应地 $(I_N-P)H$ 的表达式中 $\text{vol}(V)D^{-1}$ 前似乎应为负号（这与随后 $LH$ 的表达式一致）。'
 ---
+
+<problems>
+- “计算”一节中，由 $H_{ii} = 0$ 及 $\pi^T(I_N-P) = 0$，对角阵 $H - \mathbf1\mathbf1^T - PH$ 的对角元似乎应为 $-1/\pi_i$，相应地 $(I_N-P)H$ 的表达式中 $\text{vol}(V)D^{-1}$ 前似乎应为负号（这与随后 $LH$ 的表达式一致）。
+</problems>
 
 *本节主要参考自文章 A Tutorial on Spectral Clustering [@vonluxburg07] 的 Section 6。*
 

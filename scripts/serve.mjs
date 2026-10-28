@@ -1,19 +1,19 @@
 import { t } from './shared/i18n.mjs';
-import { elapsed, headline } from './shared/timing.mjs';
+import { elapsed } from './shared/timing.mjs';
 import { readFileSync, rmSync, watch } from 'node:fs';
-import { mkdir, readFile, readdir, rm, rmdir, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { createServer, request as httpRequest } from 'node:http';
-import { spawn, execFile, fork } from 'node:child_process';
-import { pipeWithoutKatexNoise } from './shared/hugo-log.mjs';
+import { execFile, fork } from 'node:child_process';
 import { promisify } from 'node:util';
+import { pipeWithoutKatexNoise } from './shared/katex-log.mjs';
 import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
+import { availableParallelism } from 'node:os';
 import { dirname, extname, join, resolve } from 'node:path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const destination = join(root, '.build/preview');
-const pageOutput = join(root, '.build/serve-pages');
-const watchers = [], clients = new Set(), hugoArgs = [];
+const watchers = [], clients = new Set(), buildArgs = [];
 let port = 1313, bind = '127.0.0.1', api;
 const args = process.argv.slice(2);
 for (let i = 0; i < args.length; i++) {
@@ -23,11 +23,11 @@ for (let i = 0; i < args.length; i++) {
     if (match[1] === 'port') port = Number(value);
     else if (match[1] === 'api') api = new URL(value);
     else bind = value;
-  } else hugoArgs.push(args[i]);
+  } else buildArgs.push(args[i]);
 }
 if (!Number.isInteger(port) || port < 1 || port > 65535 || !bind) throw new Error(t('serve_invalid_address'));
 const origin = `http://${bind.includes(':') ? `[${bind}]` : bind}:${port}`;
-// Two instances would build into the same directories and break each other's postbuild.
+// Two instances would build into the same directories and break each other's builds.
 const lock = join(root, '.build/serve.lock');
 await mkdir(dirname(lock), { recursive: true });
 for (;;) {
@@ -43,14 +43,14 @@ for (;;) {
 process.on('exit', () => {
   try { if (readFileSync(lock, 'utf8') === String(process.pid)) rmSync(lock); } catch {}
 });
-let timer, building = false, dirty = false, stopping = false, child, snapshot, revision = 0;
-// The resident preview service (scripts/preview-service.mjs) keeps the prebuild state and a
-// Hugo server; it is restarted after script changes so that it runs the current code.
-let service, scriptsChanged = false;
-// A full build's postbuild, still writing the search index after its pages were published.
-let searching;
-// Full rebuilds are needed until one succeeds, and after changes to templates, styles, scripts or settings.
-let needFull = true, fullRequested = false, sources;
+let timer, building = false, dirty = false, stopping = false, snapshot, revision = 0;
+// The resident preview service (scripts/preview-service.mjs) keeps the prebuild state and generates the pages into
+// .build/preview/; it is restarted after changes to the code it runs (restartRequested), while changes to the site
+// generator's code (scripts/site/) only restart the generator's threads (generatorRequested).
+let service, restartRequested = false, generatorRequested = false, assetsRequested = false;
+const staticPending = new Set(); // Changed paths under static/.
+// Full rebuilds are needed until one succeeds.
+let needFull = true, sources;
 // A Git commit (dates) or a change to the category tree: preprocessed again, without a full build.
 let siteRequested = false, categoriesChanged = false;
 const pending = new Set(); // Changed paths under content/ and data/ since the last rebuild.
@@ -63,7 +63,7 @@ const mime = {
   '.ttf': 'font/ttf', '.woff': 'font/woff', '.woff2': 'font/woff2',
   '.pdf': 'application/pdf', '.xml': 'application/xml', '.mp4': 'video/mp4', '.mp3': 'audio/mpeg',
 };
-// The browser only reloads completed builds; all text formatting runs in postbuild.
+// The browser only reloads completed builds.
 // Each page subscribes with its own path and reloads only when that page changed.
 const reloadScript = `const events = new EventSource('/__banana_events?path=' + encodeURIComponent(location.pathname));
 events.addEventListener('build', event => {
@@ -103,13 +103,13 @@ const server = createServer((request, response) => {
   let path, url;
   try { url = new URL(request.url, origin); path = decodeURIComponent(url.pathname); }
   catch { response.writeHead(400).end(); return; }
-  // --api: the online editor's /api/ (npm run editor-api), on the same origin as in production behind Apache.
+  // --api: the online editor's /api/ (npm run api), on the same origin as in production behind Apache.
   if (api && url.pathname.startsWith('/api/')) {
     const forward = httpRequest({ host: api.hostname, port: api.port, path: request.url, method: request.method, headers: { ...request.headers, host: api.host } }, answer => {
       response.writeHead(answer.statusCode, answer.headers);
       answer.pipe(response);
     });
-    forward.on('error', error => { if (!response.headersSent) response.writeHead(502, { 'Content-Type': 'text/plain; charset=utf-8' }); response.end(`editor-api: ${error.message}`); });
+    forward.on('error', error => { if (!response.headersSent) response.writeHead(502, { 'Content-Type': 'text/plain; charset=utf-8' }); response.end(`api: ${error.message}`); });
     request.pipe(forward);
     return;
   }
@@ -159,36 +159,31 @@ function stop(code = 0) {
   clearTimeout(timer);
   for (const watcher of watchers) watcher.close();
   for (const client of clients) client.end();
-  service?.child.kill('SIGTERM');
-  searching?.child.kill('SIGTERM');
-  server.close();
-  server.closeAllConnections();
-  if (child?.pid && child.exitCode === null && child.signalCode === null) {
-    const current = child;
+  if (service?.child.exitCode === null && service.child.signalCode === null) {
+    const current = service.child;
     current.kill('SIGTERM');
     const force = setTimeout(() => current.kill('SIGKILL'), 2000);
     force.unref();
-    current.once('close', () => clearTimeout(force));
   }
+  server.close();
+  server.closeAllConnections();
 }
 
-/** Runs a build step; with capture, resolves to its standard output (or undefined on failure). */
-async function run(command, args, { capture = false } = {}) {
-  return new Promise(resolve => {
-    child = spawn(command, args, { cwd: root, stdio: ['inherit', capture ? 'pipe' : 'inherit', 'pipe'] });
-    pipeWithoutKatexNoise(child.stderr, process.stderr);
-    let output = '';
-    child.stdout?.on('data', chunk => { output += chunk; });
-    child.once('error', error => { console.error(t('serve_start_failed', { Message: error.message })); resolve(capture ? undefined : false); });
-    child.once('close', code => resolve(capture ? output : code === 0));
-  });
-}
+/**
+ * serve's threads (memory is not short where it runs): two running the templates, the other cores but one finishing
+ * pages. At 2836 pages on 10 cores, every page generated again took about 5 s either way past two cores.
+ */
+const threadCounts = () => {
+  const cores = availableParallelism();
+  return { cores: cores >= 6 ? 2 : 1, jobs: Math.max(1, cores - (cores >= 6 ? 3 : 2)) };
+};
 
 function startService() {
-  const worker = fork(join(root, 'scripts/preview-service.mjs'), hugoArgs, {
-    cwd: root, stdio: ['ignore', 'inherit', 'inherit', 'ipc'],
-    env: { ...process.env, BANANA_PREVIEW_SERVICE: JSON.stringify({ baseURL: `${origin}/`, output: pageOutput }) },
+  const worker = fork(join(root, 'scripts/preview-service.mjs'), buildArgs, {
+    cwd: root, stdio: ['ignore', 'inherit', 'pipe', 'ipc'],
+    env: { ...process.env, BANANA_PREVIEW_SERVICE: JSON.stringify({ baseURL: `${origin}/`, output: destination, threads: true, ...threadCounts(), renderCache: '.build/render-cache', outputsCache: '.build/preview-outputs.bin' }) },
   });
+  pipeWithoutKatexNoise(worker.stderr, process.stderr);
   const waiting = new Map();
   let next = 0;
   const instance = {
@@ -201,7 +196,11 @@ function startService() {
       worker.send({ id, method, args });
     }),
   };
-  worker.on('message', ({ id, ...reply }) => { waiting.get(id)?.(reply); waiting.delete(id); });
+  worker.on('message', ({ id, event, ...reply }) => {
+    if (event === 'search') { if (service === instance) void publishSearch(reply).catch(error => console.error(t('serve_update_failed', { Message: error.message }))); return; }
+    waiting.get(id)?.(reply);
+    waiting.delete(id);
+  });
   worker.once('exit', code => {
     for (const resolve of waiting.values()) resolve({ ok: false, error: `the preview service exited (${code})` });
     waiting.clear();
@@ -248,7 +247,7 @@ async function readData() {
  *   a collection is rendered whole);
  * - pages: pages whose front matter changed, or new pages, rendered with the pages that depend on them;
  * - site: anything else in content/ (removed, renamed or new directories, attachments, component definitions,
- *   collection.yaml) or the category tree: preprocessed again in full, with only what changed rendered;
+ *   book.yaml) or the category tree: preprocessed again in full, with only what changed rendered;
  * - full: other data files, which templates read.
  * Paths that neither exist nor existed are editors' temporary files. sources maps pages to their new front matter.
  */
@@ -264,7 +263,7 @@ async function classify(paths) {
     }
     const relative = path.slice('content/'.length);
     const known = sources.files.get(relative);
-    if (/^(?:notices|navboxes)(?:\/|$)/.test(relative)) {
+    if (/^navboxes(?:\/|$)/.test(relative)) {
       if (info || known || sources.directories.has(relative)) plan.site = true;
       continue;
     }
@@ -285,52 +284,14 @@ async function classify(paths) {
   return plan;
 }
 
-/**
- * Runs postbuild on the full build's output: pages resolves to true once its pages are finished (the
- * search index comes after them), done to whether it succeeded.
- */
-function startPostbuild() {
-  // Pages whose Hugo HTML is unchanged since an earlier full build are taken from its results.
-  const worker = fork(join(root, 'scripts/postbuild.mjs'), [destination, '--playground', '--prune-cache', '--cache', join(root, '.build/postbuild-cache')], {
-    cwd: root, stdio: ['inherit', 'inherit', 'pipe', 'ipc'],
-  });
-  child = worker;
-  pipeWithoutKatexNoise(worker.stderr, process.stderr);
-  let pagesFinished;
-  const pages = new Promise(resolve => { pagesFinished = resolve; });
-  worker.on('message', message => { if (message.pages) pagesFinished(true); });
-  const done = new Promise(resolve => {
-    worker.once('error', error => { console.error(t('serve_start_failed', { Message: error.message })); resolve(false); });
-    worker.once('close', code => resolve(code === 0));
-  });
-  void done.then(() => pagesFinished(false)); // Exited before finishing the pages.
-  return { child: worker, pages, done };
-}
-
-/** Stops writing a search index that the next full build replaces anyway. */
-async function stopSearching() {
-  const current = searching;
-  if (!current) return;
-  searching = undefined;
-  current.child.kill('SIGTERM');
-  await current.done;
-}
-
-/** Serves a full build's search index once its postbuild has written it; until then the previous one. */
-async function publishSearch(postbuild, start) {
-  const ok = await postbuild.done;
-  if (searching !== postbuild || stopping) return; // A full build replaced it, or serve stopped it.
-  if (!ok) {
-    searching = undefined;
-    needFull = true;
-    console.error(t('serve_search_failed'));
+/** Serves the search index the preview service has written in the background; until then the previous one. */
+async function publishSearch(result) {
+  if (stopping || !snapshot) return;
+  if (!result.ok) {
+    if (result.error) console.error(t('serve_search_failed'), result.error);
     return;
   }
-  const index = await readSnapshot(join(destination, 'pagefind'), new Map(), '/pagefind').catch(error => error);
-  // A full build that began meanwhile cleans the output; it publishes its own index.
-  if (searching !== postbuild || stopping) return;
-  searching = undefined;
-  if (index instanceof Error) throw index;
+  const index = await readSnapshot(join(destination, 'pagefind'), new Map(), '/pagefind');
   const next = new Map([...snapshot].filter(([file]) => !file.startsWith('/pagefind/')));
   revision++;
   for (const [file, content] of index) {
@@ -338,90 +299,125 @@ async function publishSearch(postbuild, start) {
     next.set(file, content);
   }
   snapshot = next;
-  console.log(t('serve_search_complete', { Milliseconds: elapsed(start) }));
+  console.log(t('serve_search_complete', { Milliseconds: result.ms }));
 }
 
+/**
+ * Takes the files the preview service wrote and removed (paths in .build/preview/) into the snapshot; with all,
+ * every page reloads (assets and static files that every page uses changed).
+ */
+async function mergeFiles({ written = [], removed = [] }, { all = false } = {}) {
+  const next = new Map(snapshot);
+  revision++;
+  for (const path of removed) {
+    next.delete(`/${path}`);
+    revisions.delete(`/${path}`);
+  }
+  for (const path of written) {
+    const content = await readFile(join(destination, path)).catch(error => { if (error.code !== 'ENOENT') throw error; });
+    if (content === undefined) continue;
+    if (snapshot.get(`/${path}`)?.equals(content)) continue;
+    next.set(`/${path}`, content);
+    revisions.set(`/${path}`, revision);
+  }
+  if (all) for (const file of next.keys()) if (file.endsWith('.html')) revisions.set(file, revision);
+  snapshot = next;
+}
+
+/**
+ * The full build: the preview service started anew (the first time, and when its code changed) with a full
+ * prebuild, then every page generated (only the pages whose generated HTML changed are finished and written).
+ */
 async function fullBuild() {
   needFull = true;
-  await stopSearching();
   const start = performance.now();
   const state = await readSources(); // Before prebuild: later edits are pending changes.
   state.data = await readData();
-  console.log(t('serve_prebuild_start'));
-  if (!service || scriptsChanged) {
+  const first = !snapshot;
+  if (!service || restartRequested || first) {
     service?.child.kill('SIGTERM');
-    scriptsChanged = false;
+    restartRequested = generatorRequested = assetsRequested = false;
+    staticPending.clear();
+    console.log(t('serve_prebuild_start'));
     service = startService();
+    const prebuilt = await service.request('refresh');
+    if (!prebuilt.ok) {
+      console.error(prebuilt.error);
+      console.error(t('serve_prebuild_failed'));
+      return;
+    }
   }
-  const prebuilt = await service.request('refresh');
-  if (!prebuilt.ok) {
-    console.error(prebuilt.error);
-    console.error(t('serve_prebuild_failed'));
+  if (stopping) return;
+  const built = await service.request('buildSite', { clean: first });
+  if (!built.ok) {
+    console.error(built.error);
+    console.error(t('serve_site_failed'));
     return;
   }
   if (stopping) return;
-  const hugoStart = performance.now();
-  if (!await run('hugo', ['--cleanDestinationDir', '--environment', 'development', '--cacheDir', join(root, '.build/hugo-cache'), '--baseURL', `${origin}/`, ...hugoArgs, '--destination', destination])) {
-    console.error(t('serve_hugo_failed'));
-    return;
+  if (first) {
+    snapshot = await readSnapshot(destination, new Map(), '', path => path === '/pagefind' || path === '/.pagefind-next');
+    revision++;
+  } else {
+    // The pages that every page's frame shows (the stylesheet, a template) changed for all.
+    await mergeFiles(built.result, { all: built.result.written.length > 0 });
   }
-  if (stopping) return;
-  console.log(headline('hugo', 'rendered the preview', elapsed(hugoStart)));
-  // The preview also writes Pagefind's diagnostic page to /pagefind/playground/.
-  const postbuild = startPostbuild();
-  if (!await postbuild.pages) {
-    await postbuild.done;
-    console.error(t('serve_postbuild_failed'));
-    return;
-  }
-  if (stopping) return;
-  // Publish an immutable snapshot once the pages are finished. Postbuild goes on to write the search
-  // index (replacing /pagefind/ and removing the manifest): until then the previous index is served.
-  const next = await readSnapshot(destination, new Map(), '', path => path === '/pagefind' || path === '/search-manifest.json');
-  for (const [file, content] of snapshot ?? []) if (file.startsWith('/pagefind/')) next.set(file, content);
-  revision++;
-  for (const [file, content] of next) if (!snapshot?.get(file)?.equals(content)) revisions.set(file, revision);
-  for (const file of revisions.keys()) if (!next.has(file)) revisions.delete(file);
-  snapshot = next;
   sources = state;
   needFull = false;
   siteRequested = categoriesChanged = false;
-  // Start Hugo, warm it up and record its output in the background; an edit meanwhile waits its turn.
-  if (service) void service.request('startHugo').then(() => service?.request('warmUp')).then(() => service?.request('trackOutputs'));
+  // Warm the preview service up in the background; an edit meanwhile waits its turn.
+  void service.request('warmUp');
   console.log(t('serve_full_complete', { Milliseconds: elapsed(start) }));
-  searching = postbuild;
-  void publishSearch(postbuild, start).catch(error => console.error(t('serve_update_failed', { Message: error.message })));
+  console.log(`  ${built.result.written.length} files written, ${built.result.unchanged} pages unchanged, ${built.result.removed.length} removed`);
 }
 
-/** Merges the pages the preview service wrote to <output>/public/ into the snapshot; removed: URL paths gone. */
-async function mergePages(removed = []) {
-  const rendered = await readSnapshot(join(pageOutput, 'public'));
-  const changed = [...rendered].filter(([file, content]) => !snapshot.get(file)?.equals(content));
-  const gone = removed.filter(file => snapshot.has(file) && !rendered.has(file));
-  // Keep the on-disk preview in step with what is served.
-  for (const [file, content] of changed) {
-    await mkdir(dirname(join(destination, file)), { recursive: true });
-    await writeFile(join(destination, file), content);
+/** The site generator's code changed: its threads start anew and every page is generated again (no prebuild). */
+async function generatorBuild() {
+  const start = performance.now();
+  generatorRequested = assetsRequested = false; // The generator's new threads build the assets again.
+  console.log(t('serve_generator_start'));
+  const restarted = await service.request('restartGenerator');
+  const built = restarted.ok ? await service.request('buildSite') : restarted;
+  if (!built.ok) {
+    console.error(built.error);
+    console.error(t('serve_site_failed'));
+    generatorRequested = true;
+    return;
   }
-  for (const file of gone) {
-    await rm(join(destination, file), { force: true });
-    // And the directories it leaves empty, as a full build would.
-    for (let directory = dirname(file); directory !== '/'; directory = dirname(directory)) {
-      if (!await rmdir(join(destination, directory)).then(() => true, () => false)) break;
-    }
+  await mergeFiles(built.result, { all: built.result.written.length > 0 });
+  console.log(t('serve_generator_complete', { Count: built.result.written.length, Unchanged: built.result.unchanged, Milliseconds: elapsed(start) }));
+}
+
+/** Styles or scripts (assets/) changed: rebuilt alone; every page reloads. */
+async function assetsBuild() {
+  const start = performance.now();
+  assetsRequested = false;
+  const built = await service.request('assets');
+  if (!built.ok) {
+    console.error(built.error);
+    console.error(t('serve_site_failed'));
+    assetsRequested = true;
+    return;
   }
-  // Built after the writes: a search index published meanwhile stays in the snapshot.
-  const next = new Map(snapshot);
-  revision++;
-  for (const file of gone) {
-    next.delete(file);
-    revisions.delete(file);
+  // The assets' addresses changed (fingerprints): the pages that name them too.
+  if (built.result.pages) generatorRequested = true;
+  await mergeFiles(built.result, { all: built.result.written.length > 0 });
+  console.log(t('serve_assets_complete', { Count: built.result.written.length, Milliseconds: elapsed(start) }));
+}
+
+/** Files under static/ changed: copied alone; every page reloads. */
+async function staticBuild() {
+  const start = performance.now();
+  const paths = [...staticPending];
+  staticPending.clear();
+  const copied = await service.request('staticFiles', paths);
+  if (!copied.ok) {
+    console.error(copied.error);
+    for (const path of paths) staticPending.add(path);
+    return;
   }
-  for (const [file, content] of changed) {
-    next.set(file, content);
-    revisions.set(file, revision);
-  }
-  snapshot = next;
+  await mergeFiles(copied.result, { all: true });
+  console.log(t('serve_static_complete', { Count: copied.result.written.length + copied.result.removed.length, Milliseconds: elapsed(start) }));
 }
 
 const timingLine = timings => `  ${Object.entries(timings).map(([name, ms]) => `${name} ${ms} ms`).join(', ')}`;
@@ -436,8 +432,8 @@ async function updateBodies(pages) {
     console.error(t('serve_page_failed', { Message: [reply.error, reply.log].filter(Boolean).join('\n') }));
     return false;
   }
-  await mergePages();
-  console.log(t('serve_page_complete', { Count: reply.result.pages, Milliseconds: elapsed(start) }));
+  await mergeFiles(reply.result);
+  console.log(t('serve_page_complete', { Count: reply.result.written.length, Milliseconds: elapsed(start) }));
   console.log(timingLine(reply.result.timings));
   return true;
 }
@@ -467,20 +463,29 @@ async function updateSite(pages, paths = []) {
     return false;
   }
   if (reply.result.site) return 'site';
-  await mergePages(reply.result.removed);
-  console.log(t('serve_update_complete', { Count: reply.result.pages, Touched: reply.result.touched, Removed: reply.result.removed.length, Milliseconds: elapsed(start) }));
+  await mergeFiles(reply.result);
+  console.log(t('serve_update_complete', { Count: reply.result.written.length, Touched: reply.result.touched, Removed: reply.result.removed.length, Milliseconds: elapsed(start) }));
   console.log(timingLine(reply.result.timings));
   return true;
 }
 
 /** Handles the changes since the last update, the cheapest way that gives the result of a full build. */
 async function update(changed) {
-  if (needFull || fullRequested) {
-    fullRequested = false;
+  if (needFull || restartRequested) return fullBuild();
+  const plan = await classify(changed);
+  if (plan.full) {
+    restartRequested = true;
     return fullBuild();
   }
-  const plan = await classify(changed);
-  if (plan.full) return fullBuild();
+  await updateContent(changed, plan);
+  if (generatorRequested) await generatorBuild();
+  else if (assetsRequested) await assetsBuild();
+  if (generatorRequested && !needFull) await generatorBuild(); // New asset addresses.
+  if (staticPending.size) await staticBuild();
+}
+
+/** Handles changes in content/ and the category tree (see classify). */
+async function updateContent(changed, plan) {
   const site = plan.site || siteRequested;
   if (!site && !plan.pages.length) {
     if (!plan.body.length) return; // Only temporary files came and went.
@@ -538,29 +543,48 @@ function wake() {
   timer = setTimeout(() => { timer = undefined; void rebuild(); }, 150);
 }
 
-/** A changed path under content/ or data/; without one, the next rebuild is a full one. 'site': see siteRequested. */
-function schedule(path) {
-  if (path === undefined) fullRequested = true;
-  else if (path === 'site') siteRequested = true;
-  else pending.add(path);
+/**
+ * A change: a path under content/ or data/ (pending), 'site' (see siteRequested), or a kind of change elsewhere:
+ * 'restart' (code the preview service runs, settings), 'generator' (the site generator's code), 'assets',
+ * or ['static', path].
+ */
+function schedule(change) {
+  if (change === 'restart') restartRequested = true;
+  else if (change === 'generator') generatorRequested = true;
+  else if (change === 'assets') assetsRequested = true;
+  else if (change === 'site') siteRequested = true;
+  else if (Array.isArray(change)) staticPending.add(change[1]);
+  else pending.add(change);
   wake();
+}
+
+/** What a change to a file under a watched directory (relative to the repository) asks for. */
+function changeOf(directory, file) {
+  if (directory === 'content' || directory === 'data') {
+    if (!file) return 'restart';
+    return `${directory}/${file}`;
+  }
+  if (directory === 'assets') return 'assets';
+  if (directory === 'static') return file ? ['static', file] : 'restart';
+  if (directory === 'scripts' && file?.startsWith('site/')) return 'generator';
+  if (directory === 'packages' && /(?:^|\/)node_modules(?:\/|$)/.test(file ?? '')) return undefined;
+  return 'restart'; // scripts/, packages/, i18n/
 }
 
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => stop());
 server.on('error', error => { console.error(t('serve_server_failed', { Message: error.message })); stop(1); });
 try {
-  for (const directory of ['content', 'data', 'layouts', 'assets', 'static', 'i18n', 'scripts']) {
+  for (const directory of ['content', 'data', 'assets', 'static', 'i18n', 'scripts', 'packages']) {
+    if (directory === 'packages' && !await stat(join(root, directory)).catch(() => undefined)) continue; // Copies without the workspace.
     const watcher = watch(join(root, directory), { recursive: true }, (_event, file) => {
-      // Hugo rewrites assets/jsconfig.json on every build; reacting to it rebuilds forever.
-      if (directory === 'assets' && String(file) === 'jsconfig.json') return;
-      if (directory === 'scripts') scriptsChanged = true;
-      schedule(['content', 'data'].includes(directory) && file ? `${directory}/${String(file).split('\\').join('/')}` : undefined);
+      const change = changeOf(directory, file && String(file).split('\\').join('/'));
+      if (change !== undefined) schedule(change);
     });
     watcher.on('error', error => { console.error(t('serve_watch_failed', { Message: error.message })); stop(1); });
     watchers.push(watcher);
   }
   // Watch the directory: editors replace config files during atomic saves.
-  const configWatcher = watch(root, (_event, file) => { if (String(file) === 'hugo.toml') schedule(); });
+  const configWatcher = watch(root, (_event, file) => { if (String(file) === 'site.yaml') schedule('restart'); });
   configWatcher.on('error', error => { console.error(t('serve_config_watch_failed', { Message: error.message })); stop(1); });
   watchers.push(configWatcher);
   // A commit changes derived dates even when no source file changes.
@@ -572,12 +596,18 @@ try {
       gitDirectories.push(resolve(root, stdout.trim()));
     }
   } catch (error) { if (error.code !== 128) throw error; }
-  for (const directory of new Set(gitDirectories)) {
-    const watcher = watch(directory, { recursive: true }, (_event, file) => {
-      if (/^(?:HEAD|packed-refs|logs\/HEAD|refs\/heads\/[^/]+)$/.test(String(file))) schedule('site');
-    });
+  // Only what a commit, a checkout or a pull changes: HEAD, packed-refs, logs/HEAD and the branches (whose names may
+  // hold slashes). Not the whole directory: on Linux a recursive watch adds a watch for each of its directories
+  // (objects/ alone has hundreds) and reports every object Git writes.
+  const watchGit = (directory, recursive, test) => {
+    const watcher = watch(directory, { recursive }, (_event, file) => { if (file && test(String(file).split('\\').join('/'))) schedule('site'); });
     watcher.on('error', error => { console.error(t('serve_git_watch_failed', { Message: error.message })); stop(1); });
     watchers.push(watcher);
+  };
+  for (const directory of new Set(gitDirectories)) {
+    watchGit(directory, false, file => file === 'HEAD' || file === 'packed-refs');
+    if (await stat(join(directory, 'logs')).catch(() => undefined)) watchGit(join(directory, 'logs'), false, file => file === 'HEAD');
+    if (await stat(join(directory, 'refs/heads')).catch(() => undefined)) watchGit(join(directory, 'refs/heads'), true, file => !file.endsWith('.lock'));
   }
   console.log(t('serve_watching'));
   await rebuild();

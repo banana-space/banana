@@ -2,12 +2,12 @@
 title: 偏序集
 aliases: [偏序, Poset]
 categories: [序论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [序论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 在[[序论]]中，**偏序集**是指一个[[集合]] $X$，
 它带有一种将其元素比较大小的方法，称为**偏序**。

@@ -1,12 +1,12 @@
 ---
 title: 余骨架（单纯对象）
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中 $(\mathrm{cosk}_{1}X)_2 = X_1 \times_{X_0} X_1 \times_{X_0} X_1$ 只要求两处顶点相合；三条边首尾相连成三角形边界似乎还需要第一条边与最后一条边的端点相合。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “例子”一节中 $(\mathrm{cosk}_{1}X)_2 = X_1 \times_{X_0} X_1 \times_{X_0} X_1$ 只要求两处顶点相合；三条边首尾相连成三角形边界似乎还需要第一条边与最后一条边的端点相合。
+</problems>
 
 ::: convention
 在本文中，

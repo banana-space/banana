@@ -1,13 +1,13 @@
 ---
 title: 乘积测度
 categories: [测度论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节缺少可数个概率空间的乘积测度的定义。
-      - “存在唯一性”一节第二个引理的证明中，关于 $F\setminus E$ 的一句似乎缺少等式 $\nu\big((F\setminus E)_{x}\big)=\nu(F_{x})-\nu(E_{x})$。
 navboxes: [测度论]
 ---
+
+<problems>
+- “定义”一节缺少可数个概率空间的乘积测度的定义。
+- “存在唯一性”一节第二个引理的证明中，关于 $F\setminus E$ 的一句似乎缺少等式 $\nu\big((F\setminus E)_{x}\big)=\nu(F_{x})-\nu(E_{x})$。
+</problems>
 
 在[[测度论]]中，
 **乘积测度**指的是在两个[[测度空间]] $(X, \mathscr{A},\mu)$

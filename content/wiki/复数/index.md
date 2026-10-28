@@ -3,11 +3,11 @@ title: 复数
 aliases: [复数域, 复平面, 虚部, 实部]
 categories: [数系, 复分析]
 navboxes: [数系, 复分析]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **复数**是[[实数]]的一种扩充，是形如
 $z = a + b \mathrm{i}$

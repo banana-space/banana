@@ -27,7 +27,6 @@ navboxes: [代数拓扑]
 | `aliases` | 别名 |
 | `categories` | 分类 |
 | `sort` | 排序用的读音，标题的默认读音不合适时填写 |
-| `notices` | 页面顶部的提示，见 @help:notices |
 | `navboxes` | 页面底部的学科导航框，见 @help:notices |
 
 ## 标题

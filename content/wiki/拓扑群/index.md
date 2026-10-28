@@ -1,12 +1,12 @@
 ---
 title: 拓扑群
 categories: [抽象调和分析]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [抽象调和分析]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **拓扑群**是带有[[拓扑]]的[[群]]。
 

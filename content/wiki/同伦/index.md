@@ -1,12 +1,12 @@
 ---
 title: 同伦
 categories: [同伦论]
-notices:
-  - name: 问题
-    items:
-      - “对高阶范畴”“对模型范畴”各节需要扩充。
 navboxes: [代数拓扑]
 ---
+
+<problems>
+- “对高阶范畴”“对模型范畴”各节需要扩充。
+</problems>
 
 **同伦**是[[映射]]之间的连续变化。
 例如，对[[拓扑空间]]的[[连续映射]] $f, g \colon X \to Y$ 而言，

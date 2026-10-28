@@ -1,14 +1,14 @@
 ---
 title: 习题
-notices:
-  - name: 问题
-    items:
-      - '“Dirichlet 定理的特例”一节第 5 题的提示所引用的“D4)”没有对应的题目，似乎指本节第 4 题。'
-      - '“偶四次多项式的分裂域：Kaplansky 定理”一节中，Kaplansky 定理的第二种情形 $G\simeq \mathbb{Z}/2\mathbb{Z}$ 似乎应为 $\mathbb{Z}/4\mathbb{Z}$（$P$ 不可约时 $|G|\geqslant 4$）；第 1 题中的子群 $\{1,\sigma,\sigma^2,\sigma^3\}$ 似乎应为 $\{1,r,r^2,r^3\}$。'
-      - '“Galois 扩张的正规基定理”一节第 2 题的第二个条件似乎应为“当 $i=j$ 时，$P\mid Q_i^2-Q_i$”；第 3、4 题中的 $\sigma_i$ 没有定义，似乎指 $g_i$。'
-      - '“Galois 扩张的正规基定理”一节之后的练习中，第 4) 题的“$K(\beta)/K$ 为 Galois 扩张并且其 Galois 群为 $p^2(p^2-1)$ 阶的”似乎应为 $L/K$。'
-      - '“练习题”一节中，第 14 题的“$L$ 为 $K$ 的分裂域”似乎应为 $P$ 的分裂域（且与第 11 题重复）；第 30 题第二部分的基域 $K$ 似乎应为 $\mathbb{Q}$；第 33 题的“$L$ 是 $K$ 的分式域”似乎应为“$L$ 是 $P$ 在 $K$ 上的分裂域”。'
 ---
+
+<problems>
+- “Dirichlet 定理的特例”一节第 5 题的提示所引用的“D4)”没有对应的题目，似乎指本节第 4 题。
+- “偶四次多项式的分裂域：Kaplansky 定理”一节中，Kaplansky 定理的第二种情形 $G\simeq \mathbb{Z}/2\mathbb{Z}$ 似乎应为 $\mathbb{Z}/4\mathbb{Z}$（$P$ 不可约时 $|G|\geqslant 4$）；第 1 题中的子群 $\{1,\sigma,\sigma^2,\sigma^3\}$ 似乎应为 $\{1,r,r^2,r^3\}$。
+- “Galois 扩张的正规基定理”一节第 2 题的第二个条件似乎应为“当 $i=j$ 时，$P\mid Q_i^2-Q_i$”；第 3、4 题中的 $\sigma_i$ 没有定义，似乎指 $g_i$。
+- “Galois 扩张的正规基定理”一节之后的练习中，第 4) 题的“$K(\beta)/K$ 为 Galois 扩张并且其 Galois 群为 $p^2(p^2-1)$ 阶的”似乎应为 $L/K$。
+- “练习题”一节中，第 14 题的“$L$ 为 $K$ 的分裂域”似乎应为 $P$ 的分裂域（且与第 11 题重复）；第 30 题第二部分的基域 $K$ 似乎应为 $\mathbb{Q}$；第 33 题的“$L$ 是 $K$ 的分式域”似乎应为“$L$ 是 $P$ 在 $K$ 上的分裂域”。
+</problems>
 
 ## 迹与范数 {@sec:trace-norm-exer}
 

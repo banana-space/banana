@@ -1,12 +1,12 @@
 ---
 title: 挠–完备等价
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “证明”“注记”各节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “证明”“注记”各节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

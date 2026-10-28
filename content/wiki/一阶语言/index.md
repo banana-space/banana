@@ -1,12 +1,12 @@
 ---
 title: 一阶语言
 categories: [谓词逻辑]
-notices:
-  - name: 问题
-    items:
-      - “Löwenheim–Skolem 定理”一节的陈述似乎缺少 $M$ 是无穷结构、$\kappa$ 是无穷基数的条件，其中的 $|L|$ 似乎应为 $|\mathcal{L}|$。
 navboxes: [逻辑学]
 ---
+
+<problems>
+- “Löwenheim–Skolem 定理”一节的陈述似乎缺少 $M$ 是无穷结构、$\kappa$ 是无穷基数的条件，其中的 $|L|$ 似乎应为 $|\mathcal{L}|$。
+</problems>
 
 在[[逻辑学]]中，**一阶语言**是一类[[形式语言]]，是[[一阶逻辑]]使用的语言。
 大部分现代数学都基于一阶逻辑，

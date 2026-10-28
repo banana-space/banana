@@ -2,11 +2,11 @@
 title: '$\pi$'
 aliases: [Pi, 圆周率, Π]
 categories: [实分析, 复分析, 常数]
-notices:
-  - name: 问题
-    items:
-      - “有理逼近”一节需要扩充。
 ---
+
+<problems>
+- “有理逼近”一节需要扩充。
+</problems>
 
 [[实数]] $\pi \in \mathbb{R}$（称为**圆周率**，又称 **Archimedes 常数**）
 是[[圆]]的[[周长]]和其直径的比值，

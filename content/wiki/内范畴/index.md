@@ -2,12 +2,12 @@
 title: 内范畴
 aliases: [群胚对象, 内部群胚, 内部函子, 内部范畴, 内群胚]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 [[范畴]] $\mathcal{C}$ 中的**内范畴**是指一个类似范畴的结构，
 但其对象、态射构成的空间都是 $\mathcal{C}$ 中的对象。

@@ -1,12 +1,12 @@
 ---
 title: Hecke $L$ 函数
 categories: [解析数论]
-notices:
-  - name: 问题
-    items:
-      - “Dirichlet 定理”“素数定理”各节需要扩充。
-      - “解析延拓与函数方程”一节中，完备化 $\Lambda(\chi,s)$ 的 Gamma 因子里似乎缺少变量 $s$（例如似乎应为 $\Gamma_{\mathbb{R}}(s+|m_v|+i\varphi_v)$）。
 ---
+
+<problems>
+- “Dirichlet 定理”“素数定理”各节需要扩充。
+- “解析延拓与函数方程”一节中，完备化 $\Lambda(\chi,s)$ 的 Gamma 因子里似乎缺少变量 $s$（例如似乎应为 $\Gamma_{\mathbb{R}}(s+|m_v|+i\varphi_v)$）。
+</problems>
 
 **Hecke $L$ 函数**是 [[Dirichlet $L$ 函数]]
 的推广，

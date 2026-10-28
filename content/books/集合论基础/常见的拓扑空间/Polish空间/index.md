@@ -1,10 +1,10 @@
 ---
 title: Polish空间
-notices:
-  - name: 问题
-    items:
-      - '“$\mathcal{C}(X,Y)$在一致度量拓扑下也是Polish空间”的证明中，$C_{m,n}$ 的定义里的 $\forall y\in Y$ 似乎应为 $\forall y\in X$。'
 ---
+
+<problems>
+- “$\mathcal{C}(X,Y)$在一致度量拓扑下也是Polish空间”的证明中，$C_{m,n}$ 的定义里的 $\forall y\in Y$ 似乎应为 $\forall y\in X$。
+</problems>
 
 ::: definition [Polish空间]
 可分可完备度量化的拓扑空间称为Polish空间。

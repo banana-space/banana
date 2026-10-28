@@ -1,11 +1,11 @@
 ---
 title: Tarski 不可定义定理
 categories: [模型论]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **Tarski 不可定义定理**大致说的是，
 在足够强的[[形式系统]]里，

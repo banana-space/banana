@@ -1,4 +1,4 @@
-// 页面历史（layouts/_default/history.html）：/history/?path=<页面>。网站上已有的修改与旧站的修订来自构建时写出的
+// 页面历史（scripts/site/templates/special.mjs）：/history/?path=<页面>。网站上已有的修改与旧站的修订来自构建时写出的
 // /history/data/<页面>.json（scripts/prebuild/page-history.mjs），尚未出现在网站上的修改（待审阅的、已合并而还在发布的）
 // 来自 /api/page-history；读取后者失败时只列出前者。修改链接到它的差异（/diff/），不按日期分组，最新的在前。
 
@@ -42,10 +42,15 @@ function diffStat(add, del) {
   return element('span', 'recent-diff', element('span', 'recent-diff-add', `+${add}`), element('span', 'recent-diff-del', `−${del}`));
 }
 
+/** A minor edit's mark (“小”), on the legacy site or here (scripts/shared/minor-edits.mjs). */
+const minorBadge = change => change.minor ? Object.assign(element('span', 'recent-badge history-minor', strings.minor), { title: strings.minorHint }) : null;
+
 function badges(change) {
-  if (change.status === 'added') return element('span', 'recent-badge recent-badge-added', strings.added);
-  if (change.status === 'removed') return element('span', 'recent-badge recent-badge-removed', strings.removed);
-  if (change.status === 'renamed' && change.previous) return element('span', 'recent-badge', fill(strings.renamed, { name: pageName(change.previous) }));
+  const minor = minorBadge(change);
+  if (change.status === 'added') return [element('span', 'recent-badge recent-badge-added', strings.added), minor];
+  if (change.status === 'removed') return [element('span', 'recent-badge recent-badge-removed', strings.removed), minor];
+  if (change.status === 'renamed' && change.previous) return [element('span', 'recent-badge', fill(strings.renamed, { name: pageName(change.previous) })), minor];
+  return [minor];
 }
 
 function stateLabel(state) {
@@ -66,7 +71,7 @@ function pullRow(pull, path) {
   const by = external(link(pull.url ?? `${config.repository}/pull/${pull.number}`, 'recent-pull',
     element('span', 'recent-author', pull.author ?? ''), element('span', 'recent-pull-number', `#${pull.number}`)));
   return row(`recent-item-${pull.state === 'open' ? 'open' : 'merged'}`, pull.time,
-    element('div', 'recent-head', title, badges(pull)),
+    element('div', 'recent-head', title, ...badges(pull)),
     element('div', 'recent-meta', stateLabel(state), by, diffStat(pull.additions ?? pull.add, pull.deletions ?? pull.del)));
 }
 
@@ -84,7 +89,7 @@ function commitRow(change, withLegacy) {
   const by = external(link(`${config.repository}/commit/${change.commit}`, 'recent-pull',
     element('span', 'recent-author', change.author ?? ''), element('span', 'recent-pull-number', change.commit.slice(0, 7))));
   return row('recent-item-merged', change.time,
-    element('div', 'recent-head', element('span', 'recent-pull-title', change.title), badges(change)),
+    element('div', 'recent-head', element('span', 'recent-pull-title', change.title), ...badges(change)),
     element('div', 'recent-meta', stateLabel('merged'), by, diffStat(change.add, change.del)));
 }
 
@@ -93,7 +98,7 @@ function legacyRow(revision) {
   const summary = revision.comment
     ? element('span', 'history-summary', revision.comment)
     : element('span', 'history-summary is-empty', strings.noSummary);
-  const minor = revision.minor ? Object.assign(element('span', 'recent-badge history-minor', strings.minor), { title: strings.minorHint }) : null;
+  const minor = minorBadge(revision);
   return row('history-legacy-item', revision.time,
     element('div', 'recent-head', summary, minor),
     element('div', 'recent-meta', revision.user

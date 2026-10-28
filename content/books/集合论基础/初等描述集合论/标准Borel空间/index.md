@@ -1,10 +1,10 @@
 ---
 title: 标准Borel空间
-notices:
-  - name: 问题
-    items:
-      - “Baire层级”一节第一个 Lebesgue–Hausdorff–Banach 定理中的条件“$\alpha\leq 1$”似乎应为“$\alpha\geq 1$”（证明从 $\alpha=1$ 起归纳）。
 ---
+
+<problems>
+- “Baire层级”一节第一个 Lebesgue–Hausdorff–Banach 定理中的条件“$\alpha\leq 1$”似乎应为“$\alpha\geq 1$”（证明从 $\alpha=1$ 起归纳）。
+</problems>
 
 ## 可测函数
 

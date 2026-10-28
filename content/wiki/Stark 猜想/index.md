@@ -1,11 +1,11 @@
 ---
 title: Stark 猜想
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “简单情形”一节需要扩充。
 ---
+
+<problems>
+- “简单情形”一节需要扩充。
+</problems>
 
 **Stark 猜想**是[[代数数论]]中关于
 [[Artin $L$ 函数]]特殊值的重要猜想，描述[[类数公式]]关于数域

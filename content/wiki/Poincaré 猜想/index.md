@@ -2,12 +2,12 @@
 title: Poincaré 猜想
 aliases: [Poincare 猜想, 庞加莱猜想]
 categories: [问题, 几何拓扑]
-notices:
-  - name: 问题
-    items:
-      - “证明概要”一节需要扩充。
 navboxes: [千禧年大奖难题]
 ---
+
+<problems>
+- “证明概要”一节需要扩充。
+</problems>
 
 **Poincaré 猜想**
 （或 **Poincaré–Perelman 定理**）是指以下定理：

@@ -1,12 +1,12 @@
 ---
 title: 奇异基数假设
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “动机”一节中命题的证明不完整：由前文似乎推不出 $\kappa^{\operatorname{cf}(\kappa)}=\omega^{\operatorname{cf}(\kappa)}$ 这一步。
 navboxes: [集合论]
 ---
+
+<problems>
+- “动机”一节中命题的证明不完整：由前文似乎推不出 $\kappa^{\operatorname{cf}(\kappa)}=\omega^{\operatorname{cf}(\kappa)}$ 这一步。
+</problems>
 
 **奇异基数假设**指如下命题：
 

@@ -1,17 +1,16 @@
 ---
 title: 张量
 categories: [线性代数]
-notices:
-  - name: 消歧义
-    about: 线性代数中的张量
-    see:
-      - topic: 微分几何中的张量
-        page: 张量场
-  - name: 问题
-    items:
-      - “性质”一节中基变换下张量分量的变换公式似乎有误：左边的指标 $i_1, \dots, i_p, j_1, \dots, j_q$ 在右边又被求和，$A$、$B$ 的下标 $1, \dots, p$ 与 $1, \dots, q$ 似乎应为一组被求和的指标与左边指标的配对。
 navboxes: [线性代数]
 ---
+
+<disambiguation>
+本条目介绍的是线性代数中的张量。关于微分几何中的张量，请参见[[张量场]]。
+</disambiguation>
+
+<problems>
+- “性质”一节中基变换下张量分量的变换公式似乎有误：左边的指标 $i_1, \dots, i_p, j_1, \dots, j_q$ 在右边又被求和，$A$、$B$ 的下标 $1, \dots, p$ 与 $1, \dots, q$ 似乎应为一组被求和的指标与左边指标的配对。
+</problems>
 
 **张量**是[[向量]]的推广。
 在 $n$ 维[[向量空间|空间]]中，

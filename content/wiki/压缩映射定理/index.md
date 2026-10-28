@@ -2,11 +2,11 @@
 title: 压缩映射定理
 aliases: [Banach 不动点定理]
 categories: [一般拓扑]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 **压缩映射定理**，
 又称**Banach 不动点定理**，是拓扑学中的基本结论，

@@ -1,12 +1,12 @@
 ---
 title: 张量积
 categories: [线性代数, 模论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 张量积（多义词）
 navboxes: [线性代数, 模论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[张量积（多义词）]]。
+</disambiguation>
 
 **张量积**是[[线性代数]]中的一种构造，常用 $\otimes$ 表示。
 两个[[向量空间]]（或更一般地，两个[[模]]）$V, W$ 的张量积 $V \otimes W$

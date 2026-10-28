@@ -1,11 +1,11 @@
 ---
 title: 无穷连通Hausdorff空间
-notices:
-  - name: 问题
-    items:
-      - '定理“$A$是闭集$\leftrightarrow\mathrm{Der}(A)\subseteq A\leftrightarrow\partial(A)\subseteq A$”的证明中，第一段最后一步“$\exists U\ni x(U\cap A=\{x\})$”似乎应为 $U\cap A=\varnothing$（这里 $x\not\in A$）。'
-      - 列举 Int、Der、∂、Cl 之间关系的定理说“十六个命题”，但只列出了十四个。
 ---
+
+<problems>
+- 定理“$A$是闭集$\leftrightarrow\mathrm{Der}(A)\subseteq A\leftrightarrow\partial(A)\subseteq A$”的证明中，第一段最后一步“$\exists U\ni x(U\cap A=\{x\})$”似乎应为 $U\cap A=\varnothing$（这里 $x\not\in A$）。
+- 列举 Int、Der、∂、Cl 之间关系的定理说“十六个命题”，但只列出了十四个。
+</problems>
 
 我们特别地讨论无穷连通$T_2$空间，不但是因为它相当常见，而且是因为在其中可以定义收敛性，
 它与闭集的性质密切相关。若无特殊说明，接下来都默认空间是无穷连通且$T_2$的；

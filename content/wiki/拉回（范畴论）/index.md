@@ -2,12 +2,12 @@
 title: 拉回（范畴论）
 aliases: [纤维积, Descartes 方块, 拉回图表, 拉回方块]
 categories: [范畴论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 拉回
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[拉回]]。
+</disambiguation>
 
 在[[范畴论]]中，**拉回**
 （或称**纤维积**、**Descartes 方块**）

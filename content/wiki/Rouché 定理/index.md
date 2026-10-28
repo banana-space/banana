@@ -2,12 +2,12 @@
 title: Rouché 定理
 aliases: [Rouche 定理]
 categories: [复分析]
-notices:
-  - name: 问题
-    items:
-      - “证明”“应用”各节需要扩充。
 navboxes: [复分析]
 ---
+
+<problems>
+- “证明”“应用”各节需要扩充。
+</problems>
 
 **Rouché 定理**，是[[复分析]]中的结论，由[[Eugène Rouché]]提出。
 它大致说明，对一个[[全纯函数]]作适当的全纯[[扰动]]，

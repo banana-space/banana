@@ -1,14 +1,12 @@
 ---
 title: $2$-群
 categories: [高阶范畴论]
-notices:
-  - name: 消歧义
-    about: 一种高阶代数结构
-    see:
-      - topic: $p = 2$ 时的 $p$-群
-        page: $p$-群
 navboxes: [2-范畴论]
 ---
+
+<disambiguation>
+本条目介绍的是一种高阶代数结构。关于$p = 2$ 时的 $p$-群，请参见[[$p$-群]]。
+</disambiguation>
 
 **$2$-群**是一种[[代数结构]]，
 是[[群]]的推广。直观上看，有以下几种方式理解 $2$-群。

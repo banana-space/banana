@@ -2,12 +2,12 @@
 title: Zermelo–Fraenkel 集合论
 aliases: [ZF 集合论, ZFC 公理, ZFC 集合论, ZFC, ZF 公理, Zermelo-Fraenkel 集合论]
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “序数”“基数”“模型”“相容性”“不可决定的命题”各节需要扩充。
 navboxes: [集合论]
 ---
+
+<problems>
+- “序数”“基数”“模型”“相容性”“不可决定的命题”各节需要扩充。
+</problems>
 
 **Zermelo–Fraenkel 集合论**，
 简称 **ZF 集合论**，是一种公理化[[集合论]]。

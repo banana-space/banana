@@ -1,12 +1,12 @@
 ---
 title: 算法的稳定性
-notices:
-  - name: 问题
-    items:
-      - '“特征空间的扰动理论”一节定理的证明中，由 $S_2 \subset B_\rho(0)$ 得到的似乎应是 $S_1 \subset B_{\rho+\delta}(0)^c$，而不是 $S_1^c \subset B_{\rho+\delta}(0)$。'
 ---
 
 {@sec:stability}
+
+<problems>
+- “特征空间的扰动理论”一节定理的证明中，由 $S_2 \subset B_\rho(0)$ 得到的似乎应是 $S_1 \subset B_{\rho+\delta}(0)^c$，而不是 $S_1^c \subset B_{\rho+\delta}(0)$。
+</problems>
 
 稳定性的分析由**矩阵的扰动理论**给出。这也将给出上述算法 3 中归一化行向量的需要。
 

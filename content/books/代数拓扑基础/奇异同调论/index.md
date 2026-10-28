@@ -1,13 +1,13 @@
 ---
 title: 奇异同调论
-notices:
-  - name: 问题
-    items:
-      - “正合序列”一节五引理的证明中，元素 $v$、$w$、$x$、$z$ 未加说明就被使用（似乎依赖于缺失的图示），且 (2) 中的 $v\in X_2$ 似乎应为 $v\in A_2$。
-      - “正合序列”一节蛇引理证明的第 (2) 步中，等式 $\gamma\psi(b)=\beta\psi'(\varphi(d))=0$ 似乎应为 $\psi'\beta(b)=\psi'\varphi'(d)=0$。
-      - “奇异同调的公理”一节引理的证明中，$D_X(T)$ 的陪域似乎应为 $X\times I$，而不是 $X$。
-      - “应用：拓扑流形和局部同调群”一节中，带边流形内点处的局部同调似乎应在 $p=m$ 而不是 $p=m-1$ 时同构于 $\mathbb{Z}$。
 ---
+
+<problems>
+- “正合序列”一节五引理的证明中，元素 $v$、$w$、$x$、$z$ 未加说明就被使用（似乎依赖于缺失的图示），且 (2) 中的 $v\in X_2$ 似乎应为 $v\in A_2$。
+- “正合序列”一节蛇引理证明的第 (2) 步中，等式 $\gamma\psi(b)=\beta\psi'(\varphi(d))=0$ 似乎应为 $\psi'\beta(b)=\psi'\varphi'(d)=0$。
+- “奇异同调的公理”一节引理的证明中，$D_X(T)$ 的陪域似乎应为 $X\times I$，而不是 $X$。
+- “应用：拓扑流形和局部同调群”一节中，带边流形内点处的局部同调似乎应在 $p=m$ 而不是 $p=m-1$ 时同构于 $\mathbb{Z}$。
+</problems>
 
 ## 相对同调
 
@@ -75,7 +75,7 @@ H_p(K,K_0)=\frac{Z_p(K,K_0)}{B_p(K,K_0)}=\begin{cases}
 考虑下面的复形 $ K $，其几何实现 $ \left| K \right| \cong\mathbb{D}^2 $。
 取 $ K_0=\operatorname{Bd} K $。
 
-![](Sec8-1.png?width=240)
+![](Sec8-1.png){width=240}
 
 首先考虑最简单的 $ p=2 $ 的情形：
 \[
@@ -94,7 +94,7 @@ H_2(K,K_0)=C_2(K,K_0)=Z_2(K,K_0)=C_2(K),
 \]
 另一方面，若 $ c_1\sim c_1' $ 使得 $ c_1' $ 被下面的复形承载，
 
-![](Sec8-2.png?width=240)
+![](Sec8-2.png){width=240}
 
 那么
 \[
@@ -495,7 +495,7 @@ $ \varphi : \mathcal{C}\to\mathcal{D} $ 和 $ \psi : \mathcal{D}\to\mathcal{E} $
 $ \varphi(c_{p-1})=\partial_D d_p $，$ \psi(d_p)=e_p $。
 需要验证 $ \alpha_*\partial_*(\left\{ e_p \right\})=\partial_*'\gamma_*(\left\{ e_p \right\}) $。
 
-![](Sec8-4.png?width=540)
+![](Sec8-4.png){width=540}
 
 由
 \[
@@ -835,7 +835,7 @@ $ \ell(\varepsilon_0,\dots,\varepsilon_p) : \Delta_p\hookrightarrow\mathbb{R}^\m
 是 $ \ell(\varepsilon_0,\dots,\varepsilon_p) $ 的第 $ i $ 个 $ p-1 $ 维面。
 为了方便，将这一线性奇异单形记作 $ \ell_{i,p} $。
 
-![$ \Delta_3 $ 的所有 $2$ 维面](Sec10-1.png?width=360)
+![$ \Delta_3 $ 的所有 $2$ 维面](Sec10-1.png){width=360}
 
 ::: definition [奇异单形的边界]
 对 $ T_p : \Delta_p\to X $，称
@@ -1099,7 +1099,7 @@ $ C(\Delta_p,X) $ 是 $ S_p(X) $ 的生成元集，
 $ f\simeq g $ 即意味着存在 $ H : X\times I\to Y $
 使得 $ H(\cdot,0)=f $ 且 $ H(\cdot,1)=g $，于是我们可以将 $ X $ 加厚：
 
-![](Sec10-2.png?width=720)
+![](Sec10-2.png){width=720}
 
 若将 $ i,j $ 代数化得到 $ i_\sharp $，$ j_\sharp $，
 只需要证明 $ i_\sharp $ 与 $ j_\sharp $ 链同伦，那么
@@ -1175,7 +1175,7 @@ D_Yf_\sharp(T)(t,0,\dots)=D_Y(f\circ T)(t,0,\dots)=(f(x_0),t)
 又因 $ \Delta_p $ 零调，于是 $ Z_p(\Delta_p)=B_p(\Delta_p) $。
 因此只需 $ \partial D_{\Delta_p}(\mathrm{id}_{\Delta_p})=c_p\in Z_p(\Delta_p) $ 即可。
 
-![](Sec10-3.png?width=420)
+![](Sec10-3.png){width=420}
 
 直接计算验证即可：
 \[
@@ -1196,7 +1196,7 @@ D_Yf_\sharp(T)(t,0,\dots)=D_Y(f\circ T)(t,0,\dots)=(f(x_0),t)
 (T\times\mathrm{id}_I)_\sharp D_{\Delta_p}(\mathrm{id}_{\Delta_p}).
 \]
 
-![](Sec10-4.png?width=720)
+![](Sec10-4.png){width=720}
 
 下面只需验证 $ \partial D_X+D_X\partial=j_\sharp-i_\sharp $ 即可。
 对任意 $ T\in S_p(X) $，
@@ -1237,7 +1237,7 @@ D_Yf_\sharp(T)(t,0,\dots)=D_Y(f\circ T)(t,0,\dots)=(f(x_0),t)
 对奇异链，一般来说 $ \mathcal{S}(X_1)\oplus\mathcal{S}(X_2)\to\mathcal{S}(X) $ 并不是满的，
 因为可能出现下图这样的状况：
 
-![](Sec11-1.png?width=360)
+![](Sec11-1.png){width=360}
 
 但对
 \[
@@ -1362,7 +1362,7 @@ S(X):=(X\times[-1,1])/(X\times\left\{ 1 \right\}\cup X\times\left\{ -1 \right\})
 将悬挂看作是对空间的一元运算，那么映射 $ S : X\mapsto S(X) $ 可以对自身复合，
 归纳地定义 $ S^{n+1}(X):=S(S^n(X)) $。
 
-![](Sec11-2.png?width=780)
+![](Sec11-2.png){width=780}
 :::
 
 锥总是零调的，于是讨论锥的同调群没什么价值。但双锥一般情况下并不是可缩的，

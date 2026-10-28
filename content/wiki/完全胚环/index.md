@@ -2,12 +2,12 @@
 title: 完全胚环
 aliases: [完美胚, 整完美胚环, 完美胚环]
 categories: [交换代数, $p$ 进几何]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 navboxes: [P 进几何, 交换代数]
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

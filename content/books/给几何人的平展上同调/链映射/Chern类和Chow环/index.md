@@ -1,10 +1,10 @@
 ---
 title: Chern类和Chow环
-notices:
-  - name: 问题
-    items:
-      - 定义 Chern 类的方程组中 $c_0(\mathscr{E})=0$ 似乎应为 $c_0(\mathscr{E})=1$。
 ---
+
+<problems>
+- 定义 Chern 类的方程组中 $c_0(\mathscr{E})=0$ 似乎应为 $c_0(\mathscr{E})=1$。
+</problems>
 
 接下来介绍一种定义上同调类里的Chern类的方法。
 

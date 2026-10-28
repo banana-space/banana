@@ -1,12 +1,12 @@
 ---
 title: 正则同态
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节的命题“基变换”中，$A\otimes_RS$ 未必是 Noether 环，似乎需要额外假设（例如 $A\otimes_RS$ 是 Noether 环，或 $R\to S$ 是有限型的）才能谈论正则同态。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “性质”一节的命题“基变换”中，$A\otimes_RS$ 未必是 Noether 环，似乎需要额外假设（例如 $A\otimes_RS$ 是 Noether 环，或 $R\to S$ 是有限型的）才能谈论正则同态。
+</problems>
 
 ::: convention
 在本文中，

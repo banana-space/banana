@@ -1,11 +1,12 @@
 ---
 title: 双范畴
 categories: [高阶范畴论]
-notices:
-  - name: 区分
-    text: '注意区分本文与 [[$2$-范畴]]。'
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+注意区分本文与 [[$2$-范畴]]。
+</disambiguation>
 
 **双范畴**是[[范畴]]的一种推广，是 [[$n$ 重范畴]]当 $n = 2$ 时的特例，
 也可视为带有额外结构的 [[$2$-范畴]]。

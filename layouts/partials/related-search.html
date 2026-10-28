@@ -1,8 +1,0 @@
-{{- /* Related pages for a name without a page; filled by static/js/related-search.js.
-  The context is where the name comes from: "title" (the ?title= parameter) or "path" (the address). */ -}}
-<section class="related-search" data-source="{{ . }}" aria-labelledby="related-search-title" hidden>
-  <h2 id="related-search-title" class="related-search-title">{{ i18n "related_search_title" }}</h2>
-  <div class="search-page-results related-search-results"></div>
-  <p class="related-search-more"><a href="{{ "search/" | relURL }}"></a></p>
-</section>
-<script type="module" src="{{ "js/related-search.js" | relURL }}"></script>

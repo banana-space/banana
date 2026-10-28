@@ -1,12 +1,12 @@
 ---
 title: Suslin 树
 categories: [序论]
-notices:
-  - name: 问题
-    items:
-      - “独立性”一节需要扩充。
 navboxes: [序论]
 ---
+
+<problems>
+- “独立性”一节需要扩充。
+</problems>
 
 **Suslin 树**是集合论中的概念，
 这个概念是

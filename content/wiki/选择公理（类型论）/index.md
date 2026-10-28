@@ -1,12 +1,12 @@
 ---
 title: 选择公理（类型论）
 categories: [类型论]
-notices:
-  - name: 问题
-    items:
-      - “排中律”一节需要扩充。
 navboxes: [类型论]
 ---
+
+<problems>
+- “排中律”一节需要扩充。
+</problems>
 
 在[[类型论]]中可以定义[[选择公理]]，是集合论中定义的翻译。
 

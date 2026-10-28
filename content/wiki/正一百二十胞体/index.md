@@ -1,17 +1,17 @@
 ---
 title: 正一百二十胞体
 categories: [初等几何]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节需要扩充。
 navboxes: [Euclid 空间中正多胞体]
 ---
+
+<problems>
+- “定义”一节需要扩充。
+</problems>
 
 **正一百二十胞体**是一种 [[Euclid 空间]]中的[[正多胞体]]，
 其透视投影为
 
-![](120-cell.png?width=200)
+![](120-cell.png){width=200}
 
 ## 定义
 

@@ -1,11 +1,11 @@
 ---
 title: 完美群
 categories: [群论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中“$\mathrm{SL} (n; k)$ 是完美群”似乎不是对所有 $n$ 与 $k$ 都成立，例如 $\mathrm{SL} (2; \mathbb{F}_2)$ 与 $\mathrm{SL} (2; \mathbb{F}_3)$ 似乎不是完美群。
 ---
+
+<problems>
+- “例子”一节中“$\mathrm{SL} (n; k)$ 是完美群”似乎不是对所有 $n$ 与 $k$ 都成立，例如 $\mathrm{SL} (2; \mathbb{F}_2)$ 与 $\mathrm{SL} (2; \mathbb{F}_3)$ 似乎不是完美群。
+</problems>
 
 给定一个群 $G$，如果[[换位子群]] $[G,G]=G$，那么 $G$ 叫做**完美群**。
 
