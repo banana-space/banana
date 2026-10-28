@@ -2,11 +2,12 @@
 title: Β
 aliases: [Beta]
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与拉丁字母“[[B]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与拉丁字母“[[B]]”。
+</disambiguation>
 
 希腊字母 **Β，β** 用在以下记号中：
 

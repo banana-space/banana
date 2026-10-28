@@ -2,11 +2,11 @@
 title: '$\sigma$-代数'
 aliases: [Sigma-代数, Σ-代数, Sigma-域, Σ-域]
 categories: [集合论, 测度论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **$\bm\sigma$-代数**（或 **$\bm\sigma$-域**）
 是某个[[集合]]的一族[[子集]]构成的集合，

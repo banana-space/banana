@@ -2,12 +2,12 @@
 title: Kähler 流形
 aliases: [Kahler 流形, Kähler 度量, Kähler 结构]
 categories: [复几何, 辛几何, Riemann 几何]
-notices:
-  - name: 问题
-    items:
-      - “例子”“性质”各节需要扩充。
 navboxes: [复几何]
 ---
+
+<problems>
+- “例子”“性质”各节需要扩充。
+</problems>
 
 **Kähler 流形**是具有相容的
 [[复流形|复结构]]、

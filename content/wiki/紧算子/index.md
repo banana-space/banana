@@ -1,13 +1,13 @@
 ---
 title: 紧算子
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节后半部分起使用的记号 $\mathscr{B}_0(X,Y)$、$B_X$ 等未加说明。
-      - '“谱理论”一节中，命题“设 $T\in \mathscr{B}_0(X,Y)$，当 $\dim X=\infty$ 时……”讨论谱 $\sigma(T)$，似乎应要求 $Y=X$。'
 navboxes: [泛函分析]
 ---
+
+<problems>
+- “性质”一节后半部分起使用的记号 $\mathscr{B}_0(X,Y)$、$B_X$ 等未加说明。
+- “谱理论”一节中，命题“设 $T\in \mathscr{B}_0(X,Y)$，当 $\dim X=\infty$ 时……”讨论谱 $\sigma(T)$，似乎应要求 $Y=X$。
+</problems>
 
 在[[泛函分析]]中，**紧算子**是[[拓扑向量空间]]
 （例如 [[Banach 空间]]）之间的一类[[线性算子]]。

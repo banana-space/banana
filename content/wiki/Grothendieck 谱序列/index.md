@@ -1,13 +1,13 @@
 ---
 title: Grothendieck 谱序列
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “定理陈述”一节中定理的证明尚未给出。
-      - “例子”一节中谱序列的收敛目标 $H^p(X, \mathcal{F})$ 似乎应为 $H^{p+q}(X, \mathcal{F})$。
 navboxes: [同调代数]
 ---
+
+<problems>
+- “定理陈述”一节中定理的证明尚未给出。
+- “例子”一节中谱序列的收敛目标 $H^p(X, \mathcal{F})$ 似乎应为 $H^{p+q}(X, \mathcal{F})$。
+</problems>
 
 **Grothendieck 谱序列**是[[同调代数]]中的结论，
 它将函子的复合的导出用由导出函子的复合构成的[[谱序列]]表示。

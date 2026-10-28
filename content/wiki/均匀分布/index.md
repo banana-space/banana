@@ -1,12 +1,12 @@
 ---
 title: 均匀分布
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - “基本性质”一节最后一项中，按所给的 $F^{-1}$ 的定义，“$F(x) \leq u$ 等价于 $x \leq F^{-1}(u)$”在 $F$ 于 $F^{-1}(u)$ 处有跳跃时似乎不成立；常用的定义是 $F^{-1}(u) = \inf\{x \mid F(x) \geq u\}$，此时 $u \leq F(x)$ 等价于 $F^{-1}(u) \leq x$。
 navboxes: [概率论]
 ---
+
+<problems>
+- “基本性质”一节最后一项中，按所给的 $F^{-1}$ 的定义，“$F(x) \leq u$ 等价于 $x \leq F^{-1}(u)$”在 $F$ 于 $F^{-1}(u)$ 处有跳跃时似乎不成立；常用的定义是 $F^{-1}(u) = \inf\{x \mid F(x) \geq u\}$，此时 $u \leq F(x)$ 等价于 $F^{-1}(u) \leq x$。
+</problems>
 
 **均匀分布**是一种[[概率分布]]。
 大致来说，称[[随机变量]] $X$ 满足[[闭区间]] $[a, b] \subset \mathbb{R}$ 上的均匀分布，

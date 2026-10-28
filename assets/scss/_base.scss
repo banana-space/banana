@@ -190,11 +190,11 @@ h6 {
   margin: 4rem 0 2.5rem 0;
   position: relative;
 
-  &:hover .heading-link {
+  &:hover .bm-heading-link {
     visibility: visible;
   }
 
-  .heading-link {
+  .bm-heading-link {
     color: $link-color;
     font-weight: inherit;
     text-decoration: none;
@@ -277,17 +277,6 @@ strong {
   font-weight: 700;
 }
 
-.highlight {
-
-  div,
-  pre {
-    margin: 2rem 0 2rem;
-    padding: 1rem;
-    border-radius: 1.5rem;
-    overflow-x: auto;
-  }
-}
-
 pre {
   display: block;
   font-family: $code-font-family;
@@ -368,7 +357,7 @@ figure {
   text-align: center;
 }
 
-.footnotes {
+.bm-footnotes {
   hr {
     border: 0;
     border-top: 1.5px solid $border-color;
@@ -378,7 +367,7 @@ figure {
     margin: 0;
   }
 
-  .footnote-backref {
+  .bm-footnote-backref {
     font-size: 0.75em;
   }
 }
@@ -449,16 +438,14 @@ h1 {
   vertical-align: -0.05em;
 }
 
-// Keep punctuation beside atomic icons/formula fragments. A break between two
-// boxes is governed by their nearest common ancestor, so restoring wrapping
-// inside the formula and link label keeps their own breakpoints available.
-// (A wbr would not do: Safari and Firefox suppress it under nowrap.)
+// Closing punctuation stays beside an external link's icon or an inline diagram
+// (inline-punctuation.js): a nowrap group of the two, the link's label still
+// wrapping inside it. (After a formula: bananamark's .bm-math-end, _katex.scss.)
 .inline-punctuation,
 a.external-link {
   white-space: nowrap;
 }
 
-.inline-punctuation .katex-html,
 .external-link-label {
   white-space: normal;
 }

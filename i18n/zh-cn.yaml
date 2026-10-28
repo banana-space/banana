@@ -1,4 +1,4 @@
-# Hugo 与 Node 共用的中文文字表。
+# 站点的中文文字表（模板、构建与浏览器脚本共用）。
 
 # 页面与界面
 ancestor_categories:
@@ -20,7 +20,8 @@ category_article_count:
 child_categories:
   other: 子分类
 copyright:
-  other: 本站内容采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可．源码和内容位于 [GitHub](https://github.com/banana-space/banana)．
+  # License、Source：链接（partials/footer.html）。
+  other: 本站内容采用 {{ .License }} 许可．源码和内容位于 {{ .Source }}．
 gender_f:
   other: 阴性
 gender_m:
@@ -39,8 +40,6 @@ missing_create:
   other: 请返回<a href="{{ .Home }}">首页</a>，或<a class="missing-create" href="{{ .Create }}">创建条目</a>．
 missing_create_related:
   other: 浏览下方的相关页面，或<a class="missing-create" href="{{ .Create }}">创建条目</a>．
-language_names_locale:
-  other: zh-CN
 lastmod:
   other: 本页面最后修改于 {{ .Date }}．
 lastmod_datetime:
@@ -191,34 +190,7 @@ term_translations:
 term_variant_separator:
   other: 、
 
-# 定理、证明与引用
-environment_corollary:
-  other: 推论{{ with .Number }} {{ . }}{{ end }}
-environment_conjecture:
-  other: 猜想{{ with .Number }} {{ . }}{{ end }}
-environment_convention:
-  other: 约定
-environment_definition:
-  other: 定义{{ with .Number }} {{ . }}{{ end }}
-environment_example:
-  other: 例{{ with .Number }} {{ . }}{{ end }}
-environment_exercise:
-  other: 习题{{ with .Number }} {{ . }}{{ end }}
-environment_lemma:
-  other: 引理{{ with .Number }} {{ . }}{{ end }}
-environment_notation:
-  other: 记号{{ with .Number }} {{ . }}{{ end }}
-environment_proof:
-  other: 证明
-environment_proposition:
-  other: 命题{{ with .Number }} {{ . }}{{ end }}
-environment_remark:
-  other: 注{{ with .Number }} {{ . }}{{ end }}
-environment_theorem:
-  other: 定理{{ with .Number }} {{ . }}{{ end }}
-environment_custom:
-  # ::: definition (条件)：作者自定的名称，编号与颜色仍按类型。
-  other: "{{ .Name }}{{ with .Number }} {{ . }}{{ end }}"
+# 定理、证明与引用（渲染 front matter 中的文字时用；正文中的由 bananamark 写出，见其 messages/）
 environment_title:
   other: "{{ .Caption }}（{{ .Title }}）"
 proof_heading:
@@ -226,120 +198,13 @@ proof_heading:
 proof_title_separator:
   # U+3000 全角空格；其他语言可设为 ""。
   other: "\u3000"
-reference_equation:
-  other: ({{ .Number }})
-reference_item:
-  other: "{{ .Number }}"
 reference_section:
   other: 第 {{ .Number }} 节
 
-# 参考文献（scripts/prebuild/bibliography.mjs）。条目中的界面文字标为中文，与西文的数据分开排版。
-bibliography_accessed:
-  other: 访问于 {{ .Date }}
-bibliography_by:
-  other: 作者：{{ .Names }}
-bibliography_collected:
-  other: 收入
-bibliography_edition:
-  other: "{{ .Edition }} ed."
-bibliography_edition_number:
-  other: 第 {{ .Edition }} 版
-bibliography_edited_by:
-  other: 编者：{{ .Names }}
-bibliography_editors:
-  other: "{{ .Names }} 编"
-bibliography_in:
-  other: 载于
-bibliography_language:
-  other: "{{ .Language }}文"
-bibliography_no_date:
-  other: 无日期
-bibliography_original:
-  other: "{{ .Language }}文原文"
-bibliography_original_unknown:
-  other: 原文
-bibliography_other_edition:
-  other: 其他版本
-bibliography_others:
-  other: "{{ .Name }} 等"
-bibliography_others_date:
-  other: "{{ .Name }} 等, {{ .Date }}"
-bibliography_pdf:
-  other: pdf
-bibliography_preprint:
-  other: 预印本
-bibliography_reprint:
-  other: 重印
-bibliography_thesis:
-  other: Thesis
-bibliography_thesis_master:
-  other: Master's thesis
-bibliography_thesis_phd:
-  other: PhD thesis
-bibliography_translated_by:
-  other: 译者：{{ .Names }}
-bibliography_translation:
-  other: "{{ .Language }}译"
-bibliography_translation_unknown:
-  other: 译本
 
 # 预处理与作者提示（只使用简单的 {{ .Name }} 参数）
 build_aliases_scope:
   other: "{{ .File }}: aliases 仅用于百科条目的名称别名"
-build_anchor_duplicate:
-  other: 引用锚点重复：{{ .Anchor }}（与 {{ .Other }} 冲突）
-build_author_complex:
-  other: 复杂姓名请使用 {family, given} 或 {literal}
-build_author_invalid:
-  other: 作者/编者必须是姓名字符串、{family, given} 或 {literal}（可加 page）
-build_author_page:
-  other: 姓名的 page 必须是条目标题或 false
-build_author_page_missing:
-  other: page 指向的条目不存在：{{ .Name }}
-build_authors_empty:
-  other: 作者/编者列表不能为空
-build_bibliography_fields:
-  other: 文献必须是字段映射
-build_bibliography_key:
-  other: 文献 key 必须是字符串
-build_bibliography_label:
-  other: label 必须是非空字符串
-build_bibliography_language:
-  other: language 必须是语言代码，如 ru、de
-build_bibliography_mapping:
-  other: bibliography 必须是非空的 key 到文献数据的映射
-build_bibliography_online:
-  other: online 必须填写 site 和 url
-build_bibliography_parameters:
-  other: bibliography 块不接受围栏参数
-build_bibliography_position:
-  other: bibliography 块必须放在定理/证明环境之外
-build_bibliography_relation:
-  other: relation 必须是 translation、original、edition、reprint 或 collected
-build_bibliography_title:
-  other: title 或 translatedtitle 必须是非空字符串
-build_bibliography_type:
-  other: type 必须是 book、article、incollection、thesis、preprint 或 online
-build_bibliography_unclosed:
-  other: bibliography 块缺少结束围栏
-build_bibliography_unknown_field:
-  other: 未知文献字段：{{ .Field }}
-build_bibliography_url:
-  other: url 必须是完整的 HTTP(S) 地址
-build_bibliography_urldate:
-  other: urldate 必须使用 YYYY-MM-DD
-build_bibliography_yaml:
-  other: 文献 YAML 无效：{{ .Message }}
-build_bibliography_version_label:
-  other: 版本有 key 时才能有 label
-build_bibliography_versions:
-  other: versions 必须是非空列表，每项是一个版本的字段
-build_bibliography_versions_nested:
-  other: 版本中不能再有 versions
-build_bibliography_year:
-  other: year 必须是四位年份；字母后缀由程序分配
-build_body_name:
-  other: <正文>
 build_category_cycle:
   other: 分类存在循环：{{ .Path }}
 build_category_duplicate:
@@ -372,36 +237,8 @@ build_component_name:
   other: 组件 name 必须是非空名称，不能包含路径
 build_component_text:
   other: 必须是非空文字；复杂百科链接请加引号
-build_cross_page_reference:
-  other: "[[页面@标签]] 保留给跨页面引用，暂不支持；请使用页内 @标签"
 build_duplicate_article:
   other: 条目名称重复：{{ .Name }}（{{ .FirstFile }}、{{ .File }}）
-build_environment_config:
-  other: 定理环境配置无效：{{ .Kind }}
-build_environment_dash:
-  other: "环境 {{ .Header }}：不再使用 - 前缀；自定的名称写在圆括号中，不编号时加 *，如 ::: remark* (寄语)"
-build_environment_name:
-  other: "环境 {{ .Header }}：圆括号中的名称只能是不含括号、公式与标记的文字，如 ::: definition (条件)，不能用于 proof"
-build_environment_fence:
-  other: 定理环境的结束围栏不匹配
-build_environment_parameters:
-  other: 定理环境仅接受可选的 [标题] 和 {@标签}
-build_environment_reference_cycle:
-  other: 环境标题显示文字存在循环引用：{{ .Path }}
-build_environment_title:
-  other: 定理标题应写成 [标题]
-build_environment_unclosed:
-  other: "定理环境缺少结束 :::"
-build_environment_unknown:
-  other: 未知定理环境：{{ .Header }}
-build_extension_progress:
-  other: 语法扩展必须向前移动
-build_field_finite_number:
-  other: "{{ .Field }} 必须是有限数字"
-build_field_text_or_number:
-  other: "{{ .Field }} 必须是非空文字或数字"
-build_fields_mapping:
-  other: 必须是字段映射
 build_gender_suffix:
   other: 未知性别后缀：:{{ .Suffix }}
 build_gender_value:
@@ -414,40 +251,18 @@ build_groups_list:
   other: groups/subgroups 必须是非空列表
 build_heading_anchor_conflict:
   other: "{{ .File }}:{{ .Line }}: 引用标签与标题自动锚点重复：{{ .Id }}"
-build_heading_in_environment:
-  other: 定理环境内不能开始新的二级节标题
 build_heading_level_one:
   other: 百科正文不能使用一级标题；请在 front matter 中填写 title
 build_heading_level_two:
   other: 二级节标题必须位于正文层级，不能放在列表或引用块内
-build_heading_reference_cycle:
-  other: 标题显示文字存在循环引用：{{ .Path }}
-build_item_label_empty:
-  other: 引用标签无效：列表项目标签不能为空
-build_labelled_list_mixed:
-  other: 标签列表项目（如 (a)、i)）不能与编号列表项目（如 1)、1.）相邻成为同一个列表；请用其他内容将两者隔开
+build_image_width_address:
+  other: "{{ .File }}:{{ .Line }}: 图片的宽度已改为写在图片之后：![说明](图.png){width=200}（见帮助“正文排版”）；请去掉地址中的 ?width="
 build_items_list:
   other: items 必须是非空列表
-build_label_duplicate:
-  other: 引用标签重复：{{ .Name }}（首次声明在第 {{ .Line }} 行）
-build_label_invalid:
-  other: 引用标签无效：{{ .Value }}（标签不能含空白/分隔符或以标点结尾）
-build_label_missing:
-  other: 引用标签不存在：{{ .Name }}
-build_reference_number_missing:
-  other: "@-{{ .Name }} 只引用编号，但该目标没有编号"
 build_language_code:
   other: "{{ .File }}: lang 必须是语言代码，如 zh-CN、en、ko"
 build_manual_lastmod:
   other: "{{ .File }}: 修改时间由 Git 提交日期生成，不能手动填写 lastmod/gitLastmod"
-build_math_invalid:
-  other: "公式无法解析：{{ .TeX }}（{{ .Message }}）"
-build_math_manual_tag:
-  other: 自动编号 math 块内不能手写 \tag
-build_math_parameters:
-  other: math 块仅接受可选的 {@标签}
-build_math_unclosed:
-  other: math 块缺少结束围栏
 build_name_empty:
   other: 规范化后不能为空
 build_name_inline_math:
@@ -455,53 +270,15 @@ build_name_inline_math:
 build_name_list:
   other: "{{ .File }}: {{ .Field }} 必须是名称列表"
 build_name_math:
-  other: "中的公式无法解析：{{ .Message }}"
+  other: 中的公式无法解析：{{ .Message }}
 build_name_math_delimiters:
   other: 公式分隔符未闭合或缺少开始分隔符
 build_name_single_line:
   other: 必须是非空单行字符串
 build_navbox_parameters:
   other: navboxes/{{ .Name }} 不接受参数
-build_notice_frontmatter:
-  other: 提示文件必须包含 YAML front matter
-build_notice_icon:
-  other: icon 必须是 disambiguation、tip 或 problem
-build_notice_parameter_text:
-  other: 'notices/{{ .Name }} 的参数 {{ .Key }} 必须是单行文字（含 “:” 等 YAML 符号时要加引号）'
-build_notice_parameter_item:
-  other: 'notices/{{ .Name }} 的参数 {{ .Key }} 的每一项必须是单行文字（含 “:” 等 YAML 符号的项要整项加引号）'
-build_notice_parameter_field_list:
-  other: 'notices/{{ .Name }} 的参数 {{ .Key }} 必须是单行文字或单行文字的非空列表（含 “:” 等 YAML 符号的项要整项加引号）'
-build_notice_parameter_list:
-  other: notices/{{ .Name }} 的参数 {{ .Key }} 必须是非空列表
-build_notice_parameter_record:
-  other: notices/{{ .Name }} 的参数 {{ .Key }} 的每一项必须是字段到文字的映射
-build_notice_parameters:
-  other: parameters 必须是参数名称到配置的映射
-build_notice_required_field:
-  other: notices/{{ .Name }} 的参数 {{ .Key }} 中有一项缺少必填字段：{{ .Field }}
-build_notice_required_parameter:
-  other: notices/{{ .Name }} 缺少必填参数：{{ .Key }}
-build_notice_style:
-  other: style 必须是 info、warning、error 或 note
-build_notice_title:
-  other: title 必须是文字
-build_notice_undeclared_parameter:
-  other: 提示正文引用了未声明参数：{{ .Key }}
-build_notice_unknown_field:
-  other: notices/{{ .Name }} 的参数 {{ .Key }} 中有未知字段：{{ .Field }}
-build_notice_unknown_parameter:
-  other: notices/{{ .Name }} 的未知参数：{{ .Key }}
-build_parameter_config:
-  other: 参数 {{ .Key }} 只接受 required、default、type 和 fields 配置
-build_parameter_fields:
-  other: 参数 {{ .Key }} 的 fields 只能用于列表，且须为字段名到 required、type（text 或 list）配置的映射
-build_parameter_name:
-  other: 无效或保留参数名：{{ .Key }}
-build_parameter_required_boolean:
-  other: 参数 {{ .Key }} 的 required 必须是布尔值
-build_parameter_type:
-  other: 参数 {{ .Key }} 的 type 必须是 text 或 list，列表参数不能设置 default
+build_notices_front_matter:
+  other: "{{ .File }}: 页面提示已改为正文中的标签：<problems>、<disambiguation>、<tip>（见帮助“提示、导航、术语翻译”）；请删去 front matter 中的 notices"
 build_person_language:
   other: "{{ .Position }}: person 的 lang 必须是语言代码"
 build_person_named_parameters:
@@ -510,10 +287,6 @@ build_person_parameter_text:
   other: "{{ .Position }}: person 的 {{ .Key }} 必须是文字"
 build_person_unknown_parameter:
   other: "{{ .Position }}: person 的未知参数：{{ .Key }}"
-build_proof_nested_environment:
-  other: 证明内部不能嵌套定理环境
-build_proof_position:
-  other: 证明必须独立放在定理环境之后，不能嵌套在环境内部
 build_reading_and_ruby:
   other: reading 与 ruby 不能同时填写
 build_reading_dictionary:
@@ -524,10 +297,6 @@ build_reading_invalid:
   other: "{{ .File }}: {{ .Field }} 的读音只能由小写字母和数字组成的词构成，词之间用一个空格分隔（ü 写作 v），例如 qi yi shang tong diao；当前为 {{ .Value }}"
 build_reading_length:
   other: reading 列表必须与 text 逐字对应
-build_reference_unclosed:
-  other: 引用缺少结束 }
-build_reserved_section_attributes:
-  other: data-section-number 和 data-section-unnumbered 保留给预处理使用
 build_ruby_fields:
   other: ruby 分段只接受 text/reading
 build_ruby_format:
@@ -541,15 +310,7 @@ build_ruby_text:
 build_search_config:
   other: "{{ .File }}: search 只能设为 false"
 build_search_manifest:
-  other: "搜索清单 {{ .File }} 中缺少页面 {{ .Url }}"
-build_align_empty:
-  other: "{{ .Position }}: align 的内容不能为空"
-build_align_parameters:
-  other: "{{ .Position }}: align 只接受一个参数 right 或 center，如 {{< align right >}}"
-build_see_empty:
-  other: "{{ .Position }}: see 的内容不能为空"
-build_see_parameters:
-  other: "{{ .Position }}: see 不接受参数"
+  other: "要索引的页面 {{ .Url }} 没有生成，或其中没有可索引的内容"
 build_term_language_code:
   other: 语言必须使用语言代码，如 en、ja、fr、de
 build_term_language_invalid:
@@ -562,12 +323,6 @@ build_term_text:
   other: 术语字段必须是非空单行文字
 build_terms_mapping:
   other: terms 必须是非空的术语到译名映射
-build_terms_parameters:
-  other: terms 块不接受围栏参数
-build_terms_position:
-  other: terms 块必须放在定理/证明环境之外
-build_terms_unclosed:
-  other: terms 块缺少结束围栏
 build_translation_empty:
   other: 译名列表不能为空
 build_translation_mapping:
@@ -576,26 +331,16 @@ build_translation_unknown_field:
   other: 未知译名字段：{{ .Key }}
 build_typography_config:
   other: "{{ .File }}: typography 只接受布尔值 convertChineseFullStop"
-build_unique_label:
-  other: 请用唯一的 {@标签} 声明引用标签
-build_unknown_field:
-  other: 未知字段：{{ .Value }}
 build_url_aliases:
   other: "{{ .File }}: 不支持旧网址重定向 urlAliases"
-build_wiki_target_empty:
-  other: 内部链接目标规范化后为空：{{ .Target }}
 build_yaml_invalid:
   other: YAML 无效：{{ .Message }}
+build_yaml_mapping:
+  other: 必须是字段映射
+build_yaml_unknown_field:
+  other: 未知字段：{{ .Value }}
 
 # 开发预览
-build_tikz_failed:
-  other: "{{ .File }}：TikZ 编译失败：{{ .Message }}"
-build_tikz_budget:
-  other: "TikZ 图形太多或太复杂：一次预览中编译超过 {{ .Seconds }} 秒"
-build_tikz_timeout:
-  other: "TikZ 编译超过 {{ .Seconds }} 秒；请检查循环或过于复杂的图形"
-build_tikz_worker_exit:
-  other: "TikZ 编译进程意外结束（{{ .Code }}）"
 serve_address:
   other: "[serve] preview at {{ .Origin }}/"
 serve_already_running:
@@ -608,14 +353,20 @@ serve_git_watch_failed:
   other: "[serve] watching Git failed: {{ .Message }}"
 serve_full_complete:
   other: "[serve] full build done ({{ .Milliseconds }} ms); the search index follows"
-serve_hugo_failed:
-  other: "[serve] hugo failed; keeping the last good preview."
+serve_site_failed:
+  other: "[serve] generating the site failed; keeping the last good preview."
 serve_invalid_address:
   other: invalid preview port or address
 serve_not_found:
   other: 页面不存在
-serve_postbuild_failed:
-  other: "[serve] postbuild failed; keeping the last good preview."
+serve_generator_start:
+  other: "[serve] the site generator's code changed: generating the pages again"
+serve_generator_complete:
+  other: "[serve] updated {{ .Count }} page(s) and file(s) after the generator's change ({{ .Unchanged }} unchanged, {{ .Milliseconds }} ms)"
+serve_assets_complete:
+  other: "[serve] rebuilt the styles and scripts: {{ .Count }} file(s) changed ({{ .Milliseconds }} ms)"
+serve_static_complete:
+  other: "[serve] copied {{ .Count }} static file(s) ({{ .Milliseconds }} ms)"
 serve_page_complete:
   other: "[serve] updated {{ .Count }} page(s) ({{ .Milliseconds }} ms)"
 serve_page_failed:
@@ -645,7 +396,7 @@ serve_update_failed:
 serve_watch_failed:
   other: "[serve] watching files failed: {{ .Message }}"
 serve_watching:
-  other: "[serve] watching content, categories, layouts, styles and typography rules; Ctrl+C to stop."
+  other: "[serve] watching content, categories, templates, styles and typography rules; Ctrl+C to stop."
 
 # 指南与讲义
 lectures:
@@ -674,68 +425,20 @@ collection_next:
   other: 下一页
 collection_navigation:
   other: 章节导航
-reference_equation_unnumbered:
-  other: 公式
 
 # 在线编辑对导言区的要求（scripts/prebuild/front-matter-rules.mjs）
 build_front_matter_missing:
   other: 缺少导言区：页面应以 --- 开头的 front matter 开始，其中至少有 title
-build_comment_unclosed:
-  other: 注释没有结束：缺少 -->
 build_front_matter_key:
   other: 导言区不能使用字段 “{{ .Key }}”：可以使用的有 {{ .Allowed }}
 build_page_address:
   other: "{{ .File }}：{{ .Key }} 必须是站内的地址，不能含有空白、引号、尖括号、问号、# 或 ..：{{ .Value }}"
 build_link_scheme:
   other: "{{ .File }}：链接或图片的地址只能是站内地址或 http、https（链接还可以是 mailto）：{{ .Destination }}"
-build_shortcode_syntax:
-  other: "页面中不能写 Hugo 短代码（{{ .Text }}）：请改用标签，如 <see>…</see>；字面的大括号写成 \\{"
-build_tag_unknown:
-  other: "不能使用 HTML 标签 <{{ .Name }}>：页面中只能使用 {{ .Allowed }}；字面的 “<” 写成 &lt;，或放进公式、代码"
-build_tag_layout:
-  other: "<{{ .Name }}> 的写法有误：参数之间可以换行，但参数的值不能分在两行，标签中也不能有空行；在引用中，续行开头的 “>” 应与首行一样多"
-build_tag_void:
-  other: "<{{ .Name }}> 单独使用，没有结束标签 </{{ .Name }}>"
-build_tag_closing_parameters:
-  other: "结束标签 </{{ .Name }}> 不带参数"
-build_tag_self_closing:
-  other: "<{{ .Name }}> 需要结束标签 </{{ .Name }}>，不能写成 <{{ .Name }} />"
-build_tag_no_parameters:
-  other: "<{{ .Name }}> 不接受参数"
 build_tag_language:
   other: "<{{ .Name }}> 的语言代码有误：“{{ .Value }}”（应为一个代码，如 en、de、grc、zh-Hant）"
-build_tag_align:
-  other: "<{{ .Name }}> 的参数只能是 right 或 center，如 <align right>"
-build_tag_parameter_unknown:
-  other: "<{{ .Name }}> 没有参数 {{ .Key }}：可以使用的有 {{ .Allowed }}"
-build_tag_parameter_duplicate:
-  other: "<{{ .Name }}> 的参数 {{ .Key }} 重复"
-build_tag_parameter_value_missing:
-  other: "<{{ .Name }}> 的参数 {{ .Key }} 需要一个值：{{ .Key }}=\"…\""
-build_tag_parameter_value:
-  other: "<{{ .Name }}> 的参数 {{ .Key }} 的值有误：不能含有引号、反斜杠、大括号、换行或 HTML 标签，不超过 300 字"
-build_tag_parameter_some:
-  other: "<{{ .Name }}> 至少需要 {{ .Keys }} 之一"
 build_person_empty:
   other: "{{ .Position }}：person 至少需要 original、translit、ipa、years 之一"
-build_tag_in_title:
-  other: "环境的标题中不能使用标签 <{{ .Name }}>"
-build_tag_parameter_required:
-  other: "<{{ .Name }}> 缺少参数 {{ .Key }}"
-build_tag_unclosed:
-  other: "<{{ .Name }}> 没有结束：缺少 </{{ .Name }}>"
-build_tag_unopened:
-  other: "</{{ .Name }}> 前面没有对应的 <{{ .Name }}>"
-build_spoiler_empty:
-  other: "{{ .Position }}：<spoiler> 的内容不能为空"
-build_tag_mismatched:
-  other: "</{{ .Name }}> 与前面的 <{{ .Open }}> 不配对：应先写 </{{ .Open }}>"
-build_fence_unclosed:
-  other: 代码块没有结束：缺少与开头的 {{ .Fence }} 对应的结束围栏
-build_katex:
-  other: 公式无法渲染：{{ .Message }}
-build_formula_unclosed:
-  other: 公式没有结束：“{{ .Formula }}” 在段落结束之前没有闭合
 build_front_matter_unclosed:
   other: 导言区没有结束：front matter 之后应有单独一行的 ---
 build_front_matter_field:
@@ -1017,14 +720,14 @@ editor_preview_empty:
   other: 点击 “预览” 或按 {key} 查看修改后的页面．
 editor_completion_tag_see:
   other: 参见
-editor_completion_tag_lang:
-  other: 外文
-editor_completion_tag_align:
-  other: 居右或居中
-editor_completion_tag_spoiler:
-  other: 折叠的内容
 editor_completion_tag_person:
   other: 人名的注释
+editor_completion_tag_problems:
+  other: 提示：存在的问题
+editor_completion_tag_disambiguation:
+  other: 提示：消歧义与区分
+editor_completion_tag_tip:
+  other: 提示
 editor_completion_parameter_original:
   other: 原文姓名
 editor_completion_parameter_lang:
@@ -1035,20 +738,8 @@ editor_completion_parameter_ipa:
   other: 国际音标
 editor_completion_parameter_years:
   other: 生卒年
-editor_completion_parameter_title:
-  other: 标题
-editor_completion_align_right:
-  other: 居右
-editor_completion_align_center:
-  other: 居中
-editor_completion_math:
-  other: 公式（可编号）
-editor_completion_tikz:
-  other: TikZ 图形
 editor_completion_terms:
   other: 术语翻译
-editor_completion_bibliography:
-  other: 参考文献
 editor_preview_button:
   other: 预览
 editor_preview_button_title:
@@ -1085,6 +776,10 @@ editor_submit_update_other:
   other: "编辑将添加到 @{author} 的 PR #{number}，对方会收到通知．"
 editor_submit_message:
   other: 编辑说明（可选）
+editor_submit_minor:
+  other: 小修改
+editor_submit_minor_hint:
+  other: 格式、链接、错别字等小的改动，首页的最近更改中不列出
 editor_submit_confirm:
   other: 提交
 editor_submit_cancel:

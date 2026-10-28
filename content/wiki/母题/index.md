@@ -2,12 +2,12 @@
 title: 母题
 aliases: [Motive, Motif]
 categories: [母题论]
-notices:
-  - name: 问题
-    items:
-      - “母题”一节需要扩充。
 navboxes: [代数几何, 母题论]
 ---
+
+<problems>
+- “母题”一节需要扩充。
+</problems>
 
 在[[代数几何]]中，**母题**大致来说是[[代数簇]]的组成要素。
 每个[[代数簇]] $X$ 都有自己的母题 $[X]$，

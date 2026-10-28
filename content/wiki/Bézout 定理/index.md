@@ -1,14 +1,12 @@
 ---
 title: Bézout 定理
 categories: [相交论]
-notices:
-  - name: 消歧义
-    about: '[[代数几何]]中关于曲线交点个数的定理'
-    see:
-      - topic: '[[初等数论]]中关于最大公因子的结论'
-        page: 'Bézout 引理'
 navboxes: [计数几何]
 ---
+
+<disambiguation>
+本条目介绍的是[[代数几何]]中关于曲线交点个数的定理。关于[[初等数论]]中关于最大公因子的结论，请参见[[Bézout 引理]]。
+</disambiguation>
 
 在[[代数几何]]中，**Bézout 定理**是说，
 在[[代数闭域]]上，对[[射影平面]]上两条[[代数曲线]]，

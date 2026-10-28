@@ -1,6 +1,0 @@
-{{- /* One card per category: its name, and the number of articles in it and its descendants. */ -}}
-<ul class="category-cards">
-  {{- range . }}
-  <li><a class="category-card" href="{{ .RelPermalink }}"><span class="category-card-name">{{ partial "ui-icon.html" "folder" }}{{ partial "display-title.html" . }}</span><span class="category-card-count">{{ len .RegularPages }}</span></a></li>
-  {{- end }}
-</ul>

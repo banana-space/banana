@@ -1,12 +1,12 @@
 ---
 title: 中心
 categories: [一般代数]
-notices:
-  - name: 问题
-    items:
-      - “对环”“对 Lie 代数”各节需要扩充。
 navboxes: [群论]
 ---
+
+<problems>
+- “对环”“对 Lie 代数”各节需要扩充。
+</problems>
 
 在[[代数学]]中，[[代数结构]]的**中心**通常是指与
 该结构中所有元素都交换的元素构成的子结构。

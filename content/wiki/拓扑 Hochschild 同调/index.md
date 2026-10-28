@@ -1,11 +1,11 @@
 ---
 title: 拓扑 Hochschild 同调
 categories: [高阶代数]
-notices:
-  - name: 问题
-    items:
-      - “通过公理”一节需要扩充。
 ---
+
+<problems>
+- “通过公理”一节需要扩充。
+</problems>
 
 **拓扑 Hochschild 同调**是
 [[Hochschild 同调]]在基环为[[球谱]] $\mathbb{S}$ 的特殊情况，

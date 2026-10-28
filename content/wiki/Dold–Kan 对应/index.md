@@ -1,13 +1,13 @@
 ---
 title: Dold–Kan 对应
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “幺半性”一节中 Alexander–Whitney 映射的定义缺失。
-      - “交换群情形”一节单射性的证明中，$\varepsilon(\alpha)\in X_n$ 似乎应为 $\varepsilon(x)\in X_n$。
 navboxes: [同调代数]
 ---
+
+<problems>
+- “幺半性”一节中 Alexander–Whitney 映射的定义缺失。
+- “交换群情形”一节单射性的证明中，$\varepsilon(\alpha)\in X_n$ 似乎应为 $\varepsilon(x)\in X_n$。
+</problems>
 
 **Dold–Kan 对应**是[[幂等完备范畴|幂等完备]][[加性范畴]]的[[链复形]]和[[单纯对象]]之间的[[范畴等价]]，
 名称来自数学家 [[Albrecht Dold]] 和 [[Dan Kan]]。

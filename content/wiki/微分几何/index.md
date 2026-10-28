@@ -1,12 +1,12 @@
 ---
 title: 微分几何
 categories: [微分几何]
-notices:
-  - name: 问题
-    items:
-      - “历史”“古典微分几何”“Riemann 几何”“复几何”“辛几何”各节需要扩充。
 navboxes: [微分几何]
 ---
+
+<problems>
+- “历史”“古典微分几何”“Riemann 几何”“复几何”“辛几何”各节需要扩充。
+</problems>
 
 **微分几何**是一个数学分支，
 起源于对 [[Euclid 空间]]中的[[曲线]]和[[曲面]]的研究。

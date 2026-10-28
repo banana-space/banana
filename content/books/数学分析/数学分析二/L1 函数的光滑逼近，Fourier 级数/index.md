@@ -499,7 +499,8 @@ $\langle f,\varphi \rangle =0$，即 $f\perp C([0,2\pi])$。
 
 [^1]: 我们已经证明了如下的定理：
 
-    我们在 $\mathbb{R}^n$ 上的Borel-代数 $\mathcal{B}(\mathbb{R}^n)$ 上给定满足如下条件的测度 $\mu$：
+    我们在 $\mathbb{R}^n$ 上的Borel-代数 $\mathcal{B}(\mathbb{R}^n)$ 上给定满足如下条件的测度
+    $\mu$：
 
     - 如果 $K\subset \mathbb{R}^n$ 是紧集，我们有 $\mu(K)<\infty$。
 

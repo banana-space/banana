@@ -2,11 +2,11 @@
 title: 长直线
 aliases: [Alexandroff 直线, 长射线]
 categories: [一般拓扑]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **长直线**（也称为 **Alexandroff 直线**）
 是一个[[拓扑空间]]，

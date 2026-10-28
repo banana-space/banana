@@ -1,12 +1,12 @@
 ---
 title: Weil 层
 categories: [代数几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节 Grothendieck 迹公式中的 $s^{-|k(x)|}$ 与 $s^{-q}$ 似乎应为 $|k(x)|^{-s}$ 与 $q^{-s}$。
-      - “例子”一节中 $\mathbb{L}_b$ 来自平展层的条件似乎应为 $b\in\overline{\mathbb{Z}_\ell}^\times$。
 ---
+
+<problems>
+- “性质”一节 Grothendieck 迹公式中的 $s^{-|k(x)|}$ 与 $s^{-q}$ 似乎应为 $|k(x)|^{-s}$ 与 $q^{-s}$。
+- “例子”一节中 $\mathbb{L}_b$ 来自平展层的条件似乎应为 $b\in\overline{\mathbb{Z}_\ell}^\times$。
+</problems>
 
 ::: convention
 在本文中，

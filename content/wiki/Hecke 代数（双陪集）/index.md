@@ -1,11 +1,11 @@
 ---
 title: Hecke 代数（双陪集）
 categories: [表示论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中与 Weyl 群的 Hecke 代数的关系及 Satake 同构等结论可能需要系数环满足一定条件，这些条件尚未写明。
 ---
+
+<problems>
+- “例子”一节中与 Weyl 群的 Hecke 代数的关系及 Satake 同构等结论可能需要系数环满足一定条件，这些条件尚未写明。
+</problems>
 
 对[[群]] $G$ 和子群 $H$，
 [[双陪集]] $H\backslash G/H$ 的 **Hecke 代数**

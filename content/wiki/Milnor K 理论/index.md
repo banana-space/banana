@@ -1,12 +1,12 @@
 ---
 title: Milnor $K$ 理论
 categories: [母题论, $K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [母题论, 代数 K 理论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **Milnor $K$ 理论**是[[域]]的不变量，由 [[John Milnor]]
 定义，是定义高阶[[代数 $K$ 理论]]的一次尝试。虽然 Milnor $K$

@@ -2,12 +2,12 @@
 title: 单纯集
 aliases: [单纯集合]
 categories: [同伦代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [同伦代数]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **单纯集**是由[[单形]]粘起来得到的图形。
 单纯集类似于[[单纯复形]]，但单纯集的单形带有顶点的排序。

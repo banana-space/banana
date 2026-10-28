@@ -2,12 +2,12 @@
 title: 凝聚对偶
 aliases: [Grothendieck 对偶]
 categories: [层论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [层论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 在[[代数几何]]中，
 **凝聚对偶**

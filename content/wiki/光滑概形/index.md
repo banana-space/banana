@@ -2,12 +2,12 @@
 title: 光滑概形
 aliases: [光滑簇]
 categories: [概形论]
-notices:
-  - name: 问题
-    items:
-      - “普遍光滑性”一节的定理似乎还需要假设 $X$ 是既约的（例如 $\operatorname{Spec} k[x]/(x^2)$ 没有光滑点）。
 navboxes: [概形论]
 ---
+
+<problems>
+- “普遍光滑性”一节的定理似乎还需要假设 $X$ 是既约的（例如 $\operatorname{Spec} k[x]/(x^2)$ 没有光滑点）。
+</problems>
 
 在[[代数几何]]中，
 [[域]] $k$ 上的**光滑概形**是指

@@ -2,12 +2,12 @@
 title: 链复形
 aliases: [上链复形]
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”“同伦论”“Dold–Kan 对应”各节需要扩充。
 navboxes: [同调代数]
 ---
+
+<problems>
+- “例子”“同伦论”“Dold–Kan 对应”各节需要扩充。
+</problems>
 
 **链复形**是指由 [[Abel 群]]（或[[模]]、[[向量空间]]等）构成的形如
 \[

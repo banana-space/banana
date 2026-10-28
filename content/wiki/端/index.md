@@ -1,11 +1,11 @@
 ---
 title: 端
-notices:
-  - name: 问题
-    items:
-      - “性质”一节第一个命题中，端的存在性似乎应要求 $\mathcal{C}$ 为小范畴、$\mathcal{D}$ 具有小极限，而不是 $\mathcal{D}$ 为小范畴。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “性质”一节第一个命题中，端的存在性似乎应要求 $\mathcal{C}$ 为小范畴、$\mathcal{D}$ 具有小极限，而不是 $\mathcal{D}$ 为小范畴。
+</problems>
 
 ::: convention
 在本文中，

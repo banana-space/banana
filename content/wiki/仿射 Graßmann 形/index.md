@@ -2,12 +2,12 @@
 title: 仿射 Graßmann 形
 aliases: [仿射 Grassmann 形]
 categories: [代数群理论]
-notices:
-  - name: 问题
-    items:
-      - “作为归纳概形”“性质”各节需要扩充。
 navboxes: [代数群理论, 几何表示论]
 ---
+
+<problems>
+- “作为归纳概形”“性质”各节需要扩充。
+</problems>
 
 **仿射 Graßmann 形**是
 [[Graßmann 形]]在“仿射”（即仿射型 [[Coxeter 图]]）情形的类比：

@@ -1,11 +1,11 @@
 ---
 title: 模态（范畴论）
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “模态的乘积”一节需要扩充。
 ---
+
+<problems>
+- “模态的乘积”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

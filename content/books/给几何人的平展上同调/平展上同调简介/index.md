@@ -1,10 +1,10 @@
 ---
 title: 平展上同调简介
-notices:
-  - name: 问题
-    items:
-      - Weil 猜想 (i) 中的有理性公式似乎应为 $S_X(t)=\prod_{i=0}^{2n}S_i(t)^{(-1)^{i+1}}$。
 ---
+
+<problems>
+- Weil 猜想 (i) 中的有理性公式似乎应为 $S_X(t)=\prod_{i=0}^{2n}S_i(t)^{(-1)^{i+1}}$。
+</problems>
 
 何为平展上同调？举一个简单的例子，取$X$为$\mathbb{C}$上的代数簇，
 其解析化$X^{\operatorname{an}}$可以对应奇异上同调$H^i(X^{\operatorname{an}},\mathbb{Z})$满足

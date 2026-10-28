@@ -1,11 +1,11 @@
 ---
 title: Sperner 引理
 categories: [组合几何]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节需要扩充。
 ---
+
+<problems>
+- “推广”一节需要扩充。
+</problems>
 
 Sperner 引理是个[[组合学]]定理，描述[[单形]]的[[单纯剖分]]在特定染色下的性质。
 它是[[代数拓扑]]中 [[Brouwer 不动点定理]]的组合类比，

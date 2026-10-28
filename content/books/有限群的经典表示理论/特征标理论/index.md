@@ -1,15 +1,15 @@
 ---
 title: 特征标理论
-notices:
-  - name: 问题
-    items:
-      - '“一些算术性质”一节第一个推论的证明中，$\tilde{\rho}_{i}$ 的陪域似乎应为 $\text{End}_{\mathbb{C}}W_{i}$ 而不是 $\mathbb{C}$；证明止于 $u_{j}M\subseteq M$，没有写出 $u_{j}$ 是代数整数的结论。'
-      - '“第二正交关系”一节末尾注记中，“$a_{j},b_{j},c_{j}\in\{\pm 1,\pm i\}$”与“$a_{j},b_{j},c_{j}=\pm 1$”中的 $a_{j},b_{j},c_{j}$ 似乎应为 $b_{j},c_{j},d_{j}$。'
-      - '“Burnside 定理”一节中，关于有限单群共轭类的定理的证明中“$\rho_{i}(1)=n_{i}$”似乎应为 $\chi_{i}(1)=n_{i}$；其后应用的证明中“$[G:H]$ 就是 $h$ 在 $G$ 中共轭类的元素数目”似乎应为 $[G:C(h)]$。'
-      - '“诱导表示”一节开头注记中的同构 $_{R}M\cong\text{Hom}_{S}({_{S}S_{R},{_{S}T}})$ 里的 $T$ 似乎应为 $M$；该节最后的引理与命题中“$\rho:G\to GL(M)$ 是 $H$ 的表示”似乎应为 $\rho:H\to GL(M)$。'
-      - '“Frobenius 互反律”一节应用的证明第一段中“包含 $H$ 的某个不可约复表示”似乎应为 $G$ 的不可约复表示。'
-      - '“Mackey 不可约性判别”一节定理的证明中，$\text{Ind}_{H_{1}}^{L}$ 似乎应为 $\text{Ind}_{H_{1}}^{H}$，括号中的 $\langle\text{Ind}_{H}^{G}(\chi),\text{Ind}_{H}^{G}(\chi)\rangle_{H}\geq 1$ 似乎应为 $\langle\chi,\chi\rangle_{H}\geq 1$。'
 ---
+
+<problems>
+- “一些算术性质”一节第一个推论的证明中，$\tilde{\rho}_{i}$ 的陪域似乎应为 $\text{End}_{\mathbb{C}}W_{i}$ 而不是 $\mathbb{C}$；证明止于 $u_{j}M\subseteq M$，没有写出 $u_{j}$ 是代数整数的结论。
+- “第二正交关系”一节末尾注记中，“$a_{j},b_{j},c_{j}\in\{\pm 1,\pm i\}$”与“$a_{j},b_{j},c_{j}=\pm 1$”中的 $a_{j},b_{j},c_{j}$ 似乎应为 $b_{j},c_{j},d_{j}$。
+- “Burnside 定理”一节中，关于有限单群共轭类的定理的证明中“$\rho_{i}(1)=n_{i}$”似乎应为 $\chi_{i}(1)=n_{i}$；其后应用的证明中“$[G:H]$ 就是 $h$ 在 $G$ 中共轭类的元素数目”似乎应为 $[G:C(h)]$。
+- “诱导表示”一节开头注记中的同构 $_{R}M\cong\text{Hom}_{S}({_{S}S_{R},{_{S}T}})$ 里的 $T$ 似乎应为 $M$；该节最后的引理与命题中“$\rho:G\to GL(M)$ 是 $H$ 的表示”似乎应为 $\rho:H\to GL(M)$。
+- “Frobenius 互反律”一节应用的证明第一段中“包含 $H$ 的某个不可约复表示”似乎应为 $G$ 的不可约复表示。
+- “Mackey 不可约性判别”一节定理的证明中，$\text{Ind}_{H_{1}}^{L}$ 似乎应为 $\text{Ind}_{H_{1}}^{H}$，括号中的 $\langle\text{Ind}_{H}^{G}(\chi),\text{Ind}_{H}^{G}(\chi)\rangle_{H}\geq 1$ 似乎应为 $\langle\chi,\chi\rangle_{H}\geq 1$。
+</problems>
 
 虽然群的矩阵表示使得我们可以通过分析具体的对象结构来了解抽象的群，
 但是对高阶群，它的矩阵表示或是置换表示难以具体分析处理。

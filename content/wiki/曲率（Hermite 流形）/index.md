@@ -2,17 +2,17 @@
 title: 曲率（Hermite 流形）
 aliases: [Hermite 流形上的曲率]
 categories: [复几何, Riemann 几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 其它种类的曲率
-        page: 曲率
-  - name: 问题
-    items:
-      - “实双截曲率”的定义中，左边写作 $B_\mathbb{R}(e,X)$，右边用的是记号 $R$；按上下文似乎应为 $B_\mathbb{R}(e,a)$ 与陈联络的曲率 $\Theta$。
-      - 命题“两个 Levi-Civita 曲率的关系”中前两个等式完全相同，第二个似乎应为另一组分量（如 $\hat{R}^m_{jkl}=R^m_{jkl}$）。
-      - 命题“Kähler 情形”缺少证明。
 ---
+
+<disambiguation>
+关于其它种类的曲率，请参见[[曲率]]。
+</disambiguation>
+
+<problems>
+- “实双截曲率”的定义中，左边写作 $B_\mathbb{R}(e,X)$，右边用的是记号 $R$；按上下文似乎应为 $B_\mathbb{R}(e,a)$ 与陈联络的曲率 $\Theta$。
+- 命题“两个 Levi-Civita 曲率的关系”中前两个等式完全相同，第二个似乎应为另一组分量（如 $\hat{R}^m_{jkl}=R^m_{jkl}$）。
+- 命题“Kähler 情形”缺少证明。
+</problems>
 
 给定 [[Hermite 流形]]$(X,\omega)$，我们可在其上定义
 以下几种互不相同的[[联络]]与[[曲率]]。

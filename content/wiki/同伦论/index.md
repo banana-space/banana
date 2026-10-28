@@ -1,13 +1,11 @@
 ---
 title: 同伦论
 categories: [同伦论]
-notices:
-  - name: 消歧义
-    about: 拓扑学中的同伦论
-    see:
-      - topic: 抽象的同伦论
-        page: 高阶范畴论
 ---
+
+<disambiguation>
+本条目介绍的是拓扑学中的同伦论。关于抽象的同伦论，请参见[[高阶范畴论]]。
+</disambiguation>
 
 **同伦论**是[[代数拓扑]]的子分支，研究映射的[[同伦]]。
 

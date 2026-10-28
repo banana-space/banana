@@ -1,10 +1,10 @@
 ---
 title: 连通性 (I)
-notices:
-  - name: 问题
-    items:
-      - "“连通性与商映射”一节开头“连续映射的商空间是连通的”似乎应为“连通空间的商空间是连通的”。"
 ---
+
+<problems>
+- “连通性与商映射”一节开头“连续映射的商空间是连通的”似乎应为“连通空间的商空间是连通的”。
+</problems>
 
 ::: remark* (一句大实话)
 The most intuitively evident topological invariant of a space is the number
@@ -29,7 +29,7 @@ of connected pieces into which it falls.
 直观地说，图 1。
 左侧的方块是连通的，右侧的两个球（作为一个空间）是不连通的。
 
-![图 1：连通空间与不连通空间](Connvsdisconn.png?width=200)
+![图 1：连通空间与不连通空间](Connvsdisconn.png){width=200}
 
 从定义可知，非空的拓扑空间 \(X\) 为连通等价于下述任何一款断言：
 
@@ -174,7 +174,7 @@ Henri Poincaré 在 20 世纪初引入了同调的概念，
 
 这个命题在直观上是“显然”的，见图 2。
 
-![图 2：连通集合的并](Connunion.png?width=150)
+![图 2：连通集合的并](Connunion.png){width=150}
 
 ::: proof
 令 \(Y=B\cup\left( \bigcup_{i\in I} A_{i} \right)\)，
@@ -460,7 +460,7 @@ C = \underbrace{(\{0\}\times \mathbf{I})\cup (K\times \mathbf{I})}_{\text{梳子
 赋予它子空间拓扑。见图 3。图中蓝色部分叫做梳子齿，
 下面的横坐标轴叫做梳子柄。
 
-![图 3：梳子空间](Comb.png?width=300)
+![图 3：梳子空间](Comb.png){width=300}
 
 而**简约的梳子空间（deleted comb space）**
 是 \(C\) 的子空间

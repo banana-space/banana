@@ -1,11 +1,11 @@
 ---
 title: 初等基数算术
-notices:
-  - name: 问题
-    items:
-      - “Aleph数”与“Beth数”两个定义的第 3 项中，“当 $\alpha$ 是个后继基数时”似乎应为“当 $\alpha$ 是极限序数时”。
-      - 定理“$\prod_{\beta<\alpha}\kappa_\beta=(\mathrm{sup}_{\beta<\alpha}\kappa_\beta)^{|\alpha|}$”似乎还需要假设 $\kappa_\beta$ 单调不减（例如 $\kappa_0=\aleph_\omega>2^{\aleph_0}$、其余 $\kappa_n=2$ 时左边为 $\aleph_\omega$，右边为 $\aleph_\omega^{\aleph_0}>\aleph_\omega$）。
 ---
+
+<problems>
+- “Aleph数”与“Beth数”两个定义的第 3 项中，“当 $\alpha$ 是个后继基数时”似乎应为“当 $\alpha$ 是极限序数时”。
+- 定理“$\prod_{\beta<\alpha}\kappa_\beta=(\mathrm{sup}_{\beta<\alpha}\kappa_\beta)^{|\alpha|}$”似乎还需要假设 $\kappa_\beta$ 单调不减（例如 $\kappa_0=\aleph_\omega>2^{\aleph_0}$、其余 $\kappa_n=2$ 时左边为 $\aleph_\omega$，右边为 $\aleph_\omega^{\aleph_0}>\aleph_\omega$）。
+</problems>
 
 有了选择公理，最重要的是有了良序原则，每个集合都可以与至少一个序数扯上双射，
 从而我们可以舒舒服服的声明以下定理。

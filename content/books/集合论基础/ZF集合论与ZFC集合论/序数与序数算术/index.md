@@ -1,11 +1,11 @@
 ---
 title: 序数与序数算术
-notices:
-  - name: 问题
-    items:
-      - 引理“乘性不可分解”的证明中，$3\to 4$ 一步的不等式 $\leq\lim_{\beta<\omega^{\omega^\omega}}\omega^{\omega^\omega}=\omega^{\omega^\omega}$ 中的 $\omega^{\omega^\omega}$ 似乎应为 $\omega^{\omega^\delta}$。
-      - “特别的积”一节最后一个定理的证明不完整，只给出了递归积的构造。
 ---
+
+<problems>
+- 引理“乘性不可分解”的证明中，$3\to 4$ 一步的不等式 $\leq\lim_{\beta<\omega^{\omega^\omega}}\omega^{\omega^\omega}=\omega^{\omega^\omega}$ 中的 $\omega^{\omega^\omega}$ 似乎应为 $\omega^{\omega^\delta}$。
+- “特别的积”一节最后一个定理的证明不完整，只给出了递归积的构造。
+</problems>
 
 我们将自然数的良序推广到整个集合论宇宙中。
 

@@ -1,12 +1,12 @@
 ---
 title: Hodge 结构
 categories: [复代数几何]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中，纯 Hodge 结构定义里的等式 $H^{p,q} = \bar{H}^{p,q}$ 似乎应为 $H^{p,q} = \overline{H^{q,p}}$。
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “定义”一节中，纯 Hodge 结构定义里的等式 $H^{p,q} = \bar{H}^{p,q}$ 似乎应为 $H^{p,q} = \overline{H^{q,p}}$。
+- “性质”一节需要扩充。
+</problems>
 
 **Hodge 结构**是用来模拟复代数簇的上同调的[[代数结构]]：
 [[纯 Hodge 结构]]用来模拟[[射影簇|射影]][[光滑概形|光滑]]复[[代数簇]]的[[奇异上同调]]与 [[Dolbeault 上同调]]，

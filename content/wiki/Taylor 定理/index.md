@@ -2,12 +2,12 @@
 title: Taylor 定理
 aliases: [Taylor 展开]
 categories: [实分析, 复分析]
-notices:
-  - name: 问题
-    items:
-      - “对单变量函数”“对多变量函数”两节中的定理缺少证明。
 navboxes: [微积分学, 复分析]
 ---
+
+<problems>
+- “对单变量函数”“对多变量函数”两节中的定理缺少证明。
+</problems>
 
 在[[微积分]]中，
 **Taylor 定理**说明，

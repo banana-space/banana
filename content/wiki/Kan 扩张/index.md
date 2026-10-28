@@ -2,12 +2,12 @@
 title: Kan 扩张
 aliases: [左 Kan 扩张, 右 Kan 扩张]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “一般 $2$-范畴中”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “一般 $2$-范畴中”一节需要扩充。
+</problems>
 
 在[[范畴论]]中，
 **[[Daniel Kan|Kan]] 扩张**是一种重要的[[万有构造]]。

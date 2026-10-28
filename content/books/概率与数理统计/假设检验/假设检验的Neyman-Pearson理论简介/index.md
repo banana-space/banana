@@ -356,7 +356,7 @@ n\geq \left[\frac{(z_{\alpha/2}+z_\beta)\sigma}{\delta}\right]^2.
 \]
 :::
 
-![图 1：@example:test_power_normal_mean_var_known 中第II类错误的计算示意图。虚曲线为$\mathcal{N}(0,1)$的概率密度函数，实曲线为$\mathcal{N}(\sqrt{n}|\mu\!-\!\mu_0|/\sigma,1)$的概率密度函数，其分布函数即为 $\Phi(z-\sqrt{n}|\mu\!-\!\mu_0|/\sigma)$。蓝色阴影表示实曲线下从$z=-z_{\alpha/2}$到$z=z_{\alpha/2}$部分的面积，不难看出它严格小于但又约等于实曲线下从$z=-\infty$到$z=z_{\alpha/2}$部分的面积。](Type-II_error_example.png?width=660)
+![图 1：@example:test_power_normal_mean_var_known 中第II类错误的计算示意图。虚曲线为$\mathcal{N}(0,1)$的概率密度函数，实曲线为$\mathcal{N}(\sqrt{n}|\mu\!-\!\mu_0|/\sigma,1)$的概率密度函数，其分布函数即为 $\Phi(z-\sqrt{n}|\mu\!-\!\mu_0|/\sigma)$。蓝色阴影表示实曲线下从$z=-z_{\alpha/2}$到$z=z_{\alpha/2}$部分的面积，不难看出它严格小于但又约等于实曲线下从$z=-\infty$到$z=z_{\alpha/2}$部分的面积。](Type-II_error_example.png){width=660}
 
 理想情况下，对于在原假设与备择假设之间二选一的假设检验问题，我们
 均需要在事前进行类似于 @example:test_power_normal_mean_var_known  那样的分析，

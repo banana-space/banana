@@ -1,13 +1,12 @@
 ---
 title: 交换代数
 categories: [交换代数]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 同名的代数结构
-        page: 交换代数（代数结构）
 navboxes: [交换代数]
 ---
+
+<disambiguation>
+关于同名的代数结构，请参见[[交换代数（代数结构）]]。
+</disambiguation>
 
 **交换代数**是研究[[交换环]]的学科，
 是现代[[代数几何]]、[[代数数论]]的基础。

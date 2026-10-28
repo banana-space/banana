@@ -1,12 +1,12 @@
 ---
 title: Hochschild 同调
 categories: [非交换几何, 高阶代数]
-notices:
-  - name: 问题
-    items:
-      - “对 $\mathbb{E}_1$-代数”“基本性质”“杠消解”“HKR 滤链”“例子”各节需要扩充。
 navboxes: [高阶代数]
 ---
+
+<problems>
+- “对 $\mathbb{E}_1$-代数”“基本性质”“杠消解”“HKR 滤链”“例子”各节需要扩充。
+</problems>
 
 **Hochschild 同调**是对交换环 $R$
 上[[结合代数]] $A$ 定义的[[同调]]理论，

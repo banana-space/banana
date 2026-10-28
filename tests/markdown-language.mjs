@@ -7,16 +7,19 @@ import { execFileSync } from 'node:child_process';
 import { highlightTree } from '@lezer/highlight';
 import { EditorSelection, EditorState } from '@codemirror/state';
 import { foldable } from '@codemirror/language';
-import { bananaHighlighter, bananaMarkdown, bananaParser, newlineAndIndent } from '../scripts/shared/markdown-language.mjs';
-import { formulaRanges } from '../scripts/prebuild/source-lines.mjs';
-import { readWiki } from '../scripts/prebuild/markup.mjs';
-import { transformDocument } from '../scripts/prebuild/structure.mjs';
+import { highlightClasses, bananamarkLanguage } from 'bananamark-codemirror';
+import { dialectLanguages, siteLanguage } from '../scripts/shared/dialect.mjs';
+import { formulaRanges } from 'bananamark/internal/source-lines.mjs';
+import { readWiki } from 'bananamark/internal/markup.mjs';
+import { transformDocument } from 'bananamark/internal/structure.mjs';
 
-// The editor's grammar (scripts/shared/markdown-language.mjs): each piece of the dialect gets its classes.
+// The editor's grammar (bananamark-codemirror, with the site's data blocks): each piece of the dialect gets its classes.
+const bananaMarkdown = () => bananamarkLanguage({ codeLanguages: dialectLanguages, wikiLinks: true });
+const bananaParser = siteLanguage.language.parser;
 /** The text's highlighted pieces, as [text, classes]. */
 function pieces(text) {
   const result = [];
-  highlightTree(bananaParser.parse(text), bananaHighlighter, (from, to, classes) => result.push([text.slice(from, to), classes]));
+  highlightTree(bananaParser.parse(text), highlightClasses, (from, to, classes) => result.push([text.slice(from, to), classes]));
   return result;
 }
 const classesOf = (text, piece) => pieces(text).filter(([value]) => value === piece).map(([, classes]) => classes);
@@ -28,28 +31,28 @@ const nodes = text => {
 const has = (text, name, value) => nodes(text).some(([n, v]) => n === name && v === value);
 
 const page = '---\ntitle: 群\ncategories: [群论]\n---\n\n## 定义 {@sec:def}\n\n在[[代数学]]中，**群**是 $G \\times G$，见 [[集合|集合 $S$]] 与 @thm:uct，{@def:group}。\n';
-assert.deepEqual(classesOf(page, 'title'), ['hl-key'], 'front matter keys');
-assert.deepEqual(classesOf(page, '##'), ['hl-heading hl-mark'], 'a heading\'s # marks stay with the markup');
-assert.deepEqual(classesOf(page, 'sec:def'), ['hl-heading hl-reference'], 'a heading\'s label');
-assert.deepEqual(classesOf(page, '{@'), ['hl-heading hl-reference-mark', 'hl-reference-mark'], 'a label\'s braces and @');
-assert.deepEqual(classesOf(page, '代数学'), ['hl-wiki']);
-assert.deepEqual(classesOf(page, '[['), ['hl-wiki hl-wiki-mark', 'hl-wiki hl-wiki-mark']);
-assert.deepEqual(classesOf(page, '\\times'), ['hl-math hl-command']);
-assert.deepEqual(classesOf(page, 'S'), ['hl-wiki hl-math hl-variable'], 'a formula in a link label');
-assert.deepEqual(classesOf(page, '集合 '), ['hl-wiki'], 'a link label, shown: blue');
-assert.deepEqual(classesOf(page, '集合'), ['hl-wiki hl-wiki-target'], 'the target behind it: grey');
-assert.deepEqual(classesOf(page, '代数学'), ['hl-wiki'], 'a target without a label is shown');
+assert.deepEqual(classesOf(page, 'title'), ['bm-hl-key'], 'front matter keys');
+assert.deepEqual(classesOf(page, '##'), ['bm-hl-heading bm-hl-mark'], 'a heading\'s # marks stay with the markup');
+assert.deepEqual(classesOf(page, 'sec:def'), ['bm-hl-heading bm-hl-reference'], 'a heading\'s label');
+assert.deepEqual(classesOf(page, '{@'), ['bm-hl-heading bm-hl-reference-mark', 'bm-hl-reference-mark'], 'a label\'s braces and @');
+assert.deepEqual(classesOf(page, '代数学'), ['bm-hl-wiki']);
+assert.deepEqual(classesOf(page, '[['), ['bm-hl-wiki bm-hl-wiki-mark', 'bm-hl-wiki bm-hl-wiki-mark']);
+assert.deepEqual(classesOf(page, '\\times'), ['bm-hl-math bm-hl-command']);
+assert.deepEqual(classesOf(page, 'S'), ['bm-hl-wiki bm-hl-math bm-hl-variable'], 'a formula in a link label');
+assert.deepEqual(classesOf(page, '集合 '), ['bm-hl-wiki'], 'a link label, shown: blue');
+assert.deepEqual(classesOf(page, '集合'), ['bm-hl-wiki bm-hl-wiki-target'], 'the target behind it: grey');
+assert.deepEqual(classesOf(page, '代数学'), ['bm-hl-wiki'], 'a target without a label is shown');
 // YAML numbers apart from strings, in the front matter and in YAML blocks.
-assert.deepEqual(classesOf('---\ntitle: 2012\nyear: 2012\nname: 甲 2\n---\n', '2012'), ['hl-number', 'hl-number']);
-assert.deepEqual(classesOf('```bibliography\na:\n  year: 1955\n```\n', '1955'), ['hl-number']);
-assert.deepEqual(classesOf('---\nname: 甲 2\n---\n', '甲 2'), ['hl-yaml-value'], 'a value, not a number');
-assert.deepEqual(classesOf(page, 'thm:uct'), ['hl-reference'], 'a bare reference without the trailing comma');
-assert.deepEqual(classesOf(page, '@'), ['hl-reference-mark']);
-assert.deepEqual(classesOf(page, 'def:group'), ['hl-reference']);
+assert.deepEqual(classesOf('---\ntitle: 2012\nyear: 2012\nname: 甲 2\n---\n', '2012'), ['bm-hl-number', 'bm-hl-number']);
+assert.deepEqual(classesOf('```bibliography\na:\n  year: 1955\n```\n', '1955'), ['bm-hl-number']);
+assert.deepEqual(classesOf('---\nname: 甲 2\n---\n', '甲 2'), ['bm-hl-yaml-value'], 'a value, not a number');
+assert.deepEqual(classesOf(page, 'thm:uct'), ['bm-hl-reference'], 'a bare reference without the trailing comma');
+assert.deepEqual(classesOf(page, '@'), ['bm-hl-reference-mark']);
+assert.deepEqual(classesOf(page, 'def:group'), ['bm-hl-reference']);
 // Block structure apart from inline markup.
 const blocks = '* 甲 **乙** `c`\n1. 丙\n> 丁\n\n---\n\n```text\nx\n```\n';
-assert.deepEqual(['*', '1.', '>', '---', '```'].map(mark => classesOf(blocks, mark)), [['hl-structure'], ['hl-structure'], ['hl-quote hl-structure'], ['hl-structure'], ['hl-structure', 'hl-structure']]);
-assert.deepEqual(['**', '`'].map(mark => classesOf(blocks, mark)), [['hl-strong hl-mark', 'hl-strong hl-mark'], ['hl-mark', 'hl-mark']]);
+assert.deepEqual(['*', '1.', '>', '---', '```'].map(mark => classesOf(blocks, mark)), [['bm-hl-structure'], ['bm-hl-structure'], ['bm-hl-quote bm-hl-structure'], ['bm-hl-structure'], ['bm-hl-structure', 'bm-hl-structure']]);
+assert.deepEqual(['**', '`'].map(mark => classesOf(blocks, mark)), [['bm-hl-strong bm-hl-mark', 'bm-hl-strong bm-hl-mark'], ['bm-hl-mark', 'bm-hl-mark']]);
 // Bold between a letter and punctuation, as the build has it: 文字**[[链接]]**文字.
 assert.ok(has('文字**[[链接]]**文字\n', 'StrongEmphasis', '**[[链接]]**'));
 assert.ok(has('**粗体**[[链接]]\n', 'StrongEmphasis', '**粗体**'));
@@ -60,10 +63,13 @@ assert.ok(has('见 @eq:x.', 'Reference', '@eq:x'));
 
 // Environments: name, title (with its own markup) and label.
 const environment = '::: theorem* [万有 $x$ 定理] {@thm:uct}\n正文。\n:::\n';
-assert.deepEqual(classesOf(environment, 'theorem*'), ['hl-environment-name']);
-assert.deepEqual(classesOf(environment, 'thm:uct'), ['hl-reference']);
-assert.deepEqual(classesOf(environment, ':::'), ['hl-structure', 'hl-structure']);
+assert.deepEqual(classesOf(environment, 'theorem*'), ['bm-hl-environment-name']);
+assert.deepEqual(classesOf(environment, 'thm:uct'), ['bm-hl-reference']);
+assert.deepEqual(classesOf(environment, ':::'), ['bm-hl-structure', 'bm-hl-structure']);
 assert.ok(has(environment, 'InlineMath', '$x$'));
+// The title's text darker than its brackets, which are marks.
+assert.deepEqual(classesOf(environment, '万有 '), ['bm-hl-environment-title']);
+assert.deepEqual([...classesOf(environment, '['), ...classesOf(environment, ']')], ['bm-hl-mark', 'bm-hl-mark']);
 assert.ok(has('::: remark* (寄语)\n正文\n:::\n', 'EnvironmentName', 'remark* (寄语)'));
 assert.ok(has('::: definition (条件) [同 $x$ 分布] {@c}\n正文\n:::\n', 'EnvironmentName', 'definition (条件)'));
 assert.ok(has('::: definition (条件) [同 $x$ 分布] {@c}\n正文\n:::\n', 'InlineMath', '$x$'));
@@ -86,29 +92,29 @@ assert.ok(!nodes('设 $a\n=\nb$。\n').some(([name]) => name.startsWith('SetextH
 assert.ok(!nodes('设 \\(f\n+ g\\)。\n').some(([name]) => name === 'BulletList'));
 assert.ok(has('\\[x\\]从而 $y$。\n', 'InlineMath', '$y$'), 'text after a display formula on its line');
 assert.ok(has('知$$\n    a\n$$\n', 'DisplayMath', '$$\n    a\n$$'), 'a $$ line closing a formula the paragraph opened');
-assert.deepEqual(classesOf('\\[ x % 注释\n\\]\n', '% 注释'), ['hl-math hl-comment']);
+assert.deepEqual(classesOf('\\[ x % 注释\n\\]\n', '% 注释'), ['bm-hl-math bm-hl-comment']);
 // Display formulas' delimiters look like a math block's fence (light orange), inline ones' like marks; numbers
 // in formulas are the formula's text.
 assert.deepEqual(['\\[', '\\]', '$$', '$', '\\(', '\\)'].map(piece => classesOf('\\[\nx^2\n\\]\n设 $$y$$ 与 $z$、\\(w\\)。\n', piece)[0]),
-  ['hl-math hl-structure', 'hl-math hl-structure', 'hl-math hl-structure', 'hl-math hl-math-mark', 'hl-math hl-math-mark', 'hl-math hl-math-mark']);
-assert.deepEqual(classesOf('$x^{2.5}$\n', '2.5'), ['hl-math'], 'a number, as the formula\'s text');
+  ['bm-hl-math bm-hl-structure', 'bm-hl-math bm-hl-structure', 'bm-hl-math bm-hl-structure', 'bm-hl-math bm-hl-math-mark', 'bm-hl-math bm-hl-math-mark', 'bm-hl-math bm-hl-math-mark']);
+assert.deepEqual(classesOf('$x^{2.5}$\n', '2.5'), ['bm-hl-math'], 'a number, as the formula\'s text');
 // Text in a formula (\text and the like), and a formula in that text again; environment names; &.
 {
   const text = '设 $a\\text{若 $b$ 则 {c} }c$ 与 $\\begin{aligned} x &= 1 \\end{aligned}$。\n';
-  assert.deepEqual(pieces(text).filter(([, name]) => /math-mark|variable|tex-environment|command/.test(name)).map(([value, name]) => `${value}:${name.replace('hl-math ', '')}`),
-    ['$:hl-math-mark', 'a:hl-variable', '\\text:hl-command', '$:hl-math-mark', 'b:hl-variable', '$:hl-math-mark', 'c:hl-variable', '$:hl-math-mark',
-      '$:hl-math-mark', '\\begin:hl-command', 'aligned:hl-tex-environment', 'x:hl-variable', '&:hl-command', '\\end:hl-command', 'aligned:hl-tex-environment', '$:hl-math-mark']);
+  assert.deepEqual(pieces(text).filter(([, name]) => /math-mark|variable|tex-environment|command/.test(name)).map(([value, name]) => `${value}:${name.replace('bm-hl-math ', '')}`),
+    ['$:bm-hl-math-mark', 'a:bm-hl-variable', '\\text:bm-hl-command', '$:bm-hl-math-mark', 'b:bm-hl-variable', '$:bm-hl-math-mark', 'c:bm-hl-variable', '$:bm-hl-math-mark',
+      '$:bm-hl-math-mark', '\\begin:bm-hl-command', 'aligned:bm-hl-tex-environment', 'x:bm-hl-variable', '&:bm-hl-command', '\\end:bm-hl-command', 'aligned:bm-hl-tex-environment', '$:bm-hl-math-mark']);
 }
 
 // Fenced code by language; footnotes; tags; tables split neither inside wiki links nor formulas.
-assert.deepEqual(classesOf('```math {@eq:x}\nd^{n} \\circ d\n```\n', '\\circ'), ['hl-command']);
-assert.deepEqual(classesOf('```terms\n群:\n  en: group\n```\n', 'en'), ['hl-key']);
+assert.deepEqual(classesOf('```math {@eq:x}\nd^{n} \\circ d\n```\n', '\\circ'), ['bm-hl-command']);
+assert.deepEqual(classesOf('```terms\n群:\n  en: group\n```\n', 'en'), ['bm-hl-key']);
 // A fence's language and label.
-assert.deepEqual(classesOf('```math {@eq:x}\nd\n```\n', 'math'), ['hl-code-language']);
-assert.deepEqual(classesOf('```math {@eq:x}\nd\n```\n', 'eq:x'), ['hl-reference']);
-assert.deepEqual(classesOf('```math {@eq:x}\nd\n```\n', '}'), ['hl-reference-mark']);
+assert.deepEqual(classesOf('```math {@eq:x}\nd\n```\n', 'math'), ['bm-hl-code-language']);
+assert.deepEqual(classesOf('```math {@eq:x}\nd\n```\n', 'eq:x'), ['bm-hl-reference']);
+assert.deepEqual(classesOf('```math {@eq:x}\nd\n```\n', '}'), ['bm-hl-reference-mark']);
 assert.deepEqual(classesOf('```tikz {caption="图"}\nd\n```\n', '图"}'), [], 'other attributes are not labels');
-assert.deepEqual(classesOf('```bibliography\na: 1\n```\n', 'bibliography'), ['hl-code-language']);
+assert.deepEqual(classesOf('```bibliography\na: 1\n```\n', 'bibliography'), ['bm-hl-code-language']);
 // A formula that does not close by a blank line is not one: ${$ and \[[x]] do not take the next paragraphs.
 assert.ok(!nodes('${$ 甲\n\n乙 } $x$\n').some(([name, value]) => name === 'InlineMath' && value !== '$x$'));
 assert.ok(!nodes('\\[[text]]\n\n乙 \\[x\\]\n').some(([name, value]) => /Math$/.test(name) && value !== '\\[x\\]'));
@@ -121,10 +127,10 @@ assert.ok(has('`甲\n\n乙 $x$\n', 'InlineMath', '$x$'));
 assert.ok(has('[^1]: 脚注 $x$。\n    续行 $y$。\n', 'InlineMath', '$y$'), 'a footnote and its indented continuation');
 assert.ok(has('正文[^1]。\n', 'FootnoteMark', '[^1]'));
 assert.deepEqual(['<', 'lang', 'grc', 'person', 'name', '"甲"', '</'].map(piece => classesOf('<lang grc>x</lang> <person name="甲">\n', piece)[0]),
-  ['hl-structure', 'hl-code-language', 'hl-key', 'hl-code-language', 'hl-key', 'hl-yaml-value', 'hl-structure']);
+  ['bm-hl-structure', 'bm-hl-code-language', 'bm-hl-key', 'bm-hl-code-language', 'bm-hl-key', 'bm-hl-yaml-value', 'bm-hl-structure']);
 // A tag continued on the next lines is one tag (tests/components.mjs builds it).
 assert.ok(has('**甲**\n<person lang="de"\n  ipa="/x/" />，乙\n', 'Tag', '<person lang="de"\n  ipa="/x/" />'));
-assert.deepEqual(classesOf('**甲** <person lang="de"\n  ipa="/x/" />\n', 'ipa')[0], 'hl-key');
+assert.deepEqual(classesOf('**甲** <person lang="de"\n  ipa="/x/" />\n', 'ipa')[0], 'bm-hl-key');
 assert.ok(has('> **甲** <person lang="de"\n>   ipa="/x/" />\n', 'Tag', '<person lang="de"\n>   ipa="/x/" />'));
 assert.ok(!has('**甲** <person lang="de"\n> ipa="/x/" />\n', 'Tag', '<person lang="de"\n> ipa="/x/" />'));
 // A line starting with a tag is a paragraph's, its Markdown read as usual (not an HTML block).
@@ -143,44 +149,6 @@ assert.equal(nodes(table).filter(([name]) => name === 'TableCell').length, 4);
 }
 // No GFM extras the site does not have: ~x~ is text.
 assert.ok(!nodes('a ~x~ b\n').some(([name]) => /Subscript|Strikethrough/.test(name)));
-
-// Enter: a new line at the indentation of the line's text (a list item's, also from its first line), no new list
-// marker; CodeMirror's own Enter in the front matter, code and display formulas ("¦": the cursor).
-function enter(text) {
-  let state = EditorState.create({ doc: text.replace('¦', ''), extensions: bananaMarkdown(), selection: EditorSelection.cursor(text.indexOf('¦')) });
-  if (!newlineAndIndent({ state, dispatch: transaction => { state = transaction.state; } })) return null;
-  const doc = state.doc.toString(), head = state.selection.main.head;
-  return doc.slice(0, head) + '¦' + doc.slice(head);
-}
-assert.equal(enter('- a¦\n\n- b'), '- a\n  ¦\n\n- b');
-assert.equal(enter('- a\n  b¦'), '- a\n  b\n  ¦');
-assert.equal(enter('1. a¦'), '1. a\n   ¦');
-assert.equal(enter('10. a¦'), '10. a\n    ¦');
-assert.equal(enter('- [ ] a¦'), '- [ ] a\n  ¦', 'at the text, not after the task box');
-assert.equal(enter('- a\n\n  - b¦'), '- a\n\n  - b\n    ¦');
-assert.equal(enter('(i) a¦'), '(i) a\n    ¦', 'a labelled item');
-assert.equal(enter('- (i) a¦'), '- (i) a\n      ¦');
-assert.equal(enter('[^1]: 注¦'), '[^1]: 注\n    ¦');
-assert.equal(enter('> - a¦'), '> - a\n>   ¦');
-assert.equal(enter('正文¦'), '正文\n¦');
-assert.equal(enter('- a  ¦  b'), '- a\n  ¦b', 'the spaces around the cursor go');
-assert.equal(enter('- a\n  ¦'), '- a\n\n  ¦', 'a line of spaces is left empty');
-assert.equal(enter('¦- a'), '\n¦- a');
-assert.equal(enter('---\ncategories:\n  - a¦\n---\n'), null);
-assert.equal(enter('```\n- a¦\n```'), null);
-assert.equal(enter('\\[\n- x¦\n\\]'), null);
-
-// Folding: the front matter, and environments (nested ones counted, fences in code are not fences); each
-// keeps its first and last lines.
-{
-  const state = EditorState.create({ doc: '---\ntitle: 甲\ncategories: []\n---\n\n::: theorem [A]\n甲\n::: proof\n乙\n:::\n丙\n:::\n\n```markdown\n::: remark\n```\n::: remark\n:::\n', extensions: [bananaMarkdown()] });
-  const folds = [];
-  for (let n = 1; n <= state.doc.lines; n++) {
-    const line = state.doc.line(n), range = foldable(state, line.from, line.to);
-    if (range) folds.push([n, state.doc.lineAt(range.from).number + 1, state.doc.lineAt(range.to).number]);
-  }
-  assert.deepEqual(folds, [[1, 2, 3], [6, 7, 11], [8, 9, 9], [14, 15, 16]]);
-}
 
 // All pages: the grammar finds exactly the formulas the build finds, every wiki link and every environment fence.
 const files = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', 'content/*.md', 'content/**/*.md'], { encoding: 'utf8' }).trim().split('\n');
@@ -221,17 +189,16 @@ for (const file of files) {
     lineStart += line.length + 1;
   }
 }
-// The site's code blocks in the dialect, YAML and TeX are highlighted at build time as the editor highlights
-// them (the text unchanged); other languages are Chroma's.
+// The site's code blocks are highlighted by bananamark as the editor highlights the dialect (the text unchanged),
+// other languages with the same classes.
 {
-  const root = await createProject('code-blocks', ['scripts', 'layouts', 'assets', 'static', 'i18n', 'data', 'hugo.toml']);
+  const root = await createProject('code-blocks', ['scripts', 'assets', 'static', 'i18n', 'data', 'site.yaml']);
   try {
     await mkdir(join(root, 'content/wiki/code'), { recursive: true });
     await writeFile(join(root, 'data/categories.yaml'), '数学: {}\n');
     const markdownExample = '---\ntitle: 群\n---\n见 [[集合]] 与 @thm:a，$x < y$ & 1。\n\n```math {@eq:x}\nd \\circ d = 0\n```';
     await writeFile(join(root, 'content/wiki/code/index.md'), '---\ntitle: 代码\ncategories: [数学]\n---\n````markdown\n' + markdownExample + '\n````\n\n```yaml\ntitle: 甲\n```\n\n```latex\n\\[\n    \\frac{1}{2}\n\\]\n```\n\n```sh\nnpm run check\n```\n');
     buildProject(root);
-    execFileSync(process.execPath, ['scripts/postbuild.mjs'], { cwd: root, stdio: 'pipe' });
     const html = await readFile(join(root, 'public/wiki/code/index.html'), 'utf8');
     const all = [];
     const walk = node => { all.push(node); for (const child of node.childNodes ?? []) walk(child); };
@@ -240,18 +207,19 @@ for (const file of files) {
     const block = language => all.find(node => node.tagName === 'pre' && node.attrs.some(item => item.name === 'data-highlight' && item.value === language));
     const classes = node => { const found = []; const visit = n => { const c = n.attrs?.find(item => item.name === 'class')?.value; if (c) found.push([textOf(n), c]); for (const child of n.childNodes ?? []) visit(child); }; visit(node); return found; };
     assert.equal(textOf(block('markdown')), markdownExample, 'the text of a highlighted block is the code');
-    assert.ok(classes(block('markdown')).some(([value, name]) => value === '集合' && name === 'hl-wiki'));
-    assert.ok(classes(block('markdown')).some(([value, name]) => value === 'thm:a' && name === 'hl-reference'));
-    assert.ok(classes(block('markdown')).some(([value, name]) => value === '\\circ' && name === 'hl-command'), 'a fence inside the example');
-    assert.ok(classes(block('yaml')).some(([value, name]) => value === 'title' && name === 'hl-key'));
-    assert.ok(classes(block('latex')).some(([value, name]) => value === '\\frac' && name === 'hl-command'));
-    assert.deepEqual(classes(block('latex')).filter(([, name]) => name === 'hl-math-mark').map(([value]) => value), ['\\[', '\\]'], 'a LaTeX block\'s formula delimiters');
-    assert.match(html, /<pre[^>]*class="chroma"[^>]*><code class="language-sh"/, 'other languages: Chroma');
+    assert.ok(classes(block('markdown')).some(([value, name]) => value === '集合' && name === 'bm-hl-wiki'));
+    assert.ok(classes(block('markdown')).some(([value, name]) => value === 'thm:a' && name === 'bm-hl-reference'));
+    assert.ok(classes(block('markdown')).some(([value, name]) => value === '\\circ' && name === 'bm-hl-command'), 'a fence inside the example');
+    assert.ok(classes(block('yaml')).some(([value, name]) => value === 'title' && name === 'bm-hl-key'));
+    assert.ok(classes(block('latex')).some(([value, name]) => value === '\\frac' && name === 'bm-hl-command'));
+    assert.deepEqual(classes(block('latex')).filter(([, name]) => name === 'bm-hl-math-mark').map(([value]) => value), ['\\[', '\\]'], 'a LaTeX block\'s formula delimiters');
+    assert.equal(textOf(block('sh')), 'npm run check');
+    assert.ok(classes(block('sh')).some(([value, name]) => value === 'npm' && name === 'bm-hl-variable'), 'other languages: the same classes');
   } finally { await rm(root, { recursive: true, force: true }); }
 }
 
 assert.ok(slowest < 2000, `parsing a page took ${Math.round(slowest)} ms`);
-// The editor checks formulas with KaTeX before Hugo (scripts/prebuild/katex-check.mjs): every formula on the
+// The editor checks formulas with KaTeX before Hugo (packages/bananamark/src/syntax/katex-check.mjs): every formula on the
 // site passes, as it does in Hugo's KaTeX.
 for (const file of files.filter(file => /^content\/(?:wiki|books|help)\//.test(file))) {
   const text = await readFile(file, 'utf8');

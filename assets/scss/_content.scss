@@ -30,7 +30,7 @@
     h1, h2, h3, h4, h5, h6 {
       text-align: left;
 
-      span.section-number {
+      span.bm-section-number {
         // The number is followed by a real space for copying and screen readers;
         // subtract its width (about 0.25em) to keep the visual gap.
         margin-right: calc(2.4rem - 0.25em);
@@ -59,18 +59,18 @@
   }
 
   // align shortcode：署名、日期等居右，或居中的文字。
-  .align-right,
-  .align-right p {
+  .bm-align-right,
+  .bm-align-right p {
     text-align: right;
   }
 
-  .align-center,
-  .align-center p {
+  .bm-align-center,
+  .bm-align-center p {
     text-align: center;
   }
 
   // 单独成段的图片（render-image.html）：居中，说明文字在图下。
-  figure.content-figure {
+  figure.bm-content-figure {
     margin: 1.5em 0;
     text-align: center;
 
@@ -159,7 +159,7 @@ article {
     border: 1.5px solid #d0d8dc;
   }
 
-  .heading-link {
+  .bm-heading-link {
     position: absolute;
     right: 100%;
     padding: 0 0.2em 0 0;
@@ -230,12 +230,12 @@ article {
   // Labelled list items ((a), iv), (A1)): the label written at the start of the item's text (_item-label) stands
   // in the marker's place, right-aligned before the text and on its baseline (a box of no width, in which the
   // label runs leftwards); a long one reaches further left.
-  li:has(> .item-label:first-child, > p:first-child > .item-label:first-child) {
+  li:has(> .bm-item-label:first-child, > p:first-child > .bm-item-label:first-child) {
     list-style: none;
     position: relative;
   }
 
-  .item-label {
+  .bm-item-label {
     display: inline-block;
     width: 0;
     direction: rtl;
@@ -245,23 +245,23 @@ article {
       direction: ltr;
       unicode-bidi: isolate;
       // An item whose text starts with a nested labelled list on its line ((3) (4) …): its label is written with
-      // the nested item's (item-label-outer), and stands --outer lists further left, at the item's own place.
-      margin-right: calc(0.5em + var(--outer) * 2.5em);
+      // the nested item's (bm-item-label-outer), and stands --bm-outer lists further left, at the item's own place.
+      margin-right: calc(0.5em + var(--bm-outer) * 2.5em);
     }
   }
 
   // No text on the label's line (a display formula after it): beside the item, at the top.
-  .item-label-block {
+  .bm-item-label-block {
     position: absolute;
     right: 100%;
     width: auto;
   }
 
-  li:has(> ol:first-child > li:first-child > .item-label-outer, > ol:first-child > li:first-child > p:first-child > .item-label-outer) {
+  li:has(> ol:first-child > li:first-child > .bm-item-label-outer, > ol:first-child > li:first-child > p:first-child > .bm-item-label-outer) {
     list-style: none;
   }
 
-  ol:has(> li > .item-label, > li > p:first-child > .item-label) {
+  ol:has(> li > .bm-item-label, > li > p:first-child > .bm-item-label) {
     padding-left: 2.5em;
   }
 }
@@ -299,7 +299,7 @@ article details {
   }
 }
 
-article a.wiki-link-missing {
+article a.bm-wiki-link-missing {
   color: $missing-link-color;
   border-bottom: 1.5px dotted $missing-link-color;
 }

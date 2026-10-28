@@ -1,5 +1,0 @@
-{{- /* 对齐：<align right>署名</align>，也可 center（scripts/prebuild/tags.mjs 写成本短代码）。内容为块级 Markdown，换行写成行末反斜杠。 */ -}}
-{{- $side := .Get 0 -}}
-{{- if or (ne (len .Params) 1) (not (in (slice "right" "center") $side)) -}}{{ errorf "%s" (i18n "build_align_parameters" (dict "Position" .Position)) }}{{- end -}}
-{{- if not (strings.TrimSpace .Inner) -}}{{ errorf "%s" (i18n "build_align_empty" (dict "Position" .Position)) }}{{- end -}}
-<div class="align-{{ $side }}">{{ .Inner | strings.TrimSpace | .Page.RenderString (dict "display" "block") }}</div>

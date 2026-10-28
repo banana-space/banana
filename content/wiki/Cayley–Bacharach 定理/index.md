@@ -2,11 +2,11 @@
 title: Cayley–Bacharach 定理
 aliases: [Cayley-Bacharach 定理]
 categories: [相交论]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节定理 2 中的 $\mathcal{O}_Y$ 未定义，似乎应为 $\mathcal{O}_\Gamma$。
 ---
+
+<problems>
+- “推广”一节定理 2 中的 $\mathcal{O}_Y$ 未定义，似乎应为 $\mathcal{O}_\Gamma$。
+</problems>
 
 ::: convention
 在本文中，

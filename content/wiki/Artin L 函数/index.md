@@ -1,13 +1,13 @@
 ---
 title: Artin $L$ 函数
 categories: [解析数论]
-notices:
-  - name: 问题
-    items:
-      - “零点与极点”“Chebotarev 密度定理”“例子”各节需要扩充。
-      - “定义”一节的注中，$\zeta_L(s)$ 的分解里各因子似乎应为 $L(s,\rho,L/K)^{\dim\rho}$。
-      - “解析延拓与函数方程”一节的函数方程右边似乎应为 $W(\rho)\Lambda(1-s,\rho^{\vee},L/K)$。
 ---
+
+<problems>
+- “零点与极点”“Chebotarev 密度定理”“例子”各节需要扩充。
+- “定义”一节的注中，$\zeta_L(s)$ 的分解里各因子似乎应为 $L(s,\rho,L/K)^{\dim\rho}$。
+- “解析延拓与函数方程”一节的函数方程右边似乎应为 $W(\rho)\Lambda(1-s,\rho^{\vee},L/K)$。
+</problems>
 
 **Artin $L$ 函数**是一类 [[$L$ 函数]]，
 给出了 [[Galois 群]] $G$ 上[[线性表示]]的信息。

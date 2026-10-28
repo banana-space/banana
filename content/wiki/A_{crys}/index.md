@@ -2,11 +2,11 @@
 title: '$A_\mathrm{crys}$'
 aliases: [Acrys]
 categories: [$p$ 进几何, 代数数论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节最后的注记需要扩充：尚未具体写出如何用下降计算一般环的晶体上同调。
 ---
+
+<problems>
+- “性质”一节最后的注记需要扩充：尚未具体写出如何用下降计算一般环的晶体上同调。
+</problems>
 
 ::: convention
 在本文中，

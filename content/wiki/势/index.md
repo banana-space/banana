@@ -1,12 +1,12 @@
 ---
 title: 势
 categories: [集合论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 势（多义词）
 navboxes: [集合论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[势（多义词）]]。
+</disambiguation>
 
 **势**是[[集合]]的[[元素]]个数。
 例如，若一[[有限集]]含 $n$ 个元素，则其势为 $n$。

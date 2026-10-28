@@ -1,11 +1,11 @@
 ---
 title: Hilton–Milnor 分裂
 categories: [同伦论, 范畴论]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节需要扩充。
 ---
+
+<problems>
+- “推广”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

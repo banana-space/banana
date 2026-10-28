@@ -22,32 +22,32 @@
 ## 构建流程
 
 ```text
-prebuild（读音、search 参数）→ hugo（页面 + search-manifest.json）→ postbuild（TikZ → 排版 → 索引）
+prebuild（读音、search 参数）→ 站点生成（页面与搜索清单 → 排版与索引版 HTML → TikZ → 索引）
 ```
 
-postbuild 对每个页面只解析一次，TikZ 与排版依次修改同一棵 parse5 树；搜索作为最后一步读取这棵树，生成一份只供索引使用的“索引版 HTML”。页面在 worker 线程中处理，索引版 HTML 交回主线程，按文件顺序用 `index.addHTMLFile({ url, content })` 交给 Pagefind，全部页面处理完后写入 `public/pagefind/`。发布页面不加任何 `data-pagefind-*` 属性，也不含隐藏文本。没有清单时（例如对已处理的目录再次运行 postbuild）跳过索引。
+站点生成器从站点模型得到要索引的页面（`scripts/site/templates/outputs.mjs` 的 `searchManifest`，只在内存中）。每个页面在 worker 线程中只解析一次（`scripts/site/finish.mjs`），先排版模板的文字，再读取同一棵 parse5 树，生成一份只供索引使用的“索引版 HTML”；KaTeX 的 HTML 在解析前取出（索引读取公式的 MathML），排好后放回。索引版 HTML 交回主线程，按页面生成的顺序用 `index.addHTMLFile({ url, content })` 交给 Pagefind，全部页面写完后写入 `public/pagefind/`。发布页面不加任何 `data-pagefind-*` 属性，也不含隐藏文本。
 
 | 路径 | 用途 |
 | --- | --- |
 | `scripts/prebuild/reading.mjs` | 读音：自动拼音、`sort` 校验、`data/readings.yaml` 词表、搜索用的读音形式 |
-| `layouts/index.searchmanifest.json` | Hugo 输出的搜索清单 |
-| `scripts/shared/math-text.mjs` | MathML → 线性文本（名称中的公式也用它，见 `math-name.mjs`） |
+| `scripts/site/templates/outputs.mjs` | 搜索清单（`searchManifest`，只在内存中） |
+| `packages/bananamark/src/syntax/math-text.mjs` | MathML → 线性文本（名称中的公式也用它，见 `math-name.mjs`） |
 | `scripts/search/document.mjs` | 页面 → 索引版 HTML（不修改原树） |
 | `scripts/search/data.mjs` | 结果显示数据的编码与解码 |
 | `scripts/search/index.mjs` | 读取清单，调用 Pagefind Node API，删除清单和不需要的 UI 文件 |
 | `tests/helpers/pagefind.mjs` | 在 Node 中运行生成的 `pagefind.js`，供测试检索 |
-| `layouts/partials/search-config.html` | 浏览器端的地址与界面文字（`#search-config`） |
+| `scripts/site/templates/search.mjs` 的 `searchConfig` | 浏览器端的地址与界面文字（`#search-config`） |
 | `static/js/search-query.js` | 把查询转换为 Pagefind 检索（中文精确短语、多词求交、排序），不访问 DOM，测试直接使用 |
 | `static/js/search.js` | 浏览器端：加载 Pagefind、结果模型、高亮、渲染、头部面板控制器 |
 | `static/js/search-page.js` | 结果页 |
-| `static/js/related-search.js`、`layouts/partials/related-search.html` | 条目尚未创建页和 404 页的“相关页面” |
+| `static/js/related-search.js`、`scripts/site/templates/special.mjs` 的 `relatedSearch` | 条目尚未创建页和 404 页的“相关页面” |
 | `assets/scss/_search.scss` | 头部面板、移动端全屏搜索和结果页的样式 |
 
 开发预览（`npm run serve`）额外传入 `--playground`，在 `/pagefind/playground/` 生成 Pagefind 的诊断页，可直接查看每个页面被索引的文字、元数据和排名。
 
 ## 页面选择与搜索清单
 
-`hugo.toml` 为首页增加输出格式 `searchmanifest`，生成 `search-manifest.json`。清单只含 Hugo 掌握而 HTML 中没有的信息；标题、编号、面包屑都从页面 HTML 读取。
+搜索清单由站点模型生成，只含站点模型掌握而 HTML 中没有的信息；标题、编号、面包屑都从页面 HTML 读取。
 
 ```json
 { "base": "/", "language": "zh-cn", "pages": [
@@ -65,13 +65,13 @@ postbuild 对每个页面只解析一次，TikZ 与排版依次修改同一棵 p
 
 **进入清单**：结构化内容页（`structuredPage`）中的单页和书册目录页，以及所有分类页。没有正文的书册目录页也收录，搜章节名可以直达。
 
-**不进入清单**：`missing`、404、首页、条目总览和讲义列表等列表页及其分页，以及设置了 `search: false` 的页面。书册根页面或 `collection.yaml` 设置 `search: false` 时，整组页面都不进入。
+**不进入清单**：`missing`、404、首页、条目总览和讲义列表等列表页及其分页，以及设置了 `search: false` 的页面。书册根页面或 `book.yaml` 设置 `search: false` 时，整组页面都不进入。
 
 ## 读音
 
-读音的写法见[语法说明](syntax.md#排序读音)。prebuild 为每个页面和分类写入以下生成字段：
+读音的写法见[页面的写法](syntax.md#排序读音)。prebuild 为每个页面和分类写入以下生成字段：
 
-- `sortKey`：手动 `sort` 或自动读音，供列表排序（`layouts/partials/sort-pages.html`）。
+- `sortKey`：手动 `sort` 或自动读音，供列表排序（`scripts/site/templates/list.mjs` 的 `sortPages`）。
 - `sortGroup`：列表的字母分组。标题以拉丁字母、希腊字母、希伯来字母（ℵ 等）或汉字开头时取 `sortKey` 的首字母，否则（数字、∞、! 等符号）为 `#`。
 - `sortScript`：标题中第一个计入读音的字符是汉字时为 1，否则为 0；同一字母组内西文标题排在汉字标题之前。
 - `searchReadings`：手动读音、自动读音和别名的读音，各自包括空格分隔、连写和首字母三种形式。
@@ -85,11 +85,11 @@ postbuild 对每个页面只解析一次，TikZ 与排版依次修改同一棵 p
 | 原内容 | 处理 |
 | --- | --- |
 | `<h1>` | 重写为 `编号 标题 别名…`，公式使用线性文本，`id="page-title"` |
-| `.math-rendered` | 替换为 MathML 线性文本，两侧加空格 |
+| `.bm-math-rendered` | 替换为 MathML 线性文本，两侧加空格 |
 | TikZ 图形 | 删除 |
 | 目录、学科导航、提示、书册侧栏与翻页、页脚、§ 链接、分类路径 | 删除；`nav`、`svg`、`script`、`hidden` 和 `aria-hidden` 元素一并删除 |
-| `.section-number` | 保留；模板已在编号与标题之间输出普通空格 |
-| `.theorem-title` | 改写为带定理 id 的 `<h6>`，带标签的定理因此成为子结果 |
+| `.bm-section-number` | 保留；模板已在编号与标题之间输出普通空格 |
+| `.bm-envtitle` | 改写为带定理 id 的 `<h6>`，带标签的定理因此成为子结果 |
 | 术语翻译 | 只保留中文名和外文名，去掉语言名称、词性等标签 |
 | 参考文献 | 保留，权重 0.5 |
 
@@ -106,13 +106,13 @@ Pagefind 只把查询词当作索引词的**前缀**匹配。它的索引端用�
 因此改为：
 
 - **索引端**按单字切分（`separateWords`，`scripts/search/document.mjs`）。分隔符用零宽空格：Pagefind 把它当作词界，摘要中不出现；元数据标题和子结果标题中的零宽空格由浏览器去掉。索引大小基本不变。
-- **查询端**（`static/js/search-query.js`）把含汉字的查询词转换为单字组成的精确短语（`上同调` → `"上 同 调"`），要求这些字在正文中相邻，正好是子串匹配。其他词（西文、拼音）仍是前缀匹配。
+- **查询端**（`static/js/search-query.js`）把含汉字的查询词转换为单字组成的精确短语（`上同调` → `"上 同 调"`），要求这些字在正文中相邻，正好是子串匹配；西文与汉字混排的词（`A-模` → `"A- 模"`）中，西文部分按完整的词匹配。其他词（西文、拼音）是前缀匹配。查询端不依赖 `Intl.Segmenter` 的切分，浏览器之间的分词差异不影响结果。
 - Pagefind 的精确模式只接受整条查询作为一个短语，所以多个词（`同调 拓扑`、`CW 复形 hom`）各检索一次再求交集；结果页的类型计数也按交集逐类计算。
 - 精确短语的结果在 Pagefind 中得分全部相同、按索引顺序排列，所以同时用普通模式检索同样的字，以其得分（标题权重、词频）排序；普通模式的结果总包含精确短语的结果。
 - **名称优先**：百科条目的标题、别名和拼音读音写成筛选值（`exact`、`aliasexact`、`prefix`、`aliasprefix`、`readingexact`，见 `scripts/search/document.mjs`）。结果依次排列：标题与查询完全一致、别名完全一致、标题以查询开头、别名以查询开头、整个拼音读音与查询一致（`guan` 先找到“卝”，而不是以 guang 开头的“光滑”），然后才是其余结果。在导航栏搜索框按回车时，标题完全一致或唯一别名完全一致的条目直接打开。
 - **不存在的词**：一个西文词（或拼音）若没有任何索引词以它开头，Pagefind 会改用越来越短的前缀，`zzqxyz` 最终命中公式里的字母 `z`，`homolo` 命中 `Hom`。所以检索前先逐个检查这些词（`knownQuery`）：单独检索该词，看排第一的页面是否真有以它开头的词（按 Pagefind 的方式切词：空白、标点和 camelCase 处断开，忽略重音；读音在 `keywords` 中，一并检查）；不存在的词从查询中去掉，全部去掉时没有结果。每个词的检查结果会缓存。中文词是精确短语，不会退化，不需检查。
 - 西文词中的标点先断开再检索：Pagefind 会把查询中的 `Eilenberg–MacLane`、`f(x)` 去掉标点连成一个词，而正文是在标点处断开索引的，连起来的词在索引中不存在。
-- 精确短语只检索正文，不检索元数据，所以别名写进索引版 `<h1>`（排在标题后，同样获得标题权重），不再放在 `keywords` 中；浏览器从摘要中去掉这一行。
+- 精确短语只检索正文，不检索元数据，所以别名写进索引版 `<h1>`（排在标题后，同样获得标题权重），而不放在 `keywords` 中；浏览器从摘要中去掉这一行。
 
 在当前站点上用 36 个查询对比（以“索引文字中包含该子串的页面”为准）：Pagefind 自带分词召回 92.9%；按 ICU 切分 100% 但多出 14 个不含该子串的结果；单字加精确短语召回 100%，没有多余结果。规模：1500 个长页面建索引约 20 秒，索引 592 KB；首次检索下载约 80 KB，之后每次 0–2 KB，耗时在 100 毫秒以内。
 
@@ -174,7 +174,7 @@ C^n(X; A) = Hom_Z(C_n(X; Z), A)
 
 ## 浏览器端
 
-不使用 Pagefind 自带的 UI。`static/js/search.js` 是 ES 模块，头部在第一次聚焦搜索框时由 `site.js` 用 `import()` 加载，再由它加载 `pagefind.js`；不打开搜索的页面不下载任何搜索文件。地址和界面文字由 `layouts/partials/search-config.html` 写在页面的 `#search-config` 中，文字全部来自 `i18n/zh-cn.yaml`（`search_*`），其中 `{count}`、`{query}` 等占位符由脚本填入。关闭 JavaScript 时头部搜索框保持禁用，结果页显示说明文字。
+不使用 Pagefind 自带的 UI。`static/js/search.js` 是 ES 模块，头部在第一次聚焦搜索框时由 `site.js` 用 `import()` 加载，再由它加载 `pagefind.js`；不打开搜索的页面不下载任何搜索文件。地址和界面文字由 `scripts/site/templates/search.mjs` 的 `searchConfig` 写在页面的 `#search-config` 中，文字全部来自 `i18n/zh-cn.yaml`（`search_*`），其中 `{count}`、`{query}` 等占位符由脚本填入。关闭 JavaScript 时头部搜索框保持禁用，结果页显示说明文字。
 
 ### 结果模型
 
@@ -198,7 +198,7 @@ C^n(X; A) = Hom_Z(C_n(X; Z), A)
 
 ### 结果页 `/search/`
 
-- 源文件为 `content/search/index.md`（同 `missing`），模板 `layouts/_default/search.html`。它不是结构化页面，不进入搜索清单，书册发现时也跳过 `search/` 目录。这个页面的头部不显示搜索框。
+- 源文件为 `content/search/index.md`（同 `missing`），模板 `scripts/site/templates/search.mjs` 的 `searchPage`。它不是结构化页面，不进入搜索清单，书册发现时也跳过 `search/` 目录。这个页面的头部不显示搜索框。
 - 参数 `q` 和 `kind` 与地址同步（`history.replaceState`），页面标题为““q”的搜索结果”，地址可以分享或刷新。
 - 按类型筛选：全部和有结果的类型显示为标签，带各自数量（Pagefind 只在加载过一次 `filters()` 后才返回数量，结果页因此在首次检索前加载过滤器数据）。
 - 每次显示 20 条，“加载更多”继续；书册折叠在每批结果内进行。
@@ -213,22 +213,20 @@ C^n(X; A) = Hom_Z(C_n(X; Z), A)
 
 ### 相关页面（条目尚未创建页、404 页）
 
-两个页面在说明文字下方显示“相关页面”，最多 6 条，末尾链接到这个名称的完整结果页；没有名称或没有结果时整块不显示，关闭 JavaScript 时也不显示。两个页面都只链接首页（不链接条目总览，条目多了以后它的用处不大）：默认显示“请返回首页．”，找到相关页面后换成“请返回首页，或浏览下方的相关页面．”（`layouts/partials/related-search-back.html`）。
+两个页面在说明文字下方显示“相关页面”，最多 6 条，末尾链接到这个名称的完整结果页；没有名称或没有结果时整块不显示，关闭 JavaScript 时也不显示。两个页面都只链接首页（不链接条目总览，条目多了以后它的用处不大）：默认显示“请返回首页．”，找到相关页面后换成“请返回首页，或浏览下方的相关页面．”（`scripts/site/templates/special.mjs`，i18n 的 `head_back` 与 `head_back_related`）。
 
 - **名称**：条目尚未创建页取红链接带来的 `?title=`；404 页取地址的最后一段（相对站点根目录，去掉 `index.html` 和 `.html`，`-`、`_`、`+` 换成空格），如 `/wiki/线性-映射的合成/` → `线性 映射的合成`（`nameFromPath`）。
 - **检索**（`relatedPages`，在 `search-query.js` 中，测试直接使用）：先按整个名称检索；不足 6 条时，再用 `Intl.Segmenter` 把名称切成词，取两个字以上的中文词和两个字母以上的西文词分别检索（`奇异上同调环` → `奇异`、`同调`），命中词多的排在前面，其次按各词中的名次。单字不单独检索，否则几乎所有页面都会命中。
 - **核对**：不存在的西文词在检索前已被去掉（见“中文检索”中的“不存在的词”）；此外每个候选都加载数据，正文或标题确实包含名称或其中一个词时才显示。
 - 高亮包括名称和这些词，相邻的高亮合并为一处。
 
-## 开发预览与单篇预览
+## 预览中的索引
 
-`serve` 每次完整构建都重建索引：页面处理完即刷新浏览器，索引随后写入（约 2–4 秒），写好前搜索使用上一次的索引。只改正文的单页更新不更新索引，下次完整构建时补上。单页预览（`npm run preview`）与编辑接口不建搜索索引。
+`serve` 在每次更新之后、请求的间隙于后台重写索引（只在搜索文档或清单变了时；约 5 秒），写好前搜索使用上一次的索引（见 [预览与检查](preview.md)）。API 不建搜索索引。
 
 ## 已知限制
 
 - **未加标签的定理**不是子结果：子结果需要锚点，没有 `{@…}` 标签的定理归入所在的节。
-- **ICU 版本**：查询端不再依赖 `Intl.Segmenter` 的切分结果（单字短语中每个字都是独立的词），浏览器之间的分词差异不影响结果。
-- **西文与中文混排的词**：`A-模` 这类词转换为 `"A- 模"`，西文部分按完整词匹配，不再是前缀。
 
 ## 测试
 

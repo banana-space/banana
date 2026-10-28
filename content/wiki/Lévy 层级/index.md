@@ -2,12 +2,12 @@
 title: Lévy 层级
 aliases: [Levy 层级]
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “绝对性”一节的定义只假定 $N\subseteq M$、$\in^N\subseteq\in^M$，在此条件下随后的定理及其证明中“$\Delta_0^T$ 公式绝对”的论断似乎不成立，似乎还需要 $N$ 在 $M$ 中传递（即 $M$ 是 $N$ 的尾扩张）等条件。
 navboxes: [集合论]
 ---
+
+<problems>
+- “绝对性”一节的定义只假定 $N\subseteq M$、$\in^N\subseteq\in^M$，在此条件下随后的定理及其证明中“$\Delta_0^T$ 公式绝对”的论断似乎不成立，似乎还需要 $N$ 在 $M$ 中传递（即 $M$ 是 $N$ 的尾扩张）等条件。
+</problems>
 
 **Lévy 层级**是一阶[[集合论]]语言中运用复杂度对公式进行分类的一种方式。
 

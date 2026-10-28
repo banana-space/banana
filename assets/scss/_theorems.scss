@@ -1,4 +1,4 @@
-article .theorem-block {
+article .bm-env {
   border: 0;
   border-left: 2px solid var(--theorem-accent);
   padding: 0 0 0 1.5rem;
@@ -8,13 +8,13 @@ article .theorem-block {
     padding: 0 0 0 1.2rem;
   }
 
-  >.theorem-title {
+  >.bm-envtitle {
     color: var(--theorem-accent);
     font-weight: 600;
     margin: 0 0 0.6rem;
   }
 
-  >.theorem-content {
+  >.bm-envcontent {
     > :first-child {
       margin-top: 0;
     }
@@ -25,35 +25,35 @@ article .theorem-block {
   }
 }
 
-article .theorem-definition {
+article .bm-envgroup-definition {
   --theorem-accent: #e09000;
 }
 
-article .theorem-theorem {
+article .bm-envgroup-theorem {
   --theorem-accent: #1078d0;
 }
 
-article .theorem-example {
+article .bm-envgroup-example {
   --theorem-accent: #{$theorem-purple-color};
 }
 
-article .theorem-remark {
+article .bm-envgroup-remark {
   --theorem-accent: #00a090;
 }
 
-article .theorem-proof {
+article .bm-envgroup-proof {
   // Include a floated QED in the proof's height, even when it wraps.
   display: flow-root;
   border: 0;
   padding: 0;
 
-  >.theorem-title {
+  >.bm-envtitle {
     color: $fg-color;
     display: inline;
     margin: 0;
   }
 
-  >.theorem-content {
+  >.bm-envcontent {
     display: inline;
 
     >p:first-child {
@@ -66,16 +66,16 @@ article .theorem-proof {
     $last-item: "> :last-child:is(ul, ol) li:last-child:not(li:not(:last-child) *):not(li > :not(:last-child) *):not(:has(> :is(ul, ol):last-child))";
 
     > :last-child:not(ul):not(ol):not(blockquote)::after,
-    #{$last-item}:not(:has(> :is(p, .math-display):last-child))::after,
-    #{$last-item}>:is(p, .math-display):last-child::after,
+    #{$last-item}:not(:has(> :is(p, .bm-math-display):last-child))::after,
+    #{$last-item}>:is(p, .bm-math-display):last-child::after,
     >blockquote:last-child>p:last-child::after {
       content: "\00a0□";
       float: right;
       white-space: nowrap;
     }
 
-    >.math-display:last-child,
-    #{$last-item}>.math-display:last-child {
+    >.bm-math-display:last-child,
+    #{$last-item}>.bm-math-display:last-child {
       position: relative;
       padding-right: 1.5em;
 

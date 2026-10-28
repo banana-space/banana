@@ -1,12 +1,12 @@
 ---
 title: 极小复形
 categories: [同调代数, 交换代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **极小复形**是 [[Noether 环|Noether]][[局部环]]特有的构造，
 可用来探知[[同调维数]]，以及证明一些[[半连续]]性。

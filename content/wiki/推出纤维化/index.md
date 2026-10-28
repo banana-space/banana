@@ -2,13 +2,13 @@
 title: 推出纤维化
 aliases: [拉回纤维化]
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节第二项中，$s$ 被说成把箭头映为其来源，但随后的论述（$s (x \xrightarrow{f} y) = y$、推出态射当且仅当 $g$ 为同构、拉回纤维化当且仅当有拉回）似乎对应的是取目标的函子；该项中 $X, Y$ 与 $x, y$ 的记号也不一致。
-      - “直化”一节中，诱导函子 $\mathcal{E}_{x} \xleftarrow{\sim} \mathsf{Ar}^{\operatorname{cocart}}(\mathcal{C}) \rightarrow \mathcal{E}_y$ 的中间项似乎应为 $\mathsf{Ar}^{\operatorname{cocart}}(\mathcal{E})$ 在 $f$ 上的纤维。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “例子”一节第二项中，$s$ 被说成把箭头映为其来源，但随后的论述（$s (x \xrightarrow{f} y) = y$、推出态射当且仅当 $g$ 为同构、拉回纤维化当且仅当有拉回）似乎对应的是取目标的函子；该项中 $X, Y$ 与 $x, y$ 的记号也不一致。
+- “直化”一节中，诱导函子 $\mathcal{E}_{x} \xleftarrow{\sim} \mathsf{Ar}^{\operatorname{cocart}}(\mathcal{C}) \rightarrow \mathcal{E}_y$ 的中间项似乎应为 $\mathsf{Ar}^{\operatorname{cocart}}(\mathcal{E})$ 在 $f$ 上的纤维。
+</problems>
 
 ::: convention
 在本文中，

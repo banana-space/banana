@@ -3,11 +3,11 @@ title: Alexandre Grothendieck
 sort: grothendieck alexandre
 aliases: [Grothendieck, Alexander Grothendieck]
 categories: [数学家]
-notices:
-  - name: 问题
-    items:
-      - “生平”一节需要扩充。
 ---
+
+<problems>
+- “生平”一节需要扩充。
+</problems>
 
 **Alexandre Grothendieck** <person lang="fr" ipa="/a.lɛk.sɑ̃dʁ ɡʁɔ.tɛn.dik/" years="1928–2014" />，
 亦作 Alexander Grothendieck <person lang="de" ipa="/ˌa.lɛk.ˈsan.dɐ ˈɡʁoː.tn.ˌdiːk/" />，

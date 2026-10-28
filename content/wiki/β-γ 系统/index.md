@@ -3,12 +3,12 @@ title: '$\beta$-$\gamma$ 系统'
 aliases: [beta-gamma 系统]
 categories: [共形场论]
 navboxes: [共形场论]
-notices:
-  - name: 问题
-    items:
-      - “共形块”一节需要扩充。
-      - “顶点代数描述”一节命题给出的分次与共形向量下，$\beta$、$\gamma$ 的共形权重似乎分别为 $1-\lambda$、$\lambda$，与“基本性质”一节中 $\beta$、$\gamma$ 的共形维数分别为 $\lambda$、$1-\lambda$ 的约定相反。
 ---
+
+<problems>
+- “共形块”一节需要扩充。
+- “顶点代数描述”一节命题给出的分次与共形向量下，$\beta$、$\gamma$ 的共形权重似乎分别为 $1-\lambda$、$\lambda$，与“基本性质”一节中 $\beta$、$\gamma$ 的共形维数分别为 $\lambda$、$1-\lambda$ 的约定相反。
+</problems>
 
 **$\bm\beta$-$\bm\gamma$ 系统**是一种二维[[共形场论]]。
 它与 [[$b$-$c$ 系统]]定义几乎完全相同，

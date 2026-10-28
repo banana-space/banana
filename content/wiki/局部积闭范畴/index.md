@@ -2,11 +2,11 @@
 title: 局部积闭范畴
 aliases: [局部 Descartes 闭范畴]
 categories: [范畴代数]
-notices:
-  - name: 问题
-    items:
-      - “集合范畴局部积闭”一节最后的公式中，$\prod\nolimits_f$ 一行的注释“集合的不交并”似乎应为“集合的积”，不交并对应的是 $\sum\nolimits_f$ 一行。
 ---
+
+<problems>
+- “集合范畴局部积闭”一节最后的公式中，$\prod\nolimits_f$ 一行的注释“集合的不交并”似乎应为“集合的积”，不交并对应的是 $\sum\nolimits_f$ 一行。
+</problems>
 
 在[[范畴论]]中，**局部积闭范畴**指[[俯范畴]]都是[[积闭范畴]]的范畴，
 这概括了“在一个[[语境]]下[[积闭范畴|积闭]]”的思想。

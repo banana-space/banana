@@ -1,12 +1,12 @@
 ---
 title: 稳定 Dold–Kan 对应
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “$G''$ 为范畴等价”一节中，$\mathcal{J}^k$ 在计算 $(k,[-1])$ 处左 Kan 扩张（余极限）的图表中似乎应为共尾的，而不是共首的。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “$G''$ 为范畴等价”一节中，$\mathcal{J}^k$ 在计算 $(k,[-1])$ 处左 Kan 扩张（余极限）的图表中似乎应为共尾的，而不是共首的。
+</problems>
 
 ::: convention
 在本文中，

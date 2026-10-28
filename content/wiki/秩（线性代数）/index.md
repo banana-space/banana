@@ -1,12 +1,12 @@
 ---
 title: 秩（线性代数）
 categories: [线性代数]
-notices:
-  - name: 消歧义
-    see:
-      - page: 秩
 navboxes: [线性代数]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[秩]]。
+</disambiguation>
 
 在[[线性代数]]中，[[线性映射]]的**秩**是指其[[像]]的[[维数]]，
 是对线性映射的大小的刻画。

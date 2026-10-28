@@ -11,11 +11,10 @@
 //   between text and a formula (where there is a space, or where one is added next to Han), then before a
 //   <person /> tag. A line that cannot be broken so stays as short as these allow.
 // Nothing else changes: code, formulas' contents, headings, tables, environment fences, the front matter.
-import { Parser } from 'commonmark';
-import { parseLists } from '../prebuild/lists.mjs';
-import { protectedToken, readMarkdownLink, readMath, readReference, readWiki } from '../prebuild/markup.mjs';
-import { formulaRanges } from '../prebuild/source-lines.mjs';
-import { continuation, escaped, labelledMarkerSource, labelledWidth, markerPattern, readLabelledMarker, readTag } from '../shared/scan.mjs';
+import { blockTree, parseLists, walk } from 'bananamark/internal/lists.mjs';
+import { protectedToken, readMarkdownLink, readMath, readReference, readWiki } from 'bananamark/internal/markup.mjs';
+import { formulaRanges } from 'bananamark/internal/source-lines.mjs';
+import { continuation, escaped, labelledMarkerSource, labelledWidth, markerPattern, readLabelledMarker, readTag } from 'bananamark/internal/scan.mjs';
 
 export const maxWidth = 100;
 
@@ -48,7 +47,7 @@ const labelledItem = new RegExp(`^ {0,3}(${labelledMarkerSource})( *)`);
 const containerPattern = /^[ \t]*(?:>[ \t]?)*[ \t]*/;
 /**
  * The markers of labelled list items ((a), iv), …), by the offset of their line: { from, to } in the line. Only
- * those CommonMark reads as list items (scripts/prebuild/lists.mjs); a line can have more than one, the last
+ * those CommonMark reads as list items (packages/bananamark/src/syntax/lists.mjs); a line can have more than one, the last
  * kept.
  */
 function labelledMarkers(body) {
@@ -80,8 +79,8 @@ function prefixes(line, labelled) {
  * marker's width, which keeps it code); lazy continuation lines and lines indented with tabs stay as they are.
  */
 function listLayout(body) {
-  // The block structure, formulas masked (their lines are not Markdown), labelled list items' markers as
-  // CommonMark's (their width may differ: only the lines count).
+  // The block structure as the renderer parses it, formulas masked (their lines are not Markdown), labelled list
+  // items' markers as Markdown's (their width may differ: only the lines count).
   let masked = body;
   for (const { from, to } of formulaRanges(body)) masked = masked.slice(0, from) + body.slice(from, to).replace(/[^\n]/g, 'x') + masked.slice(to);
   const { labelled } = parseLists(body);
@@ -91,29 +90,25 @@ function listLayout(body) {
     const lineStart = body.lastIndexOf('\n', start - 1) + 1;
     return `${body.slice(0, lineStart).split('\n').length - 1}:${start - lineStart}`;
   }));
-  const parser = new Parser();
-  parser.processInlines = () => {};
-  const walker = parser.parse(masked).walker();
   const containers = [], code = new Map();
-  let event, depth = 0;
-  while ((event = walker.next())) {
-    const { node } = event;
-    if (node.type === 'code_block') {
-      if (event.entering) for (let line = node.sourcepos[0][0]; line <= node.sourcepos[1][0]; line++) code.set(line - 1, node._isFenced ? 'fenced' : 'indented');
-      continue;
+  const lineStarts = [0];
+  for (let i = 0; i < masked.length; i++) if (masked[i] === '\n') lineStarts.push(i + 1);
+  const depthOf = node => { let depth = 0; for (let p = node; p; p = p.parent) if (p.type === 'list_item' || p.type === 'blockquote') depth++; return depth; };
+  walk(blockTree(masked), node => {
+    const { token } = node;
+    if (node.type === 'code_block' || node.type === 'fence') {
+      for (let line = token.map[0]; line < token.map[1]; line++) code.set(line, node.type === 'fence' ? 'fenced' : 'indented');
+      return;
     }
-    if (node.type !== 'item' && node.type !== 'block_quote') continue;
-    if (!event.entering) { depth--; continue; }
-    depth++;
-    const container = { type: node.type, first: node.sourcepos[0][0] - 1, last: node.sourcepos[1][0] - 1, depth };
-    if (node.type === 'item') {
-      const data = node._listData;
-      container.width = data.markerOffset + data.padding; // Where its text is, from its container's.
-      container.marker = data.type === 'bullet' ? '-' : null;
-      container.labelled = labelledAt.has(`${container.first}:${node.sourcepos[0][1] - 1}`);
+    if (node.type !== 'list_item' && node.type !== 'blockquote') return;
+    // An item's width (where its text is, from its container's) is read from its first line (consume).
+    const container = { type: node.type === 'list_item' ? 'item' : 'block_quote', first: token.map[0], last: token.map[1] - 1, depth: depthOf(node) };
+    if (node.type === 'list_item') {
+      container.marker = node.parent.type === 'bullet_list' ? '-' : null;
+      container.labelled = node.marker !== undefined && labelledAt.has(`${container.first}:${node.marker - lineStarts[container.first]}`);
     }
     containers.push(container);
-  }
+  });
   if (!containers.length) return body;
   const lines = body.split('\n');
   const chainOf = i => containers.filter(c => c.first <= i && i <= c.last).sort((a, b) => a.depth - b.depth);
@@ -132,6 +127,10 @@ function listLayout(body) {
         const item = rest.match(c.labelled ? labelledItem : /^ {0,3}([-+*]|\d{1,9}[.)])( *)/);
         if (!item) return null;
         const marker = c.marker ?? item[1], text = rest.slice(item[0].length);
+        // Its width, as Markdown reads it: the marker's indentation, the marker, the spaces after it (one when
+        // five or more, or none follow).
+        const indent = item[0].match(/^ */)[0].length, spaces = item[0].length - indent - item[1].length;
+        c.width ??= indent + item[1].length + (!text || spaces >= 5 ? 1 : spaces);
         c.newWidth = c.labelled ? labelledWidth(marker) : marker.length + 1;
         // Five spaces or more: the item starts with indented code, whose indentation they are.
         prefix += !text ? marker : item[2].length >= 5 ? marker + item[2] : `${marker} `;

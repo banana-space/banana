@@ -260,7 +260,7 @@ $$
 空间$\mathbb{R}^3$中的平面$H=\{(x_1,x_2,x_3)\in \mathbb{R}^3|a_1x_1+a_2x_2+a_3 x_3=b\}$是
 $\mathbb{R}^3$的线性子空间当且仅当$H$过原点，即$b=0$。
 
-![](Linear-algebra-1-1-1.png?width=500)
+![](Linear-algebra-1-1-1.png){width=500}
 :::
 
 ::: example
@@ -417,7 +417,7 @@ $$
 ::: example
 $\mathbb{R}^3$中不平行的两个平面的交是一条直线
 
-![](Linear-algebra-1-1-2.png?width=400)
+![](Linear-algebra-1-1-2.png){width=400}
 :::
 
 ::: example

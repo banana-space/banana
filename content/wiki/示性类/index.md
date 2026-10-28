@@ -1,12 +1,12 @@
 ---
 title: 示性类
 categories: [示性类]
-notices:
-  - name: 问题
-    items:
-      - “定义”“例子”各节需要扩充。
 navboxes: [向量丛与 K 理论]
 ---
+
+<problems>
+- “定义”“例子”各节需要扩充。
+</problems>
 
 对某种类型的丛（[[向量丛]]或[[主丛]]）而言，
 若有一种方法，能给任一这样的丛 $E \to B$

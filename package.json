@@ -1,19 +1,22 @@
 {
-  "name": "hugo-banana",
+  "name": "banana-space",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "serve": "node scripts/serve.mjs",
-    "preview": "node scripts/preview.mjs",
-    "editor-api": "node scripts/editor-api.mjs",
+    "api": "node --max-old-space-size=512 scripts/api.mjs",
     "check": "node scripts/check.mjs",
     "bench": "node scripts/bench.mjs",
-    "test": "node tests/categories.mjs && node tests/wikilinks.mjs && node tests/names.mjs && node tests/structure.mjs && node tests/references.mjs && node tests/site.mjs && node tests/components.mjs && node tests/typography.mjs && node tests/git-dates.mjs && node tests/i18n.mjs && node tests/local-time.mjs && node tests/tikz.mjs && node tests/serve.mjs && node tests/preview.mjs && node tests/source-lines.mjs && node tests/markdown-language.mjs && node tests/completion.mjs && node tests/format.mjs && node tests/adversarial.mjs && node tests/editor-api.mjs && node tests/editor-github.mjs && node tests/editor-page.mjs && node tests/collections.mjs && node tests/search.mjs && node tests/recent-changes.mjs && node tests/page-history.mjs",
+    "compare": "node scripts/compare.mjs",
+    "test": "node tests/categories.mjs && node tests/wikilinks.mjs && node tests/names.mjs && node tests/structure.mjs && node tests/references.mjs && node tests/site.mjs && node tests/components.mjs && node tests/terms.mjs && node tests/typography.mjs && node tests/git-dates.mjs && node tests/i18n.mjs && node tests/local-time.mjs && node tests/inline-punctuation.mjs && node tests/tikz.mjs && node tests/serve.mjs && node tests/check.mjs && node tests/markdown-language.mjs && node tests/completion.mjs && node tests/format.mjs && node tests/adversarial.mjs && node tests/api.mjs && node tests/api-github.mjs && node tests/editor-page.mjs && node tests/collections.mjs && node tests/search.mjs && node tests/recent-changes.mjs && node tests/page-history.mjs && node tests/minor-edits.mjs && node tests/compare.mjs && node packages/bananamark/test/index.mjs && node packages/bananamark-codemirror/test/index.mjs && node packages/bananamark-tikz/test/tikz.mjs",
     "format": "node scripts/format.mjs"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.15"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",
@@ -30,13 +33,14 @@
     "@lezer/highlight": "^1.2.5",
     "@lezer/markdown": "^1.8.0",
     "codemirror": "^6.0.2",
-    "commonmark": "^0.31.2",
+    "entities": "8.1.0",
+    "esbuild": "^0.28.2",
     "jsdom": "23.2.0",
     "katex": "0.18.4",
-    "node-tikzjax": "1.0.5",
     "pagefind": "^1.5.2",
     "parse5": "^8.0.1",
     "pinyin-pro": "^3.29.4",
+    "sass": "^1.105.1",
     "yaml": "^2.9.1"
   }
 }

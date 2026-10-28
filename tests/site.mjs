@@ -11,7 +11,7 @@ const location = { hash: '#bib-nlab%3A%E4%B8%AD%E6%96%87', origin: 'https://exam
 // A bibliography entry: its highlight animation, restarted by clearing and restoring the inline animation.
 const animations = [];
 const entry = {
-  matches: selector => selector.split(', ').includes('.bibliography-entry'),
+  matches: selector => selector.split(', ').includes('.bm-bibliography-entry'),
   style: { set animation(value) { animations.push(value); }, get animation() { return animations.at(-1) ?? ''; } },
   get offsetWidth() { animations.push('reflow'); return 0; },
   scrollIntoView: options => scrolls.push({ ...options }),

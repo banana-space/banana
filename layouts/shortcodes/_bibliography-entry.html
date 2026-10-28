@@ -1,7 +1,0 @@
-{{- /* 一条文献，kind="version" 时为它的一个版本（译本、再版等），由 _bibliography-entry-end 结束。
-  id：锚点（base64，可省略）；lang：条目文字的语言。由 scripts/prebuild/bibliography.mjs 写出。 */ -}}
-{{- $kind := .Get "kind" | default "entry" -}}
-{{- $lang := .Get "lang" -}}
-{{- if not (in (slice "entry" "version") $kind) -}}{{ errorf "_bibliography-entry: kind %q" $kind }}{{- end -}}
-{{- if not (findRE `^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$` $lang) -}}{{ errorf "%s" (i18n "build_tag_language" (dict "Name" "_bibliography-entry" "Value" $lang)) }}{{- end -}}
-<div class="bibliography-{{ $kind }}"{{ with .Get "id" }} id="{{ . | base64Decode }}"{{ end }} lang="{{ $lang }}">

@@ -1,11 +1,12 @@
 ---
 title: A
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Α]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Α]]”。
+</disambiguation>
 
 拉丁字母 **A，a** 用在以下记号中：
 

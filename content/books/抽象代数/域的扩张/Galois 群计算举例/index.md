@@ -1,14 +1,14 @@
 ---
 title: Galois 群计算举例
-notices:
-  - name: 问题
-    items:
-      - '$X^4-5$、$X^6-2$、$X^6+3$ 三个例子中出现的 $\mathbf{Gal}(L/K)$ 里 $L$ 没有定义，似乎应为 $\mathbf{Gal}(K/\mathbb{Q})$。'
-      - '$X^6-2$ 的例子中 $|(\mathbb{Z}/6\mathbb{Z})|=2$ 似乎应为 $|(\mathbb{Z}/6\mathbb{Z})^\times|=2$。'
-      - '$X^6+3$ 的例子中等式 $a = i\sqrt{3}= g(-\alpha^3)=\cdots$ 的左边似乎应为 $a\cdot i\sqrt{3}$；其后“以上运算表明 $\alpha^3=i\sqrt{3}$”与前文 $-\alpha^3=i\sqrt{3}$ 不符，似乎应为 $-\alpha^3=i\sqrt{3}$。'
-      - '$(X^5-2)(X^5-3)$ 的例子中，$\mathbf{Aff}_2(\mathbb{Z}/5\mathbb{Z})$ 的定义式之后的一句不完整；“给定 $g\in \mathbf{Gal}(K/\mathbb{Q})$，它由以下 $a,b_1,b_2$ 决定”似乎应为 $g\in \mathbf{Gal}(L/\mathbb{Q})$。'
-      - '$X^6-3X^2+1$ 的例子中，$Q(X)=X^3-3X^2+1$ 时 $P(X)=Q(X^2)$ 似乎不成立（$Q(X^2)=X^6-3X^4+1$）；证明 $[K(\sqrt{\beta}):K]=2$ 时的 $\overline{\sigma}^2(\sqrt{\alpha})=\pm \gamma$ 似乎应为 $\overline{\sigma}^2(\sqrt{\beta})=\pm\sqrt{\alpha}$。'
 ---
+
+<problems>
+- $X^4-5$、$X^6-2$、$X^6+3$ 三个例子中出现的 $\mathbf{Gal}(L/K)$ 里 $L$ 没有定义，似乎应为 $\mathbf{Gal}(K/\mathbb{Q})$。
+- $X^6-2$ 的例子中 $|(\mathbb{Z}/6\mathbb{Z})|=2$ 似乎应为 $|(\mathbb{Z}/6\mathbb{Z})^\times|=2$。
+- $X^6+3$ 的例子中等式 $a = i\sqrt{3}= g(-\alpha^3)=\cdots$ 的左边似乎应为 $a\cdot i\sqrt{3}$；其后“以上运算表明 $\alpha^3=i\sqrt{3}$”与前文 $-\alpha^3=i\sqrt{3}$ 不符，似乎应为 $-\alpha^3=i\sqrt{3}$。
+- $(X^5-2)(X^5-3)$ 的例子中，$\mathbf{Aff}_2(\mathbb{Z}/5\mathbb{Z})$ 的定义式之后的一句不完整；“给定 $g\in \mathbf{Gal}(K/\mathbb{Q})$，它由以下 $a,b_1,b_2$ 决定”似乎应为 $g\in \mathbf{Gal}(L/\mathbb{Q})$。
+- $X^6-3X^2+1$ 的例子中，$Q(X)=X^3-3X^2+1$ 时 $P(X)=Q(X^2)$ 似乎不成立（$Q(X^2)=X^6-3X^4+1$）；证明 $[K(\sqrt{\beta}):K]=2$ 时的 $\overline{\sigma}^2(\sqrt{\alpha})=\pm \gamma$ 似乎应为 $\overline{\sigma}^2(\sqrt{\beta})=\pm\sqrt{\alpha}$。
+</problems>
 
 ::: example
 令$K$为$P(X)=X^4+4$在${\mathbb{Q}}$上的分裂域，计算${\mathbf{Gal}}\left(

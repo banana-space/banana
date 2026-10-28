@@ -1,10 +1,10 @@
 ---
 title: 局部系和可构建层
-notices:
-  - name: 问题
-    items:
-      - 命题 (i) 中似乎应为 $L\in\operatorname{Loc}_A(Z)$，(ii) 中似乎应为 $K|_{X_i}\in D_{\operatorname{Loc}}^b(X_i,A)$，(viii) 中似乎应为 $f_*\underline{A}\in\operatorname{Loc}_A(Y)$。
 ---
+
+<problems>
+- 命题 (i) 中似乎应为 $L\in\operatorname{Loc}_A(Z)$，(ii) 中似乎应为 $K|_{X_i}\in D_{\operatorname{Loc}}^b(X_i,A)$，(viii) 中似乎应为 $f_*\underline{A}\in\operatorname{Loc}_A(Y)$。
+</problems>
 
 不同于之前，在此我们将采用如下定义：
 

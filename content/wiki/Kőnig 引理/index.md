@@ -2,14 +2,16 @@
 title: Kőnig 引理
 aliases: [König 引理]
 categories: [图论]
-notices:
-  - name: 区分
-    text: '注意区分本文与[[Kőnig 定理]]。'
-  - name: 问题
-    items:
-      - “性质”“应用”各节需要扩充。
 navboxes: [图论]
 ---
+
+<disambiguation>
+注意区分本文与[[Kőnig 定理]]。
+</disambiguation>
+
+<problems>
+- “性质”“应用”各节需要扩充。
+</problems>
 
 **Kőnig 引理**是[[图论]]、[[构造性数学]]、[[证明论]]里的重要定理。
 它表现了无穷顶点的[[连通图]]中无穷[[简单路径]]的存在性。

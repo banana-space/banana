@@ -1,12 +1,12 @@
 ---
 title: 介值定理
 categories: [实分析]
-notices:
-  - name: 区分
-    pages:
-      - 中值定理
 navboxes: [微积分学]
 ---
+
+<disambiguation>
+注意与[[中值定理]]区分。
+</disambiguation>
 
 在[[微积分学]]中，
 **介值定理**是指如下定理：

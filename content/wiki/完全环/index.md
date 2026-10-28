@@ -2,12 +2,12 @@
 title: 完全环
 aliases: [完美环]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节第二项中“不是域的完全环都不是 Noether 环”似乎不成立：例如 $\mathbb{F}_p\times\mathbb{F}_p$ 是完全的 Noether 环但不是域，其中不可逆元 $a=(1,0)$ 满足 $a^{1/p}=a$，所给的理想升链并不严格。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “例子”一节第二项中“不是域的完全环都不是 Noether 环”似乎不成立：例如 $\mathbb{F}_p\times\mathbb{F}_p$ 是完全的 Noether 环但不是域，其中不可逆元 $a=(1,0)$ 满足 $a^{1/p}=a$，所给的理想升链并不严格。
+</problems>
 
 ::: convention
 在本文中，

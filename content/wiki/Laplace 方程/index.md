@@ -1,14 +1,14 @@
 ---
 title: Laplace 方程
 categories: [偏微分方程论]
-notices:
-  - name: 问题
-    items:
-      - “解的性质”一节需要扩充。
-      - 开头约定中 $\alpha(n)$ 的定义式似乎前后不一致：$\frac{2\pi^{n/2}}{\Gamma(n/2)}$ 是单位球面的面积，而右边分情形的表达式含有 $r^n$，是半径为 $r$ 的球的体积。
-      - “求解步骤”一节末尾和定义“基本解”中，$n\geqslant 3$ 时的基本解似乎缺少因子 $n-2$：按单位球面面积 $\alpha(n)$ 应为 $\frac{1}{(n-2)\alpha(n) r^{n-2}}$，按单位球体积 $\alpha(n)$ 应为 $\frac{1}{n(n-2)\alpha(n) r^{n-2}}$。
 navboxes: [偏微分方程]
 ---
+
+<problems>
+- “解的性质”一节需要扩充。
+- 开头约定中 $\alpha(n)$ 的定义式似乎前后不一致：$\frac{2\pi^{n/2}}{\Gamma(n/2)}$ 是单位球面的面积，而右边分情形的表达式含有 $r^n$，是半径为 $r$ 的球的体积。
+- “求解步骤”一节末尾和定义“基本解”中，$n\geqslant 3$ 时的基本解似乎缺少因子 $n-2$：按单位球面面积 $\alpha(n)$ 应为 $\frac{1}{(n-2)\alpha(n) r^{n-2}}$，按单位球体积 $\alpha(n)$ 应为 $\frac{1}{n(n-2)\alpha(n) r^{n-2}}$。
+</problems>
 
 ::: convention
 在本文中，

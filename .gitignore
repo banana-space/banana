@@ -1,13 +1,11 @@
-.hugo_build.lock
 public
-resources
 
 .build/
 node_modules/
 
 .data/
 
-# Secrets for npm run editor-api -- --env-file .env.editor
+# Secrets for npm run api -- --env-file .env.api
 .env*
 
 .claude/

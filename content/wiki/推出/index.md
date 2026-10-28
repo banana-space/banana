@@ -2,12 +2,12 @@
 title: 推出
 aliases: [粘连和, 余纤维积, 余 Descartes 方块, Pushout]
 categories: [范畴论]
-notices:
-  - name: 区分
-    pages:
-      - 前推
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+注意与[[前推]]区分。
+</disambiguation>
 
 在[[范畴论]]中，**推出**
 （或称**粘连和**、**余纤维积**、**余 Descartes 方块**）

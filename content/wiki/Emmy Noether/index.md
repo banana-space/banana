@@ -3,11 +3,11 @@ title: Emmy Noether
 sort: noether emmy
 aliases: [Noether]
 categories: [数学家]
-notices:
-  - name: 问题
-    items:
-      - “生平”一节需要扩充。
 ---
+
+<problems>
+- “生平”一节需要扩充。
+</problems>
 
 **Amalie Emmy Noether** <person lang="de" years="1882–1935" />，德国数学家。
 其研究围绕[[抽象代数]]，对[[交换代数]]、[[非交换代数]]均有奠基性的工作，

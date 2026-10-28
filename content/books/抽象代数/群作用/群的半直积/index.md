@@ -1,10 +1,10 @@
 ---
 title: 群的半直积
-notices:
-  - name: 问题
-    items:
-      - “基本例子”一节 $pq$ 阶群的例子中，“存在 $1\leqslant m\leqslant q-1$，使得 $k\cdot m\equiv 1 \mod p$”似乎应为模 $q$；随后 $B=\{1,b',b'^2,\cdots,b'^{p-1}\}$ 中的最高次幂似乎应为 $q-1$。
 ---
+
+<problems>
+- “基本例子”一节 $pq$ 阶群的例子中，“存在 $1\leqslant m\leqslant q-1$，使得 $k\cdot m\equiv 1 \mod p$”似乎应为模 $q$；随后 $B=\{1,b',b'^2,\cdots,b'^{p-1}\}$ 中的最高次幂似乎应为 $q-1$。
+</problems>
 
 ## 基本定义
 

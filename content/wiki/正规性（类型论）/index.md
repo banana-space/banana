@@ -2,12 +2,12 @@
 title: 正规性（类型论）
 aliases: [正规形式（类型论）, 语义正规性]
 categories: [类型论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 正规
 navboxes: [类型论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[正规]]。
+</disambiguation>
 
 **正规性**是[[重写系统]]中演化而来的[[类型论]]的重要性质
 （参见[[正规性 (重写系统)]]），

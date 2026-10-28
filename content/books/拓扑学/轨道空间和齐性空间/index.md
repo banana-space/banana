@@ -1,11 +1,11 @@
 ---
 title: 轨道空间和齐性空间
-notices:
-  - name: 问题
-    items:
-      - “射影空间 (II)”一节中，\(\mathbb{C}\mathrm{P}^{n}\) 似乎应同胚于 \(\mathbb{S}^{2n+1}/\mathbb{S}^{1}\)，而不是 \(\mathbb{S}^{2n-1}/\mathbb{S}^{1}\)；相应地，其后论证中的映射 \(u\) 似乎应为 \(\mathbb{C}^{n+1}\setminus\{0\} \to \mathbb{S}^{2n+1}\)。
-      - “Grassmann 流形”一节的例子与习题“Grassmann 流形”中，\(G_{\mathbb{R}}(1,n)\)、\(G_{\mathbb{R}}(n-1,n)\) 似乎同胚于 \(\mathbb{R}\mathrm{P}^{n-1}\) 而不是 \(\mathbb{R}\mathrm{P}^{n}\)（复的情形同理）。
 ---
+
+<problems>
+- “射影空间 (II)”一节中，\(\mathbb{C}\mathrm{P}^{n}\) 似乎应同胚于 \(\mathbb{S}^{2n+1}/\mathbb{S}^{1}\)，而不是 \(\mathbb{S}^{2n-1}/\mathbb{S}^{1}\)；相应地，其后论证中的映射 \(u\) 似乎应为 \(\mathbb{C}^{n+1}\setminus\{0\} \to \mathbb{S}^{2n+1}\)。
+- “Grassmann 流形”一节的例子与习题“Grassmann 流形”中，\(G_{\mathbb{R}}(1,n)\)、\(G_{\mathbb{R}}(n-1,n)\) 似乎同胚于 \(\mathbb{R}\mathrm{P}^{n-1}\) 而不是 \(\mathbb{R}\mathrm{P}^{n}\)（复的情形同理）。
+</problems>
 
 在这一节中，我们将群引入拓扑学。
 基于商拓扑，我们介绍两种使用群来构造拓扑空间的方法：
@@ -103,7 +103,7 @@ g \star_{\text{left}} x = x \star g^{-1}
 地球沿着南北极之间的旋转轴进行自转。如果把我们设想成地球上的一个点，那么坐地日行八万里，
 一天结束之后，我们在地球表面所旅行的轨迹就画出了一个圆，叫做纬线。
 
-![图 1：纬线（基于 Tomasz M. Trzeciak 的[Ti*k*Z 代码](https://texample.net/tikz/examples/map-projections/)）](Weixian.png?width=150)
+![图 1：纬线（基于 Tomasz M. Trzeciak 的[Ti*k*Z 代码](https://texample.net/tikz/examples/map-projections/)）](Weixian.png){width=150}
 
 用数学的语言来说，纬线是旋转群 \(\mathrm{SO}(2)\) 在
 集合 \(\mathbb{S}^2\) 上旋转作用的轨道。我们描述纬线的时候只需要一个数字（通常使用的是纬度）。

@@ -1,17 +1,16 @@
 # 服务器部署
 
-站点 `https://bananaspace.org/`：Apache 提供静态文件，`/api/` 转发到编辑接口；旧站（MediaWiki）只读，位于 `/legacy/`。服务器定时拉取 GitHub 上的 `banana-space/banana`，有新的提交就完整构建并发布。本文的文件都在 `deploy/` 中（Apache 配置除外，见下）。
+站点 `https://bananaspace.org/`：Apache 提供静态文件，`/api/` 转发到 API；旧站（MediaWiki）只读，位于 `/legacy/`。服务器定时拉取 GitHub 上的 `banana-space/banana`，有新的提交就完整构建并发布。本文的文件都在 `deploy/` 中（Apache 配置除外，见下）。
 
 ## 布局
 
 ```
 ~/banana/                      运行服务的普通用户
   build/                       拉取、完整构建（含 .build/ 缓存）
-  live/                        编辑接口在此运行，只在构建成功后切换到新的提交
-  editor.env                   编辑接口的密钥（权限 600）
+  live/                        API 在此运行，只在构建成功后切换到新的提交
+  api.env                      API 的密钥（权限 600）
   failed                       最近一次构建失败的提交（成功后删除）
-  started                      编辑接口最近一次启动时的提交
-  started                      编辑接口最近一次启动时的提交
+  started                      API 最近一次启动时的提交
 /var/www/banana/               归同一用户所有，部署不需要 root
   releases/<提交>/              每次构建的 public/，与上一版相同的文件为硬链接
   current -> releases/<提交>    Apache 的 DocumentRoot
@@ -21,16 +20,16 @@
 `deploy/deploy.sh` 由 systemd 的用户定时器每次部署结束两分钟后运行一次：
 
 1. `build/` 取得 `main` 的最新提交；与 `current` 相同则跳过。
-2. 完整构建（`npm run build`，`package-lock.json` 变化时先 `npm ci`）。失败时记下这个提交，不再重试，直到出现更新的提交；站点与编辑接口保持原来的版本。
+2. 完整构建（`npm run build`，`package-lock.json` 变化时先 `npm ci`）。失败时记下这个提交，不再重试，直到出现更新的提交；站点与 API 保持原来的版本。
 3. 复制到 `releases/<提交>/`，原子切换 `current`，Apache 不需要重新加载。
-4. `live/` 切换到同一提交，重启编辑接口（约 10 秒）。构建期间编辑接口一直运行旧版本，因为它的 Hugo 监视自己的工作目录，所以两个工作目录必须分开。
+4. `live/` 切换到同一提交，重启 API（约 10 秒）。构建期间 API 一直运行旧版本：它读取自己工作目录中的内容并写入其中的生成目录，所以两个工作目录必须分开。
 5. 只保留最近 3 个版本。
 
 每一步都可以重复：中断后再次运行时从未完成的一步继续。
 
 ## 准备
 
-1. **服务器软件**：Node.js 22 以上、Git、rsync、OpenSSL，以及 Hugo Extended **0.167.0**（放在 `/usr/local/bin`；它内置的 KaTeX 须与 npm 包一致）。内存：编辑接口约 1 GB，完整构建期间更多，加上旧站的 MySQL 与 PHP，4 GB 的服务器应加 2–4 GB 交换空间，第一次构建时观察 `free -m`。磁盘：每个工作目录的 `.build/` 数 GB，每个版本约 500 MB（硬链接后增量很小）。
+1. **服务器软件**：Node.js 22.15 以上、Git、rsync、OpenSSL。内存：API 约 0.6 GB（以 `--max-old-space-size=512` 运行，见 [预览与在线编辑](preview.md)），完整构建期间更多（单个进程最多约 1.9 GB），加上旧站的 MySQL 与 PHP，4 GB 的服务器应加 2–4 GB 交换空间，第一次构建时观察 `free -m`。磁盘：每个工作目录的 `.build/` 数 GB，每个版本约 500 MB（硬链接后增量很小）。
 2. **仓库**：在 GitHub 上为 `main` 设规则：只能经 PR 合并、需要审阅、禁止强制推送。合并即发布，审阅就是发布前的检查；机器人令牌有写权限，这条规则也防止它直接写入 `main`。
 3. **GitHub 登录与提交**：按 [在线编辑的 GitHub 设置](editor-setup.md) 的“正式部署”建 OAuth App（回调 `https://bananaspace.org/api/auth/callback`）与机器人令牌。
 4. **域名**：为 `bananaspace.org` 加 A/AAAA 记录（根域名不能用 CNAME），`www` 保留。生效后取得同时包含两个名称的证书：`sudo certbot certonly --apache -d bananaspace.org -d www.bananaspace.org`。
@@ -46,11 +45,11 @@ git clone https://github.com/banana-space/banana.git ~/banana/live
 ~/banana/live/deploy/install.sh
 ```
 
-`install.sh` 克隆 `build/`；用 sudo 建立 `/var/www/banana`（归本用户所有）并执行 `loginctl enable-linger`（用户单元在未登录时也运行）；生成 `editor.env`（会话密钥已随机生成）；安装并启用 `banana-editor.service`、`banana-deploy.service`、`banana-deploy.timer`。可以重复运行；修改了 `deploy/` 中的单元文件后，重新运行它以安装新的版本。
+`install.sh` 克隆 `build/`；用 sudo 建立 `/var/www/banana`（归本用户所有）并执行 `loginctl enable-linger`（用户单元在未登录时也运行）；生成 `api.env`（会话密钥已随机生成）；安装并启用 `banana-api.service`、`banana-deploy.service`、`banana-deploy.timer`。可以重复运行；修改了 `deploy/` 中的单元文件后，重新运行它以安装新的版本。
 
 然后：
 
-1. 在 `~/banana/editor.env` 中填写 GitHub 的三个值。
+1. 在 `~/banana/api.env` 中填写 GitHub 的三个值。
 2. 第一次部署（完整构建，要编译全部 TikZ 图形，需要几分钟以上），之后开始定时检查：
 
    ```sh
@@ -73,7 +72,7 @@ git clone https://github.com/banana-space/banana.git ~/banana/live
 
 ### 别名跳转
 
-条目的别名（front matter 的 `aliases`）在站内链接中直接指向条目；直接访问别名的地址 `/wiki/<别名>/` 时由 Apache 跳转到条目，地址带上 `?from=<别名>`，与站内链接一样在条目顶部显示“重定向自”。别名的地址按新建条目时的目录名规则（`directoryName`，公式转为纯文本）得到，空格改为 `_`，因此通常与别名本身一致。构建生成对照表 `alias-redirects.txt`（每行“别名地址 条目地址”，由 `layouts/index.aliasredirects.txt` 输出），在站点配置的 `bananaspace.org` 虚拟主机中加入：
+条目的别名（front matter 的 `aliases`）在站内链接中直接指向条目；直接访问别名的地址 `/wiki/<别名>/` 时由 Apache 跳转到条目，地址带上 `?from=<别名>`，与站内链接一样在条目顶部显示“重定向自”。别名的地址按新建条目时的目录名规则（`directoryName`，公式转为纯文本）得到，空格改为 `_`，因此通常与别名本身一致。构建生成对照表 `alias-redirects.txt`（每行“别名地址 条目地址”，由 `scripts/site/templates/outputs.mjs` 的 `aliasRedirects` 输出），在站点配置的 `bananaspace.org` 虚拟主机中加入：
 
 ```apache
 RewriteEngine On
@@ -118,11 +117,17 @@ $wgSiteNotice = "旧站已只读。新站：[https://bananaspace.org/ bananaspac
 3. 切换（几分钟）：备份旧站的数据库与 `images/`；修改 `LocalSettings.php`；换上完整的 `apache-site.conf`；`sudo apachectl configtest && sudo systemctl reload apache2`。
 4. 检查：`/legacy/wiki/<页面>` 能打开、能登录、不能编辑；`https://www.bananaspace.org/w/index.php?title=X` 跳转到 `https://bananaspace.org/legacy/w/index.php?title=X`；`/wiki/<已迁移的条目>` 打开新站。
 
+## 第一次部署站点生成器的版本（一次性，完成后删去本节）
+
+1. 合并后，旧的部署脚本照常构建并发布站点：`package-lock.json` 变了，先 `npm ci`（装上 esbuild 与 sass）；TikZ 缓存的键没有变，全部图形取自缓存，不重新编译。它重启的是旧的 API 单元 `banana-editor`，而它要运行的 `scripts/editor-api.mjs` 已经不在，所以 API 暂时不可用。
+2. 把新的部署脚本复制到 `~/banana/live/deploy/`，运行 `deploy/install.sh`：它停用并删去 `banana-editor`，把 `editor.env` 改名为 `api.env`，再装上 `banana-api`。然后 `systemctl --user restart banana-api`。
+3. 之后不再需要 Hugo：`/usr/local/bin/hugo` 与 `build/.build/hugo-cache` 可以删去。
+
 ## 日常
 
-- **日志**：`journalctl --user -u banana-deploy`（部署与构建输出）、`journalctl --user -u banana-editor`（编辑接口）。`systemctl --user list-timers` 显示下一次检查的时间。
+- **日志**：`journalctl --user -u banana-deploy`（部署与构建输出）、`journalctl --user -u banana-api`（API）。`systemctl --user list-timers` 显示下一次检查的时间。
 - **立即部署**：`systemctl --user start banana-deploy`。
 - **构建失败**：站点保持原来的版本，失败的提交记在 `~/banana/failed`。推送修复后自动部署；要重试同一提交（例如失败是因为网络），删除这个文件。
 - **回退**：在 GitHub 上 revert 有问题的提交。直接改 `current` 只是临时的，下一次检查会重新发布 `main`。
-- **令牌到期**：机器人令牌有有效期，到期前在 GitHub 上重新生成，写入 `editor.env`，再 `systemctl --user restart banana-editor`。
+- **令牌到期**：机器人令牌有有效期，到期前在 GitHub 上重新生成，写入 `api.env`，再 `systemctl --user restart banana-api`。
 - **修改部署脚本**：`deploy.sh` 从 `live/` 运行，随部署更新；单元文件修改后须在服务器上重新运行 `install.sh`。

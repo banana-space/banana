@@ -1,8 +1,0 @@
-{{- $notice := .notice -}}
-<aside class="notice notice-{{ $notice.style }}" aria-label="{{ $notice.name }}">
-  {{ with $notice.icon }}<span class="notice-icon">{{ partial "ui-icon.html" . }}</span>{{ end }}
-  <div class="notice-content">
-  {{ with $notice.title }}<p class="notice-title">{{ $.page.RenderString (dict "display" "inline") . }}</p>{{ end }}
-  <div class="notice-body">{{ .page.RenderString (dict "display" "block") $notice.body }}</div>
-  </div>
-</aside>

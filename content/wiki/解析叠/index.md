@@ -1,12 +1,12 @@
 ---
 title: 解析叠
 categories: [高阶范畴论, 代数几何]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充，例如液态与气态解析环、代数叠、Betti 叠。
 navboxes: [P 进几何]
 ---
+
+<problems>
+- “例子”一节需要扩充，例如液态与气态解析环、代数叠、Betti 叠。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,13 +1,13 @@
 ---
 title: 习题
-notices:
-  - name: 问题
-    items:
-      - “PSL(2;F₇) 与 GL(3;F₂) 同构”一节第 12 题第 3 小问中 $N\simeq \mathbf{PGL}(2;\mathbb{F}_7)$ 似乎应为 $N\simeq \mathbf{PSL}(2;\mathbb{F}_7)$。
-      - “射影几何、Fano 平面与 GL(3;F₂)”一节第 3 题第 3 小问的映射中 $p_6$ 与 $p_7$ 的像相同，$p_7$ 的像似乎应为 $(0,1,1)$。
-      - “射影几何、Fano 平面与 GL(3;F₂)”一节第 9、11、14 题中子群之交的条件“$\neq \emptyset$”总是成立，似乎应为“$\neq \{1\}$”。
-      - “射影几何、Fano 平面与 GL(3;F₂)”一节第 13 题 $\Lambda''$ 的清单中 $z_8$ 出现两次而没有 $z_{18}$，似乎有误。
 ---
+
+<problems>
+- “PSL(2;F₇) 与 GL(3;F₂) 同构”一节第 12 题第 3 小问中 $N\simeq \mathbf{PGL}(2;\mathbb{F}_7)$ 似乎应为 $N\simeq \mathbf{PSL}(2;\mathbb{F}_7)$。
+- “射影几何、Fano 平面与 GL(3;F₂)”一节第 3 题第 3 小问的映射中 $p_6$ 与 $p_7$ 的像相同，$p_7$ 的像似乎应为 $(0,1,1)$。
+- “射影几何、Fano 平面与 GL(3;F₂)”一节第 9、11、14 题中子群之交的条件“$\neq \emptyset$”总是成立，似乎应为“$\neq \{1\}$”。
+- “射影几何、Fano 平面与 GL(3;F₂)”一节第 13 题 $\Lambda''$ 的清单中 $z_8$ 出现两次而没有 $z_{18}$，似乎有误。
+</problems>
 
 ## 对称群$\mathfrak{S}_n$中的计算 {@sec:method-to-generate-s-n}
 

@@ -1,15 +1,15 @@
 ---
 title: 特殊正交群
 categories: [群论, 线性代数, Lie 理论, 代数群理论]
-notices:
-  - name: 问题
-    items:
-      - “基本性质”“表示论”各节需要扩充。
-      - 命题“紧性”缺少证明。
-      - “Lie 群结构”一节缺少关于极大环面的内容。
-      - “例子”一节中 $\operatorname{SO}(3, \mathbb{R})$ 与 $\operatorname{SO}(4, \mathbb{R})$ 两项缺少用四元数实现旋转的具体描述。
 navboxes: [Lie 群]
 ---
+
+<problems>
+- “基本性质”“表示论”各节需要扩充。
+- 命题“紧性”缺少证明。
+- “Lie 群结构”一节缺少关于极大环面的内容。
+- “例子”一节中 $\operatorname{SO}(3, \mathbb{R})$ 与 $\operatorname{SO}(4, \mathbb{R})$ 两项缺少用四元数实现旋转的具体描述。
+</problems>
 
 ::: convention
 在本文中，

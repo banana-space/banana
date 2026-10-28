@@ -1,10 +1,10 @@
 ---
 title: 紧致性定理的超积证明及其应用
-notices:
-  - name: 问题
-    items:
-      - 上行 Löwenheim–Skolem 定理中的条件 $\kappa\leq|M|+|\mathcal{L}|$ 似乎应为 $\kappa\geq|M|+|\mathcal{L}|$；其后推论中的 $\kappa\leq|\mathcal{L}|$ 似乎也应为 $\kappa\geq|\mathcal{L}|$。
 ---
+
+<problems>
+- 上行 Löwenheim–Skolem 定理中的条件 $\kappa\leq|M|+|\mathcal{L}|$ 似乎应为 $\kappa\geq|M|+|\mathcal{L}|$；其后推论中的 $\kappa\leq|\mathcal{L}|$ 似乎也应为 $\kappa\geq|\mathcal{L}|$。
+</problems>
 
 这一节对最常用的构造模型的方法做论述，并应用它证明一些定理。
 

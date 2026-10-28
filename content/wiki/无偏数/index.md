@@ -2,11 +2,11 @@
 title: 无偏数
 aliases: [Nim 数]
 categories: [组合博弈论]
-notices:
-  - name: 问题
-    items:
-      - “扩张性质”“$\omega^{\omega^{\omega}}$ 以内的序数与 $\alpha_p$ 的性质”“$\omega^{\omega^{\omega}}$ 以外的性质”各节需要扩充。
 ---
+
+<problems>
+- “扩张性质”“$\omega^{\omega^{\omega}}$ 以内的序数与 $\alpha_p$ 的性质”“$\omega^{\omega^{\omega}}$ 以外的性质”各节需要扩充。
+</problems>
 
 在[[组合博弈论]]中，**无偏数**（也称 **Nim 数**）
 是用来描述[[正常无偏博弈]]（例如取石子游戏）的数。

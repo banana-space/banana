@@ -1,12 +1,12 @@
 ---
 title: Quillen 定理 A
 categories: [范畴论, 同伦论]
-notices:
-  - name: 问题
-    items:
-      - “陈述”一节中的推论“右纤维化是共尾的”似乎一般不成立（如空范畴到单点范畴的包含）。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “陈述”一节中的推论“右纤维化是共尾的”似乎一般不成立（如空范畴到单点范畴的包含）。
+</problems>
 
 **Quillen 定理 A** 是 [[Daniel Quillen]]
 提出的几个关于 [[$(\infty,1)$-范畴]]的[[几何实现]]的定理之一。

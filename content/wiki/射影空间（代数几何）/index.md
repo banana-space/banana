@@ -2,16 +2,16 @@
 title: 射影空间（代数几何）
 aliases: [射影空间（概形）]
 categories: [代数几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 一般的概念
-        page: 射影空间
-  - name: 问题
-    items:
-      - “性质”一节需要扩充，例如 $\mathcal{O}(1)$ 的性质、层的上同调等。
 navboxes: [代数几何]
 ---
+
+<disambiguation>
+关于一般的概念，请参见[[射影空间]]。
+</disambiguation>
+
+<problems>
+- “性质”一节需要扩充，例如 $\mathcal{O}(1)$ 的性质、层的上同调等。
+</problems>
 
 在[[代数几何]]中，**射影空间**是一种基本的[[空间]]。
 具体而言，[[域]] $k$ 上的 $n$ 维射影空间，记为 $\mathbb{P}_k^n$，

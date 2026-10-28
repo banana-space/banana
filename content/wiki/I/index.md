@@ -1,11 +1,12 @@
 ---
 title: I
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Ι]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Ι]]”。
+</disambiguation>
 
 拉丁字母 **I，i** 用在以下记号中：
 

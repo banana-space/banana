@@ -1,12 +1,12 @@
 ---
 title: 半单 Lie 代数
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [Lie 理论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **半单 Lie 代数**是一种特殊的[[Lie 代数]]，
 它的结构可以被分类，

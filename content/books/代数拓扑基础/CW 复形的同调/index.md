@@ -1,10 +1,10 @@
 ---
 title: CW 复形的同调
-notices:
-  - name: 问题
-    items:
-      - “CW 复形及其结构”一节中，“CW 子复形”的证明最后一句“由定义可知 $Y$ 是”不完整。
 ---
+
+<problems>
+- “CW 复形及其结构”一节中，“CW 子复形”的证明最后一句“由定义可知 $Y$ 是”不完整。
+</problems>
 
 ## CW 复形及其结构
 
@@ -28,7 +28,7 @@ $ k $ 个不同维数的球面一点并 $ \mathbb{S}^{n_1}\vee\mathbb{S}^{n_2}\v
 环面 $ \mathbb{T}^2 $ 和 Klein 瓶 $ S $ 都可以看作一个 $0$-胞腔 $ e_0 $，
 两个 $1$-开胞腔 $ e_1^1 $ 和 $ e_1^2 $，以及一个 $2$-开胞腔 $ e_2 $ 构成的复形：
 
-![](Sec12-1.png?width=540)
+![](Sec12-1.png){width=540}
 :::
 
 ::: definition [CW 复形]
@@ -211,7 +211,7 @@ X^0\subset X^1\subset\dots\subset X^n=X,
 使得对任何的 $ p\leqslant n-1 $，都有 $ h|_{X^{p}} : X^p\to\left| K \right| ^{(0)} $，
 这因 $ X^0=X^1=\dots=X^{n-1} $，而 $ h : X\to\left| K \right|  $。
 
-![](Sec12-2.png?width=510)
+![](Sec12-2.png){width=510}
 :::
 
 ::: example [不可三角剖分的 CW 复形]
@@ -220,7 +220,7 @@ X^0\subset X^1\subset\dots\subset X^n=X,
 在正方形上存在一条曲线 $ (x,\sin 1/x) $，记作 $ C $，那么 $ \bar{C}\subset A $。
 将正方形与三角形相交的线记作 $ D $，并如此定义 CW 复形：
 
-![](Sec12-3.png?width=720)
+![](Sec12-3.png){width=720}
 
 黏合映射 $ g : \operatorname{Bd}\mathbb{B}^3\to\bar{C}\subset A $，
 此时 $ X=A\sqcup_g\mathbb{B}^3 $ 具有 CW 复形结构，并且映射
@@ -472,7 +472,7 @@ C_i(K^{(p)},K^{(p-1)})=\begin{cases}
 
 我们先考虑粘上一个开胞腔的情况：考虑 $ e_\alpha\subset X $，$ \dim e_\alpha=p $。
 
-![](Sec13-1.png?width=600)
+![](Sec13-1.png){width=600}
 
 ::: lemma
 对 CW 复形 $ X $ 中的 $ p $-开胞腔 $ e_\alpha $，其示性映射
@@ -745,7 +745,7 @@ p|_{\mathrm{Int}\,E_+^n} : \mathrm{Int}\,E_+^n\to\mathbb{RP}^n\setminus\mathbb{R
 因 $ X=\mathbb{RP}^n $ 可以三角剖分，这里对 $ n=1 $ 的情形取如下的三角剖分，
 对 $ n>1 $ 的情形考虑通常的八面体剖分做一次重心重分即可，记对应的单纯复形为 $ K $。
 
-![](Sec13-2.png?width=420)
+![](Sec13-2.png){width=420}
 
 那么对 $ e_\alpha^p\subset X^p\setminus X^{p-1} $，它落在 $ K $ 的一个开单形中，
 即 $ \bar{e}_\alpha $ 可被 $ K $ 的子复形三角剖分。
@@ -875,7 +875,7 @@ l : \mathbb{S}^1\times\mathbb{S}^{2n+1}\to\mathbb{S}^{2n+1},\qquad (\lambda,z)\m
 
 考虑下面的作用：
 
-![](Sec13-3.png?width=720)
+![](Sec13-3.png){width=720}
 
 只需证明
 \[

@@ -2,12 +2,12 @@
 title: Auslander–Buchsbaum 公式
 aliases: [Auslander-Buchsbaum 公式]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节中链复形投射维数的定义里，$\sup\{i\mid P^{-i}=0\}$ 似乎应为 $\sup\{i\mid P^{-i}\ne 0\}$。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “推广”一节中链复形投射维数的定义里，$\sup\{i\mid P^{-i}=0\}$ 似乎应为 $\sup\{i\mid P^{-i}\ne 0\}$。
+</problems>
 
 **Auslander–Buchsbaum 公式**是个[[交换代数]]等式，
 联系 Noether 局部环上模的[[深度]]和[[投射维数]]两个同调不变量。

@@ -2,12 +2,12 @@
 title: 俯范畴
 aliases: [切片范畴, Overcategory, Over category]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “性质”“推广”各节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “性质”“推广”各节需要扩充。
+</problems>
 
 **俯范畴**（也称为**切片范畴**）
 是[[范畴]]中到某个[[对象]]的所有[[态射]]构成的范畴。

@@ -2,11 +2,12 @@
 title: Ε
 aliases: [Epsilon]
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与拉丁字母“[[E（记号）|E]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与拉丁字母“[[E（记号）|E]]”。
+</disambiguation>
 
 希腊字母 **Ε，ε** 用在以下记号中：
 

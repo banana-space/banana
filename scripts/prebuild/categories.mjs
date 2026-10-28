@@ -1,7 +1,7 @@
 import { t } from '../shared/i18n.mjs';
 import { readFile } from 'node:fs/promises';
 import { parse, stringify } from 'yaml';
-import { pageName } from './names.mjs';
+import { pageName } from '../shared/names.mjs';
 import { normalizeReading, readingMetadata } from './reading.mjs';
 
 /** Category identities, ancestor membership, and generated taxonomy pages. */
@@ -48,13 +48,13 @@ export async function categoryTree(root) {
     /** 全部分类名称（匹配键）。 */
     names: () => new Set(categories.keys()),
     /**
-     * 为每个分类生成或补全 categories/<名称>/_index.md；作者写的分类页正文保留。分类总览（/categories/）也写成
-     * 页面（标题与 Hugo 的默认标题相同，输出不变），serve 的部分重建才能让 Hugo 重新渲染它（见 affected.mjs）。
+     * 为每个分类生成或补全 categories/<名称>/index.md；作者写的分类页正文保留。分类总览（/categories/）也写成
+     * 页面，serve 的部分重建才能把它列入要重新渲染的页面（见 affected.mjs）。
      */
     publish(files) {
-      if (!files.has('categories/_index.md')) files.set('categories/_index.md', { text: `---\n${stringify({ title: 'Categories' })}---\n` });
+      if (!files.has('categories/index.md')) files.set('categories/index.md', { text: `---\n${stringify({ title: 'Categories' })}---\n` });
       for (const [name, category] of categories) {
-        const path = `categories/${name}/_index.md`;
+        const path = `categories/${name}/index.md`;
         const text = files.get(path)?.text ?? '';
         const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
         const metadata = match ? parse(match[1]) ?? {} : {};

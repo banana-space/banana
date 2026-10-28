@@ -1,11 +1,12 @@
 ---
 title: X
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Χ]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Χ]]”。
+</disambiguation>
 
 拉丁字母 **X，x** 用在以下记号中：
 

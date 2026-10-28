@@ -1,12 +1,12 @@
 ---
 title: 格（序论）
 categories: [序论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 格
 navboxes: [序论, 代数结构]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[格]]。
+</disambiguation>
 
 **格**是一类[[偏序集]]，其中任意两个元素都有[[上、下确界]]，
 即[[并、交 (序论)|并、交]]。

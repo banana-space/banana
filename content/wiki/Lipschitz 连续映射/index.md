@@ -1,15 +1,15 @@
 ---
 title: Lipschitz 连续映射
 categories: [实分析]
-notices:
-  - name: 问题
-    items:
-      - “延拓”一节 Kirszbraun 定理的证明中，$s$ 的定义似乎缺少条件，应为使 $\bigcap_{i=1}^N \overline{B}(f(x_i),t|y-x_i|)$ 非空的 $t$ 的下确界。
-      - “Rademacher 定理”一节中 Rademacher 定理的证明里，$\int_{\mathbb{R}^n} \partial_v f(x)\varphi(x)\, dx=\int_{\mathbb{R}^n} f(x)\partial_v \varphi(x)\, dx$ 的右边似乎缺少负号。
-      - “面积公式”一节中关于 $Jf=0$ 的引理的证明里，由 $Jf(x)=0$ 似乎不能推出 $|f(x)-f(y)|\le |x-y|/N$（这需要 $Df(x)=0$），证明需要另外的论证。
-      - “面积公式”一节中面积公式的证明里，极分解给出的似乎是对称正定矩阵而不是对角矩阵。
-      - “余面积公式”一节中第一个引理的证明里，$\mathcal{H}^n(f(F_i))\le \operatorname{Lip}(f)^n\mathcal{H}^n(F_i)\le \operatorname{Lip}(f)^n\omega_n(\operatorname{diam}(F_i)/2)^n$ 中间一项对 $\mathbb{R}^m$ 的子集似乎不成立，似乎应直接由等径不等式得到 $\mathcal{H}^n(f(F_i))\le \omega_n(\operatorname{Lip}(f)\operatorname{diam}(F_i)/2)^n$。
 ---
+
+<problems>
+- “延拓”一节 Kirszbraun 定理的证明中，$s$ 的定义似乎缺少条件，应为使 $\bigcap_{i=1}^N \overline{B}(f(x_i),t|y-x_i|)$ 非空的 $t$ 的下确界。
+- “Rademacher 定理”一节中 Rademacher 定理的证明里，$\int_{\mathbb{R}^n} \partial_v f(x)\varphi(x)\, dx=\int_{\mathbb{R}^n} f(x)\partial_v \varphi(x)\, dx$ 的右边似乎缺少负号。
+- “面积公式”一节中关于 $Jf=0$ 的引理的证明里，由 $Jf(x)=0$ 似乎不能推出 $|f(x)-f(y)|\le |x-y|/N$（这需要 $Df(x)=0$），证明需要另外的论证。
+- “面积公式”一节中面积公式的证明里，极分解给出的似乎是对称正定矩阵而不是对角矩阵。
+- “余面积公式”一节中第一个引理的证明里，$\mathcal{H}^n(f(F_i))\le \operatorname{Lip}(f)^n\mathcal{H}^n(F_i)\le \operatorname{Lip}(f)^n\omega_n(\operatorname{diam}(F_i)/2)^n$ 中间一项对 $\mathbb{R}^m$ 的子集似乎不成立，似乎应直接由等径不等式得到 $\mathcal{H}^n(f(F_i))\le \omega_n(\operatorname{Lip}(f)\operatorname{diam}(F_i)/2)^n$。
+</problems>
 
 **Lipschitz 连续映射**是[[度量空间]]之间的一类[[连续映射]]。
 

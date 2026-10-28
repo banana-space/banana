@@ -2,13 +2,13 @@
 title: Yoneda 嵌入
 aliases: [米田函子, 米田嵌入, Yoneda 函子, Yoneda 预层, Yoneda 对应]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “对充实范畴”一节需要扩充。
-      - “对 $(\infty,1)$-范畴”一节中，等价 $\mathsf{Fun}(\mathcal{C},\mathcal{D}_{/y}) \simeq \mathsf{Fun}(\mathcal{C},\mathcal{D})_{\underline{y}}$ 的记号似乎与前面的 $d \in \mathcal{D}$ 不一致，右边的下标似乎缺少斜线。
 navboxes: [范畴论, 高阶范畴论]
 ---
+
+<problems>
+- “对充实范畴”一节需要扩充。
+- “对 $(\infty,1)$-范畴”一节中，等价 $\mathsf{Fun}(\mathcal{C},\mathcal{D}_{/y}) \simeq \mathsf{Fun}(\mathcal{C},\mathcal{D})_{\underline{y}}$ 的记号似乎与前面的 $d \in \mathcal{D}$ 不一致，右边的下标似乎缺少斜线。
+</problems>
 
 **Yoneda 嵌入**（也称 **Yoneda 函子**，或**米田嵌入**、**米田函子**）
 是由[[范畴]] $\mathcal{C}$ 嵌入其[[预层]]范畴

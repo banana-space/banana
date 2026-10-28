@@ -1,11 +1,11 @@
 ---
 title: 对数函数
 categories: [复分析, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **对数函数** $\log$ 是[[指数函数]]的[[反函数]]，
 它是 $\mathbb{C}^* = \mathbb{C}\backslash \{0\}$

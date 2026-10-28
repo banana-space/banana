@@ -46,9 +46,9 @@ try {
     await writeFile(join(root, file), source('当前语法').replace('date:', `${declaration}\ndate:`));
     if (declaration) assert.throws(() => buildProject(root), /不支持旧网址重定向/);
   }
-  for (const shortcode of ['toc', 'block', 'centre', 'dimmed']) {
-    await writeFile(join(root, file), source(`{{< ${shortcode} >}}`));
-    assert.throws(() => buildProject(root), /页面中不能写 Hugo 短代码/);
-  }
-  console.log('Git 提交者日期、未提交与无历史页面、日期更新、手动日期拒绝及旧写作组件移除验证通过');
+  // Hugo's shortcodes are text: Hugo does not run them.
+  await writeFile(join(root, file), source('{{< toc >}} 与 {{% block %}}'));
+  buildProject(root);
+  assert.match(await html(), /\{\{&lt; toc &gt;\}\} 与 \{\{% block %\}\}/);
+  console.log('Git 提交者日期、未提交与无历史页面、日期更新、手动日期拒绝及 shortcode 写法作为文字验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

@@ -1,12 +1,12 @@
 ---
 title: 迹
 categories: [线性代数]
-notices:
-  - name: 消歧义
-    see:
-      - page: 迹（多义词）
 navboxes: [线性代数]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[迹（多义词）]]。
+</disambiguation>
 
 在[[线性代数]]中，
 $n \times n$ [[方阵]] $A = (a_{i, j})$

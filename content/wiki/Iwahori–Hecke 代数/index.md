@@ -2,12 +2,12 @@
 title: Iwahori–Hecke 代数
 aliases: [Hecke 代数（Coxeter 群）]
 categories: [代数群理论]
-notices:
-  - name: 问题
-    items:
-      - “例子”“性质”各节需要扩充。
 navboxes: [代数群理论]
 ---
+
+<problems>
+- “例子”“性质”各节需要扩充。
+</problems>
 
 在**代数群理论**中，
 **Iwahori–Hecke 代数**（简称 **Hecke 代数**）

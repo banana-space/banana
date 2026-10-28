@@ -1,11 +1,11 @@
 ---
 title: Poisson 求和公式
 categories: [调和分析, 抽象调和分析]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 **Poisson 求和公式**是指等式
 \[

@@ -2,11 +2,11 @@
 title: '算术 $\zeta$ 函数'
 aliases: [算术 zeta 函数]
 categories: [特殊函数, 算术几何]
-notices:
-  - name: 问题
-    items:
-      - “极点信息”一节需要扩充，例如 Tate、Beilinson、Soulé 等人关于极点的猜想。
 ---
+
+<problems>
+- “极点信息”一节需要扩充，例如 Tate、Beilinson、Soulé 等人关于极点的猜想。
+</problems>
 
 **算术 $\zeta$ 函数**是对 $\mathbb{Z}$ 上[[有限型态射|有限型]][[概形]]
 定义的 $\mathbb{C}$ 上[[解析函数]]，记录概形的算术信息。

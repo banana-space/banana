@@ -1,11 +1,11 @@
 ---
 title: 几何实现（叠）
 categories: [叠论, 代数拓扑]
-notices:
-  - name: 消歧义
-    see:
-      - page: 几何实现
 ---
+
+<disambiguation>
+关于其他含义，请参见[[几何实现]]。
+</disambiguation>
 
 设 $X$ 是某种[[几何叠]]，例如[[拓扑叠]]、[[微分叠]]或
 $\mathbb{C}$ 上的 [[Artin 叠]]。

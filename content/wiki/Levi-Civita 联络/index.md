@@ -1,13 +1,13 @@
 ---
 title: Levi-Civita 联络
 categories: [Riemann 几何]
-notices:
-  - name: 问题
-    items:
-      - “存在唯一性”一节中定理的证明只证明了唯一性，缺少存在性的证明。
-      - “坐标表示”一节中 Christoffel 符号的定义 $\Gamma_{ij}^k = \langle \nabla_{e_i} e_j, e_k \rangle$ 似乎只在 $e_i$ 正交时成立，一般应为 $\nabla_{e_i} e_j = \Gamma_{ij}^k e_k$，这也与随后命题的证明中所用的 $\langle \nabla_{e_i} e_j, e_l \rangle = \Gamma_{ij}^k g_{kl}$ 一致；另外 $e_i = \partial / \partial x^i$ 一般不是单位向量场。
 navboxes: [Riemann 几何]
 ---
+
+<problems>
+- “存在唯一性”一节中定理的证明只证明了唯一性，缺少存在性的证明。
+- “坐标表示”一节中 Christoffel 符号的定义 $\Gamma_{ij}^k = \langle \nabla_{e_i} e_j, e_k \rangle$ 似乎只在 $e_i$ 正交时成立，一般应为 $\nabla_{e_i} e_j = \Gamma_{ij}^k e_k$，这也与随后命题的证明中所用的 $\langle \nabla_{e_i} e_j, e_l \rangle = \Gamma_{ij}^k g_{kl}$ 一致；另外 $e_i = \partial / \partial x^i$ 一般不是单位向量场。
+</problems>
 
 **[[Tullio Levi-Civita|Levi-Civita]] 联络**
 是 [[Riemann 流形]]的[[切丛]]上“最自然”的[[联络]]，

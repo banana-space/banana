@@ -2,16 +2,16 @@
 title: Deligne–Serre 提升引理
 aliases: [Deligne-Serre 提升引理]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - 不符合本站的写作风格。
-      - 文中夹杂英文。
-      - '过度使用记号 $\forall$。'
-      - 缺少术语翻译。
-      - 定理陈述中的条件 $0\neq f\in M$ 似乎应为 $f\notin\mathfrak{m}M$（对 $f\in\mathfrak{m}M$，同余条件总是成立，结论却未必成立）。
 navboxes: [交换代数]
 ---
+
+<problems>
+- 不符合本站的写作风格。
+- 文中夹杂英文。
+- 过度使用记号 $\forall$。
+- 缺少术语翻译。
+- 定理陈述中的条件 $0\neq f\in M$ 似乎应为 $f\notin\mathfrak{m}M$（对 $f\in\mathfrak{m}M$，同余条件总是成立，结论却未必成立）。
+</problems>
 
 **Deligne–Serre提升引理**是一个[[交换代数]]的命题，
 说的是如何将“只在同余意义下成立的[[Hecke特征形式]]”提升为真正的[[Hecke特征形式]]，

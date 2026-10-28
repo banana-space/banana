@@ -2,12 +2,12 @@
 title: 拓扑量子场论
 aliases: [拓扑场论, TQFT]
 categories: [拓扑量子场论]
-notices:
-  - name: 问题
-    items:
-      - “分类”一节中，二维拓扑量子场论似乎应由交换 Frobenius 代数（而不是对称 Frobenius 代数）分类，与“Frobenius 代数”条目中的说法不同。
 navboxes: [拓扑量子场论]
 ---
+
+<problems>
+- “分类”一节中，二维拓扑量子场论似乎应由交换 Frobenius 代数（而不是对称 Frobenius 代数）分类，与“Frobenius 代数”条目中的说法不同。
+</problems>
 
 **拓扑量子场论**，
 有时简称**拓扑场论**，

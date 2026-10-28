@@ -2,11 +2,11 @@
 title: '$\zeta$ 函数'
 aliases: [Zeta 函数]
 categories: [多义词]
-notices:
-  - name: 问题
-    items:
-      - '“Riemann $\zeta$ 函数”一项下的类比与推广列表需要扩充。'
 ---
+
+<problems>
+- “Riemann $\zeta$ 函数”一项下的类比与推广列表需要扩充。
+</problems>
 
 **$\bm\zeta$ 函数**可以指：
 

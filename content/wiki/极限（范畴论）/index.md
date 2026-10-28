@@ -1,12 +1,12 @@
 ---
 title: 极限（范畴论）
 categories: [范畴论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 极限
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[极限]]。
+</disambiguation>
 
 **极限**是[[范畴论]]中的一种[[万有构造]]。
 给定[[范畴]] $\mathcal{C}$ 及其中一个[[图表]]，例如

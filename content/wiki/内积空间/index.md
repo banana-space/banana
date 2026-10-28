@@ -2,11 +2,11 @@
 title: 内积空间
 aliases: [预 Hilbert 空间]
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **内积空间**是 [[Euclid 空间]]的抽象，
 它是个实或复的线性空间，

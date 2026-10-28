@@ -2,12 +2,12 @@
 title: Dirichlet 素数定理
 aliases: [Dirichlet 算数级数定理, Bombieri–Vinogradov 定理, Bombieri-Vinogradov 定理]
 categories: [解析数论]
-notices:
-  - name: 问题
-    items:
-      - “$a=1$ 的情形”中定理的证明里，素因子都在有限集 $S$ 中的 $[1,N]$ 中正整数似乎应有 $O((\log N)^{|S|})$ 个，$\Phi_d$ 在 $[1,N]$ 中所取值的个数似乎应为 $\gg N^{1/\deg \Phi_d}$ 而不是 $O(N^{1/\deg \Phi_d})$。
-      - “自然密度版本”一节的解析定理中，$g(z)$ 似乎应能全纯延拓（而不只是连续延拓）到 $\operatorname{Re}z\ge0$ 的一个邻域上。
 ---
+
+<problems>
+- “$a=1$ 的情形”中定理的证明里，素因子都在有限集 $S$ 中的 $[1,N]$ 中正整数似乎应有 $O((\log N)^{|S|})$ 个，$\Phi_d$ 在 $[1,N]$ 中所取值的个数似乎应为 $\gg N^{1/\deg \Phi_d}$ 而不是 $O(N^{1/\deg \Phi_d})$。
+- “自然密度版本”一节的解析定理中，$g(z)$ 似乎应能全纯延拓（而不只是连续延拓）到 $\operatorname{Re}z\ge0$ 的一个邻域上。
+</problems>
 
 ::: convention
 在本文中，

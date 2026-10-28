@@ -1,12 +1,12 @@
 ---
 title: Bochner 积分
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - “控制收敛”一节第一段中，仅由 $f_n$ 几乎处处收敛到 $f$ 似乎不能推出 $f$ Bochner 可积（Fatou 引理只给出 $\int_X\Vert f\Vert\ d\mu\leq\liminf_n\int_X\Vert f_n\Vert\ d\mu$，右端可能为无穷），需要命题中的控制条件。
-      - “对偶空间”一节所引用的“命题2.3”所指不明确。
 ---
+
+<problems>
+- “控制收敛”一节第一段中，仅由 $f_n$ 几乎处处收敛到 $f$ 似乎不能推出 $f$ Bochner 可积（Fatou 引理只给出 $\int_X\Vert f\Vert\ d\mu\leq\liminf_n\int_X\Vert f_n\Vert\ d\mu$，右端可能为无穷），需要命题中的控制条件。
+- “对偶空间”一节所引用的“命题2.3”所指不明确。
+</problems>
 
 **Bochner 积分**
 是 [[Lebesgue 积分]]的推广，

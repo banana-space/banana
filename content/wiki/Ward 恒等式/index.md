@@ -3,13 +3,15 @@ title: Ward 恒等式
 aliases: [Ward–Takahashi 恒等式, Ward-Takahashi 恒等式]
 categories: [量子场论]
 navboxes: [量子场论]
-notices:
-  - name: 提示
-    text: '本条目中定理的叙述和证明使用了[[路径积分]]，因此是半严格的。'
-  - name: 问题
-    items:
-      - “共形场论中”一节需要扩充。
 ---
+
+<tip>
+本条目中定理的叙述和证明使用了[[路径积分]]，因此是半严格的。
+</tip>
+
+<problems>
+- “共形场论中”一节需要扩充。
+</problems>
 
 **Ward 恒等式**是[[量子场论]]中的重要恒等式，
 直观地说，

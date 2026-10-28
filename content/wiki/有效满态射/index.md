@@ -2,12 +2,12 @@
 title: 有效满态射
 aliases: [有效满射]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节第一项“在 $1$-范畴中，每个满态射自动是有效满态射”似乎一般不成立（例如环范畴中的 $\mathbb{Z} \to \mathbb{Q}$ 是满态射但似乎不是有效满态射）。
 navboxes: [态射, 范畴论]
 ---
+
+<problems>
+- “例子”一节第一项“在 $1$-范畴中，每个满态射自动是有效满态射”似乎一般不成立（例如环范畴中的 $\mathbb{Z} \to \mathbb{Q}$ 是满态射但似乎不是有效满态射）。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,12 +1,12 @@
 ---
 title: Lie 定理
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节中 Lie 定理的证明最后一步断言对 $v\in V_i$ 有 $\rho(X)v-v\in V_1$，这似乎不成立；论证所需的似乎是 $\rho(X)v\in V_i$（由 $\overline{V_i}$ 的不变性及 $V_1\subset V_i$ 得到）。
 navboxes: [Lie 理论]
 ---
+
+<problems>
+- “证明”一节中 Lie 定理的证明最后一步断言对 $v\in V_i$ 有 $\rho(X)v-v\in V_1$，这似乎不成立；论证所需的似乎是 $\rho(X)v\in V_i$（由 $\overline{V_i}$ 的不变性及 $V_1\subset V_i$ 得到）。
+</problems>
 
 在 [[Lie 理论]]中，**Lie 定理**说的是，
 对于零[[特征 (代数)|特征]][[代数闭域]]上的有限维[[可解 Lie 代数]]的有限维[[线性表示]]，

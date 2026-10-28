@@ -1,10 +1,10 @@
 ---
 title: 层的茎
-notices:
-  - name: 问题
-    items:
-      - '$E^{\bar{x}}$ 的定义中，对集合 $E$ 取的直和 $\bigoplus$ 似乎应为乘积 $\prod_{\operatorname{Hom}_X(\bar{x},U)}E$，这样才与茎函子构成伴随。'
 ---
+
+<problems>
+- $E^{\bar{x}}$ 的定义中，对集合 $E$ 取的直和 $\bigoplus$ 似乎应为乘积 $\prod_{\operatorname{Hom}_X(\bar{x},U)}E$，这样才与茎函子构成伴随。
+</problems>
 
 ::: lemma {@FilterEtaleNeib}
 给定概形$X$和几何点$\bar{x}$，则

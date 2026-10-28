@@ -1,10 +1,10 @@
 ---
 title: 附录
-notices:
-  - name: 问题
-    items:
-      - 35.4 (c) 的最后一段（“so $s$ is a face of precisely two $m$-simplices iff $h(s)\in\operatorname{Bd} M$”）似乎与前一段的结论矛盾，像是多余的残句。
 ---
+
+<problems>
+- 35.4 (c) 的最后一段（“so $s$ is a face of precisely two $m$-simplices iff $h(s)\in\operatorname{Bd} M$”）似乎与前一段的结论矛盾，像是多余的残句。
+</problems>
 
 - 4\.3 (a) $\mathbb{Z}/m\oplus\mathbb{Z}/n$ contains an element $(n,m)$ of order $mn$,
   so $\mathbb{Z}/m\oplus\mathbb{Z}/n\simeq\mathbb{Z}/mn$.

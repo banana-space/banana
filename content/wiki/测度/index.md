@@ -2,12 +2,12 @@
 title: 测度
 aliases: [概率测度]
 categories: [测度论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [测度论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **测度**是[[测度论]]的研究对象。
 [[集合]]上的测度测量其[[子集]]的大小，

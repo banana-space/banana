@@ -2,11 +2,11 @@
 title: Michael Atiyah
 sort: atiyah michael
 categories: [数学家]
-notices:
-  - name: 问题
-    items:
-      - “著名作品”一节需要扩充。
 ---
+
+<problems>
+- “著名作品”一节需要扩充。
+</problems>
 
 **Michael Francis Atiyah**
 <person lang="en" ipa="/ˈmaɪ.kəl ˈfɹɑːn.sɪs ə.ˈtiː.ə/" years="1929–2019" />，

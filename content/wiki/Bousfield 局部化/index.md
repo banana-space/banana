@@ -1,13 +1,13 @@
 ---
 title: Bousfield 局部化
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “极限与余极限”一节命题中极限的公式 $\lim_{\mathcal{I}} K \simeq G(\lim_{\mathcal{I}} K)$ 两侧的写法似乎有误，右侧似乎应为 $\mathcal{C}$ 中的极限 $\lim_{\mathcal{I}} GK$。
-      - “谱的 Bousfield 局部化”一节的注中，取 $E = H\mathbb{Z}/p$ 得到的似乎并不是通常的 $p$-局部化（对连通谱而言似乎是 $p$-完备化）。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “极限与余极限”一节命题中极限的公式 $\lim_{\mathcal{I}} K \simeq G(\lim_{\mathcal{I}} K)$ 两侧的写法似乎有误，右侧似乎应为 $\mathcal{C}$ 中的极限 $\lim_{\mathcal{I}} GK$。
+- “谱的 Bousfield 局部化”一节的注中，取 $E = H\mathbb{Z}/p$ 得到的似乎并不是通常的 $p$-局部化（对连通谱而言似乎是 $p$-完备化）。
+</problems>
 
 ::: convention
 在本文中，

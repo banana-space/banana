@@ -1,11 +1,11 @@
 ---
 title: Clifford 代数
 categories: [旋量几何]
-notices:
-  - name: 问题
-    items:
-      - “实数情形”一节需要补充上述同构的具体构造。
 ---
+
+<problems>
+- “实数情形”一节需要补充上述同构的具体构造。
+</problems>
 
 **Clifford 代数**是[[旋量几何]]中的基本构造。
 给定[[向量空间]] $V$ 和其上[[二次型]] $Q$，

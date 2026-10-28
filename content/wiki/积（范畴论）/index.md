@@ -1,15 +1,16 @@
 ---
 title: 积（范畴论）
 categories: [范畴论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 积
-  - name: 问题
-    items:
-      - “在高阶范畴中”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[积]]。
+</disambiguation>
+
+<problems>
+- “在高阶范畴中”一节需要扩充。
+</problems>
 
 **积**是[[范畴论]]中的一种[[万有构造]]，
 是一[[族]][[集合]]的[[积集]]的推广。

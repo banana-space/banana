@@ -1,10 +1,10 @@
 ---
 title: Brauer群和$C_r$域一瞥
-notices:
-  - name: 问题
-    items:
-      - 第一个定义后的说明中“中心除环平展局部地是局部环”一句，按上文 $A\otimes_{k}k^{\operatorname{sep}}\cong\operatorname{Mat}_{n}(k^{\operatorname{sep}})$ 似乎应为“平展局部地是矩阵环”。
 ---
+
+<problems>
+- 第一个定义后的说明中“中心除环平展局部地是局部环”一句，按上文 $A\otimes_{k}k^{\operatorname{sep}}\cong\operatorname{Mat}_{n}(k^{\operatorname{sep}})$ 似乎应为“平展局部地是矩阵环”。
+</problems>
 
 ::: definition
 考虑所有域$k$上的（有限维）中心单代数构成的集合$\mathrm{CSA}_k$，

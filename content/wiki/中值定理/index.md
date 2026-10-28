@@ -2,11 +2,11 @@
 title: 中值定理
 aliases: [Rolle 定理, Cauchy 中值定理, Lagrange 中值定理]
 categories: [实分析]
-notices:
-  - name: 区分
-    pages:
-      - 介值定理
 ---
+
+<disambiguation>
+注意与[[介值定理]]区分。
+</disambiguation>
 
 **中值定理**是[[微积分]]中的一系列定理，
 说明函数在一段区间上的平均变化率一定等于在某点的瞬间变化率。

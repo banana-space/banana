@@ -1,12 +1,12 @@
 ---
 title: 反函数定理
 categories: [实分析]
-notices:
-  - name: 问题
-    items:
-      - “推论”一节需要扩充。
 navboxes: [微积分学]
 ---
+
+<problems>
+- “推论”一节需要扩充。
+</problems>
 
 在[[微积分]]中，
 **反函数定理**给出了[[逆映射]]存在的一个[[充分条件]]。

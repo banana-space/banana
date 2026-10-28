@@ -2,12 +2,12 @@
 title: Euler–Lagrange 方程
 aliases: [Euler-Lagrange 方程]
 categories: [经典力学]
-notices:
-  - name: 问题
-    items:
-      - “陈述与证明”一节缺少两个定理的证明。
-      - “例子”一节第一个例子中，由所给的 $L$ 得到的方程似乎应为 $m\ddot{x} = -\nabla \phi(x) = F$（缺少质量 $m$）。
 ---
+
+<problems>
+- “陈述与证明”一节缺少两个定理的证明。
+- “例子”一节第一个例子中，由所给的 $L$ 得到的方程似乎应为 $m\ddot{x} = -\nabla \phi(x) = F$（缺少质量 $m$）。
+</problems>
 
 **Euler–Lagrange 方程**是[[质点力学]]或[[经典场论]]中，
 在给出[[作用量]]后，

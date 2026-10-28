@@ -1,10 +1,10 @@
 ---
 title: Galois 理论的经典应用
-notices:
-  - name: 问题
-    items:
-      - “多项式的根式解”一节的“四次方程”例子中，分裂域先记作 $M$，其后的 $\mathbf{Gal}(L/K)$、$L^{H\cap\mathbf{Gal}(L/K)}$ 与 $[L:K]$ 中的 $L$ 似乎应为 $M$；所设的三次本原单位根 $\xi$ 在例中未被用到。
 ---
+
+<problems>
+- “多项式的根式解”一节的“四次方程”例子中，分裂域先记作 $M$，其后的 $\mathbf{Gal}(L/K)$、$L^{H\cap\mathbf{Gal}(L/K)}$ 与 $[L:K]$ 中的 $L$ 似乎应为 $M$；所设的三次本原单位根 $\xi$ 在例中未被用到。
+</problems>
 
 ## 尺规作图
 

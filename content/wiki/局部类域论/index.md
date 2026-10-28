@@ -1,14 +1,14 @@
 ---
 title: 局部类域论
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节可以补充使用中心单代数的证明。
-      - 自然性的交换图表 (b) 与 (c) 中，底边似乎应分别为 $\phi_{N/L}\colon L^\times \to \operatorname{Gal}(N/L)^{\text{ab}}$ 与 $\phi_{N/K}\colon K^\times \to \operatorname{Gal}(N/K)^{\text{ab}}$，否则右侧的竖直箭头 $\operatorname{Ver}$、$\kappa$ 的目标与底边不符。
-      - “推论”一节需要扩充。
-      - “推广”一节需要扩充，例如介绍局部 Langlands 纲领、高维类域论，以及用 Fargues–Fontaine 曲线的证明及相关发展。
 ---
+
+<problems>
+- “证明”一节可以补充使用中心单代数的证明。
+- 自然性的交换图表 (b) 与 (c) 中，底边似乎应分别为 $\phi_{N/L}\colon L^\times \to \operatorname{Gal}(N/L)^{\text{ab}}$ 与 $\phi_{N/K}\colon K^\times \to \operatorname{Gal}(N/K)^{\text{ab}}$，否则右侧的竖直箭头 $\operatorname{Ver}$、$\kappa$ 的目标与底边不符。
+- “推论”一节需要扩充。
+- “推广”一节需要扩充，例如介绍局部 Langlands 纲领、高维类域论，以及用 Fargues–Fontaine 曲线的证明及相关发展。
+</problems>
 
 **局部类域论**旨在刻画局部域的 [[Abel 扩张]]，
 主流的陈述方式是建立局部域$K$的有限Abel扩张与

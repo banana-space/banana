@@ -1,6 +1,0 @@
-{{- /* TikZ 图形围栏；可写说明：```tikz {caption="说明"}，图居中，说明写在图下（同 render-image.html）。 */ -}}
-{{- with .Attributes.caption -}}
-<figure class="content-figure">{{ partial "math.html" (dict "tex" $.Inner "display" true "mode" "text") }}<figcaption>{{ $.Page.RenderString . }}</figcaption></figure>
-{{- else -}}
-{{- partial "math.html" (dict "tex" .Inner "display" true "mode" "text") -}}
-{{- end -}}

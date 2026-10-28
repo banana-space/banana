@@ -1,12 +1,12 @@
 ---
 title: Graßmann 形
 categories: [微分几何, 代数几何]
-notices:
-  - name: 问题
-    items:
-      - “作为流形”“Schubert 簇和Schubert 胞腔”“齐性空间结构”各节需要扩充。
-      - “Schubert 胞腔”的定义中，求并的范围包含 $a' = a$ 本身，这样 $X_a(\mathcal V)$ 似乎总是空集；范围似乎应为 $a' \neq a$。
 ---
+
+<problems>
+- “作为流形”“Schubert 簇和Schubert 胞腔”“齐性空间结构”各节需要扩充。
+- “Schubert 胞腔”的定义中，求并的范围包含 $a' = a$ 本身，这样 $X_a(\mathcal V)$ 似乎总是空集；范围似乎应为 $a' \neq a$。
+</problems>
 
 **Graßmann 形**是[[射影空间]]的推广：
 域 $k$ 上射影空间 $\mathbb{P}(V)$

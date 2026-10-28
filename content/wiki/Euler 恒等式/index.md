@@ -1,11 +1,11 @@
 ---
 title: Euler 恒等式
 categories: [复分析]
-notices:
-  - name: 问题
-    items:
-      - “通过几何”一节需要扩充。
 ---
+
+<problems>
+- “通过几何”一节需要扩充。
+</problems>
 
 **Euler 恒等式**是一个[[复数]]中的恒等式：
 \[

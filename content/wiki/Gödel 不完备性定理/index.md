@@ -2,12 +2,12 @@
 title: Gödel 不完备性定理
 aliases: [Godel 不完备性定理]
 categories: [谓词逻辑]
-notices:
-  - name: 问题
-    items:
-      - '“Gödel 第一不完备性定理”一节中，对角线引理之后那条引理的证明称 $\operatorname{True}(x)$ 属于 $\Sigma^0_1$ 即“所有量词都是有界的”，这似乎不对：$\Sigma^0_1$ 公式可以含无界的存在量词，证明似乎需要改用 $\Sigma_1$ 完备性。'
-      - “影响”一节需要扩充。
 ---
+
+<problems>
+- “Gödel 第一不完备性定理”一节中，对角线引理之后那条引理的证明称 $\operatorname{True}(x)$ 属于 $\Sigma^0_1$ 即“所有量词都是有界的”，这似乎不对：$\Sigma^0_1$ 公式可以含无界的存在量词，证明似乎需要改用 $\Sigma_1$ 完备性。
+- “影响”一节需要扩充。
+</problems>
 
 **Gödel 不完备性定理**包括
 **Gödel 第一不完备性定理**与**Gödel 第二不完备性定理**。

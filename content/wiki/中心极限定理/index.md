@@ -1,14 +1,14 @@
 ---
 title: 中心极限定理
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - “变形与推广”一节 Lindeberg 条件的证明中，$\sum_{m=1}^n |f_{n,m}-g_{n,m}|$ 的估计右端第二项似乎漏掉了求和 $\sum_{m=1}^n$。
-      - “变形与推广”一节的注中，由此定理推出 Lindeberg–Lévy 中心极限定理时，所取的随机变量似乎应为 $X_{n,m}=\frac{X_m-\mu}{\sqrt{n}}$。
-      - “Delta 法”一节的命题只假设 $g$ 在 $\mu$ 处有偏导数，但证明中的 Taylor 展开似乎需要 $g$ 在 $\mu$ 处可微。
 navboxes: [概率论]
 ---
+
+<problems>
+- “变形与推广”一节 Lindeberg 条件的证明中，$\sum_{m=1}^n |f_{n,m}-g_{n,m}|$ 的估计右端第二项似乎漏掉了求和 $\sum_{m=1}^n$。
+- “变形与推广”一节的注中，由此定理推出 Lindeberg–Lévy 中心极限定理时，所取的随机变量似乎应为 $X_{n,m}=\frac{X_m-\mu}{\sqrt{n}}$。
+- “Delta 法”一节的命题只假设 $g$ 在 $\mu$ 处有偏导数，但证明中的 Taylor 展开似乎需要 $g$ 在 $\mu$ 处可微。
+</problems>
 
 在[[概率论]]中，
 **中心极限定理**是对一列[[独立同分布]]的[[随机变量]]之平均值的描述。

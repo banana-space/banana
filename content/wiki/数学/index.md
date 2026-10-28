@@ -1,11 +1,11 @@
 ---
 title: 数学
 categories: [数学]
-notices:
-  - name: 问题
-    items:
-      - “组合学”“概率论”各节需要扩充。
 ---
+
+<problems>
+- “组合学”“概率论”各节需要扩充。
+</problems>
 
 **数学**包含以下分支。
 

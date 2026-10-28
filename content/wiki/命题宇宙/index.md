@@ -2,12 +2,12 @@
 title: 命题宇宙
 aliases: [命题（类型论）]
 categories: [类型论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 构造演算
 navboxes: [类型论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[构造演算]]。
+</disambiguation>
 
 **命题宇宙**是特殊的[[宇宙 (类型论)|宇宙]]，
 它仅包含命题，而不是所有[[类型]]，一般记作 $\mathrm{Prop}$。

@@ -2,12 +2,12 @@
 title: 左纤维化
 aliases: [右纤维化]
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - '“覆叠空间”一节的定义中，左纤维化写作 $p \colon X \to Y$，而随后记 $\mathsf{Cov}(X) \subseteq \mathsf{LFib}(X)$，似乎应为 $p \colon Y \to X$。'
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “覆叠空间”一节的定义中，左纤维化写作 $p \colon X \to Y$，而随后记 $\mathsf{Cov}(X) \subseteq \mathsf{LFib}(X)$，似乎应为 $p \colon Y \to X$。
+</problems>
 
 ::: convention
 在本文中，

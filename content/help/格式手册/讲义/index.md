@@ -12,21 +12,20 @@ title: 讲义
 
 ```text
 content/books/代数学/
-├── collection.yaml        讲义的章节结构
-├── _index.md              讲义首页
+├── book.yaml              讲义的章节结构
+├── index.md               讲义首页
 ├── 前言/index.md
 ├── 群/
-│   ├── _index.md          章的导言
+│   ├── index.md           章的导言
 │   ├── 定义/index.md
 │   └── 同态/index.md
 └── 附录/index.md
 ```
 
 这里所有文件夹名都是可以改变的，它们将成为讲义网址的一部分。
-每个页面是一个文件夹。
-有子页面的页面内容写在 `_index.md` 里，不推荐写过多内容，也可以省略这个文件。
+每个页面是一个文件夹，页面的内容写在其中的 `index.md` 里。
+有子页面的页面（如讲义首页、章的导言）不推荐写过多内容，也可以省略这个文件。
 这类页面底部会自动包含子页的目录。
-普通的内容页面写在 `index.md` 里。
 
 页面的实际标题写在各自的页面信息 `title` 中，可以与文件夹名不同，不过二者应该尽量保持一致。
 
@@ -34,7 +33,7 @@ content/books/代数学/
 
 ## 章节结构
 
-讲义的章节结构由 `collection.yaml` 指定，例如：
+讲义的章节结构由 `book.yaml` 指定，例如：
 
 ```yaml
 title: 代数学
@@ -60,12 +59,12 @@ contents:
 
 - `number: "7"` 指定编号，后面的页面从 8 接着编号。
 
-讲义中的每个页面都必须写进 `collection.yaml`，
+讲义中的每个页面都必须写进 `book.yaml`，
 写错名称或遗漏页面时会报错。
 
 ## 编号设置
 
-讲义中页面、节标题、定理、公式的编号方式可以在 `collection.yaml` 中修改：
+讲义中页面、节标题、定理、公式的编号方式可以在 `book.yaml` 中修改：
 
 ```yaml
 numbering:
@@ -78,7 +77,7 @@ numbering:
 单独的页面也可以在页面信息中写 `numbering`，只影响这一页。
 
 引用其他页面时显示的文字，默认只有章节编号，例如“3.2”。
-可以在 `collection.yaml` 中设置：
+可以在 `book.yaml` 中设置：
 
 ```yaml
 referenceFormat:

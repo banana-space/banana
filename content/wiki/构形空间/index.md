@@ -2,12 +2,11 @@
 title: 构形空间
 aliases: [位形空间, 相空间]
 categories: [经典力学]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 同名的空间
-        page: 构形空间（几何）
 ---
+
+<disambiguation>
+关于同名的空间，请参见[[构形空间（几何）]]。
+</disambiguation>
 
 **构形空间**是物理系统的所有可能状态构成的空间，
 此时每一种状态是空间中的点，称为系统的**构形**，

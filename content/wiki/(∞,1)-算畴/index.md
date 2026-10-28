@@ -2,12 +2,12 @@
 title: '$(\infty,1)$-算畴'
 aliases: [∞-算畴]
 categories: [高阶代数]
-notices:
-  - name: 问题
-    items:
-      - “模型结构”一节需要扩充。
 navboxes: [高阶代数]
 ---
+
+<problems>
+- “模型结构”一节需要扩充。
+</problems>
 
 **$(\infty,1)$-算畴**是[[高阶代数]]中的基本概念，
 是[[算畴]]和[[多元范畴]]在 [[$(\infty,1)$-范畴]]意义下的推广，

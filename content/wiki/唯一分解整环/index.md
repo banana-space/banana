@@ -2,12 +2,12 @@
 title: 唯一分解整环
 aliases: [UFD]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “基本性质”一节中第二、第三个命题缺少证明。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “基本性质”一节中第二、第三个命题缺少证明。
+</problems>
 
 ::: convention
 在本文中，

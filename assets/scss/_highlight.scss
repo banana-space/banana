@@ -1,8 +1,9 @@
-// Highlighting of the site's Markdown dialect (scripts/shared/markdown-language.mjs): the online editor, and
+// Highlighting of the site's Markdown dialect (bananamark-codemirror, bananamark/grammar): the online editor, and
 // code blocks in that dialect. Colours are the site's own: links in the link blue; environments and code
 // languages, and block structure (list markers, :::, fences) in the definition orange;
 // references and labels in the theorem purple, their @ and braces lighter; TeX commands, numbers and YAML
-// keys in the theorem teal (darker, for text); inline markup characters recede in grey.
+// keys in the theorem teal (darker, for text); inline markup characters recede in grey, environments' titles
+// a darker grey.
 $hl-mark-color: #9aa1ab;
 $hl-math-color: #00806f; // The teal of theorem accents (#00a090), darker for text.
 $hl-math-mark-color: #6aaea5;
@@ -11,142 +12,143 @@ $hl-orange-color: #e09000; // Definitions.
 $hl-reference-mark-color: mix($hl-purple-color, $white, 50%);
 $hl-wiki-mark-color: #8db8e0;
 
-.hl-heading {
+.bm-hl-heading {
   color: $alt-fg-color;
   font-weight: 700;
 }
 
-.hl-strong {
+.bm-hl-strong {
   font-weight: 700;
 }
 
-.hl-emphasis {
+.bm-hl-emphasis {
   font-style: italic;
 }
 
-.hl-strikethrough {
+.bm-hl-strikethrough {
   text-decoration: line-through;
 }
 
-.hl-mark,
-.hl-escape,
-.hl-punctuation,
-.hl-quote {
+.bm-hl-mark,
+.bm-hl-escape,
+.bm-hl-punctuation,
+.bm-hl-quote {
   color: $hl-mark-color;
 }
 
-.hl-heading.hl-mark {
+.bm-hl-heading.bm-hl-mark {
   color: $hl-mark-color;
 }
 
-.hl-link {
+.bm-hl-link {
   color: $link-color;
 }
 
-.hl-url {
+.bm-hl-url {
   color: mix($link-color, $hl-mark-color, 60%);
 }
 
-.hl-label {
+.bm-hl-label {
   color: $hl-mark-color;
 }
 
-.hl-code {
+.bm-hl-code {
   color: $muted-color;
 }
 
-.hl-comment {
+.bm-hl-comment {
   color: $semi-light-text-color;
   font-style: italic;
 }
 
 // Wiki links in the link blue: what the link shows. A target behind a label ([[target|label]]) is not shown:
 // grey. (A formula in either keeps its colours: the rules for formulas come later.)
-.hl-wiki {
+.bm-hl-wiki {
   color: $link-color;
 }
 
-.hl-wiki-mark {
+.bm-hl-wiki-mark {
   color: $hl-wiki-mark-color;
 }
 
-.hl-wiki-target {
+.bm-hl-wiki-target {
   color: $hl-mark-color;
 }
 
 // Formulas: TeX commands and numbers in teal, delimiters and brackets lighter, the rest as text.
-.hl-math {
+.bm-hl-math {
   color: $fg-color;
 }
 
-.hl-math-mark {
+.bm-hl-math-mark {
   color: $hl-math-mark-color;
 }
 
-.hl-command,
-.hl-atom {
+.bm-hl-command,
+.bm-hl-atom {
   color: $hl-math-color;
 }
 
-.hl-bracket {
+.bm-hl-bracket {
   color: $hl-mark-color;
 }
 
 // In the editor a formula's classes sit on the same element as its tokens'; in HTML they may nest.
-.hl-math.hl-bracket,
-.hl-math .hl-bracket {
+.bm-hl-math.bm-hl-bracket,
+.bm-hl-math .bm-hl-bracket {
   color: $hl-math-mark-color;
 }
 
-.hl-reference {
+.bm-hl-reference {
   color: $hl-purple-color;
 }
 
-.hl-reference-mark {
+.bm-hl-reference-mark {
   color: $hl-reference-mark-color;
 }
 
-.hl-environment {
+.bm-hl-environment {
   color: $hl-mark-color;
 }
 
-.hl-environment-name,
-.hl-code-language,
-.hl-tex-environment {
+.bm-hl-environment-name,
+.bm-hl-code-language,
+.bm-hl-tex-environment {
   color: $hl-orange-color;
 }
 
-.hl-environment-name {
+.bm-hl-environment-name {
   font-weight: 700;
 }
 
-.hl-environment-title {
-  color: $hl-mark-color;
+// An environment's title darker than the fence around it; its brackets are marks.
+.bm-hl-environment-title {
+  color: $muted-color;
 }
 
 // YAML: front matter, terms and bibliographies.
-.hl-key {
+.bm-hl-key {
   color: $hl-math-color;
 }
 
-.hl-string,
-.hl-yaml-value {
+.bm-hl-string,
+.bm-hl-yaml-value {
   color: $muted-color;
 }
 
 // Numbers, apart from strings.
-.hl-number {
+.bm-hl-number {
   color: $hl-orange-color;
 }
 
 // Block structure, last: it outweighs the heading's and the quote's colours on their marks.
-.hl-structure,
-.hl-heading.hl-structure {
+.bm-hl-structure,
+.bm-hl-heading.bm-hl-structure {
   color: $hl-orange-color;
 }
 
-// Code blocks highlighted at build time (layouts/partials/code-block.html) look like Chroma's (.highlight).
-pre.code-block {
+// Code blocks, which bananamark highlights with these classes (any language; plain when it has none for it).
+pre.bm-code-block {
   padding: 1rem;
   border-radius: 1.5rem;
   background-color: $alt-bg-color;

@@ -1,12 +1,12 @@
 ---
 title: 万有余极限
 categories: [范畴论]
-notices:
-  - name: 区分
-    pages:
-      - 绝对余极限
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+注意与[[绝对余极限]]区分。
+</disambiguation>
 
 [[范畴论]]中，称一个[[余极限]]图表**万有**，
 意思是其任意[[拉回 (范畴论)|基变换]]仍是余极限图表

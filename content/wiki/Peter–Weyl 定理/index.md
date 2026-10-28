@@ -2,12 +2,12 @@
 title: Peter–Weyl 定理
 aliases: [Peter-Weyl 定理]
 categories: [抽象调和分析]
-notices:
-  - name: 问题
-    items:
-      - '“推论”一节 Schur 正交关系的第二种情形中，右边似乎应为 $\frac{\langle v, v'' \rangle \overline{\langle w, w'' \rangle}}{\dim V}$，且应在 $\sigma = \sigma''$（而不仅是等价）时成立。'
-      - “证明”一节需要扩充。
 ---
+
+<problems>
+- “推论”一节 Schur 正交关系的第二种情形中，右边似乎应为 $\frac{\langle v, v' \rangle \overline{\langle w, w' \rangle}}{\dim V}$，且应在 $\sigma = \sigma'$（而不仅是等价）时成立。
+- “证明”一节需要扩充。
+</problems>
 
 **Peter–Weyl 定理**是说[[紧]][[拓扑群]] $G$ 的不可约[[酉表示]]的[[矩阵系数]] 给出 $L^2(G)$
 的一组[[正交基]]。

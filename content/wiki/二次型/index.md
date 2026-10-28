@@ -1,11 +1,11 @@
 ---
 title: 二次型
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “分类”一节需要扩充。
 ---
+
+<problems>
+- “分类”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

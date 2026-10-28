@@ -2,12 +2,12 @@
 title: 模型范畴
 aliases: [模型结构]
 categories: [同伦代数]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [范畴论, 同伦代数]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **模型范畴**是一类带额外结构的[[范畴]]，
 是[[同伦代数]]中的基本概念。

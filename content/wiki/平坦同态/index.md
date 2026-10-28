@@ -2,12 +2,12 @@
 title: 平坦同态
 aliases: [忠实平坦同态]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中命题 2.7（忠实平坦等价于平坦且素谱映射满）的证明称“每个 $A$-模都以某个 $k(\mathfrak{p})$ 为子商”，这似乎一般不成立（例如 $\mathbb{Z}$ 的子商中没有 $\mathbb{Q}$）；可改为非零模以某个 $A/\mathfrak{p}$ 为子商，再在 $\mathfrak{p}$ 处局部化。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “性质”一节中命题 2.7（忠实平坦等价于平坦且素谱映射满）的证明称“每个 $A$-模都以某个 $k(\mathfrak{p})$ 为子商”，这似乎一般不成立（例如 $\mathbb{Z}$ 的子商中没有 $\mathbb{Q}$）；可改为非零模以某个 $A/\mathfrak{p}$ 为子商，再在 $\mathfrak{p}$ 处局部化。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,12 +1,12 @@
 ---
 title: Todd 类
 categories: [示性类]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中 Todd 类的系数含分数，其各次部分似乎应落在有理系数上同调 $H^{2k} (X; \mathbb{Q})$ 中，而不是 $H^{2k} (X; \mathbb{Z})$ 中。
 navboxes: [向量丛与 K 理论]
 ---
+
+<problems>
+- “定义”一节中 Todd 类的系数含分数，其各次部分似乎应落在有理系数上同调 $H^{2k} (X; \mathbb{Q})$ 中，而不是 $H^{2k} (X; \mathbb{Z})$ 中。
+</problems>
 
 在[[代数拓扑]]中，
 **Todd 类**是对[[复数|复]][[向量丛]]定义的[[示性类]]，

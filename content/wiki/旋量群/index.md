@@ -2,13 +2,13 @@
 title: 旋量群
 aliases: [Spin(n)]
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “基本性质”一节的表格中，$\mathrm{SO}(p,q)$ 的单位连通分支与 $\mathrm{SO}(p)\times\mathrm{SO}(q)$ 同伦等价，因此 $p=2<q$ 或 $q=2<p$ 时基本群似乎应为 $\mathbb Z\times\mathbb Z_2$，$p,q>2$ 时似乎应为 $\mathbb Z_2\times\mathbb Z_2$；表格下方关于单连通性的结论似乎也需相应修改。
-      - “基本性质”一节中，按定义，$p,q\ge 1$ 时 $\mathrm{Spin}(p,q)$ 似乎映满 $\mathrm{SO}(p,q)$ 而有两个连通分支；文中所说连通、且为 $\mathrm{SO}(p,q)^0$ 的二重覆叠的，似乎应是它的单位连通分支。
 navboxes: [Lie 群]
 ---
+
+<problems>
+- “基本性质”一节的表格中，$\mathrm{SO}(p,q)$ 的单位连通分支与 $\mathrm{SO}(p)\times\mathrm{SO}(q)$ 同伦等价，因此 $p=2<q$ 或 $q=2<p$ 时基本群似乎应为 $\mathbb Z\times\mathbb Z_2$，$p,q>2$ 时似乎应为 $\mathbb Z_2\times\mathbb Z_2$；表格下方关于单连通性的结论似乎也需相应修改。
+- “基本性质”一节中，按定义，$p,q\ge 1$ 时 $\mathrm{Spin}(p,q)$ 似乎映满 $\mathrm{SO}(p,q)$ 而有两个连通分支；文中所说连通、且为 $\mathrm{SO}(p,q)^0$ 的二重覆叠的，似乎应是它的单位连通分支。
+</problems>
 
 **旋量群** $\mathrm{Spin} (n)$
 是一个[[实数|实]] [[Lie 群]]，

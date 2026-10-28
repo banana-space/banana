@@ -2,12 +2,12 @@
 title: Yoneda 引理
 aliases: [米田引理]
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “叙述和证明”一节中，Yoneda 引理的证明似乎不完整：只说明了自然变换由 $\eta_c (1_c)$ 确定（即映射是单射），没有说明满射性与同构的自然性。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “叙述和证明”一节中，Yoneda 引理的证明似乎不完整：只说明了自然变换由 $\eta_c (1_c)$ 确定（即映射是单射），没有说明满射性与同构的自然性。
+</problems>
 
 **[[Nobuo Yoneda|Yoneda]] 引理**（或**米田引理**）
 是[[范畴论]]中的一个基本的结论。

@@ -2,12 +2,12 @@
 title: Hensel 环
 aliases: [严格 Hensel 局部环, 严格 Hensel 环, Hensel 局部环, Hensel 化]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “提升性质”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “提升性质”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

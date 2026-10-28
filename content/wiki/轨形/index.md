@@ -2,12 +2,12 @@
 title: 轨形
 aliases: [Orbifold]
 categories: [Lie 理论, 叠论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [高阶几何]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **轨形**是类似[[流形]]的形状，
 但可能有一些[[奇点]]。

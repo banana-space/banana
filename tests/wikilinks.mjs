@@ -4,79 +4,11 @@ import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { runInNewContext } from 'node:vm';
-import { transformMarkup, normalizeTarget, plainName, readMath } from '../scripts/prebuild/markup.mjs';
+import { transformMarkup, normalizeTarget, plainName, readMath } from 'bananamark/internal/markup.mjs';
 
 const project = projectRoot;
-const link = (name, display = name) => `wiki:?title=${encodeURIComponent(name)}&name=${encodeURIComponent(display)}`;
-assert.equal(transformMarkup('[[交换环]] [[模|文字]]'), `[交换环](${link('交换环')}) [文字](${link('模')})`);
-// 表格中的链接把分隔符写成转义竖线 \|。
-assert.equal(transformMarkup('| [[模\\|文字]] |'), `| [文字](${link('模')}) |`);
-assert.equal(normalizeTarget(String.raw`$\infty$-范畴`), '∞-范畴');
-// Formulas in names: linear text from KaTeX's MathML. Keys ignore spacing inside
-// formulas and compatibility variants; equivalent TeX spellings agree.
-assert.equal(normalizeTarget(String.raw`$\mathcal{C}\otimes D$`), 'C⊗D');
-assert.notEqual(normalizeTarget('$L^p$ 空间'), normalizeTarget('$L_p$ 空间'));
-assert.equal(normalizeTarget(String.raw`$H^1(X;\mathbb Z)$`), 'H^1(X;Z)');
-for (const spelling of [String.raw`$H^{1}( X ; \mathbb{Z} )$`, String.raw`$H^1(X;\Bbb Z)$`, '$H^1(X;ℤ)$', 'H^1(X;Z)']) {
-  assert.equal(normalizeTarget(spelling), 'H^1(X;Z)', spelling);
-}
-assert.equal(normalizeTarget(String.raw`$\operatorname{Hom}(A,B)$`), normalizeTarget(String.raw`$\mathrm{Hom}(A, B)$`));
-assert.equal(normalizeTarget('$a_2$ 的性质'), normalizeTarget('a_2 的性质'));
-assert.equal(plainName(String.raw`$H^1(X;\mathbb Z)$ 与 $f\colon X\to Y$`), 'H^1(X; ℤ) 与 f : X → Y');
-assert.equal(transformMarkup(String.raw`[[$f\colon X\to Y$]]`).match(/\(wiki:([^)]*)\)/)[1], `${link('f:X→Y', 'f : X → Y').slice(5)}&source=${encodeURIComponent(String.raw`$f\colon X\to Y$`)}`);
-assert.throws(() => normalizeTarget(String.raw`$\unknown$`), /公式无法解析：\\unknown/);
-// Link text goes through Hugo's typographer, so the target is read the same way: -- is an en dash,
-// --- an em dash, ... an ellipsis; keys take any quotation marks as straight ones. Formulas keep theirs.
-assert.equal(normalizeTarget('Auslander--Buchsbaum 公式'), normalizeTarget('Auslander–Buchsbaum 公式'));
-assert.equal(plainName('Auslander--Buchsbaum 公式'), 'Auslander–Buchsbaum 公式');
-assert.equal(plainName('甲---乙...'), '甲—乙…');
-assert.equal(normalizeTarget("Guillaume de l'Hôpital"), normalizeTarget('Guillaume de l’Hôpital'));
-assert.equal(normalizeTarget('"行"列式'), normalizeTarget('“行”列式'));
-assert.equal(plainName('Guillaume de l’Hôpital'), 'Guillaume de l’Hôpital');
-assert.equal(normalizeTarget("l'Hôpital 法则"), 'l’Hôpital 法则');
-assert.equal(plainName("Bayes' 定理"), 'Bayes’ 定理');
-// A missing article's title comes from the target, typeset outside its formulas.
-assert.match(transformMarkup("[[$f'$ 与 O'Nan--群]]"), /&source=%24f'%24%20%E4%B8%8E%20O%E2%80%99Nan%E2%80%93%E7%BE%A4\)/);
-assert.notEqual(normalizeTarget('$a--b$'), normalizeTarget('$a–b$'));
-// Formulas do not cross a blank line: an unmatched { does not carry one into the next paragraph.
-assert.equal(readMath('${$ 甲\n\n乙 } $', 0), undefined);
-assert.equal(readMath('$a\n> \n b$', 0), undefined);
-assert.equal(readMath('$a\nb$', 0).end, 5);
-assert.equal(readMath('\\[a\n\nb\\]', 0), undefined, 'nor display formulas: \\[[x]] does not reach a later \\]');
-assert.equal(readMath('\\[[E:K]=[E:L][L:K].\\]', 0).end, 21, 'a display formula may start with a bracket');
-// Code spans end with their paragraph: a stray backtick does not make the next paragraphs code.
-assert.match(transformMarkup('`甲\n\n[[乙]] `丙`'), /\[乙\]\(wiki:/);
+// A formula whose \text holds a formula and brackets: neither a link nor the formula's end.
 const nested = String.raw`$a \text{$b$ [[不要链接]]} c$`;
-assert.equal(readMath(nested, 0).value, String.raw`a \text{$b$ [[不要链接]]} c`);
-for (const math of [nested, '$A[[t]]$', '$$A[[t]]$$', String.raw`\(A[[t]]\)`, String.raw`\[A[[t]]\]`, String.raw`$a \{b\} \$ c$`]) {
-  const transformed = transformMarkup(`${math} [[交换环]]`);
-  assert.equal((transformed.match(/wiki:/g) ?? []).length, 1);
-  assert.match(transformed, /@@(?:display)?math:/);
-}
-for (const code of ['`[[交换环]] $x$`', '`` ` [[交换环]] ``', '```md\n[[交换环]] $x$\n```', '~~~\n[[交换环]]\n~~~', '    [[交换环]] $x$\n', '> ```\n> [[交换环]]\n> ```', '<!-- [[交换环]] -->']) {
-  assert.equal(transformMarkup(code), code);
-}
-// A tag's parameters are text.
-assert.equal(transformMarkup('<spoiler title="[[交换环]]">'), '{{< spoiler title="[[交换环]]" >}}');
-assert.equal(transformMarkup(String.raw`\[[交换环]] \$5 \\$6`), String.raw`\[[交换环]] \$5 \\$6`);
-assert.equal((transformMarkup(String.raw`\\[[交换环]]`).match(/wiki:/g) ?? []).length, 1);
-assert.equal((transformMarkup(String.raw`\\([[不是数学]]\\)`).match(/wiki:/g) ?? []).length, 1);
-assert.equal((transformMarkup(String.raw`[[模|$a \text{$b$ | [[t]]} c$]]`).match(/wiki:/g) ?? []).length, 1);
-assert.throws(() => transformMarkup(String.raw`[[$\unknown$]]`), /公式无法解析/);
-assert.throws(() => transformMarkup(String.raw`[[$\,$]]`), /规范化后为空/);
-assert.equal(transformMarkup('[标签](https://example.com/$a$)'), '[标签](https://example.com/$a$)');
-assert.equal(transformMarkup('[标签][id]\n\n[id]: /$a$'), '[标签][id]\n\n[id]: /$a$');
-assert.equal(transformMarkup('[标签 [[交换环]]](https://example.com)'), '[标签 [[交换环]]](https://example.com)');
-assert.equal(readMath('$a % } $ \n b$', 0).value, 'a % } $ \n b');
-assert.equal(transformMarkup('@@', [(text, start) => text.startsWith('@@', start) ? { end: start + 2, output: '扩展' } : undefined]), '扩展');
-// Bold between a letter and punctuation (CommonMark's flanking rules would leave its "**" as text): a space
-// beside it, which postbuild takes out again next to Chinese. Only where a run could not open or close.
-assert.equal(transformMarkup('文字**[[模]]**文字'), `文字 **[模](${link('模')})** 文字`);
-assert.equal(transformMarkup('文字**（注）**文字，**$x$**是'), '文字 **（注）** 文字，**@@math:eA==:math@@** 是');
-assert.equal(transformMarkup('**粗体**[[模]]'), `**粗体**[模](${link('模')})`, 'a closing after a letter');
-assert.equal(transformMarkup('文字**普通**文字 a ** b'), '文字**普通**文字 a ** b');
-assert.equal(transformMarkup('- K2**) 证明\n\n**甲**'), '- K2**) 证明\n\n**甲**', 'a stray run');
-assert.equal(transformMarkup('**甲**\n\n文字**[[模]]**'), `**甲**\n\n文字 **[模](${link('模')})**`, 'each paragraph in turn');
 
 const root = await createProject('links');
 try {
@@ -121,11 +53,11 @@ A[[t]] \text{$b$}
   const build = (extra = []) => buildProject(root, extra);
   build();
   const html = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
-  assert.match(html, /加粗的链接：文字 <strong><a [^>]*>顶点代数<\/a><\/strong> 文字/, 'bold around a link, between Chinese');
-  assert.ok(html.includes(`href="/wiki/${encodeURIComponent('顶点代数')}/" class="wiki-link"`));
-  assert.match(html, /href="\/custom-infinity\/" class="wiki-link"><span class="math-rendered" data-tex="\\infty"/);
-  assert.match(html, /class="wiki-link">块内链接<\/a>/);
-  assert.match(html, /wiki-link-missing/);
+  assert.match(html, /加粗的链接：文字<strong><a [^>]*>顶点代数<\/a><\/strong>文字/, 'bold around a link, between Chinese: the spaces the syntax layer added go again');
+  assert.ok(html.includes(`href="/wiki/${encodeURIComponent('顶点代数')}/" class="bm-wiki-link"`));
+  assert.match(html, /href="\/custom-infinity\/" class="bm-wiki-link"><span class="bm-math-rendered" data-tex="\\infty"/);
+  assert.match(html, /class="bm-wiki-link">块内链接<\/a>/);
+  assert.match(html, /bm-wiki-link-missing/);
   assert.match(html, /href="\/missing\/\?title=/);
   assert.match(html, /data-tex="a \\text\{\$b\$ \[\[不要链接\]\]\} c"/);
   assert.match(html, /data-display="true"/);
@@ -162,11 +94,11 @@ A[[t]] \text{$b$}
   assert.match(subpathHTML, /href="\/docs\/categories\/">分类总览<\/a>/);
   build(['--buildDrafts']);
   assert.doesNotMatch(await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8'), /条目尚未创建：草稿/);
-  // Links and images: site addresses, http and https (and mailto for links); an image's address is escaped.
+  // Links and images: site addresses, http and https (and mailto for links); an image's address is encoded, as a link's.
   await article('unsafe-image', 'title: 图', '![图](<x.png" onerror="alert(1)>)');
   build();
   const imageHTML = await readFile(join(root, 'public/wiki/unsafe-image/index.html'), 'utf8');
-  assert.match(imageHTML, /<img src="x.png&#34; onerror=&#34;alert\(1\)"/);
+  assert.match(imageHTML, /<img src="x.png%22%20onerror=%22alert%281%29"/);
   assert.doesNotMatch(imageHTML, / onerror="/);
   for (const [name, body] of [['unsafe-link', '[点](javascript:alert(1))'], ['unsafe-data', '![图](data:image/svg+xml,x)'], ['unsafe-autolink', '<javascript:alert(1)>']]) {
     await article(name, 'title: 链', body);

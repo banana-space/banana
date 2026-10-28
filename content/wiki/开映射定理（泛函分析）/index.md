@@ -1,12 +1,12 @@
 ---
 title: 开映射定理（泛函分析）
 categories: [泛函分析]
-notices:
-  - name: 消歧义
-    see:
-      - page: 开映射定理
 navboxes: [泛函分析]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[开映射定理]]。
+</disambiguation>
 
 在[[泛函分析]]中，
 **开映射定理**，也叫 **Banach–Schauder 定理**，

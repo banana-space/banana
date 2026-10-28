@@ -1,12 +1,12 @@
 ---
 title: Artin 环
 categories: [一般环论, 交换代数]
-notices:
-  - name: 问题
-    items:
-      - “一般性质”一节中，命题 2.2 的“即等价于其上有限生成左模的子模也有限生成”似乎是 Noether 性的刻画，而不是 Artin 性的刻画。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “一般性质”一节中，命题 2.2 的“即等价于其上有限生成左模的子模也有限生成”似乎是 Noether 性的刻画，而不是 Artin 性的刻画。
+</problems>
 
 **Artin 环**是具有一定有限性质的环，
 满足任意理想族都有极小元（@artinianringdef）。

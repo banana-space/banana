@@ -2,11 +2,12 @@
 title: Μ
 aliases: [Mu]
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与拉丁字母“[[M]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与拉丁字母“[[M]]”。
+</disambiguation>
 
 希腊字母 **Μ，μ** 用在以下记号中：
 

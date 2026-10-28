@@ -2,11 +2,11 @@
 title: Leray–Serre 谱序列
 aliases: [Serre 谱序列, Leray-Serre 谱序列]
 categories: [纤维丛论]
-notices:
-  - name: 问题
-    items:
-      - “用 Grothendieck 谱序列”一节需要扩充。
 ---
+
+<problems>
+- “用 Grothendieck 谱序列”一节需要扩充。
+</problems>
 
 **[[Leray]]–[[Serre]] 谱序列**是代数拓扑中的强大工具。
 简单地说，给定 [[Serre 纤维化]] $F \to E \to B$，

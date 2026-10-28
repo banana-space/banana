@@ -1,49 +1,49 @@
 // TikZJax output is inline SVG with real, selectable text. All geometry and
 // inline baseline offsets are already compiled; the browser only paints it.
-.tikz-rendered {
+.bm-tikz-rendered {
   font-size: 1.1em;
 
-  .tikz-svg {
+  .bm-tikz-svg {
     overflow: visible;
     user-select: text;
   }
 
-  .tikz-cjk {
+  .bm-tikz-cjk {
     font-family: $font-family-western;
   }
 
-  &.math-display {
+  &.bm-math-display {
     position: relative;
     text-align: center;
     padding: 0.1em 0;
 
-    .tikz-body {
+    .bm-tikz-body {
       display: block;
       width: max-content;
       margin-inline: auto;
     }
   }
 
-  .tikz-body {
+  .bm-tikz-body {
     display: inline-block;
   }
 
   // A grid that can grow wider than the scroll container keeps equation tags
   // clear of the diagram even on narrow screens, with a centred diagram when
   // there is enough room for the two equal side tracks.
-  .tikz-layout {
+  .bm-tikz-layout {
     display: grid;
-    grid-template-columns: minmax(var(--tikz-tag-space), 1fr) max-content minmax(var(--tikz-tag-space), 1fr);
+    grid-template-columns: minmax(var(--bm-tikz-tag-space), 1fr) max-content minmax(var(--bm-tikz-tag-space), 1fr);
     align-items: center;
     width: max-content;
     min-width: 100%;
 
-    .tikz-body {
+    .bm-tikz-body {
       grid-column: 2;
     }
   }
 
-  .tikz-tag {
+  .bm-tikz-tag {
     grid-column: 3;
     justify-self: end;
   }

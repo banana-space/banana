@@ -1,15 +1,15 @@
 ---
 title: 离散赋值环
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中命题的证明不完整，只证明了由条件 7 可推出 $\mathfrak{m}$ 是主理想。
-      - “例子”一节需要扩充。
-      - 本条目引用了其他条目中定理的编号，跨页定理引用功能暂未实现。
-      - '“性质”一节最后一个命题似乎还需要假设 $\ker f\subsetneqq\mathfrak{p}$（例如 $f\colon\mathbb{Z}\to\mathbb{F}_3$、$\mathfrak{p}=(2)$ 时，或 $f$ 是到剩余域的商映射时，结论不成立）。'
 navboxes: [交换代数]
 ---
+
+<problems>
+- “定义”一节中命题的证明不完整，只证明了由条件 7 可推出 $\mathfrak{m}$ 是主理想。
+- “例子”一节需要扩充。
+- 本条目引用了其他条目中定理的编号，跨页定理引用功能暂未实现。
+- “性质”一节最后一个命题似乎还需要假设 $\ker f\subsetneqq\mathfrak{p}$（例如 $f\colon\mathbb{Z}\to\mathbb{F}_3$、$\mathfrak{p}=(2)$ 时，或 $f$ 是到剩余域的商映射时，结论不成立）。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,11 +1,11 @@
 ---
 title: Riemann 球面
 categories: [复几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节第二个命题的证明不完整，只证明了第一项。
 ---
+
+<problems>
+- “性质”一节第二个命题的证明不完整，只证明了第一项。
+</problems>
 
 **Riemann 球面**是对[[一维]]复[[射影空间]]的称呼，
 它是个一维复[[代数簇]]，也是个 [[Riemann 面]]。

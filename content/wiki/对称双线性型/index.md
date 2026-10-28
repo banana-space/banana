@@ -1,12 +1,12 @@
 ---
 title: 对称双线性型
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “特征 $2$”“分类”各节需要扩充。
 navboxes: [线性代数]
 ---
+
+<problems>
+- “特征 $2$”“分类”各节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

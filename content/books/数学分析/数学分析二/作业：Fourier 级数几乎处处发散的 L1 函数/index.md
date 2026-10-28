@@ -34,7 +34,7 @@ A4) （Gibbs现象）我们定义墙头草形状的以 $2\pi$ 为周期的函数
     \sum_{k\neq 0}\frac{1}{2ik}e^{ik\cdot x}=\sum_{k=1}^\infty \frac{\sin(kx)}{k}.
     \]
 
-    ![](MathAnalysis_H1202.png?width=500)
+    ![](MathAnalysis_H1202.png){width=500}
 
     证明，对于部分和 $S_N(f)$，我们有
     \[

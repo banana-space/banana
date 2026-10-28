@@ -2,11 +2,11 @@
 title: Poincaré 对偶
 aliases: [庞加莱对偶, Poincare 对偶]
 categories: [同调论]
-notices:
-  - name: 问题
-    items:
-      - “对带边流形”“通过三角剖分”“通过 Thom 同构”“通过微分几何”“推广”各节需要扩充。
 ---
+
+<problems>
+- “对带边流形”“通过三角剖分”“通过 Thom 同构”“通过微分几何”“推广”各节需要扩充。
+</problems>
 
 **[[Henri Poincaré|Poincaré]] 对偶**
 描述了[[流形]]的[[普通同调|同调]]、[[普通上同调|上同调]]的一种对称的结构。

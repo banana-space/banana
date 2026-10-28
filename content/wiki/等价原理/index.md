@@ -1,12 +1,11 @@
 ---
 title: 等价原理
 categories: [广泛概念]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[广义相对论]]中的等价原理'
-        page: 等价原理（相对论）
 ---
+
+<disambiguation>
+关于[[广义相对论]]中的等价原理，请参见[[等价原理（相对论）]]。
+</disambiguation>
 
 **等价原理**是数学中的一种普遍原则，是说：
 

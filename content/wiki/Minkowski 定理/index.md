@@ -1,11 +1,11 @@
 ---
 title: Minkowski 定理
 categories: [晶格论]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 **Minkowski 定理**是[[数的几何]]中的奠基性定理，
 它保证 $\mathbb R^n$ 中一个[[体积]]大于 $2^n$ 的关于[[原点]]对称的[[凸集]]含非零[[整点]]。

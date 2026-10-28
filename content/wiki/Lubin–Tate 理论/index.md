@@ -2,11 +2,11 @@
 title: Lubin–Tate 理论
 aliases: [Lubin-Tate 理论]
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “现代观点”一节需要扩充。
 ---
+
+<problems>
+- “现代观点”一节需要扩充。
+</problems>
 
 **Lubin–Tate 理论**是[[局部类域论]]的具体描述。正如
 [[Kronecker 青春之梦]]具体刻画数域的 [[Abel 扩张]]，Lubin–Tate

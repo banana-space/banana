@@ -1,12 +1,12 @@
 ---
 title: Hodge 定理
 categories: [Riemann 几何, 复几何]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节需要扩充。
-      - “推论”一节的 Hodge 分解定理中似乎缺少 $X$ 紧的假设。
 ---
+
+<problems>
+- “证明”一节需要扩充。
+- “推论”一节的 Hodge 分解定理中似乎缺少 $X$ 紧的假设。
+</problems>
 
 **Hodge 定理**是 [[Riemann 几何]]和
 [[Kähler 几何]]中的定理，由 [[William Vallance Douglas Hodge|Hodge]]

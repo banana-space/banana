@@ -1,12 +1,12 @@
 ---
 title: 母题谱
 categories: [母题同伦论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节缺少 $\mathsf{H}(S)_*[(\mathbb{P}^1,\infty)^{-1}]$ 的具体构造。
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “定义”一节缺少 $\mathsf{H}(S)_*[(\mathbb{P}^1,\infty)^{-1}]$ 的具体构造。
+- “性质”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

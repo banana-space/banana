@@ -1,11 +1,14 @@
-// One page's change in one pull request, on /diff/?pr=<number>&path=<page> (layouts/_default/diff.html), bundled by
-// Hugo's js.Build. The texts before and after come from /api/recent-changes/diff; CodeMirror shows them as one
+// One page's change in one pull request, on /diff/?pr=<number>&path=<page> (scripts/site/templates/special.mjs), bundled
+// by esbuild (scripts/site/assets.mjs). The texts before and after come from /api/recent-changes/diff; CodeMirror shows them as one
 // read-only document with the deleted lines inline, unchanged stretches folded.
 import { EditorState } from '@codemirror/state';
 import { EditorView, lineNumbers } from '@codemirror/view';
 import { syntaxHighlighting } from '@codemirror/language';
 import { unifiedMergeView } from '@codemirror/merge';
-import { bananaHighlighter, bananaMarkdown } from '../scripts/shared/markdown-language.mjs';
+import { highlightClasses, bananamarkLanguage } from 'bananamark-codemirror';
+import { dialectLanguages } from '../scripts/shared/dialect.mjs';
+
+const bananaMarkdown = () => bananamarkLanguage({ codeLanguages: dialectLanguages, wikiLinks: true });
 
 const config = JSON.parse(document.getElementById('diff-config').textContent);
 const strings = config.strings;
@@ -61,7 +64,7 @@ function show(before, after) {
       doc: after ?? '',
       extensions: [
         lineNumbers(), EditorState.readOnly.of(true), EditorView.editable.of(false),
-        bananaMarkdown(), syntaxHighlighting(bananaHighlighter),
+        bananaMarkdown(), syntaxHighlighting(highlightClasses),
         EditorState.phrases.of({ '$ unchanged lines': strings.cm_unchanged_lines }),
         unifiedMergeView({ original: before ?? '', mergeControls: false,
           // A new or deleted page is one inserted or deleted chunk; marking every character in it adds nothing.

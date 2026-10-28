@@ -1,11 +1,11 @@
 ---
 title: '伴随 $(\infty,1)$-函子'
-notices:
-  - name: 问题
-    items:
-      - '“性质”一节中的同构 $\mathsf{Fun}^L(\mathcal{C},\mathcal{D})\simeq \mathsf{Fun}^R(\mathcal{C},\mathcal{D})$ 似乎应为 $\mathsf{Fun}^L(\mathcal{C},\mathcal{D})\simeq \mathsf{Fun}^R(\mathcal{D},\mathcal{C})^{\operatorname{op}}$。'
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “性质”一节中的同构 $\mathsf{Fun}^L(\mathcal{C},\mathcal{D})\simeq \mathsf{Fun}^R(\mathcal{C},\mathcal{D})$ 似乎应为 $\mathsf{Fun}^L(\mathcal{C},\mathcal{D})\simeq \mathsf{Fun}^R(\mathcal{D},\mathcal{C})^{\operatorname{op}}$。
+</problems>
 
 **伴随 $(\infty,1)$-函子**是[[伴随函子]]这一概念在 [[$(\infty,1)$-范畴]]中的推广。
 

@@ -1,12 +1,12 @@
 ---
 title: Bridgeland 稳定条件
 categories: [计数几何]
-notices:
-  - name: 问题
-    items:
-      - '“群作用”一节中 $\widetilde{\mathrm{GL}}{}^+(2,\mathbb{R})$ 似乎不是半直积 $\mathbb{Z} \rtimes \mathrm{GL}^+(2,\mathbb{R})$，而是 $\mathrm{GL}^+(2,\mathbb{R})$ 被 $\mathbb{Z}$ 的不分裂的中心扩张。'
 navboxes: [计数几何]
 ---
+
+<problems>
+- “群作用”一节中 $\widetilde{\mathrm{GL}}{}^+(2,\mathbb{R})$ 似乎不是半直积 $\mathbb{Z} \rtimes \mathrm{GL}^+(2,\mathbb{R})$，而是 $\mathrm{GL}^+(2,\mathbb{R})$ 被 $\mathbb{Z}$ 的不分裂的中心扩张。
+</problems>
 
 在[[代数几何]]和[[同调代数]]中，
 **Bridgeland 稳定条件**（有时简称**稳定条件**）

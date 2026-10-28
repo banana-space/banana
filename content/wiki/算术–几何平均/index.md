@@ -1,11 +1,11 @@
 ---
 title: 算术–几何平均
 categories: [特殊函数]
-notices:
-  - name: 区分
-    pages:
-      - 算术–几何平均值不等式
 ---
+
+<disambiguation>
+注意与[[算术–几何平均值不等式]]区分。
+</disambiguation>
 
 [[正数|正]][[实数]] $x$、$y$ 的**算术–几何平均**，
 记为 $\mathrm{agm} (x, y)$，

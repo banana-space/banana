@@ -1,12 +1,11 @@
 ---
 title: 对角线
 categories: [集合论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 几何中的对角线
-        page: 对角线（几何）
 ---
+
+<disambiguation>
+关于几何中的对角线，请参见[[对角线（几何）]]。
+</disambiguation>
 
 [[集合]] $X$ 的**对角线**是 $X \times X$ 的子集，
 由所有形如 $(x, x)$ 的点构成。

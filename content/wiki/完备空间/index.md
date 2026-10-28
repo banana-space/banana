@@ -2,15 +2,15 @@
 title: 完备空间
 aliases: [完备（拓扑学）, 完备度量空间]
 categories: [一般拓扑]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 其它含义
-        page: 完备
-  - name: 问题
-    items:
-      - “完备一致空间”“例子”“性质”各节需要扩充。
 ---
+
+<disambiguation>
+关于其它含义，请参见[[完备]]。
+</disambiguation>
+
+<problems>
+- “完备一致空间”“例子”“性质”各节需要扩充。
+</problems>
 
 **完备空间**是一类[[拓扑空间]]，
 其中一串互相离得越来越近的点列会趋向于该空间中的一点。

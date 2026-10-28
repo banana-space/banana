@@ -2,14 +2,14 @@
 title: 交错群
 aliases: [偶置换群]
 categories: [有限群论]
-notices:
-  - name: 问题
-    items:
-      - “生成元”一节中的命题与“单性”一节中的定理缺少证明。
-      - “小群结构”“自同构”“群同调”“表示论”各节需要扩充。
-      - “自同构”一节中“$n$ 很大时 $\mathfrak{A}_n$ 的中心化子是 $\mathfrak{S}_n$”似乎有误：$n\ge 4$ 时 $\mathfrak{A}_n$ 在 $\mathfrak{S}_n$ 中的中心化子是平凡的。
 navboxes: [群论]
 ---
+
+<problems>
+- “生成元”一节中的命题与“单性”一节中的定理缺少证明。
+- “小群结构”“自同构”“群同调”“表示论”各节需要扩充。
+- “自同构”一节中“$n$ 很大时 $\mathfrak{A}_n$ 的中心化子是 $\mathfrak{S}_n$”似乎有误：$n\ge 4$ 时 $\mathfrak{A}_n$ 在 $\mathfrak{S}_n$ 中的中心化子是平凡的。
+</problems>
 
 $n$ 元**交错群**（或**偶置换群**）$\mathfrak{A}_n$
 是所有 $n$ 元[[偶置换]]构成的[[群]]，

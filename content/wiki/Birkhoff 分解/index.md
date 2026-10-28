@@ -1,12 +1,12 @@
 ---
 title: Birkhoff 分解
 categories: [线性代数, 代数几何]
-notices:
-  - name: 问题
-    items:
-      - 导言中的 $k_1\ge \cdots\ge k_n$ 似乎应为整数，不一定是自然数（例如 $M=z^{-1}I_n$ 时 $k_1=\cdots=k_n=-1$）。
 navboxes: [线性代数]
 ---
+
+<problems>
+- 导言中的 $k_1\ge \cdots\ge k_n$ 似乎应为整数，不一定是自然数（例如 $M=z^{-1}I_n$ 时 $k_1=\cdots=k_n=-1$）。
+</problems>
 
 在[[线性代数]]中，**Birkhoff 分解**是一种特殊的[[矩阵]]分解，
 技术上与[[Gauß 消元法]]类似。

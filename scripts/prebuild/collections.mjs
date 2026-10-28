@@ -1,19 +1,19 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { posix, relative, join } from 'node:path';
 import { parseDocument } from 'yaml';
-import { defaultNumbering, numbering, nextNumber, pageNumbering } from './numbering.mjs';
-import { pageName, pageTitleMarkup } from './names.mjs';
-import { transformDocument } from './structure.mjs';
-import { prepareBibliography } from './bibliography.mjs';
+import { defaultNumbering, numbering, nextNumber } from '../shared/internals.mjs';
+import { pageName, pageTitleMarkup } from '../shared/names.mjs';
+import { createBook } from 'bananamark/internal/book.mjs';
 import { normalizeReading } from './reading.mjs';
 import { t } from '../shared/i18n.mjs';
+import { siteSyntax } from '../shared/syntax.mjs';
 
-const special = new Set(['wiki', 'missing', 'search', 'navboxes', 'notices']);
+const special = new Set(['wiki', 'missing', 'search', 'navboxes']);
 const mapping = value => value && typeof value === 'object' && !Array.isArray(value);
 const maxDate = values => values.filter(Boolean).sort((a, b) => Date.parse(b) - Date.parse(a))[0];
 const fail = (file, message) => { throw new Error(`${file}: 书册：${message}`); };
 
-// Optional fields describing the collection on the /books/ cards; see docs/collections.md.
+// Optional fields describing the collection on the /books/ cards; see docs/books.md.
 const cardFields = ['description', 'authors'];
 const nonEmpty = value => typeof value === 'string' && value.trim() !== '';
 
@@ -89,7 +89,7 @@ export async function discoverCollections(source) {
   const roots = [];
   async function visit(directory, parentCollection) {
     const entries = await readdir(directory, { withFileTypes: true });
-    const marker = entries.find(entry => entry.name === 'collection.yaml' && entry.isFile());
+    const marker = entries.find(entry => entry.name === 'book.yaml' && entry.isFile());
     if (marker) {
       if (parentCollection) fail(join(directory, marker.name), '不能嵌套书册');
       roots.push(directory);
@@ -102,7 +102,7 @@ export async function discoverCollections(source) {
 }
 
 export function isPublished(metadata, args = process.argv.slice(2), now = new Date()) {
-  const enabled = name => !args.includes(`--${name}=false`) && (args.includes(`--${name}`) || args.includes(`--${name}=true`) || /^(true|1)$/i.test(process.env[`HUGO_${name.toUpperCase()}`] ?? ''));
+  const enabled = name => !args.includes(`--${name}=false`) && (args.includes(`--${name}`) || args.includes(`--${name}=true`));
   if (metadata.build?.render === 'never') return false;
   if (metadata.draft && !enabled('buildDrafts')) return false;
   const future = metadata.publishDate ?? metadata.publishdate ?? metadata.date;
@@ -112,7 +112,7 @@ export function isPublished(metadata, args = process.argv.slice(2), now = new Da
 }
 
 /**
- * Plan/collect every page before resolving references; keep paths as Hugo source identities.
+ * Plan/collect every page before resolving references; keep paths as the pages' source identities.
  * roots limits preparation to these collection directories (default: all of them).
  */
 export async function prepareCollections({ source, records, dates, normalize, roots }) {
@@ -120,7 +120,7 @@ export async function prepareCollections({ source, records, dates, normalize, ro
   const configs = [];
   for (const directory of roots) {
     const rootKey = relative(source, directory).split('\\').join('/');
-    const file = join(directory, 'collection.yaml');
+    const file = join(directory, 'book.yaml');
     const document = parseDocument(await readFile(file, 'utf8'));
     if (document.errors.length) fail(file, document.errors[0].message);
     const config = document.toJS();
@@ -142,27 +142,27 @@ export async function prepareCollections({ source, records, dates, normalize, ro
       return template.replaceAll('{number}', number);
     };
     const findPage = async (key, children = false, title) => {
-      const candidates = [`${key}/_index.md`, `${key}/index.md`, `${key}.md`].filter(path => records.has(path));
+      const candidates = [`${key}/index.md`, `${key}.md`].filter(path => records.has(path));
       if (candidates.length > 1) fail(file, `页面路径不唯一：${key}`);
       let record = records.get(candidates[0]);
       if (!record) {
         // Leaf typos are errors. Only declared parents/root may be generated.
         if (!children) fail(file, `页面不存在：${key}`);
-        const relativeKey = `${key}/_index.md`;
+        const relativeKey = `${key}/index.md`;
         record = { relative: relativeKey, path: join(source, relativeKey), metadata: { title: title ?? posix.basename(key) }, body: '', lineOffset: 0, generated: true };
         records.set(relativeKey, record);
         await normalize(record);
       }
       if (title !== undefined && !record.titleProvided) {
-        const name = pageName(title, file, 'title', { lang: record.metadata.lang ?? 'zh' });
+        const name = pageName(title, file, 'title', { lang: record.metadata.lang ?? 'zh-cn' });
         record.metadata.title = name.parts.map(part => part.text).join('');
         record.metadata.titleParts = name.parts;
       }
-      if (children && !record.relative.endsWith('/_index.md')) fail(file, `有子页面的节点必须使用 _index.md：${key}`);
+      if (children && !record.relative.endsWith('/index.md')) fail(file, `有子页面的节点必须是目录中的 index.md：${key}`);
       return record;
     };
     const root = await findPage(rootKey, true, config.title);
-    // The root page's own front matter takes precedence over collection.yaml.
+    // The root page's own front matter takes precedence over book.yaml.
     if (config.search !== undefined && config.search !== false) throw new Error(t('build_search_config', { File: file }));
     if (config.search === false) root.metadata.search = false;
     if (config.sort !== undefined && root.metadata.sort === undefined) root.metadata.sort = normalizeReading(config.sort, file);
@@ -205,8 +205,9 @@ export async function prepareCollections({ source, records, dates, normalize, ro
       if (!used.has(record.relative)) fail(file, `页面未列入 contents：${record.relative}`);
       if (record.metadata.categories !== undefined) fail(record.path, 'categories 仅用于 wiki 页面');
     }
-    const context = { labels: new Map(), bibliography: [], resolving: new Set() };
-    const counters = new Map(), reading = [];
+    // The book's pages share their labels, numbering and bibliography (bananamark's book).
+    const book = createBook({ ...siteSyntax, lang: 'zh-cn', numbering: config.numbering, formatSectionReference: referenceFormat });
+    const reading = [];
     const configDate = await dates(file);
     const treeDate = await dates.tree(directory); // Includes tracked removals and attachments.
     // Shared outline, numbering and references make all source pages dependencies.
@@ -227,12 +228,11 @@ export async function prepareCollections({ source, records, dates, normalize, ro
       if (!published) metadata.build = { ...(metadata.build ?? {}), render: 'never', list: 'never' };
       if (!published) return;
       reading.push(record);
-      const page = { key: record.collectionPath, vector, number: ownNumber, depth, title: pageTitleMarkup(metadata) };
-      const numbers = pageNumbering(page, effective, counters);
-      record.finish = transformDocument(record.body, {
-        ...record.options, page, numbers, context, referenceFormat, prepareOnly: true,
+      const page = book.add(record.body, {
+        ...record.options, key: record.collectionPath, title: pageTitleMarkup(metadata), position: vector, number: ownNumber, depth, numbering: metadata.numbering,
       });
-      let cursor = numbers.childCursor;
+      record.bookPage = page;
+      let cursor = page.headingNumbers.last;
       const siblingNumbers = new Set();
       for (const child of record.children) {
         if (!isPublished(child.metadata)) { await prepare(child, vector, depth + 1, false); continue; }
@@ -245,7 +245,7 @@ export async function prepareCollections({ source, records, dates, normalize, ro
         if (next.part !== null && siblingNumbers.has(number)) fail(file, `章节编号重复：${number}`);
         siblingNumbers.add(number);
         // A numbered inline heading occupies an earlier sibling position.
-        if (next.part !== null && numbers.childNumbers.has(next.part)) fail(file, `章节编号与正文标题冲突：${number}`);
+        if (next.part !== null && page.headingNumbers.taken.has(next.part)) fail(file, `章节编号与正文标题冲突：${number}`);
         await prepare(child, childVector, depth + 1, published);
       }
     }
@@ -257,7 +257,6 @@ export async function prepareCollections({ source, records, dates, normalize, ro
     }
     // Excluding the root from search excludes the whole collection.
     if (root.metadata.search === false) for (const record of all) record.metadata.search = false;
-    prepareBibliography(context.bibliography);
     const serialize = record => ({ page: record.collectionPath, number: record.metadata.collectionNumber, children: record.children.filter(child => child.visible).map(serialize) });
     const outline = root.children.filter(child => child.visible).map(serialize);
     for (let i = 0; i < reading.length; i++) {
@@ -267,13 +266,13 @@ export async function prepareCollections({ source, records, dates, normalize, ro
       record.metadata.collectionAncestors = record.ancestors.filter(parent => parent.visible).map(parent => parent.collectionPath);
       record.metadata.collectionPrevious = reading[i - 1]?.collectionPath ?? '';
       record.metadata.collectionNext = reading[i + 1]?.collectionPath ?? '';
-      record.transformed = record.finish();
+      record.transformed = book.transform(record.bookPage);
     }
     for (const record of all) if (!record.visible) record.transformed = '';
     // Shown on the lecture index cards.
     root.metadata.collectionPages = reading.length - 1;
     root.metadata.collectionCharacters = reading.reduce((sum, record) => sum + characterCount(record.body), 0);
-    root.referenceRegistry = context.labels; // The collection's labels, for the editor's completion.
+    root.bookLabels = book.labels(); // The collection's labels, for the editor's completion.
     configs.push(root);
   }
   return configs;

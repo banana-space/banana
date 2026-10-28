@@ -1,12 +1,12 @@
 ---
 title: 棱镜
 categories: [$p$ 进几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [P 进几何]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **棱镜**是 [[$p$ 进几何]]中常用的代数结构，
 旨在总结混特征与[[斜置]]等现象。

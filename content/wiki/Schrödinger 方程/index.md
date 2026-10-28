@@ -2,11 +2,11 @@
 title: Schrödinger 方程
 aliases: [薛定谔方程]
 categories: [量子力学]
-notices:
-  - name: 问题
-    items:
-      - “动机”“例子”“求解”各节需要扩充。
 ---
+
+<problems>
+- “动机”“例子”“求解”各节需要扩充。
+</problems>
 
 **Schrödinger 方程**是[[量子力学]]的[[公理]]之一，
 它描述了量子力学框架下物理系统随时间的演化。

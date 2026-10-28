@@ -1,12 +1,12 @@
 ---
 title: Galois 扩张
 categories: [域论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中命题第 2 条的 $\operatorname{Gal}(LE/E)=\operatorname{Gal}(L/K)$ 似乎一般不成立（例如 $E = L$ 时左边是平凡群），应为 $\operatorname{Gal}(LE/E)\cong\operatorname{Gal}(L/L\cap E)$，它是 $\operatorname{Gal}(L/K)$ 的子群。
 navboxes: [域论]
 ---
+
+<problems>
+- “性质”一节中命题第 2 条的 $\operatorname{Gal}(LE/E)=\operatorname{Gal}(L/K)$ 似乎一般不成立（例如 $E = L$ 时左边是平凡群），应为 $\operatorname{Gal}(LE/E)\cong\operatorname{Gal}(L/L\cap E)$，它是 $\operatorname{Gal}(L/K)$ 的子群。
+</problems>
 
 在[[域论]]中，**Galois 扩张**是[[可分扩张|可分]][[正规扩张]]的同义语。
 Galois 扩张的子扩张和其 [[Galois 群]]的（闭）子群间存在着良好的一一对应关系，称为 [[Galois 对应]]，

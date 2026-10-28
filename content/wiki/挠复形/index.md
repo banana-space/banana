@@ -1,12 +1,12 @@
 ---
 title: 挠复形
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “局部上同调”的定义提到下文将说明含入函子有右伴随，但页面中没有相应内容。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “局部上同调”的定义提到下文将说明含入函子有右伴随，但页面中没有相应内容。
+</problems>
 
 ::: convention
 在本文中，

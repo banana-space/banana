@@ -2,12 +2,12 @@
 title: Arzelà–Ascoli 定理
 aliases: [Arzela–Ascoli 定理, Arzelà-Ascoli 定理]
 categories: [泛函分析]
-notices:
-  - name: 问题
-    items:
-      - “定理和证明”一节中的两个定理缺少证明。
-      - “例子”一节需要扩充。
 ---
+
+<problems>
+- “定理和证明”一节中的两个定理缺少证明。
+- “例子”一节需要扩充。
+</problems>
 
 **Arzelà–Ascoli 定理**说明，
 对闭区间 $X = [a, b]$ 上的一族[[连续函数]] $\mathscr{F}$ 而言，以下两个条件等价：

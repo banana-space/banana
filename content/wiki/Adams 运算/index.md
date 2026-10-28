@@ -1,12 +1,12 @@
 ---
 title: Adams 运算
 categories: [$K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节需要扩充。
 navboxes: [向量丛与 K 理论]
 ---
+
+<problems>
+- “定义”一节需要扩充。
+</problems>
 
 在[[代数拓扑]]中，
 **Adams 运算**是[[拓扑 $K$ 理论]]上的一种运算。

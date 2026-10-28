@@ -2,12 +2,12 @@
 title: 四元数
 aliases: [四元数环]
 categories: [数系, 代数论]
-notices:
-  - name: 问题
-    items:
-      - “定义”“性质”各节需要扩充。
 navboxes: [数系]
 ---
+
+<problems>
+- “定义”“性质”各节需要扩充。
+</problems>
 
 **四元数**是形如
 \[

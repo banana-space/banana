@@ -1,10 +1,10 @@
 ---
 title: pfaffian 的完全展开
-notices:
-  - name: 问题
-    items:
-      - '“pfaffian 的完全展开有如下变体”之后定理的证明中，“另外”一段讨论交换一个偶的 \(2\) 个数，但式中的下标似乎混用了 \(p\) 与 \(q\)：似乎应为 \(s(\dots, u_p, v_p, \dots) = (-1)\, s(\dots, v_p, u_p, \dots)\)、\((\dots [A]_{u_p,v_p} \dots) = (-1)\, (\dots [A]_{v_p,u_p} \dots)\)，结论中的 \([A]_{u_q,v_q}\)、\([A]_{v_q,u_q}\) 似乎也应为 \([A]_{u_p,v_p}\)、\([A]_{v_p,u_p}\)。'
 ---
+
+<problems>
+- “pfaffian 的完全展开有如下变体”之后定理的证明中，“另外”一段讨论交换一个偶的 \(2\) 个数，但式中的下标似乎混用了 \(p\) 与 \(q\)：似乎应为 \(s(\dots, u_p, v_p, \dots) = (-1)\, s(\dots, v_p, u_p, \dots)\)、\((\dots [A]_{u_p,v_p} \dots) = (-1)\, (\dots [A]_{v_p,u_p} \dots)\)，结论中的 \([A]_{u_q,v_q}\)、\([A]_{v_q,u_q}\) 似乎也应为 \([A]_{u_p,v_p}\)、\([A]_{v_p,u_p}\)。
+</problems>
 
 设 \(A\) 是 \(n\) 级阵。
 我们定义了 \(A\) 的行列式

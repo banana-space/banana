@@ -2,11 +2,11 @@
 title: 'Dedekind $\zeta$ 函数'
 aliases: [Dedekind zeta 函数]
 categories: [解析数论, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - “互反律”一节需要扩充。
 ---
+
+<problems>
+- “互反律”一节需要扩充。
+</problems>
 
 **Dedekind $\zeta$ 函数**是
 [[Riemann $\zeta$ 函数]]在一般数域上的推广，

@@ -1,12 +1,12 @@
 ---
 title: 稳定化
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中，函子 $\mathsf{Sp}(-) \colon \mathsf{Cat}_{\operatorname{lex}} \to \mathsf{Cat}_{\operatorname{st}}$ 似乎应是含入函子 $\iota$ 的右伴随（$\iota$ 是它的全忠实左伴随），而不是具有全忠实的右伴随 $\iota$。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “性质”一节中，函子 $\mathsf{Sp}(-) \colon \mathsf{Cat}_{\operatorname{lex}} \to \mathsf{Cat}_{\operatorname{st}}$ 似乎应是含入函子 $\iota$ 的右伴随（$\iota$ 是它的全忠实左伴随），而不是具有全忠实的右伴随 $\iota$。
+</problems>
 
 ::: convention
 在本文中，

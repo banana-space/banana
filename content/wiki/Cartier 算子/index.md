@@ -2,11 +2,11 @@
 title: Cartier 算子
 aliases: [Cartier 同构]
 categories: [上同调论]
-notices:
-  - name: 问题
-    items:
-      - “例子”“推广”各节需要扩充（例如 Cartier 算子与曲线情形的旧定义的关系、导出推广）。
 ---
+
+<problems>
+- “例子”“推广”各节需要扩充（例如 Cartier 算子与曲线情形的旧定义的关系、导出推广）。
+</problems>
 
 ::: convention
 在本文中，

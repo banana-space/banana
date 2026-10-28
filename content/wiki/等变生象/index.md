@@ -2,11 +2,11 @@
 title: 等变生象
 aliases: [G-生象]
 categories: [等变同伦论]
-notices:
-  - name: 问题
-    items:
-      - “关于群的函子性”一节需要扩充。
 ---
+
+<problems>
+- “关于群的函子性”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

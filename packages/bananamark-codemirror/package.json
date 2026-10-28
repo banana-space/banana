@@ -1,0 +1,52 @@
+{
+  "name": "bananamark-codemirror",
+  "version": "0.1.0",
+  "description": "CodeMirror 6 language support for the bananamark Markdown dialect: highlighting, folding, completion and checking",
+  "keywords": [
+    "bananamark",
+    "codemirror",
+    "markdown",
+    "math",
+    "editor"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banana-space/banana.git",
+    "directory": "packages/bananamark-codemirror"
+  },
+  "homepage": "https://github.com/banana-space/banana/tree/main/packages/bananamark-codemirror#readme",
+  "bugs": {
+    "url": "https://github.com/banana-space/banana/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.mjs",
+    "./katex-commands.json": "./src/katex-commands.json"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node test/index.mjs",
+    "katex-commands": "node scripts/katex-commands.mjs"
+  },
+  "peerDependencies": {
+    "@codemirror/autocomplete": "^6.20.3",
+    "@codemirror/lang-markdown": "^6.5.2",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/lint": "^6.9.7",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.14",
+    "bananamark": "~0.1.0"
+  },
+  "devDependencies": {
+    "katex": "0.18.4"
+  }
+}

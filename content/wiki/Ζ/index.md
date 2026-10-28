@@ -2,11 +2,12 @@
 title: Ζ
 aliases: [Zeta]
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与拉丁字母“[[Z]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与拉丁字母“[[Z]]”。
+</disambiguation>
 
 希腊字母 **Ζ，ζ** 用在以下记号中：
 

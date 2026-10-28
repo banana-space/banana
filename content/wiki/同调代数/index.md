@@ -1,12 +1,12 @@
 ---
 title: 同调代数
 categories: [同调代数]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 navboxes: [同调代数]
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **同调代数**是[[代数学]]分支之一，
 起源于对几何对象的代数不变量的研究，

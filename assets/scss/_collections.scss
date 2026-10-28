@@ -125,7 +125,7 @@
   }
 }
 
-// The lecture index (/books/): groups of books, one card each; see partials/collections/book-list.html.
+// The lecture index (/books/): groups of books, one card each; see scripts/site/templates/collections.mjs.
 // Cards like the home page's (_home.scss): soft fill, no frame, the whole card is the title's link.
 // The page has no sidebar, so it takes the navigation bar's full width, three cards to a row.
 .content > .container.lecture-index {

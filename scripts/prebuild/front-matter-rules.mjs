@@ -3,14 +3,14 @@ import { t } from '../shared/i18n.mjs';
 
 /**
  * 在线编辑对导言区（front matter）的要求，比完整构建更严：页面必须有导言区，其中 title 为非空文字
- * （完整构建在没有 title 时取目录名），并且只能有作者使用的字段（authorKeys）。由浏览器内检查（assets/js/editor/check.js）与编辑接口
- * （scripts/editor-api.mjs）共用。
+ * （完整构建在没有 title 时取目录名），并且只能有作者使用的字段（authorKeys）。由浏览器内检查（assets/js/editor/check.js）与 API
+ * （scripts/api.mjs）共用。
  *
  * 返回 [{ line, column, message }]，行列号从 1 起；
  * YAML 语法错误不在这里报告（由解析导言区的地方报告）。
  */
 /** The front matter's keys a page edited online may have. */
-export const authorKeys = ['title', 'aliases', 'categories', 'navboxes', 'notices', 'sort', 'lang', 'numbering', 'typography', 'tocDepth', 'search', 'description'];
+export const authorKeys = ['title', 'aliases', 'categories', 'navboxes', 'sort', 'lang', 'numbering', 'typography', 'tocDepth', 'search', 'description'];
 
 export function frontMatterProblems(text) {
   const match = text.match(/^(?:﻿)?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
@@ -27,8 +27,8 @@ export function frontMatterProblems(text) {
   };
   if (!root || typeof root.get !== 'function') return [{ line: 1, column: 1, message: t('build_front_matter_missing') }];
   const problems = [];
-  // Only the keys authors write: Hugo reads others too, and from a draft they could turn the body into raw HTML
-  // (markup), choose any template (layout, type), move the page or others (url, slug, cascade, outputs).
+  // Only the keys authors write: the build reads others too, and from a draft they could choose a page's layout
+  // (layout), move the page (url, slug) or keep it from being published (draft, build).
   for (const pair of root.items ?? []) {
     const key = pair.key?.value;
     if (typeof key !== 'string' || !authorKeys.includes(key)) {

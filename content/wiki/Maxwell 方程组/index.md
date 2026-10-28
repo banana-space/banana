@@ -2,12 +2,12 @@
 title: Maxwell 方程组
 aliases: [Maxwell 方程]
 categories: [电动力学]
-notices:
-  - name: 问题
-    items:
-      - “特殊情形”一节需要扩充，例如说明如何由 Maxwell 方程组推出 Coulomb 定律。
-      - “求解”一节需要扩充。
 ---
+
+<problems>
+- “特殊情形”一节需要扩充，例如说明如何由 Maxwell 方程组推出 Coulomb 定律。
+- “求解”一节需要扩充。
+</problems>
 
 **Maxwell 方程组**是[[电动力学]]中的基本假设（或者说[[公理]]），
 它描述了[[电场]]与[[磁场]]的关系。

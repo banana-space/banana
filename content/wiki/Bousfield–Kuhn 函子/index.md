@@ -1,12 +1,12 @@
 ---
 title: Bousfield–Kuhn 函子
 categories: [色谱同伦论]
-notices:
-  - name: 问题
-    items:
-      - “构造”一节中 $\Phi_V(X)$ 仅依赖于 $\Sigma^\infty V$ 的论证需要展开。
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “构造”一节中 $\Phi_V(X)$ 仅依赖于 $\Sigma^\infty V$ 的论证需要展开。
+- “应用”一节需要扩充。
+</problems>
 
 **Bousfield–Kuhn 函子**是[[不稳定色谱同伦论]]中的基本构造，
 说明了[[谱 (拓扑学)|谱]]的 [[$T(n)$-局部化]]只依赖于底空间。

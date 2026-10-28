@@ -1,11 +1,12 @@
 ---
 title: Y
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Υ]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Υ]]”。
+</disambiguation>
 
 拉丁字母 **Y，y** 用在以下记号中：
 

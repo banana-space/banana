@@ -1,12 +1,12 @@
 ---
 title: 平展态射
 categories: [概形论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [态射性质]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 在[[代数几何]]中，
 **平展态射**是一类[[概形态射]]，

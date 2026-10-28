@@ -1,10 +1,10 @@
 ---
 title: 正规子群与商群
-notices:
-  - name: 问题
-    items:
-      - '“外自同构群”的例子中第二个正合列以 $G$ 为第一项，但 $\mathrm{Int}$ 一般不是单射，这里似乎应为 $\mathrm{Int}(G)$。'
 ---
+
+<problems>
+- “外自同构群”的例子中第二个正合列以 $G$ 为第一项，但 $\mathrm{Int}$ 一般不是单射，这里似乎应为 $\mathrm{Int}(G)$。
+</problems>
 
 ::: definition
 $G$是群，$H<G$是子群。对任意$g\in G$，称如下集合为一个**左陪集**：

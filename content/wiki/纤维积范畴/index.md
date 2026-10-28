@@ -1,12 +1,12 @@
 ---
 title: 纤维积范畴
 categories: [范畴论]
-notices:
-  - name: 区分
-    pages:
-      - 纤维范畴
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+注意与[[纤维范畴]]区分。
+</disambiguation>
 
 **纤维积范畴**是[[范畴论]]中的一种构造，
 大致是[[范畴的范畴]] $\mathsf{Cat}$ 中的[[拉回 (范畴论)|拉回]]，

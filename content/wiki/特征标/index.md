@@ -2,16 +2,17 @@
 title: 特征标
 aliases: [特征（表示论）]
 categories: [群表示论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 特征
-  - name: 问题
-    items:
-      - “性质”一节缺少紧群的情形。
-      - “第一正交关系”的陈述只假设基域代数闭，却使用了复共轭 $\overline{\chi_2(g)}$；似乎应假设基域为 $\mathbb{C}$，或把 $\overline{\chi_2(g)}$ 换成 $\chi_2(g^{-1})$。
 navboxes: [群表示论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[特征]]。
+</disambiguation>
+
+<problems>
+- “性质”一节缺少紧群的情形。
+- “第一正交关系”的陈述只假设基域代数闭，却使用了复共轭 $\overline{\chi_2(g)}$；似乎应假设基域为 $\mathbb{C}$，或把 $\overline{\chi_2(g)}$ 换成 $\chi_2(g^{-1})$。
+</problems>
 
 **特征标**是[[表示论|群表示论]]中的重要工具。
 

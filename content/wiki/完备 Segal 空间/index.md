@@ -1,12 +1,12 @@
 ---
 title: 完备 Segal 空间
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “模型范畴结构”一节需要扩充。
 navboxes: [同伦代数, 高阶范畴论]
 ---
+
+<problems>
+- “模型范畴结构”一节需要扩充。
+</problems>
 
 在[[高阶范畴论]]中，
 **完备 Segal 空间**是 [[$(\infty, 1)$-范畴]]的一种模型，

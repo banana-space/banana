@@ -1,4 +1,4 @@
-// 最近更改（layouts/_default/recent-changes.html）：从 /api/recent-changes 逐页读取最近的 PR，按日期分组列出它们修改的页面；
+// 最近更改（scripts/site/templates/special.mjs）：从 /api/recent-changes 逐页读取最近的 PR，按日期分组列出它们修改的页面；
 // 页面链接到它在该 PR 中的差异（/diff/）。修改的页面不多时逐一列出；批量修改（如统一格式）只显示 PR 的标题、页面数与
 // 按讲义分组的统计，页面列表折叠，展开后按字母分组，页面多时可以筛选。
 
@@ -72,6 +72,8 @@ function pageLink(pull, page, withBook = true) {
   if (page.status === 'added') badges.push(element('span', 'recent-badge recent-badge-added', strings.added));
   if (page.status === 'removed') badges.push(element('span', 'recent-badge recent-badge-removed', strings.removed));
   if (page.status === 'renamed' && page.previous) badges.push(element('span', 'recent-badge', fill(strings.renamed, { name: page.previous.replace(/\/_?index\.md$/, '').split('/').at(-1) })));
+  // A minor edit (scripts/shared/minor-edits.mjs).
+  if (page.minor) badges.push(Object.assign(element('span', 'recent-badge recent-badge-minor', strings.minor), { title: strings.minorHint }));
   // A page in a book carries the book's name, since chapter titles repeat across books.
   const book = withBook && page.group.kind === 'book' ? groupNode('recent-page-group', page.group) : null;
   return element('span', 'recent-page-item', node, book, ...badges);

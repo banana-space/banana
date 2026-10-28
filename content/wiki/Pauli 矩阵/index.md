@@ -1,13 +1,13 @@
 ---
 title: Pauli 矩阵
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中的 Lie 括号关系 $[\sigma_i, \sigma_j] = \varepsilon_{ijk} \sigma_k$ 似乎应为 $[\sigma_i, \sigma_j] = 2\mathrm i \varepsilon_{ijk} \sigma_k$。
-      - “应用”一节中旋转算子的第一个表达式 $\exp\frac{S_i \hat n^i}{\mathrm i \hbar}$ 似乎缺少因子 $\theta$。
-      - “应用”一节中的 $\gamma^\mu = \sigma^2 \otimes \sigma^\mu$ 似乎不满足 Minkowski 度量下 Dirac 矩阵的反对易关系，可能缺少虚数单位或符号约定的说明。
 ---
+
+<problems>
+- “性质”一节中的 Lie 括号关系 $[\sigma_i, \sigma_j] = \varepsilon_{ijk} \sigma_k$ 似乎应为 $[\sigma_i, \sigma_j] = 2\mathrm i \varepsilon_{ijk} \sigma_k$。
+- “应用”一节中旋转算子的第一个表达式 $\exp\frac{S_i \hat n^i}{\mathrm i \hbar}$ 似乎缺少因子 $\theta$。
+- “应用”一节中的 $\gamma^\mu = \sigma^2 \otimes \sigma^\mu$ 似乎不满足 Minkowski 度量下 Dirac 矩阵的反对易关系，可能缺少虚数单位或符号约定的说明。
+</problems>
 
 **Pauli 矩阵**（在相差一个虚数单位 $\mathrm{i}$ 的意义下）
 是二维[[特殊酉群]]的 [[Lie 代数]] $\operatorname{\mathfrak{su}}(2)$ 的三个生成元。

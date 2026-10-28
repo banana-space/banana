@@ -1,10 +1,10 @@
 ---
 title: 从图的分割出发
-notices:
-  - name: 问题
-    items:
-      - '“一般情形：$K>2$”一节中，Lagrange 函数 $L(H,\mu)$ 的两种写法似乎相差因子 $\frac12$；由 $LH^*O + H^*O\Lambda = 0$ 似乎得到 $LU = -U\Lambda$ 而不是 $LU = U\Lambda$（符号可并入 $\Lambda$）。'
 ---
+
+<problems>
+- “一般情形：$K>2$”一节中，Lagrange 函数 $L(H,\mu)$ 的两种写法似乎相差因子 $\frac12$；由 $LH^*O + H^*O\Lambda = 0$ 似乎得到 $LU = -U\Lambda$ 而不是 $LU = U\Lambda$（符号可并入 $\Lambda$）。
+</problems>
 
 *此部分主要参考自文章 A Tutorial on Spectral Clustering [@vonluxburg07] 的 Section 2、3、5。*
 
@@ -255,7 +255,7 @@ $$
 “松弛 + 离散化”这个过程不能保证得到原问题的最优解，甚至可能距离很远。看一个例子：
 
 ::: example* [蟑螂图【The cockroach graph】]
-![](蟑螂图.png?width=500)
+![](蟑螂图.png){width=500}
 
 作 $K=2$ 聚类：
 

@@ -7,7 +7,7 @@ title: 无穷范畴的模型
 无穷范畴的性质也需要通过这些模型来研究。
 回忆上一节提到的图表：
 
-![](HAHA-地图.svg?width=600)
+![](HAHA-地图.svg){width=600}
 
 在本文中，
 我们主要考虑以下两种模型：拟范畴和 Kan 复形充实范畴，
@@ -342,7 +342,7 @@ $\mathsf{C}$ 可以先对应于 $\mathsf{hCW}$-充实范畴 $h \mathsf{C}$，
 
 例如，$\mathfrak C^2$ 是如下图所示的单纯范畴：
 
-![](HAHA-C2.svg?width=160)
+![](HAHA-C2.svg){width=160}
 
 其中，复合态射 $12\circ01$ 等于 $012\colon0\to2$，
 它同伦于（但不等于）态射 $02\colon0\to2$。
@@ -350,7 +350,7 @@ $\mathsf{C}$ 可以先对应于 $\mathsf{hCW}$-充实范畴 $h \mathsf{C}$，
 
 类似地，$\mathfrak C^3$ 是如下图所示的单纯范畴：
 
-![](HAHA-C3.svg?width=400)
+![](HAHA-C3.svg){width=400}
 
 其中，态射空间 $N(P_{03})$ 同构于 $\Delta[1]\times\Delta[1]$，
 其中的 $4$ 个点对应于沿着箭头从 $0$ 走到 $3$ 的 $4$ 种方式，

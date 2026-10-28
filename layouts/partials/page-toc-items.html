@@ -1,6 +1,0 @@
-{{- $items := "" -}}
-{{- if and (or .IsPage .Params.collectionRoot (and .Params.structuredPage (or .IsHome .IsSection) (ne .Section "wiki") (not .Params.lectureIndex))) (ne .Params.toc false) -}}
-  {{- $items = partial "section-toc-items.html" (dict "Headings" .Fragments.Headings "Numbered" (.Params.structuredPage | default false) "Page" .) -}}
-  {{- if lt (len (findRE "<a\\b" $items)) 2 -}}{{- $items = "" -}}{{- end -}}
-{{- end -}}
-{{- return $items -}}

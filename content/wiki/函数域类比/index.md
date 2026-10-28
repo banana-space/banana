@@ -1,12 +1,12 @@
 ---
 title: 函数域类比
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “严格化”一节需要扩充。
 navboxes: [代数数论]
 ---
+
+<problems>
+- “严格化”一节需要扩充。
+</problems>
 
 **函数域类比**描述了[[数域]]与[[代数曲线]]上的[[有理函数域]]的类比。
 

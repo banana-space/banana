@@ -1,12 +1,12 @@
 ---
 title: 'Quillen $\mathsf{Q}$ 构造'
 categories: [$K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “与 Waldhausen $\mathsf{S}$ 构造的比较”一节中，命题没有给出证明；定理的证明只化归到“前两个映射的复合与后两个映射的复合在作用 $|\iota(-)|$ 之后都是同构”，这一步没有证明。
 navboxes: [代数 K 理论]
 ---
+
+<problems>
+- “与 Waldhausen $\mathsf{S}$ 构造的比较”一节中，命题没有给出证明；定理的证明只化归到“前两个映射的复合与后两个映射的复合在作用 $|\iota(-)|$ 之后都是同构”，这一步没有证明。
+</problems>
 
 ::: convention
 在本文中，

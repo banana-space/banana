@@ -153,7 +153,7 @@ F3) 证明，对任意的 $0<a<b$，存在光滑偶函数 $\rho(x)\in C^\infty(\
     使得 $\rho\big|_{[-a,a]}\equiv 1$，$\rho\big|_{(-\infty,-b]\cup [b,\infty)}\equiv 0$，
     $0\leqslant \rho(x)\leqslant 1$。
 
-    ![](MathAnalysis_HW7T0.png?width=400)
+    ![](MathAnalysis_HW7T0.png){width=400}
 
 F4) 证明，存在偶函数 $\psi \in C^\infty(\mathbb{R}^n)$，
     使得 $\psi\big|_{\{x\mid|x|\leqslant 1\}}\equiv 1$，

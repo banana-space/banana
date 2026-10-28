@@ -2,11 +2,11 @@
 title: Tarski–Vaught 判别法
 aliases: [Tarski–Vaught 准则, Tarski–Vaught 测试, Tarski-Vaught 判别法]
 categories: [模型论]
-notices:
-  - name: 问题
-    items:
-      - “定理”一节中 $(2)\Rightarrow(1)$ 的证明表述不清：“反证法证明，假设它是初等子结构”“$\varphi{M}$-赋值映射”含义不明；第二种情形的条件 $(M,\mu)\not\models \varphi$ 似乎应为 $(\mathcal{N},\nu)\not\models\varphi$；下标 $x_{k_n}$、$b_n$ 似乎应为 $x_{k_m}$、$b_m$；“根据初等子结构定义”似乎应为“根据条件 (2)”。
 ---
+
+<problems>
+- “定理”一节中 $(2)\Rightarrow(1)$ 的证明表述不清：“反证法证明，假设它是初等子结构”“$\varphi{M}$-赋值映射”含义不明；第二种情形的条件 $(M,\mu)\not\models \varphi$ 似乎应为 $(\mathcal{N},\nu)\not\models\varphi$；下标 $x_{k_n}$、$b_n$ 似乎应为 $x_{k_m}$、$b_m$；“根据初等子结构定义”似乎应为“根据条件 (2)”。
+</problems>
 
 **Tarski–Vaught 判别法**是
 判定一个[[结构]]是否是另一个结构的[[初等子结构]]的[[充要条件]]。

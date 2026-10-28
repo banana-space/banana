@@ -1,11 +1,11 @@
 ---
 title: James 分裂
 categories: [同伦论, 范畴论]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

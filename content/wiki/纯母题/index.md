@@ -1,12 +1,12 @@
 ---
 title: 纯母题
 categories: [母题论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [母题论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 [[域]] $k$ 上的**纯母题**范畴 $M(k)$ 是一个[[伪 Abel 范畴]]，
 每个[[射影态射|射影]][[光滑态射|光滑]]代数簇 $X$

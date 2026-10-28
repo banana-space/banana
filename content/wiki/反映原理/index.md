@@ -2,13 +2,13 @@
 title: 反映原理
 aliases: [反射原理]
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “高阶反映原理”一节需要扩充。
-      - “等价性”一节的证明中，全局反映原理强化版本的公式里 $\bigwedge$ 的下标范围 $\mathfrak{i}=1,\dots,m$ 似乎应为 $i=0,\dots,m$；其后“$z\in u$”中的 $u$ 未经定义。
 navboxes: [集合论]
 ---
+
+<problems>
+- “高阶反映原理”一节需要扩充。
+- “等价性”一节的证明中，全局反映原理强化版本的公式里 $\bigwedge$ 的下标范围 $\mathfrak{i}=1,\dots,m$ 似乎应为 $i=0,\dots,m$；其后“$z\in u$”中的 $u$ 未经定义。
+</problems>
 
 **反映原理**，又称**反射原理**，是
 [[Zermelo–Fraenkel 集合论]]中的一系列定理，大致说的是

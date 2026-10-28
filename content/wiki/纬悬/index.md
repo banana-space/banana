@@ -2,12 +2,12 @@
 title: 纬悬
 aliases: [悬挂, Suspension]
 categories: [一般拓扑, 同伦论]
-notices:
-  - name: 问题
-    items:
-      - “纬悬–环路伴随”“与同调的联系”“Freudenthal 纬悬定理”“余群结构”各节需要扩充。
 navboxes: [代数拓扑]
 ---
+
+<problems>
+- “纬悬–环路伴随”“与同调的联系”“Freudenthal 纬悬定理”“余群结构”各节需要扩充。
+</problems>
 
 [[拓扑空间]] $X$ 的**纬悬** $S X$ 是以 $X$ 为底的双锥，
 也就是将柱体 $X \times I$ 的两个底面各压缩成一个点，而得到的空间。

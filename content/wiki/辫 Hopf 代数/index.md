@@ -1,12 +1,12 @@
 ---
 title: 辫 Hopf 代数
 categories: [代数论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [代数结构]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 辫 Hopf 代数，又称准三角 Hopf 代数，在 [[Hopf 代数]]的基础上
 配备了结构，对应其模范畴上张量积的[[辫范畴|辫结构]]。

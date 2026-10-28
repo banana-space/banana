@@ -2,11 +2,11 @@
 title: l’Hôpital 法则
 aliases: [L’Hôpital 法则, 洛必达法则]
 categories: [实分析]
-notices:
-  - name: 问题
-    items:
-      - “定理和证明”一节的定理中，条件 $b < +\infty$ 似乎应为 $b \leq +\infty$，否则与 $c$ 可以是 $+\infty$ 矛盾。
 ---
+
+<problems>
+- “定理和证明”一节的定理中，条件 $b < +\infty$ 似乎应为 $b \leq +\infty$，否则与 $c$ 可以是 $+\infty$ 矛盾。
+</problems>
 
 **[[Guillaume de l'Hôpital|l'Hôpital]] 法则**
 是[[微积分]]中，计算[[函数]]的[[极限]]的一种方法。

@@ -2,13 +2,13 @@
 title: Dynkin 图
 aliases: [仿射 Dynkin 图]
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “自同构”一节中 $\mathrm{D}_4$ 与 $\mathrm{E}_6$ 两项缺少 Lie 代数侧的说明。
-      - “折叠”一节中，$\widetilde{\mathrm{D}}_{n+1}\to \widetilde{\mathrm{B}}_n\to \mathrm D_{n+2}^{(2)}$ 与 $\widetilde{\mathrm{D}}_4\to \widetilde{\mathrm{B}}_3\to \mathrm D_4^{(2)}\to\mathrm A_2^{(2)}$ 两项中 $\mathrm D^{(2)}$ 的下标似乎与“仿射 Dynkin 图”一节的编号约定（$\mathrm{D}_{k+1}^{(2)}$ 有 $k+1$ 个顶点）不符；按图中的顶点数，似乎应分别为 $\mathrm D_n^{(2)}$ 和 $\mathrm D_3^{(2)}$。
 navboxes: [Lie 理论]
 ---
+
+<problems>
+- “自同构”一节中 $\mathrm{D}_4$ 与 $\mathrm{E}_6$ 两项缺少 Lie 代数侧的说明。
+- “折叠”一节中，$\widetilde{\mathrm{D}}_{n+1}\to \widetilde{\mathrm{B}}_n\to \mathrm D_{n+2}^{(2)}$ 与 $\widetilde{\mathrm{D}}_4\to \widetilde{\mathrm{B}}_3\to \mathrm D_4^{(2)}\to\mathrm A_2^{(2)}$ 两项中 $\mathrm D^{(2)}$ 的下标似乎与“仿射 Dynkin 图”一节的编号约定（$\mathrm{D}_{k+1}^{(2)}$ 有 $k+1$ 个顶点）不符；按图中的顶点数，似乎应分别为 $\mathrm D_n^{(2)}$ 和 $\mathrm D_3^{(2)}$。
+</problems>
 
 **Dynkin 图**
 是一组允许有向边和重边的有限[[图]]，由[[Eugene Dynkin]]定义。

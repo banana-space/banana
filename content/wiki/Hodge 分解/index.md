@@ -1,12 +1,12 @@
 ---
 title: Hodge 分解
 categories: [复几何]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节需要扩充。
-      - “定理陈述”一节的定理似乎需要假设 $X$ 是紧 Kähler 流形；对非紧的 Kähler 流形（例如 $\mathbb{C}^*$）分解一般不成立。
 ---
+
+<problems>
+- “证明”一节需要扩充。
+- “定理陈述”一节的定理似乎需要假设 $X$ 是紧 Kähler 流形；对非紧的 Kähler 流形（例如 $\mathbb{C}^*$）分解一般不成立。
+</problems>
 
 **Hodge 分解**把
 [[Kähler 流形]]的奇异上同调分解为 [[Dolbeault 上同调]]的直和，

@@ -1,17 +1,17 @@
 ---
 title: 晶格
 categories: [晶格论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: 其它含义
-        page: 格（多义词）
-  - name: 问题
-    items:
-      - “性质”一节中命题的证明不完整：没有说明格的商 $V/\Gamma$ 紧，也没有说明 $V/\Gamma$ 紧时 $m = n$。
-      - “分类”一节需要扩充。
 navboxes: [Euclid 几何]
 ---
+
+<disambiguation>
+关于其它含义，请参见[[格（多义词）]]。
+</disambiguation>
+
+<problems>
+- “性质”一节中命题的证明不完整：没有说明格的商 $V/\Gamma$ 紧，也没有说明 $V/\Gamma$ 紧时 $m = n$。
+- “分类”一节需要扩充。
+</problems>
 
 **晶格**，简称**格**，
 是 $\mathbb{R}^n$ 上同构于 $\mathbb{Z}^n$ 且离散的一类子群，

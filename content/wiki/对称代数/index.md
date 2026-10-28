@@ -1,11 +1,11 @@
 ---
 title: 对称代数
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “分次对称代数”“性质”各节需要扩充。
 ---
+
+<problems>
+- “分次对称代数”“性质”各节需要扩充。
+</problems>
 
 [[向量空间]] $V$ 的**对称代数**是一个[[交换代数 (代数结构)|交换代数]]，
 通常记为 $\operatorname{Sym} (V)$ 或 $\mathrm{S} (V)$，

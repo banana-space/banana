@@ -2,12 +2,12 @@
 title: 多元范畴
 aliases: [有色算畴]
 categories: [范畴代数]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中，多元范畴间自然变换的条件 $a_y \circ (f) = f \circ (a_{x_i})_{i \in I}$ 似乎应为 $a_y \circ (F(f)) = G(f) \circ (a_{x_i})_{i \in I}$。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “定义”一节中，多元范畴间自然变换的条件 $a_y \circ (f) = f \circ (a_{x_i})_{i \in I}$ 似乎应为 $a_y \circ (F(f)) = G(f) \circ (a_{x_i})_{i \in I}$。
+</problems>
 
 **多元范畴**（也称为**有色算畴**）是[[范畴]]的一种推广。
 在范畴中，态射总是从一个对象出发到另一个对象，

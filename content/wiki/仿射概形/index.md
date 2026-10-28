@@ -1,12 +1,12 @@
 ---
 title: 仿射概形
 categories: [概形论]
-notices:
-  - name: 问题
-    items:
-      - “例子”“性质”各节需要扩充。
 navboxes: [代数几何, 概形论]
 ---
+
+<problems>
+- “例子”“性质”各节需要扩充。
+</problems>
 
 在[[代数几何]]中，
 **仿射概形**是一类最简单的[[概形]]，

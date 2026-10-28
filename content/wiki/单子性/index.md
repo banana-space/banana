@@ -1,12 +1,12 @@
 ---
 title: 单子性
 categories: [高阶代数]
-notices:
-  - name: 问题
-    items:
-      - “Lurie–Barr–Beck 定理”一节的注及其后的说明中，“条件 1 和条件 2”似乎应指条件 2 中的两个子条件（条件 1 即单子性本身）。
 navboxes: [高阶代数]
 ---
+
+<problems>
+- “Lurie–Barr–Beck 定理”一节的注及其后的说明中，“条件 1 和条件 2”似乎应指条件 2 中的两个子条件（条件 1 即单子性本身）。
+</problems>
 
 ::: convention
 在本文中，

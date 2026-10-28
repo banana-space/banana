@@ -2,12 +2,12 @@
 title: 归纳族
 aliases: [索引类型, 广义代数数据类型]
 categories: [类型论]
-notices:
-  - name: 问题
-    items:
-      - '开头的例子中构造子 $\operatorname{f0}$ 只属于 $\operatorname{Fin}1$，按此定义 $\operatorname{Fin}2$ 似乎只有一个实例，与“$\operatorname{Fin}n$ 一共有 $n$ 个不同的实例”不符；通常的定义是 $\operatorname{f0}:\prod_{n:\mathbb N} \operatorname{Fin}(s~n)$。'
 navboxes: [类型论]
 ---
+
+<problems>
+- 开头的例子中构造子 $\operatorname{f0}$ 只属于 $\operatorname{Fin}1$，按此定义 $\operatorname{Fin}2$ 似乎只有一个实例，与“$\operatorname{Fin}n$ 一共有 $n$ 个不同的实例”不符；通常的定义是 $\operatorname{f0}:\prod_{n:\mathbb N} \operatorname{Fin}(s~n)$。
+</problems>
 
 **归纳族**（又叫**广义代数数据类型**、**指标类型**）是[[归纳类型]]在[[依值类型论]]中的推广，
 它允许构造子的返回类型仅仅是归纳类型对于它参数的一组实例的*特化*，

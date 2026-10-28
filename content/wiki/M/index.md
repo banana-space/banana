@@ -1,11 +1,12 @@
 ---
 title: M
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与希腊字母“[[Μ]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与希腊字母“[[Μ]]”。
+</disambiguation>
 
 拉丁字母 **M，m** 用在以下记号中：
 

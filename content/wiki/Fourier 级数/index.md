@@ -2,12 +2,12 @@
 title: Fourier 级数
 aliases: [Fourier 展开]
 categories: [实分析]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节缺少缓增分布的 Fourier 级数。
-      - '“性质”一节命题“导数”中的多元情形 $f''_v(\xi)=\xi(v)\hat{f}(\xi)$ 左边似乎应为 $\widehat{f''_v}(\xi)$，右边似乎缺少因子 $2\pi i$。'
 ---
+
+<problems>
+- “定义”一节缺少缓增分布的 Fourier 级数。
+- “性质”一节命题“导数”中的多元情形 $f'_v(\xi)=\xi(v)\hat{f}(\xi)$ 左边似乎应为 $\widehat{f'_v}(\xi)$，右边似乎缺少因子 $2\pi i$。
+</problems>
 
 Fourier 级数是把 $\mathbb{R}$ 上周期函数展开成三角级数
 （即各项形如 $e^{2\pi i nx}$ 的级数）的方法，是[[局部紧交换群]]上

@@ -1,11 +1,11 @@
 ---
 title: Bonnet–Myers 定理
 categories: [Riemann 几何]
-notices:
-  - name: 问题
-    items:
-      - “陈述与证明”一节最后的命题缺少证明。
 ---
+
+<problems>
+- “陈述与证明”一节最后的命题缺少证明。
+</problems>
 
 **Bonnet–Myers 定理**是[[Riemann 几何]]中的定理，
 它表明，对[[曲率]]有正下界的[[完备 Riemann 流形]]，其直径有相应的上界。

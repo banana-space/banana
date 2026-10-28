@@ -2,11 +2,11 @@
 title: 量子电动力学
 categories: [电动力学, 规范场论]
 navboxes: [规范场论]
-notices:
-  - name: 问题
-    items:
-      - “对称性”“Feynman 规则”“可重整性”“计算”各节需要扩充。
 ---
+
+<problems>
+- “对称性”“Feynman 规则”“可重整性”“计算”各节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

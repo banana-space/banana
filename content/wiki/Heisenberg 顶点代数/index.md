@@ -1,12 +1,12 @@
 ---
 title: Heisenberg 顶点代数
 categories: [共形场论]
-notices:
-  - name: 问题
-    items:
-      - “高秩情形”一节开头说高秩的顶点代数由若干 Heisenberg 顶点代数“做直和”得到，而其后的例子说它同构于张量积；这里似乎应为张量积（或 Heisenberg 代数的直和）。
 navboxes: [共形场论]
 ---
+
+<problems>
+- “高秩情形”一节开头说高秩的顶点代数由若干 Heisenberg 顶点代数“做直和”得到，而其后的例子说它同构于张量积；这里似乎应为张量积（或 Heisenberg 代数的直和）。
+</problems>
 
 **Heisenberg 顶点代数**
 是由无穷维 [[Heisenberg 代数]]的真空 [[Fock 表示]]

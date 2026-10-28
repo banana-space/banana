@@ -1,12 +1,12 @@
 ---
 title: Deligne–Mumford 叠
 categories: [叠论]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节中，Deligne–Mumford 叠的定义似乎缺少对角态射（或图册 $U \to X$）可表的条件，否则 $U \to X$ 平展的含义没有定义；定义的“可表态射”在页面中也没有用到。
 navboxes: [代数几何, 高阶几何]
 ---
+
+<problems>
+- “定义”一节中，Deligne–Mumford 叠的定义似乎缺少对角态射（或图册 $U \to X$）可表的条件，否则 $U \to X$ 平展的含义没有定义；定义的“可表态射”在页面中也没有用到。
+</problems>
 
 **Deligne–Mumford 叠**是一类特殊的[[代数叠]]，
 是[[轨形]]在[[代数几何]]中的类比。

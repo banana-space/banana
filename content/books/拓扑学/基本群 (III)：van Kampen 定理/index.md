@@ -1,12 +1,12 @@
 ---
 title: 基本群 (III)：van Kampen 定理
-notices:
-  - name: 问题
-    items:
-      - “闭版本的 van Kampen 定理”一节的第二个应用中，用恒等映射粘贴柱面两端得到的似乎是环面而不是 Klein 瓶；与其后的 $c=\iota_{A\ast}\gamma = \iota_{B\ast}\gamma^{-1}$ 相符的粘贴映射似乎应为反射。
-      - “安装环柄”一段中 $S'$ 的定义里 $\amalg_{C_1\amalg C_2}$ 似乎应为 $\amalg_{C_0\amalg C_1}$。
-      - “Brieskorn 流形”习题第 1 款中的 $\mathbb{S}^{5}$ 似乎应为 $\mathbb{S}^{7}$；题后说明中与 $\Sigma$ 的锥同胚的集合所在的 $\mathbb{C}^{3}$ 似乎应为 $\mathbb{C}^{4}$。
 ---
+
+<problems>
+- “闭版本的 van Kampen 定理”一节的第二个应用中，用恒等映射粘贴柱面两端得到的似乎是环面而不是 Klein 瓶；与其后的 $c=\iota_{A\ast}\gamma = \iota_{B\ast}\gamma^{-1}$ 相符的粘贴映射似乎应为反射。
+- “安装环柄”一段中 $S'$ 的定义里 $\amalg_{C_1\amalg C_2}$ 似乎应为 $\amalg_{C_0\amalg C_1}$。
+- “Brieskorn 流形”习题第 1 款中的 $\mathbb{S}^{5}$ 似乎应为 $\mathbb{S}^{7}$；题后说明中与 $\Sigma$ 的锥同胚的集合所在的 $\mathbb{C}^{3}$ 似乎应为 $\mathbb{C}^{4}$。
+</problems>
 
 ::: remark* (定理的历史) [A. Gramain，[“Le théorème de Van Kampen”](http://www.numdam.org/item/?id=CTGDC_1992__33_3_237_0)]
 Cet énoncé a été démontré en 1931 par H. SEIFERT, non pour
@@ -243,7 +243,7 @@ Y = \frac{X}{[a\sim\varphi(a),\forall a \in A_1]}
 \]
 为用 \(\varphi\) 粘合 \(A_1, A_2\) 得到的拓扑空间。
 
-![](Closed-van-kampen.png?width=400)
+![](Closed-van-kampen.png){width=400}
 
 令 \(p:X \to Y\) 为商映射。
 对 \(a \in A_1\)，令 \(u\) 为一条从 \(a\) 到 \(\varphi(a)\) 的道路。
@@ -316,7 +316,7 @@ S' = (S \setminus (B^{\circ}_0 \cup B_1^{\circ})) \amalg_{C_1\amalg C_2} S^{1} \
 \(S^{1} \times \{1\}\) 被等同于 \(C_1\)。
 下图是安装了两个环柄的球面的示意图（从 Zeeman 的讲义中偷窃而来）：
 
-![](Zeeman-handle.png?width=200)
+![](Zeeman-handle.png){width=200}
 
 留给读者验证安装环柄了之后得到的拓扑空间仍然是闭曲面。
 
@@ -330,7 +330,7 @@ S' = (S \setminus (B^{\circ}_0 \cup B_1^{\circ})) \amalg_{C_1\amalg C_2} S^{1} \
 \(b_i\) 是穿越了第 \(i\) 个管子表面的道路同伦类，如下图所示。
 :::
 
-![](2-handles.jpg?width=300)
+![](2-handles.jpg){width=300}
 
 这个命题通常是利用通过曲面的平面模型和利用“安装胞腔”一节的结论予以证明。
 我们则故意选择使用闭版本的 van Kampen 来证。
@@ -469,7 +469,7 @@ f_{A}([(x,y)^{T}]) = [A \cdot (x,y)^{T}].
 \(\partial \Sigma\) 是一个“亏格”为 \(g\) 的
 \(\mathbb{R}^{3}\) 中的曲面。
 
-![](Double-torus.png?width=200)
+![](Double-torus.png){width=200}
 
 1. 证明 \(\Sigma\) 的基本群是 \(g\) 个文字的自由群。
 

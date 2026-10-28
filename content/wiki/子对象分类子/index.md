@@ -1,12 +1,12 @@
 ---
 title: 子对象分类子
 categories: [层论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 navboxes: [层论]
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **子对象分类子**是[[子对象]]（即[[单态射]]）的[[分类子]]。
 

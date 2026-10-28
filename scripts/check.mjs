@@ -4,7 +4,7 @@ import { prebuild } from './prebuild/run.mjs';
 import { resolvePages } from './shared/pages.mjs';
 import { describeError } from './shared/errors.mjs';
 
-// 只运行预处理检查，不调用 Hugo：收集全部错误（而不是第一个）和缺失条目链接。
+// 只运行预处理检查，不生成页面：收集全部错误（而不是第一个）和缺失条目链接。
 // 用法：npm run check -- [页面文件或目录]... [--json] [--buildDrafts 等发布参数]
 // 指定页面时只转换这些页面，并只报告它们的错误；全站配置错误总会报告。
 const root = fileURLToPath(new URL('../', import.meta.url));

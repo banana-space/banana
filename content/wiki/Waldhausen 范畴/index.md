@@ -2,12 +2,12 @@
 title: Waldhausen 范畴
 aliases: [Waldhausen ∞-范畴, 带余纤维化的范畴]
 categories: [$K$ 理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
-      - '“例子”一节最后一例中 $\mathsf{Fin}_*$ 的定义里 $n\in\mathbb{Z}$ 似乎应为 $n\in\mathbb{N}$。'
 ---
+
+<problems>
+- “性质”一节需要扩充。
+- “例子”一节最后一例中 $\mathsf{Fin}_*$ 的定义里 $n\in\mathbb{Z}$ 似乎应为 $n\in\mathbb{N}$。
+</problems>
 
 ::: convention
 在本文中，

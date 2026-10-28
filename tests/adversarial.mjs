@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
-import { transformDocument } from '../scripts/prebuild/structure.mjs';
-import { markSourceLines, formulaRanges } from '../scripts/prebuild/source-lines.mjs';
-import { bananaParser } from '../scripts/shared/markdown-language.mjs';
+import { transformDocument } from 'bananamark/internal/structure.mjs';
+import { markSourceLines, formulaRanges } from 'bananamark/internal/source-lines.mjs';
+import { siteLanguage } from '../scripts/shared/dialect.mjs';
+
+const bananaParser = siteLanguage.language.parser;
 import { frontMatterProblems } from '../scripts/prebuild/front-matter-rules.mjs';
 import { parse } from 'yaml';
 
-// Drafts from the online editor reach the preview service, which runs in the editor API's process: no text may
+// Drafts from the online editor reach the preview service, which runs in the API's process: no text may
 // make the scanners take more than about linear time. Each pattern, repeated to 30 000 characters (as one line
 // and as lines), goes through the build's scanning and transformation (with the editor's KaTeX check) and the
 // editor's grammar. Quadratic or exponential scans take seconds to hours here; linear ones milliseconds.

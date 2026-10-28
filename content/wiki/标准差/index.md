@@ -1,12 +1,12 @@
 ---
 title: 标准差
 categories: [概率论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [概率论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 在[[概率论]]中，[[随机变量]]的**标准差**
 描述了该随机变量取值的发散程度，

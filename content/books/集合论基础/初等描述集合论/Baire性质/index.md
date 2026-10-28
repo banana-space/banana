@@ -1,10 +1,10 @@
 ---
 title: Baire性质
-notices:
-  - name: 问题
-    items:
-      - “一般空间中的游戏”一节中 Oxtoby 定理（Baire 空间与 Choquet 游戏）的证明里，“找一列其中的稠密开集，使得它们交不空”似乎应为“交为空”。
 ---
+
+<problems>
+- “一般空间中的游戏”一节中 Oxtoby 定理（Baire 空间与 Choquet 游戏）的证明里，“找一列其中的稠密开集，使得它们交不空”似乎应为“交为空”。
+</problems>
 
 Baire性质与集合的稠密程度密切相关。
 

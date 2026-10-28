@@ -2,13 +2,13 @@
 title: '$\lambda$ 编码'
 aliases: [Lambda 编码, Church 编码, Church 计数]
 categories: [计算机科学]
-notices:
-  - name: 问题
-    items:
-      - “自然数减法”一节需要扩充。
-      - “Church 自然数”一节中加法与乘法的表达式似乎按 $n$ 先接受函数 $b$、再接受初值 $a$ 的参数顺序写成，与前文 $n := λa.λb.~b(\cdots(a))$ 的参数顺序不一致。
 navboxes: [类型论]
 ---
+
+<problems>
+- “自然数减法”一节需要扩充。
+- “Church 自然数”一节中加法与乘法的表达式似乎按 $n$ 先接受函数 $b$、再接受初值 $a$ 的参数顺序写成，与前文 $n := λa.λb.~b(\cdots(a))$ 的参数顺序不一致。
+</problems>
 
 在 [[$\lambda$ 演算]]中，
 **$\lambda$ 编码**是 Church 编码、Scott 编码和 Parigot 编码等借助

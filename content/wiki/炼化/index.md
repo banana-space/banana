@@ -1,11 +1,11 @@
 ---
 title: 炼化
 categories: [代数几何]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

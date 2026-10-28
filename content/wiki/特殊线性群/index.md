@@ -1,15 +1,15 @@
 ---
 title: 特殊线性群
 categories: [群论, 线性代数, Lie 理论, 代数群理论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节中命题“紧性”的证明不完整。
-      - “根系”“表示论”各节需要扩充。
-      - “例子”一节的内容宜移到“射影特殊线性群”条目。
-      - “例子”一节中，$A \sim c A$（$c \in \operatorname{U}(1)$）似乎不保持 $\operatorname{SL}(2; \mathbb C)$，$\operatorname{PSL}(2; \mathbb C)$ 似乎应为 $\operatorname{SL}(2; \mathbb C)$ 商去 $\{\pm 1\}$。
 navboxes: [Lie 群]
 ---
+
+<problems>
+- “性质”一节中命题“紧性”的证明不完整。
+- “根系”“表示论”各节需要扩充。
+- “例子”一节的内容宜移到“射影特殊线性群”条目。
+- “例子”一节中，$A \sim c A$（$c \in \operatorname{U}(1)$）似乎不保持 $\operatorname{SL}(2; \mathbb C)$，$\operatorname{PSL}(2; \mathbb C)$ 似乎应为 $\operatorname{SL}(2; \mathbb C)$ 商去 $\{\pm 1\}$。
+</problems>
 
 ::: convention
 在本文中，

@@ -490,7 +490,7 @@ Kan 复形是 $\infty$-群胚的若干种模型之一。
 记 $\mathsf{QCat}$ 为拟范畴的范畴
 （它在下图中其实该写成 $\mathsf{sSet}$，原因将在之后解释）。
 
-![](HAHA-地图.svg?width=600)
+![](HAHA-地图.svg){width=600}
 
 这个图表在某种意义下是“交换”的，我们将在之后说明其细节。
 所有位于 $\mathsf{Cat}_{\mathsf{hCW}}$ 之上的结构都能看作 $(\infty,1)$-范畴的模型。

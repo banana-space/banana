@@ -2,12 +2,12 @@
 title: 简单类型 $λ$ 演算
 aliases: [简单类型 lambda 演算]
 categories: [类型论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 简单类型论
 navboxes: [类型论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[简单类型论]]。
+</disambiguation>
 
 **简单类型 $λ$ 演算**是一种[[类型论]]，记作 $λ_→$ 或者 STλC，一般包含[[函数类型]]、[[积类型]]，
 有时也包含[[不交并 (类型论)|不交并]]和一些其他类型。

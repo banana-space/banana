@@ -1,11 +1,11 @@
 ---
 title: Brouwer 不动点定理
 categories: [一般拓扑]
-notices:
-  - name: 问题
-    items:
-      - “构造性证明”“应用”各节需要扩充。
 ---
+
+<problems>
+- “构造性证明”“应用”各节需要扩充。
+</problems>
 
 **Brouwer 不动点定理**是[[拓扑学]]中的定理，
 它表明了[[球体]]到自身的连续映射必有不动点。

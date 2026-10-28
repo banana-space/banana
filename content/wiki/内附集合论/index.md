@@ -1,13 +1,13 @@
 ---
 title: 内附集合论
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “与不完备性定理的联系”一节中定理的证明缺失。
-      - “定义”一节中，$\mathsf{AD}^{fun}$ 的空集公理 $\forall x([\varnothing;x]\not=x)$ 似乎应为 $\forall x([\varnothing;x]\not=\varnothing)$（按内附公理，$w\in x$ 对应 $[x;w]=x$）；相应地，证明中的定义 $x\in y\leftrightarrow [x;y]=x$ 似乎应为 $x\in y\leftrightarrow [y;x]=y$。
 navboxes: [集合论]
 ---
+
+<problems>
+- “与不完备性定理的联系”一节中定理的证明缺失。
+- “定义”一节中，$\mathsf{AD}^{fun}$ 的空集公理 $\forall x([\varnothing;x]\not=x)$ 似乎应为 $\forall x([\varnothing;x]\not=\varnothing)$（按内附公理，$w\in x$ 对应 $[x;w]=x$）；相应地，证明中的定义 $x\in y\leftrightarrow [x;y]=x$ 似乎应为 $x\in y\leftrightarrow [y;x]=y$。
+</problems>
 
 内附集合论是一个用于建立[[Gödel 不完备性定理]]的弱集合论。
 

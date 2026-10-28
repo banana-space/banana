@@ -1,10 +1,10 @@
 ---
 title: 显著性水平与第I类错误概率的关系
-notices:
-  - name: 问题
-    items:
-      - '定理的证明中，双侧检验在 $T$ 连续时的两个推导式里的 $\mathbb{P}(Y\geq y)$、$\mathbb{P}(-Y\geq -y)$ 似乎应为 $\mathbb{P}_{H_0}(T\geq y)$、$\mathbb{P}_{H_0}(-T\geq -y)$。'
 ---
+
+<problems>
+- 定理的证明中，双侧检验在 $T$ 连续时的两个推导式里的 $\mathbb{P}(Y\geq y)$、$\mathbb{P}(-Y\geq -y)$ 似乎应为 $\mathbb{P}_{H_0}(T\geq y)$、$\mathbb{P}_{H_0}(-T\geq -y)$。
+</problems>
 
 本节中我们证明，在@condition:hypothesis_testing_H0_identical_distribution
 下，显著性水平$\alpha$给出了第I类错误概率的上界，且当$T$在原假设

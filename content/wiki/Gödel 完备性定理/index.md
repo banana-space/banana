@@ -2,12 +2,12 @@
 title: Gödel 完备性定理
 aliases: [Godel 完备性定理]
 categories: [模型论]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 navboxes: [逻辑学]
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 **Gödel 完备性定理**是[[数理逻辑]]中的基本定理，
 它说明了[[一阶语言]]的完备性，

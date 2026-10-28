@@ -1,12 +1,12 @@
 ---
 title: '滤 $(\infty,1)$-余极限'
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节命题的第二部分中，函子的目标 $\mathsf{Set}$ 似乎应为空间 $(\infty,1)$-范畴 $\mathsf{S}$。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “性质”一节命题的第二部分中，函子的目标 $\mathsf{Set}$ 似乎应为空间 $(\infty,1)$-范畴 $\mathsf{S}$。
+</problems>
 
 滤 $(\infty,1)$-余极限是[[滤余极限]]的 $(\infty,1)$-版本。
 

@@ -2,16 +2,17 @@
 title: 分布（泛函分析）
 aliases: [Schwartz 分布, 分布（数学分析）]
 categories: [泛函分析]
-notices:
-  - name: 消歧义
-    see:
-      - page: 分布
-  - name: 问题
-    items:
-      - “定义”一节缺少流形上的分布的定义。
-      - “拉回”一节需要扩充。
 navboxes: [泛函分析]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[分布]]。
+</disambiguation>
+
+<problems>
+- “定义”一节缺少流形上的分布的定义。
+- “拉回”一节需要扩充。
+</problems>
 
 **分布**（也称为 **Schwartz 分布**或**广义函数**）
 是[[函数]]的推广。

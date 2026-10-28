@@ -2,14 +2,12 @@
 title: de Rham 上同调
 aliases: [De Rham 上同调, De Rham 定理]
 categories: [微分几何, 同调论]
-notices:
-  - name: 消歧义
-    about: 流形的上同调理论
-    see:
-      - topic: 代数几何中的相应理论
-        page: 代数 de Rham 上同调
 navboxes: [同调与上同调]
 ---
+
+<disambiguation>
+本条目介绍的是流形的上同调理论。关于代数几何中的相应理论，请参见[[代数 de Rham 上同调]]。
+</disambiguation>
 
 **[[Georges de Rham|de Rham]] 上同调**
 是连接[[微分几何]]与[[代数拓扑]]的纽带，

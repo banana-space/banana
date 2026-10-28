@@ -2,12 +2,12 @@
 title: D-模
 aliases: [D 模]
 categories: [代数几何]
-notices:
-  - name: 区分
-    pages:
-      - D 膜
 navboxes: [几何表示论]
 ---
+
+<disambiguation>
+注意与[[D 膜]]区分。
+</disambiguation>
 
 **D-模**是一种几何结构。
 [[空间]] $X$ 上的 D-模是指 $X$ 上[[微分算子]]构成的[[环]][[层]] $\mathcal{D}_X$

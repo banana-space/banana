@@ -2,11 +2,11 @@
 title: '$\alpha$-同构'
 aliases: [Alpha-同构]
 categories: [模型论]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节第一个命题中的蕴含 $\mathcal{M}\cong_{\alpha}\mathcal{N}\Rightarrow\mathcal{M}\cong_{\omega}\mathcal{N}$ 似乎需要假设 $\alpha\ge\omega$。
 ---
+
+<problems>
+- “性质”一节第一个命题中的蕴含 $\mathcal{M}\cong_{\alpha}\mathcal{N}\Rightarrow\mathcal{M}\cong_{\omega}\mathcal{N}$ 似乎需要假设 $\alpha\ge\omega$。
+</problems>
 
 在[[模型论]]里，
 **$\alpha$-同构**衡量的是两个[[模型]]间最多能有多少部分同构。

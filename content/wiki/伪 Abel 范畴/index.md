@@ -1,12 +1,12 @@
 ---
 title: 伪 Abel 范畴
 categories: [同调代数]
-notices:
-  - name: 区分
-    pages:
-      - 拟 Abel 范畴
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+注意与[[拟 Abel 范畴]]区分。
+</disambiguation>
 
 **伪 Abel 范畴**指的是[[幂等]]态射均为投影的[[预加性范畴]]。
 

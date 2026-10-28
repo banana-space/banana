@@ -1,11 +1,11 @@
 ---
 title: Russell 简单类型论
 categories: [类型论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 简单类型论
 ---
+
+<disambiguation>
+关于其他含义，请参见[[简单类型论]]。
+</disambiguation>
 
 **简单类型论**是[[Bertrand Russell]]设计的一套用于[[数学的基础]]的理论，
 可以看作[[简单类型 λ 演算]]加上一套表示命题的宇宙 $ο$，是[[分歧类型论]]的[[非直谓性|非直谓]]简化。

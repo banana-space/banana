@@ -2,11 +2,11 @@
 title: 叠
 aliases: [Stack]
 categories: [叠论]
-notices:
-  - name: 问题
-    items:
-      - “通过纤维范畴”“例子”各节需要扩充。
 ---
+
+<problems>
+- “通过纤维范畴”“例子”各节需要扩充。
+</problems>
 
 **叠**是一种广义的[[空间]]。
 与普通空间相比，叠的特别之处在于，

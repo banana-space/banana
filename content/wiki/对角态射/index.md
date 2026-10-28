@@ -1,12 +1,12 @@
 ---
 title: 对角态射
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “无穷范畴中的对角线”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “无穷范畴中的对角线”一节需要扩充。
+</problems>
 
 对[[范畴]] $\mathcal{C}$ 中的[[对象]] $X$，
 其**对角态射**是形如

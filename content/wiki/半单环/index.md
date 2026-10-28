@@ -1,11 +1,11 @@
 ---
 title: 半单环
 categories: [一般环论]
-notices:
-  - name: 问题
-    items:
-      - “性质”“例子”各节需要扩充。
 ---
+
+<problems>
+- “性质”“例子”各节需要扩充。
+</problems>
 
 **半单环**指的是它作为自身的模是[[半单模]]的那些环，
 [[Artin–Wedderburn 定理]]（@thm-artin-wedderburn）说明，

@@ -1,10 +1,10 @@
 ---
 title: 其他代数簇的计算
-notices:
-  - name: 问题
-    items:
-      - “爆破的平展上同调”一节中推论的长正合列似乎应为 $\cdots\to H^p_{\operatorname{ét}}(X,K)\to H^p_{\operatorname{ét}}(Z,K|_Z)\oplus H^p_{\operatorname{ét}}(\mathrm{Bl}_ZX,b^{-1}K)\to H^p_{\operatorname{ét}}(E,K|_E)\to H^{p+1}_{\operatorname{ét}}(X,K)\to\cdots$。
 ---
+
+<problems>
+- “爆破的平展上同调”一节中推论的长正合列似乎应为 $\cdots\to H^p_{\operatorname{ét}}(X,K)\to H^p_{\operatorname{ét}}(Z,K|_Z)\oplus H^p_{\operatorname{ét}}(\mathrm{Bl}_ZX,b^{-1}K)\to H^p_{\operatorname{ét}}(E,K|_E)\to H^{p+1}_{\operatorname{ét}}(X,K)\to\cdots$。
+</problems>
 
 ## 带奇点曲线的上同调
 

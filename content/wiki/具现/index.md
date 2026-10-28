@@ -2,11 +2,11 @@
 title: 具现
 aliases: [具现子]
 categories: [递归论, 逻辑学]
-notices:
-  - name: 问题
-    items:
-      - “Kleene 版本”一节需要扩充。
 ---
+
+<problems>
+- “Kleene 版本”一节需要扩充。
+</problems>
 
 **具现**（或称具现解释）是一类研究[[直觉主义逻辑]]的方法，
 它给出了“证明”的形式化定义，并称之为**具现子**。

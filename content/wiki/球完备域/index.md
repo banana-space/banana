@@ -2,11 +2,11 @@
 title: 球完备域
 aliases: [球完备]
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节第二个例子中，$\mathbb{C}[[T]]$ 是环而不是域，这里似乎应为 $\mathbb{C}((T))$。
 ---
+
+<problems>
+- “例子”一节第二个例子中，$\mathbb{C}[[T]]$ 是环而不是域，这里似乎应为 $\mathbb{C}((T))$。
+</problems>
 
 ## 定义
 

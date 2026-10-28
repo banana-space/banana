@@ -2,12 +2,12 @@
 title: 实数
 aliases: [实数域]
 categories: [数系, 域论, 实分析, 一般拓扑]
-notices:
-  - name: 问题
-    items:
-      - “作为完备序域”一节中定理的完备性条件似乎需要要求 $A, B$ 非空（例如 $A = \varnothing$、$B = \mathbb{R}$ 时不存在这样的 $c$）。
 navboxes: [数系, 微积分学, 域论]
 ---
+
+<problems>
+- “作为完备序域”一节中定理的完备性条件似乎需要要求 $A, B$ 非空（例如 $A = \varnothing$、$B = \mathbb{R}$ 时不存在这样的 $c$）。
+</problems>
 
 **实数**是一类[[数]]，是指可以被[[有理数]]任意逼近的数。
 实数包括所有的有理数，也包括很多别的元素，

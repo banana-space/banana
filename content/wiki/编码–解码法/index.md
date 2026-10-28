@@ -2,11 +2,11 @@
 title: 编码–解码法
 aliases: [编码-解码法]
 categories: [同伦类型论]
-notices:
-  - name: 问题
-    items:
-      - '“无交并的编码”“无交并的解码”两节中道路的方向似乎不一致，例如 $\operatorname{码}_a(\operatorname{inl} v)$ 先后写作 $\operatorname{Id}_A(a, v)$ 与 $\operatorname{Id}_A(v, a)$。'
 ---
+
+<problems>
+- “无交并的编码”“无交并的解码”两节中道路的方向似乎不一致，例如 $\operatorname{码}_a(\operatorname{inl} v)$ 先后写作 $\operatorname{Id}_A(a, v)$ 与 $\operatorname{Id}_A(v, a)$。
+</problems>
 
 **编码–解码法**是[[同伦类型论]]中的一种证明给定一点的[[道路空间]]和其它类型同构的手法。
 

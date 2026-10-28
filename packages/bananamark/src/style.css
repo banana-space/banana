@@ -1,0 +1,249 @@
+/*
+ * bananamark/style.css: a plain look for the HTML bananamark writes, for a page to start from. Only bananamark's own
+ * classes (bm-…) are styled, and the details of the content they hold; the page's fonts, sizes and layout are its
+ * own. Colours are custom properties: set them on :root (or any container) to change them. Needs KaTeX's stylesheet
+ * too (bananamark/katex.css), and a browser from 2023 or later (:has(), for list labels and proofs).
+ */
+:root {
+  --bm-accent-definition: #c27c00;
+  --bm-accent-theorem: #1070c0;
+  --bm-accent-example: #8a4fc0;
+  --bm-accent-remark: #00907f;
+  --bm-muted: #6b7280;
+  --bm-faint: #9aa1ab;
+  --bm-border: #d0d7de;
+  --bm-surface: #f5f7f9;
+  --bm-link: #1066c0;
+  --bm-missing: #c0392b;
+  --bm-target: #fff2e2;
+  --bm-target-border: #f7cc9b;
+  --bm-hl-mark: #9aa1ab;
+  --bm-hl-command: #00806f;
+  --bm-hl-command-mark: #6aaea5;
+  --bm-hl-reference: #8a4fc0;
+  --bm-hl-structure: #c27c00;
+  --bm-hl-string: #6b7280;
+  --bm-hl-link: var(--bm-link);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bm-accent-definition: #e8a83a;
+    --bm-accent-theorem: #5aa9f0;
+    --bm-accent-example: #b98be8;
+    --bm-accent-remark: #3cc4b0;
+    --bm-muted: #9aa3ae;
+    --bm-faint: #6b7380;
+    --bm-border: #3a424c;
+    --bm-surface: #1c2128;
+    --bm-link: #5aa9f0;
+    --bm-missing: #f07a6a;
+    --bm-target: #3a2c18;
+    --bm-target-border: #8a6430;
+    --bm-hl-mark: #6b7380;
+    --bm-hl-command: #3cc4b0;
+    --bm-hl-command-mark: #2c8f82;
+    --bm-hl-reference: #b98be8;
+    --bm-hl-structure: #e8a83a;
+    --bm-hl-string: #9aa3ae;
+  }
+}
+
+/* Theorem-like environments: a coloured rule on the left, the title in its colour. */
+.bm-env {
+  --bm-accent: var(--bm-accent-theorem);
+  border-left: 2px solid var(--bm-accent);
+  padding-left: 1.25em;
+  margin: 1.5em 0;
+}
+.bm-envgroup-definition { --bm-accent: var(--bm-accent-definition); }
+.bm-envgroup-example { --bm-accent: var(--bm-accent-example); }
+.bm-envgroup-remark { --bm-accent: var(--bm-accent-remark); }
+.bm-envtitle {
+  color: var(--bm-accent);
+  font-weight: 600;
+  margin: 0 0 0.5em;
+}
+.bm-envcontent > :first-child { margin-top: 0; }
+.bm-envcontent > :last-child { margin-bottom: 0; }
+
+/* Proofs: no rule; "Proof." on the first line of the text, and □ at the end. */
+.bm-envgroup-proof {
+  border-left: 0;
+  padding-left: 0;
+  display: flow-root;
+}
+.bm-envgroup-proof > .bm-envtitle {
+  color: inherit;
+  display: inline;
+  margin: 0;
+}
+.bm-envgroup-proof > .bm-envcontent,
+.bm-envgroup-proof > .bm-envcontent > p:first-child { display: inline; }
+.bm-envgroup-proof > .bm-envcontent > :last-child::after {
+  content: "\00a0□";
+  float: right;
+}
+/* A proof ending with a display formula: □ beside it, in the middle. */
+.bm-envgroup-proof > .bm-envcontent > .bm-math-display:last-child {
+  position: relative;
+  padding-right: 1.5em;
+}
+.bm-envgroup-proof > .bm-envcontent > .bm-math-display:last-child::after {
+  float: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+}
+
+/* Formulas: display formulas scroll sideways rather than overflow. */
+.bm-math-display {
+  display: block;
+  margin: 1em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.katex-display { margin: 0; }
+/* Closing punctuation after an inline formula, with the formula's last box: one box, kept on one line. */
+.bm-math-end { display: inline-block; white-space: nowrap; }
+
+/* Headings: the § link before the heading, seen when the heading is pointed at; the section number. */
+:is(h1, h2, h3, h4, h5, h6):has(> .bm-heading-link) { position: relative; }
+.bm-heading-link {
+  position: absolute;
+  right: 100%;
+  padding-right: 0.25em;
+  color: var(--bm-faint);
+  text-decoration: none;
+  opacity: 0;
+}
+:is(h1, h2, h3, h4, h5, h6):hover > .bm-heading-link,
+.bm-heading-link:focus { opacity: 1; }
+.bm-section-number { margin-right: 0.15em; }
+
+/* Links: an article not yet written; citations. */
+a.bm-wiki-link-missing {
+  color: var(--bm-missing);
+  text-decoration: underline dotted;
+}
+a.bm-citation { text-decoration: none; }
+
+/* Labelled list items, (a), iv): the label in the marker's place, right-aligned before the text. */
+li:has(> .bm-item-label:first-child, > p:first-child > .bm-item-label:first-child) {
+  list-style: none;
+  position: relative;
+}
+.bm-item-label {
+  display: inline-block;
+  width: 0;
+  direction: rtl;
+  white-space: nowrap;
+}
+.bm-item-label > span {
+  direction: ltr;
+  unicode-bidi: isolate;
+  margin-right: calc(0.5em + var(--bm-outer, 0) * 2.5em);
+}
+.bm-item-label-block {
+  position: absolute;
+  right: 100%;
+  width: auto;
+}
+li:has(> ol:first-child > li:first-child > .bm-item-label-outer, > ol:first-child > li:first-child > p:first-child > .bm-item-label-outer) { list-style: none; }
+ol:has(> li > .bm-item-label, > li > p:first-child > .bm-item-label) { padding-left: 2.5em; }
+
+/* Figures: an image alone in a paragraph, or a captioned diagram. */
+.bm-content-figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+.bm-content-figure img { max-width: 100%; height: auto; }
+.bm-content-figure figcaption {
+  margin-top: 0.5em;
+  color: var(--bm-muted);
+  font-size: 0.9em;
+}
+
+/* <align>, and <spoiler> (details). */
+.bm-align-right { text-align: right; }
+.bm-align-center { text-align: center; }
+details {
+  border: 1px solid var(--bm-border);
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+}
+details > summary { cursor: pointer; font-weight: 500; }
+details > div > :last-child { margin-bottom: 0; }
+
+/* Bibliographies: hanging entries, versions below them, the entry a citation leads to marked for a moment. */
+.bm-bibliography { margin: 1.5em 0; }
+.bm-bibliography p { margin: 0; }
+.bm-bibliography-entry { margin: 0 0 1em; }
+.bm-bibliography-entry > p { padding-left: 2em; text-indent: -2em; }
+.bm-bibliography-version { margin-top: 0.2em; padding-left: 2em; }
+.bm-bibliography-label { margin-right: 1em; font-weight: 600; }
+.bm-bibliography-relation { color: var(--bm-muted); font-weight: 600; }
+.bm-bibliography-links { color: var(--bm-muted); font-size: 0.9em; }
+.bm-bibliography-names a { color: inherit; }
+.bm-bibliography-entry:target,
+.bm-bibliography-version:target {
+  outline: 1.5px solid var(--bm-target-border);
+  background: var(--bm-target);
+  border-radius: 0.4em;
+}
+
+/* Footnotes: a rule above the list. */
+.bm-footnote-ref { text-decoration: none; }
+.bm-footnotes {
+  margin-top: 2em;
+  border-top: 1px solid var(--bm-border);
+  font-size: 0.9em;
+}
+.bm-footnotes > hr { display: none; }
+.bm-footnote-backref { text-decoration: none; }
+
+/* TikZ diagrams: the source while nothing has compiled it; the compiled SVG, its number beside it. */
+.bm-tikz-source > .bm-tikz-code {
+  display: block;
+  white-space: pre-wrap;
+  color: var(--bm-muted);
+  font-size: 0.85em;
+}
+.bm-tikz-rendered .bm-tikz-svg { overflow: visible; }
+.bm-tikz-rendered .bm-tikz-body { display: inline-block; }
+.bm-tikz-rendered.bm-math-display { text-align: center; }
+.bm-tikz-rendered.bm-math-display .bm-tikz-body { display: block; width: max-content; margin-inline: auto; }
+.bm-tikz-layout {
+  display: grid;
+  grid-template-columns: minmax(var(--bm-tikz-tag-space), 1fr) max-content minmax(var(--bm-tikz-tag-space), 1fr);
+  align-items: center;
+  width: max-content;
+  min-width: 100%;
+}
+.bm-tikz-layout .bm-tikz-body { grid-column: 2; }
+.bm-tikz-tag { grid-column: 3; justify-self: end; }
+
+/* Code blocks, and their highlighting (the same classes in every language). */
+pre.bm-code-block {
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
+  background: var(--bm-surface);
+  overflow-x: auto;
+}
+.bm-hl-heading, .bm-hl-strong, .bm-hl-environment-name { font-weight: 700; }
+.bm-hl-emphasis, .bm-hl-comment { font-style: italic; }
+.bm-hl-strikethrough { text-decoration: line-through; }
+.bm-hl-mark, .bm-hl-escape, .bm-hl-punctuation, .bm-hl-quote, .bm-hl-label, .bm-hl-bracket,
+.bm-hl-wiki-target, .bm-hl-environment, .bm-hl-comment { color: var(--bm-hl-mark); }
+.bm-hl-link, .bm-hl-wiki { color: var(--bm-hl-link); }
+.bm-hl-url, .bm-hl-wiki-mark { color: color-mix(in srgb, var(--bm-hl-link) 60%, var(--bm-hl-mark)); }
+.bm-hl-command, .bm-hl-atom, .bm-hl-key { color: var(--bm-hl-command); }
+.bm-hl-math-mark, .bm-hl-math .bm-hl-bracket, .bm-hl-math.bm-hl-bracket { color: var(--bm-hl-command-mark); }
+.bm-hl-reference { color: var(--bm-hl-reference); }
+.bm-hl-reference-mark { color: color-mix(in srgb, var(--bm-hl-reference) 50%, transparent); }
+.bm-hl-environment-name, .bm-hl-code-language, .bm-hl-tex-environment, .bm-hl-number,
+.bm-hl-structure, .bm-hl-heading.bm-hl-structure { color: var(--bm-hl-structure); }
+.bm-hl-string, .bm-hl-yaml-value, .bm-hl-code, .bm-hl-environment-title { color: var(--bm-hl-string); }

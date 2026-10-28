@@ -2,13 +2,16 @@ import { isPublished } from './collections.mjs';
 import { readingMetadata } from './reading.mjs';
 
 /**
- * The site's latest changes for the home page (layouts/index.html), from the pages' Git histories (page-history.mjs):
+ * The site's latest changes for the home page, from the pages' Git histories (page-history.mjs):
  * the newest `limit` changes (pull requests, or commits made directly on the branch) that touched a published article
- * or a page of a lecture or guide, newest first. The first commit, which imported the site, is left out.
+ * or a page of a lecture or guide, newest first. The first commit, which imported the site, is left out, and so are
+ * minor edits (scripts/shared/minor-edits.mjs): a change of minor edits alone is not listed, and a change lists only
+ * the pages it changed in earnest.
  *
  * Each change is { time, pages, items, more, title }, or { time, pages, book, added, title } when every page it touched
  * is in one book (the list then names only the book):
- * - time: when the change was written (as on the recent changes page); pages: how many of those pages it touched;
+ * - time: when the change was written (as on the recent changes page); pages: how many of those pages it touched
+ *   (not minor edits);
  * - items: up to `shown` of them in reading order, new and renamed pages first, then articles; each { page, added },
  *   or for a book { book, page, added } (one of its pages) or { book, added } (several, the book standing for them;
  *   added when the book itself is new);
@@ -23,7 +26,7 @@ export function recentChanges(histories, records, { limit = 5, shown = 3 } = {})
     const relative = path.slice('content/'.length), record = records.get(relative);
     if (!listed(record)) continue;
     for (const entry of entries) {
-      if (entry.import) continue;
+      if (entry.import || entry.minor) continue;
       const key = entry.pr !== undefined ? `pr ${entry.pr}` : `commit ${entry.commit}`;
       if (!changes.has(key)) changes.set(key, { time: entry.time, merged: entry.merged, title: entry.title, pages: [] });
       changes.get(key).pages.push({ path: contentPath(relative), metadata: record.metadata, added: entry.status === 'added', renamed: entry.status === 'renamed' });
@@ -62,4 +65,4 @@ function listed(record) {
 const readingOf = metadata => metadata.sortKey ?? readingMetadata({ name: metadata.title, manual: metadata.sort }).sortKey;
 
 /** The page's content path, as Hugo's site.GetPage takes it: wiki/甲/index.md -> wiki/甲. */
-const contentPath = relative => relative.replace(/\/_?index\.md$/, '').replace(/\.md$/, '');
+const contentPath = relative => relative.replace(/\/index\.md$/, '').replace(/\.md$/, '');

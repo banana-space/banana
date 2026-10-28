@@ -2,11 +2,11 @@
 title: '0'
 aliases: [零]
 categories: [记号]
-notices:
-  - name: 区分
-    pages:
-      - O
 ---
+
+<disambiguation>
+注意与[[O]]区分。
+</disambiguation>
 
 **0**（或**零**）有以下含义：
 

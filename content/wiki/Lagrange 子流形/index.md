@@ -1,13 +1,13 @@
 ---
 title: Lagrange 子流形
 categories: [辛几何]
-notices:
-  - name: 问题
-    items:
-      - “实射影空间”一节中的 $\rho_{\mathrm{FS}}$ 没有定义。
-      - “Floer 同调”“Donaldson 范畴与 Fukaya 范畴”各节需要扩充。
 navboxes: [辛几何]
 ---
+
+<problems>
+- “实射影空间”一节中的 $\rho_{\mathrm{FS}}$ 没有定义。
+- “Floer 同调”“Donaldson 范畴与 Fukaya 范畴”各节需要扩充。
+</problems>
 
 在[[辛几何]]中，
 **Lagrange 子流形**是[[辛流形]]的一类特殊的[[子流形]]，

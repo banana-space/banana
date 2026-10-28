@@ -1,10 +1,10 @@
 ---
 title: 支撑在点上的上同调
-notices:
-  - name: 问题
-    items:
-      - 证明中 $H^i_{\operatorname{ét}}(\operatorname{Spec}\mathscr{O}_{U,x}^{\mathrm{sh}},\mathbb{G}_m)=0$（$i>0$）引用的是射影曲线上 $\mathbb{G}_m$ 的上同调定理，所需的似乎是严格Hensel局部环的上同调消没。
 ---
+
+<problems>
+- 证明中 $H^i_{\operatorname{ét}}(\operatorname{Spec}\mathscr{O}_{U,x}^{\mathrm{sh}},\mathbb{G}_m)=0$（$i>0$）引用的是射影曲线上 $\mathbb{G}_m$ 的上同调定理，所需的似乎是严格Hensel局部环的上同调消没。
+</problems>
 
 ::: proposition
 设$U$是代数闭域$k$上的光滑曲线且$n\in k^*$。取闭点$x\in U$，则

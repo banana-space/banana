@@ -1,12 +1,12 @@
 ---
 title: Cohen 结构定理
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “Cohen 环的显式构造”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “Cohen 环的显式构造”一节需要扩充。
+</problems>
 
 [[Cohen]] 结构定理刻画了 Noether 完备局部环的结构。
 

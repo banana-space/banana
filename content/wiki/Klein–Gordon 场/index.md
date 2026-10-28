@@ -2,13 +2,13 @@
 title: Klein–Gordon 场
 aliases: [Klein-Gordon 场]
 categories: [自由场论]
-notices:
-  - name: 问题
-    items:
-      - “多点函数与 $S$ 矩阵”一节需要扩充。
-      - “能量、动量与荷”一节中交换子 $[Q, a_p^{c, \dagger}] = -[Q, a_p^\dagger] = \alpha$ 的右边似乎应为相应的产生算子乘以 $\alpha$，即 $[Q, a_p^{c, \dagger}] = \alpha a_p^{c, \dagger}$、$[Q, a_p^\dagger] = -\alpha a_p^\dagger$。
 navboxes: [自由场论]
 ---
+
+<problems>
+- “多点函数与 $S$ 矩阵”一节需要扩充。
+- “能量、动量与荷”一节中交换子 $[Q, a_p^{c, \dagger}] = -[Q, a_p^\dagger] = \alpha$ 的右边似乎应为相应的产生算子乘以 $\alpha$，即 $[Q, a_p^{c, \dagger}] = \alpha a_p^{c, \dagger}$、$[Q, a_p^\dagger] = -\alpha a_p^\dagger$。
+</problems>
 
 ::: convention
 在本文中，

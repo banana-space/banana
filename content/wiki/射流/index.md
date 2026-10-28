@@ -1,11 +1,11 @@
 ---
 title: 射流
 categories: [微分几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节最后一个命题中，投影 $J^r(Y)\to Y$ 也记作 $\pi_r$，与同一命题中的 $\pi_r\colon J^r(Y)\to X$ 记号冲突；并且对 $r \geq 2$，该投影似乎不是仿射丛，仿射丛结构似乎应是 $\pi_{r,r-1}\colon J^r(Y)\to J^{r-1}(Y)$。
 ---
+
+<problems>
+- “性质”一节最后一个命题中，投影 $J^r(Y)\to Y$ 也记作 $\pi_r$，与同一命题中的 $\pi_r\colon J^r(Y)\to X$ 记号冲突；并且对 $r \geq 2$，该投影似乎不是仿射丛，仿射丛结构似乎应是 $\pi_{r,r-1}\colon J^r(Y)\to J^{r-1}(Y)$。
+</problems>
 
 **射流**是[[微分几何]]中的概念，
 直观地说，

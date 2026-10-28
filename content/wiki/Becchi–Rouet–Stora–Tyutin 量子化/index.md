@@ -3,12 +3,12 @@ title: Becchi–Rouet–Stora–Tyutin 量子化
 aliases: [BRST 量子化, Becchi-Rouet-Stora-Tyutin 量子化]
 categories: [规范场论]
 navboxes: [规范场论]
-notices:
-  - name: 问题
-    items:
-      - “动机”“数学观点”“例子”各节需要扩充。“动机”一节应说明为什么不能直接把规范场量子化；“例子”一节应包括规范场、点粒子和弦。
-      - “陈述”一节证明中 $\det\left( \frac{dF^A}{dx^\alpha} \right)$ 的 Graßmann 积分表示里，$\exp$ 前的因子 $b_A c^\alpha$ 似乎是多余的，且 $F_A(\phi)$ 的指标似乎应写在上方。
 ---
+
+<problems>
+- “动机”“数学观点”“例子”各节需要扩充。“动机”一节应说明为什么不能直接把规范场量子化；“例子”一节应包括规范场、点粒子和弦。
+- “陈述”一节证明中 $\det\left( \frac{dF^A}{dx^\alpha} \right)$ 的 Graßmann 积分表示里，$\exp$ 前的因子 $b_A c^\alpha$ 似乎是多余的，且 $F_A(\phi)$ 的指标似乎应写在上方。
+</problems>
 
 **Becchi–Rouet–Stora–Tyutin 量子化**，
 简称 **BRST 量子化**，

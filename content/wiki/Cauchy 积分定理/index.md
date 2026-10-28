@@ -1,13 +1,12 @@
 ---
 title: Cauchy 积分定理
 categories: [复分析]
-notices:
-  - name: 区分
-    pages:
-      - Cauchy 积分公式
-      - Cauchy 重积分公式
 navboxes: [复分析]
 ---
+
+<disambiguation>
+注意与[[Cauchy 积分公式]]、[[Cauchy 重积分公式]]区分。
+</disambiguation>
 
 **Cauchy 积分定理**（也称为 **Cauchy–Goursat 定理**）说明，
 [[复平面]]上[[全纯函数]]的[[曲线积分]]在曲线的[[同伦]]下不变。
@@ -282,7 +281,7 @@ z_i, z_{i+1}, w_i, w_{i+1} \in D_i, \quad i=0,\cdots, n.
 \]
 例如，下图展示了 $n=4$ 的情况。
 
-![](Proof_of_Cauchy_theorem.png?width=400)
+![](Proof_of_Cauchy_theorem.png){width=400}
 
 这些圆盘都包含在 $U$ 内。对每个 $D_i$，其内部可以找到 $f$ 的一个原函数 $F_i$，这是因为 @3。
 在 $D_i \cap D_{i+1}$ 中，$F_i, F_{i+1}$ 是同一个函数的两个原函数，

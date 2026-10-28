@@ -1,13 +1,13 @@
 ---
 title: 群作用的应用举例
-notices:
-  - name: 问题
-    items:
-      - 例子“${\mathbf{D}(\mathfrak{A}_n)}=\mathfrak{A}_n, n\geqslant 5$”中，“${\mathbf{D}(\mathfrak{A}_n)}$中的 $3$-循环是相互共轭的”似乎应为 $\mathfrak{A}_n$ 中的 $3$-循环，且这一结论缺少出处。
-      - 例子“$\mathfrak{A}_5$是单群”最后一段中的 $\mathrm{Ker}(G\rightarrow G/N)$ 似乎应为 $\mathrm{Ker}(G\rightarrow \mathfrak{S}_X)$。
-      - “Sylow定理”一节第一个例子中，Sylow $p$-子群对应于乘积中形如 $(*,1)$ 的元素、即模 $m$ 得 $1$ 的元素，在加法记号下似乎应为 $(*,0)$ 与模 $m$ 得 $0$ 的元素。
-      - “正二十面体的对称群是$\mathfrak{A}_5$”一节证明 $\langle G_{\mathbf{I}}\rangle=\mathrm{Sym}^+(\mathbf{I})$ 时，选取旋转 $\sigma$ 的说明似乎不完整，绕 $P$ 的旋转角度 $\frac{k}{5}\pi$ 似乎应为 $\frac{2k}{5}\pi$；引理证明第 2) 项中 $\mu(g)$ 的选取方式表述不清。
 ---
+
+<problems>
+- 例子“${\mathbf{D}(\mathfrak{A}_n)}=\mathfrak{A}_n, n\geqslant 5$”中，“${\mathbf{D}(\mathfrak{A}_n)}$中的 $3$-循环是相互共轭的”似乎应为 $\mathfrak{A}_n$ 中的 $3$-循环，且这一结论缺少出处。
+- 例子“$\mathfrak{A}_5$是单群”最后一段中的 $\mathrm{Ker}(G\rightarrow G/N)$ 似乎应为 $\mathrm{Ker}(G\rightarrow \mathfrak{S}_X)$。
+- “Sylow定理”一节第一个例子中，Sylow $p$-子群对应于乘积中形如 $(*,1)$ 的元素、即模 $m$ 得 $1$ 的元素，在加法记号下似乎应为 $(*,0)$ 与模 $m$ 得 $0$ 的元素。
+- “正二十面体的对称群是$\mathfrak{A}_5$”一节证明 $\langle G_{\mathbf{I}}\rangle=\mathrm{Sym}^+(\mathbf{I})$ 时，选取旋转 $\sigma$ 的说明似乎不完整，绕 $P$ 的旋转角度 $\frac{k}{5}\pi$ 似乎应为 $\frac{2k}{5}\pi$；引理证明第 2) 项中 $\mu(g)$ 的选取方式表述不清。
+</problems>
 
 ## 双传递性与单群的Iwasawa判定
 
@@ -1111,7 +1111,7 @@ g_2=(0,9,3)(1,5,8)(2,10,4)(7,6,\infty).
 实际上，利用在${\mathbb{F}}_{11}$中$2\times 6=3\times 4=5\times 9=7\times 8=10^2=1$，计算是简单的。
 现在考虑如下的正二十面体，其中，我们用${\mathbb{F}}_{11}\cup\{\infty\}$对其顶点进行标记：
 
-![](YPAA_Ica11.png?width=400)
+![](YPAA_Ica11.png){width=400}
 
 此时，$g_1$对应着绕过$0$和$\infty$的轴而角度为$\frac{2\pi}{5}$的旋转；
 $g_2$对应着绕过面$0,9,3$和面$7,6,\infty$的中心为轴而角度为$\frac{2\pi}{3}$的旋转。

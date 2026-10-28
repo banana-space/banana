@@ -1,12 +1,12 @@
 ---
 title: 函子观点
 categories: [代数几何]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节中 Segre 嵌入的目标空间似乎应为 $\mathbb{P}^{nm+n+m}_S$。
 navboxes: [代数几何]
 ---
+
+<problems>
+- “例子”一节中 Segre 嵌入的目标空间似乎应为 $\mathbb{P}^{nm+n+m}_S$。
+</problems>
 
 **函子观点**是[[代数几何]]中的观点，
 它把几何对象视为在全体[[概形]]（赋予某种拓扑）构成的景上的层，

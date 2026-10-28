@@ -2,11 +2,11 @@
 title: Atiyah–Singer 指标定理
 aliases: [Atiyah-Singer 指标定理, 指标定理]
 categories: [微分几何]
-notices:
-  - name: 问题
-    items:
-      - “推论”“族指标定理”“与物理的联系”各节需要扩充。
 ---
+
+<problems>
+- “推论”“族指标定理”“与物理的联系”各节需要扩充。
+</problems>
 
 **[[Michael Atiyah|Atiyah]]–[[Isadore Singer|Singer]] 指标定理**是说，
 对[[紧空间|紧]][[光滑流形|流形]]上[[光滑向量丛|向量丛]]

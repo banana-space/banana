@@ -2,14 +2,14 @@
 title: 六函子理论
 aliases: [六函子, Grothendieck 六函子]
 categories: [层论]
-notices:
-  - name: 问题
-    items:
-      - “基变换、投影公式”“例子”各节需要扩充。
-      - '“通过分解”一节中定理的条件 1 中的同构 $j''_!g''^! \xrightarrow{\sim} g^*j_!$ 似乎应为 $j''_!g''^* \xrightarrow{\sim} g^*j_!$；条件 2 中的图表与同构 $g^*f_* \xrightarrow{\sim} g^*j_!$ 似乎沿用了条件 1 的记号，与关于 $f \in P$ 的基变换不符。'
-      - “例子”一节中 $\mathcal{D}(S,\Lambda)$ 的 $\Lambda$ 似乎应为 $R$。
 navboxes: [层论]
 ---
+
+<problems>
+- “基变换、投影公式”“例子”各节需要扩充。
+- “通过分解”一节中定理的条件 1 中的同构 $j'_!g'^! \xrightarrow{\sim} g^*j_!$ 似乎应为 $j'_!g'^* \xrightarrow{\sim} g^*j_!$；条件 2 中的图表与同构 $g^*f_* \xrightarrow{\sim} g^*j_!$ 似乎沿用了条件 1 的记号，与关于 $f \in P$ 的基变换不符。
+- “例子”一节中 $\mathcal{D}(S,\Lambda)$ 的 $\Lambda$ 似乎应为 $R$。
+</problems>
 
 **六函子理论**是[[层论]]中的一种结构，
 在[[代数几何]]中应用广泛。

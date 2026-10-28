@@ -1,15 +1,16 @@
 ---
 title: Möbius 函数（数论）
 categories: [初等数论, 解析数论]
-notices:
-  - name: 消歧义
-    see:
-      - page: Möbius 函数
-  - name: 问题
-    items:
-      - '“与 Riemann 猜想的关系”一节第一个证明的末尾，由 $\ll x^{\frac12+{3\varepsilon\over2}}$ 得到结论似乎应取 $\varepsilon=2\varepsilon''/3$，而不是 $\varepsilon=3\varepsilon''/2$。'
-      - “与 Riemann 猜想的关系”一节第二个证明中，竖直线段上积分的下限 $\frac12+\sigma+\varepsilon-iT$ 似乎应为 $\frac12-\sigma+\varepsilon-iT$。
 ---
+
+<disambiguation>
+关于其他含义，请参见[[Möbius 函数]]。
+</disambiguation>
+
+<problems>
+- “与 Riemann 猜想的关系”一节第一个证明的末尾，由 $\ll x^{\frac12+{3\varepsilon\over2}}$ 得到结论似乎应取 $\varepsilon=2\varepsilon'/3$，而不是 $\varepsilon=3\varepsilon'/2$。
+- “与 Riemann 猜想的关系”一节第二个证明中，竖直线段上积分的下限 $\frac12+\sigma+\varepsilon-iT$ 似乎应为 $\frac12-\sigma+\varepsilon-iT$。
+</problems>
 
 ::: convention
 在本文中，

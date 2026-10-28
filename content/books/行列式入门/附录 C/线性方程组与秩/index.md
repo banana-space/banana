@@ -1,10 +1,10 @@
 ---
 title: 线性方程组与秩
-notices:
-  - name: 问题
-    items:
-      - 陈述 $\operatorname{rank}(A) = \operatorname{rank}(A^{\mathrm{T}})$ 的定理连续出现了两次，第一次没有证明。
 ---
+
+<problems>
+- 陈述 $\operatorname{rank}(A) = \operatorname{rank}(A^{\mathrm{T}})$ 的定理连续出现了两次，第一次没有证明。
+</problems>
 
 本节，我们讨论线性方程组与阵的秩。
 

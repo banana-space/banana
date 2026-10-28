@@ -1,12 +1,12 @@
 ---
 title: 链（序论）
 categories: [序论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 链
 navboxes: [序论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[链]]。
+</disambiguation>
 
 在[[序论]]中，**链**是[[全序集]]的同义词，
 常特指[[偏序集]]中的全序[[子集]]。

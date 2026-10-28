@@ -1,13 +1,12 @@
 ---
 title: Zariski 拓扑
 categories: [一般拓扑, 代数几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '相应的 [[Grothendieck 拓扑]]'
-        page: Zariski 景
 navboxes: [代数几何]
 ---
+
+<disambiguation>
+关于相应的 [[Grothendieck 拓扑]]，请参见[[Zariski 景]]。
+</disambiguation>
 
 在[[代数几何]]中，
 **Zariski 拓扑**是[[概形]]、[[代数簇]]等几何对象带有的自然[[拓扑]]。

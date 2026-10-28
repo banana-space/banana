@@ -2,11 +2,11 @@
 title: Riemann 面
 aliases: [黎曼面]
 categories: [复分析, 复几何]
-notices:
-  - name: 问题
-    items:
-      - “性质”一节需要扩充。
 ---
+
+<problems>
+- “性质”一节需要扩充。
+</problems>
 
 **Riemann 面**是 $1$ 维[[复流形]]，
 也即带有[[复结构]]的[[拓扑曲面]]。

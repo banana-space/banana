@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
 import { readFile, readdir, rm, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { formatMarkdown, textWidth } from '../scripts/format/markdown.mjs';
@@ -109,7 +108,6 @@ try {
   }
   const build = async () => {
     buildProject(root);
-    execFileSync(process.execPath, ['scripts/postbuild.mjs'], { cwd: root, stdio: 'pipe' });
     const pages = new Map();
     async function read(directory) {
       for (const entry of await readdir(join(root, 'public', directory), { withFileTypes: true })) {

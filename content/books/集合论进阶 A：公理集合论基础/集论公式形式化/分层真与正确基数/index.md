@@ -1,10 +1,10 @@
 ---
 title: 分层真与正确基数
-notices:
-  - name: 问题
-    items:
-      - '$V_\alpha\prec_1\mathbf{V}$ 推出强极限的证明中，句子 $\exists f(\mathrm{isSurjOn}(f,\gamma,V_\alpha))$ 里的 $V_\alpha$ 似乎应为 $V_\beta$。'
 ---
+
+<problems>
+- $V_\alpha\prec_1\mathbf{V}$ 推出强极限的证明中，句子 $\exists f(\mathrm{isSurjOn}(f,\gamma,V_\alpha))$ 里的 $V_\alpha$ 似乎应为 $V_\beta$。
+</problems>
 
 之前形式化的$\mathrm{Sat}$显然其实是全局的$\Delta_0$真谓词（因为$\mathrm{Sat}(s,u)$也就是$u\vDash s$
 也就是$s$对$u$的相对化，which是$\Delta_0$句子），而我们的讨论说明它是$\Delta_1$的；

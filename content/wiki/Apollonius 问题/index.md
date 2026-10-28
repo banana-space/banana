@@ -1,13 +1,13 @@
 ---
 title: Apollonius 问题
 categories: [计数几何, 初等几何]
-notices:
-  - name: 问题
-    items:
-      - 缺少插图。
-      - “严格证明”一节需要扩充。
 navboxes: [计数几何]
 ---
+
+<problems>
+- 缺少插图。
+- “严格证明”一节需要扩充。
+</problems>
 
 **Apollonius 问题**是[[计数几何]]中的一个经典结论，是说在
 [[Euclid 平面]]上，与 $3$ 个给定一般位置的[[圆]]相切的圆的数目为 $8$。

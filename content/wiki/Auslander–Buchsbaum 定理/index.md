@@ -1,15 +1,16 @@
 ---
 title: Auslander–Buchsbaum 定理
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “陈述与证明”一节的第二个引理（投射模与局部自由的等价）似乎需要假设 $M$ 有限表现，否则一般不成立；正文的应用中 $P$ 是 Noether 环的理想，不受影响。
-  - name: 区分
-    pages:
-      - Auslander–Buchsbaum 公式
 navboxes: [交换代数]
 ---
+
+<problems>
+- “陈述与证明”一节的第二个引理（投射模与局部自由的等价）似乎需要假设 $M$ 有限表现，否则一般不成立；正文的应用中 $P$ 是 Noether 环的理想，不受影响。
+</problems>
+
+<disambiguation>
+注意与[[Auslander–Buchsbaum 公式]]区分。
+</disambiguation>
 
 **Auslander–Buchsbaum 定理**是个[[交换代数]]定理，内容为：[[正则局部环]]
 都是[[唯一分解整环]]。

@@ -2,12 +2,12 @@
 title: 除子
 aliases: [Weil 除子, Cartier 除子, 主除子]
 categories: [代数几何]
-notices:
-  - name: 问题
-    items:
-      - “Cartier 除子”一节需要扩充。
 navboxes: [代数几何, 相交论]
 ---
+
+<problems>
+- “Cartier 除子”一节需要扩充。
+</problems>
 
 在[[代数几何]]中，
 **除子**是指[[概形]]中[[余维数]]为 $1$ 的[[闭子概形]]，

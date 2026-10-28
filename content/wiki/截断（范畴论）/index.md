@@ -1,12 +1,12 @@
 ---
 title: 截断（范畴论）
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “与函子的交换性”一节中第二条似乎需要额外假设 $F$ 保持 $n$-截断对象（例如 $F$ 左正合）；仅有右伴随时，$\tau_n (F(X)) \to F(\tau_n X)$ 一般不是等价（例如 $\mathsf{Ani}$ 上的函子 $X \mapsto X \times S^1$ 与 $n = 0$）。
 navboxes: [高阶范畴论]
 ---
+
+<problems>
+- “与函子的交换性”一节中第二条似乎需要额外假设 $F$ 保持 $n$-截断对象（例如 $F$ 左正合）；仅有右伴随时，$\tau_n (F(X)) \to F(\tau_n X)$ 一般不是等价（例如 $\mathsf{Ani}$ 上的函子 $X \mapsto X \times S^1$ 与 $n = 0$）。
+</problems>
 
 ::: convention
 在本文中，

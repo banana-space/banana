@@ -1,10 +1,10 @@
 ---
 title: 偏序关系与 Zorn 引理
-notices:
-  - name: 问题
-    items:
-      - 良序集的定义中似乎应要求 $A$ 的每个非空子集都有最小元。
 ---
+
+<problems>
+- 良序集的定义中似乎应要求 $A$ 的每个非空子集都有最小元。
+</problems>
 
 对于集合$A$，$A$上的一个**序关系**指的是$A\times A$的子集$\mathcal{O}$，对于$(a,b)\in \mathcal{O}$，
 我们把它写成$a\preceq b$，并且如下的性质成立：

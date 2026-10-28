@@ -2,13 +2,12 @@
 title: 光滑函数
 aliases: [光滑函数环]
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[光滑流形]]间的映射'
-        page: 光滑映射
 navboxes: [微分几何]
 ---
+
+<disambiguation>
+关于[[光滑流形]]间的映射，请参见[[光滑映射]]。
+</disambiguation>
 
 [[光滑流形]] $X$ 上的**光滑函数**是指形如 $f \colon X \to \mathbb{R}$ 的[[光滑映射]]。
 

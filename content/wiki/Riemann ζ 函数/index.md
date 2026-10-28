@@ -2,12 +2,12 @@
 title: 'Riemann $\zeta$ 函数'
 aliases: [Riemann zeta 函数]
 categories: [解析数论, 特殊函数]
-notices:
-  - name: 问题
-    items:
-      - “函数方程”“其它形式”“应用”各节需要扩充。
-      - “非零区域 $\sigma\ge1-A/\log(|t|+2)$”一节中，定理证明的最后一个不等式中，分子 $7-A\delta$ 按前一步计算似乎应为 $1-A\delta$。
 ---
+
+<problems>
+- “函数方程”“其它形式”“应用”各节需要扩充。
+- “非零区域 $\sigma\ge1-A/\log(|t|+2)$”一节中，定理证明的最后一个不等式中，分子 $7-A\delta$ 按前一步计算似乎应为 $1-A\delta$。
+</problems>
 
 ::: convention
 在本文中，

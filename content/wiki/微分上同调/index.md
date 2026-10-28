@@ -1,12 +1,12 @@
 ---
 title: 微分上同调
 categories: [同调论]
-notices:
-  - name: 问题
-    items:
-      - '第二段中“普通上同调 $H^1 (X; \mathbb{R} / \mathbb{Z})$ 是 $X$ 上圆周主丛的同构类之集”似乎不成立：常系数的 $H^1 (X; \mathbb{R} / \mathbb{Z})$ 对应平坦圆周主丛，圆周主丛的同构类由 $H^2 (X; \mathbb{Z})$ 分类。'
 navboxes: [同调与上同调]
 ---
+
+<problems>
+- 第二段中“普通上同调 $H^1 (X; \mathbb{R} / \mathbb{Z})$ 是 $X$ 上圆周主丛的同构类之集”似乎不成立：常系数的 $H^1 (X; \mathbb{R} / \mathbb{Z})$ 对应平坦圆周主丛，圆周主丛的同构类由 $H^2 (X; \mathbb{Z})$ 分类。
+</problems>
 
 **微分上同调**是一类对[[光滑流形]]定义的[[上同调|上同调理论]]，
 包括[[普通微分上同调]]。

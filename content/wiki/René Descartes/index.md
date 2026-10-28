@@ -1,12 +1,12 @@
 ---
 title: René Descartes
 sort: descartes rene
-notices:
-  - name: 问题
-    items:
-      - “著名作品”一节需要扩充。
 categories: [数学家, 哲学家]
 ---
+
+<problems>
+- “著名作品”一节需要扩充。
+</problems>
 
 **René Descartes** <person lang="fr" ipa="/ʁə.ne de.kaʁt/" years="1596–1650" />，
 法国哲学家、数学家。

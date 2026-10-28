@@ -1,12 +1,12 @@
 ---
 title: Barr–Beck–Lurie 定理
 categories: [高阶范畴论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节需要扩充。
-      - 定理中“$G$ 反映 $G$-分裂单纯图表的余极限”这一条件似乎应为“$\mathcal{D}$ 中 $G$-分裂单纯对象的余极限存在，且 $G$ 保持这些余极限”。
 ---
+
+<problems>
+- “证明”一节需要扩充。
+- 定理中“$G$ 反映 $G$-分裂单纯图表的余极限”这一条件似乎应为“$\mathcal{D}$ 中 $G$-分裂单纯对象的余极限存在，且 $G$ 保持这些余极限”。
+</problems>
 
 ::: convention
 在本文中，

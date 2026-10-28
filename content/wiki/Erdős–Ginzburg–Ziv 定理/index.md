@@ -1,11 +1,11 @@
 ---
 title: Erdős–Ginzburg–Ziv 定理
 categories: [初等数论]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节第一个证明中，展开后对 $a_1,\cdots,a_k$ 求和的条件 $a_1+\cdots+a_k=p$ 似乎应为 $a_1+\cdots+a_k=p-1$；另外记号 $a_i$ 同时表示序列中的数与指数，$x_i$ 未作说明。
 ---
+
+<problems>
+- “证明”一节第一个证明中，展开后对 $a_1,\cdots,a_k$ 求和的条件 $a_1+\cdots+a_k=p$ 似乎应为 $a_1+\cdots+a_k=p-1$；另外记号 $a_i$ 同时表示序列中的数与指数，$x_i$ 未作说明。
+</problems>
 
 **Erdős–Ginzburg–Ziv 定理**，简写作**EGZ 定理**，是[[加性数论]]中的重要定理，
 它刻画了有限[[循环群]] $\mathbb Z_m$中至少多长的序列才能保证其中存在$m$元子序列零和。

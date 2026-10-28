@@ -80,7 +80,7 @@ title: 拓扑空间与连续映射 (I)
 2. {@item:sierpinski-example} **Sierpiński 空间**是只有两个元素的集合
    \(\{0,\eta\}\)；它的开集为 \(\{\emptyset, \{\eta\}, \{0,\eta\}\}\)。
 
-   ![图 1：Sierpiński space](Topology_image1.svg?width=150)
+   ![图 1：Sierpiński space](Topology_image1.svg){width=150}
 
    虽然 Sierpiński 空间看起来和我们想象的空间不太一样，它倒是经常出现在日常的研究中。
 
@@ -313,7 +313,7 @@ x \mapsto \tan x \colon \left]{-\frac{\pi}2},{\frac{\pi}2}\right[ \to \mathbb{R}
 令 \(P \in \mathbb{S}^{2}\)。则直线 \(NP\) 与平面 \(z=-1\) 有唯一的一个交点
 \(P'\)。我们定义 \(\varphi(P) = P'\)。见图 2。
 
-![图 2：球极投影（来源：维基百科）](Topology_image2.png?width=400)
+![图 2：球极投影（来源：维基百科）](Topology_image2.png){width=400}
 
 这是一个连续映射。如果几何的直观不足以让读者相信，我们可以写下 \(\varphi\) 的如下公式表示：
 \[

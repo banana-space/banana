@@ -1,13 +1,12 @@
 ---
 title: 树
 categories: [图论]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[序论]]中的树'
-        page: 树（序论）
 navboxes: [图论]
 ---
+
+<disambiguation>
+关于[[序论]]中的树，请参见[[树（序论）]]。
+</disambiguation>
 
 在[[图论]]中，**树**是指没有[[环路 (图论)|环路]]的[[连通图]]。
 

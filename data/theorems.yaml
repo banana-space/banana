@@ -1,26 +1,63 @@
+# 定理类环境（::: 类型）：名称（按页面的语言）、颜色组（class 为 bm-envgroup-<group>）与是否编号，交给 bananamark（scripts/shared/environments.mjs）。
 definition:
+  name:
+    zh-cn: 定义
+    en: Definition
   group: definition
 theorem:
+  name:
+    zh-cn: 定理
+    en: Theorem
   group: theorem
 lemma:
+  name:
+    zh-cn: 引理
+    en: Lemma
   group: theorem
 proposition:
+  name:
+    zh-cn: 命题
+    en: Proposition
   group: theorem
 corollary:
+  name:
+    zh-cn: 推论
+    en: Corollary
   group: theorem
 example:
+  name:
+    zh-cn: 例
+    en: Example
   group: example
 remark:
+  name:
+    zh-cn: 注
+    en: Remark
   group: remark
 notation:
+  name:
+    zh-cn: 记号
+    en: Notation
   group: definition
 conjecture:
+  name:
+    zh-cn: 猜想
+    en: Conjecture
   group: theorem
 exercise:
+  name:
+    zh-cn: 习题
+    en: Exercise
   group: example
 convention:
+  name:
+    zh-cn: 约定
+    en: Convention
   group: remark
   numbered: false
 proof:
+  name:
+    zh-cn: 证明
+    en: Proof
   group: proof
   numbered: false

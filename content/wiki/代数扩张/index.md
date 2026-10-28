@@ -1,12 +1,12 @@
 ---
 title: 代数扩张
 categories: [域论]
-notices:
-  - name: 问题
-    items:
-      - “代数扩张具有传递性”的证明中，$M_i$ 的定义似乎应为 $K(a_1,a_2,\cdots,a_i)$ 而不是 $F(a_1,a_2,\cdots,a_i)$。
 navboxes: [域论]
 ---
+
+<problems>
+- “代数扩张具有传递性”的证明中，$M_i$ 的定义似乎应为 $K(a_1,a_2,\cdots,a_i)$ 而不是 $F(a_1,a_2,\cdots,a_i)$。
+</problems>
 
 **代数扩张**是一类[[域扩张]]，
 其中扩域所有元素都能写成原来的域中[[多项式]]的根。

@@ -1,12 +1,12 @@
 ---
 title: Picard 大定理
 categories: [复分析]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [复分析]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

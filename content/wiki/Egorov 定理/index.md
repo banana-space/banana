@@ -1,11 +1,11 @@
 ---
 title: Egorov 定理
 categories: [测度论]
-notices:
-  - name: 问题
-    items:
-      - “应用”一节需要扩充。
 ---
+
+<problems>
+- “应用”一节需要扩充。
+</problems>
 
 在[[测度论]]中，
 **Egorov 定理**给出了从[[逐点收敛函数列|逐点收敛]]过渡到[[一致收敛函数列|一致收敛]]的条件。

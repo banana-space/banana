@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { parse, stringify } from 'yaml';
 import { JSDOM } from 'jsdom';
 import { createProject, buildProject } from './helpers/project.mjs';
-import { numbering, defaultNumbering, pageNumbering } from '../scripts/prebuild/numbering.mjs';
+import { numbering, defaultNumbering, pageNumbering } from 'bananamark/internal/numbering.mjs';
 import { characterCount } from '../scripts/prebuild/collections.mjs';
 
 const root = await createProject('collections');
@@ -26,7 +26,7 @@ const config = {
     { page: 'draft', children: [{ page: 'hidden' }] },
   ],
 };
-const marker = 'content/books/test/collection.yaml';
+const marker = 'content/books/test/book.yaml';
 const bibliography = key => `\n\`\`\`bibliography\n${key}: {type: book, author: 'Alice Smith', title: Source, year: 2020}\n\`\`\`\n`;
 try {
   await rm(join(root, 'content/books'), { recursive: true, force: true });
@@ -36,17 +36,17 @@ try {
   await write('content/books/test/first/two/index.md', source('第二小节', `{@sec:two}\n\n::: theorem {@thm:two}\n第三条。\n:::\n\n@thm:one 与 @book:one。${bibliography('book:two')}`, 'slug: custom\n'));
   await write('content/books/test/second/index.md', source('第二章', '{@chap:second}\n\n## 自定义 {@sec:custom number="7"}\n\n## 接续\n\n## 不编号*\n\n::: theorem\n保持编号。\n:::\n'));
   await write('content/books/test/appendix/index.md', source('附录', '## 补充 {@sec:letter number="B"}\n\n## 自动\n'));
-  await write('content/books/test/draft/_index.md', source('草稿章', '', 'draft: true\n'));
+  await write('content/books/test/draft/index.md', source('草稿章', '', 'draft: true\n'));
   await write('content/books/test/draft/hidden/index.md', source('隐藏子页', '{@sec:hidden}\n\n@unresolved-in-hidden-page'));
-  await write('content/projects/manual/collection.yaml', 'title: 项目指南\nnumbering:\n  pages: false\n  headings: false\ncontents:\n  - page: start\n');
+  await write('content/projects/manual/book.yaml', 'title: 项目指南\nnumbering:\n  pages: false\n  headings: false\ncontents:\n  - page: start\n');
   await write('content/projects/manual/start/index.md', source('$\\infty$ 指南', '{@guide:start}\n\n参见 @guide:start。[[奇异上同调]]\n\n::: theorem {@thm:start}\n指南定理。\n:::\n'));
-  await write('content/about/_index.md', source('普通页面', '{@page:about}\n\n# 自有标题\n\n## 第一节 {@sec:about}\n\n::: theorem {@thm:about}\n正文。\n:::\n\n@sec:about 与 @thm:about，[[奇异上同调]]。'));
-  await write('content/books/plain/_index.md', source('普通附页', '## 正文节 {@sec:plain}\n\n@sec:plain 与 [[奇异上同调]]。'));
+  await write('content/about/index.md', source('普通页面', '{@page:about}\n\n# 自有标题\n\n## 第一节 {@sec:about}\n\n::: theorem {@thm:about}\n正文。\n:::\n\n@sec:about 与 @thm:about，[[奇异上同调]]。'));
+  await write('content/books/plain/index.md', source('普通附页', '## 正文节 {@sec:plain}\n\n@sec:plain 与 [[奇异上同调]]。'));
   buildProject(root, ['--baseURL', 'https://example.org/sub/']);
-  const rootMeta = await generated('books/test/_index.md');
+  const rootMeta = await generated('books/test/index.md');
   assert.equal(rootMeta.title, '测试讲义');
   assert.equal(rootMeta.gitLastmod, undefined);
-  // Card fields from collection.yaml, and the generated page count (the draft chapter is not counted).
+  // Card fields from book.yaml, and the generated page count (the draft chapter is not counted).
   assert.deepEqual([rootMeta.description, rootMeta.collectionAuthors, rootMeta.collectionPages], ['测试用的 ∞ 讲义。', ['甲', '乙'], 5]);
   assert.ok(rootMeta.collectionCharacters > 0);
   const items = new JSDOM(await html('books')).window.document.querySelectorAll('.book-item');
@@ -59,15 +59,15 @@ try {
   assert.equal(characterCount('Hello world 2024'), 3);
   assert.equal(characterCount('```bibliography\na: {title: 很多字}\n```\n$$x^2$$\n\\begin{align*}\na &= b\n\\end{align*}\n两字'), 2);
   assert.equal(characterCount('::: theorem {@thm:a}\n定理\n:::\n[链接](https://example.org) <span>字</span>'), 5);
-  assert.equal((await generated('books/test/first/_index.md')).title, 'first');
+  assert.equal((await generated('books/test/first/index.md')).title, 'first');
   assert.equal((await generated('books/test/first/one/index.md')).collectionNumber, '1.1');
   const one = await html('books/test/first/one');
-  assert.match(one, /theorem-title">定理 1\.1\.1/); // Missing heading zero removed.
-  assert.match(one, /theorem-title">定理 1\.1\.1\.1/);
-  assert.match(one, /section-number">1\.1\.1\.1/);
-  assert.match(one, /href="\/sub\/books\/test\/first\/custom\/#thm%3Atwo"[^>]*>定理 1\.2\.1/);
+  assert.match(one, /bm-envtitle">定理 1\.1\.1/); // Missing heading zero removed.
+  assert.match(one, /bm-envtitle">定理 1\.1\.1\.1/);
+  assert.match(one, /bm-section-number">1\.1\.1\.1/);
+  assert.match(one, /href="\/sub\/books\/test\/first\/custom\/#thm:two"[^>]*>定理 1\.2\.1/);
   assert.match(one, /href="\/sub\/books\/test\/first\/custom\/#page-title"[^>]*>第 1\.2 节/);
-  assert.match(one, /href="\/sub\/wiki\/%E5%A5%87%E5%BC%82%E4%B8%8A%E5%90%8C%E8%B0%83\/" class="wiki-link"/);
+  assert.match(one, /href="\/sub\/wiki\/%E5%A5%87%E5%BC%82%E4%B8%8A%E5%90%8C%E8%B0%83\/" class="bm-wiki-link"/);
   assert.match(one, /Smith 2020b/);
   assert.match(await html('books/test/first/custom'), /Smith 2020a/);
   // Pages inside a collection name it in <title>; its home page does not repeat it.
@@ -78,10 +78,10 @@ try {
   assert.equal((trail.match(/icon-book/g) ?? []).length, 1);
   assert.doesNotMatch((await html('projects/manual/start')).match(/<nav class="collection-breadcrumbs"[\s\S]*?<\/nav>/)?.[0] ?? '', /icon-book/);
   assert.match(await html('books/test'), /<title>测试讲义 - 香蕉空间<\/title>/);
-  assert.match(await html('books/test/second'), /section-number">2\.7/);
-  assert.match(await html('books/test/second'), /section-number">2\.8/);
-  assert.match(await html('books/test/appendix'), /section-number">A\.B/);
-  assert.match(await html('books/test/appendix'), /section-number">A\.1/);
+  assert.match(await html('books/test/second'), /bm-section-number">2\.7/);
+  assert.match(await html('books/test/second'), /bm-section-number">2\.8/);
+  assert.match(await html('books/test/appendix'), /bm-section-number">A\.B/);
+  assert.match(await html('books/test/appendix'), /bm-section-number">A\.1/);
   assert.doesNotMatch(await html('books/test'), /草稿章|隐藏子页/);
   assert.match(await html('books'), /测试讲义/);
   assert.doesNotMatch(await html('books'), /项目指南|第一小节/);
@@ -91,11 +91,11 @@ try {
   assert.doesNotMatch(await html('books/plain'), /article-item/);
   const about = await html('about');
   assert.match(about, /<h1 id="自有标题">/);
-  assert.match(about, /theorem-title">定理 1\.1/);
+  assert.match(about, /bm-envtitle">定理 1\.1/);
   assert.match(about, /href="#%E7%AC%AC%E4%B8%80%E8%8A%82">第 1 节/);
-  assert.match(await html('projects/manual/start'), /theorem-title">定理 1/);
-  assert.equal((await generated('projects/manual/_index.md')).collectionKind, 'guide');
-  assert.match(await html('projects/manual/start'), /href="#page-title"><span class="math-rendered" data-tex="\\infty"/);
+  assert.match(await html('projects/manual/start'), /bm-envtitle">定理 1/);
+  assert.equal((await generated('projects/manual/index.md')).collectionKind, 'guide');
+  assert.match(await html('projects/manual/start'), /href="#page-title"><span class="bm-math-rendered" data-tex="\\infty"/);
   assert.match(one, /#page-title"[^>]*>第 2 章/);
   assert.match(one, /href="#%E6%AD%A3%E6%96%87%E8%8A%82"[^>]*>1\.1\.1/); // Unspecified depth uses default.
   const overview = await html('books/test');
@@ -114,7 +114,7 @@ try {
   assert.match(one, /collection-tree-title[\s\S]*测试讲义/);
   assert.match(one, /rel="prev"/);
   assert.match(one, /rel="next"/);
-  await assert.rejects(readFile(join(root, '.build/content/books/test/collection.yaml')), /ENOENT/);
+  await assert.rejects(readFile(join(root, '.build/content/books/test/book.yaml')), /ENOENT/);
 
   // Exercise the real drawer markup and script, including background restoration.
   const dom = new JSDOM(one, { runScripts: 'outside-only', pretendToBeVisual: true });
@@ -146,20 +146,20 @@ try {
   assert.equal(zeroes.object('theorems'), '2.3.0.0.1');
   const prefix = pageNumbering({ key: 'p', vector: ['2', '3'] }, numbering({ theorems: { depth: 1, prefix: 'T' } }, defaultNumbering));
   assert.equal(prefix.object('theorems'), 'T.1');
-  assert.throws(() => numbering({ theorems: { depth: 1, absoluteDepth: 1 } }, defaultNumbering), /不能同时/);
+  assert.throws(() => numbering({ theorems: { depth: 1, absoluteDepth: 1 } }, defaultNumbering), /cannot both be set/);
 
   // Absolute numbering must also survive the complete cross-page rendering pipeline.
   await write(marker, stringify({ ...config, numbering: { headings: { depth: 2 }, theorems: { absoluteDepth: 1 } } }));
   buildProject(root);
-  assert.match(await html('books/test/first/one'), /theorem-title">定理 1\.1/);
-  assert.match(await html('books/test/first/one'), /theorem-title">定理 1\.2/);
-  assert.match(await html('books/test/first/custom'), /theorem-title">定理 1\.3/);
-  assert.match(await html('books/test/first/one'), /#thm%3Atwo"[^>]*>定理 1\.3/);
+  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 1\.1/);
+  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 1\.2/);
+  assert.match(await html('books/test/first/custom'), /bm-envtitle">定理 1\.3/);
+  assert.match(await html('books/test/first/one'), /#thm:two"[^>]*>定理 1\.3/);
   await write(marker, stringify(config));
 
   // String/list compatibility, explicit fallback, and disabling automatic root contents.
   await write(marker, stringify({ ...config, referenceFormat: ['第 {number} 章', '第 {number} 节', '第 {number} 小节'] }));
-  await write('content/books/test/_index.md', source('测试讲义', '', 'childrenToc: false\n'));
+  await write('content/books/test/index.md', source('测试讲义', '', 'childrenToc: false\n'));
   buildProject(root);
   assert.match(await html('books/test/first/one'), /href="#%E6%AD%A3%E6%96%87%E8%8A%82"[^>]*>第 1\.1\.1 小节/);
   assert.match(await html('books/test'), /class="collection-sidebar"/);
@@ -173,7 +173,7 @@ try {
   assert.match(await html('books/test/first/one'), /#page-title"[^>]*>§1\.2/);
   await write(marker, stringify({ ...config, referenceFormat: { 0: '非法层级' } }));
   assert.throws(() => buildProject(root), /referenceFormat/);
-  await rm(join(root, 'content/books/test/_index.md'));
+  await rm(join(root, 'content/books/test/index.md'));
   await write(marker, stringify(config));
 
   // Publication flags are passed through the entire pipeline.
@@ -183,10 +183,10 @@ try {
   assert.equal((await generated('books/test/draft/hidden/index.md')).collectionNumber, '3.1');
 
   // Root headings and child pages share a numbering sequence.
-  await write('content/books/test/_index.md', source('测试讲义', '## 导论\n\n正文。'));
+  await write('content/books/test/index.md', source('测试讲义', '## 导论\n\n正文。'));
   buildProject(root);
-  assert.equal((await generated('books/test/first/_index.md')).collectionNumber, '2');
-  await rm(join(root, 'content/books/test/_index.md'));
+  assert.equal((await generated('books/test/first/index.md')).collectionNumber, '2');
+  await rm(join(root, 'content/books/test/index.md'));
 
   // Errors must leave the prior complete prebuild untouched.
   const stable = await readFile(join(root, '.build/content/books/test/first/one/index.md'), 'utf8');
@@ -203,7 +203,7 @@ try {
   assert.throws(() => buildProject(root), /authors 必须是非空字符串或字符串列表/);
   await write(marker, stringify(config));
   // books.yaml groups and orders the lecture index; every book must be listed exactly once.
-  await write('content/books/second/collection.yaml', 'title: 另一讲义\ncontents:\n  - page: start\n');
+  await write('content/books/second/book.yaml', 'title: 另一讲义\ncontents:\n  - page: start\n');
   await write('content/books/second/start/index.md', source('开始', '正文'));
   await write('content/books/books.yaml', stringify({ groups: [{ title: '甲组', books: ['second'] }, { title: '乙组', books: ['test'] }] }));
   buildProject(root);
@@ -229,17 +229,17 @@ try {
   git(['add', 'content']);
   git(['commit', '-m', 'Initial'], '2024-01-01T10:00:00Z');
   buildProject(root);
-  assert.equal((await generated('books/test/_index.md')).gitLastmod, '2024-01-01T10:00:00Z');
-  assert.equal((await generated('books/test/first/_index.md')).gitLastmod, '2024-01-01T10:00:00Z');
+  assert.equal((await generated('books/test/index.md')).gitLastmod, '2024-01-01T10:00:00Z');
+  assert.equal((await generated('books/test/first/index.md')).gitLastmod, '2024-01-01T10:00:00Z');
   await write(marker, stringify(config) + '\n# 调整配置\n');
   git(['add', marker]); git(['commit', '-m', 'Configuration'], '2024-02-01T10:00:00Z');
   buildProject(root);
-  assert.equal((await generated('books/test/_index.md')).gitLastmod, '2024-02-01T10:00:00Z');
+  assert.equal((await generated('books/test/index.md')).gitLastmod, '2024-02-01T10:00:00Z');
   await write('content/books/test/attachment.txt', 'attachment');
   git(['add', 'content/books/test/attachment.txt']); git(['commit', '-m', 'Resource'], '2024-03-01T10:00:00Z');
   git(['rm', 'content/books/test/attachment.txt']); git(['commit', '-m', 'Delete resource'], '2024-04-01T10:00:00Z');
   buildProject(root);
-  assert.equal((await generated('books/test/_index.md')).gitLastmod, '2024-04-01T10:00:00Z');
+  assert.equal((await generated('books/test/index.md')).gitLastmod, '2024-04-01T10:00:00Z');
   assert.match(await html('books/test'), /datetime="2024-04-01T10:00:00Z"/);
   console.log('指南/讲义发现、自动目录页、跨页引用/文献、层级编号、发布过滤、普通页面语法、导航、原子发布与 Git 日期验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

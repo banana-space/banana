@@ -1,12 +1,12 @@
 ---
 title: Frobenius 代数
 categories: [代数论]
-notices:
-  - name: 问题
-    items:
-      - “与二维拓扑量子场论的对应”一节需要扩充。
 navboxes: [代数结构]
 ---
+
+<problems>
+- “与二维拓扑量子场论的对应”一节需要扩充。
+</problems>
 
 **Frobenius 代数**是一种[[代数结构]]，
 它同时具有[[代数 (代数结构)|代数]]和[[余代数]]的结构，且二者相容。

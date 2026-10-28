@@ -1,10 +1,8 @@
 import { dirname, posix } from 'node:path';
 
 /**
- * 生成目录变化后，Hugo 还要重新渲染哪些内容没有变化的页面，以及哪些输出不再存在（serve 的部分重建，
- * 见 docs/preview.md）。Hugo 的增量重建只重新渲染变化的文件：条目名索引（wiki/index.html）由
- * partialCached 缓存，分类页、列表页与书册目录读取其他页面的标题，它们都不会自动更新；
- * 重写这些页面的生成文件（内容不变）就会使 Hugo 用新的全站数据重新渲染它们。
+ * 生成目录变化后，还要重新渲染哪些内容没有变化的页面，以及哪些输出不再存在（serve 的部分重建，
+ * 见 docs/preview.md）：分类页、列表页与书册目录读取其他页面的标题，链接取决于目标的地址。
  *
  * before、after：两个状态的 { pages（prebuild 的 pageIndex()）, files（生成目录内的相对路径 → 条目）,
  * categories（分类名称的集合）}；targets：after 中各页面的百科链接目标（linkTargets()）；
@@ -31,22 +29,22 @@ export function affectedPages({ before, after, targets, roots, changed, categori
   // Lists: the categories (with their parents) of a changed page, the sections above it, its collection,
   // and the pages that count pages or list names (the home page's statistics, the editor's entry list).
   for (const path of pages) {
-    for (const state of [before, after]) for (const category of state.pages.get(path)?.categories ?? []) touch.add(`categories/${category}/_index.md`);
-    for (let directory = dirname(path); directory !== '.'; directory = dirname(directory)) touch.add(`${directory}/_index.md`);
+    for (const state of [before, after]) for (const category of state.pages.get(path)?.categories ?? []) touch.add(`categories/${category}/index.md`);
+    for (let directory = dirname(path); directory !== '.'; directory = dirname(directory)) touch.add(`${directory}/index.md`);
     const root = roots.find(prefix => path.startsWith(prefix));
     if (root) for (const other of after.pages.keys()) if (other.startsWith(root)) touch.add(other);
   }
-  if (pages.length) for (const path of ['_index.md', 'edit/index.md']) touch.add(path);
-  if (categoriesChanged) for (const path of after.files.keys()) if (/^categories\/[^/]+\/_index\.md$/.test(path)) touch.add(path);
+  if (pages.length) for (const path of ['index.md', 'edit/index.md']) touch.add(path);
+  if (categoriesChanged) for (const path of after.files.keys()) if (/^categories\/[^/]+\/index\.md$/.test(path)) touch.add(path);
   // A link to a category is marked as one only while the category exists.
   if (!sameSet(before.categories, after.categories)) {
     for (const [path, file] of after.files) if (file.text?.includes('categories/')) touch.add(path);
   }
 
   // The overview of categories counts their pages.
-  if ([...touch].some(path => path.startsWith('categories/'))) touch.add('categories/_index.md');
+  if ([...touch].some(path => path.startsWith('categories/'))) touch.add('categories/index.md');
 
-  // Attachments: Hugo publishes them with the page whose bundle holds them.
+  // Attachments: published with the page whose bundle holds them.
   for (const path of changed) {
     if (isPage(path)) continue;
     for (const state of [before, after]) {
@@ -71,9 +69,9 @@ export function affectedPages({ before, after, targets, roots, changed, categori
 
 const sameSet = (a, b) => a.size === b.size && [...a].every(item => b.has(item));
 
-/** The page bundle (index.md or _index.md) an attachment belongs to: the nearest one above it. */
+/** The page (an index.md) an attachment belongs to: the nearest one above it. */
 function bundleOf(path, files) {
   for (let directory = dirname(path); directory !== '.'; directory = dirname(directory)) {
-    for (const name of ['index.md', '_index.md']) if (files.has(`${directory}/${name}`)) return `${directory}/${name}`;
+    if (files.has(`${directory}/index.md`)) return `${directory}/index.md`;
   }
 }

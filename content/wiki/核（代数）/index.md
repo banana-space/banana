@@ -2,12 +2,12 @@
 title: 核（代数）
 aliases: [Ker]
 categories: [一般代数, 范畴论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 核
 navboxes: [范畴论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[核]]。
+</disambiguation>
 
 一个[[映射]] $f \colon X \to Y$ 的**核**
 是被 $f$ 映到零元 $0 \in Y$ 的元素的集合，

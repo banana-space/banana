@@ -1,11 +1,11 @@
 ---
 title: 公式，可证与满足
-notices:
-  - name: 问题
-    items:
-      - '谓词 $\mathrm{Sub}_{pv}$ 定义中的条件 $s(i)=u\wedge s''(i)=v$ 似乎应为 $s(i)=v\wedge s''(i)=u$，与文字描述一致。'
-      - '预函数 $w(u,s)$ 中 $w_2$ 的表达式里 $n$ 似乎没有定义，而引入的 $k$ 没有使用。'
 ---
+
+<problems>
+- 谓词 $\mathrm{Sub}_{pv}$ 定义中的条件 $s(i)=u\wedge s'(i)=v$ 似乎应为 $s(i)=v\wedge s'(i)=u$，与文字描述一致。
+- 预函数 $w(u,s)$ 中 $w_2$ 的表达式里 $n$ 似乎没有定义，而引入的 $k$ 没有使用。
+</problems>
 
 我们来看Devlin的传世名著中使用的编码方案，它虽然非常自然，但却不能在Devlin原来设想的语境中实现。
 

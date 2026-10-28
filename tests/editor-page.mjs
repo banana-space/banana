@@ -381,6 +381,27 @@ try {
   assert.deepEqual([shown()[0], peek().previousElementSibling], [['---'], null]);
   revert();
   assert.equal(editor.text(), source);
+  // Tab: with nothing selected, spaces at the cursor up to the next multiple of two columns; with a selection, its
+  // lines indented, and Shift+Tab outdents them; while completion offers something, it takes the option.
+  const tabView = editor.view(), typeAtEnd = text => tabView.dispatch({ changes: { from: tabView.state.doc.length, insert: text }, selection: { anchor: tabView.state.doc.length + text.length }, userEvent: 'input.type' });
+  typeAtEnd('abc');
+  key('Tab');
+  assert.equal(editor.text(), `${source}abc `, '光标处插入空格到 2 的倍数列');
+  key('Tab');
+  assert.equal(editor.text(), `${source}abc   `);
+  tabView.dispatch({ selection: { anchor: source.length, head: source.length + 2 } });
+  key('Tab');
+  assert.equal(editor.text(), `${source}  abc   `, '选中文字时缩进所在的行');
+  key('Tab', { shiftKey: true });
+  assert.equal(editor.text(), `${source}abc   `, 'Shift+Tab 减少缩进');
+  tabView.dispatch({ changes: { from: source.length, to: tabView.state.doc.length } });
+  typeAtEnd('<prob');
+  await until(() => editor.$('.cm-tooltip-autocomplete'), '补全');
+  await delay(100);
+  key('Tab');
+  assert.equal(editor.text(), `${source}<problems>\n- \n</problems>`, 'Tab 接受补全');
+  tabView.dispatch({ changes: { from: source.length, to: tabView.state.doc.length } });
+  assert.equal(editor.text(), source);
   editor.type('修改一。\n');
   const submitButton = editor.$('.editor-submit-button');
   submitButton.click();
@@ -393,7 +414,7 @@ try {
   confirm.click();
   const confirmation = dialog.querySelector('.editor-submit-done');
   await until(() => !confirmation.hidden, '提交成功');
-  assert.deepEqual(editor.requests.at(-1).body, { path: 'wiki/甲/index.md', text: `${source}修改一。\n`, original, message: '修正' });
+  assert.deepEqual(editor.requests.at(-1).body, { path: 'wiki/甲/index.md', text: `${source}修改一。\n`, original, message: '修正', minor: false });
   assert.ok(dialog.querySelector('.editor-submit-form').hidden, '对话框变为提交成功');
   assert.equal(confirmation.querySelector('h2').textContent, '提交成功');
   assert.ok(confirmation.querySelector('svg.editor-done-icon'));
@@ -470,7 +491,7 @@ try {
   let bookPreviews = 0;
   editor = open('books/甲/一.md', {
     me: me(tester),
-    source: () => [200, { ok: true, path: 'content/books/甲/一.md', exists: true, text: bookSource, original, pull: null, file: null, url: '/books/甲/一/', labels: [{ name: 'thm:other', detail: '定理 1', page: '二' }] }],
+    source: () => [200, { ok: true, path: 'content/books/甲/一.md', exists: true, text: bookSource, original, pull: null, file: null, url: '/books/甲/一/', labels: [{ name: 'thm:other', text: '定理 1', page: '二' }] }],
     preview: body => { bookPreviews++; return [200, { ok: true, url: '/books/甲/一/', html: rendered(body), missingLinks: [], timings: {} }]; },
   });
   await until(() => editor.$('.editor-frame').getAttribute('srcdoc'), '书册页面首次预览');
@@ -523,7 +544,7 @@ try {
   // The address names the pull request (the link in its description): no question; submissions go to it.
   let targeted;
   editor = open('?path=wiki%2F%E7%94%B2%2Findex.md&pull=3', {
-    me: me(tester), source: (_body, url) => { targeted = url; return page({ pull: octoPull, pulls: [octoPull] })(); },
+    me: me(tester), source: (_body, url) => { targeted = url; return page({ pull: octoPull, pulls: [octoPull], minor: true })(); },
     preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }],
     submit: () => [200, { ok: true, number: 3, url: octoPull.url, updated: true, original: 'e'.repeat(40) }],
   });
@@ -537,9 +558,13 @@ try {
   const otherDialog = editor.$('.editor-submit-dialog');
   await until(() => otherDialog.open && !otherDialog.querySelector('button[value="submit"]').disabled, '提交对话框');
   assert.equal(otherDialog.querySelector('.editor-submit-update').textContent, '编辑将添加到 @octo 的 PR #3，对方会收到通知．');
+  // The pull request marks the page a minor edit: the checkbox starts so, and a reviewer can change it.
+  const minorBox = otherDialog.querySelector('[name="minor"]');
+  assert.equal(minorBox.checked, true, 'PR 中的小修改标记');
+  minorBox.checked = false;
   otherDialog.querySelector('button[value="submit"]').click();
   await until(() => !otherDialog.querySelector('.editor-submit-done').hidden, '提交到他人的 PR');
-  assert.equal(editor.requests.at(-1).body.pull, 3);
+  assert.deepEqual([editor.requests.at(-1).body.pull, editor.requests.at(-1).body.minor], [3, false], '改变小修改的标记');
   assert.equal(editor.$('.editor-pull').textContent, '@octo 的 PR #3', '仍是他人的 PR');
   editor.window.close();
   // The pull request is merged while being edited: the draft moves on to the site's version, and a new pull
@@ -612,7 +637,7 @@ try {
   editor.window.close();
 
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、提交与成功提示、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
+  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、Tab 接受补全与缩进、提交与成功提示、小修改的标记、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }

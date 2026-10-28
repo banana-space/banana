@@ -2,11 +2,11 @@
 title: '$A_{\inf}$'
 aliases: [Ainf, Ainf(R)]
 categories: [$p$ 进几何, 代数数论]
-notices:
-  - name: 问题
-    items:
-      - “推广”一节需要扩充。
 ---
+
+<problems>
+- “推广”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

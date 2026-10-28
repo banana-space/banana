@@ -2,13 +2,12 @@
 title: Zariski 景
 aliases: [Zariski 局部]
 categories: [代数几何]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[概形]]作为[[拓扑空间]]的拓扑'
-        page: Zariski 拓扑
 navboxes: [代数几何]
 ---
+
+<disambiguation>
+关于[[概形]]作为[[拓扑空间]]的拓扑，请参见[[Zariski 拓扑]]。
+</disambiguation>
 
 在[[代数几何]]中，**Zariski 景**
 即[[概形]][[范畴]]配以 **Zariski 拓扑**而得到的[[景]]，

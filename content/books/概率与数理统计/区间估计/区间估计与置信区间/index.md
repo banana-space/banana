@@ -73,7 +73,7 @@ $\overline{\theta}-\underline{\theta}$取得越小越好。通常，
 所占的比例将至少为$1-\alpha$；可参考图 1
 给出的图示。
 
-![固定总体参数$\theta$，对某个置信水平为$90\%$的置信区间构造流程重复100次的实验结果。图中每个“工”字图形表示一个区间估计的结果，蓝色表示该区间覆盖住了参数真值，而红色表示该区间没能覆盖住参数真值。当重复次数进一步提升并趋于无穷时，蓝色区间所占比例将趋于$90\%$。](Confidence_intervals_illustration.png?width=750)
+![固定总体参数$\theta$，对某个置信水平为$90\%$的置信区间构造流程重复100次的实验结果。图中每个“工”字图形表示一个区间估计的结果，蓝色表示该区间覆盖住了参数真值，而红色表示该区间没能覆盖住参数真值。当重复次数进一步提升并趋于无穷时，蓝色区间所占比例将趋于$90\%$。](Confidence_intervals_illustration.png){width=750}
 
 ::: example [方差已知时正态总体期望的区间估计] {@example:normal_expectation_CI_var_known}
 设总体$X$服从正态分布$\mathcal{N}(\mu,\sigma^2)$，其中
@@ -123,7 +123,7 @@ $1-\alpha$的一个置信区间。
 
 作为$\mu$的置信水平为$1-\alpha$的置信区间。
 
-![正态总体的方差已知时，利用枢轴量$\big(\overline{X}-\mu\big)/\sqrt{\sigma^2/n}$求解期望的置信区间。](Confidence_interval_normal_mean_z.png?width=600)
+![正态总体的方差已知时，利用枢轴量$\big(\overline{X}-\mu\big)/\sqrt{\sigma^2/n}$求解期望的置信区间。](Confidence_interval_normal_mean_z.png){width=600}
 :::
 
 ::: remark

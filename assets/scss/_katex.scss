@@ -1,7 +1,7 @@
 // KaTeX 的字体缺少的几个字形，由 BananaMath 补足（由 KaTeX_Main 修改而来，OFL，见 static/fonts/BananaMath-OFL.txt）：
 // - 𝟙（U+1D7D9）：math.html 把 \mathbb{1} 改为 𝟙；字形为本站绘制。
 // - 镜像字母 ꓘ（U+A4D8）、ꓷ（U+A4F7）：KaTeX_Main 的 K、D 左右翻转（如 \mathrm{ꓘꓷ} 表示镜像的 DK）；
-//   TikZ 中由 scripts/tikz/compiler.mjs 翻转普通字母。
+//   TikZ 中由 bananamark-tikz 的导言区（packages/bananamark-tikz/src/preamble.mjs）翻转普通字母。
 // 与 KaTeX_Main 同名，浏览器只在 KaTeX_Main 缺字时使用它。
 @font-face {
   font-family: "KaTeX_Main";
@@ -45,7 +45,14 @@ span.katex svg {
   }
 }
 
-.math-display {
+// Closing punctuation after an inline formula, with the formula's last box (bananamark's span.bm-math-end): one box,
+// kept on one line.
+.bm-math-end {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.bm-math-display {
   display: block;
   margin: 1em 0;
   overflow-x: auto;

@@ -1,12 +1,12 @@
 ---
 title: 区间（同伦类型论）
 categories: [同伦类型论]
-notices:
-  - name: 消歧义
-    see:
-      - page: 区间类型
 navboxes: [类型论]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[区间类型]]。
+</disambiguation>
 
 在[[同伦类型论]]中，**区间**是一个[[高阶归纳类型]]，对应作为[[拓扑空间]]的[[标准区间]] $I$。
 

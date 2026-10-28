@@ -244,7 +244,7 @@ $\theta$的点估计量$\hat\theta(X_1)$。由于$X_1$的取值为正整数，
 $0<\theta\leq 0.5$，有偏的估计量$(1+X_1)^{-1}$均优于
 无偏估计量$\mathsf{1}_{\{X_1=1\}}$。
 
-![点估计量$\mathsf{1}_{\{X_1=1\}}$与$(1+X_1)^{-1}$估计几何分布参数$\theta$的均方误差曲线。](Geometric_point_estimator_mse.png?width=600)
+![点估计量$\mathsf{1}_{\{X_1=1\}}$与$(1+X_1)^{-1}$估计几何分布参数$\theta$的均方误差曲线。](Geometric_point_estimator_mse.png){width=600}
 
 本例部分取自[@cox1974theoretical]的Example 8.1。
 :::

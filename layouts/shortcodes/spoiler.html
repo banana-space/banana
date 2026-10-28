@@ -1,6 +1,0 @@
-{{- /* <spoiler title="标题">…</spoiler>：折叠内容（scripts/prebuild/tags.mjs 写成本短代码并检查参数）。内容为块级 Markdown。 */ -}}
-{{- if not (strings.TrimSpace .Inner) -}}{{ errorf "%s" (i18n "build_spoiler_empty" (dict "Position" .Position)) }}{{- end -}}
-<details>
-  <summary>{{ with .Get "title" }}{{ $.Page.RenderString . }}{{ end }}</summary>
-  <div>{{ .Inner | strings.TrimSpace | .Page.RenderString (dict "display" "block") }}</div>
-</details>

@@ -1,11 +1,11 @@
 ---
 title: 线性拓扑空间
-notices:
-  - name: 问题
-    items:
-      - “若$V$是LCH的，则$V$是有限维的”的证明中，式子“$O\subseteq Y+\frac12 O\subseteq 2Y+\frac14 O=Y=\frac14 O$”似乎有误，且证明中的 $X$ 似乎应为 $V$。
-      - 连续线性函数必然有界的逆命题的反例中，赋予左闭右开拓扑的 $\mathbb{R}$ 似乎不是线性拓扑空间（数乘 $-1$ 不连续）。
 ---
+
+<problems>
+- “若$V$是LCH的，则$V$是有限维的”的证明中，式子“$O\subseteq Y+\frac12 O\subseteq 2Y+\frac14 O=Y=\frac14 O$”似乎有误，且证明中的 $X$ 似乎应为 $V$。
+- 连续线性函数必然有界的逆命题的反例中，赋予左闭右开拓扑的 $\mathbb{R}$ 似乎不是线性拓扑空间（数乘 $-1$ 不连续）。
+</problems>
 
 ::: definition [线性拓扑空间]
 对$\mathbb{R}$上的线性空间$V$而言，考虑$V$上具有以下性质的拓扑$\tau$：

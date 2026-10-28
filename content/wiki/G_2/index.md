@@ -2,12 +2,12 @@
 title: '$\mathrm{G}_2$'
 aliases: [G2, '$\mathfrak{g}_2$']
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “复 Lie 群”“表示”“有限群”各节需要扩充。
 navboxes: [Lie 群]
 ---
+
+<problems>
+- “复 Lie 群”“表示”“有限群”各节需要扩充。
+</problems>
 
 **$\mathbf{G}_2$** 是一个单[[根系]]，是五个例外单根系
 （[[$\mathrm{E}_6$]]、[[$\mathrm{E}_7$]]、[[$\mathrm{E}_8$]]、[[$\mathrm{F}_4$]]、

@@ -1,12 +1,12 @@
 ---
 title: 模空间
 categories: [模空间论]
-notices:
-  - name: 问题
-    items:
-      - “定义”“例子”各节需要扩充。
 navboxes: [计数几何]
 ---
+
+<problems>
+- “定义”“例子”各节需要扩充。
+</problems>
 
 在某些情况下，
 一类数学对象的全体能与一个[[空间]]的所有[[点]]对应，

@@ -1,10 +1,10 @@
 ---
 title: 回归系数的区间估计与假设检验
-notices:
-  - name: 问题
-    items:
-      - '最后一节（引理的证明）中，$\widehat{\boldsymbol{\beta}}-\boldsymbol{\beta}$ 的计算里 $\mathbf{X}^\mathsf{T}$ 似乎应展开为 $\mathbf{V}\boldsymbol{\Sigma}_\mathrm{c}\mathbf{U}_\mathrm{c}^\mathsf{T}$，结果似乎应为 $\mathbf{V}\boldsymbol{\Sigma}_\mathrm{c}^{-1}\mathbf{U}_\mathrm{c}^\mathsf{T}\boldsymbol{\varepsilon}$（其后 $\widehat{\boldsymbol{\beta}}$ 的表达式同此）。'
 ---
+
+<problems>
+- 最后一节（引理的证明）中，$\widehat{\boldsymbol{\beta}}-\boldsymbol{\beta}$ 的计算里 $\mathbf{X}^\mathsf{T}$ 似乎应展开为 $\mathbf{V}\boldsymbol{\Sigma}_\mathrm{c}\mathbf{U}_\mathrm{c}^\mathsf{T}$，结果似乎应为 $\mathbf{V}\boldsymbol{\Sigma}_\mathrm{c}^{-1}\mathbf{U}_\mathrm{c}^\mathsf{T}\boldsymbol{\varepsilon}$（其后 $\widehat{\boldsymbol{\beta}}$ 的表达式同此）。
+</problems>
 
 在本节中，我们均假设自变量$x$与因变量$Y$之间的确服从
 @eq:linear_regression_model1 给出的线性回归模型。

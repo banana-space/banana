@@ -1,12 +1,12 @@
 ---
 title: Frobenius 定理（微分几何）
 categories: [微分几何]
-notices:
-  - name: 消歧义
-    see:
-      - page: Frobenius 定理
 navboxes: [微分几何]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[Frobenius 定理]]。
+</disambiguation>
 
 在[[微分几何]]中，**Frobenius 定理**给出[[光滑流形]]上
 [[分布 (微分几何)|分布]]可积的条件。

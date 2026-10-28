@@ -1,13 +1,13 @@
 ---
 title: Tate 论题
 categories: [代数数论]
-notices:
-  - name: 问题
-    items:
-      - '“局部理论”一节例子的证明和“整体化”一节的记号用到 $\int_{\mathcal O^\times} d^\times a$ 的计算，但本条目没有给出这一引理。'
-      - “整体化”一节需要扩充。
 navboxes: [代数数论]
 ---
+
+<problems>
+- “局部理论”一节例子的证明和“整体化”一节的记号用到 $\int_{\mathcal O^\times} d^\times a$ 的计算，但本条目没有给出这一引理。
+- “整体化”一节需要扩充。
+</problems>
 
 **Tate 论题**指 [[John Tate]] 于 1950 年在普林斯顿大学完成的博士论文，
 由 [[Emil Artin]] 指导。

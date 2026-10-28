@@ -2,14 +2,12 @@
 title: Π（记号）
 aliases: [Pi（记号）]
 categories: [记号]
-notices:
-  - name: 消歧义
-    about: 字母 Π 的记号
-    see:
-      - topic: 圆周率
-        page: '$\pi$'
 navboxes: [字母]
 ---
+
+<disambiguation>
+本条目介绍的是字母 Π 的记号。关于圆周率，请参见[[$\pi$]]。
+</disambiguation>
 
 希腊字母 **Π，π** 用在以下记号中：
 

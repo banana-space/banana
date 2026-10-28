@@ -1,14 +1,12 @@
 ---
 title: 直积（线性代数）
 categories: [线性代数]
-notices:
-  - name: 消歧义
-    about: 向量空间的直积
-    see:
-      - topic: 一般代数结构的直积
-        page: 直积
 navboxes: [线性代数]
 ---
+
+<disambiguation>
+本条目介绍的是向量空间的直积。关于一般代数结构的直积，请参见[[直积]]。
+</disambiguation>
 
 在[[线性代数]]中，一族[[向量空间]]的**直积**是其[[积集]]，带有自然的向量空间结构。
 

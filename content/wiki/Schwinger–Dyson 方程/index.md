@@ -3,10 +3,11 @@ title: Schwinger–Dyson 方程
 aliases: [Schwinger-Dyson 方程]
 categories: [量子场论]
 navboxes: [量子场论]
-notices:
-  - name: 提示
-    text: '本条目中的证明使用了[[路径积分]]，因此是半严格的。'
 ---
+
+<tip>
+本条目中的证明使用了[[路径积分]]，因此是半严格的。
+</tip>
 
 **Schwinger–Dyson 方程**是[[量子场论]]中的恒等式。
 它是经典场论中场的[[运动方程]]的类比：在经典场论中场会满足

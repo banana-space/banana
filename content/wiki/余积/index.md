@@ -1,12 +1,12 @@
 ---
 title: 余积
 categories: [范畴论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [范畴论]
 ---
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 **余积**是[[范畴论]]中的一种[[万有构造]]，
 是一族[[集合]]的[[无交并]]的推广。

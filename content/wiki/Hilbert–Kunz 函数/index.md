@@ -2,13 +2,13 @@
 title: Hilbert–Kunz 函数
 aliases: [Hilbert-Kunz 函数]
 categories: [交换代数]
-notices:
-  - name: 问题
-    items:
-      - “定义”中的局部环记作 $A$，其后又写作 $R$，记号不一致。
-      - “性质”一节需要扩充。
 navboxes: [交换代数]
 ---
+
+<problems>
+- “定义”中的局部环记作 $A$，其后又写作 $R$，记号不一致。
+- “性质”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

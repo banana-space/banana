@@ -1,5 +1,5 @@
 import { serialize } from 'parse5';
-import { mathText } from '../shared/math-text.mjs';
+import { mathText } from 'bananamark/internal/math-text.mjs';
 import { encodeSearchData } from './data.mjs';
 import { titleFilters, titleKey } from '../../static/js/search-query.js';
 
@@ -13,8 +13,8 @@ export const siteURL = (url, base) => url.startsWith(base) ? `/${url.slice(base.
 // Navigation, decoration and repeated components; these classes are produced by the templates.
 export const EXCLUDED_CLASSES = [
   'toc-shell', 'navbox', 'notice', 'collection-sidebar', 'collection-navigation', 'collection-children',
-  'collection-pagination', 'article-footer', 'heading-link', 'redirect-source', 'terms-title', 'term-language',
-  'term-gender', 'tikz-rendered', 'tikz-source', 'category-ancestors', 'title-prefix',
+  'collection-pagination', 'article-footer', 'bm-heading-link', 'redirect-source', 'terms-title', 'term-language',
+  'term-gender', 'bm-tikz-rendered', 'bm-tikz-source', 'category-ancestors', 'title-prefix',
 ];
 const excludedTags = new Set(['script', 'style', 'svg', 'nav', 'button', 'template', 'noscript']);
 const HTML = 'http://www.w3.org/1999/xhtml';
@@ -41,19 +41,45 @@ const element = (tagName, attributes, childNodes = []) => ({
  * navigation disappear, theorem titles become headings so Pagefind returns
  * them as sub-results with their anchors.
  */
+/**
+ * A display formula usually stands in the middle of a sentence. Pagefind ends a block's text with a full stop unless
+ * it ends in punctuation or a space; the paragraph before a display formula ends in a space here, so that its
+ * sentence runs on through the formula (as it did when the renderer left a line break at its end).
+ */
+function continuedParagraphs(nodes) {
+  const isDisplay = node => node?.tagName && classes(node).has('bm-math-display');
+  return nodes.map((node, i) => {
+    if (node.tagName !== 'p') return node;
+    let next = i + 1;
+    while (nodes[next]?.nodeName === '#text' && !nodes[next].value.trim()) next++;
+    return isDisplay(nodes[next]) ? { ...node, childNodes: [...node.childNodes, text(' ')] } : node;
+  });
+}
+
+/** Adjacent texts as one (a formula's punctuation and the text after it), so that separateWords sees them together. */
+const joinTexts = nodes => nodes.reduce((joined, node) => {
+  const last = joined.at(-1);
+  if (node.nodeName === '#text' && last?.nodeName === '#text') joined[joined.length - 1] = text(last.value + node.value);
+  else joined.push(node);
+  return joined;
+}, []);
+
 function searchCopy(node) {
   if (node.nodeName === '#text') return [text(node.value)];
   if (!node.tagName) return [];
   const names = classes(node);
-  if (names.has('math-rendered')) {
-    if (names.has('tikz-rendered') || names.has('tikz-source')) return [];
+  if (names.has('bm-math-rendered')) {
+    if (names.has('bm-tikz-rendered') || names.has('bm-tikz-source')) return [];
     const value = mathText(node);
-    return value ? [text(` ${value} `)] : [];
+    // Punctuation bananamark keeps with the formula's end (span.bm-math-end) is text after it.
+    const end = node.childNodes?.at(-1);
+    const after = end?.tagName && classes(end).has('bm-math-end') ? end.childNodes.filter(child => child.nodeName === '#text').map(child => child.value).join('') : '';
+    return [...(value ? [text(` ${value} `)] : []), ...(after ? [text(after)] : [])];
   }
   if (excludedTags.has(node.tagName) || EXCLUDED_CLASSES.some(name => names.has(name))
     || attr(node, 'hidden') !== undefined || attr(node, 'aria-hidden') === 'true') return [];
-  const children = (node.childNodes ?? []).flatMap(searchCopy);
-  if (names.has('theorem-block')) {
+  const children = joinTexts(continuedParagraphs(node.childNodes ?? []).flatMap(searchCopy));
+  if (names.has('bm-env')) {
     // The block's id moves to its title heading; the block keeps none.
     const id = attr(node, 'id');
     const title = children.find(child => child.tagName === 'p' && child.isTheoremTitle);
@@ -61,7 +87,7 @@ function searchCopy(node) {
     return [element('div', {}, children)];
   }
   const copy = element(node.tagName, {}, children);
-  if (names.has('theorem-title')) copy.isTheoremTitle = true;
+  if (names.has('bm-envtitle')) copy.isTheoremTitle = true;
   for (const name of ['id', 'lang', 'alt']) {
     const value = attr(node, name);
     if (value !== undefined) copy.attrs.push({ name, value });
@@ -91,12 +117,12 @@ const separated = nodes => nodes.map(node => node.nodeName === '#text'
 const plain = nodes => nodes.map(node => node.nodeName === '#text' ? node.value : plain(node.childNodes ?? [])).join('');
 const squash = value => value.replace(/\s+/g, ' ').trim();
 
-/** Title, number and rendered title HTML from the page's <h1>. */
-function pageTitle(heading) {
+/** Title, number and rendered title HTML from the page's <h1> (restore: see searchDocument). */
+function pageTitle(heading, restore) {
   const link = find(heading, node => classes(node).has('title-link')) ?? heading;
-  const number = squash(plain(elements(link).filter(node => classes(node).has('section-number')).flatMap(searchCopy)));
-  const parts = (link.childNodes ?? []).filter(node => !node.tagName || !['section-number', 'title-prefix'].some(name => classes(node).has(name)));
-  const html = parts.map(node => serialize({ nodeName: '#document-fragment', childNodes: [node] })).join('').trim();
+  const number = squash(plain(elements(link).filter(node => classes(node).has('bm-section-number')).flatMap(searchCopy)));
+  const parts = (link.childNodes ?? []).filter(node => !node.tagName || !['bm-section-number', 'title-prefix'].some(name => classes(node).has(name)));
+  const html = restore(parts.map(node => serialize({ nodeName: '#document-fragment', childNodes: [node] })).join('').trim());
   return { number, title: squash(plain(parts.flatMap(searchCopy))), html };
 }
 
@@ -116,11 +142,12 @@ function breadcrumb(document, base) {
 
 /**
  * Search document for a manifest entry. Returns undefined when the page has no
- * indexable container (which the caller reports as an error).
+ * indexable container (which the caller reports as an error). restore: puts back
+ * into the title's HTML what the page's tree left out (KaTeX's HTML, see site/finish.mjs).
  */
-export function searchDocument(document, entry) {
+export function searchDocument(document, entry, { restore = html => html } = {}) {
   const html = find(document, node => node.tagName === 'html');
-  const lang = attr(html, 'lang') ?? 'zh';
+  const lang = attr(html, 'lang') ?? 'zh-cn';
   let heading, body;
   if (entry.kind === 'category') {
     const section = find(document, node => node.tagName === 'section' && classes(node).has('list'));
@@ -132,10 +159,10 @@ export function searchDocument(document, entry) {
     const article = find(document, node => node.tagName === 'article');
     if (!article) return;
     heading = find(article, node => node.tagName === 'h1');
-    body = (article.childNodes ?? []).filter(node => node.tagName !== 'header').flatMap(searchCopy);
+    body = continuedParagraphs((article.childNodes ?? []).filter(node => node.tagName !== 'header')).flatMap(searchCopy);
   }
   if (!heading) return;
-  const { number, title, html: titleHTML } = pageTitle(heading);
+  const { number, title, html: titleHTML } = pageTitle(heading, restore);
   // Pagefind searches every metadata field. Only the title and the keywords
   // (readings) should match; display data is one encoded field (see data.mjs).
   const data = {

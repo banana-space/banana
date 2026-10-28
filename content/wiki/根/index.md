@@ -1,12 +1,11 @@
 ---
 title: 根
 categories: [一般代数]
-notices:
-  - name: 消歧义
-    see:
-      - topic: '[[表示论]]中的同名概念'
-        page: 根系
 ---
+
+<disambiguation>
+关于[[表示论]]中的同名概念，请参见[[根系]]。
+</disambiguation>
 
 对某个[[环]] $A$ 上的一元[[多项式]] $f (x)$，
 其**根**是指满足 $f (a) = 0$ 的元素 $a \in A$。

@@ -1,11 +1,12 @@
 ---
 title: O
 categories: [记号]
-notices:
-  - name: 区分
-    text: '注意区分本文与数字“[[0]]”、希腊字母“[[Omicron|Ο]]”。'
 navboxes: [字母]
 ---
+
+<disambiguation>
+注意区分本文与数字“[[0]]”、希腊字母“[[Omicron|Ο]]”。
+</disambiguation>
 
 拉丁字母 **O，o** 用在以下记号中：
 

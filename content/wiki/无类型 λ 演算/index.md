@@ -2,11 +2,11 @@
 title: '无类型 $\lambda$ 演算'
 aliases: [无类型 lambda 演算, '单一类型 $\lambda$ 演算', 单一类型 lambda 演算]
 categories: [计算机科学]
-notices:
-  - name: 问题
-    items:
-      - “范畴语义”一节需要扩充。
 ---
+
+<problems>
+- “范畴语义”一节需要扩充。
+</problems>
 
 **无类型 $λ$ 演算**，又名**单一类型 $λ$ 演算**，
 就是所有值都共用同一个类型的 [[$λ$ 演算]]，

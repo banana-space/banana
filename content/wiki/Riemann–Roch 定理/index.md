@@ -2,11 +2,11 @@
 title: Riemann–Roch 定理
 aliases: [Riemann-Roch 定理]
 categories: [代数曲线论, 复几何]
-notices:
-  - name: 问题
-    items:
-      - “初等方法”“应用”各节需要扩充。
 ---
+
+<problems>
+- “初等方法”“应用”各节需要扩充。
+</problems>
 
 **Riemann–Roch 定理**是[[代数曲线]]和[[紧 Riemann 面]]理论中的重要定理，
 将[[线丛]]的 [[Euler 示性数]]、曲线的[[亏格]]、线丛的次数三者联系起来。

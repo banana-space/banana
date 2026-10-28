@@ -2,14 +2,12 @@
 title: 商空间
 aliases: [商映射, 商拓扑]
 categories: [一般拓扑]
-notices:
-  - name: 消歧义
-    about: '[[拓扑空间]]的商空间'
-    see:
-      - topic: '[[向量空间]]的商空间'
-        page: 商向量空间
 navboxes: [一般拓扑]
 ---
+
+<disambiguation>
+本条目介绍的是[[拓扑空间]]的商空间。关于[[向量空间]]的商空间，请参见[[商向量空间]]。
+</disambiguation>
 
 在[[拓扑学]]中，[[拓扑空间]]的**商空间**是其[[商集]]，
 带有自然的拓扑空间结构。

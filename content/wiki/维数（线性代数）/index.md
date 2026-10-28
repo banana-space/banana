@@ -1,12 +1,12 @@
 ---
 title: 维数（线性代数）
 categories: [线性代数]
-notices:
-  - name: 消歧义
-    see:
-      - page: 维数
 navboxes: [线性代数]
 ---
+
+<disambiguation>
+关于其他含义，请参见[[维数]]。
+</disambiguation>
 
 在[[线性代数]]中，
 [[向量空间]]的**维数**是指描述该向量空间中的[[向量]]所需的坐标个数。

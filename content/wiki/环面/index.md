@@ -2,12 +2,11 @@
 title: 环面
 aliases: [圆环面]
 categories: [一般拓扑, 微分几何]
-notices:
-  - name: 区分
-    pages:
-      - 复环面
-      - 代数环面
 ---
+
+<disambiguation>
+注意与[[复环面]]、[[代数环面]]区分。
+</disambiguation>
 
 **环面** $T^2$ 是如下图所示的[[拓扑空间]]，
 也能视为二维[[光滑流形]]。

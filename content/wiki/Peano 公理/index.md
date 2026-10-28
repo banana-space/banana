@@ -1,11 +1,11 @@
 ---
 title: Peano 公理
 categories: [谓词逻辑]
-notices:
-  - name: 问题
-    items:
-      - “定义”一节需要扩充。
 ---
+
+<problems>
+- “定义”一节需要扩充。
+</problems>
 
 **[[Giuseppe Peano|Peano]] 公理**是一套描述[[自然数]]的公理系统，
 大致是用以下几条性质来刻画自然数集 $\mathbb{N}$ 的性质：

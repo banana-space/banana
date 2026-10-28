@@ -2,11 +2,11 @@
 title: Lefschetz 大定理
 aliases: [Hard Lefschetz theorem]
 categories: [复几何]
-notices:
-  - name: 问题
-    items:
-      - “证明”一节需要扩充。
 ---
+
+<problems>
+- “证明”一节需要扩充。
+</problems>
 
 **[[Lefschetz]] 大定理**是说对[[紧]][[Kähler 流形]]，
 可以通过把上同调类与辛形式做[[杯积]]，

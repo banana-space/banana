@@ -1,10 +1,10 @@
 ---
 title: 回归显著性检验
-notices:
-  - name: 问题
-    items:
-      - '“$F$ 检验法”中 ${\widehat\beta_1}^2$ 的计算第三行末项 ${SS}_{\mathrm{R}}$ 似乎应为 ${SS}_{\mathrm{R}}/S_{xx}$（与下文结论 ${\widehat\beta_1}^2 = {SS}_{\mathrm{R}}/S_{xx}$ 一致）。'
 ---
+
+<problems>
+- “$F$ 检验法”中 ${\widehat\beta_1}^2$ 的计算第三行末项 ${SS}_{\mathrm{R}}$ 似乎应为 ${SS}_{\mathrm{R}}/S_{xx}$（与下文结论 ${\widehat\beta_1}^2 = {SS}_{\mathrm{R}}/S_{xx}$ 一致）。
+</problems>
 
 对回归系数$\beta_1$进行假设检验的方法
 已在[第10.3节](/books/概率与数理统计/一元线性回归/回归系数的区间估计与假设检验/)第1小节

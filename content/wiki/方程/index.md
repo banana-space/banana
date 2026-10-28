@@ -1,11 +1,11 @@
 ---
 title: 方程
 categories: [广泛概念]
-notices:
-  - name: 问题
-    items:
-      - “偏微分方程”一节例子中的 $\frac{\partial f}{\partial x_i^2}$ 似乎应为二阶偏导数 $\frac{\partial^2 f}{\partial x_i^2}$。
 ---
+
+<problems>
+- “偏微分方程”一节例子中的 $\frac{\partial f}{\partial x_i^2}$ 似乎应为二阶偏导数 $\frac{\partial^2 f}{\partial x_i^2}$。
+</problems>
 
 **方程**是指含有未知量的等式。
 研究方程的主要目标是找到方程的**解**，

@@ -1,13 +1,13 @@
 ---
 title: 半单 Lie 代数表示论
 categories: [Lie 理论]
-notices:
-  - name: 问题
-    items:
-      - “例子”一节 $\mathfrak{sl}_2$ 的例子中，基本权似乎应为 $\omega = \alpha/2$，而不是 $\alpha^\vee/2$（后者不在 $\mathfrak{h}^*$ 中）。
-      - “例子”一节 $\mathfrak{g}_2$ 的例子中，若 $\alpha_1$ 为长根，则 $L(\omega_1)$ 似乎是 $14$ 维的伴随表示，$L(\omega_2)$ 是 $7$ 维表示；文中两者的维数似乎对调了。
 navboxes: [Lie 理论]
 ---
+
+<problems>
+- “例子”一节 $\mathfrak{sl}_2$ 的例子中，基本权似乎应为 $\omega = \alpha/2$，而不是 $\alpha^\vee/2$（后者不在 $\mathfrak{h}^*$ 中）。
+- “例子”一节 $\mathfrak{g}_2$ 的例子中，若 $\alpha_1$ 为长根，则 $L(\omega_1)$ 似乎是 $14$ 维的伴随表示，$L(\omega_2)$ 是 $7$ 维表示；文中两者的维数似乎对调了。
+</problems>
 
 **半单 Lie 代数表示论**研究[[半单 Lie 代数]]的[[Lie 代数表示|表示]]结构与分类。
 在复数域（更一般地，特征零[[代数闭域]]）上，

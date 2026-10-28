@@ -1,15 +1,16 @@
 ---
 title: Weil 限制
 categories: [概形论]
-notices:
-  - name: 区分
-    pages:
-      - 标量限制
-  - name: 问题
-    items:
-      - “例子”一节需要扩充。
 navboxes: [概形论]
 ---
+
+<disambiguation>
+注意与[[标量限制]]区分。
+</disambiguation>
+
+<problems>
+- “例子”一节需要扩充。
+</problems>
 
 ::: convention
 在本文中，

@@ -1,12 +1,12 @@
 ---
 title: 集合
 categories: [集合论]
-notices:
-  - name: 问题
-    items:
-      - “历史”一节需要扩充。
 navboxes: [集合论]
 ---
+
+<problems>
+- “历史”一节需要扩充。
+</problems>
 
 **集合**是一种数学对象。
 在[[数学的基础|主流数学]]的观点下，

@@ -2,12 +2,12 @@
 title: Cayley–Hamilton 定理
 aliases: [Cayley-Hamilton 定理]
 categories: [线性代数]
-notices:
-  - name: 问题
-    items:
-      - “推论与应用”一节需要扩充。
 navboxes: [线性代数]
 ---
+
+<problems>
+- “推论与应用”一节需要扩充。
+</problems>
 
 **[[Arthur Cayley|Cayley]]–[[William Rowan Hamilton|Hamilton]] 定理**
 是[[线性代数]]中的一个结论，

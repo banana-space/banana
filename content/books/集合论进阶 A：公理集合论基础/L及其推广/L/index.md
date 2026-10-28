@@ -1,10 +1,10 @@
 ---
 title: L
-notices:
-  - name: 问题
-    items:
-      - 'GCH 的证明中 $x\subseteq \omega_\gamma\subseteq M$ 似乎应为 $x\subseteq \omega_\alpha\subseteq M$。'
 ---
+
+<problems>
+- GCH 的证明中 $x\subseteq \omega_\gamma\subseteq M$ 似乎应为 $x\subseteq \omega_\alpha\subseteq M$。
+</problems>
 
 我们先来考虑Gödel的内模型$\mathbf{L}$。
 它原本是C，但是因为选用的字体印刷效果太像$\mathbf{L}$了，所以所有人都叫它$\mathbf{L}$。

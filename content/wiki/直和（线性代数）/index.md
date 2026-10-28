@@ -1,14 +1,12 @@
 ---
 title: 直和（线性代数）
 categories: [线性代数]
-notices:
-  - name: 消歧义
-    about: 向量空间的直和
-    see:
-      - topic: 一般代数结构的直和
-        page: 直和
 navboxes: [线性代数]
 ---
+
+<disambiguation>
+本条目介绍的是向量空间的直和。关于一般代数结构的直和，请参见[[直和]]。
+</disambiguation>
 
 在[[线性代数]]中，
 一族[[向量空间]]的**直和**是一个由它们组合而成的向量空间，

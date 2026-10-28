@@ -3,11 +3,11 @@ title: Bertrand Russell
 sort: russell bertrand
 aliases: [Russell]
 categories: [数学家, 逻辑学家, 哲学家]
-notices:
-  - name: 问题
-    items:
-      - “生平”一节缺少 1921 年至 1938 年间的经历。
 ---
+
+<problems>
+- “生平”一节缺少 1921 年至 1938 年间的经历。
+</problems>
 
 **Bertrand Arthur William Russell**
 <person lang="en" ipa="/ˈbɜːɹ.tɹənd ˈɑːɹ.θəɹ ˈwɪl.jəm ˈɹʌs.əl/" years="1872–1970" />，

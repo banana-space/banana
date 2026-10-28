@@ -1,11 +1,11 @@
 ---
 title: 分次向量空间
-notices:
-  - name: 问题
-    items:
-      - '张量积的定义 $(V \otimes W)_{gh} := V_g \otimes W_h$ 似乎有误：当 $G$ 不是平凡群时，同一个 $x \in G$ 可以写成多种 $gh$，似乎应为 $(V \otimes W)_x = \bigoplus_{gh = x} V_g \otimes W_h$。'
 navboxes: [范畴论]
 ---
+
+<problems>
+- 张量积的定义 $(V \otimes W)_{gh} := V_g \otimes W_h$ 似乎有误：当 $G$ 不是平凡群时，同一个 $x \in G$ 可以写成多种 $gh$，似乎应为 $(V \otimes W)_x = \bigoplus_{gh = x} V_g \otimes W_h$。
+</problems>
 
 **分次向量空间**是一个[[向量空间]]，并由给定的集合定义了其上的[[直和（线性代数）|直和]]分解结构。
 

@@ -2,11 +2,11 @@
 title: Jacobi 三重积恒等式
 aliases: [Jacobi 三重积]
 categories: [复分析, 初等代数]
-notices:
-  - name: 问题
-    items:
-      - “二平方和的表示方法数”“四平方和的表示方法数”两节缺少使用模形式的方法。
 ---
+
+<problems>
+- “二平方和的表示方法数”“四平方和的表示方法数”两节缺少使用模形式的方法。
+</problems>
 
 **Jacobi 三重积恒等式**是 Jacobi 在1829年发现的，
 关于 [[$\theta$ 函数]] 按零点展开成乘积的重要恒等式，
