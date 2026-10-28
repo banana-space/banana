@@ -15,7 +15,7 @@ const say = (detail, ms) => ms === undefined ? `compare: ${detail}` : headline('
  * 各完整构建一次，逐个比较两边的 public/，把差异按种类归并写成报告。
  *
  * 基准在 .build/compare/base/ 中检出（git worktree，分离 HEAD），依赖相同时复制本目录的 node_modules（克隆或硬链接，
- * 不用符号链接：Hugo 只读项目内的文件），并复制本目录的 TikZ 缓存，免得重新编译。两边的内容（content/）应当相同：不同时会提示，
+ * 不用符号链接：其中的三个包以相对路径链接到 packages/，基准须用它自己的），并复制本目录的 TikZ 缓存，免得重新编译。两边的内容（content/）应当相同：不同时会提示，
  * 报告中也会出现内容造成的差异。
  *
  * 用法：npm run compare -- [--base <提交>] [--no-fetch] [--skip-base] [--skip-result] [--report <文件>]
@@ -75,7 +75,8 @@ async function prepareBase() {
   if (current !== theirs) {
     await rm(modules, { recursive: true, force: true });
     if (ours === theirs) {
-      // A copy, not a link: Hugo's js.Build reads only files inside the project. Cloned (APFS) or hard-linked: quick.
+      // A copy, not a link: the workspace's packages are linked relatively (node_modules/bananamark → ../packages/bananamark),
+      // so the base uses its own packages/, not ours. Cloned (APFS) or hard-linked: quick.
       if (platform() === 'darwin') execFileSync('cp', ['-c', '-R', join(root, 'node_modules'), modules]);
       else if (platform() === 'linux') execFileSync('cp', ['-al', join(root, 'node_modules'), modules]);
       else await cp(join(root, 'node_modules'), modules, { recursive: true, verbatimSymlinks: true });

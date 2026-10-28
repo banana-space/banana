@@ -1,4 +1,4 @@
-import katex from 'katex';
+import { renderToString } from '../syntax/katex-render.mjs';
 import { escape } from './escape.mjs';
 
 /**
@@ -15,7 +15,7 @@ const tikzEnvironment = /\\begin\s*\{\s*(tikzcd|tikzpicture)\s*\}/;
 
 /** KaTeX's HTML for tex; katex: KaTeX's options (strict defaults to "ignore"). */
 export function renderKaTeX(tex, display, katexOptions = {}) {
-  return katex.renderToString(tex, { strict: 'ignore', ...katexOptions, output: 'htmlAndMathml', displayMode: display, throwOnError: true });
+  return renderToString(tex, { strict: 'ignore', ...katexOptions, output: 'htmlAndMathml', displayMode: display, throwOnError: true });
 }
 
 /** A formula node ({ tex, display, id, mode }) as HTML, with the options above. */

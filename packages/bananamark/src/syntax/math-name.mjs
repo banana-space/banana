@@ -1,5 +1,5 @@
-import katex from 'katex';
 import { parseFragment } from 'parse5';
+import { renderToString } from './katex-render.mjs';
 import { mathText } from './math-text.mjs';
 import { currentSyntax } from './switches.mjs';
 
@@ -20,7 +20,7 @@ export function mathDisplayText(tex, katexOptions = currentSyntax().katex) {
     cache = caches.get(katexOptions);
   }
   if (!cache.has(tex)) {
-    const mathml = katex.renderToString(tex, { strict: 'ignore', ...katexOptions, output: 'mathml', throwOnError: true, displayMode: false });
+    const mathml = renderToString(tex, { strict: 'ignore', ...katexOptions, output: 'mathml', throwOnError: true, displayMode: false });
     if (cache.size >= cacheSize) cache.delete(cache.keys().next().value);
     cache.set(tex, mathText(parseFragment(mathml), { compatibility: false }));
   }
