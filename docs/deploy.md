@@ -117,12 +117,6 @@ $wgSiteNotice = "旧站已只读。新站：[https://bananaspace.org/ bananaspac
 3. 切换（几分钟）：备份旧站的数据库与 `images/`；修改 `LocalSettings.php`；换上完整的 `apache-site.conf`；`sudo apachectl configtest && sudo systemctl reload apache2`。
 4. 检查：`/legacy/wiki/<页面>` 能打开、能登录、不能编辑；`https://www.bananaspace.org/w/index.php?title=X` 跳转到 `https://bananaspace.org/legacy/w/index.php?title=X`；`/wiki/<已迁移的条目>` 打开新站。
 
-## 第一次部署站点生成器的版本（一次性，完成后删去本节）
-
-1. 合并后，旧的部署脚本照常构建并发布站点：`package-lock.json` 变了，先 `npm ci`（装上 esbuild 与 sass）；TikZ 缓存的键没有变，全部图形取自缓存，不重新编译。它重启的是旧的 API 单元 `banana-editor`，而它要运行的 `scripts/editor-api.mjs` 已经不在，所以 API 暂时不可用。
-2. 把新的部署脚本复制到 `~/banana/live/deploy/`，运行 `deploy/install.sh`：它停用并删去 `banana-editor`，把 `editor.env` 改名为 `api.env`，再装上 `banana-api`。然后 `systemctl --user restart banana-api`。
-3. 之后不再需要 Hugo：`/usr/local/bin/hugo` 与 `build/.build/hugo-cache` 可以删去。
-
 ## 日常
 
 - **日志**：`journalctl --user -u banana-deploy`（部署与构建输出）、`journalctl --user -u banana-api`（API）。`systemctl --user list-timers` 显示下一次检查的时间。
