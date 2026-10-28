@@ -5,7 +5,6 @@ import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { createServer, request as httpRequest } from 'node:http';
 import { execFile, fork } from 'node:child_process';
 import { promisify } from 'node:util';
-import { pipeWithoutKatexNoise } from './shared/katex-log.mjs';
 import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 import { availableParallelism } from 'node:os';
@@ -180,10 +179,9 @@ const threadCounts = () => {
 
 function startService() {
   const worker = fork(join(root, 'scripts/preview-service.mjs'), buildArgs, {
-    cwd: root, stdio: ['ignore', 'inherit', 'pipe', 'ipc'],
+    cwd: root, stdio: ['ignore', 'inherit', 'inherit', 'ipc'],
     env: { ...process.env, BANANA_PREVIEW_SERVICE: JSON.stringify({ baseURL: `${origin}/`, output: destination, threads: true, ...threadCounts(), renderCache: '.build/render-cache', outputsCache: '.build/preview-outputs.bin' }) },
   });
-  pipeWithoutKatexNoise(worker.stderr, process.stderr);
   const waiting = new Map();
   let next = 0;
   const instance = {

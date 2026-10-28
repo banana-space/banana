@@ -174,6 +174,18 @@ assert.throws(() => renderDocument('甲', { locale: 'fr' }), /unknown locale "fr
   assert.throws(() => renderDocument('$\\Ring$', { checkMath: true }), /\\Ring/);
   assert.doesNotThrow(() => renderDocument('$\\Ring$', { checkMath: true, katex }));
 }
+// KaTeX's warnings about characters it has no metrics for are left out, in the page and in names; its others are not.
+{
+  const warned = [], warn = console.warn;
+  console.warn = (...args) => warned.push(args.join(' '));
+  try {
+    assert.match(renderDocument('# $𝟙$\n\n$𝟙_A$ 与 $a • b$', { checkMath: true }).html, /𝟙/);
+    assert.deepEqual(warned, []);
+    renderDocument('$é$', { katex: { strict: 'warn' } });
+  } finally { console.warn = warn; }
+  assert.equal(warned.length, 1);
+  assert.match(warned[0], /strict mode is set to 'warn'/);
+}
 // The caller's messages: changes to bananamark's, and a language of its own (its missing keys from English).
 {
   const messages = { de: { reference_section: 'Abschnitt {number}' }, 'zh-cn': { link_to_heading: '本节的链接' } };

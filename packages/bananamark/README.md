@@ -352,6 +352,8 @@ Formulas are rendered by KaTeX as HTML and MathML (`output: 'htmlAndMathml'`). T
 
 A formula KaTeX cannot render is an error, `katex` (while rendering, or while reading with `checkMath`).
 
+KaTeX prints a warning on the console for each character it has no metrics for (`𝟙`, `•`, or a symbol the page's own fonts draw), every time it renders one. The formula renders all the same, so bananamark leaves these warnings out; KaTeX's other warnings (with `strict: 'warn'`, say) still reach the console.
+
 KaTeX lays an inline formula out as boxes (`.katex-base`), and a line may break between two of them, after a relation or an operator. Closing punctuation right after an inline formula (`,.;:!?`, Chinese punctuation, closing brackets and quotation marks, as a run: `）。`) must not start the next line, and a browser may break before it: a `white-space: nowrap` group of the formula and the punctuation does not stop that in Chromium or Firefox. So bananamark puts KaTeX's last box with the punctuation into `span.bm-math-end`, inside the formula's span: the box in a `.katex` of its own, the punctuation after it, in the text's font, read and copied as the text's. The stylesheet makes `bm-math-end` an inline-block on one line (`display: inline-block; white-space: nowrap`): the formula still breaks where it could, and the punctuation stays with its end. A hyphen right after a formula goes the same way, whatever follows it (`$p$-adic`, `$A$-module`): the line breaks after the hyphen, not before. Not after a space, nor punctuation in a word (`$n$’s`, `$x$.5`); not after display formulas or TikZ diagrams. Code reading the formulas' HTML takes the text of `bm-math-end`, outside its `.katex`, as text after the formula (typography does).
 
 ## Code highlighting
