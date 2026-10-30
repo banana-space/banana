@@ -99,7 +99,7 @@ ${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendie
   assert.doesNotMatch(nestedHtml, /<a\b[^>]*>(?:(?!<\/a>)[\s\S])*<a\b/);
   assert.match(nestedHtml, /<span class="bm-bibliography-label" data-typography="boundary">EGA I<\/span><span class="bm-bibliography-names">Grothendieck, A\.<\/span> \(1960\)/);
   assert.throws(() => transformDocument('### A @b {@a}\n\n### B @a {@b}'), /循环引用/);
-  // 文献锚点参与现有 Hugo 标题冲突检查。
+  // 文献锚点参与标题冲突检查。
   await writeFile(join(directory, 'index.md'), `---\ntitle: 引用测试\n---\n## bib-book\n\n${first}`);
   assert.throws(build, /引用标签与标题自动锚点重复/);
   // 脚注定义中的引用与百科链接照常转换；引用式链接定义保持原样。

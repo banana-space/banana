@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { i18n } from '../shared/i18n.mjs';
+import { t } from '../shared/i18n.mjs';
 import { config } from '../shared/config.mjs';
 import { baseURL } from '../shared/urls.mjs';
 import { baseof, htmlTitle } from './templates/layout.mjs';
@@ -13,21 +13,9 @@ import { dataAsset } from './assets.mjs';
 
 /**
  * The site generator: every page of the site, from the prebuild's generated pages (.build/content/), as files
- * (path in the output directory → text), one template function each (scripts/site/templates/, once Hugo's).
+ * (path in the output directory → text), one template function each (scripts/site/templates/).
  */
 
-
-/** Hugo's alias page: a redirect to address. */
-const redirect = (site, address) => `<!DOCTYPE html>
-<html lang="${site.language}">
-	<head>
-		<title>${address}</title>
-		<link rel="canonical" href="${address}">
-		<meta charset="utf-8">
-		<meta http-equiv="refresh" content="0; url=${address}">
-	</head>
-</html>
-`;
 
 /** The files of one page (path in the output → text): its page and, for a paginated list, the further pages (page/2/ …). */
 export function renderPage(site, page) {
@@ -35,22 +23,22 @@ export function renderPage(site, page) {
   const path = url => join(decodeURI(url), 'index.html').replace(/^\//, '');
   const out = (url, title, content, options) => files.push([path(url), String(baseof(site, page, { title, content, ...options }))]);
   if (page.kind === 'home') out(page.url, site.title, homeContent(site, page));
-  else if (page.kind === 'taxonomy') out(page.url, `${i18n('categories')} - ${site.title}`, termsContent(site, page));
+  else if (page.kind === 'taxonomy') out(page.url, `${t('categories')} - ${site.title}`, termsContent(site, page));
   else if (page.kind === 'page') {
     const layouts = {
-      search: () => [`${i18n('search_page_title')} - ${site.title}`, searchPage(site, page), { searchPage: true }],
-      missing: () => [`${i18n('missing_article')} - ${site.title}`, missingContent(site, page)],
-      'recent-changes': () => [`${i18n('recent_changes_title')} - ${site.title}`, recentChangesContent(site, page)],
-      history: () => [`${i18n('history_page_title')} - ${site.title}`, historyContent(site, page)],
-      diff: () => [`${i18n('diff_page_title')} - ${site.title}`, diffContent(site, page)],
-      editor: () => [`${i18n('editor_page_title')} - ${site.title}`, editorContent(site, page)],
+      search: () => [`${t('search_page_title')} - ${site.title}`, searchPage(site, page), { searchPage: true }],
+      missing: () => [`${t('missing_article')} - ${site.title}`, missingContent(site, page)],
+      'recent-changes': () => [`${t('recent_changes_title')} - ${site.title}`, recentChangesContent(site, page)],
+      history: () => [`${t('history_page_title')} - ${site.title}`, historyContent(site, page)],
+      diff: () => [`${t('diff_page_title')} - ${site.title}`, diffContent(site, page)],
+      editor: () => [`${t('editor_page_title')} - ${site.title}`, editorContent(site, page)],
     };
     const layout = layouts[page.params.layout];
     if (layout) out(page.url, ...layout());
     else out(page.url, htmlTitle(site, page), pageContent(site, page));
   } else {
     // A section or a category.
-    const title = `${page.kind === 'term' ? `${i18n('categories', 1)}${i18n('taxonomy_separator')}` : ''}${htmlTitle(site, page)}`;
+    const title = `${page.kind === 'term' ? `${t('categories')}${t('taxonomy_separator')}` : ''}${htmlTitle(site, page)}`;
     const { params } = page;
     if ((params.structuredPage && page.section !== 'wiki' && !params.lectureIndex) || params.collectionRoot) out(page.url, title, pageContent(site, page));
     else {
@@ -60,8 +48,6 @@ export function renderPage(site, page) {
         const pager = paginate(page, pages, number);
         out(number === 1 ? page.url : `${page.url}page/${number}/`, title, listContent(site, page, pages, pager));
       }
-      // Hugo's page/1/: a redirect to the list.
-      files.push([path(`${page.url}page/1/`), redirect(site, page.permalink)]);
     }
   }
   return files;

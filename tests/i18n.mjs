@@ -15,18 +15,23 @@ import { t } from '../scripts/shared/i18n.mjs';
 assert.match(t('missing_article_link', { Name: '$& <name>' }), /\$& <name>/);
 assert.throws(() => t('missing_key'), /Missing translation/);
 assert.throws(() => t('missing_article_link'), /Missing translation value/);
+// {name} in small letters is for the browser's scripts: left as it is, or passed on through a value.
+assert.equal(t('search_no_results', { Query: '{query}' }), '没有找到与 “{query}” 相关的结果');
+assert.match(t('recent_changes_more_pages'), /\{count\}/);
+// Every placeholder in the table is {Name} or {name}, none of the template syntax it once had.
+for (const [key, text] of Object.entries(parse(await readFile(new URL('../i18n/zh-cn.yaml', import.meta.url), 'utf8')))) assert.ok(typeof text === 'string' && !text.includes('{{'), key);
 
 const root = await createProject('i18n');
 try {
   const path = join(root, 'i18n/zh-cn.yaml');
   const table = parse(await readFile(path, 'utf8'));
   for (const [key, other] of Object.entries({
-    search_placeholder: 'Find {{ .Site }}', search_no_results: 'Nothing for {{ .Query }}',
+    search_placeholder: 'Find {Site}', search_no_results: 'Nothing for {Query}',
     term_translations: 'Translations', gender_m: 'Masculine',
     navbox_expand: 'Expand', navbox_collapse: 'Collapse',
-    missing_content: '{{ .Name }} has no content.', missing_quoted_name: '[{{ .Name }}]',
-    missing_page_title: 'Missing: {{ .Name }}',
-  })) table[key] = { other };
+    missing_content: '{Name} has no content.', missing_quoted_name: '[{Name}]',
+    missing_page_title: 'Missing: {Name}',
+  })) table[key] = other;
   await writeFile(path, stringify(table));
   const directory = join(root, 'content/wiki/i18n-test');
   await mkdir(directory, { recursive: true });

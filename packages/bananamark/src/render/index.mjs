@@ -187,7 +187,7 @@ export function createRenderer(given = {}) {
     return { html: expandMarkers(html, nodes, (node, index) => renderNode(node, inner.get(index), page, nodes)), headings };
   }
 
-  /** .Page.RenderString of Markdown of the document: block, or inline (the paragraph around a single paragraph removed). */
+  /** Markdown of the document as HTML: block, or inline (the paragraph around a single paragraph removed). */
   function fragmentHTML(markdown, nodes, page, display = 'inline') {
     const { html } = renderMarkdown(markdown, nodes, page);
     return display === 'inline' ? trimShortHTML(html) : html;

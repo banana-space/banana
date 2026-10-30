@@ -1,5 +1,4 @@
-// Instant checks in the editor: the preprocessing's own parsing (bananamark's syntax layer, and scripts/prebuild/
-// mounted under assets/js/scripts/) run on the draft in the browser, loaded once the editor is up. Only what a page
+// Instant checks in the editor: the preprocessing's own parsing (bananamark's syntax layer, and scripts/prebuild/) run on the draft in the browser, loaded once the editor is up. Only what a page
 // decides alone is checked: the front matter (its syntax and what the editor requires of it), the
 // title and aliases, and the body. A book page's references to the book's other pages are checked
 // against those pages' labels as the editor received them; the numbering a book's pages share, and

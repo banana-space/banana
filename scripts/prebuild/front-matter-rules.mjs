@@ -11,6 +11,8 @@ import { t } from '../shared/i18n.mjs';
  */
 /** The front matter's keys a page edited online may have. */
 export const authorKeys = ['title', 'aliases', 'categories', 'navboxes', 'sort', 'lang', 'numbering', 'typography', 'tocDepth', 'search', 'description'];
+/** The front matter's keys any page may have: anything else is an error in the build too. */
+export const pageKeys = [...authorKeys, 'childrenToc', 'draft'];
 
 export function frontMatterProblems(text) {
   const match = text.match(/^(?:﻿)?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
@@ -27,8 +29,7 @@ export function frontMatterProblems(text) {
   };
   if (!root || typeof root.get !== 'function') return [{ line: 1, column: 1, message: t('build_front_matter_missing') }];
   const problems = [];
-  // Only the keys authors write: the build reads others too, and from a draft they could choose a page's layout
-  // (layout), move the page (url, slug) or keep it from being published (draft, build).
+  // Only the keys authors write: a page edited online is not kept from being published (draft).
   for (const pair of root.items ?? []) {
     const key = pair.key?.value;
     if (typeof key !== 'string' || !authorKeys.includes(key)) {

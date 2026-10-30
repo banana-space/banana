@@ -2,7 +2,7 @@ import { escape as escapeHTML } from '../render/escape.mjs';
 
 /**
  * Renders markdown-it's tokens as Goldmark's HTML renderer (renderer/html, v1.8.6) writes them, with render hooks
- * (as Hugo's) for links, images, headings, code blocks, formulas and tables.
+ * for links, images, headings, code blocks, formulas and tables.
  *
  * The flat token stream is first made a tree, since Goldmark's output depends on siblings (a tight list item's
  * text block is followed by a newline only when something follows it).
@@ -27,7 +27,7 @@ export function tree(tokens) {
 }
 
 /**
- * Plain text of inline nodes, as Hugo's render.TextPlain gives it (.PlainText): the text of each node, and of any
+ * Plain text of inline nodes: the text of each node, and of any
  * other element only its first child's (so Ti*k*Z in a link reads "Ti"); line breaks and formulas give nothing.
  */
 export function plainText(nodes) {
@@ -78,7 +78,7 @@ export function createTokenRenderer(hooks) {
         isBlock: Boolean(token.meta?.block),
         width: token.meta?.width,
       });
-      // A formula left in its paragraph is inline to Hugo, whatever its delimiters.
+      // A formula left in its paragraph is inline, whatever its delimiters.
       case 'passthrough': return hooks.passthrough({ inner: token.content, type: 'inline' });
       case 'footnote_ref': {
         const n = footnoteNumber(token), sub = token.meta.subId;
@@ -136,7 +136,7 @@ export function createTokenRenderer(hooks) {
       }
       case 'hr': return '<hr>\n';
       case 'code_block': return `<pre><code>${escapeHTML(token.content)}</code></pre>\n`;
-      // Hugo's .Inner leaves out the newline that ends the last line.
+      // Without the newline that ends the last line.
       case 'fence': return hooks.codeBlock({ type: token.meta?.fence?.language ?? '', attributes: token.meta?.fence?.attributes ?? {}, inner: token.content.replace(/\n$/, '') });
       case 'html_block': return '<!-- raw HTML omitted -->\n';
       case 'passthrough_block': return `${hooks.passthrough({ inner: token.content, type: 'block' })}\n`;

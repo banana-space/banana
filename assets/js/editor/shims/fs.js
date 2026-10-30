@@ -1,5 +1,5 @@
 // node:fs for the browser check (assets/js/editor/check.js): the data files the preprocessing reads
-// (the language table, theorem environments) are embedded at build time through js.Build's params.
+// (the language table, theorem environments) are embedded at build time ("@params": scripts/site/assets.mjs).
 import * as params from '@params';
 
 export function readFileSync(path) {

@@ -62,13 +62,14 @@ categories: [代数拓扑]
 | `sort` | [排序读音](#排序读音) |
 | `lang` | 页面的语言（`en`、`ko` 等）：bananamark 写出的文字、排版与环境名称随之改变 |
 | `typography` | `convertChineseFullStop: false` 只关闭句号转换 |
-| `toc`、`tocDepth` | `toc: false` 关闭本页目录；`tocDepth` 为目录显示的标题层数（从二级标题起，默认 2，0 至 5）。少于两个目录项的页面不显示目录 |
+| `tocDepth` | 目录显示的标题层数（从二级标题起，默认 2，0 至 5；0 不显示目录）。少于两个目录项的页面不显示目录 |
 | `search` | 只能写 `false`：页面不进入站内搜索（见 [搜索](#搜索)） |
 | `numbering` | 指南与讲义中的编号设置（见 [指南与讲义](books.md)） |
-| `description` | 页面的描述（`og:description`），默认取正文的开头（不含页面提示） |
-| `url`、`slug` | 页面的地址（见下文） |
+| `description` | 页面的描述（`og:description`），默认取正文第一个有文字的段落（不含页面提示） |
+| `childrenToc` | 指南与讲义首页的自动目录（见 [指南与讲义](books.md)；在线编辑不能设置） |
+| `draft` | `draft: true`：页面不发布，除非构建时加 `--buildDrafts`（在线编辑不能设置） |
 
-在线编辑只接受这些字段中作者使用的部分（`scripts/prebuild/front-matter-rules.mjs` 的 `authorKeys`）；完整构建不检查未知字段，但以下写法报错：手写的 `lastmod` 或 `gitLastmod`（修改时间取源文件最近一次 Git 提交的提交者日期，尚未提交的页面不显示修改时间）、旧的 `notices`（见 [页面提示](#页面提示)）、旧的 `urlAliases`。正文中图片地址里旧的 `?width=` 也报错（宽度写成图片之后的 `{width=…}`）。
+其他字段都报错（`scripts/prebuild/front-matter-rules.mjs` 的 `pageKeys`）；修改时间不能手写，取源文件最近一次 Git 提交的提交者日期，尚未提交的页面不显示修改时间。
 
 ## 名称、别名与地址
 
@@ -110,7 +111,7 @@ categories:
 
 - `[[无穷范畴]]` 直接链接到目标页，通过别名时地址带 `?from=无穷范畴`，目标页显示“跳转自：无穷范畴”（只在来源确是它的别名时；关闭 JavaScript 时不显示）。没有参与当前构建的草稿或未来发布的条目，其主标题与别名都视为缺失。别名不另外生成页面或列表项，旧网址不重定向；`aliases` 只用于百科条目的名称。
 - 缺失的条目显示为红色链接，指向 `/missing/?title=<链接的文字>`（目标含公式时另带 `source=<写下的目标>`），那里有“创建条目”的链接。
-- 百科条目和讲义页面的网址默认取目录路径，保留大小写和标点，空格改为下划线：`content/wiki/Riemann ζ 函数/` 的网址是 `/wiki/Riemann_ζ_函数/`；目录名中代替 `*` 的全角 `＊` 在网址中还原为 `*`。页面设置了 `url` 或 `slug` 时以其为准，它们必须是站内地址：不含空白、引号、尖括号、`\`、`?`、`#`、`.`/`..` 段或 `//`。其他页面的网址取路径的小写，空格改为连字符。
+- 页面的网址取目录路径，保留大小写和标点，空格改为下划线：`content/wiki/Riemann ζ 函数/` 的网址是 `/wiki/Riemann_ζ_函数/`；目录名中代替 `*` 的全角 `＊` 在网址中还原为 `*`（`scripts/shared/pages.mjs` 的 `pathAddress`）。
 
 ## 排序读音
 

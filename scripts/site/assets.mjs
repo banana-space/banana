@@ -1,13 +1,13 @@
 import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 import * as sass from 'sass';
 import { relURL } from '../shared/urls.mjs';
 
 /**
- * The site's assets, as Hugo's pipes made them: the stylesheets (KaTeX's, and the site's from assets/scss/ by
+ * The site's assets: the stylesheets (KaTeX's, and the site's from assets/scss/ by
  * Sass), the scripts bundled by esbuild (assets/js/: the diff page, the editor, the editor's instant checks), each
  * minified and named by its fingerprint with its integrity (unminified and unnamed in development); and the files
  * copied as they are (static/, KaTeX's fonts and licence, the pages' history data).
@@ -23,8 +23,7 @@ function fingerprinted(path, content) {
 }
 
 /**
- * esbuild's resolution for assets/js/: "../scripts/…" is the repository's scripts/ (once mounted under
- * assets/js/scripts/), and "@params" the data given (js.Build's params).
+ * esbuild's resolution for assets/js/: "../scripts/…" is the repository's scripts/, and "@params" the data given.
  */
 function sitePlugin(params) {
   return {
@@ -61,17 +60,11 @@ export async function buildAssets({ development = false } = {}) {
   const minifyCSS = async css => development ? Buffer.from(css) : Buffer.from((await esbuild.transform(css, { loader: 'css', minify: true, charset: 'utf8' })).code);
   const katex = await readFile(join(root, 'node_modules/katex/dist/katex.css'), 'utf8');
   assets.katex = asset(files, development ? 'katex/katex.css' : 'katex/katex.min.css', await minifyCSS(katex), development);
-  // The site's stylesheet: its one template expression, the fonts' address.
-  const scss = (await readFile(join(root, 'assets/scss/site.scss'), 'utf8')).replace(/\{\{\s*"fonts\/"\s*\|\s*relURL\s*\}\}/, relURL('fonts/'));
-  // Colour functions (desaturate, mix…) give channels with fractions, which dart-sass writes as rgb() percentages:
-  // written in hex, rounded to 8 bits as Hugo's Sass did.
-  const hex = value => Math.round(Number(value) * 2.55).toString(16).padStart(2, '0');
-  const compiled = sass.compileString(scss, {
-    url: pathToFileURL(join(root, 'assets/scss/site.scss')), loadPaths: [join(root, 'assets/scss')], style: 'expanded',
+  const compiled = sass.compile(join(root, 'assets/scss/site.scss'), {
+    loadPaths: [join(root, 'assets/scss')], style: 'expanded',
     quietDeps: true, logger: sass.Logger.silent, sourceMap: development,
   });
-  let css = compiled.css.replace(/rgb\(([\d.]+)%, ([\d.]+)%, ([\d.]+)%\)/g, (_, red, green, blue) => `#${hex(red)}${hex(green)}${hex(blue)}`);
-  // In development with its source map, as Hugo's.
+  let css = compiled.css;
   if (development) {
     files.set('css/site.css.map', Buffer.from(JSON.stringify(compiled.sourceMap)));
     css += '\n\n/*# sourceMappingURL=site.css.map */';

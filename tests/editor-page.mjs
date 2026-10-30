@@ -107,7 +107,7 @@ try {
       const kind = behaviour[times.length - 1] ?? 'ok';
       if (kind === 'network') throw new TypeError('Failed to fetch');
       if (kind === '429') return [429, { ok: false, errors: [{ message: 'too many' }] }, { 'Retry-After': '1' }];
-      // An error only Hugo finds (the browser checks the rest itself).
+      // An error only the server finds (the browser checks the rest itself).
       if (kind === '422') return [422, { ok: false, errors: [{ file: 'content/wiki/甲/index.md', line: 6, message: 'KaTeX 无法解析公式' }] }];
       return [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [{ line: 6, column: 1, target: '乙' }], timings: {} }];
     },

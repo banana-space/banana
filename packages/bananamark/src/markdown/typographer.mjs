@@ -3,8 +3,8 @@ import { isDigit, isLetter, isNumericByte, isPunct, isPunctByte, isPunctRune, is
 /**
  * Goldmark's typographer (extension/typographer.go, v1.8.6), ported rule for rule as a markdown-it inline rule:
  * --- —, -- –, ... …, and straight quotes made curly from what surrounds them and how many are open in the block
- * (not Goldmark's << « and >> », which CommonMark does not have). Its quirks are kept, so that pages written for
- * Hugo read as they did.
+ * (not Goldmark's << « and >> », which CommonMark does not have). Its quirks are kept, so that existing pages
+ * read as they do.
  *
  * Goldmark reads "the rest of the line" in UTF-8 bytes: line[1] is the byte after the mark, which for a
  * character outside ASCII is the first of its bytes (never punctuation or a space).

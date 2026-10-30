@@ -40,22 +40,19 @@ export async function resolvePages(root, paths) {
   return pages;
 }
 
-/** 页面的默认路径：小写、空格变连字符，index.md 取所在目录。 */
-export function defaultPath(page) {
-  const path = `/${page}`.replace(/\/index\.md$/i, '').replace(/\.md$/i, '') || '/';
-  return path.toLowerCase().replace(/ /g, '-');
+/**
+ * The URL path of a page at this directory path in content/ (wiki/C＊-代数): spaces as underscores, as on the old site,
+ * and the fullwidth ＊ that stands for * in directory names as * again (Windows cannot write a file with *: kept there).
+ */
+export function pathAddress(path) {
+  if (!path) return '/';
+  const url = path.replace(/\s+/g, '_');
+  return `/${process.platform === 'win32' ? url : url.replace(/＊/g, '*')}/`;
 }
 
-/**
- * The URL path of a generated page (relative, in the generated directory), from its generated metadata (the rules
- * are Hugo's); undefined for pages that are not rendered.
- */
+/** The URL path of a page (relative, in the generated directory), from its metadata; undefined for pages that are not rendered. */
 export function pageURL(relative, metadata) {
-  if (!isPublished(metadata)) return;
-  if (typeof metadata.url === 'string') return metadata.url.endsWith('/') ? metadata.url : `${metadata.url}/`;
-  let path = defaultPath(relative);
-  if (typeof metadata.slug === 'string') path = path.replace(/[^/]*$/, metadata.slug);
-  return path === '/' ? '/' : `${path}/`;
+  if (isPublished(metadata)) return pathAddress(relative.replace(/(?:^|\/)index\.md$/i, '').replace(/\.md$/i, ''));
 }
 
 /**

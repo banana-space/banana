@@ -4,7 +4,8 @@ import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parse as parseHTML, parseFragment, serialize } from 'parse5';
 import { defineDialect, renderDocument, renderKaTeX } from 'bananamark';
-import { decodeEntities, pageSummary, plainify } from '../scripts/shared/summary.mjs';
+import { decodeHTML } from 'entities';
+import { pageDescription, plainText } from '../scripts/shared/summary.mjs';
 import { parse as parseYAML } from 'yaml';
 import { normalizeText, normalizeTokens } from 'bananamark/internal/typography.mjs';
 import { typesetTree } from 'bananamark/typography';
@@ -25,8 +26,14 @@ assert.equal(pageName(String.raw`中文$\infty$理论`, 'test.md').name, '中文
 assert.equal(pageName('Function (vector spaces)', 'test.md').name, 'Function (vector spaces)');
 assert.equal(pageName('函数 f(x)', 'test.md').name, '函数 f(x)');
 assert.equal(pageName('维数 ($R$ 向量空间)', 'test.md').name, '维数 (R 向量空间)');
-// A page's summary (scripts/shared/summary.mjs, for its description): a TikZ diagram's source is not in it.
-assert.equal(plainify(pageSummary(renderDocument('See\n\n```tikz\n\\draw (0,0);\n```\n\nafter.', { dialect: defineDialect({ tikz: true }) }).html)), 'See\nafter.\n');
+// A page's description (scripts/shared/summary.mjs): the first paragraph with text, without what is not its text.
+assert.equal(pageDescription(renderDocument('```tikz\n\\draw (0,0);\n```\n\nAfter.', { dialect: defineDialect({ tikz: true }) }).html), 'After.');
+assert.equal(pageDescription('<aside class="notice notice-tip"><p>提示</p></aside><h2>节</h2><p> </p><pre>代码</pre><p>第一\n<em>段</em> &amp; <a href="/a">链接</a></p><p>第二段</p>'), '第一 段 & 链接');
+// A formula is its rendered text once, without its MathML.
+assert.equal(pageDescription(renderDocument('设 $p$ 是素数。').html).match(/p/g).length, 1);
+assert.equal(pageDescription('<h2>只有标题</h2>'), '');
+assert.equal(pageDescription(renderDocument('::: definition\n正文。\n:::').html), '正文。');
+assert.equal(plainText('<h2 id="a">A &lt; B\n  C</h2>'), 'A < B C');
 
 function nodes(html) {
   const result = [];
@@ -109,10 +116,10 @@ $$x + y$$
   const html = await readFile(join(root, 'public/wiki/dimension/index.html'), 'utf8');
   assert.match(html, /<p>中文 <a[^>]*>API/);
   const formulas = value => nodes(value).filter(node => attr(node, 'class')?.split(/\s+/).includes('bm-math-rendered'));
-  // Each formula holds exactly KaTeX's HTML for its data-tex (rendered by bananamark, or by Hugo in template
-  // text), which typography leaves alone.
+  // Each formula holds exactly KaTeX's HTML for its data-tex (rendered by bananamark, or by a template), which
+  // typography leaves alone.
   const katexSpan = node => {
-    const span = parseFragment(`<span>${renderKaTeX(decodeEntities(attr(node, 'data-tex')), attr(node, 'data-display') === 'true')}</span>`).childNodes[0];
+    const span = parseFragment(`<span>${renderKaTeX(decodeHTML(attr(node, 'data-tex')), attr(node, 'data-display') === 'true')}</span>`).childNodes[0];
     return serialize(span);
   };
   // A formula followed by punctuation has KaTeX's last box with the punctuation in span.bm-math-end (bananamark):

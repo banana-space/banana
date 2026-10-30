@@ -1,6 +1,21 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
+import { pageURL } from '../scripts/shared/pages.mjs';
+import { escape, html, json } from '../scripts/site/html.mjs';
+
+// A page's address: its directory, with spaces as underscores and ＊ as *, for every kind of page alike.
+for (const [relative, address] of [['index.md', '/'], ['wiki/index.md', '/wiki/'], ['recent-changes/index.md', '/recent-changes/'], ['wiki/Riemann ζ 函数/index.md', '/wiki/Riemann_ζ_函数/'], ['categories/Lie 理论/index.md', '/categories/Lie_理论/'], ['wiki/C＊-代数/index.md', '/wiki/C*-代数/'], ['books/甲/乙/index.md', '/books/甲/乙/']]) {
+  assert.equal(pageURL(relative, {}), address);
+}
+assert.equal(pageURL('wiki/甲/index.md', { unpublished: true }), undefined);
+assert.equal(pageURL('wiki/甲/index.md', { draft: true }), undefined);
+assert.equal(pageURL('wiki/甲/index.md', { url: '/elsewhere/', slug: 'x' }), '/wiki/甲/');
+
+// Templates' escaping: entities in attributes and text; data in a script element cannot end it, its keys in their order.
+assert.equal(escape(`<a b="c" d='e'>&`), '&lt;a b=&quot;c&quot; d=&#39;e&#39;&gt;&amp;');
+assert.equal(String(html`<a href="${'/a?b=1&c="'}">${html`<i>${'<'}</i>`}</a>`), '<a href="/a?b=1&amp;c=&quot;"><i>&lt;</i></a>');
+assert.equal(String(json({ b: 1, a: '</script>', c: html`<i>${'&'}</i>` })), '{"b":1,"a":"\\u003c/script>","c":"\\u003ci>&amp;\\u003c/i>"}');
 
 const script = await readFile(new URL('../static/js/site.js', import.meta.url), 'utf8');
 const anchorScript = script.split('// Reading controls')[0];

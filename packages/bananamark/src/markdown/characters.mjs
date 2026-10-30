@@ -1,6 +1,6 @@
 /**
- * Character classes as Goldmark (Go) defines them, so that the Markdown parsed here reads text exactly as Hugo's
- * Goldmark did: flanking delimiters, typographic quotes and linkified addresses depend on them.
+ * Character classes as Goldmark defines them: flanking delimiters, typographic quotes and linkified addresses depend
+ * on them.
  *
  * Goldmark looks at bytes of UTF-8 in places (a byte of a character outside ASCII is never punctuation, space or
  * a digit there) and at decoded characters in others; both are provided.
@@ -19,7 +19,7 @@ export const isNumericByte = c => c >= 48 && c <= 57;
 export const isAlphaNumericByte = c => (c >= 97 && c <= 122) || (c >= 65 && c <= 90) || isNumericByte(c);
 
 const punctuation = /\p{P}/u, symbol = /\p{S}/u, letter = /\p{L}/u, digit = /\p{Nd}/u;
-// Go's unicode.IsSpace: the Latin-1 spaces, then the White_Space property.
+// Spaces: the Latin-1 ones, then the White_Space property.
 const whiteSpace = new Set([0x1680, 0x2028, 0x2029, 0x202f, 0x205f, 0x3000]);
 
 /** unicode.IsPunct (category P). */

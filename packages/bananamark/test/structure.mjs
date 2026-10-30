@@ -151,7 +151,7 @@ assert.throws(() => transformDocument('甲\n\n```\n@@node:0:node@@\n```', { file
 // The block structure is the renderer's: a footnote's indented paragraphs are paragraphs, not code.
 assert.equal(transformDocument('正文[^1]。\n\n[^1]: 甲\n\n    乙 $x$\n'), '正文[^1]。\n\n[^1]: 甲\n\n    乙 ⟦math tex="x"⟧\n');
 assert.equal(transformDocument('正文\n\n    代码 $x$\n'), '正文\n\n    代码 $x$\n', 'indented code elsewhere');
-// Hugo's shortcodes are text like any other.
+// Double braces are text like any other.
 assert.equal(transformDocument('{{< see >}} $x$ {{% y %}}'), '{{< see >}} ⟦math tex="x"⟧ {{% y %}}');
 // The author's attributes of a heading go into its node; ones Goldmark could not read are an error.
 assert.match(transformDocument('## 节 {.a key="v" @s}'), /⟦heading id="节" classes=\["a"\] attributes=\[\["key","v"\]\] number="1"⟧/);

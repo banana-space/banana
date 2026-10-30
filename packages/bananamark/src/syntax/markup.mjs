@@ -73,7 +73,7 @@ function nameMath(tex, key) {
 }
 
 /**
- * What Goldmark's typographer (on in Hugo by default) makes of text (not CommonMark's missing << « and >> »): --- →
+ * What Goldmark's typographer makes of text (not CommonMark's missing << « and >> »): --- →
  * —, -- → –, ... → …, and straight quotes curly by what surrounds them: opening (‘ “) at the start, after a space, an
  * opening bracket or a dash and before something other than a space, closing (’ ”) otherwise (an apostrophe is ’ too:
  * l'Hôpital, Hilbert's, Bayes'). previous: the character before the text (after a formula: the formula's).
@@ -122,7 +122,7 @@ function nameText(value, key) {
   }
   for (const [index, token] of tokens.entries()) {
     if (token.math) continue;
-    // Link text shows what Hugo's typographer makes of it ([[Auslander--Buchsbaum 公式]] reads
+    // Link text shows what the typographer makes of it ([[Auslander--Buchsbaum 公式]] reads
     // Auslander–Buchsbaum 公式), so the name and the key read the target the same way.
     token.text = typographer(token.text, index ? '$' : '');
     // Lookup keys accept both parenthesis styles; displayed captions stay verbatim.

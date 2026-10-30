@@ -1,7 +1,6 @@
 /**
  * A document's nodes in its Markdown (@@node:N:node@@, ../syntax/nodes.mjs), the nodes given as env.nodes. A
- * formula's is a passthrough token, as Hugo's passthrough extension (hugo-goldmark-extensions/passthrough v0.5.0)
- * made of a formula's delimiters: inline, it stays in the text; display, wherever it stands in a
+ * formula's is a passthrough token, its delimiters taken as a passthrough extension takes them: inline, it stays in the text; display, wherever it stands in a
  * paragraph, it splits it: the paragraph's text before and after becomes paragraphs of their own (in a tight list
  * item, text blocks with the spaces next to the formula trimmed). Any other node's marker stays in the text, for
  * the renderer to replace (../render/markers.mjs).

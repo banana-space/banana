@@ -99,9 +99,8 @@ try {
   for (const [path, text] of drafts) results.set(path, await preview(path, text));
   assert.deepEqual(results.get('wiki/新页面/index.md').missingLinks, [{ line: 6, column: 13, target: '不存在的条目' }], '缺失链接带行号与列号');
   assert.match(results.get('books/线性代数拾遗/vectors/index.md').html, /新插入的一节/);
-  // Previews carry source-line marks (empty spans) for the editor; without them, a preview is the full build's
-  // page, apart from the summary in the head, which is cut by length, marks included.
-  const comparable = html => html.replace(/<span data-source-line="\d+"><\/span>/g, '').replace(/<meta property="og:description"[^>]*>/, '');
+  // Previews carry source-line marks (empty spans) for the editor; without them, a preview is the full build's page.
+  const comparable = html => html.replace(/<span data-source-line="\d+"><\/span>/g, '');
   const expected = await fullBuild(drafts, [...results.values()].map(result => result.url));
   for (const [i, result] of [...results.values()].entries()) assert.equal(comparable(result.html), comparable(expected[i]), `${result.url} 与完整构建不一致`);
   // The marks give each line its source line: the draft's new section and its text in the collection page.
@@ -166,7 +165,7 @@ try {
   assert.deepEqual([answer.status, answer.json.errors[0].message, answer.json.errors[0].line], [422, '导言区没有结束：front matter 之后应有单独一行的 ---', 1]);
   answer = await request('check', { path: 'wiki/甲/index.md', text: '---\ntitle: \n---\n\n正文\n' });
   assert.deepEqual([answer.status, answer.json.errors[0].message, answer.json.errors[0].line], [422, 'title 不能为空', 2]);
-  // Keys Hugo would act on (markup, layout, url, cascade…) are not the editor's to set.
+  // Only the keys authors write are the editor's to set.
   answer = await request('check', { path: 'wiki/甲/index.md', text: '---\ntitle: 甲\nmarkup: html\n---\n\n正文\n' });
   assert.deepEqual([answer.status, answer.json.errors[0].line], [422, 3]);
   assert.match(answer.json.errors[0].message, /不能使用字段 “markup”/);
@@ -189,7 +188,7 @@ try {
   assert.deepEqual([crowd.filter(answer => answer.status === 200).length, crowd.filter(answer => answer.status === 503).length], [19, 6]);
 
   // Request limits.
-  for (const [path, status] of [['../hugo.md', 400], ['content/navboxes/提示.md', 400], ['wiki/甲/index.html', 400], [3, 400], ['search/index.md', 400], ['wiki/甲.md', 400], ['wiki/甲/_index.md', 400], ['wiki/甲/子页/index.md', 400], [`wiki/${'甲/'.repeat(9)}index.md`, 400]]) {
+  for (const [path, status] of [['../page.md', 400], ['content/navboxes/提示.md', 400], ['wiki/甲/index.html', 400], [3, 400], ['search/index.md', 400], ['wiki/甲.md', 400], ['wiki/甲/_index.md', 400], ['wiki/甲/子页/index.md', 400], [`wiki/${'甲/'.repeat(9)}index.md`, 400]]) {
     assert.equal((await request('preview', { path, text: '' })).status, status, String(path));
   }
   assert.equal((await request('preview', { path: 'wiki/甲/index.md', text: 'x'.repeat(1024 * 1024) })).status, 413);

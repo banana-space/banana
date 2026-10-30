@@ -26,7 +26,7 @@ assert.equal(normalizeTarget('$a_2$ 的性质'), normalizeTarget('a_2 的性质'
 assert.equal(plainName(String.raw`$H^1(X;\mathbb Z)$ 与 $f\colon X\to Y$`), 'H^1(X; ℤ) 与 f : X → Y');
 assert.equal(transformMarkup(String.raw`[[$f\colon X\to Y$]]`).match(/\]\((⟦wiki .*⟧)\)$/)[1], `${link('f:X→Y', 'f : X → Y').slice(0, -1)} source=${JSON.stringify(String.raw`$f\colon X\to Y$`)}⟧`);
 assert.throws(() => normalizeTarget(String.raw`$\unknown$`), /formula cannot be parsed: \\unknown/);
-// Link text goes through Hugo's typographer, so the target is read the same way: -- is an en dash,
+// Link text goes through the typographer, so the target is read the same way: -- is an en dash,
 // --- an em dash, ... an ellipsis; keys take any quotation marks as straight ones. Formulas keep theirs.
 assert.equal(normalizeTarget('Auslander--Buchsbaum 公式'), normalizeTarget('Auslander–Buchsbaum 公式'));
 assert.equal(plainName('Auslander--Buchsbaum 公式'), 'Auslander–Buchsbaum 公式');

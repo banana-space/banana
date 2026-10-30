@@ -33,7 +33,7 @@ try {
   await rm(join(root, 'content/help'), { recursive: true, force: true });
   await write(marker, stringify(config));
   await write('content/books/test/first/one/index.md', source('第一小节', `{@sec:one}\n\n::: theorem {@thm:one}\n第一条。\n:::\n\n## 正文节 {@sec:body}\n\n::: theorem {@thm:body}\n第二条。\n:::\n\n### 子标题 {@sec:sub}\n\n#### 更深标题\n\n参见 @thm:two、@sec:two、@sec:body 、@chap:second 和 @book:two。\n\n[[奇异上同调]]\n${bibliography('book:one')}`, 'tocDepth: 3\n'));
-  await write('content/books/test/first/two/index.md', source('第二小节', `{@sec:two}\n\n::: theorem {@thm:two}\n第三条。\n:::\n\n@thm:one 与 @book:one。${bibliography('book:two')}`, 'slug: custom\n'));
+  await write('content/books/test/first/two/index.md', source('第二小节', `{@sec:two}\n\n::: theorem {@thm:two}\n第三条。\n:::\n\n@thm:one 与 @book:one。${bibliography('book:two')}`));
   await write('content/books/test/second/index.md', source('第二章', '{@chap:second}\n\n## 自定义 {@sec:custom number="7"}\n\n## 接续\n\n## 不编号*\n\n::: theorem\n保持编号。\n:::\n'));
   await write('content/books/test/appendix/index.md', source('附录', '## 补充 {@sec:letter number="B"}\n\n## 自动\n'));
   await write('content/books/test/draft/index.md', source('草稿章', '', 'draft: true\n'));
@@ -65,11 +65,11 @@ try {
   assert.match(one, /bm-envtitle">定理 1\.1\.1/); // Missing heading zero removed.
   assert.match(one, /bm-envtitle">定理 1\.1\.1\.1/);
   assert.match(one, /bm-section-number">1\.1\.1\.1/);
-  assert.match(one, /href="\/sub\/books\/test\/first\/custom\/#thm:two"[^>]*>定理 1\.2\.1/);
-  assert.match(one, /href="\/sub\/books\/test\/first\/custom\/#page-title"[^>]*>第 1\.2 节/);
+  assert.match(one, /href="\/sub\/books\/test\/first\/two\/#thm:two"[^>]*>定理 1\.2\.1/);
+  assert.match(one, /href="\/sub\/books\/test\/first\/two\/#page-title"[^>]*>第 1\.2 节/);
   assert.match(one, /href="\/sub\/wiki\/%E5%A5%87%E5%BC%82%E4%B8%8A%E5%90%8C%E8%B0%83\/" class="bm-wiki-link"/);
   assert.match(one, /Smith 2020b/);
-  assert.match(await html('books/test/first/custom'), /Smith 2020a/);
+  assert.match(await html('books/test/first/two'), /Smith 2020a/);
   // Pages inside a collection name it in <title>; its home page does not repeat it.
   assert.match(await html('books/test/second'), /<title>[^<]* - 测试讲义 - 香蕉空间<\/title>/);
   // The lecture's name, first in the trail, has the book icon; a guide's has none.
@@ -153,7 +153,7 @@ try {
   buildProject(root);
   assert.match(await html('books/test/first/one'), /bm-envtitle">定理 1\.1/);
   assert.match(await html('books/test/first/one'), /bm-envtitle">定理 1\.2/);
-  assert.match(await html('books/test/first/custom'), /bm-envtitle">定理 1\.3/);
+  assert.match(await html('books/test/first/two'), /bm-envtitle">定理 1\.3/);
   assert.match(await html('books/test/first/one'), /#thm:two"[^>]*>定理 1\.3/);
   await write(marker, stringify(config));
 

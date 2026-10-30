@@ -57,7 +57,7 @@ try {
   assert.ok(starToc.includes('>插入说明</span></a>'));
   assert.ok(starToc.includes('>附录</span></a>'));
   assert.ok(starToc.includes('<span class="toc-section-number directory-number">2</span> <span class="toc-item-title directory-item-title">字面星号 *</span></a>'));
-  // Compare references with the actual ol starts and sibling positions emitted by Hugo.
+  // Compare references with the actual ol starts and sibling positions in the page.
   assert.match(starHtml, /<ol start="3">\s*<li>[\s\S]*?id="a"[\s\S]*?<\/li>\s*<li>[\s\S]*?id="b"/);
   assert.match(starHtml, /<ol start="5">\s*<li>[\s\S]*?id="child"[\s\S]*?<ol>\s*<li>[\s\S]*?id="grandchild"/);
   assert.match(starHtml, /<blockquote>\s*<ol start="7">[\s\S]*?id="quoted"/);
@@ -103,7 +103,7 @@ try {
   const css = await readFile(join(root, 'public', cssPath), 'utf8');
   // Verify the four accent groups without freezing the author's chosen shades.
   const accents = ['definition', 'theorem', 'example', 'remark'].map(group => {
-    const match = css.match(new RegExp(`\\.bm-envgroup-${group}\\s*\\{[^}]*--theorem-accent:\\s*(#[0-9a-f]+)`));
+    const match = css.match(new RegExp(`\\.bm-envgroup-${group}\\s*\\{[^}]*--theorem-accent:\\s*([^;}]+)`));
     assert.ok(match, `缺少颜色组：${group}`);
     return match[1];
   });
@@ -162,7 +162,7 @@ try {
   assert.ok(containers.includes(`href="#${encodeURIComponent('引用标题')}">引用中的标题</a>`));
   assert.match(containers, /<blockquote>\s*<h3 id="引用标题">/);
   assert.match(containers, /<li>\s*<h4 id="列表标题">/);
-  // Test normalization, suffix collisions, all heading styles and final Hugo links together.
+  // Test normalization, suffix collisions, all heading styles and final links together.
   const normalizedBody = String.raw`@accent [含公式的标题](@math) @tensor @setext
 
 ## Über {@accent .accent-heading}
@@ -217,7 +217,7 @@ try {
   assert.ok(automatic.indexOf('导言在目录之前。') < automatic.indexOf('class="toc-shell"'));
   assert.ok(automatic.indexOf('class="toc-shell"') < automatic.indexOf('<h2 id="第一节"'));
   assert.match(automatic, /class="header-toc-button"/);
-  for (const body of [directoryPage('toc: false\n'), '---\ntitle: 短页\n---\n## 唯一标题\n正文。\n', '---\ntitle: 无标题\n---\n正文。\n']) {
+  for (const body of [directoryPage('tocDepth: 0\n'), '---\ntitle: 短页\n---\n## 唯一标题\n正文。\n', '---\ntitle: 无标题\n---\n正文。\n']) {
     await writeFile(join(directory, 'index.md'), body);
     build();
     const hidden = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');

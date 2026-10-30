@@ -22,13 +22,10 @@ export function setBaseURL(address) {
 }
 setBaseURL(argument ?? config.baseURL);
 
-/** Hugo's relURL: an address below the site root (baseURL's path). */
+/** An address below the site root (baseURL's path). */
 export const relURL = path => basePath + String(path).replace(/^\//, '');
 
-/** Hugo's absURL: the full address of a path below the site root. */
-export const absURL = path => new URL(relURL(path), baseURL).href;
-
-/** A page's address (its RelPermalink) from its URL path (pageURL's: unescaped, with a final slash). */
+/** A page's address below the site's origin, from its URL path (pageURL's: unescaped, with a final slash). */
 export const pageHref = url => pathEscape(relURL(url));
 
 /** A page's full address (its Permalink). */

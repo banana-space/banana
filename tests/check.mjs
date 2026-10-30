@@ -35,6 +35,16 @@ try {
   assert.match(result.json.errors[0].message, /站点自己的页面/);
   await rm(join(root, 'content/search'), { recursive: true });
 
+  // Only the keys pages use: another is an error on its line.
+  for (const key of ['url', 'slug', 'layout', 'build', 'date', 'notices', 'lastmod']) {
+    await page('wiki/字段/index.md', `---\ntitle: 字段\n${key}: 1\n---\n`);
+    result = run('check', 'content/wiki/字段', '--json');
+    assert.equal(result.status, 1);
+    assert.deepEqual([result.json.errors[0].file, result.json.errors[0].line], ['content/wiki/字段/index.md', 3]);
+    assert.match(result.json.errors[0].message, new RegExp(`不能使用字段 “${key}”`));
+  }
+  await rm(join(root, 'content/wiki/字段'), { recursive: true });
+
   // check collects every error and attributes conflicts to both pages.
   await page('wiki/重名/index.md', '---\ntitle: 甲\n---\n');
   await page('wiki/坏引用/index.md', '---\ntitle: 坏引用\n---\n\n见 @eq:不存在。\n');

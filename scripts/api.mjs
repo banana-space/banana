@@ -19,7 +19,7 @@ import { displayTitle } from './shared/display-title.mjs';
 // 在线编辑的接口（见 docs/preview.md）：常驻预览服务加一个只监听本机的 HTTP 服务，由 Apache 把
 // /api/ 反向代理过来。静态站点由 Apache 直接提供，预览页面中的地址都指向它。
 //
-// 用法：npm run api -- [选项] [--buildDrafts 等发布参数]
+// 用法：npm run api -- [选项] [--buildDrafts]
 //   --port 8787、--bind 127.0.0.1    监听地址
 //   --base-url <地址>                页面中的站点地址，默认取 site.yaml 的 baseURL
 //   --public-url <地址>              浏览器访问站点（与 /api/）的地址，用于登录回调，默认为 base-url 的源
@@ -86,7 +86,7 @@ const options = {
 const names = { 'base-url': 'baseURL', 'public-url': 'publicURL', 'preview-interval': 'previewInterval', 'github-repo': 'githubRepo', 'github-base': 'githubBase', 'dev-user': 'devUser', 'env-file': 'envFile' };
 for (let i = 0; i < args.length; i++) {
   const match = args[i].match(/^--(port|bind|base-url|public-url|environment|preview-interval|github-repo|github-base|dev-user|env-file)(?:=(.*))?$/);
-  if (!match) continue; // Publishing flags (--buildDrafts and the like), read by prebuild.
+  if (!match) continue; // The publishing flag (--buildDrafts), read by prebuild.
   const value = match[2] ?? args[++i];
   const key = names[match[1]] ?? match[1];
   options[key] = ['port', 'previewInterval'].includes(key) ? Number(value) : value;
@@ -122,7 +122,7 @@ const recentPulls = options.githubRepo
 if (!login && !options.devUser) console.warn('[api] GitHub login is not configured (BANANA_GITHUB_CLIENT_ID/SECRET): nobody can log in');
 if (!repository) console.warn('[api] submitting is not configured (BANANA_GITHUB_TOKEN and --github-repo)');
 
-// prebuild reads publishing flags (--buildDrafts and the like) from process.argv.
+// prebuild reads the publishing flag (--buildDrafts) from process.argv.
 const service = previewService({
   baseURL: options.baseURL, output: join(root, '.build/api'), content: '.build/api/content',
   environment: options.environment, frontMatterOnly: true,

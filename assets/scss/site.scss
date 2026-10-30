@@ -1,5 +1,6 @@
 @import "css/normalize";
-$font-path: "{{ "fonts/" | relURL }}";
+// Relative to the stylesheet (css/), wherever the site is served from.
+$font-path: "../fonts/";
 @import "variables";
 @import "base";
 @import "content";

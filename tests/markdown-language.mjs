@@ -219,8 +219,8 @@ for (const file of files) {
 }
 
 assert.ok(slowest < 2000, `parsing a page took ${Math.round(slowest)} ms`);
-// The editor checks formulas with KaTeX before Hugo (packages/bananamark/src/syntax/katex-check.mjs): every formula on the
-// site passes, as it does in Hugo's KaTeX.
+// The editor checks formulas with KaTeX before the server (packages/bananamark/src/syntax/katex-check.mjs): every formula
+// on the site passes, as it does in the build.
 for (const file of files.filter(file => /^content\/(?:wiki|books|help)\//.test(file))) {
   const text = await readFile(file, 'utf8');
   const front = text.match(/^---\n[\s\S]*?\n---\n/)?.[0] ?? '';

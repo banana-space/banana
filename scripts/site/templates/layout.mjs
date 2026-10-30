@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { renderKaTeX } from 'bananamark';
 import { rewriteMath } from '../../shared/math.mjs';
-import { i18n } from '../../shared/i18n.mjs';
+import { t } from '../../shared/i18n.mjs';
 import { relURL } from '../../shared/urls.mjs';
 import { iconSVG } from '../../shared/icons.mjs';
-import { html, raw, url } from '../html.mjs';
+import { html, raw } from '../html.mjs';
 import { collectionLinks, collectionNavigation } from './collections.mjs';
 import { pageTocItems } from './page.mjs';
 import { searchConfig } from './search.mjs';
@@ -34,7 +34,7 @@ export const parts = list => list.map(part => Object.hasOwn(part, 'tex') ? math(
 /** A page's title as shown, formulas rendered. */
 export function displayTitle(site, page) {
   if (page.params.titleParts) return parts(page.params.titleParts);
-  return page.kind === 'taxonomy' ? i18n('categories') : page.title;
+  return page.kind === 'taxonomy' ? t('categories') : page.title;
 }
 
 /** A page's title in the <title> element, as plain text. */
@@ -53,7 +53,7 @@ function opengraph(site, page) {
 <meta property="og:type" content="${article ? 'article' : 'website'}">${article ? [
     page.section ? html`<meta property="article:section" content="${page.section}">` : '',
     page.params.gitLastmod ? html`<meta property="article:modified_time" content="${page.params.gitLastmod}">` : '',
-  ] : ''}${(page.params.images ?? []).slice(0, 6).map(image => html`<meta property="og:image" content="${new URL(image, site.baseURL).href}">`)}`;
+  ] : ''}`;
 }
 
 /** The page's <head>. */
@@ -63,14 +63,14 @@ function head(site, page) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="${page.description || site.description}">
 ${opengraph(site, page)}
-<link rel="canonical" href="${url(page.params.canonicalUrl ?? page.permalink)}">
-<link rel="icon" href="${url(relURL('favicon.ico'))}" sizes="32x32">
-<link rel="icon" href="${url(relURL('favicon.svg'))}" type="image/svg+xml">
-<link rel="stylesheet" href="${url(katex.href)}"${katex.integrity ? html` integrity="${katex.integrity}" crossorigin="anonymous"` : ''}>
-<link rel="stylesheet" href="${url(styles.href)}"${styles.integrity ? html` integrity="${styles.integrity}" crossorigin="anonymous"` : ''}>
-<script defer src="${url(relURL('js/inline-punctuation.js'))}"></script>
-<script defer src="${url(relURL('js/site.js'))}"></script>
-<script defer src="${url(relURL('js/local-time.js'))}"></script>`;
+<link rel="canonical" href="${page.permalink}">
+<link rel="icon" href="${relURL('favicon.ico')}" sizes="32x32">
+<link rel="icon" href="${relURL('favicon.svg')}" type="image/svg+xml">
+<link rel="stylesheet" href="${katex.href}"${katex.integrity ? html` integrity="${katex.integrity}" crossorigin="anonymous"` : ''}>
+<link rel="stylesheet" href="${styles.href}"${styles.integrity ? html` integrity="${styles.integrity}" crossorigin="anonymous"` : ''}>
+<script defer src="${relURL('js/inline-punctuation.js')}"></script>
+<script defer src="${relURL('js/site.js')}"></script>
+<script defer src="${relURL('js/local-time.js')}"></script>`;
 }
 
 // The logo inlined, so that its text takes the navigation's colour.
@@ -81,35 +81,35 @@ const logo = raw(readFileSync(new URL('../../../static/images/logo.svg', import.
 function header(site, page, { searchPage }) {
   const toc = pageTocItems(site, page);
   const recent = site.getPage('/recent-changes'), categories = site.getPage('/categories');
-  const links = html`<a href="${url(recent.href)}">${i18n('recent_changes_title')}</a>
-        ${categories ? html`<a href="${url(categories.href)}">${i18n('categories')}</a>` : ''}
+  const links = html`<a href="${recent.href}">${t('recent_changes_title')}</a>
+        ${categories ? html`<a href="${categories.href}">${t('categories')}</a>` : ''}
         ${collectionLinks(site)}`;
-  return html`<nav class="navigation" aria-label="${i18n('main_navigation')}">
+  return html`<nav class="navigation" aria-label="${t('main_navigation')}">
   <div class="navigation-inner">
-    <a class="navigation-title" href="${url(site.home.href)}" aria-label="${site.title}">${logo}</a>
-    ${searchPage ? '' : html`<div class="site-search" role="search" aria-label="${i18n('site_search')}">
-      <button class="icon-button search-back" type="button" aria-label="${i18n('search_back')}" hidden>${icon('back')}</button>
+    <a class="navigation-title" href="${site.home.href}" aria-label="${site.title}">${logo}</a>
+    ${searchPage ? '' : html`<div class="site-search" role="search" aria-label="${t('site_search')}">
+      <button class="icon-button search-back" type="button" aria-label="${t('search_back')}" hidden>${icon('back')}</button>
       <label class="search-field">
         ${icon('search')}
-        <span class="sr-only">${i18n('search_label', { Site: site.title })}</span>
-        <input type="text" inputmode="search" enterkeyhint="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-status" placeholder="${i18n('search_placeholder', { Site: site.title })}" autocomplete="off" spellcheck="false" disabled>
+        <span class="sr-only">${t('search_label', { Site: site.title })}</span>
+        <input type="text" inputmode="search" enterkeyhint="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-status" placeholder="${t('search_placeholder', { Site: site.title })}" autocomplete="off" spellcheck="false" disabled>
       </label>
-      <button class="icon-button search-clear" type="button" aria-label="${i18n('search_clear')}" hidden>${icon('close')}</button>
+      <button class="icon-button search-clear" type="button" aria-label="${t('search_clear')}" hidden>${icon('close')}</button>
       <div class="search-panel" tabindex="-1">
         <p id="search-status" class="search-status" role="status"></p>
-        <div id="search-results" class="search-results" role="listbox" aria-label="${i18n('search_results')}"></div>
-        <a class="search-all" href="${url(relURL('search/'))}" hidden></a>
+        <div id="search-results" class="search-results" role="listbox" aria-label="${t('search_results')}"></div>
+        <a class="search-all" href="${relURL('search/')}" hidden></a>
       </div>
     </div>`}
     ${searchConfig(site)}
     <div class="navigation-actions">
-      ${toc ? html`<button class="header-toc-button" type="button" aria-expanded="false" aria-controls="header-toc-panel" hidden>${i18n('table_of_contents')}${icon('chevron')}</button>` : ''}
-      ${searchPage ? '' : html`<button class="icon-button search-toggle" type="button" aria-label="${i18n('search_open')}" aria-expanded="false" hidden>${icon('search')}</button>`}
+      ${toc ? html`<button class="header-toc-button" type="button" aria-expanded="false" aria-controls="header-toc-panel" hidden>${t('table_of_contents')}${icon('chevron')}</button>` : ''}
+      ${searchPage ? '' : html`<button class="icon-button search-toggle" type="button" aria-label="${t('search_open')}" aria-expanded="false" hidden>${icon('search')}</button>`}
       <div class="navigation-links">
         ${links}
       </div>
       <details class="navigation-menu">
-        <summary class="icon-button"><span class="sr-only">${i18n('navigation_menu')}</span>${icon('menu')}</summary>
+        <summary class="icon-button"><span class="sr-only">${t('navigation_menu')}</span>${icon('menu')}</summary>
         <div class="navigation-menu-panel">
           ${links}
         </div>
@@ -119,14 +119,14 @@ function header(site, page, { searchPage }) {
   </div>
   ${collectionNavigation(site, page)}
 </nav>
-${page.params.collectionRoot ? html`<script defer src="${url(relURL('js/collections.js'))}"></script>` : ''}`;
+${page.params.collectionRoot ? html`<script defer src="${relURL('js/collections.js')}"></script>` : ''}`;
 }
 
 /** The footer. */
 function footer() {
   const link = (address, text) => `<a href="${address}" class="external-link" target="_blank" rel="noopener">${text}${icon('external')}</a>`;
   return html`<footer class="site-footer">
-  <div class="container">${raw(i18n('copyright', { License: link('https://creativecommons.org/licenses/by-sa/4.0/', 'CC BY-SA 4.0'), Source: link('https://github.com/banana-space/banana', 'GitHub') }))}</div>
+  <div class="container">${raw(t('copyright', { License: link('https://creativecommons.org/licenses/by-sa/4.0/', 'CC BY-SA 4.0'), Source: link('https://github.com/banana-space/banana', 'GitHub') }))}</div>
 </footer>`;
 }
 

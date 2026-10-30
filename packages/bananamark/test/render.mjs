@@ -4,9 +4,8 @@ import { languages } from 'bananamark/languages';
 import { renderDocument as englishDefaults } from 'bananamark';
 import { exampleMessages, exampleTags } from './fixtures.mjs';
 
-// bananamark renders the syntax layer's documents ({ markdown, nodes }) as Hugo's Goldmark and the site's templates
-// did the Markdown it was given before. The cases here follow Goldmark's and the templates' rules; that the site's
-// pages come out as Hugo wrote them was checked against the site built by Hugo (npm run compare).
+// bananamark renders the syntax layer's documents ({ markdown, nodes }). The cases here follow Goldmark's rules for
+// Markdown and the renderer's own for nodes.
 // Without typography, to see Goldmark's output as it is (typography is tested in typography.mjs).
 const renderer = createRenderer({
   typography: false,
@@ -65,7 +64,7 @@ assert.throws(() => createRenderer({ resolveWikiLink: () => ({ url: 'javascript:
 // An image's width is a whole number of pixels.
 assert.throws(() => render('![x](a.png){width=0}'), error => error.code === 'image_width' && /^test\.md: 图片宽度/.test(error.message));
 
-// Headings: the heading node (anchor, attributes, section number), the anchor in the link normalized as Go's templates do.
+// Headings: the heading node (anchor, attributes, section number), the anchor in the link percent-encoded.
 assert.equal(render({ markdown: '## 定义 @@node:0:node@@', nodes: [{ type: 'heading', id: '定义', classes: [], attributes: [], number: '1' }] }),
   '<h2 id="定义"><a class="bm-heading-link" href="#%E5%AE%9A%E4%B9%89" title="链接到本节">§</a><span class="bm-section-number">1</span> 定义</h2>\n');
 assert.equal(render('### 小节 {#x .y}'), '<h3 id="x" class="y"><a class="bm-heading-link" href="#x" title="链接到本节">§</a>小节</h3>\n', 'attributes as Goldmark reads them');
@@ -97,7 +96,7 @@ assert.equal(render('| a | b |\n|:-:|---|\n| 1 | 2 |'),
 }
 assert.equal(inline(transformFragment('词<lang de>Satz</lang>。')), '词<span lang="de">Satz</span>。');
 
-// Images: alone in a paragraph, a figure; the alt text is Hugo's plain text (only a link's first node).
+// Images: alone in a paragraph, a figure; the alt text is plain text (only a link's first node).
 assert.equal(render('![图 [Ti*k*Z 代码](https://example.org/)](a.png){width=100}'),
   '<figure class="bm-content-figure"><img src="a.png" alt="图 Ti" width="100" loading="lazy"><figcaption>图 <a href="https://example.org/">Ti<em>k</em>Z 代码</a></figcaption></figure>');
 

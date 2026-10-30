@@ -39,7 +39,7 @@ try {
   const tree = { 数学: {}, [categoryName]: { parent: '数学' }, [childName]: { parent: categoryName } };
   await writeFile(join(root, 'data/categories.yaml'), stringify(tree));
   await writeFile(join(root, 'content/navboxes/别名.yaml'), stringify({
-    title: '别名导航', groups: [{ title: '分类', items: ['[[无穷范畴|当前条目]]', '[页内章节](/custom-infinity/#chapter)'] }],
+    title: '别名导航', groups: [{ title: '分类', items: ['[[无穷范畴|当前条目]]', '[页内章节](/wiki/infinity/#chapter)'] }],
   }));
   async function article(name, metadata, body = '') {
     const path = join(root, 'content/wiki', name);
@@ -49,12 +49,10 @@ try {
   const metadata = {
     title: String.raw`$\infty$-范畴`,
     aliases: ['无穷范畴', String.raw`$\infty$范畴`, '无穷范畴', '∞-范畴'],
-    url: '/custom-infinity/',
     categories: [childName], navboxes: ['别名'],
   };
-  await article('infinity', metadata, String.raw`[[无穷范畴]] [[$\infty$范畴|别名 $p$]] [[$\infty$-范畴]] [[草稿别名]] [[未来别名]]`);
+  await article('infinity', metadata, String.raw`[[无穷范畴]] [[$\infty$范畴|别名 $p$]] [[$\infty$-范畴]] [[草稿别名]]`);
   await article('draft', { title: '草稿', aliases: ['草稿别名'], draft: true });
-  await article('future', { title: '未来', aliases: ['未来别名'], date: '2999-01-01' });
   await article('case', { title: '$p$ 条目', categories: ['$q$ 空间', 'p 进几何'] });
   // An alias's address is its name with formulas as plain text (directoryName); the address of a page with a
   // non-ASCII directory is percent-encoded in the redirect map.
@@ -81,38 +79,37 @@ try {
   assert.deepEqual(await redirects(), [
     '/wiki/R-空间 /wiki/%E6%8B%93%E6%89%91/?from=R-%E7%A9%BA%E9%97%B4',
     '/wiki/Topological_space /wiki/%E6%8B%93%E6%89%91/?from=Topological+space',
-    '/wiki/∞范畴 /custom-infinity/?from=%E2%88%9E+%E8%8C%83%E7%95%B4',
-    '/wiki/无穷范畴 /custom-infinity/?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4',
+    '/wiki/∞范畴 /wiki/infinity/?from=%E2%88%9E+%E8%8C%83%E7%95%B4',
+    '/wiki/无穷范畴 /wiki/infinity/?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4',
   ]);
-  const articleHTML = await html('custom-infinity');
+  const articleHTML = await html('wiki/infinity');
   assert.match(articleHTML, /<title>\s*∞-范畴 - 香蕉空间/);
   assert.match(articleHTML, /property="og:title" content="∞-范畴"/);
   const summary = articleHTML.match(/property="og:description" content="([^"]*)"/)[1];
   assert.doesNotMatch(summary, /\\infty|ppp/);
   assert.equal((summary.match(/∞/g) ?? []).length, 1);
   assert.match(articleHTML, /<h1 class="title" id="page-title">[\s\S]*data-tex="\\infty" data-display="false">[\s\S]*?<\/span>-范畴/);
-  assert.match(articleHTML, /href="\/custom-infinity\/\?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4"/);
-  assert.match(articleHTML, /href="\/custom-infinity\/\?from=%E2%88%9E(?:\+|&#43;)%E8%8C%83%E7%95%B4"[^>]*>别名 <span class="bm-math-rendered" data-tex="p"/);
-  assert.match(articleHTML, /href="\/custom-infinity\/" class="bm-wiki-link"><span class="bm-math-rendered"/);
+  assert.match(articleHTML, /href="\/wiki\/infinity\/\?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4"/);
+  assert.match(articleHTML, /href="\/wiki\/infinity\/\?from=%E2%88%9E\+%E8%8C%83%E7%95%B4"[^>]*>别名 <span class="bm-math-rendered" data-tex="p"/);
+  assert.match(articleHTML, /href="\/wiki\/infinity\/" class="bm-wiki-link"><span class="bm-math-rendered"/);
   assert.match(articleHTML, /条目尚未创建：草稿别名/);
-  assert.match(articleHTML, /条目尚未创建：未来别名/);
   assert.match(articleHTML, /<strong class="navbox-current" aria-current="page">当前条目<\/strong>/);
-  assert.match(articleHTML, /<a href="\/custom-infinity\/#chapter">页内章节<\/a>/);
-  assert.match(articleHTML, /<link rel="canonical" href="https:\/\/example.org\/custom-infinity\/">/);
+  assert.match(articleHTML, /<a href="\/wiki\/infinity\/#chapter">页内章节<\/a>/);
+  assert.match(articleHTML, /<link rel="canonical" href="https:\/\/example.org\/wiki\/infinity\/">/);
   const listing = await html('wiki');
   assert.match(listing, /<span class="title"><span class="bm-math-rendered" data-tex="p" data-display="false">[\s\S]*?<\/span> 条目<\/span>/);
-  const pCategory = await html('categories/p-进几何');
+  const pCategory = await html('categories/p_进几何');
   assert.match(pCategory, /<title>分类: p 进几何 - 香蕉空间<\/title>/);
   assert.match(pCategory, /data-tex="p" data-display="false">[\s\S]*?<\/span> 进几何/);
   assert.doesNotMatch(pCategory, /data-tex="P"|\$p\$|\$P\$/);
-  assert.match(pCategory, /href="\/categories\/c-%E7%A9%BA%E9%97%B4\/"/);
+  assert.match(pCategory, /href="\/categories\/C_%E7%A9%BA%E9%97%B4\/"/);
   assert.match(pCategory, /<h2>条目<\/h2>/);
-  assert.doesNotMatch(pCategory, /href="\/custom-infinity\/"/); // Only direct members are listed.
-  const child = await html('categories/c-空间');
+  assert.doesNotMatch(pCategory, /href="\/wiki\/infinity\/"/); // Only direct members are listed.
+  const child = await html('categories/C_空间');
   const breadcrumb = child.match(/<nav aria-label="祖先分类"[\s\S]*?<\/nav>/)[0];
-  assert.match(breadcrumb, /href="\/categories\/p-%E8%BF%9B%E5%87%A0%E4%BD%95\/"[^>]*><span class="bm-math-rendered" data-tex="p"/);
+  assert.match(breadcrumb, /href="\/categories\/p_%E8%BF%9B%E5%87%A0%E4%BD%95\/"[^>]*><span class="bm-math-rendered" data-tex="p"/);
   assert.match(breadcrumb, /data-tex="\\mathcal\{C\}"/);
-  assert.match(await html('categories/q-空间'), /data-tex="q"/); // Undeclared categories also render formulas.
+  assert.match(await html('categories/q_空间'), /data-tex="q"/); // Undeclared categories also render formulas.
   const overview = await html('categories');
   assert.match(overview, /data-tex="p"/);
   assert.match(overview, />数学<\/a> ?<span class="category-group-count">2 个条目<\/span>/);
@@ -128,11 +125,11 @@ try {
   assert.match(lower, /href="\/missing\/\?title=H%5E1%28X%3B\+%E2%84%A4%29\+%E7%9A%84%E8%AE%A1%E7%AE%97&amp;source=%24H%5E1%28X%3B%5Cmathbb\+Z%29%24\+%E7%9A%84%E8%AE%A1%E7%AE%97"/);
   assert.match(lower, /title="条目尚未创建：H\^1\(X; ℤ\) 的计算"/);
   assert.match(await html('wiki/lp-upper'), /<title>\s*L\^p 空间 - 香蕉空间/);
-  build(['--baseURL', 'https://example.org/docs/', '--buildDrafts', '--buildFuture']);
-  const subpath = await html('custom-infinity');
+  build(['--baseURL', 'https://example.org/docs/', '--buildDrafts']);
+  const subpath = await html('wiki/infinity');
   assert.ok((await redirects()).includes('/docs/wiki/草稿别名 /docs/wiki/draft/?from=%E8%8D%89%E7%A8%BF%E5%88%AB%E5%90%8D'));
-  assert.match(subpath, /href="\/docs\/custom-infinity\/\?from=/);
-  assert.doesNotMatch(subpath, /条目尚未创建：草稿别名|条目尚未创建：未来别名/);
+  assert.match(subpath, /href="\/docs\/wiki\/infinity\/\?from=/);
+  assert.doesNotMatch(subpath, /条目尚未创建：草稿别名/);
   assert.match(subpath, /navbox-current/);
   assert.match(subpath, /src="\/docs\/js\/redirect-source.js"/);
   const cssPath = subpath.match(/href="\/docs\/(css\/site[^" ]+\.css)"/)[1];
@@ -146,8 +143,9 @@ try {
   const fontURLs = [...css.matchAll(/url\(["']?([^\s)'"\n]+)["']?\)/g)].map(match => match[1]);
   // Commit Mono, Banana Math, Banana Punctuation (3), Inter (6) and the JetBrains Mono Cyrillic subsets (4).
   assert.equal(fontURLs.length, 15);
-  assert.ok(fontURLs.every(url => url.startsWith('/docs/fonts/')));
-  for (const url of fontURLs) await readFile(join(root, 'public', url.slice('/docs/'.length)));
+  // Relative to the stylesheet (css/), so they hold below any base URL.
+  assert.ok(cssPath.startsWith('css/') && fontURLs.every(url => url.startsWith('../fonts/')));
+  for (const url of fontURLs) await readFile(join(root, 'public/css', url));
   assert.doesNotMatch(css, /sourceMappingURL/);
   const homepage = await html('');
   assert.match(homepage, /href="\/docs\/wiki\/">全部条目/);
@@ -169,20 +167,13 @@ try {
   // A front matter without its closing --- would make the whole file the body.
   await writeFile(join(root, 'content/wiki/infinity/index.md'), `---\n${stringify(metadata)}\n正文。\n`);
   assert.throws(prebuild, /infinity\/index.md:1: 导言区没有结束/);
-  // Hugo's shortcodes are text like any other, in code too; what bananamark writes for itself is an error.
+  // Double braces are text like any other, in code too; what bananamark writes for itself is an error.
   await article('infinity', metadata, '正文 {{< _theorem-start >}}\n\n```\n{{< youtube x >}}\n```\n\n{{% see %}}');
   prebuild();
   await article('infinity', metadata, '正文 @@node:0:node@@');
   assert.throws(prebuild, /infinity\/index.md:\d+: 页面中不能出现 bananamark 内部使用的写法：@@node:/);
   await article('infinity', metadata, '`\\{\\{<` 与 <see>[[无穷范畴]]</see>');
   prebuild();
-  // A page's own address stays within the site.
-  for (const url of ['/../../x/', '/a"b/', 'x/', '//evil.example/']) {
-    await article('infinity', { ...metadata, url });
-    assert.throws(prebuild, /url 必须是站内的地址/, url);
-  }
-  await article('infinity', { ...metadata, slug: '../x' });
-  assert.throws(prebuild, /slug 必须是站内的地址/);
   await article('infinity', metadata);
   await writeFile(join(root, 'data/categories.yaml'), stringify({ [categoryName]: {}, 'p 进几何': {} }));
   assert.throws(prebuild, /分类名称重复：p 进几何/);

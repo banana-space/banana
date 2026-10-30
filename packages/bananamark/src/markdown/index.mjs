@@ -6,10 +6,10 @@ import { passthrough, splitPassthroughBlocks } from './passthrough.mjs';
 import { headingAttributes, fenceAttributes } from './attributes.mjs';
 
 /**
- * markdown-it set up to read Markdown as Goldmark (v1.8.6, Hugo's Markdown parser) does in the configuration the
- * dialect was first written for: CommonMark with tables, strikethrough, footnotes, linkify and the typographer;
+ * markdown-it set up to read Markdown as Goldmark (v1.8.6) does in the configuration the dialect was first written
+ * for: CommonMark with tables, strikethrough, footnotes, linkify and the typographer;
  * heading attributes; images alone in a paragraph left unwrapped; raw HTML left out; and the passthrough delimiters
- * for formulas. Pages written for Hugo then read the same.
+ * for formulas.
  *
  * The output is Goldmark's HTML where pages depend on it. Render hooks (links, images, headings, code blocks,
  * formulas, tables) are left to the caller: see ../render/.

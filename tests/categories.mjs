@@ -85,6 +85,8 @@ try {
   const second = await readFile(join(root, 'public/categories/字母分类/page/2/index.html'), 'utf8');
   assert.deepEqual(headings(second), ['letter-t T（续）']);
   assert.deepEqual(titles(second), ['条目 47', '条目 48', '条目 49', '条目 50', '条目 51', '条目 52', '条目 53', '条目 54', '条目 55', '条目 56']);
+  // The first page is the list itself, with no address of its own.
+  await assert.rejects(readFile(join(root, 'public/categories/字母分类/page/1/index.html'), 'utf8'), { code: 'ENOENT' });
   const small = await readFile(join(root, 'public/categories/小分类/index.html'), 'utf8');
   assert.doesNotMatch(small, /letter-groups|letter-nav/);
   const wiki = await readFile(join(root, 'public/wiki/index.html'), 'utf8');

@@ -17,7 +17,7 @@ try {
     await mkdir(directory, { recursive: true });
     await writeFile(join(directory, 'index.md'), `---\n${metadata}\n---\n${body}\n`);
   }
-  await article('infinity', 'title: ∞-范畴\nurl: /custom-infinity/');
+  await article('infinity', 'title: ∞-范畴');
   await article('draft', 'title: 草稿\ndraft: true');
   const body = String.raw`[[顶点代数]] [[$\infty$-范畴]] [[缺失 & "条目"|缺失 $A$-模]] [[草稿]]
 
@@ -55,7 +55,7 @@ A[[t]] \text{$b$}
   const html = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
   assert.match(html, /加粗的链接：文字<strong><a [^>]*>顶点代数<\/a><\/strong>文字/, 'bold around a link, between Chinese: the spaces the syntax layer added go again');
   assert.ok(html.includes(`href="/wiki/${encodeURIComponent('顶点代数')}/" class="bm-wiki-link"`));
-  assert.match(html, /href="\/custom-infinity\/" class="bm-wiki-link"><span class="bm-math-rendered" data-tex="\\infty"/);
+  assert.match(html, /href="\/wiki\/infinity\/" class="bm-wiki-link"><span class="bm-math-rendered" data-tex="\\infty"/);
   assert.match(html, /class="bm-wiki-link">块内链接<\/a>/);
   assert.match(html, /bm-wiki-link-missing/);
   assert.match(html, /href="\/missing\/\?title=/);

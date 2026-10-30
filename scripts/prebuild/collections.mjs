@@ -101,14 +101,9 @@ export async function discoverCollections(source) {
   return roots;
 }
 
-export function isPublished(metadata, args = process.argv.slice(2), now = new Date()) {
-  const enabled = name => !args.includes(`--${name}=false`) && (args.includes(`--${name}`) || args.includes(`--${name}=true`));
-  if (metadata.build?.render === 'never') return false;
-  if (metadata.draft && !enabled('buildDrafts')) return false;
-  const future = metadata.publishDate ?? metadata.publishdate ?? metadata.date;
-  if (future && Date.parse(future) > now.getTime() && !enabled('buildFuture')) return false;
-  const expires = metadata.expiryDate ?? metadata.expirydate;
-  return !(expires && Date.parse(expires) <= now.getTime() && !enabled('buildExpired'));
+export function isPublished(metadata, args = process.argv.slice(2)) {
+  if (metadata.unpublished) return false;
+  return !metadata.draft || args.includes('--buildDrafts') || args.includes('--buildDrafts=true');
 }
 
 /**
@@ -225,7 +220,7 @@ export async function prepareCollections({ source, records, dates, normalize, ro
         collectionHome: record === root, collectionKind: rootKey.startsWith('books/') ? 'lecture' : 'guide',
       });
       if (modified) metadata.gitLastmod = modified;
-      if (!published) metadata.build = { ...(metadata.build ?? {}), render: 'never', list: 'never' };
+      if (!published) metadata.unpublished = true;
       if (!published) return;
       reading.push(record);
       const page = book.add(record.body, {
@@ -253,7 +248,7 @@ export async function prepareCollections({ source, records, dates, normalize, ro
     // Mark the complete excluded branch, including descendants not traversed above.
     for (const record of all) if (record.visible === undefined) {
       record.visible = false;
-      Object.assign(record.metadata, { collectionRoot: rootKey, structuredPage: true, build: { render: 'never', list: 'never' } });
+      Object.assign(record.metadata, { collectionRoot: rootKey, structuredPage: true, unpublished: true });
     }
     // Excluding the root from search excludes the whole collection.
     if (root.metadata.search === false) for (const record of all) record.metadata.search = false;

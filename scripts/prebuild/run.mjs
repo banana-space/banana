@@ -17,7 +17,8 @@ import { titleHTML } from '../shared/display-title.mjs';
 import { discoverCollections, isPublished, lectureGroups, prepareCollections } from './collections.mjs';
 import { componentLoader } from './components.mjs';
 import { markPattern, markSourceLines } from 'bananamark/internal/source-lines.mjs';
-import { pageURL } from '../shared/pages.mjs';
+import { pageURL, pathAddress } from '../shared/pages.mjs';
+import { pageKeys } from './front-matter-rules.mjs';
 import { loadReadingDictionary, normalizeReading, readingMetadata } from './reading.mjs';
 import { siteRenderer } from './render.mjs';
 import { environments } from '../shared/environments.mjs';
@@ -41,15 +42,6 @@ const sitePages = {
   'recent-changes': ['recent-changes', 'recent_changes_title'],
   search: ['search', 'search_page_title'],
 };
-
-/**
- * The address of a page at this directory path in content/ (wiki/C＊-代数): spaces as underscores, as on the old site,
- * and the fullwidth ＊ that stands for * in directory names as * again (Windows cannot write a file with *: kept there).
- */
-function pathAddress(path) {
-  const url = path.replace(/\s+/g, '_');
-  return `/${process.platform === 'win32' ? url : url.replace(/＊/g, '*')}/`;
-}
 
 /**
  * 预处理整站：content/ 是编辑来源，所有派生编号、标签元数据只写入生成目录。
@@ -116,8 +108,6 @@ export async function prebuild({ destination: generated = `${root}.build/content
    */
   async function normalize(record, names = wikiNames, register = true) {
     const { metadata, path: sourcePath, relative: relativePath } = record;
-    if (Object.keys(metadata).some(key => /^(?:lastmod|gitlastmod)$/i.test(key))) throw new Error(t('build_manual_lastmod', { File: sourcePath }));
-    if (metadata.urlAliases !== undefined) throw new Error(t('build_url_aliases', { File: sourcePath }));
     const date = record.generated ? undefined : await modifiedAt(sourcePath);
     if (date) metadata.gitLastmod = date;
     if (metadata.lang !== undefined && (typeof metadata.lang !== 'string' || !/^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/i.test(metadata.lang))) throw new Error(t('build_language_code', { File: sourcePath }));
@@ -129,25 +119,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     if (metadata.tocDepth !== undefined && (!Number.isInteger(metadata.tocDepth) || metadata.tocDepth < 0 || metadata.tocDepth > 5)) throw new Error(`${sourcePath}: tocDepth 必须是 0 至 5 的整数`);
     const isWiki = relativePath.startsWith('wiki/') && relativePath !== 'wiki/index.md';
     record.isWiki = isWiki;
-    // 页面的默认地址取目录路径，保留大小写和标点（Hugo 默认会转小写并删去部分字符，如「、」），
-    // 空格改为下划线，与旧站一致。页面自己设置的 url 或 slug 优先。
-    // 目录名中代替 * 的全角 ＊ 在网址中还原为 *（如 C*_代数）；Windows 不能写出含 * 的文件，保留 ＊。
-    // A page's own address: within the site (Hugo writes the page there, under its output directory).
-    for (const [key, pattern] of [['url', /^\/(?:[^\s"'<>\\?#]*)$/], ['slug', /^[^\s"'<>\\?#/]+$/]]) {
-      const value = metadata[key];
-      if (value !== undefined && (typeof value !== 'string' || !pattern.test(value) || value.split('/').some(part => part === '..' || part === '.') || value.includes('//'))) {
-        throw new Error(t('build_page_address', { File: sourcePath, Key: key, Value: String(value) }));
-      }
-    }
-    // 首页与顶层的页面（如 /wiki/、/search/）用默认的地址（小写，空格改为连字符）。
-    if (!/^(?:[^/]+\/)?index\.md$/.test(relativePath) && metadata.url === undefined && metadata.slug === undefined) {
-      metadata.url = pathAddress(relativePath.replace(/\/index\.md$/, '').replace(/\.md$/, ''));
-    }
     if (metadata.categories !== undefined && !isWiki) throw new Error(`${sourcePath}: categories 仅用于 wiki 页面`);
-    if (metadata.notices !== undefined) throw new Error(t('build_notices_front_matter', { File: sourcePath }));
-    // An image's width as the Hugo site had it, in its address (a.png?width=200); now {width=200} after the image.
-    const widthInAddress = /\]\([^()\s]*\?(?:[^()\s]*&)?width=/.exec(record.body ?? '');
-    if (widthInAddress) throw new Error(t('build_image_width_address', { File: sourcePath, Line: record.lineOffset + record.body.slice(0, widthInAddress.index).split('\n').length }));
     if (metadata.categories) Object.assign(metadata, categories.membership(metadata.categories, sourcePath, { register }));
     const fallback = relativePath.endsWith('/index.md') ? relativePath.split('/').at(-2) : relativePath.replace(/\.md$/i, '').split('/').at(-1);
     const title = pageName(metadata.title ?? fallback, sourcePath, 'title', { lang: metadata.lang ?? 'zh-cn', typeset: metadata.title !== undefined });
@@ -214,6 +186,11 @@ export async function prebuild({ destination: generated = `${root}.build/content
       const line = error.linePos?.[0]?.line; // Counted from the line after the opening ---.
       throw new Error(`${path}${line ? `:${line + 1}` : ''}: ${error.message}`);
     }
+    const unknown = Object.keys(metadata).find(key => !pageKeys.includes(key));
+    if (unknown) {
+      const line = match[1].split(/\r?\n/).findIndex(text => text.startsWith(`${unknown}:`)) + 2; // Counted from the opening ---.
+      throw new Error(`${path}:${line}: ${t('build_front_matter_key', { Key: unknown, Allowed: pageKeys.join('、') })}`);
+    }
     const start = match?.[0].length ?? 0;
     return { titleProvided: metadata.title !== undefined, path, relative: path.slice(source.length + 1), metadata, source: text, body: text.slice(start), lineOffset: text.slice(0, start).split('\n').length - 1 };
   }
@@ -238,7 +215,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
       const relative = `${directory}/index.md`, path = `${source}/${relative}`;
       await attempt(async () => {
         if (records.has(relative)) throw new Error(`${path}: 这个地址是站点自己的页面，content/ 中不能有这个页面`);
-        const record = { path, relative, metadata: { title: t(title), layout, build: { list: 'never' } }, body: '', lineOffset: 0, generated: true };
+        const record = { path, relative, metadata: { title: t(title), layout, unlisted: true }, body: '', lineOffset: 0, generated: true };
         records.set(relative, record);
         await normalize(record);
       }, path);
@@ -319,8 +296,8 @@ export async function prebuild({ destination: generated = `${root}.build/content
   });
   /**
    * A generated page's text: its front matter, and its body rendered to HTML (bananamark). The headings go into the
-   * front matter for the table of contents (tocHeadings, as Hugo's .Fragments.Headings had them), and the page's
-   * summary as text (summaryText, for its description: Hugo's .Summary and plainify ported). The document
+   * front matter for the table of contents (tocHeadings), and the page's description
+   * (summaryText: the text of its first paragraph, summary.mjs). The document
    * is kept (document) for the links it names and for rendering again.
    */
   /**
@@ -399,7 +376,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
   timer.add('render pages', performance.now() - renderStart);
   // Every page rendered: what this run did not use is out of date.
   if (bodies && !pages && !frontMatterOnly && !check) bodies.prune();
-  // Drafts and other unpublished pages are missing from Hugo's article index.
+  // Drafts and other unpublished pages are missing from the article index.
   const published = new Set();
   for (const record of records.values()) {
     if (record.isWiki && record.normalized && isPublished(record.metadata)) {

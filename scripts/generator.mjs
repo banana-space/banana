@@ -87,7 +87,7 @@ function coreWorker({ development }) {
   // about 1.8 GB, in the same time.
   const worker = new Worker(new URL('./site/core-worker.mjs', import.meta.url), {
     workerData: { development, baseURL: baseURL.href }, resourceLimits: { maxOldGenerationSizeMb: 1024 },
-    // Publishing flags (--buildDrafts and the like) are read from the command line.
+    // The publishing flag (--buildDrafts) is read from the command line.
     argv: process.argv.slice(2),
   });
   const waiting = new Map();

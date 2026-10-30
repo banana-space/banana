@@ -1,5 +1,5 @@
-import { i18n } from '../../shared/i18n.mjs';
-import { html, raw, url } from '../html.mjs';
+import { t } from '../../shared/i18n.mjs';
+import { html, raw } from '../html.mjs';
 import { bookList } from './collections.mjs';
 import { displayTitle, icon } from './layout.mjs';
 
@@ -35,15 +35,15 @@ export function categoryChildren(site, parent) {
 
 /** The cards of categories. */
 const categoryCards = (site, categories) => html`<ul class="category-cards">${categories.map(category => html`
-  <li><a class="category-card" href="${url(category.href)}"><span class="category-card-name">${icon('folder')}${displayTitle(site, category)}</span><span class="category-card-count">${category.regularPages.length}</span></a></li>`)}
+  <li><a class="category-card" href="${category.href}"><span class="category-card-name">${icon('folder')}${displayTitle(site, category)}</span><span class="category-card-count">${category.regularPages.length}</span></a></li>`)}
 </ul>`;
 
 /** The links to a category's ancestors, outermost first. */
 function categoryAncestors(site, page, seen = []) {
-  if (seen.includes(page.title)) throw new Error(i18n('build_category_cycle', { Path: page.title }));
+  if (seen.includes(page.title)) throw new Error(t('build_category_cycle', { Path: page.title }));
   const parent = page.params.categoryParent && site.getPage(`/categories/${page.params.categoryParent}`);
   if (!parent) return '';
-  return html`${categoryAncestors(site, parent, [...seen, page.title])}<a class="category-link" href="${url(parent.href)}">${displayTitle(site, parent)}</a><span class="category-separator" aria-hidden="true">›</span>`;
+  return html`${categoryAncestors(site, parent, [...seen, page.title])}<a class="category-link" href="${parent.href}">${displayTitle(site, parent)}</a><span class="category-separator" aria-hidden="true">›</span>`;
 }
 
 /** The articles directly in a category. */
@@ -75,17 +75,17 @@ function pagination(pager) {
   const narrowLow = Math.max(1, Math.min(current - narrow, total - 2 * narrow));
   const items = [];
   if (current > 1) {
-    items.push(html`<li><a href="${url(pager.href(1))}">&laquo;</a></li>`);
-    items.push(html`<li class="hidden"><a href="${url(pager.href(current - 1))}">&lsaquo;</a></li>`);
+    items.push(html`<li><a href="${pager.href(1)}">&laquo;</a></li>`);
+    items.push(html`<li class="hidden"><a href="${pager.href(current - 1)}">&lsaquo;</a></li>`);
   }
   for (let n = 1; n <= total; n++) {
     if (n < wideLow || n > wideLow + 2 * wide) continue;
     const inNarrow = n >= narrowLow && n <= narrowLow + 2 * narrow;
-    items.push(n === current ? html`<li class="current" aria-current="page"><span>${n}</span></li>` : html`<li${inNarrow ? '' : html` class="wide-only"`}><a href="${url(pager.href(n))}">${n}</a></li>`);
+    items.push(n === current ? html`<li class="current" aria-current="page"><span>${n}</span></li>` : html`<li${inNarrow ? '' : html` class="wide-only"`}><a href="${pager.href(n)}">${n}</a></li>`);
   }
   if (current < total) {
-    items.push(html`<li class="hidden"><a href="${url(pager.href(current + 1))}">&rsaquo;</a></li>`);
-    items.push(html`<li><a href="${url(pager.href(total))}">&raquo;</a></li>`);
+    items.push(html`<li class="hidden"><a href="${pager.href(current + 1)}">&rsaquo;</a></li>`);
+    items.push(html`<li><a href="${pager.href(total)}">&raquo;</a></li>`);
   }
   return html`<ul class="pagination">${items}</ul>`;
 }
@@ -108,20 +108,20 @@ function letterGroups(site, pages, pager, level) {
     const here = groups.map(group => group.key);
     const indexes = letters.map((key, i) => here.includes(key) ? i : -1).filter(i => i >= 0);
     const first = indexes.length ? indexes[0] : -1, last = indexes.length ? indexes.at(-1) : -1;
-    nav = html`<nav class="letter-nav" aria-label="${i18n('letter_navigation')}">
+    nav = html`<nav class="letter-nav" aria-label="${t('letter_navigation')}">
     <ol>${letters.map((key, i) => {
       const classes = [...(i >= first && i <= last ? ['current'] : []), ...(i === first ? ['current-first'] : []), ...(i === last ? ['current-last'] : [])];
       const number = start.get(key);
       return html`<li${classes.length ? html` class="${classes.join(' ')}"` : ''}>${number
-        ? html`<a href="${url(`${pager.href(number)}#${letterAnchor(key)}`)}" title="${i18n('letter_page', number)}">${key.toUpperCase()}</a>`
+        ? html`<a href="${pager.href(number)}#${letterAnchor(key)}" title="${t('letter_page', { Number: number })}">${key.toUpperCase()}</a>`
         : html`<span>${key.toUpperCase()}</span>`}</li>`;
     })}</ol>
   </nav>`;
   }
   return html`${nav}<div class="letter-groups">${groups.map((group, i) => {
-    const label = i === 0 && continued ? i18n('letter_continued', group.key.toUpperCase()) : group.key.toUpperCase();
+    const label = i === 0 && continued ? t('letter_continued', { Letter: group.key.toUpperCase() }) : group.key.toUpperCase();
     const heading = level === 2 ? html`<h2 class="letter-heading" id="${letterAnchor(group.key)}">${label}</h2>` : html`<h3 class="letter-heading" id="${letterAnchor(group.key)}">${label}</h3>`;
-    return html`<section class="letter-group">${heading}<ul class="letter-list">${group.pages.map(page => html`<li><a class="article-item" href="${url(page.href)}"><span class="title">${displayTitle(site, page)}</span></a></li>`)}</ul></section>`;
+    return html`<section class="letter-group">${heading}<ul class="letter-list">${group.pages.map(page => html`<li><a class="article-item" href="${page.href}"><span class="title">${displayTitle(site, page)}</span></a></li>`)}</ul></section>`;
   })}</div>`;
 }
 
@@ -132,8 +132,8 @@ export function listContent(site, page, pages, pager) {
   let categoryHeader = '';
   if (category) {
     const children = categoryChildren(site, page.title);
-    categoryHeader = html`<nav aria-label="${i18n('ancestor_categories')}" class="category-ancestors">${icon('folder')}${categoryAncestors(site, page)}<span aria-current="page">${displayTitle(site, page)}</span></nav>
-    ${children.length ? html`<h2>${i18n('child_categories')}</h2>
+    categoryHeader = html`<nav aria-label="${t('ancestor_categories')}" class="category-ancestors">${icon('folder')}${categoryAncestors(site, page)}<span aria-current="page">${displayTitle(site, page)}</span></nav>
+    ${children.length ? html`<h2>${t('child_categories')}</h2>
     ${categoryCards(site, children)}` : ''}`;
   }
   let body;
@@ -152,7 +152,7 @@ export function listContent(site, page, pages, pager) {
   } else {
     body = html`<ul>${pager.pages.map(item => html`
       <li>
-        <a class="article-item" href="${url(item.href)}">
+        <a class="article-item" href="${item.href}">
           <span class="title">${displayTitle(site, item)}</span>
         </a>
       </li>`)}
@@ -161,12 +161,12 @@ export function listContent(site, page, pages, pager) {
   return html`<section class="container list${params.lectureIndex ? ' lecture-index' : ''}">
   <header>
     <h1 class="title"${params.structuredPage ? html` id="page-title"` : ''}>
-      <a class="title-link" href="${url(page.permalink)}">${category ? html`<span class="title-prefix">${i18n('categories', 1)}${i18n('taxonomy_separator')}</span>` : ''}${displayTitle(site, page)}</a>
+      <a class="title-link" href="${page.permalink}">${category ? html`<span class="title-prefix">${t('categories')}${t('taxonomy_separator')}</span>` : ''}${displayTitle(site, page)}</a>
     </h1>
   </header>
   ${page.content.trim() ? html`<div class="list-description">${raw(page.content)}</div>` : ''}
   ${categoryHeader}
-  ${category && pages.length ? html`<h2>${i18n('articles')}</h2>` : ''}
+  ${category && pages.length ? html`<h2>${t('articles')}</h2>` : ''}
   ${body}
   ${pagination(pager)}
 </section>`;
@@ -183,16 +183,16 @@ export function termsContent(site, page) {
   return html`<section class="container taxonomy">
   <header>
     <h1 class="title">
-      <a class="title-link" href="${url(page.permalink)}">${displayTitle(site, page)}</a>
+      <a class="title-link" href="${page.permalink}">${displayTitle(site, page)}</a>
     </h1>
   </header>
   ${raw(page.content)}
   ${groups.map(group => html`<section class="category-group">
-    <h2 class="category-group-title"><a href="${url(group.page.href)}">${displayTitle(site, group.page)}</a><span class="category-group-count">${i18n('category_article_count', { Count: group.page.regularPages.length })}</span></h2>
+    <h2 class="category-group-title"><a href="${group.page.href}">${displayTitle(site, group.page)}</a><span class="category-group-count">${t('category_article_count', { Count: group.page.regularPages.length })}</span></h2>
     ${categoryCards(site, group.children)}
   </section>`)}
   ${others.length ? html`<section class="category-group">
-    ${groups.length ? html`<h2 class="category-group-title">${i18n('other_categories')}</h2>` : ''}
+    ${groups.length ? html`<h2 class="category-group-title">${t('other_categories')}</h2>` : ''}
     ${categoryCards(site, others)}
   </section>` : ''}
 </section>`;

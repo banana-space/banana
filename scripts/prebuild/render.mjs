@@ -1,14 +1,14 @@
 import { posix } from 'node:path';
 import { siteSyntax } from '../shared/syntax.mjs';
 import { createRenderer, pathEscape, queryEscape } from 'bananamark';
-import { decodeEntities, pageSummary, plainify } from '../shared/summary.mjs';
+import { pageDescription } from '../shared/summary.mjs';
 import { languages } from 'bananamark/languages';
 import { pageTypography, typography } from '../shared/typography.mjs';
 import { branchPages, pageURL } from '../shared/pages.mjs';
 import { baseURL, basePath, relURL } from '../shared/urls.mjs';
 
 /**
- * The site's side of the body renderer (bananamark): what Hugo's templates took from the site — the article
+ * The site's side of the body renderer (bananamark): what rendering takes from the site — the article
  * index for [[links]], page addresses, category pages, icons, language names — computed from the generated
  * pages' front matter.
  *
@@ -37,7 +37,7 @@ export function siteRenderer(pages, { categories = [], hasFile, cache }) {
     if (!url) continue;
     const page = { relative, metadata, url, href: pathEscape(relURL(url)) };
     byRelative.set(relative, page);
-    // site.GetPage("/<path>"): the page's path without index.md and .md.
+    // The page's path without index.md and .md.
     byPath.set(relative.replace(/(?:^|\/)index\.md$/i, '').replace(/\.md$/i, ''), page);
     if (metadata.wikiName) wiki.set(metadata.wikiName, page);
     for (const alias of metadata.wikiAliases ?? []) wiki.set(alias, page);
@@ -127,8 +127,7 @@ export function siteRenderer(pages, { categories = [], hasFile, cache }) {
 
   return {
     /**
-     * Text of a page's front matter (a notice, a navbox, a heading in the table of contents) as HTML, as Hugo's
-     * .Page.RenderString rendered it: display "inline" (a single paragraph without its <p>) or "block". Results that
+     * Text of a page's front matter (a notice, a navbox, a heading in the table of contents) as HTML: display "inline" (a single paragraph without its <p>) or "block". Results that
      * do not depend on the page's own address are cached for the renderer's life (the site as it is).
      */
     renderString(relative, document, display = 'inline') {
@@ -142,8 +141,8 @@ export function siteRenderer(pages, { categories = [], hasFile, cache }) {
       return html;
     },
     /**
-     * A generated page's body from its document (bananamark's { markdown, nodes }): { html, headings, tree, description }, tree the headings as Hugo's .Fragments.Headings nested
-     * them (tableofcontents.Builder: a row per level-1 heading, each heading under the last one a level above, an
+     * A generated page's body from its document (bananamark's { markdown, nodes }): { html, headings, tree, description }, tree the headings nested
+     * (a row per level-1 heading, each heading under the last one a level above, an
      * empty heading of level 0 filling a skipped level).
      */
     render(relative, document) {
@@ -167,15 +166,7 @@ export function siteRenderer(pages, { categories = [], hasFile, cache }) {
    */
   function renderBody(document, info) {
     const { html, headings } = renderer.renderDocument(document, info);
-    // The description (the page's Open Graph metadata), from Hugo's summary of the page. Hugo passed it on as HTML,
-    // its entities kept and read by the browser: here as text, with them decoded, on one line and trimmed.
-    // Without the notices, which Hugo's pages had outside the body; code blocks without their highlighting, as Hugo
-    // saw them (the highlighting came after it); formulas without the span bananamark keeps their punctuation in
-    // (bm-math-end: KaTeX's last box back in place, the punctuation after the formula).
-    const unglued = html.replace(/<\/span><\/span><span class="bm-math-end"><span class="katex"><span class="katex-html" aria-hidden="true">((?:(?!bm-math-end)[\s\S])*?)<\/span><\/span>([^<>]+)<\/span><\/span>/g, '$1</span></span></span>$2');
-    const withoutNotices = unglued.replace(/<aside class="notice [\s\S]*?<\/aside>\n?/g, '');
-    const unhighlighted = withoutNotices.replace(/(<pre class="bm-code-block"[^>]*><code>)([\s\S]*?)(?=<\/code><\/pre>)/g, (_, open, code) => open + code.replace(/<\/?span\b[^>]*>/g, ''));
-    const description = decodeEntities(plainify(pageSummary(unhighlighted).replace(/<span class="katex-mathml">[\s\S]*?<\/math><\/span>/g, ''))).replace(/\s*\n\s*/g, ' ').trim();
+    const description = pageDescription(html);
     const rows = [];
     let row = -1;
     for (const { level, id } of headings) {

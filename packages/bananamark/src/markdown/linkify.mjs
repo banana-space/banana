@@ -44,7 +44,7 @@ export function linkify(state, silent) {
   if (/^(?:http:|https:|ftp:)/.test(line)) match = line.match(urlPattern)?.[0].length;
   if (match === undefined && line.startsWith('www.')) {
     match = line.match(wwwPattern)?.[0].length;
-    // Hugo gives these its linkifyProtocol (https by default) rather than Goldmark's http.
+    // These are https here, not Goldmark's http.
     protocol = 'https://';
   }
   let start = 0;

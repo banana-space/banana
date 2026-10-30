@@ -1,5 +1,6 @@
 import { basePath } from '../../shared/urls.mjs';
-import { escape, json, queryEscape } from '../html.mjs';
+import { queryEscape } from 'bananamark';
+import { escape } from '../html.mjs';
 
 /** The site's other outputs: the alias redirects, the search manifest, the sitemap. */
 
@@ -31,7 +32,7 @@ export function searchManifest(site) {
 
 /**
  * A page's last change: its own (gitLastmod), or, for a list (a section, the categories, a category) without one,
- * the latest of its pages', as Hugo had it.
+ * the latest of its pages'.
  */
 function lastmod(page, seen = new Set()) {
   if (page.params.gitLastmod) return page.params.gitLastmod;
@@ -45,12 +46,12 @@ function lastmod(page, seen = new Set()) {
   return latest;
 }
 
-/** Hugo's sitemap: each page with its address and when it last changed. */
+/** The sitemap: each page with its address and when it last changed. */
 export function sitemap(site) {
   const urls = site.listed.filter(page => page.rendered && page.permalink).map(page => {
     const time = lastmod(page);
     return `  <url>
-    <loc>${escape(page.permalink).replace(/\+/g, '&#43;')}</loc>${time ? `
+    <loc>${escape(page.permalink)}</loc>${time ? `
     <lastmod>${time}</lastmod>` : ''}
   </url>`;
   });
