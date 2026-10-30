@@ -81,7 +81,7 @@ const logo = raw(readFileSync(new URL('../../../static/images/logo.svg', import.
 function header(site, page, { searchPage }) {
   const toc = pageTocItems(site, page);
   const recent = site.getPage('/recent-changes'), categories = site.getPage('/categories');
-  const links = html`${recent ? html`<a href="${url(recent.href)}">${i18n('recent_changes_title')}</a>` : ''}
+  const links = html`<a href="${url(recent.href)}">${i18n('recent_changes_title')}</a>
         ${categories ? html`<a href="${url(categories.href)}">${i18n('categories')}</a>` : ''}
         ${collectionLinks(site)}`;
   return html`<nav class="navigation" aria-label="${i18n('main_navigation')}">

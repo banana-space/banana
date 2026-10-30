@@ -8,7 +8,7 @@ import { normalizeReading } from './reading.mjs';
 import { t } from '../shared/i18n.mjs';
 import { siteSyntax } from '../shared/syntax.mjs';
 
-const special = new Set(['wiki', 'missing', 'search', 'navboxes']);
+const special = new Set(['wiki', 'navboxes']);
 const mapping = value => value && typeof value === 'object' && !Array.isArray(value);
 const maxDate = values => values.filter(Boolean).sort((a, b) => Date.parse(b) - Date.parse(a))[0];
 const fail = (file, message) => { throw new Error(`${file}: 书册：${message}`); };

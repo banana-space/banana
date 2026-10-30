@@ -5,7 +5,6 @@ import { readFile, readlink, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { pack, unpack } from '../shared/compress.mjs';
 import { Document, parse, stringify } from 'yaml';
-import { transformFragment } from 'bananamark/internal/markup.mjs';
 import { directoryName, pageName, nameList, pageTitleMarkup } from '../shared/names.mjs';
 import { transformDocument } from 'bananamark/internal/structure.mjs';
 import { personIndex } from './people.mjs';
@@ -29,6 +28,19 @@ import { renderCache } from './render-cache.mjs';
 import { siteSyntax } from '../shared/syntax.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
+
+/**
+ * The site's own pages, which their templates and scripts build (by layout: scripts/site/generate.mjs), and
+ * content/ has no file for: directory → layout, title.
+ */
+const sitePages = {
+  edit: ['editor', 'editor_page_title'],
+  diff: ['diff', 'diff_page_title'],
+  history: ['history', 'history_page_title'],
+  missing: ['missing', 'missing_article'],
+  'recent-changes': ['recent-changes', 'recent_changes_title'],
+  search: ['search', 'search_page_title'],
+};
 
 /**
  * The address of a page at this directory path in content/ (wiki/C＊-代数): spaces as underscores, as on the old site,
@@ -162,7 +174,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     } else if (metadata.aliases !== undefined) throw new Error(t('build_aliases_scope', { File: sourcePath }));
     const components = await prepareComponents(metadata, sourcePath);
     if (components.navboxes.length) metadata.resolvedNavboxes = components.navboxes;
-    metadata.structuredPage = !['missing/', 'search/'].some(prefix => relativePath.startsWith(prefix));
+    metadata.structuredPage = true;
     metadata.lectureIndex = relativePath === 'books/index.md';
     const wikiLinks = new Map();
     record.wikiLinks = wikiLinks;
@@ -222,6 +234,15 @@ export async function prebuild({ destination: generated = `${root}.build/content
         record.normalized = true;
       }, path);
     }
+    for (const [directory, [layout, title]] of Object.entries(sitePages)) {
+      const relative = `${directory}/index.md`, path = `${source}/${relative}`;
+      await attempt(async () => {
+        if (records.has(relative)) throw new Error(`${path}: 这个地址是站点自己的页面，content/ 中不能有这个页面`);
+        const record = { path, relative, metadata: { title: t(title), layout, build: { list: 'never' } }, body: '', lineOffset: 0, generated: true };
+        records.set(relative, record);
+        await normalize(record);
+      }, path);
+    }
   }
 
   await timer.time('read, front matter', load);
@@ -275,9 +296,9 @@ export async function prebuild({ destination: generated = `${root}.build/content
     Object.assign(metadata, readingMetadata({ name: metadata.title, aliases: metadata.wikiAliases, manual: metadata.sort, file: record.path }));
     delete metadata.sort;
     // Collections are transformed whole: their pages keep bodies unless only front matter is wanted.
-    const body = frontMatterOnly && !wanted ? '' : record.transformed ?? (!wanted ? '' : metadata.structuredPage ? transformDocument(record.body, {
+    const body = frontMatterOnly && !wanted ? '' : record.transformed ?? (!wanted ? '' : transformDocument(record.body, {
       ...record.options, allowH1: !record.isWiki, ...page, ...pageNumbers,
-    }) : transformFragment(record.body, { ...siteSyntax, lang: record.options.lang }));
+    }));
     if (body?.meta) absorbMeta(record, body.meta);
     return { metadata, document: body };
   }

@@ -113,7 +113,6 @@ try {
   await write('content/wiki/chain/index.md', page('title: 链同伦', '同伦同伦同伦，链复形之间的同伦。同伦的同伦。'));
   await write('content/wiki/homcat/index.md', page('title: 同伦范畴\naliases: [范畴的同伦]', '由弱等价局部化得到。'));
   await write('content/wiki/compound/index.md', page('title: 复合词', '这里只出现奇异上同调和同伦不变量这样的长词．'));
-  await write('content/missing/index.md', page('title: 条目尚未创建\nlayout: missing\nbuild:\n  list: never'));
   await write('content/wiki/english/index.md', page('title: Spectral sequence\nlang: en', 'A spectral sequence computes homology.'));
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目\nsearch: false', '隐藏条目独有的内容 zzqhidden．'));
   await write('content/books/demo/book.yaml', 'title: 演示讲义\ncontents:\n  - page: maps\n    children:\n      - page: kernel\n');

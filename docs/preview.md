@@ -157,7 +157,7 @@ npm run check -- content/wiki/条目甲
 
 ### 编辑器页面
 
-`/edit/?path=wiki/条目/index.md`（`content/edit/index.md`，模板 `scripts/site/templates/special.mjs` 的 `editorContent`，脚本 `assets/js/editor/main.js`）。CodeMirror 6 由 esbuild 从 `node_modules` 打包（`scripts/site/assets.mjs`），是站点生成的一步，不需要另外的构建步骤。每个结构化页面的页脚有“编辑本页”链接；没有 `path` 时，页面请用户输入条目名或页面路径，新的名称即新建条目。界面文字在 `i18n/zh-cn.yaml` 的 `editor_` 各键。
+`/edit/?path=wiki/条目/index.md`（模板 `scripts/site/templates/special.mjs` 的 `editorContent`，脚本 `assets/js/editor/main.js`）。CodeMirror 6 由 esbuild 从 `node_modules` 打包（`scripts/site/assets.mjs`），是站点生成的一步，不需要另外的构建步骤。每个结构化页面的页脚有“编辑本页”链接；没有 `path` 时，页面请用户输入条目名或页面路径，新的名称即新建条目。界面文字在 `i18n/zh-cn.yaml` 的 `editor_` 各键。
 
 - 打开页面时取 `/api/source`；已登录且对该页有未合并的 PR 时，编辑的是 PR 中的版本。该页有别人的 PR 时先请用户选择（见上“编辑别人的 PR”），选择后带上 `&pull=` 重新载入；提交成功后地址也换成该 PR 的，重新打开时继续编辑它。
 - 语法高亮、补全、编辑公式（`\[` 自动配对、回车补全 `\]`）与浏览器内检查来自 bananamark-codemirror（[README](../packages/bananamark-codemirror/README.md)，英文；语法本身是 bananamark 的 `bananamark/grammar`，渲染器高亮代码块也用它）。编辑器没有用包的 `bananamark()` 一次装好，而是逐项装上（`assets/js/editor/main.js` 的 `setup()`：折叠标记要用站点的图标，补全与检查用站点的设置）。站点给它的：方言的语言（`scripts/shared/dialect.mjs`，```` ```terms ```` 按 YAML 高亮）；站点标签的规则（`scripts/shared/syntax-rules.mjs`）；补全的设置与站点自己的一种补全（`scripts/editor/completion.mjs`：环境与中文名来自 `data/theorems.yaml`，条目名与别名、语言名称（`data/language_names.yaml`），以及导言区 `categories` 中的分类）。条目名、分类、环境与语言名称由编辑器页面的模板在构建时写成一个带指纹的 JSON，第一次需要时才取；KaTeX 的命令表随 bananamark-codemirror 打包进编辑器的脚本。书册页面还补全同一书册其他页面的标签：常驻预处理为每个书册保留共同的标签表（`collectionLabels`），`GET /api/source` 随源文本返回其中不属于本页的标签，带上引用显示的样子（如“第 1 章”“定理 1.1.1”）与所在页面的标题，排在本页的标签之后。`tests/markdown-language.mjs` 用全部页面核对语法：找到的公式与构建逐一相同，百科链接与环境围栏都被识别。

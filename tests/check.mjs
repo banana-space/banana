@@ -27,6 +27,14 @@ try {
     assert.match(result.output, message);
   }
 
+  // The site's own pages have no file in content/, and a file there cannot take their address.
+  await page('search/index.md', '---\ntitle: 搜索\n---\n');
+  result = run('check', '--json');
+  assert.equal(result.status, 1);
+  assert.deepEqual(result.json.errors.map(error => error.file), ['content/search/index.md']);
+  assert.match(result.json.errors[0].message, /站点自己的页面/);
+  await rm(join(root, 'content/search'), { recursive: true });
+
   // check collects every error and attributes conflicts to both pages.
   await page('wiki/重名/index.md', '---\ntitle: 甲\n---\n');
   await page('wiki/坏引用/index.md', '---\ntitle: 坏引用\n---\n\n见 @eq:不存在。\n');

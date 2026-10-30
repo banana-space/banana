@@ -38,7 +38,7 @@ function recentChanges(site, changes) {
     </li>`;
   })}
   </ol>
-  ${recent ? html`<div class="home-recent-all"><a href="${url(recent.href)}">${i18n('home_recent_all')} <span aria-hidden="true">→</span></a></div>` : ''}
+  <div class="home-recent-all"><a href="${url(recent.href)}">${i18n('home_recent_all')} <span aria-hidden="true">→</span></a></div>
 </section>`;
 }
 
@@ -97,7 +97,7 @@ export function homeContent(site, page) {
       </div>
       ${page.params.recentChanges?.length ? recentChanges(site, page.params.recentChanges) : ''}
       <ul class="home-links">
-        ${!page.params.recentChanges?.length && recent ? html`<li><a href="${url(recent.href)}"><span class="home-link-name">${i18n('recent_changes_title')}</span><span class="home-link-text">${i18n('home_recent_changes_text')}</span></a></li>` : ''}
+        ${!page.params.recentChanges?.length ? html`<li><a href="${url(recent.href)}"><span class="home-link-name">${i18n('recent_changes_title')}</span><span class="home-link-text">${i18n('home_recent_changes_text')}</span></a></li>` : ''}
         ${help ? html`<li><a href="${url(help.href)}"><span class="home-link-name">${displayTitle(site, help)}</span><span class="home-link-text">${i18n('home_help_text')}</span></a></li>` : ''}
         ${site.repository ? html`<li><a href="${url(`https://github.com/${site.repository}`)}" target="_blank" rel="noopener"><span class="home-link-name">GitHub${icon('external')}</span><span class="home-link-text">${i18n('home_github_text')}</span></a></li>` : ''}
       </ul>

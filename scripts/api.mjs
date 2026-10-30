@@ -141,8 +141,7 @@ function pagePath(value) {
     throw new RequestError(400, 'path must be a Markdown page in content/, such as content/wiki/条目/index.md');
   }
   if (parts[0] === 'navboxes') throw new RequestError(400, 'component definitions are not pages');
-  // Entries, books and the guides: not the site's own pages (the home page, search, the editor), whose front
-  // matter chooses templates and outputs.
+  // Entries, books and the guides: not the home page.
   if (!['wiki', 'books', 'help'].includes(parts[0]) || parts.length < 2) throw new RequestError(400, 'only pages under wiki/, books/ and help/ can be edited online');
   if (path.length > 300 || parts.length > 8) throw new RequestError(400, 'path too long');
   // A page is index.md in its own directory (an entry, a book, a chapter, or the section's page); an entry is

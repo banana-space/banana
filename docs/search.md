@@ -198,7 +198,7 @@ C^n(X; A) = Hom_Z(C_n(X; Z), A)
 
 ### 结果页 `/search/`
 
-- 源文件为 `content/search/index.md`（同 `missing`），模板 `scripts/site/templates/search.mjs` 的 `searchPage`。它不是结构化页面，不进入搜索清单，书册发现时也跳过 `search/` 目录。这个页面的头部不显示搜索框。
+- 站点自己的页面（`scripts/prebuild/run.mjs` 的 `sitePages`，`content/` 中没有它的文件），模板 `scripts/site/templates/search.mjs` 的 `searchPage`。它不进入搜索清单。这个页面的头部不显示搜索框。
 - 参数 `q` 和 `kind` 与地址同步（`history.replaceState`），页面标题为““q”的搜索结果”，地址可以分享或刷新。
 - 按类型筛选：全部和有结果的类型显示为标签，带各自数量（Pagefind 只在加载过一次 `filters()` 后才返回数量，结果页因此在首次检索前加载过滤器数据）。
 - 每次显示 20 条，“加载更多”继续；书册折叠在每批结果内进行。
