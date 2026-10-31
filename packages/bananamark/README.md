@@ -1,8 +1,20 @@
 # bananamark
 
-A Markdown dialect for mathematical writing, and its parser and renderer: CommonMark plus formulas, automatically numbered sections and theorem-like environments, one syntax for cross-references, and typography for Chinese text; bibliographies, wiki links and TikZ diagrams when a site turns them on. It takes a document and gives the HTML of its body and its metadata (headings, labels, bibliography, data blocks, wiki links). Pure JavaScript, for Node 22 and later and for browsers. Whatever depends on a site (where links go, how they look, image addresses) comes from hooks the caller gives, each with a default that needs no site.
+bananamark is a Markdown dialect for mathematical writing. It adds TeX formulas, numbered sections and theorems, and cross-references to Markdown, and renders documents to HTML.
 
-It was written for [香蕉空间 (bananaspace.org)](https://bananaspace.org/), a Chinese mathematics wiki, which renders all its pages with it.
+```markdown
+## Groups
+
+::: definition [Group] {@def:group}
+A **group** is a set with an associative operation, an identity $e$ and inverses.
+:::
+
+By @def:group, every group has an identity.
+```
+
+Here the section is numbered 1, the definition is titled "Definition 1.1 (Group)", and the reference becomes a link reading "Definition 1.1".
+
+It also supports bibliographies, footnotes, TikZ diagrams and Chinese typography. It can be used as a command or as a library, and it renders the pages of [香蕉空间](https://bananaspace.org/), a Chinese mathematics wiki.
 
 ## Install
 
@@ -25,6 +37,8 @@ writes `file.html` beside the file: a whole page holding its stylesheets and fon
 | --- | --- |
 | `-o`, `--output <file>` | Where the HTML goes; `-` for standard output |
 | `--fragment` | Only the body's HTML, to put in a page of your own (style it with [`bananamark/style.css`](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#the-stylesheet) and `bananamark/katex.css`) |
+| `--css <file or URL>` | A stylesheet added after the others, so that it takes priority: a file is embedded, a URL linked. Can be given several times |
+| `--no-default-style` | Leaves out bananamark's look and the page's layout, keeping only what formulas need |
 | `--lang <code>` | The page's language: `zh-cn` gives Chinese typography and 定理, 证明…; over the front matter's; default `en` |
 | `--locale <code>` | The language of errors, `en` or `zh-cn`; default `en` |
 | `--dialect <file>` | A module holding the [dialect](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#the-dialect) (below) |
@@ -32,6 +46,17 @@ writes `file.html` beside the file: a whole page holding its stylesheets and fon
 | `-h`, `--help`; `-v`, `--version` | |
 
 With `-` as the file, it reads standard input and writes standard output.
+
+**Stylesheets.** A page holds KaTeX's stylesheet and fonts, bananamark's [stylesheet](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#the-stylesheet) and a few lines of layout. A file given with `--css` comes after these, so a few rules are enough to change the look. The colours of environments are custom properties:
+
+```css
+/* mine.css, for bananamark file.md --css mine.css */
+:root { --bm-accent-theorem: crimson; }
+a { color: teal; }
+body { font-family: sans-serif; }
+```
+
+To start from nothing, add `--no-default-style`. The addresses in an embedded file start from the page, not from the file.
 
 **Front matter.** A YAML block at the start of the file, between lines of `---`, is optional. The command reads `title` (shown as the page's heading, and it may hold formulas), `lang`, `numbering` and `typography` (see [Numbering](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#numbering) and [Typography](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#typography)), and ignores other fields.
 

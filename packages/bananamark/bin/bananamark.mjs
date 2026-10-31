@@ -20,14 +20,16 @@ const usage = `Usage: bananamark <file.md> [options]
 Writes file.html beside the file. With - as the file, reads standard input and writes standard output.
 
 Options:
-  -o, --output <file>   Where the HTML goes; - for standard output
-      --fragment        Only the body's HTML, without a page, stylesheets or fonts
-      --lang <code>     The page's language (zh-cn, en…), over the front matter's; default en
-      --locale <code>   The language of errors (en or zh-cn); default en
-      --dialect <file>  A module whose default export (or export named dialect) is the dialect
-      --tikz            Compile TikZ diagrams, with bananamark-tikz
-  -h, --help            Show this
-  -v, --version         Show the version
+  -o, --output <file>     Where the HTML goes; - for standard output
+      --fragment          Only the body's HTML, without a page, stylesheets or fonts
+      --css <file|url>    A stylesheet after the others, embedded (a file) or linked (a URL); repeatable
+      --no-default-style  Without bananamark's look and the page's layout; what formulas need stays
+      --lang <code>       The page's language (zh-cn, en…), over the front matter's; default en
+      --locale <code>     The language of errors (en or zh-cn); default en
+      --dialect <file>    A module whose default export (or export named dialect) is the dialect
+      --tikz              Compile TikZ diagrams, with bananamark-tikz
+  -h, --help              Show this
+  -v, --version           Show the version
 `;
 
 // What the package leaves to the page: its look apart from bananamark's own classes.
@@ -38,6 +40,8 @@ pre, .katex-display { overflow-x: auto; overflow-y: hidden; }
 table { border-collapse: collapse; }
 th, td { padding: 0.25em 0.75em; border: 1px solid color-mix(in srgb, currentColor 30%, transparent); }
 `;
+// What formulas need of bananamark's look: punctuation stays on the line of the formula it follows.
+const formulaStyle = '.bm-math-end { display: inline-block; white-space: nowrap; }';
 
 const packageFile = createRequire(import.meta.url).resolve;
 const escape = text => String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -103,17 +107,35 @@ function katexStyle() {
   });
 }
 
-function page({ lang, title, heading, body }) {
-  const style = readFileSync(new URL('../src/style.css', import.meta.url), 'utf8');
+/** A file's text, with an error that says which file. */
+function readText(file, source = file) {
+  try {
+    return readFileSync(source, 'utf8');
+  } catch (error) {
+    throw new Error(`cannot read ${file}: ${error.code === 'ENOENT' ? 'no such file' : error.message}`);
+  }
+}
+
+/** A stylesheet the caller gave, as HTML: a URL linked, a file embedded (the addresses in it then start from the page). */
+function givenStyle(address) {
+  if (/^https?:\/\//i.test(address)) return `<link rel="stylesheet" href="${escape(address)}">`;
+  return `<style>${readText(address).replace(/<\/style/gi, '<\\/style')}</style>`;
+}
+
+/** The page's stylesheets, in order: what formulas need, bananamark's look and the page's layout unless left out, then the caller's. */
+function styles({ css = [], defaultStyle }) {
+  const builtIn = [katexStyle() + formulaStyle, ...(defaultStyle ? [readText('style.css', new URL('../src/style.css', import.meta.url)), pageStyle] : [])];
+  return [...builtIn.map(style => `<style>${style}</style>`), ...css.map(givenStyle)].join('\n');
+}
+
+function page({ lang, title, heading, body, style }) {
   return `<!doctype html>
 <html lang="${escape(lang)}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)}</title>
-<style>${katexStyle()}</style>
-<style>${style}</style>
-<style>${pageStyle}</style>
+${style}
 </head>
 <body>
 <main>
@@ -127,23 +149,19 @@ async function main() {
   const { values, positionals } = parseArgs({
     allowPositionals: true,
     options: {
-      output: { type: 'string', short: 'o' }, fragment: { type: 'boolean' }, lang: { type: 'string' }, locale: { type: 'string' },
-      dialect: { type: 'string' }, tikz: { type: 'boolean' }, help: { type: 'boolean', short: 'h' }, version: { type: 'boolean', short: 'v' },
+      output: { type: 'string', short: 'o' }, fragment: { type: 'boolean' }, css: { type: 'string', multiple: true }, 'no-default-style': { type: 'boolean' },
+      lang: { type: 'string' }, locale: { type: 'string' }, dialect: { type: 'string' }, tikz: { type: 'boolean' },
+      help: { type: 'boolean', short: 'h' }, version: { type: 'boolean', short: 'v' },
     },
   });
   if (values.help) return void process.stdout.write(usage);
   if (values.version) return void console.log(JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version);
   if (positionals.length !== 1) throw new UsageError(positionals.length ? 'give one file at a time' : 'give a file');
+  if (values.fragment && (values.css || values['no-default-style'])) throw new UsageError('--css and --no-default-style are for a whole page, not --fragment');
 
   const [input] = positionals, standardInput = input === '-';
   const file = standardInput ? '<stdin>' : input;
-  let text;
-  try {
-    text = readFileSync(standardInput ? 0 : input, 'utf8');
-  } catch (error) {
-    throw new Error(`cannot read ${file}: ${error.code === 'ENOENT' ? 'no such file' : error.message}`);
-  }
-  const { metadata, body, lineOffset } = readFrontMatter(text, file);
+  const { metadata, body, lineOffset } = readFrontMatter(readText(file, standardInput ? 0 : input), file);
   const { locale } = values, lang = values.lang ?? metadata.lang ?? 'en', { typography, numbering } = metadata;
   const title = metadata.title === undefined ? undefined : String(metadata.title);
 
@@ -165,7 +183,8 @@ async function main() {
   if (!values.fragment) {
     const heading = title && createRenderer({ dialect, lang, typography }).renderFragment(transformFragment(title, { dialect, lang, locale }), { file, lang });
     const name = heading ?? result.headings[0]?.title;
-    html = page({ lang, heading, body: html, title: name ? plainText(name) : standardInput ? 'Document' : basename(input, extname(input)) });
+    const style = styles({ css: values.css, defaultStyle: !values['no-default-style'] });
+    html = page({ lang, heading, body: html, style, title: name ? plainText(name) : standardInput ? 'Document' : basename(input, extname(input)) });
   }
   const output = values.output ?? (standardInput ? '-' : `${input.replace(/\.(md|markdown)$/i, '')}.html`);
   if (output === '-') process.stdout.write(html);

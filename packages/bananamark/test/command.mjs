@@ -49,6 +49,28 @@ try {
   // --fragment: the body alone.
   assert.equal(run(['-', '--fragment'], 'x').stdout, '<p>x</p>\n');
 
+  // Stylesheets: the caller's after the others, in order, a file embedded and a URL linked.
+  write('mine.css', ':root { --bm-link: teal; }\n');
+  write('closing.css', 'a::after { content: "</style>"; }\n');
+  const styled = run(['-', '--css', 'mine.css', '--css', 'https://example.org/a.css?b=1&c=2', '--css', 'closing.css'], 'x');
+  assert.equal(styled.status, 0, styled.stderr);
+  const places = ['KaTeX_AMS', '.bm-env', 'max-width: 46rem', '--bm-link: teal', 'href="https://example.org/a.css?b=1&amp;c=2"', 'a::after'].map(text => styled.stdout.indexOf(text));
+  assert.ok(places.every((place, index) => place > (places[index - 1] ?? -1)), `the order: ${places}`);
+  assert.equal(styled.stdout.match(/<\/style>/g).length, 5, 'a stylesheet cannot close its element');
+  assert.deepEqual(run(['-', '--css', 'missing.css'], 'x'), { status: 1, stdout: '', stderr: 'bananamark: cannot read missing.css: no such file\n' });
+
+  // --no-default-style: only what formulas need stays, and the caller's.
+  const bare = run(['-', '--no-default-style', '--css', 'mine.css'], '$x$').stdout;
+  assert.match(bare, /KaTeX_AMS/);
+  assert.match(bare, /\.bm-math-end \{ display: inline-block/);
+  assert.match(bare, /--bm-link: teal/);
+  assert.doesNotMatch(bare, /\.bm-env|max-width: 46rem/);
+  assert.match(run(['-', '--no-default-style'], 'x').stdout, /<\/style>\n<\/head>/);
+
+  // They are for a whole page.
+  assert.equal(run(['-', '--fragment', '--css', 'mine.css'], 'x').status, 2);
+  assert.equal(run(['-', '--fragment', '--no-default-style'], 'x').status, 2);
+
   // Front matter: the title with its formulas, shown and referred to; the language; numbering; typography. It is
   // removed, and errors count its lines.
   write('zh.md', '---\ntitle: 关于 $x$\nlang: zh-cn\nauthor: not ours, and no error\nnumbering: { theorems: { depth: 0 } }\ntypography: { convertFullStop: true }\n---\n\n{@self}\n\n## 节\n\n见 @self。\n\n句子。\n\n::: theorem\n正文\n:::\n');
