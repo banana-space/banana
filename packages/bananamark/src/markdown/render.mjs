@@ -1,11 +1,11 @@
 import { escape as escapeHTML } from '../render/escape.mjs';
 
 /**
- * Renders markdown-it's tokens as Goldmark's HTML renderer (renderer/html, v1.8.6) writes them, with render hooks
- * for links, images, headings, code blocks, formulas and tables.
+ * Renders markdown-it's tokens as the dialect's HTML, with render hooks for links, images, headings, code blocks,
+ * formulas and tables.
  *
- * The flat token stream is first made a tree, since Goldmark's output depends on siblings (a tight list item's
- * text block is followed by a newline only when something follows it).
+ * The flat token stream is first made a tree, since the output depends on siblings (a tight list item's text is
+ * followed by a newline only when something follows it).
  */
 
 /** Nests tokens: each *_open token gets the tokens up to its *_close as children; inline tokens keep theirs. */
@@ -27,17 +27,11 @@ export function tree(tokens) {
 }
 
 /**
- * Plain text of inline nodes: the text of each node, and of any
- * other element only its first child's (so Ti*k*Z in a link reads "Ti"); line breaks and formulas give nothing.
+ * Plain text of inline nodes: the text of each, with any element's text inside it; line breaks and formulas give
+ * nothing.
  */
 export function plainText(nodes) {
-  const textOf = node => {
-    if (!node) return '';
-    if (node.type === 'text' || node.type === 'typographic') return node.token.content;
-    if (node.type === 'html_inline') return node.token.content.replace(/<[^>]*>/g, '').trim();
-    if (node.type === 'code_inline') return node.token.content;
-    return textOf(node.children[0]);
-  };
+  const textOf = node => node.type === 'text' || node.type === 'code_inline' ? node.token.content : node.children.map(textOf).join('');
   return nodes.map(textOf).join('');
 }
 
@@ -54,15 +48,13 @@ export function createTokenRenderer(hooks) {
     const { token } = node;
     switch (node.type) {
       case 'text': return escapeHTML(token.content);
-      // A curly quote, a dash or an ellipsis: nothing to escape.
-      case 'typographic': return token.content;
       case 'softbreak': return '\n';
       case 'hardbreak': return '<br>\n';
       case 'code_inline': return `<code>${escapeHTML(token.content)}</code>`;
       case 'em': return `<em>${inline(node.children)}</em>`;
       case 'strong': return `<strong>${inline(node.children)}</strong>`;
       case 's': return `<del>${inline(node.children)}</del>`;
-      case 'html_inline': return '<!-- raw HTML omitted -->';
+      case 'html_inline': return '';
       case 'link': return hooks.link({
         destination: token.attrGet('href') ?? '',
         title: token.attrGet('title') ?? '',
@@ -79,7 +71,7 @@ export function createTokenRenderer(hooks) {
         width: token.meta?.width,
       });
       // A formula left in its paragraph is inline, whatever its delimiters.
-      case 'passthrough': return hooks.passthrough({ inner: token.content, type: 'inline' });
+      case 'formula': return hooks.formula({ inner: token.content, type: 'inline' });
       case 'footnote_ref': {
         const n = footnoteNumber(token), sub = token.meta.subId;
         return `<sup id="fnref${sub > 0 ? sub : ''}:${n}"><a href="#fn:${n}" class="bm-footnote-ref" role="doc-noteref">${n}</a></sup>`;
@@ -114,7 +106,7 @@ export function createTokenRenderer(hooks) {
         // Footnote back-links are tokens of their own after the paragraph's inline content.
         const content = node.children.map(child => child.type === 'inline' ? inline(child.children) : inlineNode(child)).join('');
         if (token.meta?.standaloneImage) return content;
-        // A tight list item's paragraph: Goldmark's text block, with a newline only before a following sibling.
+        // A tight list item's paragraph: text with a newline only before a following sibling.
         if (token.hidden) return content + (next && node.children.some(child => child.children.length) ? '\n' : '');
         return `<p>${content}</p>\n`;
       }
@@ -135,11 +127,11 @@ export function createTokenRenderer(hooks) {
         return `<li>${first && !textBlock ? '\n' : ''}${blocks(node.children)}</li>\n`;
       }
       case 'hr': return '<hr>\n';
+      case 'html_block': return '';
       case 'code_block': return `<pre><code>${escapeHTML(token.content)}</code></pre>\n`;
       // Without the newline that ends the last line.
       case 'fence': return hooks.codeBlock({ type: token.meta?.fence?.language ?? '', attributes: token.meta?.fence?.attributes ?? {}, inner: token.content.replace(/\n$/, '') });
-      case 'html_block': return '<!-- raw HTML omitted -->\n';
-      case 'passthrough_block': return `${hooks.passthrough({ inner: token.content, type: 'block' })}\n`;
+      case 'formula_block': return `${hooks.formula({ inner: token.content, type: 'block' })}\n`;
       case 'table': {
         const head = node.children.find(child => child.type === 'thead'), body = node.children.find(child => child.type === 'tbody');
         return hooks.table({ head: head ? head.children.map(cells) : [], body: body ? body.children.map(cells) : [] });

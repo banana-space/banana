@@ -25,7 +25,7 @@ import { parseAttributeList } from '../markdown/attributes.mjs';
  */
 
 // Headings' text as CommonMark reads it (markdown-it without the renderer's extensions, which would change the
-// text ids are made of: the typographer, linkify).
+// text ids are made of: the typography, bare addresses).
 const headingParser = new MarkdownIt('commonmark');
 /** The inline tokens of a Markdown document, in order. */
 const inlineTokens = markdown => headingParser.parse(markdown, {}).flatMap(token => token.type === 'inline' ? token.children : []);
@@ -153,7 +153,7 @@ export function headingId(title, { lang = 'en', typography } = {}) {
     .replace(/–/g, '-')
     .toLowerCase()
     .replace(/[^\p{L}\p{N}\p{S}\s_-]/gu, '')
-    // ASCII symbols out: ids were written in Goldmark's {#…} attribute, which they broke, and stay as they were.
+    // ASCII symbols out: ids are addresses, and have never had them.
     .replace(/[$+<=>^`|~]/g, '')
     .trim()
     .replace(/\s+/gu, '-') || 'heading';
@@ -539,7 +539,7 @@ function transform(source, { file = String(problem('body_name')), lang = 'en', l
     const anchor = uniqueHeadingId(parsed.title);
     register(parsed.id, { ...target, anchor, ...(number && formatSectionReference ? { referenceText: formatSectionReference(String(number), (page?.depth ?? 0) + heading.level - 1) } : {}) }, i);
     headings.push({ anchor, title: parsed.title, offset: i, level: heading.level, number: number ? String(number) : '' });
-    // The author's attributes ({.accent}) as Goldmark reads them; the anchor and the number are the syntax layer's.
+    // The author's attributes ({.accent}); the anchor and the number are the syntax layer's.
     const own = parsed.attributes ? parseAttributeList(`{${parsed.attributes}}`) : { classes: [], attributes: [] };
     if (!own) fail(problem('heading_attributes', { attributes: parsed.attributes }), i);
     // The id is the heading's text (references, the contents and the duplicate check go by it): no {#id} of its own.

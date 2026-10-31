@@ -1,14 +1,13 @@
 /**
  * A document's nodes in its Markdown (@@node:N:node@@, ../syntax/nodes.mjs), the nodes given as env.nodes. A
- * formula's is a passthrough token, its delimiters taken as a passthrough extension takes them: inline, it stays in the text; display, wherever it stands in a
- * paragraph, it splits it: the paragraph's text before and after becomes paragraphs of their own (in a tight list
+ * formula's is a token of its own: inline, it stays in the text; display, wherever it stands in a paragraph, it splits it: the paragraph's text before and after becomes paragraphs of their own (in a tight list
  * item, text blocks with the spaces next to the formula trimmed). Any other node's marker stays in the text, for
  * the renderer to replace (../render/markers.mjs).
  */
 
 const nodePattern = /^@@node:(\d+):node@@/;
 
-export function passthrough(state, silent) {
+export function formula(state, silent) {
   const { src, pos } = state;
   if (src.charCodeAt(pos) !== 0x40 || src.charCodeAt(pos + 1) !== 0x40) return false;
   const match = nodePattern.exec(src.slice(pos, pos + 40));
@@ -16,7 +15,7 @@ export function passthrough(state, silent) {
   const node = state.env.nodes?.[match[1]];
   if (!silent) {
     if (node?.type === 'math') {
-      const token = state.push('passthrough', '', 0);
+      const token = state.push('formula', '', 0);
       token.content = match[1];
       token.meta = { type: node.display ? 'block' : 'inline' };
     } else state.pending += match[0];
@@ -37,8 +36,8 @@ const trimText = (children, leading) => {
   }
 };
 
-/** Splits paragraphs at block formulas (the extension's AST transformer). */
-export function splitPassthroughBlocks(state) {
+/** Splits paragraphs at display formulas. */
+export function splitFormulaBlocks(state) {
   const tokens = state.tokens, result = [];
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
@@ -46,11 +45,11 @@ export function splitPassthroughBlocks(state) {
     // Only a formula directly in the paragraph splits it; one inside emphasis or a link stays inline.
     let depth = 0;
     for (const child of token.children ?? []) {
-      child.meta = child.type === 'passthrough' ? { ...child.meta, splits: depth === 0 && child.meta.type === 'block' } : child.meta;
+      child.meta = child.type === 'formula' ? { ...child.meta, splits: depth === 0 && child.meta.type === 'block' } : child.meta;
       depth += child.nesting;
     }
     if (token.type !== 'inline' || open?.type !== 'paragraph_open' || close?.type !== 'paragraph_close' ||
-      !token.children.some(child => child.type === 'passthrough' && child.meta.splits)) {
+      !token.children.some(child => child.type === 'formula' && child.meta.splits)) {
       result.push(token);
       continue;
     }
@@ -65,9 +64,9 @@ export function splitPassthroughBlocks(state) {
       children = [];
     };
     for (const child of token.children) {
-      if (child.type !== 'passthrough' || !child.meta.splits) { children.push(child); continue; }
+      if (child.type !== 'formula' || !child.meta.splits) { children.push(child); continue; }
       flush();
-      const block = new state.Token('passthrough_block', '', 0);
+      const block = new state.Token('formula_block', '', 0);
       block.content = child.content;
       block.meta = child.meta;
       block.block = true;

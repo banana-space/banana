@@ -13,7 +13,7 @@ import { checkOptions, dialectOptions, withDialect } from '../dialect.mjs';
 
 /**
  * The renderer: the syntax layer's document ({ markdown, nodes }, ../syntax/nodes.mjs) as HTML. The Markdown is
- * parsed as Goldmark parses it (../markdown/), with render hooks for links, images, headings, code blocks and
+ * parsed by ../markdown/, with render hooks for links, images, headings, code blocks and
  * formulas; each node is written as HTML of its own (references, citations, tags, list labels…).
  *
  * What depends on a site comes from options (rendererOptions; others are an error), each with a default that needs
@@ -294,7 +294,7 @@ export function createRenderer(given = {}) {
         return guarded('renderCodeBlock', () => options.renderCodeBlock({ language: type, code: inner, attributes }), fail);
       },
 
-      passthrough: ({ inner, type }) => {
+      formula: ({ inner, type }) => {
         const node = nodes[inner];
         if (node?.type !== 'math') fail(`bananamark: formula ${inner} is not in the document's table`);
         return formula({ tex: node.tex, display: type === 'block', id: node.id ?? '' }, fail);

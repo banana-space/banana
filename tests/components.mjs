@@ -89,7 +89,7 @@ try {
   assert.match(html, /href="\/wiki\/example\/"[^>]*>排版示例/);
   assert.ok(html.includes('href="/wiki/' + encodeURIComponent('奇异上同调') + '/"'));
   assert.match(html, /bm-wiki-link-missing/);
-  assert.doesNotMatch(html, /raw HTML omitted|```terms|\{\{\{|wiki:\?/);
+  assert.doesNotMatch(html, /```terms|\{\{\{|wiki:\?/);
   assert.equal((html.match(/class="bm-section-number"/g) ?? []).length, 2);
   await writeFile(join(root, 'content/navboxes/代数拓扑.yaml'), grouped.replace('title: [[代数拓扑]]', 'title: 改后的导航标题\ncollapsed: true'));
   build();

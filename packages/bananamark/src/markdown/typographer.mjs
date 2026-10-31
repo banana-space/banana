@@ -1,95 +1,85 @@
-import { isDigit, isLetter, isNumericByte, isPunct, isPunctByte, isPunctRune, isSpace, isSpaceByte, isSpaceRune, precedingCharacter, scanDelimiter, toRune, utf8 } from './characters.mjs';
-
 /**
- * Goldmark's typographer (extension/typographer.go, v1.8.6), ported rule for rule as a markdown-it inline rule:
- * --- —, -- –, ... …, and straight quotes made curly from what surrounds them and how many are open in the block
- * (not Goldmark's << « and >> », which CommonMark does not have). Its quirks are kept, so that existing pages
- * read as they do.
+ * The dialect's typography of text, a core rule over each block's inline tokens: --- —, -- –, ... …, and straight
+ * quotation marks made curly. Code, formulas, addresses shown as links and escaped characters are left alone.
  *
- * Goldmark reads "the rest of the line" in UTF-8 bytes: line[1] is the byte after the mark, which for a
- * character outside ASCII is the first of its bytes (never punctuation or a space).
+ * A quotation mark with a space on one side (the block's start and end count as spaces) goes by that space: after a
+ * space it opens, before one it closes. Without a space on either side, as is usual beside Han characters:
+ * - " goes by pairing: it closes the one left open, or else opens;
+ * - ' after a letter or digit is ’, an apostrophe (it's, Bayes') or a prime (赋'); elsewhere it closes one left open,
+ *   or else opens. One never closed is an apostrophe after all ('twas), as is the one of a decade ('90s).
+ * A mark that closes nothing, and one with spaces on both sides, stays as written.
  */
 
-const substitution = (state, text, length) => {
-  // A token of its own, as Goldmark makes a node of it: what follows starts afresh (see linkify.mjs), and it is
-  // not merged with the text around it (a link's plain text stops at its first node).
-  const token = state.push('typographic', '', 0);
-  token.content = text;
-  state.pos += length;
-  return true;
-};
+const letter = /[\p{L}\p{N}]/u, latin = /[\p{Script=Latin}\p{N}]/u, decade = /^\d\ds(?![\p{L}\p{N}])/u;
+const isSpace = char => char === '' || /\s/u.test(char);
+// An editor's source-line marks (../syntax/source-lines.mjs) are not there as far as the text goes.
+const isMark = char => (char >= '\uE000' && char <= '\uE019') || char === '\u2E3D';
+// Text without these is left as it is: most of a page's text.
+const changing = /["']|--|\.\.\./;
 
-const T = 116, E = 101, N = 110, L = 108, S = 115, M = 109, D = 100, V = 118, R = 114;
+/** The first character of the tokens from index on; 'x' for what stands for a word (code, a formula, an image). */
+function firstCharacter(tokens, index) {
+  for (let i = index; i < tokens.length; i++) {
+    const token = tokens[i];
+    if (token.type === 'softbreak' || token.type === 'hardbreak') return ' ';
+    if (token.nesting !== 0) continue;
+    if (token.type !== 'text') return 'x';
+    for (const char of token.content) if (!isMark(char)) return char;
+  }
+  return '';
+}
 
-export function typographer(state, silent) {
-  const { src, pos } = state;
-  const c = src.charCodeAt(pos);
-  if (c !== 0x2d && c !== 0x2e && c !== 0x27 && c !== 0x22) return false;
-  const newline = src.indexOf('\n', pos);
-  const line = utf8(newline < 0 ? src.slice(pos) : src.slice(pos, newline + 1));
-  const sub = (text, length) => silent ? (state.pos += length, true) : substitution(state, text, length);
+function typesetInline(tokens) {
+  let previous = '', doubleOpen = false, automatic = 0;
+  const singles = []; // The ' left open: { token, characters, at }.
+  const write = (token, characters) => { token.content = characters.join(''); };
+  tokens.forEach((token, index) => {
+    if (token.type === 'image' && token.children) typesetInline(token.children);
+    if (token.info === 'auto' && token.nesting) automatic += token.nesting;
+    if (token.type === 'softbreak' || token.type === 'hardbreak') previous = ' ';
+    else if (token.nesting === 0 && token.type !== 'text') previous = 'x';
+    if (token.type !== 'text') return;
+    if (automatic) { previous = 'x'; return; }
+    if (!changing.test(token.content)) {
+      for (let i = token.content.length - 1; i >= 0; i--) {
+        if (!isMark(token.content[i])) { previous = token.content[i]; break; }
+      }
+      return;
+    }
+    const characters = [...token.content.replace(/---/g, '—').replace(/--/g, '–').replace(/\.\.\./g, '…')];
+    characters.forEach((char, at) => {
+      if (isMark(char)) return;
+      if (char === '"' || char === "'") {
+        let following = '';
+        for (let i = at + 1; i < characters.length && !following; i++) if (!isMark(characters[i])) following = characters[i];
+        if (!following) following = firstCharacter(tokens, index + 1);
+        const afterSpace = isSpace(previous), beforeSpace = isSpace(following);
+        if (!(afterSpace && beforeSpace)) {
+          if (char === '"') {
+            const opens = afterSpace || (!beforeSpace && !doubleOpen);
+            if (opens || doubleOpen) characters[at] = opens ? '“' : '”';
+            doubleOpen = opens;
+          } else if (latin.test(previous) && latin.test(following)) characters[at] = '’';
+          else if (decade.test(characters.slice(at + 1).join(''))) characters[at] = '’';
+          else if (letter.test(previous) || beforeSpace || (singles.length && !afterSpace)) {
+            singles.pop();
+            characters[at] = '’';
+          } else {
+            singles.push({ token, characters, at });
+            characters[at] = '‘';
+          }
+        }
+      }
+      previous = char;
+    });
+    write(token, characters);
+  });
+  for (const { token, characters, at } of singles) {
+    characters[at] = '’';
+    write(token, characters);
+  }
+}
 
-  if (line.length > 2) {
-    if (c === 0x2d) {
-      if (line[1] === 0x2d && line[2] === 0x2d) return sub('—', 3);
-    } else if (c === 0x2e) {
-      if (line[1] === 0x2e && line[2] === 0x2e) return sub('…', 3);
-      return false;
-    }
-  }
-  if (line.length > 1) {
-    if (c === 0x2d && line[1] === 0x2d) return sub('–', 2);
-  }
-  if (c !== 0x27 && c !== 0x22) return false;
-
-  const before = precedingCharacter(src, pos);
-  const d = scanDelimiter(line, before);
-  // Unclosed quotes are counted per block (Goldmark resets them when the block closes); not while markdown-it
-  // only looks ahead (silent: skipping over a link's text to find its end).
-  const counter = state.goldmarkQuotes ??= { single: 0, double: 0 };
-  const closing = () => {
-    const isClose = d.canClose && !d.canOpen;
-    const maybeClose = d.canClose && d.canOpen && line.length > 1 && isPunct(toRune(line, 1)) &&
-      (line.length === 2 || (line.length > 2 && isPunctByte(line[2])) || isSpaceByte(line[2]));
-    return isClose || maybeClose;
-  };
-  if (c === 0x27) {
-    // Decades: '90s.
-    if (d.canOpen && !d.canClose && line.length > 3 && isNumericByte(line[1]) && isNumericByte(line[2]) && line[3] === S) {
-      const after = line.length > 4 ? toRune(line, 4) : 32;
-      if (line.length === 3 || isSpaceRune(after) || isPunctRune(after)) return sub('’', 1);
-    }
-    // 'twas, 'em, 'net.
-    if (line.length > 1 && (isPunct(before) || isSpace(before)) && [T, E, N, L].includes(line[1])) return sub('’', 1);
-    // An apostrophe between letters (or after a digit).
-    if (line.length > 1 && (isDigit(before) || isLetter(before)) && isLetter(toRune(line, 1))) return sub('’', 1);
-    if (d.canOpen && !d.canClose) {
-      let right = false;
-      // Alice's, I'm, Don't, You'd; I've, I'll, You're.
-      if (line.length > 1 && [S, M, T, D].includes(line[1]) && (line.length < 3 || isPunctByte(line[2]) || isSpaceByte(line[2]))) right = true;
-      if (line.length > 2 && ((line[1] === V && line[2] === E) || (line[1] === L && line[2] === L) || (line[1] === R && line[2] === E)) &&
-        (line.length < 4 || isPunctByte(line[3]) || isSpaceByte(line[3]))) right = true;
-      if (!right && !silent) counter.single++;
-      return sub(right ? '’' : '‘', 1);
-    }
-    // Goldmark means plural possessives (Smiths') here; as written (the rune at 0 is the quote itself, punctuation),
-    // any quote followed by two bytes, the first not a digit, becomes ’.
-    if (line.length > 2 && !isDigit(toRune(line, 1))) return sub('’', 1);
-    if (counter.single > 0 && closing()) {
-      if (!silent) counter.single--;
-      return sub('’', 1);
-    }
-    return false;
-  }
-  if (d.canOpen && !d.canClose) {
-    if (!silent) counter.double++;
-    return sub('“', 1);
-  }
-  if (counter.double > 0 && closing()) {
-    // "Monitor 21"".
-    if (line.length > 1 && line[1] === 0x22 && isDigit(before)) return false;
-    if (!silent) counter.double--;
-    return sub('”', 1);
-  }
-  return false;
+export function typographer(state) {
+  for (const token of state.tokens) if (token.type === 'inline') typesetInline(token.children);
 }

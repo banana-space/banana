@@ -31,7 +31,7 @@ New spaces go outside links; code is not changed.
 ```````````````````````````````` example {"typography": {"spaceQuotes": true}}
 他说"你好"。
 .
-<p>他说 "你好"。</p>
+<p>他说 “你好”。</p>
 ````````````````````````````````
 
 Japanese pages are left alone; `typography: false`, no typography.

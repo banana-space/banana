@@ -31,7 +31,7 @@ npm run katex-commands --workspace bananamark-codemirror
 
 ## The source
 
-`bananamark/src/`: `syntax/`, the dialect's layer (a page to a document); `markdown/`, markdown-it set up to read Markdown as Goldmark does, with its renderer; `render/`, the renderer (a document to HTML: hooks, nodes, formulas, typography); `highlight/`, the dialect's lezer grammar (`grammar.mjs`), code blocks' highlighting and the language packs (`languages.mjs`); and at the top, the entry points (`index.mjs`, `document.mjs`, `dialect.mjs`, `messages.mjs`, `scan.mjs`, `rules.mjs`, `typography.mjs`, `bibliography.mjs`) and the stylesheets.
+`bananamark/src/`: `syntax/`, the dialect's layer (a page to a document); `markdown/`, markdown-it set up to read the dialect's Markdown (its typography and bare addresses are its own), with its renderer; `render/`, the renderer (a document to HTML: hooks, nodes, formulas, typography); `highlight/`, the dialect's lezer grammar (`grammar.mjs`), code blocks' highlighting and the language packs (`languages.mjs`); and at the top, the entry points (`index.mjs`, `document.mjs`, `dialect.mjs`, `messages.mjs`, `scan.mjs`, `rules.mjs`, `typography.mjs`, `bibliography.mjs`) and the stylesheets.
 
 What only the site needs is in the site (`scripts/shared/`: page names, the YAML of notices and navboxes, a page's summary), not in the packages.
 
@@ -58,6 +58,6 @@ What only the site needs is in the site (`scripts/shared/`: page names, the YAML
 
 ## Publishing
 
-The three packages are released together with the same version. `bananamark-codemirror` and `bananamark-tikz` take `bananamark` as a peer dependency of the same minor version (`~0.1.0`): update it with each minor version. `bananamark` takes the CodeMirror and lezer packages its grammar shares with an editor as peer dependencies (one copy of each in a bundle), and the language packs of `bananamark/languages` as dependencies.
+The three packages are released together with the same version. `bananamark-codemirror` and `bananamark-tikz` take `bananamark` as a peer dependency of the same minor version (`~0.2.0`): update it with each minor version. `bananamark` takes the CodeMirror and lezer packages its grammar shares with an editor as peer dependencies (one copy of each in a bundle), and the language packs of `bananamark/languages` as dependencies.
 
 To publish a version: set the same `version` in the three `package.json` files (and the peer dependency on `bananamark`, for a new minor version), run every package's tests, check what each will contain with `npm pack --dry-run`, then publish `bananamark` first and the other two after it, from each package's directory: `npm publish`.

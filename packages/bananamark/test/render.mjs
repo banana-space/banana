@@ -4,9 +4,8 @@ import { languages } from 'bananamark/languages';
 import { renderDocument as englishDefaults } from 'bananamark';
 import { exampleMessages, exampleTags } from './fixtures.mjs';
 
-// bananamark renders the syntax layer's documents ({ markdown, nodes }). The cases here follow Goldmark's rules for
-// Markdown and the renderer's own for nodes.
-// Without typography, to see Goldmark's output as it is (typography is tested in typography.mjs).
+// bananamark renders the syntax layer's documents ({ markdown, nodes }).
+// Without Chinese typography, to see the renderer's output as it is (typography is tested in typography.mjs).
 const renderer = createRenderer({
   typography: false,
   resolveWikiLink: (key, { text }) => key === '群' ? { url: '/wiki/%E7%BE%A4/' }
@@ -21,7 +20,7 @@ const renderer = createRenderer({
 const render = document => renderer.renderDocument(document, { file: 'test.md' }).html;
 const inline = document => renderer.renderFragment(document, { file: 'test.md' });
 
-// Goldmark's typographer, with its rules for apostrophes and quotes.
+// Apostrophes and quotation marks.
 assert.equal(inline(`"quoted" and 'single', l'Hôpital, Hilbert's, '90s -- --- ... << >>`),
   '“quoted” and ‘single’, l’Hôpital, Hilbert’s, ’90s – — … &lt;&lt; &gt;&gt;', '<< and >> stay as written');
 assert.equal(inline('Bayes\' theorem'), 'Bayes’ theorem');
@@ -29,9 +28,9 @@ assert.equal(inline('`"code"`'), '<code>&quot;code&quot;</code>');
 
 // Linkify: after a space or at the start of a line, trailing punctuation left out.
 assert.equal(inline('见 https://example.org/a?b=1.'), '见 <a href="https://example.org/a?b=1">https://example.org/a?b=1</a>.');
-assert.equal(inline('中文https://example.org'), '中文https://example.org');
+assert.equal(inline('中文https://example.org和'), '中文<a href="https://example.org">https://example.org</a>和');
 
-// Formulas (passthrough): a display formula splits its paragraph; inside emphasis it stays inline.
+// Formulas: a display formula splits its paragraph; inside emphasis it stays inline.
 const formula = { type: 'math', tex: 'x', display: true };
 assert.match(render({ markdown: 'a\n@@node:0:node@@\nb', nodes: [formula] }), /^<p>a<\/p>\n<span class="bm-math-rendered bm-math-display" data-tex="x" data-display="true">[\s\S]*<\/span>\n<p>b<\/p>\n$/);
 assert.match(render({ markdown: '*a @@node:0:node@@*', nodes: [formula] }), /^<p><em>a <span class="bm-math-rendered" data-tex="x" data-display="false">/);
@@ -67,9 +66,9 @@ assert.throws(() => render('![x](a.png){width=0}'), error => error.code === 'ima
 // Headings: the heading node (anchor, attributes, section number), the anchor in the link percent-encoded.
 assert.equal(render({ markdown: '## 定义 @@node:0:node@@', nodes: [{ type: 'heading', id: '定义', classes: [], attributes: [], number: '1' }] }),
   '<h2 id="定义"><a class="bm-heading-link" href="#%E5%AE%9A%E4%B9%89" title="链接到本节">§</a><span class="bm-section-number">1</span> 定义</h2>\n');
-assert.equal(render('### 小节 {#x .y}'), '<h3 id="x" class="y"><a class="bm-heading-link" href="#x" title="链接到本节">§</a>小节</h3>\n', 'attributes as Goldmark reads them');
+assert.equal(render('### 小节 {#x .y}'), '<h3 id="x" class="y"><a class="bm-heading-link" href="#x" title="链接到本节">§</a>小节</h3>\n', 'attributes as written');
 
-// Footnotes, as Goldmark numbers and links them.
+// Footnotes.
 assert.equal(render('a[^x] b[^x]\n\n[^x]: 注'),
   '<p>a<sup id="fnref:1"><a href="#fn:1" class="bm-footnote-ref" role="doc-noteref">1</a></sup> b<sup id="fnref1:1"><a href="#fn:1" class="bm-footnote-ref" role="doc-noteref">1</a></sup></p>\n' +
   '<div class="bm-footnotes" role="doc-endnotes">\n<hr>\n<ol>\n<li id="fn:1">\n<p>注&nbsp;<a href="#fnref:1" class="bm-footnote-backref" role="doc-backlink">↩\uFE0E</a>&nbsp;<a href="#fnref1:1" class="bm-footnote-backref" role="doc-backlink">↩\uFE0E</a></p>\n</li>\n</ol>\n</div>\n');
@@ -98,7 +97,7 @@ assert.equal(inline(transformFragment('词<lang de>Satz</lang>。')), '词<span 
 
 // Images: alone in a paragraph, a figure; the alt text is plain text (only a link's first node).
 assert.equal(render('![图 [Ti*k*Z 代码](https://example.org/)](a.png){width=100}'),
-  '<figure class="bm-content-figure"><img src="a.png" alt="图 Ti" width="100" loading="lazy"><figcaption>图 <a href="https://example.org/">Ti<em>k</em>Z 代码</a></figcaption></figure>');
+  '<figure class="bm-content-figure"><img src="a.png" alt="图 TikZ 代码" width="100" loading="lazy"><figcaption>图 <a href="https://example.org/">Ti<em>k</em>Z 代码</a></figcaption></figure>');
 
 // Code blocks: highlighted with the dialect's classes, in its own languages (Markdown, YAML, TeX); a language without
 // a grammar to the site's hook.
@@ -117,7 +116,8 @@ assert.equal(highlightCode('a: 1', 'YAML'), '<span class="bm-hl-key">a</span><sp
 assert.equal(highlightCode('x', 'lean'), undefined);
 
 // Raw HTML is left out.
-assert.equal(render('<div>x</div>'), '<!-- raw HTML omitted -->\n');
+assert.equal(render('<div>x</div>'), '');
+assert.equal(render('a <!-- note --> b'), '<p>a  b</p>\n');
 
 assert.equal(pathEscape('/wiki/(∞,1)-层/'), '/wiki/%28%E2%88%9E,1%29-%E5%B1%82/');
 

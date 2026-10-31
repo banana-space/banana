@@ -41,7 +41,7 @@ npm install bananamark
 
 ### Security
 
-Raw HTML in pages is dropped, and link and image addresses can only be the site's own or http(s) (links also mailto), so what authors write cannot bring in scripts. Addresses that hooks return are held to the same rules. HTML that hooks and the caller's HTML-style tags return (`decorateLink`'s icons, `renderCodeBlock`, a tag's `render`) is written as it is: escaping it is the caller's job. KaTeX's `trust` option (see [KaTeX](#katex)) lets formulas write links and classes; leave it off for untrusted authors.
+HTML tags other than the [tags](#html-style-tags) a page may use are errors, comments and declarations are left out (what follows one on its line is text; at the start of a line one ends a paragraph, and a comment may run over any lines), and link and image addresses can only be the site's own or http(s) (links also mailto), so what authors write cannot bring in scripts. Addresses that hooks return are held to the same rules. HTML that hooks and the caller's HTML-style tags return (`decorateLink`'s icons, `renderCodeBlock`, a tag's `render`) is written as it is: escaping it is the caller's job. KaTeX's `trust` option (see [KaTeX](#katex)) lets formulas write links and classes; leave it off for untrusted authors.
 
 ## A minimal example
 
@@ -73,7 +73,7 @@ A page's front matter is the caller's: remove it before rendering, and give `lin
 
 ## Syntax
 
-CommonMark with GFM tables, strikethrough, footnotes and autolinks, and:
+CommonMark with GFM tables, strikethrough and footnotes, and:
 
 | Feature | Written |
 | --- | --- |
@@ -85,7 +85,8 @@ CommonMark with GFM tables, strikethrough, footnotes and autolinks, and:
 | Data blocks | fenced blocks the caller names, holding data about the page, not shown (see [Data blocks](#data-blocks)) |
 | HTML-style tags | `<lang de>…</lang>`; the caller may add its own, and bananamark's ready-made `<align right>…</align>` and `<spoiler title="…">…</spoiler>` (see [HTML-style tags](#html-style-tags)) |
 | Image width | `![caption](image.png){width=200}`: `width` (whole pixels) becomes `<img width>` |
-| Typography | Chinese typography (see [Typography](#typography)); straight quotation marks become curly ones, `--`, `---` and `...` become –, —, … |
+| Typography | Chinese typography (see [Typography](#typography)); straight quotation marks become curly ones (see [Quotation marks](#quotation-marks)), `--`, `---` and `...` become –, —, … |
+| Bare addresses | `https://…`, `http://…`, `www.…` and e-mail addresses become links, also right after Han characters. An address is in ASCII and ends at the first character that is not; `?!.,:;*_~` and unbalanced `)` at its end are not part of it. Write others as `[text](…)` or `<…>` |
 | Wiki links (`wikiLinks`) | `[[Target]]`, `[[Target\|text]]`; the target may hold formulas |
 | Bibliographies (`bibliography`) | a ```` ```bibliography ```` block (YAML; fields: see [Reference](#bibliography-fields)); `@key` in the text cites an entry |
 | TikZ (`tikz`) | a ```` ```tikz ```` block (`{caption="…"}` after `tikz` gives it a caption), `tikzcd` and `tikzpicture` environments in formulas (compiled by `bananamark-tikz`) |
@@ -345,6 +346,15 @@ The HTML bananamark writes (bodies, and `renderFragment`'s fragments) goes throu
 - A site's other text (titles in templates, navigation) can be typeset the same way with `bananamark/typography`'s `typesetHTML(html, { lang, typography })` (`lang` of the HTML's root, default `en`; `typography` as the option). `typesetTree(tree, options)` does the same to a parse5 tree, and takes `skip(node)`, an element to leave as it is.
 
 Quotation marks and dashes (see [Syntax](#syntax)) are not Chinese typography: they are changed in the Markdown, also with `typography: false`.
+
+### Quotation marks
+
+A straight quotation mark with a space on one side goes by that space (the start and end of a block count as spaces): after a space it opens, before one it closes. So `文字 "文字" 文字` and `文字 '文字' 文字` are quoted as written. Without a space on either side:
+
+- `"` goes by pairing: it closes the one left open, or else opens, so `他说"你好"然后` and `"文字""文字"` come out as opening and closing marks in turn.
+- `'` after a letter or digit, of any script, is `’`: an apostrophe (`it's`, `Bayes'`) or a prime (`赋'`). Elsewhere it closes one left open, or else opens. One that never closes is an apostrophe after all (`'twas`), as is a decade's (`'90s`).
+
+A mark that closes nothing (`5" disk`), one with spaces on both sides, and one escaped (`\"`) or written as an entity stay straight.
 
 ## KaTeX
 

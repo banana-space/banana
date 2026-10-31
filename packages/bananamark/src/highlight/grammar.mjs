@@ -1,7 +1,9 @@
 // bananamark's dialect as a lezer grammar, for highlighting code blocks (./index.mjs) and for editors (CodeMirror:
 // bananamark-codemirror adds folding and keys): CommonMark with GFM tables (cells not split inside wiki links and
-// formulas), task lists, strikethrough and autolinks, plus
+// formulas), task lists, strikethrough, plus
 // - front matter (YAML);
+// - bare addresses as the renderer reads them (../markdown/linkify.mjs), and comments and declarations
+//   (../markdown/comments.mjs);
 // - formulas $…$, $$…$$, \(…\), \[…\] (their TeX highlighted), ending where the syntax layer's scanner ends them
 //   (../syntax/scan.mjs), also display formulas on lines of their own, which may hold lines that would
 //   otherwise be Markdown (a lone "=" underlines a heading);
@@ -17,10 +19,12 @@
 // markup.mjs), so that the editor shows what the renderer will.
 import { parseMixed } from '@lezer/common';
 import { Tag, styleTags, tags, tagHighlighter } from '@lezer/highlight';
-import { Autolink, InlineContext, Strikethrough, TaskList } from '@lezer/markdown';
+import { InlineContext, Strikethrough, TaskList } from '@lezer/markdown';
 import { Language, StreamLanguage } from '@codemirror/language';
 import { commonmarkLanguage, markdown } from '@codemirror/lang-markdown';
 import { yaml } from '@codemirror/lang-yaml';
+import { leftOutEnd } from '../markdown/comments.mjs';
+import { bareLinkAt } from '../markdown/linkify.mjs';
 import { escaped, labelledMarkerSource, readMath, readTag, referenceStop, referenceTail } from '../syntax/scan.mjs';
 
 
@@ -664,6 +668,47 @@ const strongRun = {
   },
 };
 
+/**
+ * A comment or declaration at the start of a line, a block of its own that ends a paragraph; what follows it on its
+ * last line is read as a line. A comment runs over any lines, but out of a block quote only as far as the quote goes.
+ */
+const leftOutBlock = {
+  name: 'LeftOut',
+  endLeaf: (_, line) => leftOutEnd(line.text, line.pos) >= 0 || line.text.startsWith('<!--', line.pos),
+  parse(cx, line) {
+    const from = cx.lineStart + line.pos;
+    let end = leftOutEnd(line.text, line.pos);
+    if (end < 0 && !line.text.startsWith('<!--', line.pos)) return false;
+    const inQuote = cx.stack.some(block => cx.parser.nodeSet.types[block.type].name === 'Blockquote');
+    let reached = true;
+    while (end < 0) {
+      const previousEnd = cx.lineStart + line.text.length;
+      if (!cx.nextLine()) { cx.addElement(cx.elt('Comment', from, previousEnd)); return true; }
+      if (inQuote && !line.text.trim()) { cx.addElement(cx.elt('Comment', from, previousEnd)); reached = false; break; }
+      const close = line.text.indexOf('-->');
+      end = close < 0 ? -1 : close + 3;
+    }
+    if (!reached) return true;
+    cx.addElement(cx.elt('Comment', from, cx.lineStart + end));
+    let rest = end;
+    while (rest < line.text.length && (line.text[rest] === ' ' || line.text[rest] === '\t')) rest++;
+    if (rest >= line.text.length) { cx.nextLine(); return true; }
+    line.moveBase(rest);
+    return null;
+  },
+};
+
+/** Comments and declarations within a paragraph's text, as the renderer reads them. */
+const leftOutInline = {
+  name: 'LeftOutInline',
+  before: 'HTMLTag',
+  parse(cx, next, position) {
+    if (next !== 60 /* < */) return -1;
+    const end = leftOutEnd(cx.text, position - cx.offset);
+    return end < 0 ? -1 : cx.addElement(cx.elt('Comment', position, end + cx.offset));
+  },
+};
+
 const dialect = {
   defineNodes: [
     // The whole formula, down into its TeX.
@@ -730,11 +775,11 @@ const dialect = {
     // fence, the fence's closing mark no longer matches FencedCode/CodeMark.)
     'InlineCode/CodeMark': tags.processingInstruction,
   })],
-  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, tag, imageAttributes, strongRun],
+  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, leftOutInline, tag, imageAttributes, strongRun],
   // A line starting with a tag (<align right>, <see>) is a paragraph's: as an HTML block it would hide the
-  // Markdown that follows. (Comments are still read inline.)
+  // Markdown that follows.
   remove: ['HTMLBlock'],
-  parseBlock: [frontMatter, displayMath, environmentFence, footnote, labelledList],
+  parseBlock: [frontMatter, displayMath, environmentFence, footnote, labelledList, leftOutBlock],
   wrap: parseMixed(node => node.name === 'MathContent' ? { parser: tex.parser }
     : node.name === 'CodeInfo' ? { parser: codeInfo.parser }
     : node.name === 'FrontMatterContent' ? { parser: yamlLanguage.parser } : null),
@@ -762,6 +807,18 @@ export function isLanguage(language) {
  * out); also in the code blocks of code blocks of this dialect. wikiLinks: whether [[wiki links]] are read (as
  * defineDialect's option; on here by default, for highlighting examples).
  */
+/** Bare addresses, where the renderer links them: not inside a link's text. */
+const bareLinks = {
+  parseInline: [{
+    name: 'BareLink',
+    parse(context, next, position) {
+      if (!/[a-zA-Z0-9._%+-]/.test(String.fromCharCode(next)) || context.hasOpenLink) return -1;
+      const end = bareLinkAt(context.text, position - context.offset);
+      return end < 0 ? -1 : context.addElement(context.elt('URL', position, end + context.offset));
+    },
+  }],
+};
+
 export function dialectSupport({ codeLanguages = {}, wikiLinks = true } = {}) {
   const editorLanguages = Object.fromEntries(Object.entries(codeLanguages).filter(([, language]) => isLanguage(language)));
   let bodyLanguage;
@@ -773,7 +830,7 @@ export function dialectSupport({ codeLanguages = {}, wikiLinks = true } = {}) {
     if (name === 'markdown' || name === 'md') return bodyLanguage;
     return Object.hasOwn(editorLanguages, name) ? editorLanguages[name] : null;
   };
-  const support = markdown({ base: commonmarkLanguage, extensions: [table, TaskList, Strikethrough, Autolink, wikiLinks ? dialect : withoutWikiLinks], codeLanguages: codeLanguage, completeHTMLTags: false, addKeymap: false });
+  const support = markdown({ base: commonmarkLanguage, extensions: [table, TaskList, Strikethrough, bareLinks, wikiLinks ? dialect : withoutWikiLinks], codeLanguages: codeLanguage, completeHTMLTags: false, addKeymap: false });
   bodyLanguage = support.language;
   // Extensions' checks for the end of a paragraph come after the built-in ones; this one must come first.
   support.language.parser.endLeafBlock.unshift(continueFormula);

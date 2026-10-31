@@ -37,7 +37,7 @@ try {
   assert.match(html, /bm-env-theorem[\s\S]*<\/div>\s*<\/div>\s*<div class="bm-env bm-envgroup-proof/);
   assert.match(html, /<span class="bm-envtitle">简证\u3000<\/span><div class="bm-envcontent">/);
   assert.equal((html.match(/<div(?:\s|>)/g) ?? []).length, (html.match(/<\/div>/g) ?? []).length);
-  assert.doesNotMatch(html, /raw HTML omitted|@@node:|::: theorem/);
+  assert.doesNotMatch(html, /@@node:|::: theorem/);
   assert.equal(await readFile(join(directory, 'index.md'), 'utf8'), original);
   const customHtml = await readFile(join(root, 'public/wiki/custom-test/index.html'), 'utf8');
   assert.match(customHtml, /bm-envgroup-definition bm-env-definition" id="cond">\s*<p class="bm-envtitle">条件 2（同分布）<\/p>/);
@@ -74,7 +74,7 @@ try {
     assert.ok(starHtml.includes(`href="#${id}">1</a>`));
     assert.match(starHtml, new RegExp(`<ol>\\s*<li>[\\s\\S]*?id="${id}"`));
   }
-  assert.doesNotMatch(starHtml, /raw HTML omitted|reference:\?|\{@|::: theorem|定理 0\.1|\\tag\{0\.1\}/);
+  assert.doesNotMatch(starHtml, /reference:\?|\{@|::: theorem|定理 0\.1|\\tag\{0\.1\}/);
   const labelledHtml = await readFile(join(root, 'public/wiki/labelled-test/index.html'), 'utf8');
   assert.match(labelledHtml, /<ol start="0">\s*<li>\s*<p><span class="bm-item-label" style="--bm-outer: 0"><span>\(a\)<\/span><\/span><span id="la" class="bm-item-target"><\/span>甲<\/p>\s*<\/li>\s*<li>\s*<p><span class="bm-item-label" style="--bm-outer: 0"><span>\(b\)<\/span><\/span>乙<\/p>\s*<p>第二段<\/p>/);
   assert.match(labelledHtml, /<span class="bm-item-label" style="--bm-outer: 0"><span>\(<span class="bm-math-rendered"[^>]*data-tex="\\ast"/);
@@ -95,7 +95,7 @@ try {
   assert.match(singular, /id="eq:余边界"/);
   assert.equal((singular.match(/bm-env-proof/g) ?? []).length, 2);
   assert.equal((singular.match(/class="bm-envtitle"/g) ?? []).length, 20);
-  assert.doesNotMatch(singular, /\\(?:ref|label|cite)\{|raw HTML omitted|\{\{主条目/);
+  assert.doesNotMatch(singular, /\\(?:ref|label|cite)\{|\{\{主条目/);
   const ids = [...singular.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size);
   for (const match of singular.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(decodeURIComponent(match[1])), `缺失锚点：${match[1]}`);

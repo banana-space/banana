@@ -66,7 +66,7 @@ try {
   assert.match(html, /<div class="bm-bibliography-entry" id="bib-book" lang="en">\s*<p><span class="bm-bibliography-names"><strong>Smith<\/strong>, Alice<\/span> \(2020a\)/);
   assert.ok(html.indexOf('id="bib-online:a"') < html.indexOf('<p>这段简介'));
   assert.ok(html.indexOf('<p>这段简介') < html.indexOf('id="bib-online:b"'));
-  assert.doesNotMatch(html, /raw HTML omitted|citation:\?|reference:\?|```bibliography/);
+  assert.doesNotMatch(html, /citation:\?|reference:\?|```bibliography/);
   assert.equal(await readFile(join(directory, 'index.md'), 'utf8'), original);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(ids.length, new Set(ids).size);

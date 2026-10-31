@@ -73,7 +73,8 @@ function nameMath(tex, key) {
 }
 
 /**
- * What Goldmark's typographer makes of text (not CommonMark's missing << « and >> »): --- →
+ * The typography of a name, a heading's id or a link's target, read alone (the page's text has its own,
+ * ../markdown/typographer.mjs; these make addresses and keys, and stay as they are): --- →
  * —, -- → –, ... → …, and straight quotes curly by what surrounds them: opening (‘ “) at the start, after a space, an
  * opening bracket or a dash and before something other than a space, closing (’ ”) otherwise (an apostrophe is ’ too:
  * l'Hôpital, Hilbert's, Bayes'). previous: the character before the text (after a formula: the formula's).
@@ -299,7 +300,7 @@ export function readMarkdownLink(text, start) {
     get output() { return `${image ? '!' : ''}[${transformMarkup(label, [], { wiki: false })}]${text.slice(i + 1, end)}`; },
   };
 }
-/** A formula's node marker; an empty one (\[\], $$$$, $ $) leaves nothing (the passthrough would leave its delimiters). */
+/** A formula's node marker; an empty one (\[\], $$$$, $ $) leaves nothing (the renderer would leave its delimiters). */
 function mathMarkdown(math) {
   if (!math.value.trim()) return '';
   // A node: the Markdown has its number only, so that its TeX (an inner $, backslashes) is not read again.
