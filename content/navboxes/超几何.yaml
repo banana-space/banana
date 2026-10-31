@@ -22,13 +22,13 @@ groups:
   - title: 超 Lie 群
     items:
       - '[[超 Lie 群]]'
-      - '[[一般线性超群|一般线性超群 $\mathrm{GL}(M|N)$]]'
-      - '[[酉超群|酉超群 $\mathrm{U}(M|N)$]]'
-      - '[[正交辛超群|正交辛超群 $\mathrm{OSp}(M|N)$]]'
+      - '[[一般线性超群|一般线性超群 $\mathrm{GL}(m|n)$]]'
+      - '[[酉超群|酉超群 $\mathrm{U}(m|n)$]]'
+      - '[[正交辛超群|正交辛超群 $\mathrm{OSp}(m|n)$]]'
       - '[[齐性超流形]]'
   - title: 典型空间
     items:
       - '[[仿射超空间]]'
       - '[[Minkowski 超空间]]'
       - '[[射影超空间]]'
-      - '[[超 Grassmann 流形]]'
+      - '[[超 Graßmann 流形]]'

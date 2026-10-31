@@ -64,7 +64,7 @@ $\lambda$、$1-\lambda$ 的[[共形场]]。
 $b$-$c$ 系统中也有此一结构。
 
 ::: definition
-在下面的叙述中，[[Lie 超代数]] $\mathfrak{g}$ 取为
+在下面的叙述中，[[超 Lie 代数]] $\mathfrak{g}$ 取为
 \[
 \mathfrak{g} = \bigoplus_{n \in \mathbb{Z}} \mathbb{C}c_n \oplus
 \bigoplus_{n \in \mathbb{Z}} \mathbb{C}b_n \oplus \mathbb{C}\mathbf{1}
