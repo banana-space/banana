@@ -23,9 +23,9 @@ const tikzEnvironment = /\\begin\s*\{\s*(tikzcd|tikzpicture)\s*\}/;
 export function math({ tex, display = false, id = '', mode = '' }) {
   const source = rewriteMath(tex);
   if (mode === 'text' || tikzEnvironment.test(tex)) {
-    return html`<span${id ? html` id="${id}"` : ''} class="bm-math-rendered${display ? ' bm-math-display' : ''} bm-tikz-source" data-tex="${source}" data-display="${String(display)}" data-tikz-mode="${mode || 'math'}"></span>`;
+    return html`<span${id ? html` id="${id}"` : ''} class="bm-math-rendered${display ? ' bm-math-display' : ''} bm-tikz-source" data-tex="${source}" data-tikz-mode="${mode || 'math'}"></span>`;
   }
-  return html`<span${id ? html` id="${id}"` : ''} class="bm-math-rendered${display ? ' bm-math-display' : ''}" data-tex="${source}" data-display="${String(display)}">${raw(renderKaTeX(source, display))}</span>`;
+  return html`<span${id ? html` id="${id}"` : ''} class="bm-math-rendered${display ? ' bm-math-display' : ''}" data-tex="${source}">${raw(renderKaTeX(source, display))}</span>`;
 }
 
 /** Parts of a title or a text: [{ text } or { tex }], formulas rendered. */

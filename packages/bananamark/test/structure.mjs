@@ -13,7 +13,7 @@ const nodes = (document, pattern) => [...document.markdown.matchAll(pattern)].ma
 const markers = /@@node:(\d+):node@@/g, links = /\]\(bananamark:(\d+)\)/g;
 // The environments a page opens: kind, caption (“定理 1.2”: the reference text, number included), number, title.
 const captions = document => nodes(document, markers).filter(node => node.type === 'environment')
-  .map(({ kind, caption, title }) => ({ kind, caption, number: caption.match(/ (\S+)$/)?.[1] ?? '', title }));
+  .map(({ kind, name, number, title }) => ({ kind, caption: number ? `${name} ${number}` : name, number, title }));
 // The references to the target id (text: the reference's text written by the syntax layer).
 const references = (document, id) => nodes(document, links).filter(node => node.type === 'reference' && node.id === id);
 const equations = document => nodes(document, markers).filter(node => node.type === 'math' && node.id !== undefined);

@@ -11,8 +11,8 @@ References to environments; punctuation is not part of the label.
 甲
 :::
 .
-<p>见<a href="#thm:a">定理 1</a>，以及<a href="#thm:a">定理 1</a>。</p>
-<div class="bm-env bm-envgroup-theorem bm-env-theorem" id="thm:a"><p class="bm-envtitle">定理 1</p><div class="bm-envcontent">
+<p>见<a href="#thm:a" class="bm-reference">定理 1</a>，以及<a href="#thm:a" class="bm-reference">定理 1</a>。</p>
+<div class="bm-env bm-envgroup-theorem bm-env-theorem" id="thm:a"><p class="bm-envtitle">定理 <span class="bm-envnumber">1</span></p><div class="bm-envcontent">
 <p>甲</p>
 </div>
 </div>
@@ -27,9 +27,9 @@ The number alone.
 x
 ```
 .
-<p>式 (<a href="#eq:x">1</a>)</p>
+<p>式 (<a href="#eq:x" class="bm-reference">1</a>)</p>
 <span id="eq:x" class="bm-math-rendered bm-math-display" data-tex="x
-\tag{1}" data-display="true">…</span>
+\tag{1}">…</span>
 ````````````````````````````````
 
 Text of its own.
@@ -41,8 +41,8 @@ Text of its own.
 甲
 :::
 .
-<p><a href="#thm:a">上述定理</a></p>
-<div class="bm-env bm-envgroup-theorem bm-env-theorem" id="thm:a"><p class="bm-envtitle">定理 1</p><div class="bm-envcontent">
+<p><a href="#thm:a" class="bm-reference">上述定理</a></p>
+<div class="bm-env bm-envgroup-theorem bm-env-theorem" id="thm:a"><p class="bm-envtitle">定理 <span class="bm-envnumber">1</span></p><div class="bm-envcontent">
 <p>甲</p>
 </div>
 </div>
@@ -57,8 +57,8 @@ An unnumbered environment with a title is referred to as "Kind (Title)".
 甲
 :::
 .
-<p><a href="#r">注（寄语）</a></p>
-<div class="bm-env bm-envgroup-remark bm-env-remark" id="r"><p class="bm-envtitle">注（寄语）</p><div class="bm-envcontent">
+<p><a href="#r" class="bm-reference">注（寄语）</a></p>
+<div class="bm-env bm-envgroup-remark bm-env-remark" id="r"><p class="bm-envtitle">注<span class="bm-envnote">（寄语）</span></p><div class="bm-envcontent">
 <p>甲</p>
 </div>
 </div>

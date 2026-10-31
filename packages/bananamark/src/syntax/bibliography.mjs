@@ -429,10 +429,10 @@ function nameList(c, names, role) {
 function titlePiece(c, entry, styled) {
   const shown = entry.own ? entry.own.includes('title') : true;
   const parts = [];
-  if (entry.title && shown) parts.push(styled ? c.style.title(text(entry.title)) : text(entry.title));
+  if (entry.title && shown) parts.push(span(styled ? c.style.title(text(entry.title)) : text(entry.title), { kind: 'title' }));
   if (entry.translatedtitle && (!entry.own || entry.own.includes('translatedtitle'))) {
     const md = `&#91;${text(entry.translatedtitle)}&#93;`;
-    parts.push(c.lang === 'en' ? md : span(md, { lang: 'en' }));
+    parts.push(span(md, { kind: 'title', lang: c.lang === 'en' ? undefined : 'en' }));
   }
   if (!parts.length) return;
   const language = entry.language && (!entry.own || entry.own.includes('language')) && !['translation', 'original'].includes(entry.relation);
@@ -510,7 +510,7 @@ function entryParagraph(entry, options) {
   const date = entry.type === 'online' ? suffix
     : entry.type !== 'preprint' && entry.year ? text(entry.year) + suffix
     : withSuffix(c.ui(entry.type === 'preprint' ? t('bibliography_preprint') : t('bibliography_no_date')), suffix);
-  const heading = label + lead + (date ? ` (${date})${c.style.stop}` : /[.!?。．]$/u.test(last) ? '' : c.style.stop);
+  const heading = label + lead + (date ? ` (${entry.type === 'online' ? date : span(date, { kind: 'year' })})${c.style.stop}` : /[.!?。．]$/u.test(last) ? '' : c.style.stop);
   return [heading, ...bibliographyFormats[entry.type](c, entry).map(pieces => sentence(c, pieces)), ...details(c, entry)].filter(Boolean).join(' ');
 }
 
@@ -535,7 +535,7 @@ function versionParagraph(version, options) {
   const relation = span(markdownText(relationText(version)), { kind: 'relation', lang: c.sameLanguage ? undefined : messageLanguage() });
   const names = own('author') ? span(version.author.map(name => leadName(c, name, false, 'author')).join(nameSeparator(version.author)), { kind: 'names' }) : '';
   const date = version.year ? text(version.year) + (version.label ? '' : version.suffix ?? '') : '';
-  const heading = label + relation + (names ? ` ${names}` : '') + (date ? ` (${date})` : '') + c.style.stop;
+  const heading = label + relation + (names ? ` ${names}` : '') + (date ? ` (${span(date, { kind: 'year' })})` : '') + c.style.stop;
   const shown = { ...version, edition: version.relation === 'edition' ? undefined : version.edition, editor: own('editor') ? version.editor : [] };
   const sentences = bibliographyFormats[version.type](c, shown, { contained: false }).map(pieces => sentence(c, pieces));
   // A reprint of an article is usually a book: its publisher is shown whatever type it keeps.

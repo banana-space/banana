@@ -32,8 +32,8 @@ assert.equal(inline('中文https://example.org和'), '中文<a href="https://exa
 
 // Formulas: a display formula splits its paragraph; inside emphasis it stays inline.
 const formula = { type: 'math', tex: 'x', display: true };
-assert.match(render({ markdown: 'a\n@@node:0:node@@\nb', nodes: [formula] }), /^<p>a<\/p>\n<span class="bm-math-rendered bm-math-display" data-tex="x" data-display="true">[\s\S]*<\/span>\n<p>b<\/p>\n$/);
-assert.match(render({ markdown: '*a @@node:0:node@@*', nodes: [formula] }), /^<p><em>a <span class="bm-math-rendered" data-tex="x" data-display="false">/);
+assert.match(render({ markdown: 'a\n@@node:0:node@@\nb', nodes: [formula] }), /^<p>a<\/p>\n<span class="bm-math-rendered bm-math-display" data-tex="x">[\s\S]*<\/span>\n<p>b<\/p>\n$/);
+assert.match(render({ markdown: '*a @@node:0:node@@*', nodes: [formula] }), /^<p><em>a <span class="bm-math-rendered" data-tex="x">/);
 assert.throws(() => render('@@node:0:node@@'), /node 0 is not in the document's table/);
 
 // Links: wiki links to articles, aliases and missing articles; ordinary links kept as written.
@@ -43,7 +43,7 @@ assert.equal(inline(wiki('群论', '群论')), '<a href="/wiki/%E7%BE%A4/?from=%
 assert.equal(inline(wiki('环', '环')), '<a href="/missing/?title=%E7%8E%AF" title="条目尚未创建：环" class="bm-wiki-link bm-wiki-link-missing">环</a>');
 // References and citations: to an anchor, their text (and caption) from the node.
 assert.equal(inline({ markdown: '[reference](bananamark:0) [Smith 2020](bananamark:1)', nodes: [{ type: 'reference', id: 'thm:a', text: '定理 1' }, { type: 'citation', id: 'bib-s', key: 's' }] }),
-  '<a href="#thm:a">定理 1</a> <a href="#bib-s" class="bm-citation" data-reference="s">Smith 2020</a>');
+  '<a href="#thm:a" class="bm-reference">定理 1</a> <a href="#bib-s" class="bm-citation" data-reference="s">Smith 2020</a>');
 assert.equal(inline('[讲义](/books/代数/)'), '<a href="/books/%E4%BB%A3%E6%95%B0/">讲义</a>');
 assert.equal(inline('[外部](https://other.org/)'), '<a href="https://other.org/" class="external-link" target="_blank" rel="noopener">外部<svg class="icon-external"></svg></a>');
 assert.equal(inline('[分类](/categories/代数/)'), '<a href="/categories/%E4%BB%A3%E6%95%B0/" class="category-link"><svg class="icon-folder"></svg>分类</a>');
@@ -124,10 +124,10 @@ assert.equal(pathEscape('/wiki/(∞,1)-层/'), '/wiki/%28%E2%88%9E,1%29-%E5%B1%8
 // renderDocument: the syntax layer and the renderer at once, with no site (every option has a default).
 const page = renderDocument('## 定义 {@sec:def}\n\n::: definition [群] {@def:group}\n见 [[集合]]。\n:::\n\n由 @def:group 与 @sec:def。', { file: 'demo.md' });
 assert.match(page.html, /<h2 id="定义">.*<span class="bm-section-number">1<\/span> 定义<\/h2>/);
-assert.match(page.html, /<p class="bm-envtitle">定义 1\.1（群）<\/p>/);
+assert.match(page.html, /<p class="bm-envtitle">定义 <span class="bm-envnumber">1\.1<\/span><span class="bm-envnote">（群）<\/span><\/p>/);
 assert.match(page.html, /<a title="条目尚未创建：集合" class="bm-wiki-link bm-wiki-link-missing">集合<\/a>/);
 // Typeset (the default typography): spaces between Han only where digits or letters meet it; 。 kept.
-assert.match(page.html, /由<a href="#def:group">定义 1\.1<\/a> 与<a href="#%E5%AE%9A%E4%B9%89">第 1 节<\/a>。/);
+assert.match(page.html, /由<a href="#def:group" class="bm-reference">定义 1\.1<\/a> 与<a href="#%E5%AE%9A%E4%B9%89" class="bm-reference">第 1 节<\/a>。/);
 assert.match(renderDocument('见 [[集合]]。', { typography: { convertFullStop: true } }).html, /见<a [^>]*>集合<\/a>．/);
 assert.match(renderDocument('见 [[集合]]。', { typography: false }).html, /见 <a [^>]*>集合<\/a>。/);
 assert.deepEqual(page.headings, [{ level: 2, id: '定义', number: '1', title: '定义' }]);
@@ -140,26 +140,26 @@ const processor = createProcessor({
   resolveWikiLink: key => key === '集合' ? { url: '/set/' } : undefined,
   environments: { axiom: { name: '公理', group: 'definition' } },
 });
-assert.match(processor.render('::: axiom\n[[集合]]\n:::').html, /<p class="bm-envtitle">公理 1<\/p><div class="bm-envcontent">\n<p><a href="\/set\/" class="bm-wiki-link">集合<\/a><\/p>/);
+assert.match(processor.render('::: axiom\n[[集合]]\n:::').html, /<p class="bm-envtitle">公理 <span class="bm-envnumber">1<\/span><\/p><div class="bm-envcontent">\n<p><a href="\/set\/" class="bm-wiki-link">集合<\/a><\/p>/);
 // The caller's environments are over bananamark's; false removes one.
-assert.match(processor.render('::: theorem\n甲\n:::').html, /定理 1/);
+assert.match(processor.render('::: theorem\n甲\n:::').html, /定理 <span class="bm-envnumber">1/);
 assert.throws(() => createProcessor({ environments: { theorem: false } }).render('::: theorem\n:::'), /theorem/);
 
 assert.throws(() => createProcessor({ environments: { axiom: { group: 'definition' } } }).render('::: axiom\n:::'), /定理环境配置无效：axiom/);
 const axioms = { axiom: { name: { 'zh-cn': '公理', en: 'Axiom' }, group: 'definition' } };
 const axiomProcessor = createProcessor({ environments: axioms });
-assert.match(axiomProcessor.render('::: axiom {@x}\nA.\n:::\n\nSee @x.', { lang: 'en' }).html, /<p class="bm-envtitle">Axiom 1<\/p>[\s\S]*See <a href="#x">Axiom 1<\/a>\./);
-assert.match(axiomProcessor.render('::: axiom {@x}\n甲\n:::').html, /<p class="bm-envtitle">公理 1<\/p>/);
+assert.match(axiomProcessor.render('::: axiom {@x}\nA.\n:::\n\nSee @x.', { lang: 'en' }).html, /<p class="bm-envtitle">Axiom <span class="bm-envnumber">1<\/span><\/p>[\s\S]*See <a href="#x" class="bm-reference">Axiom 1<\/a>\./);
+assert.match(axiomProcessor.render('::: axiom {@x}\n甲\n:::').html, /<p class="bm-envtitle">公理 <span class="bm-envnumber">1<\/span><\/p>/);
 
 // The page's text follows its language (zh… Chinese, en… and any language without tables English); errors follow
 // locale. Both are English by default (here the tests' renderDocument gives zh-cn), and neither is left set after a call.
-assert.match(renderDocument('## A {@a}\n\n@a', { lang: 'en-GB' }).html, /<a href="#a">Section 1<\/a>/);
-assert.match(renderDocument('## A {@a}\n\n@a', { lang: 'de' }).html, /<a href="#a">Section 1<\/a>/);
-assert.match(renderDocument('## A {@a}\n\n@a', { lang: 'zh-TW' }).html, /<a href="#a">第 1 节<\/a>/);
+assert.match(renderDocument('## A {@a}\n\n@a', { lang: 'en-GB' }).html, /<a href="#a" class="bm-reference">Section 1<\/a>/);
+assert.match(renderDocument('## A {@a}\n\n@a', { lang: 'de' }).html, /<a href="#a" class="bm-reference">Section 1<\/a>/);
+assert.match(renderDocument('## A {@a}\n\n@a', { lang: 'zh-TW' }).html, /<a href="#a" class="bm-reference">第 1 节<\/a>/);
 assert.throws(() => renderDocument('@x', { locale: 'en' }), /no such label: x/);
 assert.throws(() => renderDocument('@x', { lang: 'en' }), /引用标签不存在：x/);
 assert.throws(() => renderDocument('@x'), /引用标签不存在：x/);
-assert.match(englishDefaults('## A {@a}\n\n::: theorem\n甲\n:::\n\n@a').html, /Theorem 1\.1[\s\S]*<a href="#a">Section 1<\/a>/, 'English by default');
+assert.match(englishDefaults('## A {@a}\n\n::: theorem\n甲\n:::\n\n@a').html, /Theorem <span class="bm-envnumber">1\.1[\s\S]*<a href="#a" class="bm-reference">Section 1<\/a>/, 'English by default');
 assert.throws(() => englishDefaults('@x'), /no such label: x/);
 assert.throws(() => renderDocument('甲', { locale: 'fr' }), /unknown locale "fr"/);
 

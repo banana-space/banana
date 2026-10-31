@@ -60,7 +60,7 @@ A[[t]] \text{$b$}
   assert.match(html, /bm-wiki-link-missing/);
   assert.match(html, /href="\/missing\/\?title=/);
   assert.match(html, /data-tex="a \\text\{\$b\$ \[\[不要链接\]\]\} c"/);
-  assert.match(html, /data-display="true"/);
+  assert.match(html, /bm-math-display/);
   assert.match(html, /\$5 与 \$6，反斜杠 \\/);
   assert.doesNotMatch(html, /wiki:|ZgotmplZ/);
   assert.match(html, /class="external-link" target="_blank" rel="noopener"/);

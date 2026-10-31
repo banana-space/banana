@@ -310,14 +310,16 @@ Every class bananamark writes starts with `bm-`, so as not to meet the page's ow
 | Class / attribute | On |
 | --- | --- |
 | `bm-env bm-envgroup-<group> bm-env-<kind>`, `bm-envtitle`, `bm-envcontent` | Theorem-like environments (`<group>`: the environment's group, see [Default environments](#default-environments)); a proof's title is an inline `span.bm-envtitle` |
-| `bm-math-rendered`, `bm-math-display`; `data-tex`, `data-display` | Formulas: `data-tex` their TeX, `data-display` whether display |
+| `bm-envnumber`, `bm-envnote` | In `bm-envtitle`, the environment's number and its title with what surrounds it (`<span class="bm-envnote">(Lagrange)</span>`). The name is the text around them, so `.bm-envtitle` styles it and these can differ from it. A proof's title has neither |
+| `bm-math-rendered`, `bm-math-display`; `data-tex` | Formulas: `bm-math-display` on display formulas, `data-tex` their TeX |
 | `bm-math-end` | In an inline formula followed by closing punctuation or a hyphen: KaTeX's last box and the punctuation, kept on one line (see [KaTeX](#katex)) |
 | `bm-math-rendered bm-tikz-source`; `data-tikz-mode`; `code.bm-tikz-code` | A TikZ diagram's placeholder: `data-tex` its source, and the source as text in `code.bm-tikz-code`, shown where nothing compiles it (`data-tikz-mode`: `text` for a ```` ```tikz ```` block, `math` in a formula); `bananamark-tikz` makes it `bm-tikz-rendered` |
 | `bm-heading-link`, `bm-section-number` | The § link before a heading (its `title`: the message `link_to_heading`), and the section number |
-| `bm-wiki-link`, `bm-wiki-link-missing`, `bm-citation` (`data-reference`: the entry's key) | Wiki links, links to missing articles, citations; ordinary links' class is `decorateLink`'s (default `bm-external-link` for other hosts) |
-| `bm-item-label`, `bm-item-label-outer`, `bm-item-label-block`, `bm-item-target`; `style="--bm-outer: N"` | Labelled list items (below); `bm-item-target` is a reference's anchor |
-| `bm-bibliography`, `bm-bibliography-entry`, `bm-bibliography-version`, `bm-bibliography-label`, `bm-bibliography-names`, `bm-bibliography-relation`, `bm-bibliography-links` | Bibliographies: the list, an entry, a version; an entry's label, names; a version's relation; links to the work |
+| `bm-reference`, `bm-wiki-link`, `bm-wiki-link-missing`, `bm-citation` (`data-reference`: the entry's key) | Cross-references, wiki links, links to missing articles, citations; ordinary links' class is `decorateLink`'s (default `bm-external-link` for other hosts) |
+| `bm-item-label`, `bm-item-label-outer`, `bm-item-label-block`, `bm-item-target`; `style="--bm-outer: N"` on an outer label | Labelled list items (below); `bm-item-target` is a reference's anchor |
+| `bm-bibliography`, `bm-bibliography-entry`, `bm-bibliography-version`, `bm-bibliography-label`, `bm-bibliography-names`, `bm-bibliography-year`, `bm-bibliography-title`, `bm-bibliography-relation`, `bm-bibliography-links` | Bibliographies: the list, an entry, a version; an entry's label, names, date (the year and its letter, or the words in its place) and title (and translated title); a version's relation; links to the work |
 | `bm-align-right`, `bm-align-center` | `<align>` |
+| `bm-spoiler` | `<spoiler>` (`details`) |
 | `bm-content-figure` | An image alone in a paragraph (`figure`, its caption in `figcaption`), and a TikZ diagram with a caption |
 | `bm-footnote-ref`, `bm-footnote-backref`, `bm-footnotes` | Footnotes: the reference, the link back, the list at the end (ids `fn:N`, `fnref:N`) |
 | `bm-code-block` (`data-highlight`: its language), `bm-hl-…` | Code blocks, and the highlighting in them (see [Code highlighting](#code-highlighting)) |
@@ -325,11 +327,11 @@ Every class bananamark writes starts with `bm-`, so as not to meet the page's ow
 
 A page referring to its own label (with `key` and `title`) links to `#page-title`: give the page's title that id in the template.
 
-A labelled list item's label is at the start of its text (`<span class="bm-item-label">(a)</span>`), and its `<ol>` counts from 0: the styles hide the list's own markers and put the labels where they would be. The outer label of nested labels on one line (`(a)(i)`) has `bm-item-label-outer`, and `--bm-outer` says how many levels out it is; `bm-item-label-block` is the label of an item that starts with a block (a formula, say).
+A labelled list item's label is at the start of its text (`<span class="bm-item-label">(a)</span>`), and its `<ol>` counts from 0: the styles hide the list's own markers and put the labels where they would be. The outer label of nested labels on one line (`(a)(i)`) has `bm-item-label-outer`, and `--bm-outer` says how many levels out it is (unset on the others, for 0); `bm-item-label-block` is the label of an item that starts with a block (a formula, say).
 
 ### The stylesheet
 
-`bananamark/style.css` gives all of this a plain look, to start from: environments with a coloured rule, proofs with □, punctuation kept with a formula's end, the § links, labelled list items, figures, `<align>` and `<spoiler>`, bibliographies (the entry a citation leads to marked), footnotes, TikZ placeholders and diagrams' numbers, and code highlighting. It styles only bananamark's classes (and `details`); the page's fonts, sizes, link colours and layout are its own. Colours are custom properties (`--bm-accent-theorem`, `--bm-link`, `--bm-hl-command` and so on), with a dark set for `prefers-color-scheme: dark`; set them on `:root` to change them. It needs a browser from 2023 or later (`:has()`, for list labels).
+`bananamark/style.css` gives all of this a plain look, to start from: environments with a coloured rule, proofs with □, punctuation kept with a formula's end, the § links, labelled list items, figures, `<align>` and `<spoiler>`, bibliographies (the entry a citation leads to marked), footnotes, TikZ placeholders and diagrams' numbers, and code highlighting. It styles only bananamark's classes; the page's fonts, sizes, link colours and layout are its own. Colours are custom properties (`--bm-accent-theorem`, `--bm-link`, `--bm-hl-command` and so on), with a dark set for `prefers-color-scheme: dark`; set them on `:root` to change them. It needs a browser from 2023 or later (`:has()`, for list labels).
 
 ## Typography
 

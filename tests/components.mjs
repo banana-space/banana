@@ -62,7 +62,7 @@ try {
   assert.match(html, /aria-label="提示"[\s\S]*日语译名的假名/);
   assert.match(html, /aria-label="问题">[\s\S]*?<p>本条目存在以下问题：<\/p>\s*<ul>\s*<li>这是一条演示问题提示/);
   // The notices are the page's text: a reference names the section by its number.
-  assert.match(html, /<li><a href="#[^"]+">第 1 节<\/a>缺少来源．<\/li>/);
+  assert.match(html, /<li><a href="#[^"]+" class="bm-reference">第 1 节<\/a>缺少来源．<\/li>/);
   // Neither in the description nor in the search document.
   assert.match(html, /<meta property="og:description" content="这个页面演示顶部提示/);
   const terms = html.match(/<section class="terms"[\s\S]*?<\/section>/)[0];

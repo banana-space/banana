@@ -133,7 +133,7 @@ export function createRenderer(given = {}) {
   // KaTeX's markup, a tenth of its size, to typeset it), and they go in after, with the closing punctuation right
   // after an inline one (withFormulas).
   let formulas;
-  const placeholder = /<span class="bm-math-rendered" data-display="(true|false)" data-formula="(\d+)"><\/span>([,.;:!?，。．；：！？、)\]}）］｝〉》」』】〕〗〙〛”’»›…]+|[-‐])?/gu;
+  const placeholder = /<span class="bm-math-rendered( bm-math-display)?" data-formula="(\d+)"><\/span>([,.;:!?，。．；：！？、)\]}）］｝〉》」』】〕〗〙〛”’»›…]+|[-‐])?/gu;
   function formula(math, fail) {
     let html;
     try { html = mathHTML(math, options); }
@@ -145,7 +145,7 @@ export function createRenderer(given = {}) {
     }
     if (!formulas) return html;
     formulas.push(html);
-    return `<span class="bm-math-rendered" data-display="${Boolean(math.display)}" data-formula="${formulas.length - 1}"></span>`;
+    return `<span class="bm-math-rendered${math.display ? ' bm-math-display' : ''}" data-formula="${formulas.length - 1}"></span>`;
   }
   /**
    * The HTML with its formulas in place of their placeholders. Closing punctuation right after an inline formula
@@ -155,7 +155,7 @@ export function createRenderer(given = {}) {
   const withFormulas = (html, own) => html.replace(placeholder, (match, display, index, punctuation = '', offset, whole) => {
     // A hyphen goes with the formula before it whatever follows ($p$-adic: the line breaks after the hyphen).
     const hyphen = /^[-‐]$/.test(punctuation);
-    const glued = punctuation && display === 'false' && (hyphen || !wordCharacter.test(whole[offset + match.length] ?? '')) ? gluePunctuation(own[index], punctuation) : undefined;
+    const glued = punctuation && !display && (hyphen || !wordCharacter.test(whole[offset + match.length] ?? '')) ? gluePunctuation(own[index], punctuation) : undefined;
     return glued ?? own[index] + punctuation;
   });
   /** What render() writes (its html, or an object with html), with its formulas, typeset as the page says. */
@@ -220,6 +220,7 @@ export function createRenderer(given = {}) {
         } else if (node?.type === 'reference') {
           destination = `#${pathEscape(node.id)}`;
           caption = node.caption ?? '';
+          className = 'bm-reference';
           // The reference's text (“定理 1.2”), written by the syntax layer.
           if (node.text) text = node.text;
           if (node.title) text = t('environment_title', { caption: text, title: stripLinks(fragment(node.title)) });
@@ -313,12 +314,21 @@ export function createRenderer(given = {}) {
     const fragment = (markdown, display) => fragmentHTML(markdown, nodes, page, display);
     switch (node.type) {
       case 'environment': {
-        let caption = node.caption;
-        if (node.title) caption = t('environment_title', { caption, title: node.title });
-        if (node.bare) caption = node.title;
-        const heading = node.kind === 'proof'
-          ? `<span class="bm-envtitle">${fragment(t('proof_heading', { caption }))}${escape(t('proof_title_separator'))}</span>`
-          : `<p class="bm-envtitle">${fragment(caption)}</p>`;
+        let heading;
+        if (node.kind === 'proof') {
+          const caption = node.bare ? node.title : `${node.name}${node.number ? ` ${node.number}` : ''}`;
+          heading = `<span class="bm-envtitle">${fragment(t('proof_heading', { caption }))}${escape(t('proof_title_separator'))}</span>`;
+        } else {
+          const name = `${fragment(node.name)}${node.number ? ` <span class="bm-envnumber">${fragment(node.number)}</span>` : ''}`;
+          // The title with what the message puts around it, “(title)”, apart from the name and the number.
+          const note = text => {
+            const [, before, inner, after] = text.match(/^(\s*)([\s\S]*?)(\s*)$/);
+            return inner ? `${before}<span class="bm-envnote">${fragment(inner)}</span>${after}` : text;
+          };
+          const marker = '\u0000';
+          const [before, after = ''] = node.title ? t('environment_title', { caption: marker, title: node.title }).split(marker) : [''];
+          heading = `<p class="bm-envtitle">${note(before)}${name}${note(after)}</p>`;
+        }
         return `<div class="bm-env bm-envgroup-${escape(node.group)} bm-env-${escape(node.kind)}"${node.id ? ` id="${escape(node.id)}"` : ''}>${heading}<div class="bm-envcontent">\n`;
       }
       case 'environmentEnd': return '</div>\n</div>\n';
@@ -336,7 +346,7 @@ export function createRenderer(given = {}) {
       case 'bibliographySpanEnd': return '</span>';
       case 'itemLabel': {
         const outer = node.outer ?? 0;
-        return `<span class="bm-item-label${outer ? ' bm-item-label-outer' : ''}${node.block ? ' bm-item-label-block' : ''}" style="--bm-outer: ${outer}"><span>${fragment(inner.trim())}</span></span>`;
+        return `<span class="bm-item-label${outer ? ' bm-item-label-outer' : ''}${node.block ? ' bm-item-label-block' : ''}"${outer ? ` style="--bm-outer: ${outer}"` : ''}><span>${fragment(inner.trim())}</span></span>`;
       }
       case 'itemTarget': return `<span id="${escape(node.id)}" class="bm-item-target"></span>`;
       case 'tag': return tagHTML(node, inner, page, nodes);

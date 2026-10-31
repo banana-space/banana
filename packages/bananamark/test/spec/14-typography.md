@@ -7,7 +7,7 @@ Spaces between Chinese and Western text; spaces beside full-width punctuation re
 ```````````````````````````````` example
 中文English中文，数字123与公式$x$之间 。 括号（ 内侧 ）去掉
 .
-<p>中文 English 中文，数字 123 与公式 <span class="bm-math-rendered" data-tex="x" data-display="false">…</span> 之间。括号（内侧）去掉</p>
+<p>中文 English 中文，数字 123 与公式 <span class="bm-math-rendered" data-tex="x">…</span> 之间。括号（内侧）去掉</p>
 ````````````````````````````````
 
 New spaces go outside links; code is not changed.

@@ -34,10 +34,10 @@ assert.throws(() => { site.tikz = false; }, TypeError);
 assert.match(renderDocument('See [[Groups]].', { dialect: site }).html, /<a title="Missing: Groups" class="bm-wiki-link bm-wiki-link-missing">Groups<\/a>/);
 assert.match(renderDocument('```tikz\n\\draw (0,0);\n```\n', { dialect: site }).html, /class="bm-math-rendered bm-math-display bm-tikz-source"[^>]*><code class="bm-tikz-code">\\draw \(0,0\);<\/code><\/span>/);
 assert.match(renderDocument('$\\begin{tikzcd} A \\end{tikzcd}$', { dialect: site }).html, /bm-tikz-source/);
-assert.match(renderDocument('::: axiom\nx\n:::', { dialect: site }).html, /Axiom 1/);
+assert.match(renderDocument('::: axiom\nx\n:::', { dialect: site }).html, /Axiom <span class="bm-envnumber">1/);
 assert.throws(() => renderDocument('::: conjecture\nx\n:::', { dialect: site }), error => error.code === 'environment_unknown');
 assert.match(renderDocument('<align right>x</align>', { dialect: site }).html, /bm-align-right/);
-assert.match(renderDocument('<spoiler title="t">x</spoiler>', { dialect: site }).html, /<details>/);
+assert.match(renderDocument('<spoiler title="t">x</spoiler>', { dialect: site }).html, /<details class="bm-spoiler">/);
 assert.match(renderDocument('$\\RR$', { dialect: site }).html, /data-tex="\\mathbb\{R\}"/);
 // Its code languages, with its own grammar for markdown blocks (with the data block's language inside).
 assert.match(renderDocument('```meta\nkey: 1\n```\n', { dialect: plainMeta() }).html, /^$/, 'a data block is not shown');

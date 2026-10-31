@@ -9,8 +9,8 @@ A labelled list.
 (b) 乙
 .
 <ol start="0">
-<li><span class="bm-item-label" style="--bm-outer: 0"><span>(a)</span></span>甲</li>
-<li><span class="bm-item-label" style="--bm-outer: 0"><span>(b)</span></span>乙</li>
+<li><span class="bm-item-label"><span>(a)</span></span>甲</li>
+<li><span class="bm-item-label"><span>(b)</span></span>乙</li>
 </ol>
 ````````````````````````````````
 
@@ -23,10 +23,10 @@ References to list items.
 由 @first。
 .
 <ol start="0">
-<li><span class="bm-item-label" style="--bm-outer: 0"><span>(i)</span></span><span id="first" class="bm-item-target"></span>甲</li>
-<li><span class="bm-item-label" style="--bm-outer: 0"><span>(ii)</span></span>乙</li>
+<li><span class="bm-item-label"><span>(i)</span></span><span id="first" class="bm-item-target"></span>甲</li>
+<li><span class="bm-item-label"><span>(ii)</span></span>乙</li>
 </ol>
-<p>由 <a href="#first">(i)</a>。</p>
+<p>由 <a href="#first" class="bm-reference">(i)</a>。</p>
 ````````````````````````````````
 
 Ordinary ordered and unordered lists.

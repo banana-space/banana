@@ -3,6 +3,8 @@
 ## 0.2.0
 
 - **A command.** `bananamark file.md` writes `file.html`, a whole page holding its stylesheets and fonts (see the README).
+- **More of a page can be styled on its own.** New classes: `bm-envnumber` and `bm-envnote` in an environment's title, `bm-reference` on cross-references, `bm-spoiler` on `<spoiler>`, and `bm-bibliography-title` and `bm-bibliography-year` in bibliographies. `bananamark/style.css` now styles `.bm-spoiler` rather than every `details`.
+- **`data-display` is gone from formulas.** The class `bm-math-display` says the same; read that instead. `style="--bm-outer: 0"` is gone too: use `var(--bm-outer, 0)`.
 - **The documentation is in two files.** The README has how to use the package; everything in detail is now in REFERENCE.md.
 
 The dialect's typography and bare addresses are now its own rules, stated in the reference, rather than a port of another Markdown parser's. They read Chinese text better. A page may render differently where it has:

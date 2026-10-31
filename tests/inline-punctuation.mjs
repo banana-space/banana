@@ -10,7 +10,7 @@ const script = await readFile(new URL('../site/scripts/inline-punctuation.js', i
 const icon = '<svg class="ui-icon link-icon icon-external" aria-hidden="true"></svg>';
 const formulas = renderDocument('设 $a = b + c$，则 $n$’s 文字', { lang: 'zh-cn' }).html;
 const dom = new JSDOM(`${formulas}
-<p>图 <span class="bm-math-rendered bm-tikz-rendered" data-display="false"><span class="bm-tikz-body"><svg></svg></span></span>，见 <a class="external-link" href="https://example.org/">某个 网站${icon}</a>．</p>`, { runScripts: 'outside-only' });
+<p>图 <span class="bm-math-rendered bm-tikz-rendered"><span class="bm-tikz-body"><svg></svg></span></span>，见 <a class="external-link" href="https://example.org/">某个 网站${icon}</a>．</p>`, { runScripts: 'outside-only' });
 dom.window.eval(script);
 const { document } = dom.window;
 const [first, second] = document.querySelectorAll('p');

@@ -15,7 +15,7 @@ An article that does not exist.
 ```````````````````````````````` example
 [[环]] 与 [[$\infty$-范畴]]
 .
-<p><a href="/missing/?title=%E7%8E%AF" title="条目尚未创建：环" class="bm-wiki-link bm-wiki-link-missing">环</a>与 <a href="/missing/?title=%E2%88%9E-%E8%8C%83%E7%95%B4&amp;source=%24%5Cinfty%24-%E8%8C%83%E7%95%B4" title="条目尚未创建：∞-范畴" class="bm-wiki-link bm-wiki-link-missing"><span class="bm-math-rendered" data-tex="\infty" data-display="false">…<span class="bm-math-end">…-</span></span>范畴</a></p>
+<p><a href="/missing/?title=%E7%8E%AF" title="条目尚未创建：环" class="bm-wiki-link bm-wiki-link-missing">环</a>与 <a href="/missing/?title=%E2%88%9E-%E8%8C%83%E7%95%B4&amp;source=%24%5Cinfty%24-%E8%8C%83%E7%95%B4" title="条目尚未创建：∞-范畴" class="bm-wiki-link bm-wiki-link-missing"><span class="bm-math-rendered" data-tex="\infty">…<span class="bm-math-end">…-</span></span>范畴</a></p>
 ````````````````````````````````
 
 In tables the separator is written `\|`.

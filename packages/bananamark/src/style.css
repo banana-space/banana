@@ -169,14 +169,14 @@ ol:has(> li > .bm-item-label, > li > p:first-child > .bm-item-label) { padding-l
 /* <align>, and <spoiler> (details). */
 .bm-align-right { text-align: right; }
 .bm-align-center { text-align: center; }
-details {
+.bm-spoiler {
   border: 1px solid var(--bm-border);
   border-radius: 0.5em;
   padding: 0.5em 1em;
   margin: 1em 0;
 }
-details > summary { cursor: pointer; font-weight: 500; }
-details > div > :last-child { margin-bottom: 0; }
+.bm-spoiler > summary { cursor: pointer; font-weight: 500; }
+.bm-spoiler > div > :last-child { margin-bottom: 0; }
 
 /* Bibliographies: hanging entries, versions below them, the entry a citation leads to marked for a moment. */
 .bm-bibliography { margin: 1.5em 0; }

@@ -606,7 +606,7 @@ function transform(source, { file = String(problem('body_name')), lang = 'en', l
       stack.push({ fence: fence[1], start: i, kind });
       edits.push({ start: i, end: i + fence[0].length, output: () => {
         const headingTitle = render(title, i + fence[0].indexOf('[') + 1);
-        return `\n${nodeMarker({ type: 'environment', kind, group, caption, title: headingTitle, bare: titleOnly, id: parsed.id })}\n\n`;
+        return `\n${nodeMarker({ type: 'environment', kind, group, name, number, title: headingTitle, bare: titleOnly, id: parsed.id })}\n\n`;
       } });
     }
     return i + fence[0].length;

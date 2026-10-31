@@ -246,7 +246,7 @@ article {
       unicode-bidi: isolate;
       // An item whose text starts with a nested labelled list on its line ((3) (4) …): its label is written with
       // the nested item's (bm-item-label-outer), and stands --bm-outer lists further left, at the item's own place.
-      margin-right: calc(0.5em + var(--bm-outer) * 2.5em);
+      margin-right: calc(0.5em + var(--bm-outer, 0) * 2.5em);
     }
   }
 

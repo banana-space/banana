@@ -22,7 +22,7 @@ try {
   const page = read('groups.html');
   assert.match(page, /^<!doctype html>\n<html lang="en">/);
   assert.match(page, /<title>Groups<\/title>/);
-  assert.match(page, /<a href="#thm:a">Theorem 1<\/a>/);
+  assert.match(page, /<a href="#thm:a" class="bm-reference">Theorem 1<\/a>/);
   assert.match(page, /\.bm-env/, 'bananamark\'s stylesheet');
   assert.match(page, /url\(data:font\/woff2;base64,/, 'KaTeX\'s fonts');
   assert.doesNotMatch(page, /url\(fonts\/|format\("(woff|truetype)"\)/);
@@ -78,11 +78,11 @@ try {
   assert.match(zh, /<html lang="zh-cn">/);
   assert.match(zh, /<title>关于 x<\/title>/);
   assert.match(zh, /<h1 id="page-title">关于 <span class="bm-math-rendered"/);
-  assert.match(zh, /见<a href="#page-title">关于 /);
+  assert.match(zh, /见<a href="#page-title" class="bm-reference">关于 /);
   assert.match(zh, /句子．<\/p>/);
-  assert.match(zh, /定理 1<\/p>/);
+  assert.match(zh, /定理 <span class="bm-envnumber">1<\/span><\/p>/);
   assert.doesNotMatch(zh, /author:/);
-  assert.match(run(['zh.md', '-o', '-', '--lang', 'en']).stdout, /<html lang="en">[\s\S]*Theorem 1<\/p>/);
+  assert.match(run(['zh.md', '-o', '-', '--lang', 'en']).stdout, /<html lang="en">[\s\S]*Theorem <span class="bm-envnumber">1<\/span><\/p>/);
   // Not front matter: empty is none, and a first block that holds no fields is the body's.
   write('empty.md', '---\n---\nx\n');
   assert.equal(run(['empty.md', '-o', '-', '--fragment']).stdout, '<p>x</p>\n');

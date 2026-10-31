@@ -43,7 +43,7 @@ function nodes(html) {
 const attr = (node, name) => node.attrs?.find(attr => attr.name === name)?.value;
 const text = node => node.nodeName === '#text' ? node.value : (node.childNodes ?? []).map(text).join('');
 const sample = `<html lang="zh-CN"><head><title>中文API。</title><meta property="og:title" content="中文API。"></head><body>
-<p id="mixed">中文<a href="/中文API。">API</a>汉<strong>字</strong>（ <em>汉 字</em> ）汉<span class="bm-math-rendered" data-display="false" data-tex="汉 字。">汉 字。</span>字。</p>
+<p id="mixed">中文<a href="/中文API。">API</a>汉<strong>字</strong>（ <em>汉 字</em> ）汉<span class="bm-math-rendered" data-tex="汉 字。">汉 字。</span>字。</p>
 <p id="links"><a href="/a">汉</a><a href="/b">ABC</a>汉</p>
 <p id="punctuation">如式<a href="/eq">(1.1)</a>所示<span>,</span><em>然后</em>.<a href="/next">其次</a></p>
 <p id="punctuation-break">中文。 \n<span>（注）</span></p>
@@ -57,7 +57,7 @@ const sample = `<html lang="zh-CN"><head><title>中文API。</title><meta proper
 <p id="korean" lang="ko">한 글ABC 漢 字。</p><p id="english" lang="en">漢 字 ( English ) 。</p>
 <div class="bm-bibliography" data-typography="off" lang="en">汉 字。 ( A )</div>
 <pre>汉 字API。 ( X )</pre><script>const title="汉 字API。";</script>
-<p><span class="bm-math-rendered" data-display="true" data-tex="x。">x。</span></p>
+<p><span class="bm-math-rendered bm-math-display" data-tex="x。">x。</span></p>
 <h2>维数 ( <em>向量空间</em> )</h2></body></html>`;
 const formatted = normalizeHTML(sample), all = nodes(formatted);
 const id = name => all.find(node => attr(node, 'id') === name);
@@ -82,7 +82,7 @@ assert.equal(text(all.find(node => node.tagName === 'h2')), '维数 (向量空�
 assert.equal(text(all.find(node => node.tagName === 'title')), '中文 API．');
 assert.equal(attr(all.find(node => node.tagName === 'meta'), 'content'), '中文 API．');
 assert.equal(attr(all.find(node => attr(node, 'href') === '/中文API。'), 'href'), '/中文API。');
-assert.equal(text(all.find(node => attr(node, 'data-display') === 'true')), 'x。');
+assert.equal(text(all.find(node => attr(node, 'class')?.includes('bm-math-display'))), 'x。');
 for (const link of all.filter(node => node.tagName === 'a')) assert.equal(text(link), text(link).trim(), '边界空格进入链接内部');
 assert.equal(normalizeHTML(formatted), formatted, '后处理不是幂等的');
 assert.match(normalizeHTML('<html lang="zh" data-typography-full-stop="off"><body><p>汉字。</p></body></html>'), /汉字。/);
@@ -117,7 +117,7 @@ $$x + y$$
   // Each formula holds exactly KaTeX's HTML for its data-tex (rendered by bananamark, or by a template), which
   // typography leaves alone.
   const katexSpan = node => {
-    const span = parseFragment(`<span>${renderKaTeX(decodeHTML(attr(node, 'data-tex')), attr(node, 'data-display') === 'true')}</span>`).childNodes[0];
+    const span = parseFragment(`<span>${renderKaTeX(decodeHTML(attr(node, 'data-tex')), attr(node, 'class').includes('bm-math-display'))}</span>`).childNodes[0];
     return serialize(span);
   };
   // A formula followed by punctuation has KaTeX's last box with the punctuation in span.bm-math-end (bananamark):

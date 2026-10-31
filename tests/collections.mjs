@@ -62,8 +62,8 @@ try {
   assert.equal((await generated('books/test/first/index.md')).title, 'first');
   assert.equal((await generated('books/test/first/one/index.md')).collectionNumber, '1.1');
   const one = await html('books/test/first/one');
-  assert.match(one, /bm-envtitle">定理 1\.1\.1/); // Missing heading zero removed.
-  assert.match(one, /bm-envtitle">定理 1\.1\.1\.1/);
+  assert.match(one, /bm-envtitle">定理 <span class="bm-envnumber">1\.1\.1<\/span>/); // Missing heading zero removed.
+  assert.match(one, /bm-envtitle">定理 <span class="bm-envnumber">1\.1\.1\.1<\/span>/);
   assert.match(one, /bm-section-number">1\.1\.1\.1/);
   assert.match(one, /href="\/sub\/books\/test\/first\/two\/#thm:two"[^>]*>定理 1\.2\.1/);
   assert.match(one, /href="\/sub\/books\/test\/first\/two\/#page-title"[^>]*>第 1\.2 节/);
@@ -87,15 +87,15 @@ try {
   assert.doesNotMatch(await html('books'), /项目指南|第一小节/);
   assert.doesNotMatch(await html('wiki'), /测试讲义|普通页面/);
   assert.doesNotMatch(await html('categories'), /测试讲义|项目指南/);
-  assert.match(await html('books/plain'), /href="#%E6%AD%A3%E6%96%87%E8%8A%82">第 1 节/);
+  assert.match(await html('books/plain'), /href="#%E6%AD%A3%E6%96%87%E8%8A%82" class="bm-reference">第 1 节/);
   assert.doesNotMatch(await html('books/plain'), /article-item/);
   const about = await html('about');
   assert.match(about, /<h1 id="自有标题">/);
-  assert.match(about, /bm-envtitle">定理 1\.1/);
-  assert.match(about, /href="#%E7%AC%AC%E4%B8%80%E8%8A%82">第 1 节/);
-  assert.match(await html('projects/manual/start'), /bm-envtitle">定理 1/);
+  assert.match(about, /bm-envtitle">定理 <span class="bm-envnumber">1\.1<\/span>/);
+  assert.match(about, /href="#%E7%AC%AC%E4%B8%80%E8%8A%82" class="bm-reference">第 1 节/);
+  assert.match(await html('projects/manual/start'), /bm-envtitle">定理 <span class="bm-envnumber">1<\/span>/);
   assert.equal((await generated('projects/manual/index.md')).collectionKind, 'guide');
-  assert.match(await html('projects/manual/start'), /href="#page-title"><span class="bm-math-rendered" data-tex="\\infty"/);
+  assert.match(await html('projects/manual/start'), /href="#page-title" class="bm-reference"><span class="bm-math-rendered" data-tex="\\infty"/);
   assert.match(one, /#page-title"[^>]*>第 2 章/);
   assert.match(one, /href="#%E6%AD%A3%E6%96%87%E8%8A%82"[^>]*>1\.1\.1/); // Unspecified depth uses default.
   const overview = await html('books/test');
@@ -151,9 +151,9 @@ try {
   // Absolute numbering must also survive the complete cross-page rendering pipeline.
   await write(marker, stringify({ ...config, numbering: { headings: { depth: 2 }, theorems: { absoluteDepth: 1 } } }));
   buildProject(root);
-  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 1\.1/);
-  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 1\.2/);
-  assert.match(await html('books/test/first/two'), /bm-envtitle">定理 1\.3/);
+  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 <span class="bm-envnumber">1\.1<\/span>/);
+  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 <span class="bm-envnumber">1\.2<\/span>/);
+  assert.match(await html('books/test/first/two'), /bm-envtitle">定理 <span class="bm-envnumber">1\.3<\/span>/);
   assert.match(await html('books/test/first/one'), /#thm:two"[^>]*>定理 1\.3/);
   await write(marker, stringify(config));
 

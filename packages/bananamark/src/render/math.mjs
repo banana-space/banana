@@ -24,7 +24,7 @@ export function mathHTML({ tex, display = false, id = '', mode = '' }, { katex: 
   const idAttribute = id ? ` id="${escape(id)}"` : '';
   const className = `bm-math-rendered${display ? ' bm-math-display' : ''}`;
   if (tikz && (mode === 'text' || tikzEnvironment.test(tex))) {
-    return `<span${idAttribute} class="${className} bm-tikz-source" data-tex="${escape(source)}" data-display="${display}" data-tikz-mode="${mode || 'math'}"><code class="bm-tikz-code">${escape(source)}</code></span>`;
+    return `<span${idAttribute} class="${className} bm-tikz-source" data-tex="${escape(source)}" data-tikz-mode="${mode || 'math'}"><code class="bm-tikz-code">${escape(source)}</code></span>`;
   }
-  return `<span${idAttribute} class="${className}" data-tex="${escape(source)}" data-display="${display}">${renderKaTeX(source, display, katexOptions)}</span>`;
+  return `<span${idAttribute} class="${className}" data-tex="${escape(source)}">${renderKaTeX(source, display, katexOptions)}</span>`;
 }

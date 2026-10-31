@@ -25,8 +25,8 @@ assert.equal(normalizeText('English中文English ( x ) xxx （note）， next', 
 assert.equal(normalizeText('中文。', { lang: 'en', convertFullStop: true }), '中文．');
 assert.equal(normalizeText('日本語English。', { lang: 'ja', convertFullStop: true }), '日本語English。');
 // On HTML: formulas as atoms, lang from the elements, the full stop as data-typography-full-stop says.
-assert.equal(typesetHTML('<p>中文<a href="#x">API</a><span class="bm-math-rendered" data-display="false">x</span>值。</p><p lang="ja">漢字A</p><p data-typography-full-stop="off">汉。</p>', { typography: { convertFullStop: true } }),
-  '<p>中文 <a href="#x">API</a><span class="bm-math-rendered" data-display="false">x</span> 值．</p><p lang="ja">漢字A</p><p data-typography-full-stop="off">汉。</p>');
+assert.equal(typesetHTML('<p>中文<a href="#x">API</a><span class="bm-math-rendered">x</span>值。</p><p lang="ja">漢字A</p><p data-typography-full-stop="off">汉。</p>', { typography: { convertFullStop: true } }),
+  '<p>中文 <a href="#x">API</a><span class="bm-math-rendered">x</span> 值．</p><p lang="ja">漢字A</p><p data-typography-full-stop="off">汉。</p>');
 
 // The site's options (香蕉空间: 。 as ．, quotation marks as Western glyphs).
 const site = { convertFullStop: true, spaceQuotes: true };

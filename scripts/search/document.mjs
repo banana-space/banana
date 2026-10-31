@@ -79,6 +79,8 @@ function searchCopy(node) {
   if (excludedTags.has(node.tagName) || EXCLUDED_CLASSES.some(name => names.has(name))
     || attr(node, 'hidden') !== undefined || attr(node, 'aria-hidden') === 'true') return [];
   const children = joinTexts(continuedParagraphs(node.childNodes ?? []).flatMap(searchCopy));
+  // The parts of a theorem's title are one text: its spans are only for styling.
+  if (names.has('bm-envnumber') || names.has('bm-envnote')) return children;
   if (names.has('bm-env')) {
     // The block's id moves to its title heading; the block keeps none.
     const id = attr(node, 'id');

@@ -88,7 +88,7 @@ try {
   const summary = articleHTML.match(/property="og:description" content="([^"]*)"/)[1];
   assert.doesNotMatch(summary, /\\infty|ppp/);
   assert.equal((summary.match(/∞/g) ?? []).length, 1);
-  assert.match(articleHTML, /<h1 class="title" id="page-title">[\s\S]*data-tex="\\infty" data-display="false">[\s\S]*?<\/span>-范畴/);
+  assert.match(articleHTML, /<h1 class="title" id="page-title">[\s\S]*data-tex="\\infty">[\s\S]*?<\/span>-范畴/);
   assert.match(articleHTML, /href="\/wiki\/infinity\/\?from=%E6%97%A0%E7%A9%B7%E8%8C%83%E7%95%B4"/);
   assert.match(articleHTML, /href="\/wiki\/infinity\/\?from=%E2%88%9E\+%E8%8C%83%E7%95%B4"[^>]*>别名 <span class="bm-math-rendered" data-tex="p"/);
   assert.match(articleHTML, /href="\/wiki\/infinity\/" class="bm-wiki-link"><span class="bm-math-rendered"/);
@@ -97,10 +97,10 @@ try {
   assert.match(articleHTML, /<a href="\/wiki\/infinity\/#chapter">页内章节<\/a>/);
   assert.match(articleHTML, /<link rel="canonical" href="https:\/\/example.org\/wiki\/infinity\/">/);
   const listing = await html('wiki');
-  assert.match(listing, /<span class="title"><span class="bm-math-rendered" data-tex="p" data-display="false">[\s\S]*?<\/span> 条目<\/span>/);
+  assert.match(listing, /<span class="title"><span class="bm-math-rendered" data-tex="p">[\s\S]*?<\/span> 条目<\/span>/);
   const pCategory = await html('categories/p_进几何');
   assert.match(pCategory, /<title>分类: p 进几何 - 香蕉空间<\/title>/);
-  assert.match(pCategory, /data-tex="p" data-display="false">[\s\S]*?<\/span> 进几何/);
+  assert.match(pCategory, /data-tex="p">[\s\S]*?<\/span> 进几何/);
   assert.doesNotMatch(pCategory, /data-tex="P"|\$p\$|\$P\$/);
   assert.match(pCategory, /href="\/categories\/C_%E7%A9%BA%E9%97%B4\/"/);
   assert.match(pCategory, /<h2>条目<\/h2>/);

@@ -42,7 +42,7 @@ document.querySelectorAll('a.external-link').forEach(element => {
 // Closing punctuation right after an inline diagram or an external link's icon stays on its line: a nowrap group of
 // the two, the link's label wrapping inside it. (After a formula, bananamark already keeps it with the formula's last
 // box: span.bm-math-end.)
-document.querySelectorAll('a.external-link, .bm-tikz-rendered[data-display="false"]').forEach(element => {
+document.querySelectorAll('a.external-link, .bm-tikz-rendered:not(.bm-math-display)').forEach(element => {
   if (element.parentElement.classList.contains('inline-punctuation')) return;
   const following = element.nextSibling;
   if (following?.nodeType !== Node.TEXT_NODE) return;
