@@ -9,7 +9,6 @@ on:
       - 'packages/**'
       - 'assets/**'
       - 'static/**'
-      - 'i18n/**'
       - 'data/**'
       - 'tests/**'
       - 'site.yaml'

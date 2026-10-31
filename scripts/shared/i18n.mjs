@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
 
-// The site's own text (i18n/zh-cn.yaml): the interface and the site's messages.
+// The site's own text (data/messages.yaml): the interface and the site's messages.
 // bananamark's messages (errors in the dialect, reference text) are its own (packages/bananamark/src/messages/).
-const table = parse(readFileSync(new URL('../../i18n/zh-cn.yaml', import.meta.url), 'utf8'));
+const table = parse(readFileSync(new URL('../../data/messages.yaml', import.meta.url), 'utf8'));
 
 /**
  * A message, with {Name} in it filled in from values; {name} in small letters is left for a browser script to fill

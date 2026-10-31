@@ -7,7 +7,7 @@ import { createServer } from 'node:net';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
-const root = await createProject('serve', ['scripts', 'assets', 'static', 'i18n', 'data', 'content/navboxes', 'site.yaml']);
+const root = await createProject('serve', ['scripts', 'assets', 'static', 'data', 'content/navboxes', 'site.yaml']);
 let child, output = '';
 async function until(check, description) {
   const deadline = Date.now() + 15000;

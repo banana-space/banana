@@ -21,7 +21,7 @@ try {
   await page('navboxes/说明.md', '导航框的说明\n');
 
   let result;
-  for (const [args, message] of [[['content/wiki/不存在'], /文件不存在/], [['content/navboxes/说明.md'], /组件定义/], [['i18n/zh-cn.yaml'], /不是 content/]]) {
+  for (const [args, message] of [[['content/wiki/不存在'], /文件不存在/], [['content/navboxes/说明.md'], /组件定义/], [['data/messages.yaml'], /不是 content/]]) {
     result = run('check', ...args);
     assert.equal(result.status, 1);
     assert.match(result.output, message);

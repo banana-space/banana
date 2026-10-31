@@ -174,7 +174,7 @@ C^n(X; A) = Hom_Z(C_n(X; Z), A)
 
 ## 浏览器端
 
-不使用 Pagefind 自带的 UI。`static/js/search.js` 是 ES 模块，头部在第一次聚焦搜索框时由 `site.js` 用 `import()` 加载，再由它加载 `pagefind.js`；不打开搜索的页面不下载任何搜索文件。地址和界面文字由 `scripts/site/templates/search.mjs` 的 `searchConfig` 写在页面的 `#search-config` 中，文字全部来自 `i18n/zh-cn.yaml`（`search_*`），其中 `{count}`、`{query}` 等占位符由脚本填入。关闭 JavaScript 时头部搜索框保持禁用，结果页显示说明文字。
+不使用 Pagefind 自带的 UI。`static/js/search.js` 是 ES 模块，头部在第一次聚焦搜索框时由 `site.js` 用 `import()` 加载，再由它加载 `pagefind.js`；不打开搜索的页面不下载任何搜索文件。地址和界面文字由 `scripts/site/templates/search.mjs` 的 `searchConfig` 写在页面的 `#search-config` 中，文字全部来自 `data/messages.yaml`（`search_*`），其中 `{count}`、`{query}` 等占位符由脚本填入。关闭 JavaScript 时头部搜索框保持禁用，结果页显示说明文字。
 
 ### 结果模型
 

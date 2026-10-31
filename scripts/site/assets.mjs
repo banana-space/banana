@@ -73,7 +73,7 @@ export async function buildAssets({ development = false } = {}) {
   assets.diff = asset(files, 'js/diff.js', await bundle('assets/js/diff/main.js', { development }), development);
   assets.editor = asset(files, 'js/editor.js', await bundle('assets/js/editor/main.js', { development }), development);
   // The instant checks: the preprocessing's parsing in the browser, node:fs reading the data files embedded here.
-  const embedded = Object.fromEntries(await Promise.all(['i18n/zh-cn.yaml', 'data/theorems.yaml'].map(async file => [file, await readFile(join(root, file), 'utf8')])));
+  const embedded = Object.fromEntries(await Promise.all(['data/messages.yaml', 'data/theorems.yaml'].map(async file => [file, await readFile(join(root, file), 'utf8')])));
   assets.editorCheck = asset(files, 'js/editor-check.js', await bundle('assets/js/editor/check.js', {
     development, alias: { 'node:fs': join(root, 'assets/js/editor/shims/fs.js') }, params: { files: embedded },
     define: { 'import.meta.url': JSON.stringify('https://banana.invalid/scripts/prebuild/check.js') },

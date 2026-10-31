@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 export const projectRoot = fileURLToPath(new URL('../../', import.meta.url));
-const defaults = ['scripts', 'assets', 'static', 'i18n', 'data', 'content', 'site.yaml'];
+const defaults = ['scripts', 'assets', 'static', 'data', 'content', 'site.yaml'];
 
 // 测试使用固定的示例内容和分类树，不依赖、也不复制项目中的真实条目。
 const fixtures = join(projectRoot, 'tests/fixtures');
@@ -15,7 +15,8 @@ export async function createProject(name, paths = defaults) {
   try {
     for (const path of paths) {
       const source = path === 'content' || path.startsWith('content/') ? join(fixtures, path) : join(projectRoot, path);
-      await cp(source, join(root, path), { recursive: true });
+      // Not the real site's legacy revisions, which would attach to fixture pages of the same names.
+      await cp(source, join(root, path), { recursive: true, filter: file => !file.endsWith('/data/legacy_history.json') });
     }
     if (paths.includes('data')) await cp(join(fixtures, 'data'), join(root, 'data'), { recursive: true });
     await symlink(join(projectRoot, 'node_modules'), join(root, 'node_modules'));

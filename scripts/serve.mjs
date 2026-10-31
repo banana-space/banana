@@ -559,20 +559,21 @@ function schedule(change) {
 /** What a change to a file under a watched directory (relative to the repository) asks for. */
 function changeOf(directory, file) {
   if (directory === 'content' || directory === 'data') {
-    if (!file) return 'restart';
+    // The site's text is read when the code loads.
+    if (!file || (directory === 'data' && file === 'messages.yaml')) return 'restart';
     return `${directory}/${file}`;
   }
   if (directory === 'assets') return 'assets';
   if (directory === 'static') return file ? ['static', file] : 'restart';
   if (directory === 'scripts' && file?.startsWith('site/')) return 'generator';
   if (directory === 'packages' && /(?:^|\/)node_modules(?:\/|$)/.test(file ?? '')) return undefined;
-  return 'restart'; // scripts/, packages/, i18n/
+  return 'restart'; // scripts/, packages/
 }
 
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => stop());
 server.on('error', error => { console.error(t('serve_server_failed', { Message: error.message })); stop(1); });
 try {
-  for (const directory of ['content', 'data', 'assets', 'static', 'i18n', 'scripts', 'packages']) {
+  for (const directory of ['content', 'data', 'assets', 'static', 'scripts', 'packages']) {
     if (directory === 'packages' && !await stat(join(root, directory)).catch(() => undefined)) continue; // Copies without the workspace.
     const watcher = watch(join(root, directory), { recursive: true }, (_event, file) => {
       const change = changeOf(directory, file && String(file).split('\\').join('/'));

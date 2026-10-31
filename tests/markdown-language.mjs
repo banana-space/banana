@@ -192,7 +192,7 @@ for (const file of files) {
 // The site's code blocks are highlighted by bananamark as the editor highlights the dialect (the text unchanged),
 // other languages with the same classes.
 {
-  const root = await createProject('code-blocks', ['scripts', 'assets', 'static', 'i18n', 'data', 'site.yaml']);
+  const root = await createProject('code-blocks', ['scripts', 'assets', 'static', 'data', 'site.yaml']);
   try {
     await mkdir(join(root, 'content/wiki/code'), { recursive: true });
     await writeFile(join(root, 'data/categories.yaml'), '数学: {}\n');
