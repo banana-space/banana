@@ -1,6 +1,6 @@
 # 香蕉空间
 
-香蕉空间是一个中文数学百科网站。网站由 Markdown 源文件经 Node.js 生成：渲染器 bananamark（`packages/bananamark/`）渲染正文，本仓库的站点生成器（`scripts/site/`）生成页面，编辑通过 GitHub 的 pull request 提交与审阅。
+香蕉空间是一个中文数学百科网站。网站由 Markdown 源文件经 Node.js 生成：渲染器 [bananamark](https://www.npmjs.com/package/bananamark)（`packages/bananamark/`）渲染正文，本仓库的站点生成器（`scripts/site/`）生成页面，编辑通过 GitHub 的 pull request 提交与审阅。
 
 - 写作指南（给编辑者）：`content/help/`，即网站上的“写作指南”。
 - 开发文档：`docs/`。
@@ -82,7 +82,7 @@ npm run check -- content/wiki/条目名    # 只检查语法与链接，不渲�
 | `data/categories.yaml` | 分类树 |
 | `site/` | 样式（`styles/`）、浏览器脚本（`scripts/`：其中的子目录打包，其余原样发布到 `/js/`）与原样发布的文件（`files/`：字体、图片） |
 | `scripts/` | 构建（模板在 `scripts/site/templates/`）、预览服务与 API |
-| `packages/` | bananamark、bananamark-codemirror、bananamark-tikz 三个包，见 [开发文档](docs/README.md) |
+| `packages/` | [bananamark](https://www.npmjs.com/package/bananamark)、[bananamark-codemirror](https://www.npmjs.com/package/bananamark-codemirror)、[bananamark-tikz](https://www.npmjs.com/package/bananamark-tikz) 三个包，见 [开发文档](docs/README.md) |
 | `tests/` | 测试；`tests/fixtures/` 中有语法示例页面 |
 | `deploy/` | 部署脚本与 systemd 单元，见 [服务器部署](docs/deploy.md) |
 
