@@ -33,26 +33,26 @@ export const parts = list => list.map(part => Object.hasOwn(part, 'tex') ? math(
 
 /** A page's title as shown, formulas rendered. */
 export function displayTitle(site, page) {
-  if (page.params.titleParts) return parts(page.params.titleParts);
-  return page.kind === 'taxonomy' ? t('categories') : page.title;
+  if (page.metadata.titleParts) return parts(page.metadata.titleParts);
+  return page.kind === 'categories' ? t('categories') : page.title;
 }
 
 /** A page's title in the <title> element, as plain text. */
-export const htmlTitle = (site, page) => `${page.title}${page.params.collectionTitle && !page.params.collectionHome ? ` - ${page.params.collectionTitle}` : ''} - ${site.title}`;
+export const htmlTitle = (site, page) => `${page.title}${page.metadata.collectionTitle && !page.metadata.collectionHome ? ` - ${page.metadata.collectionTitle}` : ''} - ${site.title}`;
 
 /** The Open Graph and Twitter card metadata. */
 function opengraph(site, page) {
-  const summary = page.params.summaryText ?? '';
+  const summary = page.metadata.summaryText ?? '';
   const description = page.description || summary || site.description;
-  const article = page.kind === 'page' || page.params.collectionRoot;
+  const article = page.kind === 'page' || page.metadata.collectionRoot;
   return html`<meta property="og:url" content="${page.permalink}">
 <meta property="og:site_name" content="${site.title}">
 <meta property="og:title" content="${page.title || site.title}">
 <meta property="og:description" content="${description}">
-<meta property="og:locale" content="${(page.params.lang ?? site.language).replace(/-/g, '_')}">
+<meta property="og:locale" content="${(page.metadata.lang ?? site.language).replace(/-/g, '_')}">
 <meta property="og:type" content="${article ? 'article' : 'website'}">${article ? [
     page.section ? html`<meta property="article:section" content="${page.section}">` : '',
-    page.params.gitLastmod ? html`<meta property="article:modified_time" content="${page.params.gitLastmod}">` : '',
+    page.metadata.gitLastmod ? html`<meta property="article:modified_time" content="${page.metadata.gitLastmod}">` : '',
   ] : ''}`;
 }
 
@@ -80,7 +80,7 @@ const logo = raw(readFileSync(new URL('../../../static/images/logo.svg', import.
 /** The navigation bar. */
 function header(site, page, { searchPage }) {
   const toc = pageTocItems(site, page);
-  const recent = site.getPage('/recent-changes'), categories = site.getPage('/categories');
+  const recent = site.pageAt('/recent-changes'), categories = site.pageAt('/categories');
   const links = html`<a href="${recent.href}">${t('recent_changes_title')}</a>
         ${categories ? html`<a href="${categories.href}">${t('categories')}</a>` : ''}
         ${collectionLinks(site)}`;
@@ -119,7 +119,7 @@ function header(site, page, { searchPage }) {
   </div>
   ${collectionNavigation(site, page)}
 </nav>
-${page.params.collectionRoot ? html`<script defer src="${relURL('js/collections.js')}"></script>` : ''}`;
+${page.metadata.collectionRoot ? html`<script defer src="${relURL('js/collections.js')}"></script>` : ''}`;
 }
 
 /** The footer. */
@@ -135,9 +135,9 @@ function footer() {
  * page, which has a search field of its own.
  */
 export function baseof(site, page, { title, content, searchPage = false }) {
-  const typography = page.params.typography;
+  const typography = page.metadata.typography;
   return html`<!DOCTYPE html>
-<html lang="${page.params.lang ?? site.language}"${site.development && page.relative ? html` data-source="${page.relative}"` : ''}${typography && typography.convertChineseFullStop === false ? raw(' data-typography-full-stop="off"') : ''}>
+<html lang="${page.metadata.lang ?? site.language}"${site.development && page.relative ? html` data-source="${page.relative}"` : ''}${typography && typography.convertChineseFullStop === false ? raw(' data-typography-full-stop="off"') : ''}>
 
 <head>
   <title>${title}</title>

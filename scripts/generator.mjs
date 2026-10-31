@@ -42,7 +42,7 @@ export function siteGenerator({ development = false, threads = true, jobs, cores
     pool = Promise.resolve(finishingPool(jobs));
   }
   // What changes the pages or their assets goes to every core; renders are shared out; the rest goes to the first.
-  const everywhere = new Set(['setPages', 'updatePages', 'setAssets', 'load']);
+  const everywhere = new Set(['setPages', 'loadPages', 'updatePages', 'setAssets']);
   return {
     /** Calls a method of the core (see core.mjs). */
     async call(method, ...args) {

@@ -14,14 +14,14 @@ const two = number => String(number).padStart(2, '0');
 
 /** A name in the recent changes: a page, a book ({ book }), or a page in one ({ book, page }); added: a new page. */
 function recentName(site, item) {
-  const book = item.book && site.getPage(`/${item.book}`);
-  const page = item.page && site.getPage(`/${item.page}`);
-  return html`<span class="home-recent-name">${book ? html`<a href="${book.href}">${book.params.collectionKind === 'lecture' ? icon('book') : ''}${displayTitle(site, book)}</a>` : ''}${item.book && item.page ? html`<span class="home-recent-path" aria-hidden="true">›</span>` : ''}${page ? html`<a href="${page.href}">${displayTitle(site, page)}</a>` : ''}${item.added ? html`<sup class="home-recent-new"><span aria-hidden="true">+</span><span class="sr-only">${t('recent_changes_added')}</span></sup>` : ''}</span>`;
+  const book = item.book && site.pageAt(`/${item.book}`);
+  const page = item.page && site.pageAt(`/${item.page}`);
+  return html`<span class="home-recent-name">${book ? html`<a href="${book.href}">${book.metadata.collectionKind === 'lecture' ? icon('book') : ''}${displayTitle(site, book)}</a>` : ''}${item.book && item.page ? html`<span class="home-recent-path" aria-hidden="true">›</span>` : ''}${page ? html`<a href="${page.href}">${displayTitle(site, page)}</a>` : ''}${item.added ? html`<sup class="home-recent-new"><span aria-hidden="true">+</span><span class="sr-only">${t('recent_changes_added')}</span></sup>` : ''}</span>`;
 }
 
 /** The latest changes. */
 function recentChanges(site, changes) {
-  const recent = site.getPage('/recent-changes');
+  const recent = site.pageAt('/recent-changes');
   return html`<section class="home-recent" aria-labelledby="home-recent-title">
   <h2 class="home-recent-title" id="home-recent-title">${t('recent_changes_title')}</h2>
   <ol class="home-recent-list">${changes.map(change => {
@@ -58,9 +58,9 @@ function note(content) {
 }
 
 export function homeContent(site, page) {
-  const wiki = site.regularPages.filter(item => item.section === 'wiki').length;
-  const books = site.listed.filter(item => item.params.collectionHome === true && item.params.collectionKind === 'lecture').length;
-  const categories = site.getPage('/categories'), bookIndex = site.getPage('/books'), recent = site.getPage('/recent-changes'), help = site.getPage('/help');
+  const wiki = site.leaves.filter(item => item.section === 'wiki').length;
+  const books = site.listed.filter(item => item.metadata.collectionHome === true && item.metadata.collectionKind === 'lecture').length;
+  const categories = site.pageAt('/categories'), bookIndex = site.pageAt('/books'), recent = site.pageAt('/recent-changes'), help = site.pageAt('/help');
   return html`<section class="container page home">
   <article>
     <header>
@@ -95,9 +95,9 @@ export function homeContent(site, page) {
           <span class="home-tile-foot"><span>${raw(t('home_books_count', { Count: books }))}</span><span class="home-tile-arrow" aria-hidden="true">→</span></span>
         </a>` : ''}
       </div>
-      ${page.params.recentChanges?.length ? recentChanges(site, page.params.recentChanges) : ''}
+      ${page.metadata.recentChanges?.length ? recentChanges(site, page.metadata.recentChanges) : ''}
       <ul class="home-links">
-        ${!page.params.recentChanges?.length ? html`<li><a href="${recent.href}"><span class="home-link-name">${t('recent_changes_title')}</span><span class="home-link-text">${t('home_recent_changes_text')}</span></a></li>` : ''}
+        ${!page.metadata.recentChanges?.length ? html`<li><a href="${recent.href}"><span class="home-link-name">${t('recent_changes_title')}</span><span class="home-link-text">${t('home_recent_changes_text')}</span></a></li>` : ''}
         ${help ? html`<li><a href="${help.href}"><span class="home-link-name">${displayTitle(site, help)}</span><span class="home-link-text">${t('home_help_text')}</span></a></li>` : ''}
         ${site.repository ? html`<li><a href="${`https://github.com/${site.repository}`}" target="_blank" rel="noopener"><span class="home-link-name">GitHub${icon('external')}</span><span class="home-link-text">${t('home_github_text')}</span></a></li>` : ''}
       </ul>

@@ -3,7 +3,7 @@ import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { parse, stringify } from 'yaml';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { parse as parseHTML, serialize } from 'parse5';
 import { typesetTree } from 'bananamark/typography';
 import { typography } from '../scripts/shared/typography.mjs';
@@ -37,14 +37,13 @@ try {
   await mkdir(directory, { recursive: true });
   const source = `---\ntitle: Translation test\nnavboxes: [代数拓扑]\n---\n\n::: proof\n正文\n:::\n\n\`\`\`terms\n群: {de: 'Gruppe :m'}\n\`\`\`\n\n\`\`\`bibliography\nbook: {type: book, title: Book, url: 'https://example.com/book.pdf'}\nweb: {type: online, title: Web, site: Test, url: 'https://example.com', urldate: '2024-06-01'}\n\`\`\`\n`;
   await writeFile(join(directory, 'index.md'), source);
-  const output = execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, encoding: 'utf8' });
-  assert.match(output, /^prebuild: \d+ pages -> \.build\/content \(\d+ ms\)$/m, 'Build progress is in English with timings');
-  const generated = await readFile(join(root, '.build/content/wiki/i18n-test/index.md'), 'utf8');
+  const generated = generatedPages(root).get('wiki/i18n-test/index.md').html;
   // The bibliography's words are bananamark's (its messages), not the site's.
   assert.match(generated, /无日期/);
   assert.match(generated, /访问于 2024-06-01/);
   assert.match(generated, /<a href="https:\/\/example.com\/book\.pdf"[^>]*>pdf/);
-  buildProject(root);
+  const output = execFileSync(process.execPath, ['scripts/build.mjs'], { cwd: root, encoding: 'utf8' });
+  assert.match(output, /^prebuild: \d+ pages \(\d+ ms\)$/m, 'Build progress is in English with timings');
   const html = normalizeHTML(await readFile(join(root, 'public/wiki/i18n-test/index.html'), 'utf8'));
   assert.match(html, /placeholder="Find 香蕉空间"/);
   assert.match(html, /"noResults":"Nothing for \{query\}"/);

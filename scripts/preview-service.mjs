@@ -4,9 +4,7 @@ import { copyFile, mkdir, readFile, readdir, rename, rm, rmdir, stat, writeFile 
 import { deserialize, serialize } from 'node:v8';
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parse as parseYAML } from 'yaml';
-import { prebuild } from './prebuild/run.mjs';
-import { publishPlan, writePages } from './prebuild/publish.mjs';
+import { prebuild, sameFile } from './prebuild/run.mjs';
 import { affectedPages } from './prebuild/affected.mjs';
 import { pageURL } from './shared/pages.mjs';
 import { pack, unpack } from './shared/compress.mjs';
@@ -30,10 +28,8 @@ const root = fileURLToPath(new URL('../', import.meta.url));
  *
  * - baseURL：页面中的地址前缀（也用于预处理渲染的正文）。
  * - output：serve 的预览目录（写入页面与其他文件）；在线编辑只把 TikZ 字体复制到这里。
- * - content：生成目录（相对仓库根目录），默认 .build/content。
  * - environment：development 或 production；与对照的完整构建一致（资源的文件名），页面才逐字节相同。
- * - frontMatterOnly：内存中的页面只有 front matter，预览时只有被预览的页面有正文。生成目录不能再供完整构建使用，
- *   所以只用于在线编辑，不用于 serve。
+ * - frontMatterOnly：内存中的页面只有 front matter，预览时只有被预览的页面有正文。只用于在线编辑，不用于 serve。
  * - threads：站点生成器在 worker 线程中运行（serve：生成器的代码改了，重启线程即可，预处理的状态不丢）；在线编辑
  *   在本线程中运行，内存少些。
  * - jobs、cores：完成页面的线程数（默认最多 4 个）与运行模板的线程数（默认 1 个），见 generator.mjs。
@@ -43,9 +39,8 @@ const root = fileURLToPath(new URL('../', import.meta.url));
  *   的页面不必再完成、写入（完成页面的代码改了则作废）。
  * - tikzIdle：TikZ 编译进程在最后一次使用之后保留多久（毫秒）。启动一次约 0.5 s，运行时约占 370 MB。
  */
-export function previewService({ baseURL, output, content = '.build/content', environment = 'development', frontMatterOnly = false, threads = false, jobs, cores, onSearch = () => {}, renderCache, outputsCache, tikzIdle = 60000 }) {
+export function previewService({ baseURL, output, environment = 'development', frontMatterOnly = false, threads = false, jobs, cores, onSearch = () => {}, renderCache, outputsCache, tikzIdle = 60000 }) {
   if (baseURL) setBaseURL(baseURL);
-  const contentDir = resolve(root, content);
   const development = environment === 'development';
   const generator = siteGenerator({ development, threads, jobs, cores });
   let site;
@@ -70,21 +65,20 @@ export function previewService({ baseURL, output, content = '.build/content', en
   const diagrams = (destination, budget = Infinity) => siteDiagrams(destination, { workerIdleTimeout: tikzIdle, totalTimeout: budget });
 
   /** A generated page as the generator's core takes it (see site/core.mjs). */
-  const pageOf = (relative, file) => file.compressed ? { relative, params: file.metadata, compressed: file.compressed } : { relative, text: file.text };
-  const isPage = (relative, file) => /\.md$/i.test(relative) && (file.compressed || typeof file.text === 'string');
+  const pageOf = (relative, file) => ({ relative, metadata: file.metadata, compressed: file.compressed });
   /** Hands the prebuild's pages to the generator, once after each full prebuild (or a restart of the generator). */
   async function syncPages() {
     if (!assetsBuilt) await buildAssets();
     if (pagesSynced) return;
-    await generator.call('setPages', [...site.files].filter(([relative, file]) => isPage(relative, file)).map(([relative, file]) => pageOf(relative, file)));
+    await generator.call('setPages', [...site.files].filter(([, file]) => file.metadata).map(([relative, file]) => pageOf(relative, file)));
     pagesSynced = true;
   }
-  /** The generator's pages after these generated files (relative paths) changed in the prebuild's state. */
+  /** The generator's pages after these files (relative paths) changed in the prebuild's state. */
   async function updatePages(relatives) {
     if (!pagesSynced) return syncPages();
     await generator.call('updatePages', [...relatives].filter(relative => /\.md$/i.test(relative)).map(relative => {
       const file = site.files.get(relative);
-      return [relative, file && isPage(relative, file) ? pageOf(relative, file) : null];
+      return [relative, file?.metadata ? pageOf(relative, file) : null];
     }));
   }
 
@@ -107,13 +101,13 @@ export function previewService({ baseURL, output, content = '.build/content', en
     return { written, addressesChanged };
   }
 
-  /** 完整预处理，写入生成目录；失败时之后的请求一律拒绝，直到再次成功。 */
+  /** 完整预处理；失败时之后的请求一律拒绝，直到再次成功。 */
   const refresh = () => exclusive(async () => {
     site = undefined;
     pagesSynced = false;
     const start = performance.now();
-    const result = await prebuild({ destination: contentDir, frontMatterOnly, renderCache: renderCache && resolve(root, renderCache) });
-    console.log(headline('prebuild', `${result.pages} pages -> ${content}`, elapsed(start)));
+    const result = await prebuild({ frontMatterOnly, history: !frontMatterOnly, renderCache: renderCache && resolve(root, renderCache) });
+    console.log(headline('prebuild', `${result.pages} pages`, elapsed(start)));
     for (const line of result.timings) console.log(line);
     site = result;
   });
@@ -133,7 +127,7 @@ export function previewService({ baseURL, output, content = '.build/content', en
   }
 
   /**
-   * Renders pages (generated relative paths) and the shared files into output; with all, every page, and the
+   * Renders pages (relative paths) and the shared files into output; with all, every page, and the
    * files no page makes any more are removed. Returns { written, removed, unchanged, timings }.
    */
   async function generate(relatives, { all = false, attachments = [], timings = {} } = {}) {
@@ -157,7 +151,7 @@ export function previewService({ baseURL, output, content = '.build/content', en
         },
       };
       result = await publishPages(generator, pages, { destination: output, diagrams: renderer, cache, search: path => entries.get(path) });
-      // Attachments changed in place (hard links to their sources) are published anew.
+      // Attachments changed in place are published anew.
       for (const relative of attachments) for (const [path, source] of shared.resources) if (source === relative) outputs.delete(path);
       const sharedWritten = await publishShared(generator, shared, { destination: output, diagrams: renderer, cache, source: relative => site.files.get(relative).link });
       result.written.push(...sharedWritten);
@@ -309,7 +303,6 @@ export function previewService({ baseURL, output, content = '.build/content', en
     const timings = {};
     const start = performance.now();
     const { files } = await site.update(await readSources(pages));
-    await writePages(files, contentDir);
     await updatePages(files.keys());
     timings.prebuild = elapsed(start);
     return generate([...files.keys()], { timings });
@@ -329,17 +322,13 @@ export function previewService({ baseURL, output, content = '.build/content', en
     const known = site.categoryNames();
     if (trial.categories.some(name => !known.has(name))) return { site: true };
     const before = state(site, new Map(site.files));
-    const previous = new Map([...trial.files.keys()].map(relative => [relative, site.generatedText(relative)]));
+    const previous = new Map([...trial.files.keys()].map(relative => [relative, site.files.get(relative)]));
     const { files } = await site.update(sources);
     const after = state(site);
-    const changed = new Set([...files].filter(([relative, text]) => previous.get(relative) !== text).map(([relative]) => relative));
+    const changed = new Set([...files].filter(([relative, file]) => !previous.get(relative) || !sameFile(previous.get(relative), file)).map(([relative]) => relative));
     const { touch, removed } = affectedPages({ before, after, targets: site.linkTargets(), roots: site.collections, changed });
-    // Dependent pages whose own text changes (a link to a renamed article) are written too.
-    for (const [relative, text] of site.rerender(touch)) {
-      files.set(relative, text);
-      changed.add(relative);
-    }
-    await writePages(new Map([...changed].map(relative => [relative, files.get(relative)])), contentDir);
+    // Dependent pages whose own text changes (a link to a renamed article) change too.
+    for (const [relative] of site.rerender(touch)) changed.add(relative);
     await updatePages(changed);
     timings.prebuild = elapsed(start);
     const result = await generate([...changed, ...touch].filter(path => /\.md$/i.test(path)), { timings });
@@ -349,22 +338,21 @@ export function previewService({ baseURL, output, content = '.build/content', en
   });
 
   /**
-   * 完整预处理（content/ 中任何修改：新建、删除与改名、附件、组件、书册目录、分类树、Git 日期），把变化的生成文件写入
-   * 生成目录，并重新渲染它们与依赖它们的页面。categoriesChanged：分类树有变化；paths：变化的源文件（content/ 内的
-   * 相对路径），其中的附件一律重新发布。返回与 renderPages 相同；失败时抛出错误，全站状态不变（生成目录可能已部分
-   * 写入，调用者应完整构建）。
+   * 完整预处理（content/ 中任何修改：新建、删除与改名、附件、组件、书册目录、分类树、Git 日期），重新渲染变化的页面与
+   * 依赖它们的页面。categoriesChanged：分类树有变化；paths：变化的源文件（content/ 内的相对路径），其中的附件一律重新
+   * 发布。返回与 renderPages 相同；失败时抛出错误，全站状态不变。
    */
   const refreshSite = ({ categoriesChanged = false, paths = [] } = {}) => exclusive(async () => {
     ready();
     const timings = {};
     const start = performance.now();
-    const next = await sourceErrors(prebuild({ destination: contentDir, frontMatterOnly, publish: false, renderCache: renderCache && resolve(root, renderCache) }));
+    const next = await sourceErrors(prebuild({ frontMatterOnly, renderCache: renderCache && resolve(root, renderCache) }));
     const before = state(site), after = state(next);
     const attachments = paths.filter(path => next.files.get(path)?.link !== undefined);
-    const plan = await publishPlan(next.files, contentDir, { force: attachments }), changed = [...plan.removed, ...plan.written];
+    const changed = [...site.files.keys()].filter(relative => !next.files.has(relative));
+    for (const [relative, file] of next.files) if (attachments.includes(relative) || !site.files.has(relative) || !sameFile(site.files.get(relative), file)) changed.push(relative);
     const { touch, removed } = affectedPages({ before, after, targets: next.linkTargets(), roots: next.collections, changed: new Set(changed), categoriesChanged });
     site = next;
-    await plan.run(changed);
     await updatePages(changed);
     timings.prebuild = elapsed(start);
     const result = await generate([...changed, ...touch].filter(path => /\.md$/i.test(path)), { attachments, timings });
@@ -386,10 +374,10 @@ export function previewService({ baseURL, output, content = '.build/content', en
     timings.prebuild = elapsed(start);
     start = performance.now();
     await syncPages();
-    const url = pageURL(relative, generatedMetadata(files.get(relative)));
+    const url = pageURL(relative, files.get(relative).metadata);
     const path = url && outputPath(url);
-    const rendered = url ? new Map(await generator.call('render', [relative], { drafts: [...files].map(([draft, generated]) => ({ relative: draft, text: generated })) })) : new Map();
-    if (!rendered.has(path)) throw new Error(`content/${relative}: 页面未发布（草稿、未来日期或 build.render 为 never），没有可预览的输出`);
+    const rendered = url ? new Map(await generator.call('render', [relative], { drafts: [...files].map(([draft, file]) => pageOf(draft, file)) })) : new Map();
+    if (!rendered.has(path)) throw new Error(`content/${relative}: 页面未发布（草稿），没有可预览的输出`);
     timings.render = elapsed(start);
     start = performance.now();
     // A preview compiles its new diagrams in 20 s at most.
@@ -435,8 +423,7 @@ export function previewService({ baseURL, output, content = '.build/content', en
   function url(relative) {
     ready();
     const file = site.files.get(relative);
-    if (!file || !isPage(relative, file)) return undefined;
-    return pageURL(relative, file.metadata ?? generatedMetadata(file.text));
+    return file?.metadata ? pageURL(relative, file.metadata) : undefined;
   }
 
   /** 只检查稿件，不渲染：返回 { missingLinks }，错误照常抛出。 */
@@ -453,9 +440,6 @@ export function previewService({ baseURL, output, content = '.build/content', en
     waiting: () => waiting,
   };
 }
-
-/** The front matter of a generated page's text. */
-const generatedMetadata = text => parseYAML(text.match(/^---\n([\s\S]*?)---\n/)[1]) ?? {};
 
 /**
  * A digest of the code that finishes pages (typography, search documents, TikZ in bananamark, and what they use), to tell whether

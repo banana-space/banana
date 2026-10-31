@@ -92,7 +92,7 @@ search_results_title: “{Query}” 的搜索结果
 search_view_all: 查看全部 {Count} 个结果
 site_search: 站内搜索
 table_of_contents: 目录
-taxonomy_separator: ": "
+category_separator: ": "
 term_translations: 术语翻译
 term_variant_separator: 、
 

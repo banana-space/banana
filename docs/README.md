@@ -35,10 +35,10 @@
 
 ## 构建流程
 
-`npm run build`（`scripts/build.mjs`）依次执行：
+`npm run build`（`scripts/build.mjs`）依次执行两步：
 
-1. **预处理**（`scripts/prebuild.mjs`、`scripts/prebuild/`）：读取 `content/`，检查页面信息，解析名称与别名、分类、书册，用 bananamark 把正文渲染成 HTML（公式由 KaTeX 渲染），写出生成目录 `.build/content/`。源文件不会被修改。
-2. **站点生成**（`scripts/site.mjs`、`scripts/site/`）：用模板函数（`scripts/site/templates/`）生成全部页面，在 worker 线程中完成模板文字的中文排版与搜索文档（`scripts/site/finish.mjs`），再用 bananamark-tikz 放入 TikZ 图形，写入 `public/`，最后建立搜索索引。样式与脚本由 esbuild 和 sass 生成，KaTeX 的样式和字体来自 npm 包，发布到 `/katex/`，不依赖外部 CDN。
+1. **预处理**（`scripts/prebuild/`，在一个子进程中运行，`process.mjs`）：读取 `content/`，检查页面信息，解析名称与别名、分类、书册，用 bananamark 把正文渲染成 HTML（公式由 KaTeX 渲染），把每个页面的元数据与压缩的正文写到一个临时文件（`.build/prebuilt-pages.bin`，约 40 MB），由下一步读入。源文件不会被修改；失败时 `public/` 保持原样。用子进程是因为预处理最多要约 1.5 GB：进程结束时全部还给系统，worker 线程结束时大部分还留在进程中，要叠加在站点生成之下。用文件而不是进程间的消息，是因为后者要在主线程占用约 500 MB。
+2. **站点生成**（`scripts/site/`）：用模板函数（`scripts/site/templates/`）生成全部页面，在 worker 线程中完成模板文字的中文排版与搜索文档（`scripts/site/finish.mjs`），再用 bananamark-tikz 放入 TikZ 图形，写入 `public/`，最后建立搜索索引。样式与脚本由 esbuild 和 sass 生成，KaTeX 的样式和字体来自 npm 包，发布到 `/katex/`，不依赖外部 CDN。
 
 ## 其他约定
 

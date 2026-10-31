@@ -1,10 +1,10 @@
-import { createProject, buildProject, projectRoot } from './helpers/project.mjs';
+import { createProject, buildProject, projectRoot, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { runInNewContext } from 'node:vm';
-import { parse, stringify } from 'yaml';
+import { stringify } from 'yaml';
 import { directoryName, pageName } from '../scripts/shared/names.mjs';
 
 // Titles and aliases are typeset as Markdown text is, outside formulas; the key, and so every link, is unchanged.
@@ -61,13 +61,13 @@ try {
   await article('lp-upper', { title: '$L^p$ 空间' });
   await article('lp-lower', { title: '$L_p$ 空间' }, String.raw`[[$L^{p}$ 空间]] [[$L_p$  空间|下标]] [[$H^1(X;\mathbb Z)$ 的计算]]`);
   const source = await readFile(join(root, 'content/wiki/infinity/index.md'), 'utf8');
-  const prebuild = () => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' });
+  const prebuild = () => generatedPages(root);
   const build = (extra = []) => {
     buildProject(root, extra);
   };
   const html = path => readFile(join(root, 'public', path, 'index.html'), 'utf8');
   build();
-  const generated = parse((await readFile(join(root, '.build/content/wiki/infinity/index.md'), 'utf8')).split('---\n')[1]);
+  const generated = prebuild().get('wiki/infinity/index.md').metadata;
   assert.equal(generated.title, '∞-范畴');
   assert.deepEqual(generated.wikiAliases, ['无穷范畴', '∞ 范畴']);
   assert.equal(generated.aliases, undefined);
@@ -152,12 +152,10 @@ try {
   assert.match(homepage, /href="\/docs\/categories\/">分类/);
   assert.equal(await readFile(join(root, 'content/wiki/infinity/index.md'), 'utf8'), source);
 
-  // Conflicts are checked before publishing a new content snapshot.
-  const snapshot = await readFile(join(root, '.build/content/wiki/infinity/index.md'), 'utf8');
+  // Conflicts.
   for (const entry of [{ title: '无穷范畴' }, { title: '其他', aliases: ['∞-范畴'] }, { title: '其他', aliases: ['无穷范畴'] }]) {
     await article('conflict', entry);
     assert.throws(prebuild, /条目名称重复/);
-    assert.equal(await readFile(join(root, '.build/content/wiki/infinity/index.md'), 'utf8'), snapshot);
   }
   await rm(join(root, 'content/wiki/conflict'), { recursive: true });
   await article('infinity', { ...metadata, aliases: '无穷范畴' });

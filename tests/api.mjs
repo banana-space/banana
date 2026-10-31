@@ -137,16 +137,9 @@ try {
   const expectedMany = await fullBuild(new Map(independent), answers.slice(0, 16).map(answer => answer.url));
   for (let i = 0; i < 16; i++) assert.equal(comparable(answers[i].html), comparable(expectedMany[i]), `并发预览 ${independent[i][0]} 与完整构建不一致`);
 
-  // Drafts never reach the generated directory: it is the site's, without the new page.
-  execFileSync(process.execPath, ['--input-type=module', '-e', `const { prebuild } = await import(${JSON.stringify(join(root, 'scripts/prebuild/run.mjs'))}); await prebuild({ destination: ${JSON.stringify(join(root, 'committed'))}, frontMatterOnly: true });`], { cwd: root, stdio: 'pipe' });
-  const tree = async directory => {
-    const files = new Map();
-    for (const entry of await readdir(directory, { recursive: true, withFileTypes: true })) {
-      if (entry.isFile()) files.set(join(entry.parentPath, entry.name).slice(directory.length), await readFile(join(entry.parentPath, entry.name), 'utf8'));
-    }
-    return files;
-  };
-  assert.deepEqual(await tree(join(root, '.build/api/content')), await tree(join(root, 'committed')), '稿件写入了生成目录');
+  // Drafts are written nowhere: the API's output holds only the fonts of TikZ diagrams.
+  const outputs = await readdir(join(root, '.build/api'), { recursive: true, withFileTypes: true });
+  assert.deepEqual(outputs.filter(entry => entry.isFile() && /\.(?:md|html)$/.test(entry.name)).map(entry => entry.name), [], '稿件写入了文件');
 
   // Errors carry the page's line; unpublished pages and duplicate names are reported.
   let answer = await request('preview', { path: 'content/wiki/甲/index.md', text: wiki('甲', '见 @eq:不存在。') });
@@ -204,7 +197,7 @@ try {
   const closed = once(child, 'close');
   child.kill('SIGTERM');
   await closed;
-  console.log(`API：开发登录、会话与跨站拒绝、源文本；条目、别名、新页面与书册稿件（去掉行号标记后）与完整构建一致、行号标记，稿件之间互不影响，20 个并发预览按序正确（${Math.round(elapsed)} ms），启动预热、生成目录不受稿件影响、错误行号、未发布与重名、请求限制验证通过`);
+  console.log(`API：开发登录、会话与跨站拒绝、源文本；条目、别名、新页面与书册稿件（去掉行号标记后）与完整构建一致、行号标记，稿件之间互不影响，20 个并发预览按序正确（${Math.round(elapsed)} ms），启动预热、稿件不写入文件、错误行号、未发布与重名、请求限制验证通过`);
 } catch (error) {
   if (output) console.error(output);
   throw error;

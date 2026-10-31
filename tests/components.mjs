@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -45,13 +45,9 @@ try {
   await writeFile(page, original
     .replace('## 人名标注', '```terms\n前置术语: {en: early term}\n```\n\n## 人名标注')
     .replace('  de: Gruppe :f', '  de: Gruppe :f\n环:\n  de: Ring :m\n  en: ring') + '\n```terms\n多译名:\n  en: [first, second]\n  ja: {text: 位相, reading: [い, そう]}\n  fr: {text: "<script>literal</script>", gender: f}\n```\n\n数据块之后的正文。\n');
-  // Old generated definitions must be removed on the next successful prebuild.
-  await mkdir(join(root, '.build/content/navboxes'), { recursive: true });
-  await writeFile(join(root, '.build/content/navboxes/leaked.md'), 'This must not become a page.');
   const build = () => buildProject(root);
   build();
-  await assert.rejects(stat(join(root, '.build/content/navboxes')), { code: 'ENOENT' });
-  await assert.rejects(stat(join(root, 'public/navboxes/leaked/index.html')), { code: 'ENOENT' });
+  await assert.rejects(stat(join(root, 'public/navboxes')), { code: 'ENOENT' });
   const html = await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8');
   assert.match(html, /rowspan="2"/);
   assert.match(html, /colspan="2"/);
@@ -125,7 +121,7 @@ try {
     ['navboxes: ["../代数拓扑"]', /不能包含路径/],
   ]) {
     await writeFile(page, `---\ntitle: 组件示例\n${frontMatter}\n---\n正文\n`);
-    assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), error);
+    assert.throws(() => generatedPages(root), error);
   }
   // 人名的生卒年、日语注音与姓名语言；参见；图片宽度；条目默认地址保留大小写与标点。
   await writeFile(page, '---\ntitle: 组件示例\n---\n正文\n');

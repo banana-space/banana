@@ -216,7 +216,7 @@ export async function prepareCollections({ source, records, dates, normalize, ro
       const ownNumber = record === root || record.node?.number === false || (record.node?.number === undefined && !effective.pages) ? '' : vector.join('.');
       Object.assign(metadata, {
         collectionRoot: rootKey, collectionTitle: root.metadata.title, collectionPage: record.collectionPath,
-        collectionNumber: ownNumber, collectionDepth: depth, structuredPage: true,
+        collectionNumber: ownNumber, collectionDepth: depth,
         collectionHome: record === root, collectionKind: rootKey.startsWith('books/') ? 'lecture' : 'guide',
       });
       if (modified) metadata.gitLastmod = modified;
@@ -248,7 +248,7 @@ export async function prepareCollections({ source, records, dates, normalize, ro
     // Mark the complete excluded branch, including descendants not traversed above.
     for (const record of all) if (record.visible === undefined) {
       record.visible = false;
-      Object.assign(record.metadata, { collectionRoot: rootKey, structuredPage: true, unpublished: true });
+      Object.assign(record.metadata, { collectionRoot: rootKey, unpublished: true });
     }
     // Excluding the root from search excludes the whole collection.
     if (root.metadata.search === false) for (const record of all) record.metadata.search = false;

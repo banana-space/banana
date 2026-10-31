@@ -28,7 +28,13 @@ export async function createProject(name, paths = defaults) {
   } catch (error) { await rm(root, { recursive: true, force: true }); throw error; }
 }
 
+
 export function buildProject(root, extra = []) {
-  execFileSync(process.execPath, ['scripts/prebuild.mjs', ...extra], { cwd: root, stdio: 'pipe' });
-  execFileSync(process.execPath, ['scripts/site.mjs', ...extra], { cwd: root, stdio: 'pipe' });
+  execFileSync(process.execPath, ['scripts/build.mjs', ...extra], { cwd: root, stdio: 'pipe' });
+}
+
+/** The prebuild alone: Map of a page's relative path → { metadata, html }. Its errors are thrown. */
+export function generatedPages(root, extra = []) {
+  const output = execFileSync(process.execPath, [join(projectRoot, 'tests/helpers/generated-pages.mjs'), ...extra], { cwd: root, encoding: 'utf8', stdio: 'pipe', maxBuffer: 2 ** 30 });
+  return new Map(JSON.parse(output));
 }

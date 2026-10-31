@@ -2,6 +2,7 @@ import { t } from '../../shared/i18n.mjs';
 import { relURL } from '../../shared/urls.mjs';
 import { pathEscape } from 'bananamark';
 import { queryEscape } from 'bananamark';
+import { isList } from '../model.mjs';
 import { escape, html, json, raw } from '../html.mjs';
 import { collectionDirectory, collectionFooter, showCollectionSidebar } from './collections.mjs';
 import { displayTitle, icon, parts } from './layout.mjs';
@@ -12,28 +13,27 @@ import { displayTitle, icon, parts } from './layout.mjs';
  */
 
 /** The table of contents' items, from the prebuild's headings. */
-function sectionTocItems(page, headings, numbered) {
-  const depth = page.params.tocDepth === undefined ? 2 : Number.parseInt(page.params.tocDepth, 10);
+function sectionTocItems(page, headings) {
+  const depth = page.metadata.tocDepth === undefined ? 2 : Number.parseInt(page.metadata.tocDepth, 10);
   return (headings ?? []).map(heading => {
     if (heading.level >= 2 && heading.level <= depth + 1) {
-      const title = (page.params.referenceHeadings?.[heading.id] ?? '').replace(/<\/?a\b[^>]*>/gi, '');
-      const number = numbered ? page.params.sectionNumbers?.[heading.id] ?? '' : '';
-      const children = sectionTocItems(page, heading.headings, numbered);
+      const title = (page.metadata.referenceHeadings?.[heading.id] ?? '').replace(/<\/?a\b[^>]*>/gi, '');
+      const number = page.metadata.sectionNumbers?.[heading.id] ?? '';
+      const children = sectionTocItems(page, heading.headings);
       const link = html`<a class="toc-item directory-item${number ? ' is-numbered' : ''}" href="${`#${pathEscape(heading.id)}`}">${number ? html`<span class="toc-section-number directory-number">${number}</span> ` : ''}<span class="toc-item-title directory-item-title">${raw(title)}</span></a>`;
       return children
         ? html`<li class="toc-level-${heading.level}"><details class="toc-branch" open><summary><span class="directory-chevron" aria-hidden="true">${icon('chevron')}</span>${link}</summary><ul class="toc-list directory-tree">${raw(children)}</ul></details></li>`
         : html`<li class="toc-level-${heading.level}">${link}</li>`;
     }
-    return heading.level < 2 && heading.headings ? raw(sectionTocItems(page, heading.headings, numbered)) : '';
+    return heading.level < 2 && heading.headings ? raw(sectionTocItems(page, heading.headings)) : '';
   }).join('');
 }
 
 /** The items of a page's table of contents, '' when it has none (fewer than two). */
 export function pageTocItems(site, page) {
-  const { params } = page;
-  const shown = (page.kind === 'page' || params.collectionRoot || (params.structuredPage && (page.kind === 'home' || page.kind === 'section') && page.section !== 'wiki' && !params.lectureIndex));
-  if (!shown) return '';
-  const items = sectionTocItems(page, params.tocHeadings, Boolean(params.structuredPage));
+  const { metadata } = page;
+  if (isList(page)) return '';
+  const items = sectionTocItems(page, metadata.tocHeadings);
   return (items.match(/<a\b/g) ?? []).length < 2 ? '' : items;
 }
 
@@ -82,7 +82,7 @@ const termParts = (list, text) => list ? parts(list) : text;
 
 /** The term translations of a page. */
 function termTranslations(site, page, terms) {
-  const heading = (page.params.categories ?? []).includes('人物') ? t('name_translations') : t('term_translations');
+  const heading = (page.metadata.categories ?? []).includes('人物') ? t('name_translations') : t('term_translations');
   return html`<section class="terms" aria-label="${heading}">
   <p class="terms-title">${heading}</p>${terms.map(term => html`<p class="term-entry"><strong class="term-title"${term.lang ? html` lang="${term.lang}"` : ''}>${termParts(term.titleParts, term.title)}</strong>${(term.entries ?? []).map(entry => html`<span class="term-separator" data-typography="boundary" aria-hidden="true"></span><span class="term-language" data-typography="boundary">${entry.label}</span> <span lang="${entry.lang}">${(entry.variants ?? []).map((variant, index) => html`${index ? t('term_variant_separator') : ''}${variant.ruby
     ? variant.ruby.map(piece => piece.reading ? html`<ruby>${piece.text}<rp> (</rp><rt>${piece.reading}</rt><rp>) </rp></ruby>` : termParts(piece.parts, piece.text))
@@ -91,17 +91,17 @@ function termTranslations(site, page, terms) {
 }
 
 /** A link to a category. */
-export const categoryLink = (site, term) => html`<a class="category-link" href="${term.href}">${term.kind === 'term' ? icon('folder') : ''}${term.kind === 'taxonomy' ? t('categories') : displayTitle(site, term)}</a>`;
+export const categoryLink = (site, category) => html`<a class="category-link" href="${category.href}">${category.kind === 'category' ? icon('folder') : ''}${category.kind === 'categories' ? t('categories') : displayTitle(site, category)}</a>`;
 
 const two = number => String(number).padStart(2, '0');
 /** A page's footer: its categories, its dates, the links to its history and to edit it. */
 function articleFooter(site, page) {
-  const direct = page.params.directCategories;
-  const terms = direct ? page.terms.filter(term => direct.includes(term.title)) : page.terms;
-  const modified = page.params.gitLastmod;
+  const direct = page.metadata.directCategories;
+  const categories = direct ? page.categories.filter(category => direct.includes(category.title)) : page.categories;
+  const modified = page.metadata.gitLastmod;
   const parts = [];
-  if (terms.length) parts.push(html`<nav class="article-categories" aria-label="${t('article_categories')}">
-    ${terms.map(term => categoryLink(site, term))}
+  if (categories.length) parts.push(html`<nav class="article-categories" aria-label="${t('article_categories')}">
+    ${categories.map(category => categoryLink(site, category))}
   </nav>`);
   let meta = '';
   if (modified) {
@@ -127,7 +127,7 @@ function articleFooter(site, page) {
 
 /** A page with a body. */
 export function pageContent(site, page) {
-  const { params } = page;
+  const { metadata } = page;
   const sidebar = showCollectionSidebar(page);
   // The body, typeset by bananamark already, marked for finishing to leave its text alone (site/finish.mjs).
   const body = text => text.trim() ? `<div data-typeset-body>${text}</div>` : text;
@@ -137,25 +137,25 @@ export function pageContent(site, page) {
     const first = page.content.match(/<h[23]\b[^>]*>/);
     if (first) content = body(page.content.slice(0, first.index)) + pageToc(items) + body(page.content.slice(first.index));
   }
-  return html`<section class="container page${params.collectionRoot ? ' collection-page' : ''}${sidebar ? ' collection-has-sidebar' : ''}">
+  return html`<section class="container page${metadata.collectionRoot ? ' collection-page' : ''}${sidebar ? ' collection-has-sidebar' : ''}">
   <article>
     <header>
       ${page.title ? html`<h1 class="title" id="page-title">
         <a class="title-link" href="${page.permalink}">
-          ${params.collectionNumber ? html`<span class="bm-section-number">${params.collectionNumber}</span> ` : ''}${displayTitle(site, page)}
+          ${metadata.collectionNumber ? html`<span class="bm-section-number">${metadata.collectionNumber}</span> ` : ''}${displayTitle(site, page)}
         </a>
       </h1>` : ''}
     </header>
-    ${page.section === 'wiki' && params.wikiAliases?.length ? html`<p id="redirect-source" class="redirect-source" data-aliases="${String(json(params.wikiAliases))}" hidden>${raw(t('redirected_from', { Name: '<span></span>' }))}</p>
+    ${page.section === 'wiki' && metadata.wikiAliases?.length ? html`<p id="redirect-source" class="redirect-source" data-aliases="${String(json(metadata.wikiAliases))}" hidden>${raw(t('redirected_from', { Name: '<span></span>' }))}</p>
       <script defer src="${relURL('js/redirect-source.js')}"></script>` : ''}
-    ${sidebar ? html`<aside class="collection-sidebar" aria-label="${params.collectionTitle}"><div class="collection-sidebar-inner">${collectionDirectory(site, page)}</div></aside>` : ''}
+    ${sidebar ? html`<aside class="collection-sidebar" aria-label="${metadata.collectionTitle}"><div class="collection-sidebar-inner">${collectionDirectory(site, page)}</div></aside>` : ''}
     ${raw(content)}
-    ${params.collectionRoot ? collectionFooter(site, page) : ''}
-    ${params.structuredPage ? [
-      (params.resolvedNavboxes ?? []).map(box => navbox(page, box)),
-      params.termTranslations?.length ? termTranslations(site, page, params.termTranslations) : '',
-      page.kind === 'home' ? '' : articleFooter(site, page),
-    ] : ''}
+    ${metadata.collectionRoot ? collectionFooter(site, page) : ''}
+    ${[
+      (metadata.resolvedNavboxes ?? []).map(box => navbox(page, box)),
+      metadata.termTranslations?.length ? termTranslations(site, page, metadata.termTranslations) : '',
+      articleFooter(site, page),
+    ]}
   </article>
 </section>`;
 }

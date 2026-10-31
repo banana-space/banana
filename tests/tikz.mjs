@@ -39,7 +39,7 @@ $$
   const old = new Date(Date.now() - 8 * 24 * 3600 * 1000);
   await utimes(join(cache, 'stale.json'), old, old);
   await writeFile(join(cache, 'recent.json'), '{}');
-  buildProject(root, ['--baseURL', 'https://example.org/subdirectory/', '--prune-cache']);
+  buildProject(root, ['--baseURL', 'https://example.org/subdirectory/']);
   assert.deepEqual((await readdir(cache)).sort(), [...cached, 'recent.json'].sort(), 'Pruning keeps the diagrams in use and recent ones, and removes the rest');
   const file = join(root, 'public/wiki/tikz-test/index.html');
   const html = await readFile(file, 'utf8');

@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -71,9 +71,8 @@ try {
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(ids.length, new Set(ids).size);
   for (const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(decodeURIComponent(match[1])), `缺失引用锚点：${match[1]}`);
-  const generated = await readFile(join(root, '.build/content/wiki/reference-test/index.md'), 'utf8');
-  assert.match(generated, /bibliographyEntries:/);
-  assert.match(generated, /citationAuthor: nLab/);
+  const generated = generatedPages(root).get('wiki/reference-test/index.md').metadata;
+  assert.ok(generated.bibliographyEntries.some(entry => entry.citationAuthor === 'nLab'));
   // 目录复用正文解析后的引用；未编号标题与自定义文字的嵌套引用只能生成一层链接。
   const nested = `## 目标 {@sec:target}
 

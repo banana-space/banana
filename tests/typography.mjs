@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -6,7 +6,6 @@ import { parse as parseHTML, parseFragment, serialize } from 'parse5';
 import { defineDialect, renderDocument, renderKaTeX } from 'bananamark';
 import { decodeHTML } from 'entities';
 import { pageDescription, plainText } from '../scripts/shared/summary.mjs';
-import { parse as parseYAML } from 'yaml';
 import { normalizeText, normalizeTokens } from 'bananamark/internal/typography.mjs';
 import { typesetTree } from 'bananamark/typography';
 import { typography } from '../scripts/shared/typography.mjs';
@@ -110,8 +109,7 @@ $$x + y$$
   await writeFile(join(root, 'content/wiki/disabled/index.md'), '---\ntitle: 中文API。\ntypography:\n  convertChineseFullStop: false\n---\n中文API。定理 X.Y。\n');
   await writeFile(join(root, 'content/wiki/korean/index.md'), '---\ntitle: 漢 字\nlang: ko\n---\n## 漢 字\n\n漢 字ABC。\n\n[[漢 字]]\n');
   buildProject(root);
-  const generated = await readFile(join(root, '.build/content/wiki/dimension/index.md'), 'utf8');
-  assert.equal(parseYAML(generated.split('---\n')[1]).title, '维 数 ( 向 量 空 间 )');
+  assert.equal(generatedPages(root).get('wiki/dimension/index.md').metadata.title, '维 数 ( 向 量 空 间 )');
   // The body is typeset by bananamark already; the text of the templates (the title) as the page is finished.
   const html = await readFile(join(root, 'public/wiki/dimension/index.html'), 'utf8');
   assert.match(html, /<p>中文 <a[^>]*>API/);

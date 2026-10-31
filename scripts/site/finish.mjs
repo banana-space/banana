@@ -8,7 +8,7 @@ import { searchDocument } from '../search/document.mjs';
  * What every page goes through after the templates, in one parse: the typography of the templates' text (titles,
  * the table of contents, links to categories…; the body, typeset by bananamark already, comes out as it is) and
  * the page's search document. TikZ diagrams come after, in the HTML (bananamark-tikz). The full build
- * (scripts/site.mjs, in worker threads) and the preview service share this, so their pages agree.
+ * (scripts/build.mjs, in worker threads) and the preview service share this, so their pages agree.
  *
  * KaTeX's HTML (half of a page) is taken out before parsing and put back after: typography leaves formulas
  * alone, and the search document reads their MathML.

@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { JSDOM } from 'jsdom';
 import katex from 'katex';
 import { parseFragment } from 'parse5';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { loadSearch } from './helpers/pagefind.mjs';
 import { nameFromPath, relatedPages, relatedTerms, searchParts } from '../static/js/search-query.js';
 import { mathText } from 'bananamark/internal/math-text.mjs';
@@ -122,11 +122,12 @@ try {
   await write('content/books/private/note/index.md', page('title: 笔记', '私人笔记独有的内容 zzqprivate．'));
   build();
 
-  const serre = await readFile(join(root, '.build/content/wiki/serre/index.md'), 'utf8');
-  assert.match(serre, /sortKey: serre jean pierre/);
-  assert.doesNotMatch(serre, /^sort:/m);
-  assert.match(await readFile(join(root, '.build/content/wiki/multiplicity/index.md'), 'utf8'), /sortKey: dai shu chong shu/);
-  assert.match(await readFile(join(root, '.build/content/categories/代数拓扑/index.md'), 'utf8'), /sortKey: dai shu tuo pu/);
+  const generated = generatedPages(root);
+  const serre = generated.get('wiki/serre/index.md').metadata;
+  assert.equal(serre.sortKey, 'serre jean pierre');
+  assert.equal(serre.sort, undefined);
+  assert.equal(generated.get('wiki/multiplicity/index.md').metadata.sortKey, 'dai shu chong shu');
+  assert.equal(generated.get('categories/代数拓扑/index.md').metadata.sortKey, 'dai shu tuo pu');
 
   // Lists follow readings: `#` (∞-范畴) first, then dai < qi < serre < spectral < yin (search: false only affects search).
   const list = await readFile(join(root, 'public/wiki/index.html'), 'utf8');

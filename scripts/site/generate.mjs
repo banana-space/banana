@@ -4,15 +4,16 @@ import { config } from '../shared/config.mjs';
 import { baseURL } from '../shared/urls.mjs';
 import { baseof, htmlTitle } from './templates/layout.mjs';
 import { pageContent } from './templates/page.mjs';
-import { listContent, listPages, paginate, termsContent } from './templates/list.mjs';
+import { listContent, listPages, paginate, categoriesContent } from './templates/list.mjs';
 import { homeContent } from './templates/home.mjs';
 import { searchPage } from './templates/search.mjs';
 import { diffContent, editorContent, editorNames, historyContent, missingContent, notFoundContent, recentChangesContent } from './templates/special.mjs';
 import { aliasRedirects, sitemap } from './templates/outputs.mjs';
 import { dataAsset } from './assets.mjs';
+import { isList } from './model.mjs';
 
 /**
- * The site generator: every page of the site, from the prebuild's generated pages (.build/content/), as files
+ * The site generator: every page of the site, from the prebuild's generated pages, as files
  * (path in the output directory → text), one template function each (scripts/site/templates/).
  */
 
@@ -23,7 +24,7 @@ export function renderPage(site, page) {
   const path = url => join(decodeURI(url), 'index.html').replace(/^\//, '');
   const out = (url, title, content, options) => files.push([path(url), String(baseof(site, page, { title, content, ...options }))]);
   if (page.kind === 'home') out(page.url, site.title, homeContent(site, page));
-  else if (page.kind === 'taxonomy') out(page.url, `${t('categories')} - ${site.title}`, termsContent(site, page));
+  else if (page.kind === 'categories') out(page.url, `${t('categories')} - ${site.title}`, categoriesContent(site, page));
   else if (page.kind === 'page') {
     const layouts = {
       search: () => [`${t('search_page_title')} - ${site.title}`, searchPage(site, page), { searchPage: true }],
@@ -33,14 +34,13 @@ export function renderPage(site, page) {
       diff: () => [`${t('diff_page_title')} - ${site.title}`, diffContent(site, page)],
       editor: () => [`${t('editor_page_title')} - ${site.title}`, editorContent(site, page)],
     };
-    const layout = layouts[page.params.layout];
+    const layout = layouts[page.metadata.layout];
     if (layout) out(page.url, ...layout());
     else out(page.url, htmlTitle(site, page), pageContent(site, page));
   } else {
-    // A section or a category.
-    const title = `${page.kind === 'term' ? `${t('categories')}${t('taxonomy_separator')}` : ''}${htmlTitle(site, page)}`;
-    const { params } = page;
-    if ((params.structuredPage && page.section !== 'wiki' && !params.lectureIndex) || params.collectionRoot) out(page.url, title, pageContent(site, page));
+    // A page with pages below it, or a category.
+    const title = `${page.kind === 'category' ? `${t('categories')}${t('category_separator')}` : ''}${htmlTitle(site, page)}`;
+    if (!isList(page)) out(page.url, title, pageContent(site, page));
     else {
       const pages = listPages(site, page);
       const first = paginate(page, pages, 1);
@@ -69,15 +69,15 @@ export function createSite(model, { assets, development = false }) {
 /** The site's files other than its pages: the 404 page, the alias redirects, the sitemap. */
 export function siteFiles(site) {
   const files = new Map();
-  files.set('404.html', String(baseof(site, { relative: '', params: {}, title: '404 Page not found', description: '', permalink: `${baseURL.origin}${baseURL.pathname}404.html`, kind: '404', section: '' }, { title: site.title, content: notFoundContent(site) })));
+  files.set('404.html', String(baseof(site, { relative: '', metadata: {}, title: '404 Page not found', description: '', permalink: `${baseURL.origin}${baseURL.pathname}404.html`, kind: '404', section: '' }, { title: site.title, content: notFoundContent(site) })));
   files.set('alias-redirects.txt', aliasRedirects(site));
   files.set('sitemap.xml', sitemap(site));
   return files;
 }
 
 /**
- * The files of the pages' bundles (images and the like beside a page's index.md in the generated directory),
- * published beside the page: Map of path in the output → path in content.
+ * The files of the pages' bundles (images and the like beside a page's index.md), published beside the page: Map of
+ * path in the output → path in content.
  */
 export function pageResources(site, content, relatives) {
   const result = new Map();
@@ -90,7 +90,7 @@ export function pageResources(site, content, relatives) {
       // directly in its directory, the rest being its pages'.
       const owner = site.pages.find(page => page.relative === `${prefix}index.md`);
       if (!owner || (owner.kind !== 'page' && depth !== parts.length - 1)) continue;
-      if (owner.rendered && owner.url) result.set(join(decodeURI(owner.url), relative.slice(prefix.length)).replace(/^\//, ''), join(content, relative));
+      if (owner.published && owner.url) result.set(join(decodeURI(owner.url), relative.slice(prefix.length)).replace(/^\//, ''), join(content, relative));
       break;
     }
   }

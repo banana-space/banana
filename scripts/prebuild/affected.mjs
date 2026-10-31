@@ -1,14 +1,15 @@
 import { dirname, posix } from 'node:path';
+import { unpack } from '../shared/compress.mjs';
 
 /**
- * 生成目录变化后，还要重新渲染哪些内容没有变化的页面，以及哪些输出不再存在（serve 的部分重建，
+ * 预处理的结果变化后，还要重新渲染哪些内容没有变化的页面，以及哪些输出不再存在（serve 的部分重建，
  * 见 docs/preview.md）：分类页、列表页与书册目录读取其他页面的标题，链接取决于目标的地址。
  *
- * before、after：两个状态的 { pages（prebuild 的 pageIndex()）, files（生成目录内的相对路径 → 条目）,
+ * before、after：两个状态的 { pages（prebuild 的 pageIndex()）, files（相对路径 → 条目）,
  * categories（分类名称的集合）}；targets：after 中各页面的百科链接目标（linkTargets()）；
- * roots：书册根目录（以 / 结尾）；changed：写入或删除的生成文件；categoriesChanged：分类树有变化。
+ * roots：书册根目录（以 / 结尾）；changed：变化或删除的文件；categoriesChanged：分类树有变化。
  *
- * 返回 { touch, removed }：touch 为要重写的生成页面（不含 changed 中的），
+ * 返回 { touch, removed }：touch 为要重新渲染的页面（不含 changed 中的），
  * removed 为不再输出的文件的网址路径（如 /wiki/甲/index.html）。
  */
 export function affectedPages({ before, after, targets, roots, changed, categoriesChanged = false }) {
@@ -38,7 +39,7 @@ export function affectedPages({ before, after, targets, roots, changed, categori
   if (categoriesChanged) for (const path of after.files.keys()) if (/^categories\/[^/]+\/index\.md$/.test(path)) touch.add(path);
   // A link to a category is marked as one only while the category exists.
   if (!sameSet(before.categories, after.categories)) {
-    for (const [path, file] of after.files) if (file.text?.includes('categories/')) touch.add(path);
+    for (const [path, file] of after.files) if (file.metadata && (JSON.stringify(file.metadata).includes('categories/') || (file.compressed && unpack(file.compressed).includes('categories/')))) touch.add(path);
   }
 
   // The overview of categories counts their pages.
@@ -63,7 +64,7 @@ export function affectedPages({ before, after, targets, roots, changed, categori
     }
   }
 
-  for (const path of [...touch]) if (changed.has(path) || after.files.get(path)?.text === undefined) touch.delete(path);
+  for (const path of [...touch]) if (changed.has(path) || !after.files.get(path)?.metadata) touch.delete(path);
   return { touch, removed };
 }
 

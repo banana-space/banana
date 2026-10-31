@@ -195,7 +195,7 @@ navboxes: [代数拓扑]
 
 多个导航按声明顺序显示，位于正文之后、术语翻译、分类与最后修改时间之前，不参与目录、节号、定理编号或页内引用。
 
-导航在 `content/navboxes/名称.yaml` 中维护。这个目录由预处理单独读取（`scripts/prebuild/components.mjs`），不复制到 `.build/content/`，也不生成页面；只有源内容根目录下的这个目录有此用途，页面包里的同名目录仍按原样复制。例如：
+导航在 `content/navboxes/名称.yaml` 中维护。这个目录由预处理单独读取（`scripts/prebuild/components.mjs`），不生成页面；只有源内容根目录下的这个目录有此用途，页面包里的同名目录仍按原样复制。例如：
 
 ```yaml
 title: [[代数拓扑]]

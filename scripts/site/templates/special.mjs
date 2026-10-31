@@ -131,9 +131,9 @@ const data = name => parse(readFileSync(new URL(`../../../data/${name}`, import.
  * come with bananamark-codemirror).
  */
 export function editorNames(site) {
-  const entries = site.regularPages.filter(page => page.section === 'wiki').flatMap(page => {
-    const title = (page.params.titleParts ?? []).map(part => part.tex ? `$${part.tex}$` : part.text).join('');
-    return title ? [{ title, aliases: page.params.wikiAliases ?? [] }] : [];
+  const entries = site.leaves.filter(page => page.section === 'wiki').flatMap(page => {
+    const title = (page.metadata.titleParts ?? []).map(part => part.tex ? `$${part.tex}$` : part.text).join('');
+    return title ? [{ title, aliases: page.metadata.wikiAliases ?? [] }] : [];
   });
   const theorems = data('theorems.yaml');
   const environments = Object.keys(theorems).sort().map(name => ({ name, label: typeof theorems[name].name === 'object' ? theorems[name].name['zh-cn'] : theorems[name].name }));

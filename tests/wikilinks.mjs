@@ -1,4 +1,4 @@
-import { createProject, buildProject, projectRoot } from './helpers/project.mjs';
+import { createProject, buildProject, projectRoot, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -107,7 +107,7 @@ A[[t]] \text{$b$}
   }
   await rm(join(root, 'content/wiki/unsafe-image'), { recursive: true });
   await article('duplicate', 'title: ∞-范畴');
-  assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), /条目名称重复/);
+  assert.throws(() => generatedPages(root), /条目名称重复/);
 } finally { await rm(root, { recursive: true, force: true }); }
 
 const name = { textContent: '', dataset: { nameFormat: '“{name}”', titleFormat: '{name}：条目尚未创建' } };

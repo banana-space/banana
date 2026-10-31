@@ -440,7 +440,7 @@ async function updateBodies(pages) {
  * Pages whose front matter changed (or new pages), with the pages that depend on them; or, with pages
  * undefined, the whole of content/ preprocessed again (paths: the changed paths, for attachments). Resolves to true on success, 'site' when the pages
  * need the latter (a new category), false on failure: 'prebuild' failures (the sources' errors) change
- * nothing, others may leave the generated directory between states.
+ * nothing, others may leave the preview between states.
  */
 async function updateSite(pages, paths = []) {
   const start = performance.now();

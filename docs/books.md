@@ -16,7 +16,7 @@ content/books/讲义标题/
 └── appendix/index.md
 ```
 
-每个页面是自己目录中的 `index.md`（叶子也可以写成 `page.md`，但有子页面的节点必须是目录中的 `index.md`）。一个页面之下有其他页面时，它就是这些页面的上级（书、章）；图片等附件放在页面的目录中，有子页面的页面只拥有直接放在自己目录中的文件。根目录和 `contents` 声明的父节点缺少 `index.md` 时，仅在 `.build/content/` 中生成一份无正文的目录页，不修改作者源码。自动页的标题采用目录名；根目录可通过 `book.yaml` 的 `title` 设置标题、`sort` 设置排序读音、`search: false` 将整组排除在搜索之外。根页面 Markdown 中的同名字段优先。
+每个页面是自己目录中的 `index.md`（叶子也可以写成 `page.md`，但有子页面的节点必须是目录中的 `index.md`）。一个页面之下有其他页面时，它就是这些页面的上级（书、章）；图片等附件放在页面的目录中，有子页面的页面只拥有直接放在自己目录中的文件。根目录和 `contents` 声明的父节点缺少 `index.md` 时，预处理生成一份无正文的目录页，不修改作者源码。自动页的标题采用目录名；根目录可通过 `book.yaml` 的 `title` 设置标题、`sort` 设置排序读音、`search: false` 将整组排除在搜索之外。根页面 Markdown 中的同名字段优先。
 
 页面不存在、路径有多种匹配、重复引用页面、遗漏页面、配置未知字段和嵌套书册都会使构建失败。缺失叶子页面不会自动创建，以免隐藏路径拼写错误。
 
@@ -224,13 +224,13 @@ referenceFormat:
 - `scripts/prebuild/collections.mjs`：发现、路径解析、章节树、可见性、自动页、共享依赖日期和导航元数据。
 - `packages/bananamark/src/syntax/numbering.mjs`：配置合并与验证、编号向量、零的显示处理及共享计数器。
 - `packages/bananamark/src/syntax/structure.mjs`：共同 Markdown 结构扫描；`prepareOnly` 返回延迟渲染函数。
-- `scripts/prebuild.mjs`：先加载所有内容，再扫描整组标签与文献，最后统一渲染；源文件不被改写。
+- `scripts/prebuild/run.mjs`：先加载所有内容，再扫描整组标签与文献，最后统一渲染；源文件不被改写。
 - `scripts/site/templates/collections.mjs`、`assets/scss/_collections.scss`、`static/js/collections.js`：目录、面包屑、响应式侧栏及键盘交互。
 - `assets/scss/_directory-tree.scss`：左右目录共用的网格、基线、折叠图标与高亮竖线；`scripts/site/templates/page.mjs` 和 `static/js/site.js` 负责本页目录结构与阅读位置展开。
 - `scripts/build.mjs`：完整构建入口。
 - `tests/collections.mjs`：整组构建、普通页面、跨页目标/文献、编号、发布、侧栏、配置错误及真实 Git 历史测试。
 
-`collectionRoot`、`collectionContents`、`collectionChildren`、`collectionNumber`、`collectionAncestors`、`collectionPrevious`、`collectionNext`、`structuredPage` 等元数据由构建生成，不应手写。完整扫描和引用解析成功后，才通过已有的发布流程同步 `.build/content/`；开发预览只在所有构建阶段成功后更新浏览器快照。
+`collectionRoot`、`collectionContents`、`collectionChildren`、`collectionNumber`、`collectionAncestors`、`collectionPrevious`、`collectionNext` 等元数据由构建生成，不能手写。开发预览只在所有构建阶段成功后更新浏览器快照。
 
 验证：
 

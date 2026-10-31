@@ -35,6 +35,14 @@ try {
   assert.match(result.json.errors[0].message, /站点自己的页面/);
   await rm(join(root, 'content/search'), { recursive: true });
 
+  // A category's page comes from data/categories.yaml.
+  await page('categories/甲/index.md', '---\ntitle: 甲\n---\n');
+  result = run('check', '--json');
+  assert.equal(result.status, 1);
+  assert.deepEqual(result.json.errors.map(error => error.file), ['content/categories/甲/index.md']);
+  assert.match(result.json.errors[0].message, /分类页由 data\/categories\.yaml 生成/);
+  await rm(join(root, 'content/categories'), { recursive: true });
+
   // Only the keys pages use: another is an error on its line.
   for (const key of ['url', 'slug', 'layout', 'build', 'date', 'notices', 'lastmod']) {
     await page('wiki/字段/index.md', `---\ntitle: 字段\n${key}: 1\n---\n`);

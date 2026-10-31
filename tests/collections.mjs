@@ -2,16 +2,16 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { parse, stringify } from 'yaml';
+import { stringify } from 'yaml';
 import { JSDOM } from 'jsdom';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { numbering, defaultNumbering, pageNumbering } from 'bananamark/internal/numbering.mjs';
 import { characterCount } from '../scripts/prebuild/collections.mjs';
 
 const root = await createProject('collections');
 const write = async (file, text) => { await mkdir(join(root, file, '..'), { recursive: true }); await writeFile(join(root, file), text); };
 const source = (title, body, extra = '') => `---\ntitle: ${title}\n${extra}---\n${body}\n`;
-const generated = async file => parse((await readFile(join(root, '.build/content', file), 'utf8')).split('---\n')[1]);
+const generated = (file, extra) => generatedPages(root, extra).get(file).metadata;
 const html = file => readFile(join(root, 'public', file, 'index.html'), 'utf8');
 const config = {
   title: '测试讲义',
@@ -114,7 +114,7 @@ try {
   assert.match(one, /collection-tree-title[\s\S]*测试讲义/);
   assert.match(one, /rel="prev"/);
   assert.match(one, /rel="next"/);
-  await assert.rejects(readFile(join(root, '.build/content/books/test/book.yaml')), /ENOENT/);
+  await assert.rejects(readFile(join(root, 'public/books/test/book.yaml')), /ENOENT/);
 
   // Exercise the real drawer markup and script, including background restoration.
   const dom = new JSDOM(one, { runScripts: 'outside-only', pretendToBeVisual: true });
@@ -180,7 +180,7 @@ try {
   await write('content/books/test/draft/hidden/index.md', source('隐藏子页', '{@sec:hidden}\n\n::: theorem {@thm:hidden}\n草稿正文。\n:::\n'));
   buildProject(root, ['--buildDrafts']);
   assert.match(await html('books/test'), /草稿章|隐藏子页/);
-  assert.equal((await generated('books/test/draft/hidden/index.md')).collectionNumber, '3.1');
+  assert.equal(generated('books/test/draft/hidden/index.md', ['--buildDrafts']).collectionNumber, '3.1');
 
   // Root headings and child pages share a numbering sequence.
   await write('content/books/test/index.md', source('测试讲义', '## 导论\n\n正文。'));
@@ -188,11 +188,13 @@ try {
   assert.equal((await generated('books/test/first/index.md')).collectionNumber, '2');
   await rm(join(root, 'content/books/test/index.md'));
 
-  // Errors must leave the prior complete prebuild untouched.
-  const stable = await readFile(join(root, '.build/content/books/test/first/one/index.md'), 'utf8');
+  // Errors in a book: the build stops before it touches the site.
+  const published = await html('books/test/first/one');
   await write('content/books/test/first/two/index.md', source('重复', '{@sec:one}'));
   assert.throws(() => buildProject(root), /引用标签重复.*first\/one\/index.md/s);
-  assert.equal(await readFile(join(root, '.build/content/books/test/first/one/index.md'), 'utf8'), stable);
+  assert.equal(await html('books/test/first/one'), published);
+  // Pages pass from the prebuild to the site generator in memory.
+  await assert.rejects(readFile(join(root, '.build/content/index.md')), /ENOENT/);
   await write('content/books/test/first/two/index.md', source('第二小节', '{@sec:two}\n\n::: theorem {@thm:two}\n正文。\n:::\n' + bibliography('book:two')));
   await write('content/books/test/orphan/index.md', source('遗漏', '正文'));
   assert.throws(() => buildProject(root), /未列入 contents/);

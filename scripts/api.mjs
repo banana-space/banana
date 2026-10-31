@@ -124,7 +124,7 @@ if (!repository) console.warn('[api] submitting is not configured (BANANA_GITHUB
 
 // prebuild reads the publishing flag (--buildDrafts) from process.argv.
 const service = previewService({
-  baseURL: options.baseURL, output: join(root, '.build/api'), content: '.build/api/content',
+  baseURL: options.baseURL, output: join(root, '.build/api'),
   environment: options.environment, frontMatterOnly: true,
 });
 

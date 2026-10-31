@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 // 构建性能基准：在临时副本中以现有词条为样本生成大量合成词条和 Git 历史，
-// 分别计时 git 日期、prebuild 与站点生成的冷构建与热构建（缓存已填充）。
+// 分别计时 git 日期与完整构建的冷构建与热构建（缓存已填充）。
 // 用法：npm run bench -- [--pages 3000] [--commits 30] [--keep]
 // --setup 只生成并保留临时副本，不计时，用于手动试验。
 const args = process.argv.slice(2);
@@ -81,9 +81,8 @@ try {
       // 与 prebuild 一致，逐个文件查询。
       for (const path of files) if (!await dateFor(join(root, path))) throw new Error(`${path}: git 日期缺失`);
     });
-    sum += await time('prebuild', run(process.execPath, ['scripts/prebuild.mjs']));
-    sum += await time('site', run(process.execPath, ['scripts/site.mjs']));
-    console.log(`  ${'合计'.padEnd(12)} ${sum.toFixed(2)} s（git 日期含在 prebuild 内）`);
+    sum += await time('build', run(process.execPath, ['scripts/build.mjs']));
+    console.log(`  ${'合计'.padEnd(12)} ${sum.toFixed(2)} s（git 日期含在 build 内）`);
   }
   console.log('单页（缓存已填充）');
   await time('check', run(process.execPath, ['scripts/check.mjs', files[0]]));

@@ -2,8 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { parse } from 'yaml';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 
 const root = await createProject('git-dates');
 const file = 'content/wiki/git-date/index.md';
@@ -11,7 +10,7 @@ const source = text => `---\ntitle: 提交日期\n---\n${text}\n`;
 const git = (args, date) => execFileSync('git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', '-c', 'core.hooksPath=/dev/null', ...args], {
   cwd: root, stdio: 'pipe', env: { ...process.env, GIT_AUTHOR_DATE: '2000-01-01T00:00:00Z', ...(date ? { GIT_COMMITTER_DATE: date } : {}) },
 });
-const generated = async () => parse((await readFile(join(root, '.build', file), 'utf8')).split('---\n')[1]);
+const generated = async () => generatedPages(root).get('wiki/git-date/index.md').metadata;
 const html = () => readFile(join(root, 'public/wiki/git-date/index.html'), 'utf8');
 try {
   await mkdir(join(root, 'content/wiki/git-date'), { recursive: true });

@@ -32,8 +32,6 @@ export function check(text, path, labels = []) {
   const problems = frontMatterProblems(text);
   const start = match?.[0].length ?? 0;
   const article = path.startsWith('wiki/') && path !== 'wiki/index.md';
-  // Not Markdown with the site's structure (see metadata.structuredPage in scripts/prebuild/run.mjs).
-  if (['missing/', 'search/'].some(prefix => path.startsWith(prefix))) return problems;
   const lineOffset = text.slice(0, start).split('\n').length - 1;
   const lang = metadata.lang ?? 'zh-cn';
   if (article) {

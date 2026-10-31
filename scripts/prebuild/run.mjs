@@ -1,10 +1,10 @@
 import { t } from '../shared/i18n.mjs';
 import { performance } from 'node:perf_hooks';
 import { stepTimer } from '../shared/timing.mjs';
-import { readFile, readlink, readdir } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { pack, unpack } from '../shared/compress.mjs';
-import { Document, parse, stringify } from 'yaml';
+import { pack } from '../shared/compress.mjs';
+import { parse } from 'yaml';
 import { directoryName, pageName, nameList, pageTitleMarkup } from '../shared/names.mjs';
 import { transformDocument } from 'bananamark/internal/structure.mjs';
 import { personIndex } from './people.mjs';
@@ -30,6 +30,12 @@ import { siteSyntax } from '../shared/syntax.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 
+/** Whether two entries of the prebuild's files are the same: a page's body and metadata, or an attachment's source. */
+export function sameFile(a, b) {
+  if (a.link !== undefined || b.link !== undefined) return a.link === b.link;
+  return (a.compressed && b.compressed ? a.compressed.equals(b.compressed) : a.compressed === b.compressed) && JSON.stringify(a.metadata) === JSON.stringify(b.metadata);
+}
+
 /**
  * The site's own pages, which their templates and scripts build (by layout: scripts/site/generate.mjs), and
  * content/ has no file for: directory → layout, title.
@@ -44,29 +50,25 @@ const sitePages = {
 };
 
 /**
- * 预处理整站：content/ 是编辑来源，所有派生编号、标签元数据只写入生成目录。
+ * 预处理整站：content/ 是编辑来源，所有派生编号、标签元数据只留在内存中，由站点生成器取用（scripts/site/core.mjs）。
  * 全部页面的 front matter 总会规范化，因为条目名索引、分类与书册依赖全站信息。
- * 结果先在内存中完成，全部成功后才发布：未变化的文件不会重写。
  *
- * - destination：生成目录，默认 .build/content。
  * - pages：只转换这些页面（content/ 内的相对路径）的正文，其余页面只保留 front matter，
  *   供只看少数页面的检查使用；书册页面之间互相引用，总是全部转换，但也只有这些页面的正文渲染成 HTML。
- * - check：收集所有错误而不是在第一个错误处停止，且不写入生成目录。
+ * - check：收集所有错误而不是在第一个错误处停止。
  * - frontMatterOnly：所有页面（包括书册页面）只写 front matter，正文留空；update() 仍返回完整页面。
  *   供预览接口使用：页面正文占内存的绝大部分，而渲染一个页面只需要其他页面的 front matter。
- * - publish：为 false 时不写入生成目录，由调用者用 files 发布（常驻预览服务要先知道哪些文件会变）。
  * - renderCache：渲染好的正文保存在这个目录中，下次运行时页面的文档与渲染时查询的全站信息都没变的就不再渲染
  *   （render-cache.mjs；serve 用）。渲染了全部页面的运行之后，删去这次没用到的。
- * - history：页面历史的数据写入的目录（站点生成器将 .build/history 发布为 /history/data/），默认只有写入
- *   默认生成目录的完整预处理才写；为 false 时不写。
+ * - history：写出页面历史的数据（.build/history，站点生成器发布为 /history/data/）。
  *
  * 返回 { errors, links, collections, update }：errors 为错误对象列表（仅 check 模式），
  * links 为转换过的页面中指向不存在条目的链接 { file, line, target }，
- * collections 为各书册根目录（content/ 内的相对路径，以 / 结尾），
+ * collections 为各书册根目录（content/ 内的相对路径，以 / 结尾），files 为页面与附件（相对路径 → { metadata, compressed,
+ * document } 或 { link: 源文件 }），
  * update 供常驻预览服务在页面源文件变化后增量转换（见下）。
  */
-export async function prebuild({ destination: generated = `${root}.build/content`, pages, check = false, frontMatterOnly = false, publish = true, history, renderCache: cacheDirectory } = {}) {
-  history ??= generated === `${root}.build/content` && `${root}.build/history`;
+export async function prebuild({ pages, check = false, frontMatterOnly = false, history = false, renderCache: cacheDirectory } = {}) {
   const errors = [];
   const attempt = async (action, file) => {
     if (!check) return action();
@@ -146,21 +148,19 @@ export async function prebuild({ destination: generated = `${root}.build/content
     } else if (metadata.aliases !== undefined) throw new Error(t('build_aliases_scope', { File: sourcePath }));
     const components = await prepareComponents(metadata, sourcePath);
     if (components.navboxes.length) metadata.resolvedNavboxes = components.navboxes;
-    metadata.structuredPage = true;
     metadata.lectureIndex = relativePath === 'books/index.md';
     const wikiLinks = new Map();
     record.wikiLinks = wikiLinks;
     record.options = {
-      lang: metadata.lang ?? 'zh-cn', file: sourcePath, lineOffset: record.lineOffset, pageAnchor: metadata.structuredPage,
+      lang: metadata.lang ?? 'zh-cn', file: sourcePath, lineOffset: record.lineOffset, pageAnchor: true,
       typography: pageTypography(metadata),
       checkMath: record.checkMath,
       ...siteSyntax,
       resolvePersonLink: personLink(isWiki ? metadata.wikiName : undefined),
     };
   }
-  // Generated directory contents, published only after every page succeeds.
+  // The generated pages (relative path -> generatedPage) and the files beside them ({ link: source file }).
   const files = new Map();
-  /** Pages are read straight from content/; other files are published as hard links. */
   async function walk(directory, pagePaths) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
       const path = `${directory}/${entry.name}`;
@@ -170,8 +170,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
       else if (/\.md$/i.test(entry.name)) pagePaths.push(path);
       // Files beside pages are published as they are: HTML there would be a page of its own, unchecked.
       else if (/\.html?$/i.test(entry.name)) throw new Error(`${path}: content/ 中不能有 HTML 文件（页面用 Markdown 写）`);
-      else if (entry.isSymbolicLink()) files.set(path.slice(source.length + 1), { symlink: await readlink(path) });
-      else if (entry.isFile()) files.set(path.slice(source.length + 1), { link: path });
+      else if (entry.isFile() || entry.isSymbolicLink()) files.set(path.slice(source.length + 1), { link: path });
     }
     return pagePaths;
   }
@@ -210,6 +209,10 @@ export async function prebuild({ destination: generated = `${root}.build/content
         await normalize(record);
         record.normalized = true;
       }, path);
+    }
+    // Category pages are made from data/categories.yaml.
+    for (const { path, relative } of [...records.values()]) {
+      await attempt(async () => { if (relative.startsWith('categories/')) throw new Error(`${path}: 分类页由 data/categories.yaml 生成，content/ 中不能有这个页面`); }, path);
     }
     for (const [directory, [layout, title]] of Object.entries(sitePages)) {
       const relative = `${directory}/index.md`, path = `${source}/${relative}`;
@@ -295,8 +298,8 @@ export async function prebuild({ destination: generated = `${root}.build/content
     categories: categories.names(), hasFile: relative => files.has(relative), cache: bodies,
   });
   /**
-   * A generated page's text: its front matter, and its body rendered to HTML (bananamark). The headings go into the
-   * front matter for the table of contents (tocHeadings), and the page's description
+   * A generated page: its metadata, and its body rendered to HTML (bananamark). The headings go into the
+   * metadata for the table of contents (tocHeadings), and the page's description
    * (summaryText: the text of its first paragraph, summary.mjs). The document
    * is kept (document) for the links it names and for rendering again.
    */
@@ -320,17 +323,14 @@ export async function prebuild({ destination: generated = `${root}.build/content
    */
   function renderRecord(renderer, record, { metadata: source, document }, { body = true } = {}) {
     const metadata = renderFrontMatter(renderer, record.relative, source);
-    if (!document?.markdown || !body) return generatedPage(`---\n${stringify(metadata)}---\n`, document, metadata);
+    if (!document?.markdown || !body) return generatedPage('', document, metadata);
     const page = renderer.render(record.relative, document);
     const ids = new Set(page.headings.map(heading => heading.id));
     for (const target of metadata.referenceTargets ?? []) {
       if (!['heading', 'page'].includes(target.kind) && ids.has(target.anchor)) throw new Error(t('build_heading_anchor_conflict', { File: record.relative, Line: target.line, Id: target.anchor }));
     }
     const output = { ...metadata, ...(page.headings.length ? { tocHeadings: page.tree } : {}), ...(page.description ? { summaryText: page.description } : {}) };
-    // Long strings unfolded, and the summary quoted (a block would lose spaces at the end of its last line).
-    const yaml = new Document(output);
-    if (output.summaryText) yaml.get('summaryText', true).type = 'QUOTE_DOUBLE';
-    return generatedPage(`---\n${yaml.toString({ lineWidth: 0 })}---\n${page.html}`, document, output);
+    return generatedPage(page.html, document, output);
   }
   /**
    * A buffer in memory of its own size. Small buffers are slices of shared 64 KB slabs (Buffer.poolSize), and one
@@ -342,18 +342,11 @@ export async function prebuild({ destination: generated = `${root}.build/content
     return copy;
   };
   /**
-   * A generated page as kept in memory: its text compressed (KaTeX's HTML makes the site's pages over 400 MB,
-   * a fifteenth of that compressed, in about 0.2 s for all: shared/compress.mjs), its bytes and text unpacked when asked for; its body's
-   * document (document); and its front matter as an object (metadata, what parsing the text's front matter gives:
-   * the preview service's site generator takes it as it is).
+   * A generated page as kept in memory: its body's HTML compressed (KaTeX's HTML makes the site's pages over 400 MB, a
+   * fifteenth of that compressed, in about 0.2 s for all: shared/compress.mjs); its body's document (document); and its
+   * metadata (metadata).
    */
-  const generatedPage = (text, document, metadata) => ({
-    compressed: exactCopy(pack(Buffer.from(text))),
-    document,
-    metadata,
-    get bytes() { return unpack(this.compressed); },
-    get text() { return this.bytes.toString('utf8'); },
-  });
+  const generatedPage = (html, document, metadata) => ({ compressed: exactCopy(pack(Buffer.from(html))), document, metadata });
   const transformStart = performance.now();
   const transformed = new Map();
   for (const record of records.values()) {
@@ -387,11 +380,8 @@ export async function prebuild({ destination: generated = `${root}.build/content
     if (pages && !pages.has(record.relative)) continue;
     for (const link of record.wikiLinks?.values() ?? []) if (!published.has(link.target)) links.push({ file: record.path, ...link });
   }
-  if (!check) await timer.time('publish', async () => {
-    categories.publish(files);
-    if (publish) await publishContent(files, generated);
-  });
-  if (!check && publish && history) await timer.time('page history', () => writePageHistories(history));
+  if (!check) categories.publish(files);
+  if (history) await timer.time('page history', () => writePageHistories(`${root}.build/history`));
 
   /**
    * Each published page's history (page-history.mjs) as <content path>.json, with what the history page shows of
@@ -404,7 +394,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
       const url = record && !record.generated && files.has(relative) ? pageURL(relative, record.metadata) : undefined;
       if (!url) continue;
       const { title, titleParts } = record.metadata;
-      output.set(`${relative}.json`, { text: `${JSON.stringify({ path: relative, title, titleHTML: titleHTML(titleParts ?? [{ text: title }]), url, changes, legacy })}\n` });
+      output.set(`${relative}.json`, `${JSON.stringify({ path: relative, title, titleHTML: titleHTML(titleParts ?? [{ text: title }]), url, changes, legacy })}\n`);
     }
     await publishContent(output, destination);
   }
@@ -421,7 +411,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
    * marks 为一个页面的相对路径时，该页正文的每一行带上源码行号标记（source-lines.mjs，供编辑器预览），
    * 公式也先用 KaTeX 检查（katex-check.mjs），错误指向出错的公式；
    * 报告的错误与链接的列号仍按原始源码计算。
-   * 失败时抛出错误，已有状态不变。返回 { files, links, categories }：files 为生成目录内的相对路径 → 页面文本，
+   * 失败时抛出错误，已有状态不变。返回 { files, links, categories }：files 为相对路径 → 页面（generatedPage），
    * links 为这些页面中指向不存在条目的链接 { file, line, column, target }，categories 为这些页面的分类
    * （含上级；不在分类表中的分类没有分类页，调用者应改用完整预处理）。
    */
@@ -498,7 +488,6 @@ export async function prebuild({ destination: generated = `${root}.build/content
       // stay unrendered. Saved changes become the state, every page whole.
       const body = record => commit || changes.has(record.relative);
       const generated = new Map(changed.map(record => [record.relative, renderRecord(renderer, record, transformRecord(record, true), { body: body(record) })]));
-      const result = new Map([...generated].map(([relative, { text }]) => [relative, text]));
       const published = new Set();
       for (const record of next.values()) {
         if (record.isWiki && record.normalized && isPublished(record.metadata)) {
@@ -513,13 +502,13 @@ export async function prebuild({ destination: generated = `${root}.build/content
         wikiNames = names;
         for (const [relative, file] of generated) files.set(relative, file);
       }
-      return { files: result, links: missing, categories: [...new Set(changed.flatMap(record => record.metadata.categories ?? []))] };
+      return { files: generated, links: missing, categories: [...new Set(changed.flatMap(record => record.metadata.categories ?? []))] };
     }
   }
   /**
    * Renders these pages (relative paths) again from their documents, with the site as it is now: a page's HTML holds
    * what it shows of others (whether a linked article exists, its address), so a page that depends on a changed one
-   * changes too. Returns relative path → new text for the pages whose text changed (now in the state).
+   * changes too. Returns relative path → page for the pages that changed (now in the state).
    */
   function rerender(paths) {
     const renderer = rendererFor(records), result = new Map();
@@ -527,14 +516,12 @@ export async function prebuild({ destination: generated = `${root}.build/content
       const file = files.get(relative), record = records.get(relative);
       if (!file?.document?.markdown || !record) continue;
       const next = renderRecord(renderer, record, { metadata: record.metadata, document: file.document });
-      if (file.compressed && next.compressed.equals(file.compressed)) continue;
+      if (sameFile(file, next)) continue;
       files.set(relative, next);
-      result.set(relative, next.text);
+      result.set(relative, next);
     }
     return result;
   }
-  /** 当前状态下生成目录中的页面文本；不存在的页面为 undefined。 */
-  const generatedText = relative => files.get(relative)?.text;
   /** 当前状态下页面的源文本（content/ 内的相对路径）；不存在或自动生成的页面为 undefined。 */
   const sourceText = relative => records.get(relative)?.source;
   /**
@@ -551,7 +538,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     return labels.filter(label => label.file !== own).map(({ name, text, page }) => ({ name, text, page: plain(titles.get(page) ?? page) }));
   }
   /**
-   * 当前状态下的每个页面（生成目录内的相对路径）：{ url（发布的网址路径，未发布为 undefined）,
+   * 当前状态下的每个页面（相对路径）：{ url（发布的网址路径，未发布为 undefined）,
    * names（百科条目的名称与别名，[名称, 是否别名]）, categories（含上级分类）}。
    */
   function pageIndex() {
@@ -575,7 +562,7 @@ export async function prebuild({ destination: generated = `${root}.build/content
     const result = new Map();
     for (const [relative, record] of records) {
       const file = files.get(relative);
-      if (file?.text === undefined && file?.bytes === undefined) continue;
+      if (!file?.metadata) continue;
       let cached = targetCache.get(relative);
       if (cached?.file !== file) {
         // The documents before rendering, where links still name their targets.
@@ -597,5 +584,5 @@ export async function prebuild({ destination: generated = `${root}.build/content
   }
   /** 分类表中的全部分类名称（含 front matter 中新出现、已生成分类页的）。 */
   const categoryNames = () => categories.names();
-  return { errors, links, collections: roots, timings: timer.lines(), pages: records.size, files, update, rerender, generatedText, sourceText, collectionLabels, pageIndex, linkTargets, categoryNames };
+  return { errors, links, collections: roots, timings: timer.lines(), pages: records.size, files, update, rerender, sourceText, collectionLabels, pageIndex, linkTargets, categoryNames };
 }
