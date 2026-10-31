@@ -27,6 +27,9 @@
   "sideEffects": [
     "*.css"
   ],
+  "bin": {
+    "bananamark": "bin/bananamark.mjs"
+  },
   "exports": {
     ".": "./src/index.mjs",
     "./typography": "./src/typography.mjs",
@@ -44,7 +47,9 @@
   },
   "files": [
     "src",
+    "bin",
     "README.md",
+    "REFERENCE.md",
     "CHANGELOG.md",
     "LICENSE"
   ],

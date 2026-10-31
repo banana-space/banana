@@ -2,7 +2,10 @@
 
 ## 0.2.0
 
-The dialect's typography and bare addresses are now its own rules, stated in the README, rather than a port of another Markdown parser's. They read Chinese text better. A page may render differently where it has:
+- **A command.** `bananamark file.md` writes `file.html`, a whole page holding its stylesheets and fonts (see the README).
+- **The documentation is in two files.** The README has how to use the package; everything in detail is now in REFERENCE.md.
+
+The dialect's typography and bare addresses are now its own rules, stated in the reference, rather than a port of another Markdown parser's. They read Chinese text better. A page may render differently where it has:
 
 - **Quotation marks beside Han characters.** `他说"你好"然后` is now `他说“你好”然后`; the marks used to stay straight. A mark with a space on one side goes by that space; otherwise `"` goes by pairing, and `'` after a letter or digit is `’`. See [Quotation marks](README.md#quotation-marks).
 - **A decade after a space or a word**, such as `STOC '71`: now `’71`, not `‘71`.

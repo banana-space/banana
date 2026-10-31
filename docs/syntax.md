@@ -1,6 +1,6 @@
 # 页面的写法
 
-页面的正文是 bananamark 的方言：CommonMark 加上公式、自动编号的节与定理类环境、统一的引用、标签列表、参考文献、百科链接与 TikZ 图形。方言的完整说明在 bananamark 的 [README](../packages/bananamark/README.md)（英文；[Syntax](../packages/bananamark/README.md#syntax) 一览，[Reference](../packages/bananamark/README.md#reference) 逐项说明），逐个功能的示例与输出在 `packages/bananamark/test/spec/`（它们也是方言的规范与测试）。写给编辑者的说明在网站的帮助（`content/help/格式手册/`）；修改语法时请同时更新帮助。
+页面的正文是 bananamark 的方言：CommonMark 加上公式、自动编号的节与定理类环境、统一的引用、标签列表、参考文献、百科链接与 TikZ 图形。方言的完整说明在 bananamark 的文档中（英文；README 的 [Syntax](../packages/bananamark/README.md#syntax) 一览，REFERENCE 的 [Syntax in detail](../packages/bananamark/REFERENCE.md#syntax-in-detail) 逐项说明），逐个功能的示例与输出在 `packages/bananamark/test/spec/`（它们也是方言的规范与测试）。写给编辑者的说明在网站的帮助（`content/help/格式手册/`）；修改语法时请同时更新帮助。
 
 本文只写站点自己的部分：站点怎样设置方言、站点加上的写法（页面信息、名称与别名、读音、页面提示、人名、学科导航、术语翻译），以及站点回答 bananamark 的问题的方式（钩子）。指南与讲义的文件结构、整组的编号与引用见 [指南与讲义](books.md)，分类见 [分类](categories.md)，TikZ 见 [TikZ 图形](tikz.md)，排版见 [中文排版](typography.md)。完整的实例见 [奇异上同调](../tests/fixtures/content/wiki/奇异上同调/index.md) 与 [组件示例](../tests/fixtures/content/wiki/components-example/index.md)。
 
@@ -36,7 +36,7 @@ KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩�
 | `convention` | 约定（不编号） | `remark` | 绿色 |
 | `proof` | 证明 | — | 无边框 |
 
-环境的写法（标题、自定的名称、`*`、嵌套、证明）见 bananamark 的 README。
+环境的写法（标题、自定的名称、`*`、嵌套、证明）见 bananamark 的 [REFERENCE](../packages/bananamark/REFERENCE.md#default-environments)。
 
 ## 源文件的格式
 

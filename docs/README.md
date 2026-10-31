@@ -8,7 +8,7 @@
 
 | 部分 | 在哪里 | 文档 |
 | --- | --- | --- |
-| 方言：语法层（公式、节与定理类环境的编号、引用、标签列表、参考文献、百科链接、HTML 式标签与数据块）、渲染为 HTML、中文排版、代码高亮、书册的共同编号与引用 | `packages/bananamark/` | [README](../packages/bananamark/README.md)；逐项的示例与规范在 `packages/bananamark/test/spec/` |
+| 方言：语法层（公式、节与定理类环境的编号、引用、标签列表、参考文献、百科链接、HTML 式标签与数据块）、渲染为 HTML、中文排版、代码高亮、书册的共同编号与引用 | `packages/bananamark/` | [README](../packages/bananamark/README.md)、[REFERENCE](../packages/bananamark/REFERENCE.md)；逐项的示例与规范在 `packages/bananamark/test/spec/` |
 | 编辑器（CodeMirror 6）中的高亮、补全、编辑公式与检查 | `packages/bananamark-codemirror/` | [README](../packages/bananamark-codemirror/README.md) |
 | TikZ 图形编译成 SVG、缓存 | `packages/bananamark-tikz/` | [README](../packages/bananamark-tikz/README.md) |
 | 三个包的测试、一致性测试的更新、发布 | `packages/` | [包的开发](../packages/CONTRIBUTING.md) |
@@ -16,7 +16,7 @@
 | front matter、名称与别名、读音、分类、指南与讲义、学科导航、术语翻译、页面提示 | `scripts/prebuild/`、`scripts/shared/` | [页面的写法](syntax.md)、[指南与讲义](books.md)、[分类](categories.md) |
 | 模板、样式、浏览器中的脚本、搜索、预览与 API、在线编辑器的页面、部署 | `scripts/site/`、`site/`、`scripts/`、`deploy/` | 下表 |
 
-包写出的类名都以 `bm-` 开头（见 bananamark README 的 Output HTML），站点的模板、样式与浏览器脚本按它们使用。站点还直接用到包的几个内部模块（`bananamark/internal/*`：名称与公式的读取、编号、排版的底层函数，如 `scripts/shared/names.mjs`、`scripts/shared/internals.mjs`、`scripts/format/markdown.mjs`、`scripts/search/document.mjs`），它们不属于包的接口，升级包时要随之检查。
+包写出的类名都以 `bm-` 开头（见 bananamark REFERENCE 的 Output HTML），站点的模板、样式与浏览器脚本按它们使用。站点还直接用到包的几个内部模块（`bananamark/internal/*`：名称与公式的读取、编号、排版的底层函数，如 `scripts/shared/names.mjs`、`scripts/shared/internals.mjs`、`scripts/format/markdown.mjs`、`scripts/search/document.mjs`），它们不属于包的接口，升级包时要随之检查。
 
 ## 文档
 

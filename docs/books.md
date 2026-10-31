@@ -72,7 +72,7 @@ groups:
 
 ## 编号参数
 
-编号的设置是 bananamark 的 `numbering`（README 的 [Numbering](../packages/bananamark/README.md#numbering)，英文），其中的 `pages`（页面是否编号）由站点按章节树处理。所有参数可省略。整组默认等价于：
+编号的设置是 bananamark 的 `numbering`（REFERENCE 的 [Numbering](../packages/bananamark/REFERENCE.md#numbering)，英文），其中的 `pages`（页面是否编号）由站点按章节树处理。所有参数可省略。整组默认等价于：
 
 ```yaml
 numbering:
