@@ -1,4 +1,4 @@
-// Recent changes (/recent-changes/). Markup comes from static/js/recent-changes.js.
+// Recent changes (/recent-changes/). Markup comes from site/scripts/recent-changes.js.
 
 $recent-text-color: #4b4f53;
 $recent-open-color: #b26a00;
@@ -559,7 +559,7 @@ $recent-time-width: 5.2rem;
   }
 }
 
-// One page's change (/diff/). Markup comes from assets/js/diff/main.js; labels share the recent changes' styles.
+// One page's change (/diff/). Markup comes from site/scripts/diff/main.js; labels share the recent changes' styles.
 .diff-back {
   display: inline-flex;
   align-items: center;

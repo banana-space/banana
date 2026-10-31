@@ -6,7 +6,7 @@ import { EditorView, lineNumbers } from '@codemirror/view';
 import { syntaxHighlighting } from '@codemirror/language';
 import { unifiedMergeView } from '@codemirror/merge';
 import { highlightClasses, bananamarkLanguage } from 'bananamark-codemirror';
-import { dialectLanguages } from '../scripts/shared/dialect.mjs';
+import { dialectLanguages } from '../../../scripts/shared/dialect.mjs';
 
 const bananaMarkdown = () => bananamarkLanguage({ codeLanguages: dialectLanguages, wikiLinks: true });
 

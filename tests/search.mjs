@@ -6,7 +6,7 @@ import katex from 'katex';
 import { parseFragment } from 'parse5';
 import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { loadSearch } from './helpers/pagefind.mjs';
-import { nameFromPath, relatedPages, relatedTerms, searchParts } from '../static/js/search-query.js';
+import { nameFromPath, relatedPages, relatedTerms, searchParts } from '../site/scripts/search-query.js';
 import { mathText } from 'bananamark/internal/math-text.mjs';
 import { decodeSearchData, encodeSearchData } from '../scripts/search/data.mjs';
 import { EXCLUDED_CLASSES, WORD_SEPARATOR, separateWords } from '../scripts/search/document.mjs';
@@ -80,12 +80,12 @@ const encoded = encodeSearchData({ title: '奇异上同调 <span class="katex">x
 assert.doesNotMatch(encoded, /[\p{L}\p{N}\s]/u);
 assert.deepEqual(decodeSearchData(encoded).breadcrumb, [{ url: '/books/a/' }]);
 
-// The browser module (static/js/search.js) runs in a built page.
+// The browser module (site/scripts/search.js) runs in a built page.
 let browserImports = 0;
 async function browserSearch(site, file, url) {
   const { window } = new JSDOM(await readFile(join(site, file), 'utf8'), { url });
   Object.assign(globalThis, { document: window.document, NodeFilter: window.NodeFilter });
-  return import(`../static/js/search.js?load=${++browserImports}`);
+  return import(`../site/scripts/search.js?load=${++browserImports}`);
 }
 
 const root = await createProject('search');

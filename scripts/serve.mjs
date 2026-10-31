@@ -43,11 +43,11 @@ process.on('exit', () => {
   try { if (readFileSync(lock, 'utf8') === String(process.pid)) rmSync(lock); } catch {}
 });
 let timer, building = false, dirty = false, stopping = false, snapshot, revision = 0;
-// The resident preview service (scripts/preview-service.mjs) keeps the prebuild state and generates the pages into
+// The resident preview service (scripts/service/preview.mjs) keeps the prebuild state and generates the pages into
 // .build/preview/; it is restarted after changes to the code it runs (restartRequested), while changes to the site
 // generator's code (scripts/site/) only restart the generator's threads (generatorRequested).
 let service, restartRequested = false, generatorRequested = false, assetsRequested = false;
-const staticPending = new Set(); // Changed paths under static/.
+const staticPending = new Set(); // Changed files published as they are, by their paths in the output.
 // Full rebuilds are needed until one succeeds.
 let needFull = true, sources;
 // A Git commit (dates) or a change to the category tree: preprocessed again, without a full build.
@@ -178,7 +178,7 @@ const threadCounts = () => {
 };
 
 function startService() {
-  const worker = fork(join(root, 'scripts/preview-service.mjs'), buildArgs, {
+  const worker = fork(join(root, 'scripts/service/preview.mjs'), buildArgs, {
     cwd: root, stdio: ['ignore', 'inherit', 'inherit', 'ipc'],
     env: { ...process.env, BANANA_PREVIEW_SERVICE: JSON.stringify({ baseURL: `${origin}/`, output: destination, threads: true, ...threadCounts(), renderCache: '.build/render-cache', outputsCache: '.build/preview-outputs.bin' }) },
   });
@@ -386,7 +386,7 @@ async function generatorBuild() {
   console.log(t('serve_generator_complete', { Count: built.result.written.length, Unchanged: built.result.unchanged, Milliseconds: elapsed(start) }));
 }
 
-/** Styles or scripts (assets/) changed: rebuilt alone; every page reloads. */
+/** Styles or bundled scripts changed: rebuilt alone; every page reloads. */
 async function assetsBuild() {
   const start = performance.now();
   assetsRequested = false;
@@ -403,7 +403,7 @@ async function assetsBuild() {
   console.log(t('serve_assets_complete', { Count: built.result.written.length, Milliseconds: elapsed(start) }));
 }
 
-/** Files under static/ changed: copied alone; every page reloads. */
+/** Files published as they are changed: copied alone; every page reloads. */
 async function staticBuild() {
   const start = performance.now();
   const paths = [...staticPending];
@@ -559,12 +559,17 @@ function schedule(change) {
 /** What a change to a file under a watched directory (relative to the repository) asks for. */
 function changeOf(directory, file) {
   if (directory === 'content' || directory === 'data') {
-    // The site's text is read when the code loads.
-    if (!file || (directory === 'data' && file === 'messages.yaml')) return 'restart';
+    // The site's text and settings are read when the code loads.
+    if (!file || (directory === 'data' && ['messages.yaml', 'site.yaml'].includes(file))) return 'restart';
     return `${directory}/${file}`;
   }
-  if (directory === 'assets') return 'assets';
-  if (directory === 'static') return file ? ['static', file] : 'restart';
+  if (directory === 'site') {
+    if (!file) return 'restart';
+    if (file.startsWith('files/')) return ['static', file.slice('files/'.length)];
+    // A script directly in site/scripts/ is published as it is, at js/; those in its directories are bundled.
+    if (/^scripts\/[^/]+$/.test(file)) return ['static', `js/${file.slice('scripts/'.length)}`];
+    return 'assets';
+  }
   if (directory === 'scripts' && file?.startsWith('site/')) return 'generator';
   if (directory === 'packages' && /(?:^|\/)node_modules(?:\/|$)/.test(file ?? '')) return undefined;
   return 'restart'; // scripts/, packages/
@@ -573,7 +578,7 @@ function changeOf(directory, file) {
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => stop());
 server.on('error', error => { console.error(t('serve_server_failed', { Message: error.message })); stop(1); });
 try {
-  for (const directory of ['content', 'data', 'assets', 'static', 'scripts', 'packages']) {
+  for (const directory of ['content', 'data', 'site', 'scripts', 'packages']) {
     if (directory === 'packages' && !await stat(join(root, directory)).catch(() => undefined)) continue; // Copies without the workspace.
     const watcher = watch(join(root, directory), { recursive: true }, (_event, file) => {
       const change = changeOf(directory, file && String(file).split('\\').join('/'));
@@ -582,10 +587,6 @@ try {
     watcher.on('error', error => { console.error(t('serve_watch_failed', { Message: error.message })); stop(1); });
     watchers.push(watcher);
   }
-  // Watch the directory: editors replace config files during atomic saves.
-  const configWatcher = watch(root, (_event, file) => { if (String(file) === 'site.yaml') schedule('restart'); });
-  configWatcher.on('error', error => { console.error(t('serve_config_watch_failed', { Message: error.message })); stop(1); });
-  watchers.push(configWatcher);
   // A commit changes derived dates even when no source file changes.
   const git = promisify(execFile);
   let gitDirectories = [];

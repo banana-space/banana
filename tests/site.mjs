@@ -17,7 +17,7 @@ assert.equal(escape(`<a b="c" d='e'>&`), '&lt;a b=&quot;c&quot; d=&#39;e&#39;&gt
 assert.equal(String(html`<a href="${'/a?b=1&c="'}">${html`<i>${'<'}</i>`}</a>`), '<a href="/a?b=1&amp;c=&quot;"><i>&lt;</i></a>');
 assert.equal(String(json({ b: 1, a: '</script>', c: html`<i>${'&'}</i>` })), '{"b":1,"a":"\\u003c/script>","c":"\\u003ci>&amp;\\u003c/i>"}');
 
-const script = await readFile(new URL('../static/js/site.js', import.meta.url), 'utf8');
+const script = await readFile(new URL('../site/scripts/site.js', import.meta.url), 'utf8');
 const anchorScript = script.split('// Reading controls')[0];
 let height = 60, resize;
 const offsets = [], scrolls = [], handlers = new Map(), documentHandlers = new Map();
@@ -75,7 +75,7 @@ for (const [link, event] of [[{ ...citation, hash: '#other' }], [{ ...citation, 
 }
 assert.equal(animations.length, 3);
 
-const css = await readFile(new URL('../assets/scss/_base.scss', import.meta.url), 'utf8');
+const css = await readFile(new URL('../site/styles/_base.scss', import.meta.url), 'utf8');
 assert.match(css, /\.content \[id\]\s*\{\s*scroll-margin-top: var\(--anchor-offset, 8rem\)/);
 assert.doesNotMatch(css, /scroll-padding-top\s*:/);
 assert.match(css, /scroll-behavior: smooth/);
@@ -270,7 +270,7 @@ console.log('目录滚动高亮、浮层迁移、原生链接、互斥面板、�
 
 // The missing-article page fills in the name after the typography pass, so it
 // applies the curly-quote spacing itself.
-const missingScript = await readFile(new URL('../static/js/missing.js', import.meta.url), 'utf8');
+const missingScript = await readFile(new URL('../site/scripts/missing.js', import.meta.url), 'utf8');
 function missingPage(search, before = '', after = '目前还没有内容．') {
   const previous = { nodeType: 3, data: before }, next = { nodeType: 3, data: after };
   const name = { textContent: '你访问的条目', previousSibling: before ? previous : null, nextSibling: next,

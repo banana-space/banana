@@ -7,7 +7,7 @@ import { createServer } from 'node:net';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
-const root = await createProject('serve', ['scripts', 'assets', 'static', 'data', 'content/navboxes', 'site.yaml']);
+const root = await createProject('serve', ['scripts', 'site', 'data', 'content/navboxes']);
 let child, output = '';
 async function until(check, description) {
   const deadline = Date.now() + 15000;
@@ -79,7 +79,7 @@ try {
   assert.doesNotMatch(initial, /class="bm-section-number"/);
   const cssPath = initial.match(/href="([^"]+\/css\/[^" ]+\.css)"/)?.[1] ?? initial.match(/href="(\/css\/[^" ]+\.css)"/)[1];
   assert.match(await html(cssPath), /sourceMappingURL/);
-  const configFile = join(root, 'site.yaml');
+  const configFile = join(root, 'data/site.yaml');
   const originalConfig = await readFile(configFile, 'utf8');
   const replacementConfig = join(root, 'config.tmp');
   await writeFile(replacementConfig, originalConfig.replace('title: 香蕉空间', 'title: 预览站点一'));
@@ -90,7 +90,7 @@ try {
   await writeFile(configFile, originalConfig);
   await until(async () => (await html('/wiki/live/')).includes('香蕉空间'), '恢复站点配置');
   // The prebuild runs in the resident preview service, which restarts after script changes.
-  for (const entry of ['prebuild/run', 'generator']) {
+  for (const entry of ['prebuild/run', 'service/generator']) {
     const script = join(root, `scripts/${entry}.mjs`);
     const old = await readFile(script, 'utf8');
     // Unchanged pages keep their revision; wait for the rebuild to finish instead.
@@ -98,6 +98,15 @@ try {
     await writeFile(script, old + `\nconsole.log('${entry} entry refreshed');\n`);
     await until(() => output.includes(`${entry} entry refreshed`) && completed() > finished, `${entry} 入口修改刷新`);
   }
+  // site/: files published as they are, scripts directly in site/scripts/ (at /js/), and styles, each updated alone.
+  await writeFile(join(root, 'site/files/robots.txt'), 'User-agent: *\n# 已更新\n');
+  await until(async () => (await html('/robots.txt')).includes('已更新'), '原样发布的文件更新');
+  const browserScript = join(root, 'site/scripts/local-time.js');
+  await writeFile(browserScript, `${await readFile(browserScript, 'utf8')}\n// 已更新\n`);
+  await until(async () => (await html('/js/local-time.js')).includes('已更新'), '浏览器脚本更新');
+  const styles = join(root, 'site/styles/_base.scss');
+  await writeFile(styles, `${await readFile(styles, 'utf8')}\n.served-check { color: red; }\n`);
+  await until(async () => (await html('/css/site.css')).includes('served-check'), '样式更新');
   const generated = join(root, '.build/preview/wiki/live/index.html');
   const originalTime = (await stat(generated)).mtimeMs;
   const builds = (output.match(/prebuild: \d+ pages|updated \d+ page/g) ?? []).length;

@@ -109,13 +109,13 @@ try {
   assert.match(selfNav, /<strong class="navbox-current" aria-current="page">绝对地址<\/strong>/);
   assert.match(selfNav, /<a href="https:\/\/other.example\/wiki\/custom-address\/"/);
   assert.match(selfHTML, /<a href="\/wiki\/custom-address\/" class="bm-wiki-link">正文链接<\/a>/);
-  const config = await readFile(join(root, 'site.yaml'), 'utf8');
-  await writeFile(join(root, 'site.yaml'), config.replace("https://example.org/", "https://example.org/encyclopedia/"));
+  const config = await readFile(join(root, 'data/site.yaml'), 'utf8');
+  await writeFile(join(root, 'data/site.yaml'), config.replace("https://example.org/", "https://example.org/encyclopedia/"));
   build();
   const subpath = await readFile(join(root, 'public/wiki/custom-address/index.html'), 'utf8');
   assert.match(subpath, /<strong class="navbox-current" aria-current="page">当前<strong>条目<\/strong><\/strong>/);
   assert.match(subpath, /href="\/encyclopedia\/wiki\/custom-address\/" class="bm-wiki-link">正文链接/);
-  await writeFile(join(root, 'site.yaml'), config);
+  await writeFile(join(root, 'data/site.yaml'), config);
   for (const [frontMatter, error] of [
     ['navboxes: [不存在]', /组件不存在：navboxes\/不存在/],
     ['navboxes: ["../代数拓扑"]', /不能包含路径/],

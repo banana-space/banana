@@ -5,7 +5,7 @@ import { finishPage } from './finish.mjs';
 import { stepTimer } from '../shared/timing.mjs';
 
 /**
- * One of the site generator's finishing workers (see scripts/generator.mjs): { html, entry, sourceLines, write }
+ * One of the site generator's finishing workers (see scripts/service/generator.mjs): { html, entry, sourceLines, write }
  * finishes a page from the templates (finish.mjs) and answers { html, search } or { error }; with write (a file),
  * a page without TikZ diagrams is written there instead, and the answer is { search, written: true }.
  * { close: true } answers { steps } (time per step, ms).

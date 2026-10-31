@@ -107,7 +107,7 @@ API 打印 `listening on http://127.0.0.1:8787/api/` 后即可使用；开头没
    npm run api -- --github-repo banana-space/banana --env-file ~/banana/api.env
    ```
 
-   不加 `--base-url` 时使用 site.yaml 的 `baseURL`（即站点地址），不加 `--environment` 时使用 production，与正式构建一致；不要使用 `--dev-user`。服务器上由 systemd 单元 `deploy/banana-api.service` 以这些参数运行，见 [服务器部署](deploy.md)。
+   不加 `--base-url` 时使用 data/site.yaml 的 `baseURL`（即站点地址），不加 `--environment` 时使用 production，与正式构建一致；不要使用 `--dev-user`。服务器上由 systemd 单元 `deploy/banana-api.service` 以这些参数运行，见 [服务器部署](deploy.md)。
 
 ## 常见问题
 

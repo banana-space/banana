@@ -3,7 +3,7 @@ import { t } from '../shared/i18n.mjs';
 
 /**
  * 在线编辑对导言区（front matter）的要求，比完整构建更严：页面必须有导言区，其中 title 为非空文字
- * （完整构建在没有 title 时取目录名），并且只能有作者使用的字段（authorKeys）。由浏览器内检查（assets/js/editor/check.js）与 API
+ * （完整构建在没有 title 时取目录名），并且只能有作者使用的字段（authorKeys）。由浏览器内检查（site/scripts/editor/check.js）与 API
  * （scripts/api.mjs）共用。
  *
  * 返回 [{ line, column, message }]，行列号从 1 起；

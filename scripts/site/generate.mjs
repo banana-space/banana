@@ -54,7 +54,7 @@ export function renderPage(site, page) {
 }
 
 /**
- * The site the templates take, from the model (model.mjs): with the site's settings (site.yaml), the assets'
+ * The site the templates take, from the model (model.mjs): with the site's settings (data/site.yaml), the assets'
  * addresses and the editor's names, a data file (dataFiles: path → content) named by its fingerprint.
  */
 export function createSite(model, { assets, development = false }) {

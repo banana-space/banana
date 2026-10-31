@@ -1,4 +1,4 @@
-"""Build static/fonts/BananaMath-Regular.woff2: the few glyphs KaTeX's fonts lack.
+"""Build site/files/fonts/BananaMath-Regular.woff2: the few glyphs KaTeX's fonts lack.
 
 - U+1D7D9 𝟙 (double-struck one), drawn for this site; its outline is taken from an
   existing font that has it, by default the current BananaMath.
@@ -6,7 +6,7 @@
   them for mirrored letters such as \\mathrm{ꓘꓷ}.
 
 The font is a modified KaTeX_Main (SIL OFL 1.1, Reserved Font Name KaTeX_Main; see
-static/fonts/BananaMath-OFL.txt), so it is renamed and keeps KaTeX_Main's metrics.
+site/files/fonts/BananaMath-OFL.txt), so it is renamed and keeps KaTeX_Main's metrics.
 _katex.scss serves it as KaTeX_Main for these code points only. Commutative diagrams
 draw 𝟙 with this font too, using its metrics in webGlyphs (packages/bananamark-tikz/src/compiler.mjs);
 update them when the glyph changes. Needs fontTools and brotli:
@@ -20,9 +20,9 @@ from fontTools.pens.transformPen import TransformPen
 from fontTools.pens.reverseContourPen import ReverseContourPen
 from fontTools.pens.cu2quPen import Cu2QuPen
 
-one_source = sys.argv[1] if len(sys.argv) > 1 else 'static/fonts/BananaMath-Regular.woff2'
+one_source = sys.argv[1] if len(sys.argv) > 1 else 'site/files/fonts/BananaMath-Regular.woff2'
 katex = sys.argv[2] if len(sys.argv) > 2 else 'node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf'
-output = sys.argv[3] if len(sys.argv) > 3 else 'static/fonts/BananaMath-Regular.woff2'
+output = sys.argv[3] if len(sys.argv) > 3 else 'site/files/fonts/BananaMath-Regular.woff2'
 
 # Read the 𝟙 outline first: the output may be the same file.
 one_font = TTFont(one_source)

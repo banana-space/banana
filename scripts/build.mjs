@@ -3,15 +3,15 @@ import { dirname, join, resolve } from 'node:path';
 import { fork } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { performance } from 'node:perf_hooks';
-import { publishPages, publishShared, siteGenerator } from './generator.mjs';
+import { publishPages, publishShared, siteGenerator } from './service/generator.mjs';
 import { manifestEntries, searchIndexer } from './search/index.mjs';
 import { elapsed, headline, stepTimer } from './shared/timing.mjs';
 import { siteDiagrams } from './shared/diagrams.mjs';
 
 /**
  * The full build, content/ into public/ (or -d <directory>): the prebuild (scripts/prebuild/), in a process that ends
- * before the site is generated (a thread's memory, some 1.2 GB, stays with the process when it ends); then the files of static/, the assets, every page, rendered and finished
- * (scripts/generator.mjs), and the search index. Removes cached TikZ diagrams no page uses.
+ * before the site is generated (a thread's memory, some 1.2 GB, stays with the process when it ends); then the files published as they are, the assets, every page, rendered and finished
+ * (scripts/service/generator.mjs), and the search index. Removes cached TikZ diagrams no page uses.
  *
  * --buildDrafts: publishes drafts. --baseURL (or -b): the site's address.
  * --jobs N: finishing workers (default up to 4). --playground: also Pagefind's diagnostic search page

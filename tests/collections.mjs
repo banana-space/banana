@@ -119,7 +119,7 @@ try {
   // Exercise the real drawer markup and script, including background restoration.
   const dom = new JSDOM(one, { runScripts: 'outside-only', pretendToBeVisual: true });
   dom.window.matchMedia = query => ({ matches: query.includes('max-width'), addEventListener() {} });
-  dom.window.eval(await readFile(join(root, 'static/js/collections.js'), 'utf8'));
+  dom.window.eval(await readFile(join(root, 'site/scripts/collections.js'), 'utf8'));
   const drawer = dom.window.document.getElementById('collection-drawer');
   drawer.open = true;
   drawer.dispatchEvent(new dom.window.Event('toggle'));

@@ -91,7 +91,7 @@ const proof = normalizeHTML('<div class="bm-envgroup-proof"><span class="bm-envt
 assert.match(proof, /证明\u3000<\/span><div class="bm-envcontent"><p>正文<\/p>/);
 assert.equal(normalizeHTML(proof), proof);
 
-const root = await createProject('typography', ['scripts', 'assets', 'static', 'data', 'site.yaml']);
+const root = await createProject('typography', ['scripts', 'site', 'data']);
 try {
   await mkdir(join(root, 'content/wiki/dimension'), { recursive: true });
   await mkdir(join(root, 'content/wiki/disabled'), { recursive: true });

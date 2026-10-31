@@ -82,7 +82,7 @@ if (navigation) {
     if (restoreFocus) directoryButton.focus();
   };
 
-  // Results load with static/js/search.js on first use (see headerSearch there).
+  // Results load with site/scripts/search.js on first use (see headerSearch there).
   let searchController = null;
   let searchLoading = null;
   const loadSearch = () => {

@@ -2,7 +2,7 @@ import { pathEscape } from 'bananamark';
 import { config } from './config.mjs';
 
 /**
- * The site's addresses: its base URL (site.yaml's baseURL; --baseURL or -b on the command line wins, and the build
+ * The site's addresses: its base URL (data/site.yaml's baseURL; --baseURL or -b on the command line wins, and the build
  * gives every step the same arguments), and addresses below it.
  */
 

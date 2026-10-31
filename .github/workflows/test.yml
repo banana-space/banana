@@ -7,11 +7,9 @@ on:
     paths: &paths
       - 'scripts/**'
       - 'packages/**'
-      - 'assets/**'
-      - 'static/**'
+      - 'site/**'
       - 'data/**'
       - 'tests/**'
-      - 'site.yaml'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/test.yml'

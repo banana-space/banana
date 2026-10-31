@@ -1,4 +1,4 @@
-"""Add the `halt` feature to static/fonts/BananaPunctuation-*.woff2, in place.
+"""Add the `halt` feature to site/files/fonts/BananaPunctuation-*.woff2, in place.
 
 `halt` gives each punctuation glyph a narrower alternate spacing by trimming its
 empty side: opening brackets lose space on the left, closing brackets and the
@@ -15,7 +15,7 @@ from fontTools.ttLib import TTFont
 from fontTools.ttLib.tables import otTables
 from fontTools.otlLib.builder import buildSinglePos, buildValue, buildLookup
 
-fonts = sys.argv[1:] or [f'static/fonts/BananaPunctuation-{weight}.woff2'
+fonts = sys.argv[1:] or [f'site/files/fonts/BananaPunctuation-{weight}.woff2'
                          for weight in ('Regular', 'Medium', 'SemiBold')]
 
 # Trim in font units (1000 per em; the full punctuation width is 850).

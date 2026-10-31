@@ -1,28 +1,28 @@
 import { createHash } from 'node:crypto';
-import { contentHash as hash } from './shared/content-hash.mjs';
+import { contentHash as hash } from '../shared/content-hash.mjs';
 import { copyFile, mkdir, readFile, readdir, rename, rm, rmdir, stat, writeFile } from 'node:fs/promises';
 import { deserialize, serialize } from 'node:v8';
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { prebuild, sameFile } from './prebuild/run.mjs';
-import { affectedPages } from './prebuild/affected.mjs';
-import { pageURL } from './shared/pages.mjs';
-import { pack, unpack } from './shared/compress.mjs';
-import { setBaseURL } from './shared/urls.mjs';
-import { elapsed, headline } from './shared/timing.mjs';
+import { prebuild, sameFile } from '../prebuild/run.mjs';
+import { affectedPages } from '../prebuild/affected.mjs';
+import { pageURL } from '../shared/pages.mjs';
+import { pack, unpack } from '../shared/compress.mjs';
+import { setBaseURL } from '../shared/urls.mjs';
+import { elapsed, headline } from '../shared/timing.mjs';
 import { publishPages, publishShared, siteGenerator, writeSearchIndex } from './generator.mjs';
-import { manifestEntries } from './search/index.mjs';
-import { siteDiagrams } from './shared/diagrams.mjs';
+import { manifestEntries } from '../search/index.mjs';
+import { siteDiagrams } from '../shared/diagrams.mjs';
 
-const root = fileURLToPath(new URL('../', import.meta.url));
+const root = fileURLToPath(new URL('../../', import.meta.url));
 
 /**
- * 常驻预览服务（见 docs/preview.md）：全站预处理结果留在内存里，页面由站点生成器（scripts/generator.mjs）渲染并
+ * 常驻预览服务（见 docs/preview.md）：全站预处理结果留在内存里，页面由站点生成器（scripts/service/generator.mjs）渲染并
  * 完成，与完整构建相同。
  *
  * 两类请求。serve 的请求（结果成为新的全站状态，写入 output，返回写入与删除的文件）：buildSite 生成全站（serve 的
  * 完整构建）；render、renderPages 与 refreshSite 处理 content/ 中已保存的修改，重新渲染变化的页面与依赖它们的页面
- * （affected.mjs）；assets 只重新构建样式与脚本，staticFiles 只复制 static/ 中变化的文件，restartGenerator 让站点
+ * （affected.mjs）；assets 只重新构建样式与脚本，staticFiles 只复制原样发布的文件中变化的，restartGenerator 让站点
  * 生成器载入新的代码。每个输出文件记下生成的 HTML 的哈希：与上次相同的文件不再完成、也不再写入。在线编辑的请求：
  * preview 与 check 处理稿件，不改变全站状态，也不写任何文件。请求依次处理。
  *
@@ -189,7 +189,7 @@ export function previewService({ baseURL, output, environment = 'development', f
   }
 
   /**
-   * serve 的完整构建：资源、static/ 的文件（clean：先清空 output）与全部页面。返回 { written, removed, unchanged,
+   * serve 的完整构建：资源、原样发布的文件（clean：先清空 output）与全部页面。返回 { written, removed, unchanged,
    * timings }（写入与删除的文件为 output 内的路径）。
    */
   const buildSite = ({ clean = false } = {}) => exclusive(async () => {
@@ -250,7 +250,7 @@ export function previewService({ baseURL, output, environment = 'development', f
   }
 
   /**
-   * 只重新构建样式与脚本（assets/ 的修改）。返回 { written, pages }：写入的文件；pages 为 true 时资源的地址变了
+   * 只重新构建样式与打包的脚本（site/styles/、site/scripts/ 的子目录的修改）。返回 { written, pages }：写入的文件；pages 为 true 时资源的地址变了
    * （production 的指纹），页面也要重新生成（buildSite）。
    */
   const assets = () => exclusive(async () => {
@@ -259,11 +259,11 @@ export function previewService({ baseURL, output, environment = 'development', f
     return { written, pages: addressesChanged };
   });
 
-  /** 只复制 static/ 中变化的文件（相对 static/ 的路径）：不存在的从 output 中删除。返回 { written, removed }。 */
+  /** 只复制原样发布的文件中变化的（output 内的路径）：不存在的从 output 中删除。返回 { written, removed }。 */
   const staticFiles = paths => exclusive(async () => {
     const written = [], removed = [];
     for (const path of paths) {
-      const from = join(root, 'static', path), to = join(output, path);
+      const from = path.startsWith('js/') ? join(root, 'site/scripts', path.slice(3)) : join(root, 'site/files', path), to = join(output, path);
       const info = await stat(from).catch(() => undefined);
       if (info?.isFile()) {
         await mkdir(dirname(to), { recursive: true });
@@ -457,7 +457,7 @@ async function finishingCode() {
       else await add(join(directory, entry.name));
     }
   };
-  for (const path of ['scripts/site/finish.mjs', 'scripts/site/finish-worker.mjs', 'static/js/search-query.js', 'package-lock.json']) await add(path);
+  for (const path of ['scripts/site/finish.mjs', 'scripts/site/finish-worker.mjs', 'site/scripts/search-query.js', 'package-lock.json']) await add(path);
   // bananamark (core, and tikz, which finishes pages' diagrams) wherever it is installed (the workspace's packages/,
   // or a copy of the site without it).
   const packages = ['bananamark', 'bananamark-tikz'].map(name => dirname(fileURLToPath(import.meta.resolve(name))));

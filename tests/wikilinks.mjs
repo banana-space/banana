@@ -112,6 +112,6 @@ A[[t]] \text{$b$}
 
 const name = { textContent: '', dataset: { nameFormat: '“{name}”', titleFormat: '{name}：条目尚未创建' } };
 const document = { getElementById: id => id === 'missing-name' ? name : null, querySelectorAll: () => [], title: '' };
-runInNewContext(await readFile(join(project, 'static/js/missing.js'), 'utf8'), { document, URLSearchParams, window: { location: { search: '?title=%3Cscript%3E' } } });
+runInNewContext(await readFile(join(project, 'site/scripts/missing.js'), 'utf8'), { document, URLSearchParams, window: { location: { search: '?title=%3Cscript%3E' } } });
 assert.equal(name.textContent, '“<script>”');
 console.log('内部链接、数学嵌套与转义、代码保护、实际 URL、缺失条目、草稿、同名冲突及构建时公式渲染验证通过');

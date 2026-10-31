@@ -2,7 +2,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { exactPage, knownQuery, relatedPages, searchPages } from '../../static/js/search-query.js';
+import { exactPage, knownQuery, relatedPages, searchPages } from '../../site/scripts/search-query.js';
 
 let loads = 0;
 

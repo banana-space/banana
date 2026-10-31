@@ -179,7 +179,7 @@ try {
   assert.throws(prebuild, /data\/categories.yaml: 分类名称 公式分隔符/);
 } finally { await rm(root, { recursive: true, force: true }); }
 
-const script = await readFile(join(project, 'static/js/redirect-source.js'), 'utf8');
+const script = await readFile(join(project, 'site/scripts/redirect-source.js'), 'utf8');
 for (const source of ['无穷范畴', '<script>', '未声明的来源', '', null]) {
   const caption = { textContent: '' }, notice = {
     dataset: { aliases: JSON.stringify(['无穷范畴', '<script>']) }, hidden: true,

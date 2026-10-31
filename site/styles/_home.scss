@@ -44,7 +44,7 @@ $home-tile-bg-hover: #e6eaf0;
   text-wrap: balance;
 }
 
-// 页内搜索框：与导航栏的搜索框同一样式，大一号；结果在下方的面板里（static/js/site.js）．
+// 页内搜索框：与导航栏的搜索框同一样式，大一号；结果在下方的面板里（site/scripts/site.js）．
 .home-search {
   position: relative;
   max-width: $home-hero-width;
@@ -90,7 +90,7 @@ $home-tile-bg-hover: #e6eaf0;
   }
 }
 
-// 导航栏的搜索框在页内搜索框可见时隐藏（static/js/site.js 加类），滚过之后再出现；
+// 导航栏的搜索框在页内搜索框可见时隐藏（site/scripts/site.js 加类），滚过之后再出现；
 // 窄屏上打开的全屏搜索不受影响．
 .navigation .site-search,
 .navigation .search-toggle {

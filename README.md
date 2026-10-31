@@ -80,7 +80,7 @@ npm run check -- content/wiki/条目名    # 只检查语法与链接，不渲�
 | `content/wiki/` | 百科条目，每个条目一个目录（`条目名/index.md`） |
 | `content/books/`、`content/help/` | 讲义与指南，章节顺序由各自的 `book.yaml` 指定 |
 | `data/categories.yaml` | 分类树 |
-| `assets/`、`static/` | 样式、浏览器脚本与字体 |
+| `site/` | 样式（`styles/`）、浏览器脚本（`scripts/`：其中的子目录打包，其余原样发布到 `/js/`）与原样发布的文件（`files/`：字体、图片） |
 | `scripts/` | 构建（模板在 `scripts/site/templates/`）、预览服务与 API |
 | `packages/` | bananamark、bananamark-codemirror、bananamark-tikz 三个包，见 [开发文档](docs/README.md) |
 | `tests/` | 测试；`tests/fixtures/` 中有语法示例页面 |

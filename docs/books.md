@@ -225,8 +225,8 @@ referenceFormat:
 - `packages/bananamark/src/syntax/numbering.mjs`：配置合并与验证、编号向量、零的显示处理及共享计数器。
 - `packages/bananamark/src/syntax/structure.mjs`：共同 Markdown 结构扫描；`prepareOnly` 返回延迟渲染函数。
 - `scripts/prebuild/run.mjs`：先加载所有内容，再扫描整组标签与文献，最后统一渲染；源文件不被改写。
-- `scripts/site/templates/collections.mjs`、`assets/scss/_collections.scss`、`static/js/collections.js`：目录、面包屑、响应式侧栏及键盘交互。
-- `assets/scss/_directory-tree.scss`：左右目录共用的网格、基线、折叠图标与高亮竖线；`scripts/site/templates/page.mjs` 和 `static/js/site.js` 负责本页目录结构与阅读位置展开。
+- `scripts/site/templates/collections.mjs`、`site/styles/_collections.scss`、`site/scripts/collections.js`：目录、面包屑、响应式侧栏及键盘交互。
+- `site/styles/_directory-tree.scss`：左右目录共用的网格、基线、折叠图标与高亮竖线；`scripts/site/templates/page.mjs` 和 `site/scripts/site.js` 负责本页目录结构与阅读位置展开。
 - `scripts/build.mjs`：完整构建入口。
 - `tests/collections.mjs`：整组构建、普通页面、跨页目标/文献、编号、发布、侧栏、配置错误及真实 Git 历史测试。
 

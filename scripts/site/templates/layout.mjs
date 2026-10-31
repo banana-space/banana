@@ -74,7 +74,7 @@ ${opengraph(site, page)}
 }
 
 // The logo inlined, so that its text takes the navigation's colour.
-const logo = raw(readFileSync(new URL('../../../static/images/logo.svg', import.meta.url), 'utf8')
+const logo = raw(readFileSync(new URL('../../../site/files/images/logo.svg', import.meta.url), 'utf8')
   .replace(/\s*<title>.*?<\/title>/g, '').replace(/<svg [^>]*?viewBox/, '<svg class="site-logo" aria-hidden="true" focusable="false" viewBox'));
 
 /** The navigation bar. */

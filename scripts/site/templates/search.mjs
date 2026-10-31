@@ -3,7 +3,7 @@ import { relURL } from '../../shared/urls.mjs';
 import { html, json } from '../html.mjs';
 import { icon } from './layout.mjs';
 
-/** Settings and text for static/js/search.js ({count} and the like it fills in). */
+/** Settings and text for site/scripts/search.js ({count} and the like it fills in). */
 export function searchConfig(site) {
   const strings = {
     loading: t('search_loading'),

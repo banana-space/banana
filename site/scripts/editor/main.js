@@ -13,8 +13,8 @@ import { acceptCompletion, autocompletion, closeBrackets, closeBracketsKeymap, c
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
 import { bananamarkKeymap, bananamarkLanguage, highlightClasses, pairFormulaDelimiters, problemRange } from 'bananamark-codemirror';
-import { dialectLanguages } from '../scripts/shared/dialect.mjs';
-import { afterComposition, completionSources } from '../scripts/editor/completion.mjs';
+import { dialectLanguages } from '../../../scripts/shared/dialect.mjs';
+import { afterComposition, completionSources } from '../../../scripts/editor/completion.mjs';
 
 /** The dialect with the site's data blocks highlighted (scripts/shared/dialect.mjs). */
 const bananaMarkdown = () => bananamarkLanguage({ codeLanguages: dialectLanguages, wikiLinks: true });
@@ -167,7 +167,7 @@ function changeTexts(original, doc, { fromA, toA, fromB, toB }) {
   return { before: lines(original, fromA, toA), after: lines(doc, fromB, toB) };
 }
 /**
- * The change in a small read-only editor, as on the diff page (assets/js/diff/main.js): its lines now, the original
+ * The change in a small read-only editor, as on the diff page (site/scripts/diff/main.js): its lines now, the original
  * ones above them, the changed text within marked; buttons to put the original back and to close.
  */
 class ChangePeek extends WidgetType {
@@ -889,7 +889,7 @@ async function openPage(path, user, title) {
     });
   }
 
-  // Problems are marked in the source. Two sources: the instant check in the browser (assets/js/editor/check.js,
+  // Problems are marked in the source. Two sources: the instant check in the browser (site/scripts/editor/check.js,
   // loaded once the editor is up), run on the current text after a short pause in typing; and what the server
   // reported about a text previewed or submitted earlier. The server's findings are placed on that text and
   // carried through every edit since, so they stay on the words they point to until the next report.

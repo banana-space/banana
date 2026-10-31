@@ -5,12 +5,12 @@
 // links, which depend on the whole site, are left to the server's preview.
 import { parse } from 'yaml';
 import { checkDocument } from 'bananamark-codemirror';
-import { nameList, pageName } from '../scripts/shared/names.mjs';
+import { nameList, pageName } from '../../../scripts/shared/names.mjs';
 
-export { directoryName } from '../scripts/shared/names.mjs';
-import { frontMatterProblems } from '../scripts/prebuild/front-matter-rules.mjs';
-import { pageTypography } from '../scripts/shared/typography.mjs';
-import { siteSyntax } from '../scripts/shared/syntax.mjs';
+export { directoryName } from '../../../scripts/shared/names.mjs';
+import { frontMatterProblems } from '../../../scripts/prebuild/front-matter-rules.mjs';
+import { pageTypography } from '../../../scripts/shared/typography.mjs';
+import { siteSyntax } from '../../../scripts/shared/syntax.mjs';
 
 /**
  * Problems in a draft of content/<path>: [{ line, column, message }], lines and columns from 1, the

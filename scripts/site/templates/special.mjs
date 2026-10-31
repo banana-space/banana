@@ -10,7 +10,7 @@ import { icon } from './layout.mjs';
  * changes, a page's history, a change's diff, the editor; and the 404 page.
  */
 
-/** Related pages for a name without a page ("title" or "path"), filled by static/js/related-search.js. */
+/** Related pages for a name without a page ("title" or "path"), filled by site/scripts/related-search.js. */
 const relatedSearch = source => html`<section class="related-search" data-source="${source}" aria-labelledby="related-search-title" hidden>
   <h2 id="related-search-title" class="related-search-title">${t('related_search_title')}</h2>
   <div class="search-page-results related-search-results"></div>
@@ -43,7 +43,7 @@ export function missingContent(site) {
 <script defer src="${relURL('js/missing.js')}"></script>`;
 }
 
-/** Recent pull requests, rendered by static/js/recent-changes.js. */
+/** Recent pull requests, rendered by site/scripts/recent-changes.js. */
 export function recentChangesContent() {
   const keys = { loading: 'loading', error: 'error', empty: 'empty', today: 'today', yesterday: 'yesterday', date: 'date', open: 'open', draft: 'draft', merged: 'merged', publishing: 'publishing', publishingHint: 'publishing_hint', added: 'added', removed: 'removed', renamed: 'renamed', pages: 'pages', morePages: 'more_pages', showPages: 'show_pages', hidePages: 'hide_pages', otherFiles: 'other_files', siteOnly: 'site_only', truncated: 'truncated', filterPages: 'filter_pages', noPages: 'no_pages' };
   const strings = Object.fromEntries(Object.entries(keys).map(([name, key]) => [name, t(`recent_changes_${key}`)]));
@@ -69,7 +69,7 @@ export function recentChangesContent() {
 <script type="module" src="${relURL('js/recent-changes.js')}"></script>`;
 }
 
-/** A page's history, rendered by static/js/history.js. */
+/** A page's history, rendered by site/scripts/history.js. */
 export function historyContent(site) {
   const strings = {
     loading: t('recent_changes_loading'), error: t('history_error'), missing: t('history_missing'), pendingError: t('history_pending_error'),
@@ -95,7 +95,7 @@ export function historyContent(site) {
 <script type="module" src="${relURL('js/history.js')}"></script>`;
 }
 
-/** One page's change in one pull request, rendered by assets/js/diff/main.js. */
+/** One page's change in one pull request, rendered by site/scripts/diff/main.js. */
 export function diffContent(site) {
   const strings = {
     loading: t('recent_changes_loading'), error: t('diff_error'), missing: t('diff_missing'), open: t('recent_changes_open'),
@@ -140,7 +140,7 @@ export function editorNames(site) {
   return String(json({ entries, categories: Object.keys(data('categories.yaml') ?? {}).sort(), environments, languages: data('language_names.yaml') }));
 }
 
-/** The online editor (assets/js/editor/). */
+/** The online editor (site/scripts/editor/). */
 export function editorContent(site, page) {
   const strings = Object.fromEntries(editorKeys.map(key => [key, t(`editor_${key}`)]));
   const { editor, editorCheck, editorNames: names } = site.assets;

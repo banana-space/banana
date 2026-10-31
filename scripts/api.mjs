@@ -6,7 +6,7 @@ import { config } from './shared/config.mjs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import { parse as parseYAML } from 'yaml';
-import { previewService } from './preview-service.mjs';
+import { previewService } from './service/preview.mjs';
 import { describeError } from './shared/errors.mjs';
 import { frontMatterProblems } from './prebuild/front-matter-rules.mjs';
 import { formatMarkdown } from './format/markdown.mjs';
@@ -21,7 +21,7 @@ import { displayTitle } from './shared/display-title.mjs';
 //
 // 用法：npm run api -- [选项] [--buildDrafts]
 //   --port 8787、--bind 127.0.0.1    监听地址
-//   --base-url <地址>                页面中的站点地址，默认取 site.yaml 的 baseURL
+//   --base-url <地址>                页面中的站点地址，默认取 data/site.yaml 的 baseURL
 //   --public-url <地址>              浏览器访问站点（与 /api/）的地址，用于登录回调，默认为 base-url 的源
 //   --github-repo owner/name         提交 PR 的仓库；--github-base main 为目标分支
 //   --preview-interval <秒>          每个账号的预览频率：可以连续预览 3 次，之后每隔这么久恢复一次，默认 3；
@@ -99,7 +99,7 @@ if (options.devUser !== undefined) {
   if (!['127.0.0.1', '::1', 'localhost'].includes(options.bind)) throw new Error('--dev-user is only allowed when listening on a loopback address');
 }
 options.baseURL ??= config.baseURL;
-if (!options.baseURL) throw new Error('--base-url is required when site.yaml sets no baseURL');
+if (!options.baseURL) throw new Error('--base-url is required when data/site.yaml sets no baseURL');
 const publicOrigin = new URL(options.publicURL ?? options.baseURL).origin;
 const secure = publicOrigin.startsWith('https:');
 const redirectURI = `${publicOrigin}/api/auth/callback`;

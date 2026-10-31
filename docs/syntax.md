@@ -20,11 +20,11 @@
 | `typography` | 句号转换与引号旁的空格都打开（`scripts/shared/typography.mjs`，见 [中文排版](typography.md)） |
 | `allowH1` | 百科条目中为否：`# 标题` 与 Setext 一级标题报错；首页等其他页面可以使用 |
 
-KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩展命令。几个特殊字形由站点的字体给出：`\mathbb{1}` 显示为 𝟙（交换图中也是），镜像字母 `ꓘ`（U+A4D8）、`ꓷ`（U+A4F7）显示为左右翻转的 K、D（如 `\mathrm{ꓘꓷ}` 是镜像的 DK），由 KaTeX_Main 改成的 BananaMath 补足（`assets/scss/_katex.scss`；TikZ 中见 [TikZ 图形](tikz.md)）。
+KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩展命令。几个特殊字形由站点的字体给出：`\mathbb{1}` 显示为 𝟙（交换图中也是），镜像字母 `ꓘ`（U+A4D8）、`ꓷ`（U+A4F7）显示为左右翻转的 K、D（如 `\mathrm{ꓘꓷ}` 是镜像的 DK），由 KaTeX_Main 改成的 BananaMath 补足（`site/styles/_katex.scss`；TikZ 中见 [TikZ 图形](tikz.md)）。
 
 ### 定理类环境
 
-环境在 `data/theorems.yaml` 中配置：每项的 `name`（显示名称，可按语言写成 `zh-cn`、`en`；页面 `lang: en` 时用英文）、`group`（颜色组）与可选的 `numbered`（默认 `true`）。站点的环境与颜色（`assets/scss/_theorems.scss`；四组只有左边框，标题用对应的颜色，证明没有边框）：
+环境在 `data/theorems.yaml` 中配置：每项的 `name`（显示名称，可按语言写成 `zh-cn`、`en`；页面 `lang: en` 时用英文）、`group`（颜色组）与可选的 `numbered`（默认 `true`）。站点的环境与颜色（`site/styles/_theorems.scss`；四组只有左边框，标题用对应的颜色，证明没有边框）：
 
 | 类型 | 显示名称 | 颜色组 | 颜色 |
 | --- | --- | --- | --- |
@@ -163,7 +163,7 @@ sort: serre jean pierre
 | `<disambiguation>` | 消歧义与区分（`notice-info`，分支箭头图标）：其中的文字 |
 | `<tip>` | 其他提示（`notice-info`，信息图标）：其中的文字 |
 
-其中的内容是页面的正文：公式、百科链接、`@` 引用都可以使用，错误报在源文件的行列上。内容为空时报错。`<problems>` 也可以写在它涉及的一节中。提示框写成 `<aside class="notice …">`（样式在 `assets/scss/_notice.scss`），不进入页面的描述（`og:description`）与搜索文档。front matter 中旧的 `notices` 字段报错。
+其中的内容是页面的正文：公式、百科链接、`@` 引用都可以使用，错误报在源文件的行列上。内容为空时报错。`<problems>` 也可以写在它涉及的一节中。提示框写成 `<aside class="notice …">`（样式在 `site/styles/_notice.scss`），不进入页面的描述（`og:description`）与搜索文档。front matter 中旧的 `notices` 字段报错。
 
 ## 参见
 
@@ -279,7 +279,7 @@ bananamark 在渲染时向站点询问的事，由 `scripts/prebuild/render.mjs`
 
 渲染结果按这些回答缓存（`scripts/prebuild/render-cache.mjs`）：回答都不变时，页面不重新渲染。
 
-参考文献的样式在 `assets/scss/_bibliography.scss`。从正文的引用跳转到的条目（`:target`）以浅橙色底色和边框标出（框伸出文字之外，负的外边距抵消，条目的位置不变），约 2.5 秒后淡出；再次点击同一引用时，`static/js/site.js` 让它重新标出。页内锚点跳转避开顶部导航栏：`site.js` 按导航栏的实际高度设置滚动偏移，系统设置“减少动态效果”时不用平滑滚动。
+参考文献的样式在 `site/styles/_bibliography.scss`。从正文的引用跳转到的条目（`:target`）以浅橙色底色和边框标出（框伸出文字之外，负的外边距抵消，条目的位置不变），约 2.5 秒后淡出；再次点击同一引用时，`site/scripts/site.js` 让它重新标出。页内锚点跳转避开顶部导航栏：`site.js` 按导航栏的实际高度设置滚动偏移，系统设置“减少动态效果”时不用平滑滚动。
 
 ## 构建与验证
 
@@ -290,6 +290,6 @@ npm run check -- content/wiki/条目
 npm test
 ```
 
-`npm run serve` 启动时完整构建一次，再提供本地预览；修改 `content/` 中的页面、附件与导航定义，或 `data/categories.yaml`，会重新处理并刷新浏览器中变化的页面；修改模板、样式、脚本或 `site.yaml` 时完整构建。详见 [预览与检查](preview.md)。发布参数可以透传，例如 `npm run serve -- --port 1414 --buildDrafts`。
+`npm run serve` 启动时完整构建一次，再提供本地预览；修改 `content/` 中的页面、附件与导航定义，或 `data/categories.yaml`，会重新处理并刷新浏览器中变化的页面；修改模板、样式、脚本或 `data/site.yaml` 时完整构建。详见 [预览与检查](preview.md)。发布参数可以透传，例如 `npm run serve -- --port 1414 --buildDrafts`。
 
 `npm test` 运行站点的测试（`tests/`）与三个包的测试；方言本身的测试与规范在 `packages/bananamark/test/`（见 [包的开发](../packages/CONTRIBUTING.md)）。

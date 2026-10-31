@@ -2,9 +2,9 @@ import { copyFile, link, mkdir, rename, rm, writeFile } from 'node:fs/promises';
 import { availableParallelism } from 'node:os';
 import { dirname, join } from 'node:path';
 import { Worker } from 'node:worker_threads';
-import { searchIndexer } from './search/index.mjs';
-import { baseURL } from './shared/urls.mjs';
-import { contentHash as hash } from './shared/content-hash.mjs';
+import { searchIndexer } from '../search/index.mjs';
+import { baseURL } from '../shared/urls.mjs';
+import { contentHash as hash } from '../shared/content-hash.mjs';
 
 /**
  * The site generator, as the build, serve and the API run it (docs/README.md, docs/preview.md):
@@ -28,11 +28,11 @@ export function siteGenerator({ development = false, threads = true, jobs, cores
   function start() {
     if (core) return;
     if (!threads) {
-      core = import('./site/core.mjs').then(({ generatorCore }) => {
+      core = import('../site/core.mjs').then(({ generatorCore }) => {
         const instance = generatorCore({ development });
         return [{ call: (method, args) => instance[method](...args), terminate: () => {} }];
       });
-      pool = import('./site/finish.mjs').then(({ finishPage }) => ({
+      pool = import('../site/finish.mjs').then(({ finishPage }) => ({
         run: ({ html, entry, sourceLines }) => finishPage(html, { entry, sourceLines }),
         close: async () => [],
       }));
@@ -85,7 +85,7 @@ export function siteGenerator({ development = false, threads = true, jobs, cores
 function coreWorker({ development }) {
   // Heap limits make each worker collect its garbage sooner: at 2836 pages the build's peak went from about 2.45 GB to
   // about 1.8 GB, in the same time.
-  const worker = new Worker(new URL('./site/core-worker.mjs', import.meta.url), {
+  const worker = new Worker(new URL('../site/core-worker.mjs', import.meta.url), {
     workerData: { development, baseURL: baseURL.href }, resourceLimits: { maxOldGenerationSizeMb: 1024 },
     // The publishing flag (--buildDrafts) is read from the command line.
     argv: process.argv.slice(2),
@@ -125,7 +125,7 @@ function finishingPool(count) {
     }
   };
   for (let i = 0; i < count; i++) {
-    const worker = new Worker(new URL('./site/finish-worker.mjs', import.meta.url), { resourceLimits: { maxOldGenerationSizeMb: 384 } });
+    const worker = new Worker(new URL('../site/finish-worker.mjs', import.meta.url), { resourceLimits: { maxOldGenerationSizeMb: 384 } });
     worker.on('message', message => {
       if (message.steps) { worker.closed(message.steps); return; }
       const { task } = worker;

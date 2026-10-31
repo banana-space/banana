@@ -10,7 +10,7 @@ import { contentHash } from '../shared/content-hash.mjs';
 /**
  * The site generator's state and work, everything that runs the templates: the pages (their front matter and
  * a way to their bodies), the assets' addresses, and from them a page's files, the files that follow from all
- * pages, the search manifest, the assets themselves and the static files. scripts/generator.mjs runs it in a
+ * pages, the search manifest, the assets themselves and the static files. scripts/service/generator.mjs runs it in a
  * worker thread (restarted when this code changes) or, for the API, in its own thread.
  *
  * A page is given as { relative, metadata, compressed } (its metadata and its body's HTML compressed, as the prebuild
@@ -61,7 +61,7 @@ export function generatorCore({ development = false } = {}) {
     renderable: () => siteWith().pages.filter(page => page.published && page.url).map(page => page.relative),
     /**
      * The files of these pages (relative paths): [output path, HTML] pairs, with hashes [output path, HTML, hash] (of
-     * the HTML, see scripts/generator.mjs); drafts: see siteWith.
+     * the HTML, see scripts/service/generator.mjs); drafts: see siteWith.
      */
     render(relatives, { drafts = [], hashes = false } = {}) {
       const current = siteWith(drafts), files = [];
