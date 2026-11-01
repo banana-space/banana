@@ -230,21 +230,26 @@ try {
   assert.equal((await history('../x.md')).status, 400);
 
   // Anyone may ask, so each address may ask 20 times at once and then once every 2 s; Apache's X-Forwarded-For says
-  // who asked. Requests go out together: one after another, a slow machine would refill a token before the last.
-  const burst = (count, ask) => Promise.all(Array.from({ length: count }, (_, i) => ask(i)));
-  const answers = await burst(22, () => history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7' }));
-  assert.deepEqual(answers.map(answer => answer.status).sort(), [...Array(20).fill(200), 429, 429], '同一地址连续请求时限频');
-  const refused = answers.find(answer => answer.status === 429);
-  // 2 s while the requests come within a second of the first refusal; a slow machine has refilled half a token since.
+  // who asked. How many get through depends on how long the requests take here, as it should: one more for each 2 s.
+  let limited = '';
+  const untilRefused = async (ask, message) => {
+    const started = performance.now(), answers = [];
+    do answers.push(await ask(answers.length)); while (answers.at(-1).status === 200 && answers.length < 200);
+    const elapsed = performance.now() - started, passed = answers.length - 1;
+    assert.equal(answers.at(-1).status, 429, message);
+    assert.ok(passed >= 20 && passed <= 20 + Math.ceil(elapsed / 2000), `${message}：${elapsed} ms 内通过 ${passed} 个`);
+    limited ||= `${answers.length} 个请求 ${Math.round(elapsed)} ms`;
+    return answers.at(-1);
+  };
+  const refused = await untilRefused(() => history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7' }), '同一地址连续请求时限频');
+  // The tokens it lacked: at most one, at 2 s each.
   assert.ok(['1', '2'].includes(refused.headers.get('retry-after')), refused.headers.get('retry-after'));
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7, 203.0.113.9' })).status, 200, '以 Apache 加上的最后一项为准');
-  await burst(20, i => history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2::${i + 1}` }));
-  assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:2:ffff::1' })).status, 429, 'IPv6 地址按 /64 网段限频');
+  await untilRefused(i => history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2:${(i + 1).toString(16)}::1` }), 'IPv6 地址按 /64 网段限频');
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:3::1' })).status, 200);
   // The recent changes and their diffs likewise, each counted on its own.
-  const listing = () => fetch(`${base}/api/recent-changes?page=1`, { headers: { 'X-Forwarded-For': '198.51.100.7' } }).then(response => response.status);
-  const listings = await burst(21, listing);
-  assert.deepEqual(listings.sort(), [...Array(20).fill(200), 429], '最近更改同样按地址限频，与页面历史分开计数');
+  const listing = () => fetch(`${base}/api/recent-changes?page=1`, { headers: { 'X-Forwarded-For': '198.51.100.7' } });
+  await untilRefused(listing, '最近更改同样按地址限频，与页面历史分开计数');
 
   // What a commit fixes (its date, its files, where its branch left main) is kept on disk: after a restart (as after
   // each deploy) the first load reads only the lists from GitHub.
@@ -271,7 +276,7 @@ try {
   base = await logged(/listening on (http:\/\/\S+)\/api\//);
   assert.equal((await get('recent-changes')).json.pulls.length, json0.pulls.length, '缓存文件损坏时从头读取');
 
-  console.log('最近更改：PR 列表与分页、页面历史中尚未发布的修改与限频、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过');
+  console.log(`最近更改：PR 列表与分页、页面历史中尚未发布的修改与限频、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过（限频：${limited}）`);
 } finally {
   if (child && child.exitCode === null) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}
