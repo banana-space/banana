@@ -77,7 +77,7 @@ $n$ 维**相对边界链**即 $X$ 中 $n + 1$ 维链的边界所在的陪集。
 C^n (X, Y; A)
 = \operatorname{Hom}_\mathbb{Z} (C_n (X, Y; \mathbb{Z}), A).
 \]
-定义余边界映射
+定义上边界映射
 \[
 d^n \colon C^n (X, Y; A) \longrightarrow C^{n+1} (X, Y; A)
 \]

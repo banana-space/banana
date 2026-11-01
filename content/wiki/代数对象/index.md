@@ -196,7 +196,7 @@ d(ab) = d(a)b + (-1)^p a\,d(b),
 ::: example [扭曲群代数]
 设 $G$ 是有限[[群]]，
 $\omega \colon G \times G \times G \to k^\times$
-是正规化的 $3$-[[上闭链]]。
+是正规化的 $3$-[[闭上链]]。
 考虑有限维 $G$-[[分次向量空间]]组成的幺半范畴
 $\mathsf{Vect}_G^\omega$。
 

@@ -44,14 +44,14 @@ navboxes: [母题论]
 - $\mathfrak{h}(X)(r)$ 与 $\mathfrak{h}(Y)(r')$
   之间的态射为 $\mathcal{Z}^{\dim X+r'-r}(X\times Y)_A/\sim$。
   其中，$\mathcal{Z}^{\dim X+r'-r}(X\times Y)_A$ 表示
-  $X\times Y$ 中 $\dim X+r'-r$ 余维[[代数圈]]的
+  $X\times Y$ 中 $\dim X+r'-r$ 余维[[代数闭链]]的
   $A$-系数线性组合构成的模，
-  $\sim$ 表示代数圈的某种[[适当等价]]，
+  $\sim$ 表示代数闭链的某种[[适当等价]]，
   例如[[有理等价]]、[[代数等价]]、[[同调等价]]等。
 
 - 态射的复合是[[对应 (代数几何)|对应]]的[[卷积]]：
-  对 $X\times Y$ 与 $Y\times Z$ 中的代数圈 $U_1$、$U_2$，
-  其复合为 $X\times Z$ 中的代数圈
+  对 $X\times Y$ 与 $Y\times Z$ 中的代数闭链 $U_1$、$U_2$，
+  其复合为 $X\times Z$ 中的代数闭链
   $p_{XZ*}(p_{XY}^*U_1\cap p_{YZ}^*U_2)$。
 
 换言之，$M_\sim(k)_A$ 中的对象形如 $e\mathfrak{h}(X)(r)$，
@@ -91,17 +91,17 @@ navboxes: [母题论]
 ## 例子
 
 - 对[[射影直线]] $\mathbb{P}^1$，取其上一 $k$-点 $x$，
-  则代数圈 $x\times \mathbb{P}^1\subset \mathbb{P}^1\times \mathbb{P}^1$
+  则代数闭链 $x\times \mathbb{P}^1\subset \mathbb{P}^1\times \mathbb{P}^1$
   是复合态射
   $\mathfrak{h}(\mathbb{P}^1)\to \mathbf{1}(-1)\to
   \mathfrak{h}(\mathbb{P}^1)$，
-  而代数圈 $\mathbb{P}^1\times x\subset \mathbb{P}^1\times \mathbb{P}^1$
+  而代数闭链 $\mathbb{P}^1\times x\subset \mathbb{P}^1\times \mathbb{P}^1$
   是复合态射
   $\mathfrak{h}(\mathbb{P}^1)\to \mathbf{1}\to
   \mathfrak{h}(\mathbb{P}^1)$。
-  由于在 $\mathbb{P}^1\times \mathbb{P}^1$ 中，有代数圈的等价
+  由于在 $\mathbb{P}^1\times \mathbb{P}^1$ 中，有代数闭链的等价
   $\Delta\sim x\times \mathbb{P}^1+\mathbb{P}^1\times x$
-  （其中 $\Delta$ 为对角线），且这两个代数圈均是幂等元，
+  （其中 $\Delta$ 为对角线），且这两个代数闭链均是幂等元，
   有直和分解 $\mathfrak{h}(\mathbb{P}^1)\simeq \mathbf{1}\oplus \mathbf{1}(-1)$。
 
 - 对射影空间 $\mathbb{P}^n$ 也有类似结论。

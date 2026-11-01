@@ -52,7 +52,7 @@ $\mathcal{A}$ 的[[单纯对象]] $\operatorname{DK}(C)$ 如下：
       {[k']}\ar[r,"+1"']&{[k]}
     \end{tikzcd}
     \]
-    交换，则 $C_k\to C_{k'}$ 是边缘映射
+    交换，则 $C_k\to C_{k'}$ 是边界映射
     $\partial_k\colon C_k\to C_{k-1}$。
 
   - 其它情况下 $C_k\to C_{k'}$ 是零映射。
@@ -79,7 +79,7 @@ $\operatorname{DK}\colon\mathsf{Ch}_{\ge0}(\mathcal{A})\to\mathsf{Fun}(\mathbb{\
 
 - 对 $n\in\mathbb{N}$，定义 $\operatorname{C}_n(X)=X_n$。
 
-- 对 $n\in\mathbb{Z}_+$，定义边缘映射
+- 对 $n\in\mathbb{Z}_+$，定义边界映射
   $\operatorname{C}_n(X)\to\operatorname{C}_{n-1}(X)$ 为
   $$
   \sum_{i=0}^n(-1)^id_n^i\colon X_n\to X_{n-1},
@@ -96,7 +96,7 @@ $\operatorname{DK}\colon\mathsf{Ch}_{\ge0}(\mathcal{A})\to\mathsf{Fun}(\mathbb{\
   $$
   的[[核 (代数)|核]]。
 
-- 对 $n\in\mathbb{Z}_+$，定义边缘映射 $\operatorname{N}_n(X)\to\operatorname{N}_{n-1}(X)$
+- 对 $n\in\mathbb{Z}_+$，定义边界映射 $\operatorname{N}_n(X)\to\operatorname{N}_{n-1}(X)$
   为 $d_n^0\colon X_n\to X_{n-1}$ 的限制。
 
 注意由于 $\mathcal{A}$ 仅仅是加性范畴，
@@ -151,7 +151,7 @@ $$
 $$
 其中第二个箭头是左 Kan 扩张，第一个箭头是把链复形
 $C_\bullet$ 打到半单纯对象 $C_\bullet$，其中
-$d^0_n\colon C_n\to C_{n-1}$ 是边缘映射 $\partial_n$，
+$d^0_n\colon C_n\to C_{n-1}$ 是边界映射 $\partial_n$，
 其它面映射 $(d^i_n)_{i=1}^n$ 都是零映射。依定义左 Kan
 扩张的右伴随是限制；故由函子 $\operatorname{N}$ 的定义立知它是 $\operatorname{DK}$
 的右伴随。对 $C\in\mathsf{Ch}_{\ge0}(\mathsf{Ab})$ 计算
@@ -282,7 +282,7 @@ $$
 $$
 如下：由 @DK 中的左 Kan 扩张描述，只需指定
 $(C\otimes D)_n$ 中元素在 $\operatorname{DK}_n(C)\otimes\operatorname{DK}_n(D)$
-中的像，使其 $d_n^0$ 是链复形边缘映射，
+中的像，使其 $d_n^0$ 是链复形边界映射，
 $d_n^1,\ldots,d_n^n$ 都是 $0$。那么对 $p+q=n$ 以及
 $c_p\in C_p$，$d_q\in D_q$ 定义
 $$

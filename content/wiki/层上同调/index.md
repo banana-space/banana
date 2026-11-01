@@ -24,7 +24,7 @@ $H^i (X, \mathcal{F}) \simeq H^i (\mathrm{R} f_* \mathcal{F})$，
 例如 [[de Rham 上同调]]、[[Dolbeault 上同调]]，
 也可以通过层上同调来描述，并借助之与奇异上同调联系起来。
 
-在实际计算中，层上同调常通过 [[Čech 上同调]]或[[无圈消解]]计算。
+在实际计算中，层上同调常通过 [[Čech 上同调]]或[[零调消解]]计算。
 有时 [[Leray 谱序列]]也有助于计算。
 
 层上同调的定义可推广至[[景]]上的层，而不限于拓扑空间上的层。
@@ -149,7 +149,7 @@ H^i (X, A_X) \simeq H^i (X; A),
 \]
 由 [[Poincaré 引理]]，de Rham 复形是常值层
 $\mathbb{R}_X$ 的消解；
-又因为每个 $\mathcal{A}^p_X$ 是[[细层]]，该消解是[[无圈消解]]。
+又因为每个 $\mathcal{A}^p_X$ 是[[细层]]，该消解是[[零调消解]]。
 于是
 \[
 H^i (X, \mathbb{R}_X) \simeq
@@ -284,22 +284,22 @@ H^q (U_{i_0} \cap \cdots \cap U_{i_p}, \mathcal{F}) = 0,
 
 很多层上同调的计算可化为选择合适覆盖后的 Čech 复形计算。
 
-### 无圈消解
+### 零调消解
 
-空间 $X$ 上的 Abel 层 $\mathcal{F}$ 称为[[无圈层]]，
+空间 $X$ 上的 Abel 层 $\mathcal{F}$ 称为[[零调层]]，
 是指 $H^i (X, \mathcal{F}) = 0$ 对所有 $i > 0$ 成立。
 
-::: proposition [无圈层的例子] {@prop:层上同调-常见无圈层}
+::: proposition [零调层的例子] {@prop:层上同调-常见零调层}
 设 $X$ 是拓扑空间。则 $X$ 上的 Abel 层的性质满足以下蕴涵关系：
 
-- [[内射层]] $\Rightarrow$ [[松层]] $\Rightarrow$ [[无圈层]]。
+- [[内射层]] $\Rightarrow$ [[松层]] $\Rightarrow$ [[零调层]]。
 
 - 若 $X$ 是[[仿紧空间|仿紧]] [[Hausdorff 空间]]，
-  则[[细层]] $\Rightarrow$ [[软层]] $\Rightarrow$ [[无圈层]]。
+  则[[细层]] $\Rightarrow$ [[软层]] $\Rightarrow$ [[零调层]]。
 
 :::
 
-::: proposition [无圈消解] {@prop:层上同调-无圈消解}
+::: proposition [零调消解] {@prop:层上同调-零调消解}
 设 $X$ 是拓扑空间或景，$\mathcal{F}$ 是 $X$ 上的 Abel 层。
 若
 \[
@@ -308,7 +308,7 @@ H^q (U_{i_0} \cap \cdots \cap U_{i_p}, \mathcal{F}) = 0,
 \longrightarrow \mathcal{A}^1
 \longrightarrow \cdots
 \]
-是 $\mathcal{F}$ 的消解，且每个 $\mathcal{A}^j$ 都是无圈层，
+是 $\mathcal{F}$ 的消解，且每个 $\mathcal{A}^j$ 都是零调层，
 则对每个整数 $i \geq 0$ 有自然同构
 \[
 H^i (X, \mathcal{F}) \simeq
