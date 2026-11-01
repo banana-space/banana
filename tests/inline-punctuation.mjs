@@ -3,14 +3,14 @@ import { readFile } from 'node:fs/promises';
 import { renderDocument } from 'bananamark';
 import { JSDOM } from 'jsdom';
 
-// static/js/inline-punctuation.js on the site's markup: closing punctuation after an inline diagram or an external
+// site/scripts/inline-punctuation.js on the site's markup: closing punctuation after an inline diagram or an external
 // link's icon is grouped with it; after a formula, bananamark has kept it with the formula already (span.bm-math-end),
 // and the script leaves it alone.
-const script = await readFile(new URL('../static/js/inline-punctuation.js', import.meta.url), 'utf8');
+const script = await readFile(new URL('../site/scripts/inline-punctuation.js', import.meta.url), 'utf8');
 const icon = '<svg class="ui-icon link-icon icon-external" aria-hidden="true"></svg>';
 const formulas = renderDocument('设 $a = b + c$，则 $n$’s 文字', { lang: 'zh-cn' }).html;
 const dom = new JSDOM(`${formulas}
-<p>图 <span class="bm-math-rendered bm-tikz-rendered" data-display="false"><span class="bm-tikz-body"><svg></svg></span></span>，见 <a class="external-link" href="https://example.org/">某个 网站${icon}</a>．</p>`, { runScripts: 'outside-only' });
+<p>图 <span class="bm-math-rendered bm-tikz-rendered"><span class="bm-tikz-body"><svg></svg></span></span>，见 <a class="external-link" href="https://example.org/">某个 网站${icon}</a>．</p>`, { runScripts: 'outside-only' });
 dom.window.eval(script);
 const { document } = dom.window;
 const [first, second] = document.querySelectorAll('p');

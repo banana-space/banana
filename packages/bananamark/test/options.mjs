@@ -24,7 +24,7 @@ assert.throws(() => createProcessor({ plugins: [null] }), error => error.code ==
 }
 // pageAnchor: the page's title is the anchor page-title, which a heading then does not take.
 assert.equal(renderDocument('{@top}\n\n## page-title\n\n@top', { pageAnchor: true, key: 'p', title: 'T' }).html,
-  '<h2 id="page-title-1"><a class="bm-heading-link" href="#page-title-1" title="Link to this section">§</a><span class="bm-section-number">1</span> page-title</h2>\n<p><a href="#page-title">T</a></p>\n');
+  '<h2 id="page-title-1"><a class="bm-heading-link" href="#page-title-1" title="Link to this section">§</a><span class="bm-section-number">1</span> page-title</h2>\n<p><a href="#page-title" class="bm-reference">T</a></p>\n');
 
 // Plugins: in order, with the page's file, output path and language, and the processor's locale and messages;
 // render() with plugins is an error; close() closes them (a plugin without close() too).
@@ -62,8 +62,8 @@ assert.equal(renderDocument('![a](/img/x.png) ![b](/wiki/y.png) ![c](//h/z.png) 
 {
   const book = createProcessor({ lang: 'zh-cn' }).book();
   const [chinese, english] = [book.add('## 甲 {@a}\n\n@a', { key: 'x' }), book.add('## B {@b}\n\n@b', { key: 'y', lang: 'en' })];
-  assert.match(book.render(chinese).html, /<a href="#%E7%94%B2">第 1 节<\/a>/);
-  assert.match(book.render(english).html, /<a href="#b">Section 1<\/a>/);
+  assert.match(book.render(chinese).html, /<a href="#%E7%94%B2" class="bm-reference">第 1 节<\/a>/);
+  assert.match(book.render(english).html, /<a href="#b" class="bm-reference">Section 1<\/a>/);
 }
 
 // transformFragment: the dialect's layer alone, with its own options (checkMath, KaTeX's macros); where an error is.

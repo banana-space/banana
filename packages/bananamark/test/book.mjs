@@ -11,16 +11,16 @@ book.declare('other', { text: '定理 9.1', number: '9.1', page: 'elsewhere' });
 
 // The pages' numbers run on: the second page's lemma is 2.1.1, its sections numbered within the page's number.
 const html = book.render(second).html;
-assert.match(html, /<p class="bm-envtitle">引理 2\.1\.1<\/p>/);
-assert.match(html, /<a href="\/algebra\/1\/#lagrange">定理（Lagrange <span class="bm-math-rendered"/, 'a reference to another page: its address, an unnumbered environment\'s title rendered from that page');
-assert.match(html, /<a href="\/algebra\/1\/#page-title">第 1 章<\/a>/, 'a page\'s label, shown by formatSectionReference at its depth');
-assert.match(html, /<a href="\/algebra\/1\/#%E7%BE%A4">第 1\.1 节<\/a>/);
-assert.match(html, /<a href="\/algebra\/1\/#orbit">\(1\.1\.1\)<\/a>/);
-assert.match(html, /<a href="\/elsewhere\/#other">定理 9\.1<\/a>/, 'a declared label');
+assert.match(html, /<p class="bm-envtitle">引理 <span class="bm-envnumber">2\.1\.1<\/span><\/p>/);
+assert.match(html, /<a href="\/algebra\/1\/#lagrange" class="bm-reference">定理（Lagrange <span class="bm-math-rendered"/, 'a reference to another page: its address, an unnumbered environment\'s title rendered from that page');
+assert.match(html, /<a href="\/algebra\/1\/#page-title" class="bm-reference">第 1 章<\/a>/, 'a page\'s label, shown by formatSectionReference at its depth');
+assert.match(html, /<a href="\/algebra\/1\/#%E7%BE%A4" class="bm-reference">第 1\.1 节<\/a>/);
+assert.match(html, /<a href="\/algebra\/1\/#orbit" class="bm-reference">\(1\.1\.1\)<\/a>/);
+assert.match(html, /<a href="\/elsewhere\/#other" class="bm-reference">定理 9\.1<\/a>/, 'a declared label');
 // The bibliography is the book's: Smith 2020a and 2020b, cited from either page.
 assert.match(html, /Smith 2020a.*Smith 2020b/s);
 const firstHTML = book.render(first).html;
-assert.match(firstHTML, /<a href="\/algebra\/2\/#cyclic">引理 2\.1\.1<\/a>/, 'a reference to a later page');
+assert.match(firstHTML, /<a href="\/algebra\/2\/#cyclic" class="bm-reference">引理 2\.1\.1<\/a>/, 'a reference to a later page');
 assert.match(firstHTML, /<a href="\/algebra\/2\/#bib-smith" class="bm-citation" data-reference="smith">Smith 2020a<\/a>/);
 assert.deepEqual([first.headingNumbers.last, [...first.headingNumbers.taken]], [1, ['1']], 'the numbers its level-two headings took');
 // Results as processor.render gives them.
@@ -36,8 +36,8 @@ assert.throws(() => twice.add('::: theorem {@same}\n乙\n:::', { key: 'b', file:
 const numbered = processor.book({ numbering: { theorems: { depth: 0 } } });
 const page = numbered.add('::: theorem\n甲\n:::\n\n## 节\n\n::: theorem\n乙\n:::', { key: 'p', position: [3] });
 const own = numbered.add('## 节\n\n::: theorem\n丙\n:::', { key: 'q', position: [4], numbering: { theorems: { depth: 1 } } });
-assert.deepEqual([...numbered.render(page).html.matchAll(/bm-envtitle">定理 ([\d.]+)/g)].map(match => match[1]), ['3.1', '3.2']);
-assert.match(numbered.render(own).html, /bm-envtitle">定理 4\.1\.1/);
+assert.deepEqual([...numbered.render(page).html.matchAll(/bm-envtitle">定理 <span class="bm-envnumber">([\d.]+)/g)].map(match => match[1]), ['3.1', '3.2']);
+assert.match(numbered.render(own).html, /bm-envtitle">定理 <span class="bm-envnumber">4\.1\.1<\/span>/);
 
 // The syntax layer's book: documents, for a site that renders them itself; its labels, for listing them.
 const syntax = createBook();
@@ -55,6 +55,6 @@ assert.deepEqual(syntax.labels(), [
 
 // A page on its own takes the same: key and title (its {@label}), numbering.
 assert.match(renderDocument('{@me}\n\n## 节\n\n::: theorem\n甲\n:::\n\n见 @me。', { key: 'me', title: '本页', numbering: { theorems: { depth: 0 } } }).html,
-  /bm-envtitle">定理 1<\/p>[\s\S]*<a href="#page-title">本页<\/a>/);
+  /bm-envtitle">定理 <span class="bm-envnumber">1<\/span><\/p>[\s\S]*<a href="#page-title" class="bm-reference">本页<\/a>/);
 
 console.log('book: passed');

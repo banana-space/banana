@@ -87,8 +87,7 @@ assert.equal(formatMarkdown(formatMarkdown(messy)), formatMarkdown(messy));
 
 // The pages built from formatted sources are those built before: every page of a project (the test fixtures and
 // pages written to need each kind of break), built, formatted and built again, compared as the browser renders
-// HTML (runs of whitespace as one space, none at the inner edges of blocks). The summary Hugo cuts by counting
-// words (og:description) and the dates are left out.
+// HTML (runs of whitespace as one space, none at the inner edges of blocks). The dates are left out.
 const root = await createProject('format');
 try {
   const tricky = [
@@ -122,7 +121,7 @@ try {
   const blocks = 'p|li|td|th|h[1-6]|dt|dd|figcaption|summary|div|blockquote';
   // Code (<pre>) as it is; elsewhere whitespace as HTML renders it.
   const rendered = html => html
-    .replace(/<meta (?:name|property)="(?:og:)?description" content="[^"]*">|<meta property="article:modified_time"[^>]*>|<time [^>]*>[^<]*<\/time>/g, '')
+    .replace(/<meta property="article:modified_time"[^>]*>|<time [^>]*>[^<]*<\/time>/g, '')
     .split(/(<pre[\s\S]*?<\/pre>)/).map((part, i) => i % 2 ? part : part.replace(/[ \t\n]+/g, ' ')).join('')
     .replace(new RegExp(`(<(?:${blocks})(?:\\s[^>]*)?>) `, 'g'), '$1').replace(new RegExp(` (</(?:${blocks})>)`, 'g'), '$1');
   const before = await build();

@@ -4,9 +4,9 @@ import { join } from 'node:path';
 import { JSDOM } from 'jsdom';
 import katex from 'katex';
 import { parseFragment } from 'parse5';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { loadSearch } from './helpers/pagefind.mjs';
-import { nameFromPath, relatedPages, relatedTerms, searchParts } from '../static/js/search-query.js';
+import { nameFromPath, relatedPages, relatedTerms, searchParts } from '../site/scripts/search-query.js';
 import { mathText } from 'bananamark/internal/math-text.mjs';
 import { decodeSearchData, encodeSearchData } from '../scripts/search/data.mjs';
 import { EXCLUDED_CLASSES, WORD_SEPARATOR, separateWords } from '../scripts/search/document.mjs';
@@ -80,12 +80,12 @@ const encoded = encodeSearchData({ title: '奇异上同调 <span class="katex">x
 assert.doesNotMatch(encoded, /[\p{L}\p{N}\s]/u);
 assert.deepEqual(decodeSearchData(encoded).breadcrumb, [{ url: '/books/a/' }]);
 
-// The browser module (static/js/search.js) runs in a built page.
+// The browser module (site/scripts/search.js) runs in a built page.
 let browserImports = 0;
 async function browserSearch(site, file, url) {
   const { window } = new JSDOM(await readFile(join(site, file), 'utf8'), { url });
   Object.assign(globalThis, { document: window.document, NodeFilter: window.NodeFilter });
-  return import(`../static/js/search.js?load=${++browserImports}`);
+  return import(`../site/scripts/search.js?load=${++browserImports}`);
 }
 
 const root = await createProject('search');
@@ -113,7 +113,6 @@ try {
   await write('content/wiki/chain/index.md', page('title: 链同伦', '同伦同伦同伦，链复形之间的同伦。同伦的同伦。'));
   await write('content/wiki/homcat/index.md', page('title: 同伦范畴\naliases: [范畴的同伦]', '由弱等价局部化得到。'));
   await write('content/wiki/compound/index.md', page('title: 复合词', '这里只出现奇异上同调和同伦不变量这样的长词．'));
-  await write('content/missing/index.md', page('title: 条目尚未创建\nlayout: missing\nbuild:\n  list: never'));
   await write('content/wiki/english/index.md', page('title: Spectral sequence\nlang: en', 'A spectral sequence computes homology.'));
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目\nsearch: false', '隐藏条目独有的内容 zzqhidden．'));
   await write('content/books/demo/book.yaml', 'title: 演示讲义\ncontents:\n  - page: maps\n    children:\n      - page: kernel\n');
@@ -123,11 +122,12 @@ try {
   await write('content/books/private/note/index.md', page('title: 笔记', '私人笔记独有的内容 zzqprivate．'));
   build();
 
-  const serre = await readFile(join(root, '.build/content/wiki/serre/index.md'), 'utf8');
-  assert.match(serre, /sortKey: serre jean pierre/);
-  assert.doesNotMatch(serre, /^sort:/m);
-  assert.match(await readFile(join(root, '.build/content/wiki/multiplicity/index.md'), 'utf8'), /sortKey: dai shu chong shu/);
-  assert.match(await readFile(join(root, '.build/content/categories/代数拓扑/index.md'), 'utf8'), /sortKey: dai shu tuo pu/);
+  const generated = generatedPages(root);
+  const serre = generated.get('wiki/serre/index.md').metadata;
+  assert.equal(serre.sortKey, 'serre jean pierre');
+  assert.equal(serre.sort, undefined);
+  assert.equal(generated.get('wiki/multiplicity/index.md').metadata.sortKey, 'dai shu chong shu');
+  assert.equal(generated.get('categories/代数拓扑/index.md').metadata.sortKey, 'dai shu tuo pu');
 
   // Lists follow readings: `#` (∞-范畴) first, then dai < qi < serre < spectral < yin (search: false only affects search).
   const list = await readFile(join(root, 'public/wiki/index.html'), 'utf8');

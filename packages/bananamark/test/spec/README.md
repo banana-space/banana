@@ -4,7 +4,7 @@ These files list the dialect feature by feature, as examples: a piece of the dia
 
 ## Format
 
-Examples are written as in the [CommonMark spec](https://spec.commonmark.org/): between fences of 32 backticks with the info string `example`, the input, a line holding only `.`, then the output. `→` in the input stands for a tab. After `example`, options may follow as JSON, such as ```` example {"lang": "en"} ````: the page's (`lang`, `typography`, `numbering`, `key`, `title`; see the package's README), and the dialect's switches `wikiLinks`, `bibliography` and `tikz`, each `false` to turn it off for that example (the site below has them on).
+Examples are written as in the [CommonMark spec](https://spec.commonmark.org/): between fences of 32 backticks with the info string `example`, the input, a line holding only `.`, then the output. `→` in the input stands for a tab. After `example`, options may follow as JSON, such as ```` example {"lang": "en"} ````: the page's (`lang`, `typography`, `numbering`, `key`, `title`; see the package's REFERENCE.md), and the dialect's switches `wikiLinks`, `bibliography` and `tikz`, each `false` to turn it off for that example (the site below has them on).
 
 - The output is the body's HTML, compared byte for byte. Text and attribute values escape only `&`, `<`, `>` and `"` (as `&quot;`; in highlighted code, quotation marks stay as they are); anchors and addresses are percent-encoded in upper-case hex (`#%E5%AE%9A`); curly quotation marks and dashes are written as characters. An implementation that does not mind these details can parse and serialize both sides the same way (with parse5, say) before comparing.
 - Inside formulas, KaTeX's own markup is written `…`: only a formula's outer element is compared (its TeX is in `data-tex`).
@@ -12,7 +12,7 @@ Examples are written as in the [CommonMark spec](https://spec.commonmark.org/): 
 
 ## The examples' site
 
-Every example is rendered with these settings (`test/spec.mjs`); the other options and hooks are the defaults (see the package's README), except `lang`, which is `zh-cn` (the examples are a Chinese site's pages), and `typography`, which is `{}`:
+Every example is rendered with these settings (`test/spec.mjs`); the other options and hooks are the defaults (see the package's REFERENCE.md), except `lang`, which is `zh-cn` (the examples are a Chinese site's pages), and `typography`, which is `{}`:
 
 ```js
 // The site's dialect: everything on (an example may turn wikiLinks, bibliography or tikz off), the languages of

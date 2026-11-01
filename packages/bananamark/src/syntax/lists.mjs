@@ -46,7 +46,7 @@ function projectedMarker(source, marker) {
   return { text: `${'0'.repeat(column - 1 - padding)})${' '.repeat(padding)}`, consumed: marker.end - marker.start + after };
 }
 
-// The renderer's own parser (markdown-it as it emulates Goldmark), its block rules only: the structure found here
+// The renderer's own parser, its block rules only: the structure found here
 // is the one the page is rendered with (tables, footnotes and HTML blocks included).
 const blockParser = createMarkdownParser();
 const parseBlocks = text => {

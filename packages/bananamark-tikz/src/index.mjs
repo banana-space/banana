@@ -32,8 +32,8 @@ const recipe = createHash('sha256').update(readFileSync(new URL('./compiler.mjs'
 /** A diagram's cache key: its input, with the compiler and the preamble it uses. */
 export const diagramKey = input => createHash('sha256').update(recipe + preambleFor(input.tex) + JSON.stringify(input)).digest('hex');
 // A diagram's placeholder as bananamark's renderer writes it (its render/math.mjs) and parse5
-// writes it back: an empty span with the TeX, whether it is displayed and how it is typeset.
-const placeholder = /<span( id="[^"]*")? class="([^"]*\bbm-tikz-source\b[^"]*)" data-tex="([^"]*)" data-display="([^"]*)"(?: data-tikz-mode="([^"]*)")?>(?:<code class="bm-tikz-code">[^<]*<\/code>)?<\/span>/g;
+// writes it back: an empty span with the TeX and how it is typeset; its class says whether it is displayed.
+const placeholder = /<span( id="[^"]*")? class="([^"]*\bbm-tikz-source\b[^"]*)" data-tex="([^"]*)"(?: data-tikz-mode="([^"]*)")?>(?:<code class="bm-tikz-code">[^<]*<\/code>)?<\/span>/g;
 // The entities an attribute value can hold (parse5 writes &amp;, &quot; and &nbsp;).
 const entities = { amp: '&', quot: '"', nbsp: '\u00a0', lt: '<', gt: '>', apos: "'" };
 const decode = value => value.replace(/&(?:#(\d+)|#x([0-9a-f]+)|(\w+));/gi, (match, decimal, hex, name) =>
@@ -223,8 +223,8 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
     // Numbered per page, so that a page comes out the same whichever pages were rendered before it.
     const fonts = new Set(), rendered = [];
     for (const match of html.matchAll(placeholder)) {
-      const [, , , tex, display, mode = 'math'] = match;
-      const input = { tex: decode(tex), display: display === 'true', mode: decode(mode) };
+      const [, , classes, tex, mode = 'math'] = match;
+      const input = { tex: decode(tex), display: /\bbm-math-display\b/.test(classes), mode: decode(mode) };
       let result;
       try { result = await compile(input); }
       catch (error) {
@@ -235,11 +235,11 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
       rendered.push(result);
     }
     let count = 0;
-    html = html.replace(placeholder, (_, id = '', classes, tex, display) => {
+    html = html.replace(placeholder, (_, id = '', classes, tex) => {
       const result = rendered[count++];
       const style = result.tagSvg ? ` style="--bm-tikz-tag-space: ${result.tagWidth / 10 + 1}em"` : '';
       const body = `<span class="bm-tikz-body">${svgClasses(renumber(result.svg, count))}</span>`;
-      return `<span${id} class="${classes.replace(/\bbm-tikz-source\b/, 'bm-tikz-rendered')}" data-tex="${tex}" data-display="${display}"${style}>${result.tagSvg ? `<span class="bm-tikz-layout">${body}<span class="bm-tikz-tag">${svgClasses(renumber(result.tagSvg, count))}</span></span>` : body}</span>`;
+      return `<span${id} class="${classes.replace(/\bbm-tikz-source\b/, 'bm-tikz-rendered')}" data-tex="${tex}"${style}>${result.tagSvg ? `<span class="bm-tikz-layout">${body}<span class="bm-tikz-tag">${svgClasses(renumber(result.tagSvg, count))}</span></span>` : body}</span>`;
     });
     // The fonts' @font-face rules: before </head> on a whole page, at the start of a body (as a plugin sees it).
     if (!fonts.size) return html;

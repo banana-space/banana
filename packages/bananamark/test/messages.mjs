@@ -19,13 +19,16 @@ for (const key of Object.keys(zh)) assert.deepEqual(values(en[key]), values(zh[k
 // A page in English (lang); its errors are in the locale.
 {
   const page = renderDocument('## Groups {@sec:g}\n\n::: theorem [Lagrange] {@thm:l}\nText.\n:::\n\n::: proof\nBy @sec:g.\n:::\n\nSee @thm:l and [[Ring]].\n\n```bibliography\nb:\n  type: book\n  title: Algebra\n  author: [A B, C D, E F]\n  translator: G H\n  language: ru\n```\n\n@b', { lang: 'en' });
-  assert.match(page.html, /<p class="bm-envtitle">Theorem 1\.1 \(Lagrange\)<\/p>/);
+  assert.match(page.html, /<p class="bm-envtitle">Theorem <span class="bm-envnumber">1\.1<\/span> <span class="bm-envnote">\(Lagrange\)<\/span><\/p>/);
   assert.match(page.html, /<span class="bm-envtitle">Proof\. <\/span>/);
-  assert.match(page.html, /By <a href="#groups">Section 1<\/a>\./);
-  assert.match(page.html, /See <a href="#thm:l">Theorem 1\.1<\/a> and <a title="Article not yet created: Ring"/);
+  // The title with what its message puts around it stands apart from the name and the number, wherever the message has it.
+  assert.match(renderDocument('::: theorem [T]\nx\n:::', { lang: 'en', messages: { en: { environment_title: '{title}: {caption}' } } }).html,
+    /<p class="bm-envtitle"><span class="bm-envnote">T:<\/span> Theorem <span class="bm-envnumber">1<\/span><\/p>/);
+  assert.match(page.html, /By <a href="#groups" class="bm-reference">Section 1<\/a>\./);
+  assert.match(page.html, /See <a href="#thm:l" class="bm-reference">Theorem 1\.1<\/a> and <a title="Article not yet created: Ring"/);
   assert.match(page.html, /B et al\., n\.d\./);
   assert.match(page.html, /\(in Russian\)/);
-  assert.match(page.html, /<em>Algebra<\/em> \(in Russian\)\. Translated by G H\./);
+  assert.match(page.html, /<em>Algebra<\/em><\/span> \(in Russian\)\. Translated by G H\./);
   assert.throws(() => renderDocument('@nowhere', { locale: 'en' }), /no such label: nowhere/);
 }
 

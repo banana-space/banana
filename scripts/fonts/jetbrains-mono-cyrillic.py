@@ -1,4 +1,4 @@
-"""Write static/fonts/JetBrainsMono-Cyrillic*.woff2: the letters Commit Mono lacks, from JetBrains Mono.
+"""Write site/files/fonts/JetBrainsMono-Cyrillic*.woff2: the letters Commit Mono lacks, from JetBrains Mono.
 
 Commit Mono (the code font) has no Cyrillic and only part of the Greek block. JetBrains Mono has the same
 advance width (600 of 1000 units) and similar heights, so a code line mixing the two stays aligned. Only the
@@ -19,7 +19,7 @@ from fontTools.varLib import instancer
 REGULAR = 350  # The weight normal code is drawn at.
 
 upright, italic = sys.argv[1:3]
-commit = set(TTFont('static/fonts/CommitMono.woff2').getBestCmap())
+commit = set(TTFont('site/files/fonts/CommitMono.woff2').getBestCmap())
 # Greek and Coptic, Cyrillic, Cyrillic Supplement, Cyrillic Extended-A, -B, -C.
 blocks = [(0x370, 0x3FF), (0x400, 0x52F), (0x1C80, 0x1C8F), (0x2DE0, 0x2DFF), (0xA640, 0xA69F)]
 available = set(TTFont(upright).getBestCmap())
@@ -35,10 +35,10 @@ for source, name in ((upright, 'JetBrainsMono-Cyrillic'), (italic, 'JetBrainsMon
     subsetter = subset.Subsetter(options)
     subsetter.populate(unicodes=wanted)
     subsetter.subset(font)
-    subset.save_font(font, f'static/fonts/{name}-Variable.woff2', options)
+    subset.save_font(font, f'site/files/fonts/{name}-Variable.woff2', options)
     regular = instancer.instantiateVariableFont(font, {'wght': REGULAR})
     regular['OS/2'].usWeightClass = REGULAR
-    subset.save_font(regular, f'static/fonts/{name}-{REGULAR}.woff2', options)
+    subset.save_font(regular, f'site/files/fonts/{name}-{REGULAR}.woff2', options)
     print(f'{name}: {len(wanted)} characters')
 
 # Consecutive characters as ranges, for unicode-range.

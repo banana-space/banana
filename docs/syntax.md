@@ -1,6 +1,6 @@
 # 页面的写法
 
-页面的正文是 bananamark 的方言：CommonMark 加上公式、自动编号的节与定理类环境、统一的引用、标签列表、参考文献、百科链接与 TikZ 图形。方言的完整说明在 bananamark 的 [README](../packages/bananamark/README.md)（英文；[Syntax](../packages/bananamark/README.md#syntax) 一览，[Reference](../packages/bananamark/README.md#reference) 逐项说明），逐个功能的示例与输出在 `packages/bananamark/test/spec/`（它们也是方言的规范与测试）。写给编辑者的说明在网站的帮助（`content/help/格式手册/`）；修改语法时请同时更新帮助。
+页面的正文是 bananamark 的方言：CommonMark 加上公式、自动编号的节与定理类环境、统一的引用、标签列表、参考文献、百科链接与 TikZ 图形。方言的完整说明在 bananamark 的文档中（英文；README 的 [Syntax](../packages/bananamark/README.md#syntax) 一览，REFERENCE 的 [Syntax in detail](../packages/bananamark/REFERENCE.md#syntax-in-detail) 逐项说明），逐个功能的示例与输出在 `packages/bananamark/test/spec/`（它们也是方言的规范与测试）。写给编辑者的说明在网站的帮助（`content/help/格式手册/`）；修改语法时请同时更新帮助。
 
 本文只写站点自己的部分：站点怎样设置方言、站点加上的写法（页面信息、名称与别名、读音、页面提示、人名、学科导航、术语翻译），以及站点回答 bananamark 的问题的方式（钩子）。指南与讲义的文件结构、整组的编号与引用见 [指南与讲义](books.md)，分类见 [分类](categories.md)，TikZ 见 [TikZ 图形](tikz.md)，排版见 [中文排版](typography.md)。完整的实例见 [奇异上同调](../tests/fixtures/content/wiki/奇异上同调/index.md) 与 [组件示例](../tests/fixtures/content/wiki/components-example/index.md)。
 
@@ -20,11 +20,11 @@
 | `typography` | 句号转换与引号旁的空格都打开（`scripts/shared/typography.mjs`，见 [中文排版](typography.md)） |
 | `allowH1` | 百科条目中为否：`# 标题` 与 Setext 一级标题报错；首页等其他页面可以使用 |
 
-KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩展命令。几个特殊字形由站点的字体给出：`\mathbb{1}` 显示为 𝟙（交换图中也是），镜像字母 `ꓘ`（U+A4D8）、`ꓷ`（U+A4F7）显示为左右翻转的 K、D（如 `\mathrm{ꓘꓷ}` 是镜像的 DK），由 KaTeX_Main 改成的 BananaMath 补足（`assets/scss/_katex.scss`；TikZ 中见 [TikZ 图形](tikz.md)）。
+KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩展命令。几个特殊字形由站点的字体给出：`\mathbb{1}` 显示为 𝟙（交换图中也是），镜像字母 `ꓘ`（U+A4D8）、`ꓷ`（U+A4F7）显示为左右翻转的 K、D（如 `\mathrm{ꓘꓷ}` 是镜像的 DK），由 KaTeX_Main 改成的 BananaMath 补足（`site/styles/_katex.scss`；TikZ 中见 [TikZ 图形](tikz.md)）。
 
 ### 定理类环境
 
-环境在 `data/theorems.yaml` 中配置：每项的 `name`（显示名称，可按语言写成 `zh-cn`、`en`；页面 `lang: en` 时用英文）、`group`（颜色组）与可选的 `numbered`（默认 `true`）。站点的环境与颜色（`assets/scss/_theorems.scss`；四组只有左边框，标题用对应的颜色，证明没有边框）：
+环境在 `data/theorems.yaml` 中配置：每项的 `name`（显示名称，可按语言写成 `zh-cn`、`en`；页面 `lang: en` 时用英文）、`group`（颜色组）与可选的 `numbered`（默认 `true`）。站点的环境与颜色（`site/styles/_theorems.scss`；四组只有左边框，标题用对应的颜色，证明没有边框）：
 
 | 类型 | 显示名称 | 颜色组 | 颜色 |
 | --- | --- | --- | --- |
@@ -36,7 +36,7 @@ KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩�
 | `convention` | 约定（不编号） | `remark` | 绿色 |
 | `proof` | 证明 | — | 无边框 |
 
-环境的写法（标题、自定的名称、`*`、嵌套、证明）见 bananamark 的 README。
+环境的写法（标题、自定的名称、`*`、嵌套、证明）见 bananamark 的 [REFERENCE](../packages/bananamark/REFERENCE.md#default-environments)。
 
 ## 源文件的格式
 
@@ -62,13 +62,14 @@ categories: [代数拓扑]
 | `sort` | [排序读音](#排序读音) |
 | `lang` | 页面的语言（`en`、`ko` 等）：bananamark 写出的文字、排版与环境名称随之改变 |
 | `typography` | `convertChineseFullStop: false` 只关闭句号转换 |
-| `toc`、`tocDepth` | `toc: false` 关闭本页目录；`tocDepth` 为目录显示的标题层数（从二级标题起，默认 2，0 至 5）。少于两个目录项的页面不显示目录 |
+| `tocDepth` | 目录显示的标题层数（从二级标题起，默认 2，0 至 5；0 不显示目录）。少于两个目录项的页面不显示目录 |
 | `search` | 只能写 `false`：页面不进入站内搜索（见 [搜索](#搜索)） |
 | `numbering` | 指南与讲义中的编号设置（见 [指南与讲义](books.md)） |
-| `description` | 页面的描述（`og:description`），默认取正文的开头（不含页面提示） |
-| `url`、`slug` | 页面的地址（见下文） |
+| `description` | 页面的描述（`og:description`），默认取正文第一个有文字的段落（不含页面提示） |
+| `childrenToc` | 指南与讲义首页的自动目录（见 [指南与讲义](books.md)；在线编辑不能设置） |
+| `draft` | `draft: true`：页面不发布，除非构建时加 `--buildDrafts`（在线编辑不能设置） |
 
-在线编辑只接受这些字段中作者使用的部分（`scripts/prebuild/front-matter-rules.mjs` 的 `authorKeys`）；完整构建不检查未知字段，但以下写法报错：手写的 `lastmod` 或 `gitLastmod`（修改时间取源文件最近一次 Git 提交的提交者日期，尚未提交的页面不显示修改时间）、旧的 `notices`（见 [页面提示](#页面提示)）、旧的 `urlAliases`。正文中图片地址里旧的 `?width=` 也报错（宽度写成图片之后的 `{width=…}`）。
+其他字段都报错（`scripts/prebuild/front-matter-rules.mjs` 的 `pageKeys`）；修改时间不能手写，取源文件最近一次 Git 提交的提交者日期，尚未提交的页面不显示修改时间。
 
 ## 名称、别名与地址
 
@@ -110,7 +111,7 @@ categories:
 
 - `[[无穷范畴]]` 直接链接到目标页，通过别名时地址带 `?from=无穷范畴`，目标页显示“跳转自：无穷范畴”（只在来源确是它的别名时；关闭 JavaScript 时不显示）。没有参与当前构建的草稿或未来发布的条目，其主标题与别名都视为缺失。别名不另外生成页面或列表项，旧网址不重定向；`aliases` 只用于百科条目的名称。
 - 缺失的条目显示为红色链接，指向 `/missing/?title=<链接的文字>`（目标含公式时另带 `source=<写下的目标>`），那里有“创建条目”的链接。
-- 百科条目和讲义页面的网址默认取目录路径，保留大小写和标点，空格改为下划线：`content/wiki/Riemann ζ 函数/` 的网址是 `/wiki/Riemann_ζ_函数/`；目录名中代替 `*` 的全角 `＊` 在网址中还原为 `*`。页面设置了 `url` 或 `slug` 时以其为准，它们必须是站内地址：不含空白、引号、尖括号、`\`、`?`、`#`、`.`/`..` 段或 `//`。其他页面的网址取路径的小写，空格改为连字符。
+- 页面的网址取目录路径，保留大小写和标点，空格改为下划线：`content/wiki/Riemann ζ 函数/` 的网址是 `/wiki/Riemann_ζ_函数/`；目录名中代替 `*` 的全角 `＊` 在网址中还原为 `*`（`scripts/shared/pages.mjs` 的 `pathAddress`）。
 
 ## 排序读音
 
@@ -162,7 +163,7 @@ sort: serre jean pierre
 | `<disambiguation>` | 消歧义与区分（`notice-info`，分支箭头图标）：其中的文字 |
 | `<tip>` | 其他提示（`notice-info`，信息图标）：其中的文字 |
 
-其中的内容是页面的正文：公式、百科链接、`@` 引用都可以使用，错误报在源文件的行列上。内容为空时报错。`<problems>` 也可以写在它涉及的一节中。提示框写成 `<aside class="notice …">`（样式在 `assets/scss/_notice.scss`），不进入页面的描述（`og:description`）与搜索文档。front matter 中旧的 `notices` 字段报错。
+其中的内容是页面的正文：公式、百科链接、`@` 引用都可以使用，错误报在源文件的行列上。内容为空时报错。`<problems>` 也可以写在它涉及的一节中。提示框写成 `<aside class="notice …">`（样式在 `site/styles/_notice.scss`），不进入页面的描述（`og:description`）与搜索文档。front matter 中旧的 `notices` 字段报错。
 
 ## 参见
 
@@ -194,7 +195,7 @@ navboxes: [代数拓扑]
 
 多个导航按声明顺序显示，位于正文之后、术语翻译、分类与最后修改时间之前，不参与目录、节号、定理编号或页内引用。
 
-导航在 `content/navboxes/名称.yaml` 中维护。这个目录由预处理单独读取（`scripts/prebuild/components.mjs`），不复制到 `.build/content/`，也不生成页面；只有源内容根目录下的这个目录有此用途，页面包里的同名目录仍按原样复制。例如：
+导航在 `content/navboxes/名称.yaml` 中维护。这个目录由预处理单独读取（`scripts/prebuild/components.mjs`），不生成页面；只有源内容根目录下的这个目录有此用途，页面包里的同名目录仍按原样复制。例如：
 
 ```yaml
 title: [[代数拓扑]]
@@ -278,7 +279,7 @@ bananamark 在渲染时向站点询问的事，由 `scripts/prebuild/render.mjs`
 
 渲染结果按这些回答缓存（`scripts/prebuild/render-cache.mjs`）：回答都不变时，页面不重新渲染。
 
-参考文献的样式在 `assets/scss/_bibliography.scss`。从正文的引用跳转到的条目（`:target`）以浅橙色底色和边框标出（框伸出文字之外，负的外边距抵消，条目的位置不变），约 2.5 秒后淡出；再次点击同一引用时，`static/js/site.js` 让它重新标出。页内锚点跳转避开顶部导航栏：`site.js` 按导航栏的实际高度设置滚动偏移，系统设置“减少动态效果”时不用平滑滚动。
+参考文献的样式在 `site/styles/_bibliography.scss`。从正文的引用跳转到的条目（`:target`）以浅橙色底色和边框标出（框伸出文字之外，负的外边距抵消，条目的位置不变），约 2.5 秒后淡出；再次点击同一引用时，`site/scripts/site.js` 让它重新标出。页内锚点跳转避开顶部导航栏：`site.js` 按导航栏的实际高度设置滚动偏移，系统设置“减少动态效果”时不用平滑滚动。
 
 ## 构建与验证
 
@@ -289,6 +290,6 @@ npm run check -- content/wiki/条目
 npm test
 ```
 
-`npm run serve` 启动时完整构建一次，再提供本地预览；修改 `content/` 中的页面、附件与导航定义，或 `data/categories.yaml`，会重新处理并刷新浏览器中变化的页面；修改模板、样式、脚本或 `site.yaml` 时完整构建。详见 [预览与检查](preview.md)。发布参数可以透传，例如 `npm run serve -- --port 1414 --buildDrafts`。
+`npm run serve` 启动时完整构建一次，再提供本地预览；修改 `content/` 中的页面、附件与导航定义，或 `data/categories.yaml`，会重新处理并刷新浏览器中变化的页面；修改模板、样式、脚本或 `data/site.yaml` 时完整构建。详见 [预览与检查](preview.md)。发布参数可以透传，例如 `npm run serve -- --port 1414 --buildDrafts`。
 
 `npm test` 运行站点的测试（`tests/`）与三个包的测试；方言本身的测试与规范在 `packages/bananamark/test/`（见 [包的开发](../packages/CONTRIBUTING.md)）。

@@ -192,7 +192,7 @@ for (const file of files) {
 // The site's code blocks are highlighted by bananamark as the editor highlights the dialect (the text unchanged),
 // other languages with the same classes.
 {
-  const root = await createProject('code-blocks', ['scripts', 'assets', 'static', 'i18n', 'data', 'site.yaml']);
+  const root = await createProject('code-blocks', ['scripts', 'site', 'data']);
   try {
     await mkdir(join(root, 'content/wiki/code'), { recursive: true });
     await writeFile(join(root, 'data/categories.yaml'), '数学: {}\n');
@@ -219,8 +219,8 @@ for (const file of files) {
 }
 
 assert.ok(slowest < 2000, `parsing a page took ${Math.round(slowest)} ms`);
-// The editor checks formulas with KaTeX before Hugo (packages/bananamark/src/syntax/katex-check.mjs): every formula on the
-// site passes, as it does in Hugo's KaTeX.
+// The editor checks formulas with KaTeX before the server (packages/bananamark/src/syntax/katex-check.mjs): every formula
+// on the site passes, as it does in the build.
 for (const file of files.filter(file => /^content\/(?:wiki|books|help)\//.test(file))) {
   const text = await readFile(file, 'utf8');
   const front = text.match(/^---\n[\s\S]*?\n---\n/)?.[0] ?? '';

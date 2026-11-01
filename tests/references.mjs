@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -57,23 +57,22 @@ try {
   const build = () => buildProject(root);
   build();
   const html = await readFile(join(root, 'public/wiki/reference-test/index.html'), 'utf8');
-  assert.match(html, /href="#thm:main">定理 1\.1<\/a>,/);
+  assert.match(html, /href="#thm:main" class="bm-reference">定理 1\.1<\/a>,/);
   assert.match(html, /data-reference="online:a">nLab a<\/a>/);
   assert.match(html, /data-reference="online:b">nLab b<\/a>/);
   assert.match(html, /<strong>nLab<\/strong> \(a\)/);
   assert.match(html, /<strong>nLab<\/strong> \(b\)/);
-  assert.match(html, /href="#thm:main">上述<strong>定理<\/strong><\/a>/);
-  assert.match(html, /<div class="bm-bibliography-entry" id="bib-book" lang="en">\s*<p><span class="bm-bibliography-names"><strong>Smith<\/strong>, Alice<\/span> \(2020a\)/);
+  assert.match(html, /href="#thm:main" class="bm-reference">上述<strong>定理<\/strong><\/a>/);
+  assert.match(html, /<div class="bm-bibliography-entry" id="bib-book" lang="en">\s*<p><span class="bm-bibliography-names"><strong>Smith<\/strong>, Alice<\/span> \(<span class="bm-bibliography-year">2020a<\/span>\)/);
   assert.ok(html.indexOf('id="bib-online:a"') < html.indexOf('<p>这段简介'));
   assert.ok(html.indexOf('<p>这段简介') < html.indexOf('id="bib-online:b"'));
-  assert.doesNotMatch(html, /raw HTML omitted|citation:\?|reference:\?|```bibliography/);
+  assert.doesNotMatch(html, /citation:\?|reference:\?|```bibliography/);
   assert.equal(await readFile(join(directory, 'index.md'), 'utf8'), original);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(ids.length, new Set(ids).size);
   for (const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(decodeURIComponent(match[1])), `缺失引用锚点：${match[1]}`);
-  const generated = await readFile(join(root, '.build/content/wiki/reference-test/index.md'), 'utf8');
-  assert.match(generated, /bibliographyEntries:/);
-  assert.match(generated, /citationAuthor: nLab/);
+  const generated = generatedPages(root).get('wiki/reference-test/index.md').metadata;
+  assert.ok(generated.bibliographyEntries.some(entry => entry.citationAuthor === 'nLab'));
   // 目录复用正文解析后的引用；未编号标题与自定义文字的嵌套引用只能生成一层链接。
   const nested = `## 目标 {@sec:target}
 
@@ -94,12 +93,12 @@ ${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendie
   assert.equal((toc.match(/<a /g) ?? []).length, 3);
   assert.doesNotMatch(toc, /reference_section|reference:\?|citation:\?/);
   assert.match(nestedHtml, /href="#[^"]+"><span class="toc-item-title directory-item-title"><strong>子节<\/strong>第 1 节与 <span class="bm-math-rendered"/);
-  assert.match(nestedHtml, /href="#[^"]+">见第 1 节和<strong>子节<\/strong>第 1 节与/);
+  assert.match(nestedHtml, /href="#[^"]+" class="bm-reference">见第 1 节和<strong>子节<\/strong>第 1 节与/);
   assert.match(nestedHtml, /href="\/wiki\/[^\"]+" class="bm-wiki-link">参见第 1 节<\/a>/);
   assert.doesNotMatch(nestedHtml, /<a\b[^>]*>(?:(?!<\/a>)[\s\S])*<a\b/);
-  assert.match(nestedHtml, /<span class="bm-bibliography-label" data-typography="boundary">EGA I<\/span><span class="bm-bibliography-names">Grothendieck, A\.<\/span> \(1960\)/);
+  assert.match(nestedHtml, /<span class="bm-bibliography-label" data-typography="boundary">EGA I<\/span><span class="bm-bibliography-names">Grothendieck, A\.<\/span> \(<span class="bm-bibliography-year">1960<\/span>\)/);
   assert.throws(() => transformDocument('### A @b {@a}\n\n### B @a {@b}'), /循环引用/);
-  // 文献锚点参与现有 Hugo 标题冲突检查。
+  // 文献锚点参与标题冲突检查。
   await writeFile(join(directory, 'index.md'), `---\ntitle: 引用测试\n---\n## bib-book\n\n${first}`);
   assert.throws(build, /引用标签与标题自动锚点重复/);
   // 脚注定义中的引用与百科链接照常转换；引用式链接定义保持原样。

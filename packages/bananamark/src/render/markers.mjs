@@ -1,6 +1,6 @@
 /**
  * A document's markers (../syntax/nodes.mjs: @@node:N:node@@) of nodes the renderer writes as HTML of its own,
- * around parsing (as Hugo treated its shortcodes' placeholders). Before: an opening marker of a node with inner text
+ * around parsing. Before: an opening marker of a node with inner text
  * (an author's paired tag, a list label) and what follows it up to its closing marker become the opening marker
  * alone, the text between kept as the node's inner, unparsed. After: each marker is replaced by its node's HTML, and
  * a marker that is a paragraph of its own with its <p> and </p>.

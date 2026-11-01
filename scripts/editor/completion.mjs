@@ -1,4 +1,4 @@
-// Completion in the online editor (assets/js/editor/main.js): bananamark-codemirror's, with the site's settings
+// Completion in the online editor (site/scripts/editor/main.js): bananamark-codemirror's, with the site's settings
 // (its environments, its data blocks and HTML-style tags, the entries and languages), and one source of the site's
 // own: in the front matter's categories, a category. Entry names, categories, environments and language names come
 // from a file the build writes (scripts/site/templates/special.mjs), fetched the first time they are needed.

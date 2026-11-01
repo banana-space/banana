@@ -1,4 +1,4 @@
-import { createProject, buildProject, projectRoot } from './helpers/project.mjs';
+import { createProject, buildProject, projectRoot, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -17,7 +17,7 @@ try {
     await mkdir(directory, { recursive: true });
     await writeFile(join(directory, 'index.md'), `---\n${metadata}\n---\n${body}\n`);
   }
-  await article('infinity', 'title: ∞-范畴\nurl: /custom-infinity/');
+  await article('infinity', 'title: ∞-范畴');
   await article('draft', 'title: 草稿\ndraft: true');
   const body = String.raw`[[顶点代数]] [[$\infty$-范畴]] [[缺失 & "条目"|缺失 $A$-模]] [[草稿]]
 
@@ -55,12 +55,12 @@ A[[t]] \text{$b$}
   const html = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
   assert.match(html, /加粗的链接：文字<strong><a [^>]*>顶点代数<\/a><\/strong>文字/, 'bold around a link, between Chinese: the spaces the syntax layer added go again');
   assert.ok(html.includes(`href="/wiki/${encodeURIComponent('顶点代数')}/" class="bm-wiki-link"`));
-  assert.match(html, /href="\/custom-infinity\/" class="bm-wiki-link"><span class="bm-math-rendered" data-tex="\\infty"/);
+  assert.match(html, /href="\/wiki\/infinity\/" class="bm-wiki-link"><span class="bm-math-rendered" data-tex="\\infty"/);
   assert.match(html, /class="bm-wiki-link">块内链接<\/a>/);
   assert.match(html, /bm-wiki-link-missing/);
   assert.match(html, /href="\/missing\/\?title=/);
   assert.match(html, /data-tex="a \\text\{\$b\$ \[\[不要链接\]\]\} c"/);
-  assert.match(html, /data-display="true"/);
+  assert.match(html, /bm-math-display/);
   assert.match(html, /\$5 与 \$6，反斜杠 \\/);
   assert.doesNotMatch(html, /wiki:|ZgotmplZ/);
   assert.match(html, /class="external-link" target="_blank" rel="noopener"/);
@@ -107,11 +107,11 @@ A[[t]] \text{$b$}
   }
   await rm(join(root, 'content/wiki/unsafe-image'), { recursive: true });
   await article('duplicate', 'title: ∞-范畴');
-  assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), /条目名称重复/);
+  assert.throws(() => generatedPages(root), /条目名称重复/);
 } finally { await rm(root, { recursive: true, force: true }); }
 
 const name = { textContent: '', dataset: { nameFormat: '“{name}”', titleFormat: '{name}：条目尚未创建' } };
 const document = { getElementById: id => id === 'missing-name' ? name : null, querySelectorAll: () => [], title: '' };
-runInNewContext(await readFile(join(project, 'static/js/missing.js'), 'utf8'), { document, URLSearchParams, window: { location: { search: '?title=%3Cscript%3E' } } });
+runInNewContext(await readFile(join(project, 'site/scripts/missing.js'), 'utf8'), { document, URLSearchParams, window: { location: { search: '?title=%3Cscript%3E' } } });
 assert.equal(name.textContent, '“<script>”');
 console.log('内部链接、数学嵌套与转义、代码保护、实际 URL、缺失条目、草稿、同名冲突及构建时公式渲染验证通过');

@@ -7,7 +7,7 @@ import { createBook } from './syntax/book.mjs';
 /**
  * A page of the dialect to HTML in one call: the dialect's layer (syntax/structure.mjs: sections, environments,
  * numbered formulas, labels and references, bibliographies, data blocks, wiki links) and the renderer
- * (render/index.mjs), each with the options it understands; see README.md.
+ * (render/index.mjs), each with the options it understands; see REFERENCE.md.
  *
  * createProcessor(options) keeps one renderer for many pages (its Markdown parser is built once);
  * processor.render(source, page) renders one. renderDocument(source, options) is both at once.

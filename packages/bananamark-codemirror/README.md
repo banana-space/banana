@@ -4,7 +4,7 @@ CodeMirror 6 language support for the [bananamark](https://github.com/banana-spa
 
 ## Status
 
-Version 0.1, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependencies: `bananamark` of the same minor version, and CodeMirror's `@codemirror/language`, `state`, `view`, `autocomplete`, `lint` and `lang-markdown` (one copy of each in your bundle: CodeMirror does not work with two). ES modules only; MIT licence.
+Version 0.2, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependencies: `bananamark` of the same minor version, and CodeMirror's `@codemirror/language`, `state`, `view`, `autocomplete`, `lint` and `lang-markdown` (one copy of each in your bundle: CodeMirror does not work with two). ES modules only; MIT licence.
 
 ```sh
 npm install bananamark bananamark-codemirror codemirror
@@ -26,7 +26,7 @@ new EditorView({
 });
 ```
 
-Give the editor the dialect the renderer has (bananamark's [`defineDialect`](https://github.com/banana-space/banana/tree/main/packages/bananamark#the-dialect)): its grammar, environments, data blocks, tags, messages and switches (wiki links, bibliographies, TikZ) are then the renderer's. Highlighting gives classes (`bm-hl-…`, the same as bananamark's code blocks), so one stylesheet (`bananamark/style.css`) does for the editor and for code blocks in pages.
+Give the editor the dialect the renderer has (bananamark's [`defineDialect`](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#the-dialect)): its grammar, environments, data blocks, tags, messages and switches (wiki links, bibliographies, TikZ) are then the renderer's. Highlighting gives classes (`bm-hl-…`, the same as bananamark's code blocks), so one stylesheet (`bananamark/style.css`) does for the editor and for code blocks in pages.
 
 ## Everything at once
 

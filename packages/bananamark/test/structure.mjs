@@ -13,7 +13,7 @@ const nodes = (document, pattern) => [...document.markdown.matchAll(pattern)].ma
 const markers = /@@node:(\d+):node@@/g, links = /\]\(bananamark:(\d+)\)/g;
 // The environments a page opens: kind, caption (“定理 1.2”: the reference text, number included), number, title.
 const captions = document => nodes(document, markers).filter(node => node.type === 'environment')
-  .map(({ kind, caption, title }) => ({ kind, caption, number: caption.match(/ (\S+)$/)?.[1] ?? '', title }));
+  .map(({ kind, name, number, title }) => ({ kind, caption: number ? `${name} ${number}` : name, number, title }));
 // The references to the target id (text: the reference's text written by the syntax layer).
 const references = (document, id) => nodes(document, links).filter(node => node.type === 'reference' && node.id === id);
 const equations = document => nodes(document, markers).filter(node => node.type === 'math' && node.id !== undefined);
@@ -43,7 +43,7 @@ for (const [title, id] of [
   [String.raw`\(\varnothing\)`, '∅'], [String.raw`\[\alpha\]`, 'α'],
   ['**[Über](https://example.com/ignored)**', 'uber'], ['[[文章|Poincaré–Lefschetz]]', 'poincare-lefschetz'],
   ['<em>Über</em> &ndash; &#x221e;', 'uber---∞'], ['!!!', 'heading'],
-  // ASCII 符号不写进锚点（原来会使 Goldmark 的 {#…} 属性失效），例如公式中的 +、=。
+  // ASCII 符号不写进锚点，例如公式中的 +、=。
   [String.raw`非零区域$\sigma\ge1-A/\log(|t|+2)$`, '非零区域-σ≥1−alog∣t∣2'], ['$a+b=c$ 与 $x^2$', 'abc-与-x2'],
 ]) assert.equal(headingId(title), id);
 for (const title of ['`code`', '$A$', '[文字](https://example.com)']) {
@@ -151,9 +151,9 @@ assert.throws(() => transformDocument('甲\n\n```\n@@node:0:node@@\n```', { file
 // The block structure is the renderer's: a footnote's indented paragraphs are paragraphs, not code.
 assert.equal(transformDocument('正文[^1]。\n\n[^1]: 甲\n\n    乙 $x$\n'), '正文[^1]。\n\n[^1]: 甲\n\n    乙 ⟦math tex="x"⟧\n');
 assert.equal(transformDocument('正文\n\n    代码 $x$\n'), '正文\n\n    代码 $x$\n', 'indented code elsewhere');
-// Hugo's shortcodes are text like any other.
+// Double braces are text like any other.
 assert.equal(transformDocument('{{< see >}} $x$ {{% y %}}'), '{{< see >}} ⟦math tex="x"⟧ {{% y %}}');
-// The author's attributes of a heading go into its node; ones Goldmark could not read are an error.
+// The author's attributes of a heading go into its node; ones that cannot be read are an error.
 assert.match(transformDocument('## 节 {.a key="v" @s}'), /⟦heading id="节" classes=\["a"\] attributes=\[\["key","v"\]\] number="1"⟧/);
 assert.throws(() => transformDocument('## 节 {k=}', { file: 'f.md' }), /f.md:1: 标题的属性无法解析：k=/);
 // A heading's id is its text's (references and the contents go by it): {#id} is an error that says how to refer to it.
@@ -171,7 +171,7 @@ assert.throws(() => transformDocument('正文。\n\n${$甲\n\n::: theorem\n乙\n
 assert.throws(() => transformDocument('价格 $5。', { file: 'f.md' }), /f.md:1: 公式没有结束：“\$5。”/);
 assert.throws(() => transformDocument('甲\n\n\\[[text]]\n\n乙 \\[x\\]\n', { file: 'f.md' }), error => /^f.md:3: 公式没有结束：“\\\[\[text\]\]”/.test(error.message) && error.column === 1);
 assert.doesNotThrow(() => transformDocument('价格 \\$5，$x$。', { file: 'f.md' }));
-// Empty formulas leave nothing (the passthrough would leave its marker).
+// Empty formulas leave nothing (the renderer would leave its marker).
 assert.equal(transformDocument('甲\n\n\\[\\]\n\n$$$$ 与 $ $。'), '甲\n\n\n\n 与 。');
 // The editor checks formulas with KaTeX first: an error names the formula's line.
 assert.throws(() => transformDocument('甲\n\n$\\begin{alignedat}{1}a&b&c&d\\end{alignedat}$', { file: 'f.md', checkMath: true }), /f.md:3: 公式无法渲染：Too many math in a row/);

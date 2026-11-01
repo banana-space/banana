@@ -1,13 +1,12 @@
 /**
- * Escaping for HTML and URLs: text and attribute values, and the percent-encoding of addresses (as Go's net/url
- * writes it).
+ * Escaping for HTML and URLs: text and attribute values, and the percent-encoding of addresses.
  */
 
 const encoder = new TextEncoder();
 const hex = byte => byte.toString(16).padStart(2, '0');
 const unreserved = c => (c >= 0x61 && c <= 0x7a) || (c >= 0x41 && c <= 0x5a) || (c >= 0x30 && c <= 0x39) || c === 0x2d || c === 0x2e || c === 0x5f || c === 0x7e;
 
-/** url.QueryEscape (Hugo's urlquery): unreserved bytes kept, space as +, the rest %XX. */
+/** A query's value: unreserved bytes kept, space as +, the rest %XX. */
 export function queryEscape(text) {
   let result = '';
   for (const byte of encoder.encode(text)) {
@@ -22,7 +21,7 @@ const isHex = c => (c >= 0x30 && c <= 0x39) || (c >= 0x41 && c <= 0x46) || (c >=
 const reserved = new Set([...'!#$&*+,/:;=?@[]'].map(char => char.charCodeAt(0)));
 
 /**
- * A URL as written, made safe for an attribute (html/template's URL normalizer): reserved and unreserved characters
+ * A URL as written, made safe for an attribute: reserved and unreserved characters
  * and valid %XX escapes are kept; every other byte becomes %XX, in upper case (as pathEscape and queryEscape write).
  */
 export function normalizeURL(url) {
@@ -43,14 +42,14 @@ export const escape = value => String(value).replace(/[\0"&<>]/g, char => replac
 /** Text alone: &, < and > escaped, quotation marks as they are (highlighted code). */
 export const escapeText = value => String(value).replace(/[&<>]/g, char => replacements[char]);
 
-/** urls.Parse(value).Scheme, or '' (Go: a scheme is letters, digits, + - . after a letter, before ":"). */
+/** The URL's scheme, or '' (a scheme is letters, digits, + - . after a letter, before ":"). */
 export function scheme(url) {
   const match = url.match(/^([A-Za-z][A-Za-z0-9+.-]*):/);
   return match ? match[1] : '';
 }
 
 /**
- * url.URL.EscapedPath for a path (Hugo's RelPermalink): unreserved bytes and $&+,/:;=@ kept, the rest %XX. Also an
+ * A path: unreserved bytes and $&+,/:;=@ kept, the rest %XX. Also an
  * element's id in a link to it (#…): headings, references and the table of contents spell an anchor alike.
  */
 export function pathEscape(path) {

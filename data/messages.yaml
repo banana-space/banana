@@ -1,0 +1,407 @@
+# 站点的中文文字表（模板、构建与浏览器脚本共用，scripts/shared/i18n.mjs）：{Name} 是模板与构建填入的参数，{name} 由浏览器脚本填入。
+
+# 页面与界面
+ancestor_categories: 祖先分类
+annotation_close: ）
+annotation_open: （
+annotation_separator: ，
+article_categories: 所属分类
+articles: 条目
+categories: 分类
+category_article_count: "{Count} 个条目"
+child_categories: 子分类
+copyright: 本站内容采用 {License} 许可．源码和内容位于 {Source}．
+gender_f: 阴性
+gender_m: 阳性
+gender_mf: 通性
+gender_n: 中性
+gender_pl: 复数
+head_back: 请返回<a href="{Home}">首页</a>．
+head_back_related: 请返回<a href="{Home}">首页</a>，或浏览下方的相关页面．
+missing_create: 请返回<a href="{Home}">首页</a>，或<a class="missing-create" href="{Create}">创建条目</a>．
+missing_create_related: 浏览下方的相关页面，或<a class="missing-create" href="{Create}">创建条目</a>．
+lastmod: 本页面最后修改于 {Date}．
+lastmod_datetime: "{Year} 年 {Month} 月 {Day} 日 {Hour}:{Minute}"
+lastmod_utc_datetime: "{Date} UTC"
+letter_continued: "{Letter}（续）"
+letter_navigation: 按首字母跳转
+letter_page: 第 {Number} 页
+link_to_heading: 链接到本节
+main_navigation: 主导航
+missing_article: 条目尚未创建
+missing_article_link: 条目尚未创建：{Name}
+missing_content: "{Name}目前还没有内容。"
+missing_name: 你访问的条目
+missing_page_title: "{Name}：条目尚未创建"
+missing_quoted_name: “{Name}”
+navbox_collapse: 收起
+navbox_expand: 展开
+navbox_label: "{Name}导航"
+navbox_table: "{Name}导航表"
+navigation_menu: 导航菜单
+other_categories: 其他
+page_does_not_exist: 所访问的页面不存在．
+name_translations: 译名
+page_not_found: 页面未找到
+person_ipa_label: IPA
+person_transliteration_label: 拉丁转写
+see_also_label: 参见：
+# 首页（scripts/site/templates/home.mjs）
+home_lede: 中文数学百科及讲义集
+home_search_placeholder: 搜索条目或讲义…
+home_browse: 浏览网站内容
+home_wiki: 百科
+home_wiki_text: 按分类浏览条目，或在上方搜索．
+home_wiki_count: <strong class="home-count">{Count}</strong>个条目
+home_books_text: 课程讲义与专题讲义，可在线阅读．
+home_books_count: <strong class="home-count">{Count}</strong>本讲义
+home_recent_all: 全部更改
+home_recent_more: 等 {Count} 个页面
+home_recent_in_book: 中的 {Count} 个页面
+home_recent_year_date: "{year} 年 {month} 月 {day} 日"
+home_recent_changes_text: 网站的最新动态
+home_help_text: 如何编辑条目与讲义
+home_github_text: 报告问题或发起讨论
+redirected_from: 跳转自：{Name}
+related_search_more: 搜索 “{Query}” 的全部结果
+related_search_title: 相关页面
+search_alias: 别名：{Name}
+search_back: 退出搜索
+search_clear: 清空搜索
+search_error: 搜索暂时无法使用，请稍后再试
+search_filter: 按类型筛选
+search_hint: 输入关键词，搜索条目、讲义、指南和分类
+search_kind_all: 全部
+search_kind_category: 分类
+search_kind_guide: 指南
+search_kind_lecture: 讲义
+search_kind_page: 页面
+search_kind_wiki: 百科
+search_label: 搜索{Site}
+search_load_more: 加载更多
+search_loading: 正在加载搜索…
+search_more_in_collection: "{Collection}中还有 {Count} 个结果"
+search_no_results: 没有找到与 “{Query}” 相关的结果
+search_noscript: 搜索需要启用 JavaScript．
+search_open: 打开搜索
+search_page_title: 搜索
+search_placeholder: 搜索{Site}…
+search_result_count: "{Count} 个结果"
+search_results: 搜索结果
+search_results_title: “{Query}” 的搜索结果
+search_view_all: 查看全部 {Count} 个结果
+site_search: 站内搜索
+table_of_contents: 目录
+category_separator: ": "
+term_translations: 术语翻译
+term_variant_separator: 、
+
+# 定理、证明与引用（渲染 front matter 中的文字时用；正文中的由 bananamark 写出，见其 messages/）
+environment_title: "{Caption}（{Title}）"
+proof_heading: "{Caption}"
+# U+3000 全角空格；其他语言可设为 ""。
+proof_title_separator: "\u3000"
+reference_section: 第 {Number} 节
+
+
+# 预处理与作者提示
+build_aliases_scope: "{File}: aliases 仅用于百科条目的名称别名"
+build_category_cycle: 分类存在循环：{Path}
+build_category_duplicate: 分类名称重复：{Name}（{FirstName}、{Value}）
+build_category_invalid: 分类配置无效：{Name}
+build_category_list: "{File}: categories 必须是分类名称列表"
+build_category_mapping: categories.yaml 必须是分类名称到配置的映射
+build_category_missing: 分类不存在：{Name}
+build_category_name: 分类名称
+build_category_parent: parent（{Name}）
+build_category_path: "{File}: 分类名称不能包含路径：{Value}"
+build_collapsed_boolean: collapsed 必须是布尔值
+build_component_context: "{Caller}:1: 使用 {Kind}/{Name} 时：{File}:{Line}: {Value}"
+build_component_entry: "{Kind} 的每项必须是名称或含 name 的字段映射"
+build_component_list: "{Kind} 必须是列表"
+build_component_missing: "{Caller}: 组件不存在：{Kind}/{Name}"
+build_component_name: 组件 name 必须是非空名称，不能包含路径
+build_component_text: 必须是非空文字；复杂百科链接请加引号
+build_duplicate_article: 条目名称重复：{Name}（{FirstFile}、{File}）
+build_gender_suffix: 未知性别后缀：:{Suffix}
+build_gender_value: gender 必须是 m、f、n、mf 或 pl
+build_group_contents: 每个分组必须且只能填写 items 或 subgroups
+build_group_depth: 导航分组最多支持四层
+build_groups_list: groups/subgroups 必须是非空列表
+build_heading_anchor_conflict: "{File}:{Line}: 引用标签与标题自动锚点重复：{Id}"
+build_heading_level_one: 百科正文不能使用一级标题；请在 front matter 中填写 title
+build_heading_level_two: 二级节标题必须位于正文层级，不能放在列表或引用块内
+build_items_list: items 必须是非空列表
+build_language_code: "{File}: lang 必须是语言代码，如 zh-CN、en、ko"
+build_name_empty: 规范化后不能为空
+build_name_inline_math: 只支持行内公式，不支持独立公式
+build_name_list: "{File}: {Field} 必须是名称列表"
+build_name_math: 中的公式无法解析：{Message}
+build_name_math_delimiters: 公式分隔符未闭合或缺少开始分隔符
+build_name_single_line: 必须是非空单行字符串
+build_navbox_parameters: navboxes/{Name} 不接受参数
+build_person_language: "{Position}: person 的 lang 必须是语言代码"
+build_person_named_parameters: "{Position}: person 使用命名参数，必须填写 name"
+build_person_parameter_text: "{Position}: person 的 {Key} 必须是文字"
+build_person_unknown_parameter: "{Position}: person 的未知参数：{Key}"
+build_reading_and_ruby: reading 与 ruby 不能同时填写
+build_reading_dictionary: "{File}: 读音词表必须是 “词语: 读音” 的映射"
+build_reading_dictionary_entry: "{File}: {Word} 必须只含汉字，读音须为每个字一个音节"
+build_reading_invalid: "{File}: {Field} 的读音只能由小写字母和数字组成的词构成，词之间用一个空格分隔（ü 写作 v），例如 qi yi shang tong diao；当前为 {Value}"
+build_reading_length: reading 列表必须与 text 逐字对应
+build_ruby_fields: ruby 分段只接受 text/reading
+build_ruby_format: 日语假名格式应为 字<假名> 或 [词组]<假名>，注音前必须有文字
+build_ruby_language: reading/ruby 仅用于日语译名
+build_ruby_list: ruby 必须是非空分段列表
+build_ruby_text: ruby 分段合并后必须与 text 一致
+build_search_config: "{File}: search 只能设为 false"
+build_search_manifest: "要索引的页面 {Url} 没有生成，或其中没有可索引的内容"
+build_term_language_code: 语言必须使用语言代码，如 en、ja、fr、de
+build_term_language_invalid: 无效语言代码：{Language}
+build_term_languages: 每个术语必须至少有一种语言的译名
+build_term_name: 术语名称必须是文字
+build_term_text: 术语字段必须是非空单行文字
+build_terms_mapping: terms 必须是非空的术语到译名映射
+build_translation_empty: 译名列表不能为空
+build_translation_mapping: 译名必须是文字或字段映射
+build_translation_unknown_field: 未知译名字段：{Key}
+build_typography_config: "{File}: typography 只接受布尔值 convertChineseFullStop"
+build_yaml_invalid: YAML 无效：{Message}
+build_yaml_mapping: 必须是字段映射
+build_yaml_unknown_field: 未知字段：{Value}
+
+# 开发预览
+serve_address: "[serve] preview at {Origin}/"
+serve_already_running: "[serve] another serve (process {Pid}) is already building into .build/; stop it first."
+serve_building: 正在构建预览
+serve_git_watch_failed: "[serve] watching Git failed: {Message}"
+serve_full_complete: "[serve] full build done ({Milliseconds} ms); the search index follows"
+serve_site_failed: "[serve] generating the site failed; keeping the last good preview."
+serve_invalid_address: invalid preview port or address
+serve_not_found: 页面不存在
+serve_generator_start: "[serve] the site generator's code changed: generating the pages again"
+serve_generator_complete: "[serve] updated {Count} page(s) and file(s) after the generator's change ({Unchanged} unchanged, {Milliseconds} ms)"
+serve_assets_complete: "[serve] rebuilt the styles and scripts: {Count} file(s) changed ({Milliseconds} ms)"
+serve_static_complete: "[serve] copied {Count} static file(s) ({Milliseconds} ms)"
+serve_page_complete: "[serve] updated {Count} page(s) ({Milliseconds} ms)"
+serve_page_failed: "[serve] page update failed; keeping the last good preview. Save again after fixing: {Message}"
+serve_page_start: "[serve] body-only change, updating just: {Pages}"
+serve_pages_start: "[serve] front matter changed, updating these pages and those that depend on them: {Pages}"
+serve_prebuild_failed: "[serve] prebuild failed; keeping the last good content. Save again after fixing."
+serve_prebuild_start: "[serve] full build…"
+serve_site_start: "[serve] content changed beyond page text, preprocessing again and updating what changed…"
+serve_search_complete: "[serve] search index updated ({Milliseconds} ms after the full build began)"
+serve_search_failed: "[serve] writing the search index failed; search keeps the previous index, and the next change rebuilds in full."
+serve_server_failed: "[serve] preview server failed: {Message}"
+serve_start_failed: "[serve] failed to start: {Message}"
+serve_update_complete: "[serve] updated {Count} page(s) ({Milliseconds} ms; {Touched} re-rendered for links and lists, {Removed} removed)"
+serve_update_failed: "[serve] preview update failed: {Message}"
+serve_watch_failed: "[serve] watching files failed: {Message}"
+serve_watching: "[serve] watching content, categories, templates, styles and typography rules; Ctrl+C to stop."
+
+# 指南与讲义
+lectures: 讲义
+guides: 指南
+help: 帮助
+book_pages: "{Count} 个页面"
+book_characters_qian: "{Count} 千字"
+book_characters_wan: "{Count} 万字"
+book_author_separator: "、"
+collection_open: 打开章节目录
+collection_close: 关闭章节目录
+collection_children: 章节目录
+collection_previous: 上一页
+collection_next: 下一页
+collection_navigation: 章节导航
+
+# 在线编辑对导言区的要求（scripts/prebuild/front-matter-rules.mjs）
+build_front_matter_missing: 缺少导言区：页面应以 --- 开头的 front matter 开始，其中至少有 title
+build_front_matter_key: 导言区不能使用字段 “{Key}”：可以使用的有 {Allowed}
+build_link_scheme: "{File}：链接或图片的地址只能是站内地址或 http、https（链接还可以是 mailto）：{Destination}"
+build_tag_language: "<{Name}> 的语言代码有误：“{Value}”（应为一个代码，如 en、de、grc、zh-Hant）"
+build_person_empty: "{Position}：person 至少需要 original、translit、ipa、years 之一"
+build_front_matter_unclosed: 导言区没有结束：front matter 之后应有单独一行的 ---
+build_front_matter_field: "导言区缺少 {Field}"
+build_front_matter_title: title 不能为空
+
+# 最近更改（scripts/site/templates/special.mjs 与 static/js/recent-changes.js）；{count}、{name} 等由脚本填入
+recent_changes_title: 最近更改
+recent_changes_intro: 网站的修改都在 GitHub 上以 PR（拉取请求）提交，由维护者合并、发布．<br>以下列出网站的最近修改，<strong>待审阅</strong>的修改还没有出现在网站上．
+recent_changes_loading: 正在载入…
+recent_changes_error: 暂时无法读取最近更改，请稍后再试．
+recent_changes_empty: 没有符合条件的更改．
+recent_changes_noscript: 最近更改需要启用 JavaScript．
+recent_changes_today: 今天
+recent_changes_yesterday: 昨天
+recent_changes_date: "{month} 月 {day} 日"
+recent_changes_open: 待审阅
+recent_changes_draft: 草稿
+recent_changes_merged: 已发布
+recent_changes_publishing: 发布中
+recent_changes_publishing_hint: 已审阅，将在几分钟后发布到网站
+recent_changes_added: 新页面
+recent_changes_removed: 已删除
+recent_changes_renamed: 原名 {name}
+recent_changes_pages: "{count} 个页面"
+recent_changes_more_pages: 等 {count} 个页面
+recent_changes_show_pages: 列出全部页面
+recent_changes_hide_pages: 收起
+recent_changes_other_files: 另有 {count} 个其他文件
+recent_changes_site_only: 网站代码
+recent_changes_truncated: GitHub 只列出了前 {count} 个文件，实际修改的可能更多．
+recent_changes_filter_pages: 筛选页面（名称或拼音）
+recent_changes_no_pages: 没有符合的页面．
+diff_page_title: 页面差异
+diff_title: "{Title} 的修改"
+diff_error: 暂时无法读取这项修改，请稍后再试．
+diff_missing: 没有找到这项修改：链接可能有误，或者 PR 已经关闭．
+diff_view_page: 查看页面
+diff_edit_page: 编辑页面
+diff_open_note: 这项修改尚待审阅，还没有出现在网站上．
+recent_changes_show_site: 显示只修改网站代码的 PR
+
+# 页面历史（scripts/site/templates/special.mjs 与 static/js/history.js）；{title}、{name}、{count} 由脚本填入
+history_link: 页面历史
+history_page_title: 页面历史
+history_title: "{Title} 的历史"
+history_error: 暂时无法读取页面历史，请稍后再试．
+history_missing: 没有找到这个页面的历史：链接可能有误，或者页面是新近建立的．
+history_pending_error: 暂时无法读取尚待审阅的修改，以下只列出网站上已有的修改．
+history_noscript: 页面历史需要启用 JavaScript．
+history_commit: 提交
+history_imported: 迁移到新网站
+history_created: 随新网站建立
+history_legacy: 旧站的编辑记录
+history_legacy_note: 以下是基于 MediaWiki 的旧版网站上的编辑记录．
+history_legacy_show: 显示 {count} 项编辑记录
+history_show_more: 显示更多
+history_back: 页面历史
+history_minor: 小
+history_minor_hint: 小修改
+history_no_summary: 无编辑摘要
+history_hidden_user: 用户名已隐藏
+
+# 在线编辑（scripts/site/templates/special.mjs 与 assets/js/editor/）；{name}、{number} 等由脚本填入
+edit_this_page: 编辑本页
+# CodeMirror's own words (search panel, folding, completions, diagnostics, merge view).
+editor_cm_find: "查找"
+editor_cm_replace: "替换为"
+editor_cm_next: "下一个"
+editor_cm_previous: "上一个"
+editor_cm_all: "全部"
+editor_cm_match_case: "区分大小写"
+editor_cm_regexp: "正则表达式"
+editor_cm_by_word: "全词匹配"
+editor_cm_replace_one: "替换"
+editor_cm_replace_all: "全部替换"
+editor_cm_close: "关闭"
+editor_cm_current_match: "当前匹配"
+editor_cm_on_line: "位于行"
+editor_cm_replaced_match: "已替换第 $ 行的匹配"
+editor_cm_replaced_matches: "已替换 $ 处匹配"
+editor_cm_go_to_line: "跳到行"
+editor_cm_go: "跳转"
+editor_cm_diagnostics: "问题"
+editor_cm_no_diagnostics: "没有问题"
+editor_cm_folded_code: "已折叠的代码"
+editor_cm_to: "至"
+editor_cm_unfold: "展开"
+editor_cm_fold_line: "折叠"
+editor_cm_unfold_line: "展开"
+editor_cm_folded_lines: "已折叠"
+editor_cm_unfolded_lines: "已展开"
+editor_cm_completions: "补全"
+editor_cm_control_character: "控制字符"
+editor_cm_selection_deleted: "已删除所选内容"
+editor_cm_unchanged_lines: "$ 行未改变"
+editor_cm_accept: "接受"
+editor_cm_reject: "拒绝"
+editor_cm_revert_chunk: "撤销这处修改"
+editor_page_title: 编辑
+editor_noscript: 在线编辑需要启用 JavaScript．
+editor_open_label: 要编辑的页面
+editor_open_placeholder: 条目名
+editor_open_button: 打开
+editor_open_hint: 输入已有条目的名称即可编辑；输入新的名称则新建条目．其他页面请在页面底部点击 “编辑本页”．
+editor_open_no_slash: 条目名中不能含有 “/”．
+editor_new_page_not_entry: 在线编辑只能新建百科条目．
+editor_loading: 正在载入…
+editor_load_failed: 载入失败：{message}
+editor_new_page: 新页面
+editor_view_page: 原页面
+editor_in_pull: "PR #{number}"
+editor_in_pull_by: "@{author} 的 PR #{number}"
+editor_pull_title: 这个页面有未合并的编辑
+editor_pull_intro: 下面的 PR 还在等待审阅．你可以在其中一个 PR 上继续编辑，提交的修改会添加到该 PR 中．
+editor_pull_choice: "@{author} 的 PR #{number}：{title}"
+editor_pull_choice_own: "你的 PR #{number}：{title}"
+editor_pull_none: 网站上的当前版本（提交时新建 PR）
+editor_pull_confirm: 开始编辑
+editor_pull_missing: "PR #{number} 已被合并或关闭．"
+editor_pull_merged: "PR #{number} 已被合并．"
+editor_pull_closed: "PR #{number} 已被关闭，没有合并．"
+editor_resubmit_new: 你的修改都还在，提交时将开一个新的 PR．
+editor_resubmit_new_compare: 下面标出了你的版本与网站上最新版本的差异，确认后提交将开一个新的 PR．
+editor_resubmit_own_compare: "下面标出了你的版本与你的 PR #{number} 中版本的差异，确认后提交将添加到该 PR．"
+editor_resubmit_button: 提交为新的 PR
+editor_source_tab: 代码
+editor_preview_tab: 预览
+editor_submit_button: 提交
+editor_submit_wait_preview: 预览成功后才能提交．
+editor_submit_wait_errors: 预览有错误，修正后才能提交．
+editor_login: 用 GitHub 登录
+editor_login_title: 请登录 GitHub 以继续
+editor_login_intro: 在线编辑用 GitHub 账号提交修改：每次提交成为一个 PR，由维护者审阅后合并到网站．
+editor_unavailable: 暂时无法连接编辑服务，请稍后再试．
+editor_logout: 退出登录
+editor_my_pulls: 我的 PR
+editor_profile: GitHub 主页
+editor_account_menu: 账号菜单
+editor_close: 关闭
+editor_previewing: 正在加载预览…
+editor_preview_failed: 预览失败，点击此处重试
+editor_preview_error_title: 预览错误
+editor_preview_error_line: "{line}：{message}"
+editor_preview_empty: 点击 “预览” 或按 {key} 查看修改后的页面．
+editor_completion_tag_see: 参见
+editor_completion_tag_person: 人名的注释
+editor_completion_tag_problems: 提示：存在的问题
+editor_completion_tag_disambiguation: 提示：消歧义与区分
+editor_completion_tag_tip: 提示
+editor_completion_parameter_original: 原文姓名
+editor_completion_parameter_lang: 原文的语言
+editor_completion_parameter_translit: 拉丁转写
+editor_completion_parameter_ipa: 国际音标
+editor_completion_parameter_years: 生卒年
+editor_completion_terms: 术语翻译
+editor_preview_button: 预览
+editor_preview_button_title: 预览（{key}）
+editor_problem_line: 第 {line} 行
+editor_missing_link: 条目 “{name}” 不存在
+editor_draft_restored: 已恢复保存的草稿．
+editor_draft_discard: 放弃草稿
+editor_draft_outdated: 有未保存的草稿，但页面在此之后已被修改．
+editor_draft_load: 加载草稿
+editor_draft_compare: 已加载草稿，下面标出了与当前版本的差异．
+editor_conflict: 这个页面在你编辑期间被修改了．下面标出了你的版本与最新版本的差异，请确认后再提交．
+editor_pull_conflict: "PR #{number} 在你编辑期间有了新的提交．下面标出了你的版本与最新版本的差异，请确认后再提交．"
+editor_merge_done: 完成比较
+editor_change_revert: 还原
+editor_submit_title: 提交编辑
+editor_submit_intro: 编辑会以 GitHub PR 的形式提交，由维护者审阅后合并．
+editor_submit_update: "编辑将添加到 PR #{number}．"
+editor_submit_update_other: "编辑将添加到 @{author} 的 PR #{number}，对方会收到通知．"
+editor_submit_message: 编辑说明（可选）
+editor_submit_minor: 小修改
+editor_submit_minor_hint: 格式、链接、错别字等小的改动，首页的最近更改中不列出
+editor_submit_confirm: 提交
+editor_submit_cancel: 取消
+editor_submitting: 正在提交…
+editor_submit_done_title: 提交成功
+editor_submit_done_opened: "已创建 PR #{number}，维护者审阅后会合并到网站．你可以继续编辑此 PR．"
+editor_submit_done_updated: "已将编辑添加到 PR #{number}．"
+editor_submit_done_view: 在 GitHub 上查看
+editor_submit_close: 关闭
+editor_submit_failed: 提交失败：{message}
+editor_unchanged: 尚未编辑．
+editor_offline_unsaved: 未能保存草稿，离开页面前保存更改．

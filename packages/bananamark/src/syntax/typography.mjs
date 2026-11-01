@@ -190,7 +190,7 @@ export function normalizeTree(root, adapter, options = {}) {
     if (excluded.has(tag)) { flush(); return; }
     if ([...classes].some(name => ignoredClasses.has(name))) return;
     if (classes.has('bm-math-rendered')) {
-      if (attr('data-display') === 'true') { flush(); return; }
+      if (classes.has('bm-math-display')) { flush(); return; }
       run.push({ ...next, math: true, node, path: [...path, node] });
       // Punctuation the renderer put with the formula's end (span.bm-math-end, render/index.mjs): text after the
       // formula, as written, so that a second pass leaves the text around it as the first did.

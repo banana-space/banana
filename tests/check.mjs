@@ -21,11 +21,37 @@ try {
   await page('navboxes/说明.md', '导航框的说明\n');
 
   let result;
-  for (const [args, message] of [[['content/wiki/不存在'], /文件不存在/], [['content/navboxes/说明.md'], /组件定义/], [['i18n/zh-cn.yaml'], /不是 content/]]) {
+  for (const [args, message] of [[['content/wiki/不存在'], /文件不存在/], [['content/navboxes/说明.md'], /组件定义/], [['data/messages.yaml'], /不是 content/]]) {
     result = run('check', ...args);
     assert.equal(result.status, 1);
     assert.match(result.output, message);
   }
+
+  // The site's own pages have no file in content/, and a file there cannot take their address.
+  await page('search/index.md', '---\ntitle: 搜索\n---\n');
+  result = run('check', '--json');
+  assert.equal(result.status, 1);
+  assert.deepEqual(result.json.errors.map(error => error.file), ['content/search/index.md']);
+  assert.match(result.json.errors[0].message, /站点自己的页面/);
+  await rm(join(root, 'content/search'), { recursive: true });
+
+  // A category's page comes from data/categories.yaml.
+  await page('categories/甲/index.md', '---\ntitle: 甲\n---\n');
+  result = run('check', '--json');
+  assert.equal(result.status, 1);
+  assert.deepEqual(result.json.errors.map(error => error.file), ['content/categories/甲/index.md']);
+  assert.match(result.json.errors[0].message, /分类页由 data\/categories\.yaml 生成/);
+  await rm(join(root, 'content/categories'), { recursive: true });
+
+  // Only the keys pages use: another is an error on its line.
+  for (const key of ['url', 'slug', 'layout', 'build', 'date', 'notices', 'lastmod']) {
+    await page('wiki/字段/index.md', `---\ntitle: 字段\n${key}: 1\n---\n`);
+    result = run('check', 'content/wiki/字段', '--json');
+    assert.equal(result.status, 1);
+    assert.deepEqual([result.json.errors[0].file, result.json.errors[0].line], ['content/wiki/字段/index.md', 3]);
+    assert.match(result.json.errors[0].message, new RegExp(`不能使用字段 “${key}”`));
+  }
+  await rm(join(root, 'content/wiki/字段'), { recursive: true });
 
   // check collects every error and attributes conflicts to both pages.
   await page('wiki/重名/index.md', '---\ntitle: 甲\n---\n');

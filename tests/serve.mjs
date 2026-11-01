@@ -7,7 +7,7 @@ import { createServer } from 'node:net';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
-const root = await createProject('serve', ['scripts', 'assets', 'static', 'i18n', 'data', 'content/navboxes', 'site.yaml']);
+const root = await createProject('serve', ['scripts', 'site', 'data', 'content/navboxes']);
 let child, output = '';
 async function until(check, description) {
   const deadline = Date.now() + 15000;
@@ -65,7 +65,6 @@ try {
   assert.equal((await fetch(base + '/js/typography.js')).status, 404);
   assert.equal((await fetch(base + '/js/typography-live.js')).status, 404);
   assert.match(await readFile(join(root, '.build/preview/wiki/live/index.html'), 'utf8'), /如式 \(1\.1\) 所示, 成立\. 然后中文 API．/);
-  await assert.rejects(stat(join(root, '.build/content/navboxes')), { code: 'ENOENT' });
   // The pages come first; the search index follows in the background and is served once written.
   await until(() => output.includes('search index updated'), '搜索索引');
   await until(async () => (await fetch(base + '/pagefind/pagefind.js')).status === 200, '提供搜索索引');
@@ -80,7 +79,7 @@ try {
   assert.doesNotMatch(initial, /class="bm-section-number"/);
   const cssPath = initial.match(/href="([^"]+\/css\/[^" ]+\.css)"/)?.[1] ?? initial.match(/href="(\/css\/[^" ]+\.css)"/)[1];
   assert.match(await html(cssPath), /sourceMappingURL/);
-  const configFile = join(root, 'site.yaml');
+  const configFile = join(root, 'data/site.yaml');
   const originalConfig = await readFile(configFile, 'utf8');
   const replacementConfig = join(root, 'config.tmp');
   await writeFile(replacementConfig, originalConfig.replace('title: 香蕉空间', 'title: 预览站点一'));
@@ -91,7 +90,7 @@ try {
   await writeFile(configFile, originalConfig);
   await until(async () => (await html('/wiki/live/')).includes('香蕉空间'), '恢复站点配置');
   // The prebuild runs in the resident preview service, which restarts after script changes.
-  for (const entry of ['prebuild/run', 'generator']) {
+  for (const entry of ['prebuild/run', 'service/generator']) {
     const script = join(root, `scripts/${entry}.mjs`);
     const old = await readFile(script, 'utf8');
     // Unchanged pages keep their revision; wait for the rebuild to finish instead.
@@ -99,8 +98,16 @@ try {
     await writeFile(script, old + `\nconsole.log('${entry} entry refreshed');\n`);
     await until(() => output.includes(`${entry} entry refreshed`) && completed() > finished, `${entry} 入口修改刷新`);
   }
-  const generated = join(root, '.build/content/wiki/live/index.md');
-  const contentDirectory = await stat(join(root, '.build/content'));
+  // site/: files published as they are, scripts directly in site/scripts/ (at /js/), and styles, each updated alone.
+  await writeFile(join(root, 'site/files/robots.txt'), 'User-agent: *\n# 已更新\n');
+  await until(async () => (await html('/robots.txt')).includes('已更新'), '原样发布的文件更新');
+  const browserScript = join(root, 'site/scripts/local-time.js');
+  await writeFile(browserScript, `${await readFile(browserScript, 'utf8')}\n// 已更新\n`);
+  await until(async () => (await html('/js/local-time.js')).includes('已更新'), '浏览器脚本更新');
+  const styles = join(root, 'site/styles/_base.scss');
+  await writeFile(styles, `${await readFile(styles, 'utf8')}\n.served-check { color: red; }\n`);
+  await until(async () => (await html('/css/site.css')).includes('served-check'), '样式更新');
+  const generated = join(root, '.build/preview/wiki/live/index.html');
   const originalTime = (await stat(generated)).mtimeMs;
   const builds = (output.match(/prebuild: \d+ pages|updated \d+ page/g) ?? []).length;
   const events = await fetch(base + '/__banana_events');
@@ -143,8 +150,6 @@ try {
   await until(() => (output.match(/prebuild failed|page update failed/g) ?? []).length >= 2, '后续语法错误提示');
   assert.equal(await readFile(generated, 'utf8'), successful, '语法错误破坏了成功副本');
   assert.ok((await html('/wiki/live/')).includes('连续保存 11'));
-  assert.equal((await stat(join(root, '.build/content'))).ino, contentDirectory.ino, '监听目录被替换');
-  assert.ok(!(await readdir(join(root, '.build'))).some(name => name.startsWith('prebuild-')), '临时目录未清理');
   await writeFile(page, body('错误后恢复'));
   await until(async () => (await html('/wiki/live/')).includes('错误后恢复'), '错误后自动恢复');
 
@@ -224,15 +229,14 @@ try {
   await rename(join(root, 'content/wiki/added'), join(root, 'content/wiki/renamed'));
   await until(async () => (await html('/wiki/renamed/')).includes('新增页面'), '目录重命名');
   await until(async () => !(await html('/wiki/')).includes('href="/wiki/added/"'), '列表移除旧地址');
-  await until(() => stat(join(root, '.build/content/wiki/added')).then(() => false, error => error.code === 'ENOENT'), '生成目录删除 added');
+  await until(() => stat(join(root, '.build/preview/wiki/added')).then(() => false, error => error.code === 'ENOENT'), '预览目录删除 added');
   await rm(join(root, 'content/wiki/renamed'), { recursive: true });
   await until(async () => !(await html('/wiki/')).includes('href="/wiki/renamed/"'), '删除页面后刷新列表');
-  await until(() => stat(join(root, '.build/content/wiki/renamed')).then(() => false, error => error.code === 'ENOENT'), '生成目录删除 renamed');
+  await until(() => stat(join(root, '.build/preview/wiki/renamed')).then(() => false, error => error.code === 'ENOENT'), '预览目录删除 renamed');
 
   const categoryTemp = join(root, 'data/categories.tmp');
   await writeFile(categoryTemp, '测试: {parent: 总类}\n总类: {}\n');
   await rename(categoryTemp, join(root, 'data/categories.yaml'));
-  await until(async () => (await readFile(generated, 'utf8')).includes('总类'), '分类树原子保存');
   await until(async () => (await html('/categories/总类/')).includes('</svg>测试</span>'), '分类页刷新');
   await until(async () => (await html('/categories/测试/')).includes('>总类</a>'), '分类导航刷新');
   const navTemp = join(root, 'content/navboxes/预览导航.tmp');

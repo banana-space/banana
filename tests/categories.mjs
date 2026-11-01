@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -85,6 +85,8 @@ try {
   const second = await readFile(join(root, 'public/categories/字母分类/page/2/index.html'), 'utf8');
   assert.deepEqual(headings(second), ['letter-t T（续）']);
   assert.deepEqual(titles(second), ['条目 47', '条目 48', '条目 49', '条目 50', '条目 51', '条目 52', '条目 53', '条目 54', '条目 55', '条目 56']);
+  // The first page is the list itself, with no address of its own.
+  await assert.rejects(readFile(join(root, 'public/categories/字母分类/page/1/index.html'), 'utf8'), { code: 'ENOENT' });
   const small = await readFile(join(root, 'public/categories/小分类/index.html'), 'utf8');
   assert.doesNotMatch(small, /letter-groups|letter-nav/);
   const wiki = await readFile(join(root, 'public/wiki/index.html'), 'utf8');
@@ -102,8 +104,8 @@ try {
   assert.doesNotMatch(flat, /category-group-title/);
   assert.match(flat, card('示例分类', 1));
   await writeFile(join(root, 'data/categories.yaml'), '甲:\n  parent: 乙\n乙:\n  parent: 甲\n');
-  assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), /分类存在循环/);
+  assert.throws(() => generatedPages(root), /分类存在循环/);
   await writeFile(join(root, 'data/categories.yaml'), '甲:\n  parent: 不存在\n');
-  assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), /分类不存在/);
+  assert.throws(() => generatedPages(root), /分类不存在/);
   console.log('分类卡片与总览分节、完整祖先导航、直接归属筛选、后代汇总计数、空条目标题、去重、空分类、字母分组与无效配置验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

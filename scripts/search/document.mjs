@@ -1,7 +1,7 @@
 import { serialize } from 'parse5';
 import { mathText } from 'bananamark/internal/math-text.mjs';
 import { encodeSearchData } from './data.mjs';
-import { titleFilters, titleKey } from '../../static/js/search-query.js';
+import { titleFilters, titleKey } from '../../site/scripts/search-query.js';
 
 /** Site-relative URL: the browser adds the directory pagefind.js is served from (e.g. /docs/). */
 export const siteURL = (url, base) => url.startsWith(base) ? `/${url.slice(base.length)}` : url;
@@ -79,6 +79,8 @@ function searchCopy(node) {
   if (excludedTags.has(node.tagName) || EXCLUDED_CLASSES.some(name => names.has(name))
     || attr(node, 'hidden') !== undefined || attr(node, 'aria-hidden') === 'true') return [];
   const children = joinTexts(continuedParagraphs(node.childNodes ?? []).flatMap(searchCopy));
+  // The parts of a theorem's title are one text: its spans are only for styling.
+  if (names.has('bm-envnumber') || names.has('bm-envnote')) return children;
   if (names.has('bm-env')) {
     // The block's id moves to its title heading; the block keeps none.
     const id = attr(node, 'id');
@@ -100,7 +102,7 @@ function searchCopy(node) {
 // split it with its own dictionary into long words (奇异上同调), and since it
 // matches query words only as prefixes, 上同调 or 同调 would never find them;
 // splitting by Intl.Segmenter instead still depends on context (上同调和 splits
-// as 上|同|调和). With single characters, static/js/search-query.js searches a
+// as 上|同|调和). With single characters, site/scripts/search-query.js searches a
 // Chinese term as an exact phrase of its characters, which is exactly
 // substring matching. The separator is a zero-width space: Pagefind keeps it as
 // a word boundary and drops it from excerpts; the browser removes it from titles.

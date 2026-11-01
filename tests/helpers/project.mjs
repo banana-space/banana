@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 export const projectRoot = fileURLToPath(new URL('../../', import.meta.url));
-const defaults = ['scripts', 'assets', 'static', 'i18n', 'data', 'content', 'site.yaml'];
+const defaults = ['scripts', 'site', 'data', 'content'];
 
 // 测试使用固定的示例内容和分类树，不依赖、也不复制项目中的真实条目。
 const fixtures = join(projectRoot, 'tests/fixtures');
@@ -15,20 +15,27 @@ export async function createProject(name, paths = defaults) {
   try {
     for (const path of paths) {
       const source = path === 'content' || path.startsWith('content/') ? join(fixtures, path) : join(projectRoot, path);
-      await cp(source, join(root, path), { recursive: true });
+      // Not the real site's legacy revisions, which would attach to fixture pages of the same names.
+      await cp(source, join(root, path), { recursive: true, filter: file => !file.endsWith('/data/legacy_history.json') });
     }
     if (paths.includes('data')) await cp(join(fixtures, 'data'), join(root, 'data'), { recursive: true });
     await symlink(join(projectRoot, 'node_modules'), join(root, 'node_modules'));
-    if (paths.includes('site.yaml')) {
+    if (paths.includes('data')) {
       // Tests use example.org rather than the production address.
-      const config = (await readFile(join(root, 'site.yaml'), 'utf8')).replace(/^baseURL: .*$/m, 'baseURL: https://example.org/');
-      await writeFile(join(root, 'site.yaml'), config);
+      const config = (await readFile(join(root, 'data/site.yaml'), 'utf8')).replace(/^baseURL: .*$/m, 'baseURL: https://example.org/');
+      await writeFile(join(root, 'data/site.yaml'), config);
     }
     return root;
   } catch (error) { await rm(root, { recursive: true, force: true }); throw error; }
 }
 
+
 export function buildProject(root, extra = []) {
-  execFileSync(process.execPath, ['scripts/prebuild.mjs', ...extra], { cwd: root, stdio: 'pipe' });
-  execFileSync(process.execPath, ['scripts/site.mjs', ...extra], { cwd: root, stdio: 'pipe' });
+  execFileSync(process.execPath, ['scripts/build.mjs', ...extra], { cwd: root, stdio: 'pipe' });
+}
+
+/** The prebuild alone: Map of a page's relative path → { metadata, html }. Its errors are thrown. */
+export function generatedPages(root, extra = []) {
+  const output = execFileSync(process.execPath, [join(projectRoot, 'tests/helpers/generated-pages.mjs'), ...extra], { cwd: root, encoding: 'utf8', stdio: 'pipe', maxBuffer: 2 ** 30 });
+  return new Map(JSON.parse(output));
 }

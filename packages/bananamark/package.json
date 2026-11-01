@@ -1,6 +1,6 @@
 {
   "name": "bananamark",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Markdown dialect for mathematical writing: formulas, numbered sections and theorems, cross-references, bibliographies, wiki links and Chinese typography, rendered to HTML",
   "keywords": [
     "markdown",
@@ -27,6 +27,9 @@
   "sideEffects": [
     "*.css"
   ],
+  "bin": {
+    "bananamark": "bin/bananamark.mjs"
+  },
   "exports": {
     ".": "./src/index.mjs",
     "./typography": "./src/typography.mjs",
@@ -44,7 +47,10 @@
   },
   "files": [
     "src",
+    "bin",
     "README.md",
+    "REFERENCE.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "engines": {

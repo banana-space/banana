@@ -6,7 +6,7 @@ import { config } from './shared/config.mjs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import { parse as parseYAML } from 'yaml';
-import { previewService } from './preview-service.mjs';
+import { previewService } from './service/preview.mjs';
 import { describeError } from './shared/errors.mjs';
 import { frontMatterProblems } from './prebuild/front-matter-rules.mjs';
 import { formatMarkdown } from './format/markdown.mjs';
@@ -19,9 +19,9 @@ import { displayTitle } from './shared/display-title.mjs';
 // 在线编辑的接口（见 docs/preview.md）：常驻预览服务加一个只监听本机的 HTTP 服务，由 Apache 把
 // /api/ 反向代理过来。静态站点由 Apache 直接提供，预览页面中的地址都指向它。
 //
-// 用法：npm run api -- [选项] [--buildDrafts 等发布参数]
+// 用法：npm run api -- [选项] [--buildDrafts]
 //   --port 8787、--bind 127.0.0.1    监听地址
-//   --base-url <地址>                页面中的站点地址，默认取 site.yaml 的 baseURL
+//   --base-url <地址>                页面中的站点地址，默认取 data/site.yaml 的 baseURL
 //   --public-url <地址>              浏览器访问站点（与 /api/）的地址，用于登录回调，默认为 base-url 的源
 //   --github-repo owner/name         提交 PR 的仓库；--github-base main 为目标分支
 //   --preview-interval <秒>          每个账号的预览频率：可以连续预览 3 次，之后每隔这么久恢复一次，默认 3；
@@ -86,7 +86,7 @@ const options = {
 const names = { 'base-url': 'baseURL', 'public-url': 'publicURL', 'preview-interval': 'previewInterval', 'github-repo': 'githubRepo', 'github-base': 'githubBase', 'dev-user': 'devUser', 'env-file': 'envFile' };
 for (let i = 0; i < args.length; i++) {
   const match = args[i].match(/^--(port|bind|base-url|public-url|environment|preview-interval|github-repo|github-base|dev-user|env-file)(?:=(.*))?$/);
-  if (!match) continue; // Publishing flags (--buildDrafts and the like), read by prebuild.
+  if (!match) continue; // The publishing flag (--buildDrafts), read by prebuild.
   const value = match[2] ?? args[++i];
   const key = names[match[1]] ?? match[1];
   options[key] = ['port', 'previewInterval'].includes(key) ? Number(value) : value;
@@ -99,7 +99,7 @@ if (options.devUser !== undefined) {
   if (!['127.0.0.1', '::1', 'localhost'].includes(options.bind)) throw new Error('--dev-user is only allowed when listening on a loopback address');
 }
 options.baseURL ??= config.baseURL;
-if (!options.baseURL) throw new Error('--base-url is required when site.yaml sets no baseURL');
+if (!options.baseURL) throw new Error('--base-url is required when data/site.yaml sets no baseURL');
 const publicOrigin = new URL(options.publicURL ?? options.baseURL).origin;
 const secure = publicOrigin.startsWith('https:');
 const redirectURI = `${publicOrigin}/api/auth/callback`;
@@ -122,9 +122,9 @@ const recentPulls = options.githubRepo
 if (!login && !options.devUser) console.warn('[api] GitHub login is not configured (BANANA_GITHUB_CLIENT_ID/SECRET): nobody can log in');
 if (!repository) console.warn('[api] submitting is not configured (BANANA_GITHUB_TOKEN and --github-repo)');
 
-// prebuild reads publishing flags (--buildDrafts and the like) from process.argv.
+// prebuild reads the publishing flag (--buildDrafts) from process.argv.
 const service = previewService({
-  baseURL: options.baseURL, output: join(root, '.build/api'), content: '.build/api/content',
+  baseURL: options.baseURL, output: join(root, '.build/api'),
   environment: options.environment, frontMatterOnly: true,
 });
 
@@ -141,8 +141,7 @@ function pagePath(value) {
     throw new RequestError(400, 'path must be a Markdown page in content/, such as content/wiki/条目/index.md');
   }
   if (parts[0] === 'navboxes') throw new RequestError(400, 'component definitions are not pages');
-  // Entries, books and the guides: not the site's own pages (the home page, search, the editor), whose front
-  // matter chooses templates and outputs.
+  // Entries, books and the guides: not the home page.
   if (!['wiki', 'books', 'help'].includes(parts[0]) || parts.length < 2) throw new RequestError(400, 'only pages under wiki/, books/ and help/ can be edited online');
   if (path.length > 300 || parts.length > 8) throw new RequestError(400, 'path too long');
   // A page is index.md in its own directory (an entry, a book, a chapter, or the section's page); an entry is

@@ -1,8 +1,23 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
+import { pageURL } from '../scripts/shared/pages.mjs';
+import { escape, html, json } from '../scripts/site/html.mjs';
 
-const script = await readFile(new URL('../static/js/site.js', import.meta.url), 'utf8');
+// A page's address: its directory, with spaces as underscores and ＊ as *, for every kind of page alike.
+for (const [relative, address] of [['index.md', '/'], ['wiki/index.md', '/wiki/'], ['recent-changes/index.md', '/recent-changes/'], ['wiki/Riemann ζ 函数/index.md', '/wiki/Riemann_ζ_函数/'], ['categories/Lie 理论/index.md', '/categories/Lie_理论/'], ['wiki/C＊-代数/index.md', '/wiki/C*-代数/'], ['books/甲/乙/index.md', '/books/甲/乙/']]) {
+  assert.equal(pageURL(relative, {}), address);
+}
+assert.equal(pageURL('wiki/甲/index.md', { unpublished: true }), undefined);
+assert.equal(pageURL('wiki/甲/index.md', { draft: true }), undefined);
+assert.equal(pageURL('wiki/甲/index.md', { url: '/elsewhere/', slug: 'x' }), '/wiki/甲/');
+
+// Templates' escaping: entities in attributes and text; data in a script element cannot end it, its keys in their order.
+assert.equal(escape(`<a b="c" d='e'>&`), '&lt;a b=&quot;c&quot; d=&#39;e&#39;&gt;&amp;');
+assert.equal(String(html`<a href="${'/a?b=1&c="'}">${html`<i>${'<'}</i>`}</a>`), '<a href="/a?b=1&amp;c=&quot;"><i>&lt;</i></a>');
+assert.equal(String(json({ b: 1, a: '</script>', c: html`<i>${'&'}</i>` })), '{"b":1,"a":"\\u003c/script>","c":"\\u003ci>&amp;\\u003c/i>"}');
+
+const script = await readFile(new URL('../site/scripts/site.js', import.meta.url), 'utf8');
 const anchorScript = script.split('// Reading controls')[0];
 let height = 60, resize;
 const offsets = [], scrolls = [], handlers = new Map(), documentHandlers = new Map();
@@ -60,7 +75,7 @@ for (const [link, event] of [[{ ...citation, hash: '#other' }], [{ ...citation, 
 }
 assert.equal(animations.length, 3);
 
-const css = await readFile(new URL('../assets/scss/_base.scss', import.meta.url), 'utf8');
+const css = await readFile(new URL('../site/styles/_base.scss', import.meta.url), 'utf8');
 assert.match(css, /\.content \[id\]\s*\{\s*scroll-margin-top: var\(--anchor-offset, 8rem\)/);
 assert.doesNotMatch(css, /scroll-padding-top\s*:/);
 assert.match(css, /scroll-behavior: smooth/);
@@ -255,7 +270,7 @@ console.log('目录滚动高亮、浮层迁移、原生链接、互斥面板、�
 
 // The missing-article page fills in the name after the typography pass, so it
 // applies the curly-quote spacing itself.
-const missingScript = await readFile(new URL('../static/js/missing.js', import.meta.url), 'utf8');
+const missingScript = await readFile(new URL('../site/scripts/missing.js', import.meta.url), 'utf8');
 function missingPage(search, before = '', after = '目前还没有内容．') {
   const previous = { nodeType: 3, data: before }, next = { nodeType: 3, data: after };
   const name = { textContent: '你访问的条目', previousSibling: before ? previous : null, nextSibling: next,

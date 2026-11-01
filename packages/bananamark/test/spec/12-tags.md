@@ -34,7 +34,7 @@ Folded content.
 证明的内容。
 </spoiler>
 .
-<details>
+<details class="bm-spoiler">
   <summary>证明</summary>
   <div><p>证明的内容。</p>
 </div>
@@ -48,7 +48,7 @@ The title is text of the page: formulas, wiki links and references in it are rea
 内容。
 </spoiler>
 .
-<details>
+<details class="bm-spoiler">
   <summary>关于<em>有限</em><a href="/wiki/%E7%BE%A4/" class="bm-wiki-link">群</a></summary>
   <div><p>内容。</p>
 </div>

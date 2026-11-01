@@ -12,8 +12,8 @@ x = 1
 由 @eq:a。
 .
 <span id="eq:a" class="bm-math-rendered bm-math-display" data-tex="x = 1
-\tag{1}" data-display="true">…</span>
-<p>由 <a href="#eq:a">(1)</a>。</p>
+\tag{1}">…</span>
+<p>由 <a href="#eq:a" class="bm-reference">(1)</a>。</p>
 ````````````````````````````````
 
 Under a `##` heading, numbers start with the section's.
@@ -27,7 +27,7 @@ y
 .
 <h2 id="节"><a class="bm-heading-link" href="#%E8%8A%82" title="链接到本节">§</a><span class="bm-section-number">1</span> 节</h2>
 <span class="bm-math-rendered bm-math-display" data-tex="y
-\tag{1.1}" data-display="true">…</span>
+\tag{1.1}">…</span>
 ````````````````````````````````
 
 A `\tag` written by hand is an error.

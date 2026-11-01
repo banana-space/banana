@@ -1,6 +1,6 @@
 {
   "name": "bananamark-tikz",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TikZ diagrams for bananamark: compiled to SVG with node-tikzjax in a worker thread (Node only)",
   "keywords": [
     "bananamark",
@@ -37,7 +37,7 @@
     "test": "node test/tikz.mjs"
   },
   "peerDependencies": {
-    "bananamark": "~0.1.0"
+    "bananamark": "~0.2.0"
   },
   "dependencies": {
     "jsdom": "23.2.0",

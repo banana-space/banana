@@ -26,7 +26,7 @@ try {
   // With a formula, the link's target as written (source=) becomes the title.
   for (const [query, title] of [['?title=新的条目', '新的条目'], [`?title=${encodeURIComponent('怪 ℝ^4')}&source=${encodeURIComponent(String.raw`怪 $\mathbb{R}^4$`)}`, String.raw`怪 $\mathbb{R}^4$`]]) {
     const missing = new JSDOM(await readFile(join(root, 'public/missing/index.html'), 'utf8'), { url: `http://site.test/missing/${query}`, runScripts: 'outside-only' });
-    missing.window.eval(await readFile(join(root, 'static/js/missing.js'), 'utf8'));
+    missing.window.eval(await readFile(join(root, 'site/scripts/missing.js'), 'utf8'));
     const creates = [...missing.window.document.querySelectorAll('.missing-create')];
     assert.deepEqual(creates.map(link => [link.textContent, link.getAttribute('href')]), Array(2).fill(['创建条目', `/edit/?title=${encodeURIComponent(title)}`]), '缺失条目页的创建链接');
     assert.equal(missing.window.document.querySelector('[data-related="found"]').textContent, '浏览下方的相关页面，或创建条目．');
@@ -107,7 +107,7 @@ try {
       const kind = behaviour[times.length - 1] ?? 'ok';
       if (kind === 'network') throw new TypeError('Failed to fetch');
       if (kind === '429') return [429, { ok: false, errors: [{ message: 'too many' }] }, { 'Retry-After': '1' }];
-      // An error only Hugo finds (the browser checks the rest itself).
+      // An error only the server finds (the browser checks the rest itself).
       if (kind === '422') return [422, { ok: false, errors: [{ file: 'content/wiki/甲/index.md', line: 6, message: 'KaTeX 无法解析公式' }] }];
       return [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [{ line: 6, column: 1, target: '乙' }], timings: {} }];
     },

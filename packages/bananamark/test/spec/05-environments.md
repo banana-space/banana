@@ -13,11 +13,11 @@ Definitions and theorems share their numbers.
 正文。
 :::
 .
-<div class="bm-env bm-envgroup-definition bm-env-definition"><p class="bm-envtitle">定义 1（群）</p><div class="bm-envcontent">
+<div class="bm-env bm-envgroup-definition bm-env-definition"><p class="bm-envtitle">定义 <span class="bm-envnumber">1</span><span class="bm-envnote">（群）</span></p><div class="bm-envcontent">
 <p>正文。</p>
 </div>
 </div>
-<div class="bm-env bm-envgroup-theorem bm-env-theorem"><p class="bm-envtitle">定理 2</p><div class="bm-envcontent">
+<div class="bm-env bm-envgroup-theorem bm-env-theorem"><p class="bm-envtitle">定理 <span class="bm-envnumber">2</span></p><div class="bm-envcontent">
 <p>正文。</p>
 </div>
 </div>
@@ -34,7 +34,7 @@ Names of their own, and unnumbered ones.
 乙
 :::
 .
-<div class="bm-env bm-envgroup-definition bm-env-definition"><p class="bm-envtitle">条件 1</p><div class="bm-envcontent">
+<div class="bm-env bm-envgroup-definition bm-env-definition"><p class="bm-envtitle">条件 <span class="bm-envnumber">1</span></p><div class="bm-envcontent">
 <p>甲</p>
 </div>
 </div>
@@ -59,14 +59,14 @@ Proofs, and proofs with titles.
 证。
 :::
 .
-<div class="bm-env bm-envgroup-theorem bm-env-theorem" id="thm:a"><p class="bm-envtitle">定理 1</p><div class="bm-envcontent">
+<div class="bm-env bm-envgroup-theorem bm-env-theorem" id="thm:a"><p class="bm-envtitle">定理 <span class="bm-envnumber">1</span></p><div class="bm-envcontent">
 <p>命题。</p>
 </div>
 </div>
 <div class="bm-env bm-envgroup-proof bm-env-proof"><span class="bm-envtitle">证明　</span><div class="bm-envcontent"><p>证。</p>
 </div>
 </div>
-<div class="bm-env bm-envgroup-proof bm-env-proof"><span class="bm-envtitle"><a href="#thm:a">定理 1</a> 的证明　</span><div class="bm-envcontent"><p>证。</p>
+<div class="bm-env bm-envgroup-proof bm-env-proof"><span class="bm-envtitle"><a href="#thm:a" class="bm-reference">定理 1</a> 的证明　</span><div class="bm-envcontent"><p>证。</p>
 </div>
 </div>
 ````````````````````````````````
@@ -81,12 +81,12 @@ An environment can hold any block.
 $$x$$
 :::
 .
-<div class="bm-env bm-envgroup-example bm-env-example"><p class="bm-envtitle">例 1</p><div class="bm-envcontent">
+<div class="bm-env bm-envgroup-example bm-env-example"><p class="bm-envtitle">例 <span class="bm-envnumber">1</span></p><div class="bm-envcontent">
 <ul>
 <li>甲</li>
 <li>乙</li>
 </ul>
-<span class="bm-math-rendered bm-math-display" data-tex="x" data-display="true">…</span>
+<span class="bm-math-rendered bm-math-display" data-tex="x">…</span>
 </div>
 </div>
 ````````````````````````````````

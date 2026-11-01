@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { bibliographyBlock as block, firstBibliography as first, secondBibliography as second, referenceFixture as fixture } from './fixtures.mjs';
 import { transformDocument as zhDocument } from './zh.mjs';
-import { inspectDocument } from 'bananamark/internal/nodes.mjs';
+import { inspectDocument as inspect } from 'bananamark/internal/nodes.mjs';
 import { normalizeNames as anyNames, prepareBibliography as anyBibliography } from 'bananamark/internal/bibliography.mjs';
 import { zh as inChinese } from './zh.mjs';
 
@@ -9,7 +9,15 @@ const transform = zhDocument, normalizeNames = inChinese(anyNames), prepareBibli
 import { validReferenceName } from 'bananamark/internal/markup.mjs';
 
 
-// The document written out (inspectDocument): nodes as ⟦type field="…"⟧.
+// The document written out: nodes as ⟦type field="…"⟧, without the spans around bibliographies' titles and years, which
+// are tested once below.
+const inspectDocument = document => {
+  const open = [];
+  return inspect(document).replace(/⟦bibliographySpan(?: [^⟧]*)?⟧|⟦bibliographySpanEnd⟧/g, span => {
+    if (span !== '⟦bibliographySpanEnd⟧') open.push(/class="(?:title|year)"/.test(span));
+    return (span === '⟦bibliographySpanEnd⟧' ? open.pop() : open.at(-1)) ? '' : span;
+  });
+};
 const transformDocument = (source, options) => inspectDocument(transform(source, options));
 const fail = message => { throw new Error(message); };
 assert.deepEqual(normalizeNames('Jean-Pierre Serre', fail), [{ family: 'Serre', given: 'Jean-Pierre' }]);
@@ -27,6 +35,7 @@ for (const name of ['a b', 'a@b', 'a|b', 'a{b', 'a(b)', '']) assert.ok(!validRef
 
 const convertedDocument = transform(fixture), { bibliography: entries, labels: targets } = convertedDocument.meta;
 const converted = inspectDocument(convertedDocument);
+assert.match(inspect(convertedDocument), /\(⟦bibliographySpan class="year"⟧2019⟦bibliographySpanEnd⟧\)\. ⟦bibliographySpan class="title"⟧\*A thesis\*⟦bibliographySpanEnd⟧\./);
 assert.match(converted, /\[Smith 2020a\]\(⟦citation /);
 assert.match(converted, /第一同构定理（\[1\.1\]\(⟦reference id="thm:main"⟧\)）/, '@-label shows only the number');
 assert.throws(() => transformDocument('@-book\n\n```bibliography\nbook:\n  type: book\n  title: T\n```\n'), /只引用编号/);

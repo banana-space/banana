@@ -3,7 +3,7 @@ import { setBaseURL } from '../shared/urls.mjs';
 import { generatorCore } from './core.mjs';
 
 /**
- * The site generator's worker (see scripts/generator.mjs): { id, method, args } calls a method of the core
+ * The site generator's worker (see scripts/service/generator.mjs): { id, method, args } calls a method of the core
  * (core.mjs) and answers { id, result } or { id, error }. A new worker loads the generator's code anew.
  */
 if (workerData.baseURL) setBaseURL(workerData.baseURL);

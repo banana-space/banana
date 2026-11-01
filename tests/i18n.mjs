@@ -3,7 +3,7 @@ import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { parse, stringify } from 'yaml';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import { parse as parseHTML, serialize } from 'parse5';
 import { typesetTree } from 'bananamark/typography';
 import { typography } from '../scripts/shared/typography.mjs';
@@ -15,31 +15,35 @@ import { t } from '../scripts/shared/i18n.mjs';
 assert.match(t('missing_article_link', { Name: '$& <name>' }), /\$& <name>/);
 assert.throws(() => t('missing_key'), /Missing translation/);
 assert.throws(() => t('missing_article_link'), /Missing translation value/);
+// {name} in small letters is for the browser's scripts: left as it is, or passed on through a value.
+assert.equal(t('search_no_results', { Query: '{query}' }), '没有找到与 “{query}” 相关的结果');
+assert.match(t('recent_changes_more_pages'), /\{count\}/);
+// Every placeholder in the table is {Name} or {name}, none of the template syntax it once had.
+for (const [key, text] of Object.entries(parse(await readFile(new URL('../data/messages.yaml', import.meta.url), 'utf8')))) assert.ok(typeof text === 'string' && !text.includes('{{'), key);
 
 const root = await createProject('i18n');
 try {
-  const path = join(root, 'i18n/zh-cn.yaml');
+  const path = join(root, 'data/messages.yaml');
   const table = parse(await readFile(path, 'utf8'));
   for (const [key, other] of Object.entries({
-    search_placeholder: 'Find {{ .Site }}', search_no_results: 'Nothing for {{ .Query }}',
+    search_placeholder: 'Find {Site}', search_no_results: 'Nothing for {Query}',
     term_translations: 'Translations', gender_m: 'Masculine',
     navbox_expand: 'Expand', navbox_collapse: 'Collapse',
-    missing_content: '{{ .Name }} has no content.', missing_quoted_name: '[{{ .Name }}]',
-    missing_page_title: 'Missing: {{ .Name }}',
-  })) table[key] = { other };
+    missing_content: '{Name} has no content.', missing_quoted_name: '[{Name}]',
+    missing_page_title: 'Missing: {Name}',
+  })) table[key] = other;
   await writeFile(path, stringify(table));
   const directory = join(root, 'content/wiki/i18n-test');
   await mkdir(directory, { recursive: true });
   const source = `---\ntitle: Translation test\nnavboxes: [代数拓扑]\n---\n\n::: proof\n正文\n:::\n\n\`\`\`terms\n群: {de: 'Gruppe :m'}\n\`\`\`\n\n\`\`\`bibliography\nbook: {type: book, title: Book, url: 'https://example.com/book.pdf'}\nweb: {type: online, title: Web, site: Test, url: 'https://example.com', urldate: '2024-06-01'}\n\`\`\`\n`;
   await writeFile(join(directory, 'index.md'), source);
-  const output = execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, encoding: 'utf8' });
-  assert.match(output, /^prebuild: \d+ pages -> \.build\/content \(\d+ ms\)$/m, 'Build progress is in English with timings');
-  const generated = await readFile(join(root, '.build/content/wiki/i18n-test/index.md'), 'utf8');
+  const generated = generatedPages(root).get('wiki/i18n-test/index.md').html;
   // The bibliography's words are bananamark's (its messages), not the site's.
   assert.match(generated, /无日期/);
   assert.match(generated, /访问于 2024-06-01/);
   assert.match(generated, /<a href="https:\/\/example.com\/book\.pdf"[^>]*>pdf/);
-  buildProject(root);
+  const output = execFileSync(process.execPath, ['scripts/build.mjs'], { cwd: root, encoding: 'utf8' });
+  assert.match(output, /^prebuild: \d+ pages \(\d+ ms\)$/m, 'Build progress is in English with timings');
   const html = normalizeHTML(await readFile(join(root, 'public/wiki/i18n-test/index.html'), 'utf8'));
   assert.match(html, /placeholder="Find 香蕉空间"/);
   assert.match(html, /"noResults":"Nothing for \{query\}"/);

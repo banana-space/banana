@@ -1,5 +1,6 @@
 import { basePath } from '../../shared/urls.mjs';
-import { escape, json, queryEscape } from '../html.mjs';
+import { queryEscape } from 'bananamark';
+import { escape } from '../html.mjs';
 
 /** The site's other outputs: the alias redirects, the search manifest, the sitemap. */
 
@@ -9,7 +10,7 @@ import { escape, json, queryEscape } from '../html.mjs';
  */
 export function aliasRedirects(site) {
   const base = basePath.replace(/\/$/, '');
-  const lines = site.listed.flatMap(page => (page.params.wikiAliasPaths ?? []).map(alias => `${base}${alias.path.replace(/\/$/, '')} ${page.href}?from=${queryEscape(alias.name)}`));
+  const lines = site.listed.flatMap(page => (page.metadata.wikiAliasPaths ?? []).map(alias => `${base}${alias.path.replace(/\/$/, '')} ${page.href}?from=${queryEscape(alias.name)}`));
   return lines.length ? `${lines.join('\n')}\n` : '';
 }
 
@@ -20,21 +21,21 @@ export function aliasRedirects(site) {
 export function searchManifest(site) {
   const pages = site.listed.flatMap(page => {
     let kind = '';
-    if (page.kind === 'term') kind = 'category';
-    else if (page.params.structuredPage && page.params.search !== false && (page.kind === 'page' || page.params.collectionRoot)) {
-      kind = page.params.wikiName !== undefined ? 'wiki' : page.params.collectionKind || 'page';
+    if (page.kind === 'category') kind = 'category';
+    else if (page.metadata.search !== false && (page.kind === 'page' || page.metadata.collectionRoot)) {
+      kind = page.metadata.wikiName !== undefined ? 'wiki' : page.metadata.collectionKind || 'page';
     }
-    return kind ? [{ url: page.href, kind, readings: page.params.searchReadings ?? [], aliases: page.params.wikiAliases ?? [], categories: page.params.directCategories ?? [] }] : [];
+    return kind ? [{ url: page.href, kind, readings: page.metadata.searchReadings ?? [], aliases: page.metadata.wikiAliases ?? [], categories: page.metadata.directCategories ?? [] }] : [];
   });
   return { base: basePath, language: site.language, pages };
 }
 
 /**
  * A page's last change: its own (gitLastmod), or, for a list (a section, the categories, a category) without one,
- * the latest of its pages', as Hugo had it.
+ * the latest of its pages'.
  */
 function lastmod(page, seen = new Set()) {
-  if (page.params.gitLastmod) return page.params.gitLastmod;
+  if (page.metadata.gitLastmod) return page.metadata.gitLastmod;
   if (seen.has(page)) return;
   seen.add(page);
   let latest;
@@ -45,12 +46,12 @@ function lastmod(page, seen = new Set()) {
   return latest;
 }
 
-/** Hugo's sitemap: each page with its address and when it last changed. */
+/** The sitemap: each page with its address and when it last changed. */
 export function sitemap(site) {
-  const urls = site.listed.filter(page => page.rendered && page.permalink).map(page => {
+  const urls = site.listed.filter(page => page.published && page.permalink).map(page => {
     const time = lastmod(page);
     return `  <url>
-    <loc>${escape(page.permalink).replace(/\+/g, '&#43;')}</loc>${time ? `
+    <loc>${escape(page.permalink)}</loc>${time ? `
     <lastmod>${time}</lastmod>` : ''}
   </url>`;
   });

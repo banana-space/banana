@@ -64,6 +64,6 @@ function codeVersion(baseURL) {
   // Wherever bananamark is installed (the workspace's packages/, or a copy of the site without it).
   tree(dirname(fileURLToPath(import.meta.resolve('bananamark'))));
   tree(join(root, 'scripts/shared'));
-  for (const path of ['scripts/prebuild/render.mjs', 'scripts/prebuild/render-cache.mjs', 'data/language_names.yaml', 'site.yaml', 'package-lock.json']) add(join(root, path));
+  for (const path of ['scripts/prebuild/render.mjs', 'scripts/prebuild/render-cache.mjs', 'data/language_names.yaml', 'data/site.yaml', 'package-lock.json']) add(join(root, path));
   return hash.digest('hex');
 }

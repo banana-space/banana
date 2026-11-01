@@ -27,7 +27,7 @@ References to headings.
 .
 <h2 id="定义"><a class="bm-heading-link" href="#%E5%AE%9A%E4%B9%89" title="链接到本节">§</a><span class="bm-section-number">1</span> 定义</h2>
 <h3 id="细节"><a class="bm-heading-link" href="#%E7%BB%86%E8%8A%82" title="链接到本节">§</a>细节</h3>
-<p>见<a href="#%E5%AE%9A%E4%B9%89">第 1 节</a>与<a href="#%E7%BB%86%E8%8A%82">细节</a>。</p>
+<p>见<a href="#%E5%AE%9A%E4%B9%89" class="bm-reference">第 1 节</a>与<a href="#%E7%BB%86%E8%8A%82" class="bm-reference">细节</a>。</p>
 ````````````````````````````````
 
 Heading ids: formulas, accents and repetition.
@@ -39,7 +39,7 @@ Heading ids: formulas, accents and repetition.
 
 ## 例子
 .
-<h2 id="godel-定理与-∞"><a class="bm-heading-link" href="#godel-%E5%AE%9A%E7%90%86%E4%B8%8E-%E2%88%9E" title="链接到本节">§</a><span class="bm-section-number">1</span> Gödel 定理与 <span class="bm-math-rendered" data-tex="\infty" data-display="false">…</span></h2>
+<h2 id="godel-定理与-∞"><a class="bm-heading-link" href="#godel-%E5%AE%9A%E7%90%86%E4%B8%8E-%E2%88%9E" title="链接到本节">§</a><span class="bm-section-number">1</span> Gödel 定理与 <span class="bm-math-rendered" data-tex="\infty">…</span></h2>
 <h2 id="例子"><a class="bm-heading-link" href="#%E4%BE%8B%E5%AD%90" title="链接到本节">§</a><span class="bm-section-number">2</span> 例子</h2>
 <h2 id="例子-1"><a class="bm-heading-link" href="#%E4%BE%8B%E5%AD%90-1" title="链接到本节">§</a><span class="bm-section-number">3</span> 例子</h2>
 ````````````````````````````````
@@ -49,7 +49,7 @@ Links and formulas in headings are rendered as usual.
 ```````````````````````````````` example
 ## [[群]]与 $G$
 .
-<h2 id="群与-g"><a class="bm-heading-link" href="#%E7%BE%A4%E4%B8%8E-g" title="链接到本节">§</a><span class="bm-section-number">1</span> <a href="/wiki/%E7%BE%A4/" class="bm-wiki-link">群</a>与 <span class="bm-math-rendered" data-tex="G" data-display="false">…</span></h2>
+<h2 id="群与-g"><a class="bm-heading-link" href="#%E7%BE%A4%E4%B8%8E-g" title="链接到本节">§</a><span class="bm-section-number">1</span> <a href="/wiki/%E7%BE%A4/" class="bm-wiki-link">群</a>与 <span class="bm-math-rendered" data-tex="G">…</span></h2>
 ````````````````````````````````
 
 A literal asterisk is written `\*`.

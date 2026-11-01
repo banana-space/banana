@@ -4,7 +4,7 @@ TikZ diagrams for [bananamark](https://github.com/banana-space/banana/tree/main/
 
 ## Status
 
-Version 0.1, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependency: `bananamark` of the same minor version. ES modules only; MIT licence.
+Version 0.2, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependency: `bananamark` of the same minor version. ES modules only; MIT licence.
 
 ```sh
 npm install bananamark bananamark-tikz

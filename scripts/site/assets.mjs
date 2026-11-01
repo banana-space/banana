@@ -1,16 +1,17 @@
 import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 import * as sass from 'sass';
 import { relURL } from '../shared/urls.mjs';
 
 /**
- * The site's assets, as Hugo's pipes made them: the stylesheets (KaTeX's, and the site's from assets/scss/ by
- * Sass), the scripts bundled by esbuild (assets/js/: the diff page, the editor, the editor's instant checks), each
+ * The site's assets: the stylesheets (KaTeX's, and the site's from site/styles/ by
+ * Sass), the scripts bundled by esbuild (site/scripts/: the diff page, the editor, the editor's instant checks), each
  * minified and named by its fingerprint with its integrity (unminified and unnamed in development); and the files
- * copied as they are (static/, KaTeX's fonts and licence, the pages' history data).
+ * copied as they are (site/files/, the scripts directly in site/scripts/, KaTeX's fonts and licence, the pages' history
+ * data).
  */
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -23,14 +24,12 @@ function fingerprinted(path, content) {
 }
 
 /**
- * esbuild's resolution for assets/js/: "../scripts/…" is the repository's scripts/ (once mounted under
- * assets/js/scripts/), and "@params" the data given (js.Build's params).
+ * esbuild's resolution for site/scripts/: "@params" is the data given.
  */
 function sitePlugin(params) {
   return {
     name: 'site',
     setup(build) {
-      build.onResolve({ filter: /^\.\.\/scripts\// }, args => ({ path: join(root, args.path.slice(3)) }));
       build.onResolve({ filter: /^@params$/ }, () => ({ path: 'params', namespace: 'params' }));
       build.onLoad({ filter: /.*/, namespace: 'params' }, () => ({ contents: JSON.stringify(params ?? {}), loader: 'json' }));
     },
@@ -61,28 +60,22 @@ export async function buildAssets({ development = false } = {}) {
   const minifyCSS = async css => development ? Buffer.from(css) : Buffer.from((await esbuild.transform(css, { loader: 'css', minify: true, charset: 'utf8' })).code);
   const katex = await readFile(join(root, 'node_modules/katex/dist/katex.css'), 'utf8');
   assets.katex = asset(files, development ? 'katex/katex.css' : 'katex/katex.min.css', await minifyCSS(katex), development);
-  // The site's stylesheet: its one template expression, the fonts' address.
-  const scss = (await readFile(join(root, 'assets/scss/site.scss'), 'utf8')).replace(/\{\{\s*"fonts\/"\s*\|\s*relURL\s*\}\}/, relURL('fonts/'));
-  // Colour functions (desaturate, mix…) give channels with fractions, which dart-sass writes as rgb() percentages:
-  // written in hex, rounded to 8 bits as Hugo's Sass did.
-  const hex = value => Math.round(Number(value) * 2.55).toString(16).padStart(2, '0');
-  const compiled = sass.compileString(scss, {
-    url: pathToFileURL(join(root, 'assets/scss/site.scss')), loadPaths: [join(root, 'assets/scss')], style: 'expanded',
+  const compiled = sass.compile(join(root, 'site/styles/site.scss'), {
+    loadPaths: [join(root, 'site/styles')], style: 'expanded',
     quietDeps: true, logger: sass.Logger.silent, sourceMap: development,
   });
-  let css = compiled.css.replace(/rgb\(([\d.]+)%, ([\d.]+)%, ([\d.]+)%\)/g, (_, red, green, blue) => `#${hex(red)}${hex(green)}${hex(blue)}`);
-  // In development with its source map, as Hugo's.
+  let css = compiled.css;
   if (development) {
     files.set('css/site.css.map', Buffer.from(JSON.stringify(compiled.sourceMap)));
     css += '\n\n/*# sourceMappingURL=site.css.map */';
   }
   assets.styles = asset(files, development ? 'css/site.css' : 'css/site.min.css', await minifyCSS(css), development);
-  assets.diff = asset(files, 'js/diff.js', await bundle('assets/js/diff/main.js', { development }), development);
-  assets.editor = asset(files, 'js/editor.js', await bundle('assets/js/editor/main.js', { development }), development);
+  assets.diff = asset(files, 'js/diff.js', await bundle('site/scripts/diff/main.js', { development }), development);
+  assets.editor = asset(files, 'js/editor.js', await bundle('site/scripts/editor/main.js', { development }), development);
   // The instant checks: the preprocessing's parsing in the browser, node:fs reading the data files embedded here.
-  const embedded = Object.fromEntries(await Promise.all(['i18n/zh-cn.yaml', 'data/theorems.yaml'].map(async file => [file, await readFile(join(root, file), 'utf8')])));
-  assets.editorCheck = asset(files, 'js/editor-check.js', await bundle('assets/js/editor/check.js', {
-    development, alias: { 'node:fs': join(root, 'assets/js/editor/shims/fs.js') }, params: { files: embedded },
+  const embedded = Object.fromEntries(await Promise.all(['data/messages.yaml', 'data/theorems.yaml'].map(async file => [file, await readFile(join(root, file), 'utf8')])));
+  assets.editorCheck = asset(files, 'js/editor-check.js', await bundle('site/scripts/editor/check.js', {
+    development, alias: { 'node:fs': join(root, 'site/scripts/editor/shims/fs.js') }, params: { files: embedded },
     define: { 'import.meta.url': JSON.stringify('https://banana.invalid/scripts/prebuild/check.js') },
   }), development);
   // esbuild's service process (about 100 MB) would otherwise stay for the life of a long-running process; the
@@ -117,11 +110,15 @@ async function copyChanged(source, target) {
 }
 
 /**
- * Copies the files published as they are into output: static/, KaTeX's fonts and licence, and (history) the
- * pages' history data.
+ * Copies the files published as they are into output: site/files/, the scripts directly in site/scripts/ (as js/),
+ * KaTeX's fonts and licence, and (history) the pages' history data.
  */
 export async function copyStatic(output, { history = true } = {}) {
-  await copyTree(join(root, 'static'), output);
+  await copyTree(join(root, 'site/files'), output);
+  await mkdir(join(output, 'js'), { recursive: true });
+  for (const entry of await readdir(join(root, 'site/scripts'), { withFileTypes: true })) {
+    if (entry.isFile()) await copyChanged(join(root, 'site/scripts', entry.name), join(output, 'js', entry.name));
+  }
   await copyTree(join(root, 'node_modules/katex/dist/fonts'), join(output, 'katex/fonts'), name => name.endsWith('.woff2'));
   await mkdir(join(output, 'katex'), { recursive: true });
   await copyChanged(join(root, 'node_modules/katex/LICENSE'), join(output, 'katex/LICENSE'));

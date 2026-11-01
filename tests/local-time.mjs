@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 
-const script = await readFile(new URL('../static/js/local-time.js', import.meta.url), 'utf8');
+const script = await readFile(new URL('../site/scripts/local-time.js', import.meta.url), 'utf8');
 const format = '{year}/{month}/{day} {hour}:{minute}';
 for (const [zone, instant, expected, viewedAt = '2024-07-01T12:00:00Z'] of [
   ['UTC', '2024-06-01T12:30:55Z', '2024/6/1 12:30'],

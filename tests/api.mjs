@@ -99,9 +99,8 @@ try {
   for (const [path, text] of drafts) results.set(path, await preview(path, text));
   assert.deepEqual(results.get('wiki/新页面/index.md').missingLinks, [{ line: 6, column: 13, target: '不存在的条目' }], '缺失链接带行号与列号');
   assert.match(results.get('books/线性代数拾遗/vectors/index.md').html, /新插入的一节/);
-  // Previews carry source-line marks (empty spans) for the editor; without them, a preview is the full build's
-  // page, apart from the summary in the head, which is cut by length, marks included.
-  const comparable = html => html.replace(/<span data-source-line="\d+"><\/span>/g, '').replace(/<meta property="og:description"[^>]*>/, '');
+  // Previews carry source-line marks (empty spans) for the editor; without them, a preview is the full build's page.
+  const comparable = html => html.replace(/<span data-source-line="\d+"><\/span>/g, '');
   const expected = await fullBuild(drafts, [...results.values()].map(result => result.url));
   for (const [i, result] of [...results.values()].entries()) assert.equal(comparable(result.html), comparable(expected[i]), `${result.url} 与完整构建不一致`);
   // The marks give each line its source line: the draft's new section and its text in the collection page.
@@ -138,16 +137,9 @@ try {
   const expectedMany = await fullBuild(new Map(independent), answers.slice(0, 16).map(answer => answer.url));
   for (let i = 0; i < 16; i++) assert.equal(comparable(answers[i].html), comparable(expectedMany[i]), `并发预览 ${independent[i][0]} 与完整构建不一致`);
 
-  // Drafts never reach the generated directory: it is the site's, without the new page.
-  execFileSync(process.execPath, ['--input-type=module', '-e', `const { prebuild } = await import(${JSON.stringify(join(root, 'scripts/prebuild/run.mjs'))}); await prebuild({ destination: ${JSON.stringify(join(root, 'committed'))}, frontMatterOnly: true });`], { cwd: root, stdio: 'pipe' });
-  const tree = async directory => {
-    const files = new Map();
-    for (const entry of await readdir(directory, { recursive: true, withFileTypes: true })) {
-      if (entry.isFile()) files.set(join(entry.parentPath, entry.name).slice(directory.length), await readFile(join(entry.parentPath, entry.name), 'utf8'));
-    }
-    return files;
-  };
-  assert.deepEqual(await tree(join(root, '.build/api/content')), await tree(join(root, 'committed')), '稿件写入了生成目录');
+  // Drafts are written nowhere: the API's output holds only the fonts of TikZ diagrams.
+  const outputs = await readdir(join(root, '.build/api'), { recursive: true, withFileTypes: true });
+  assert.deepEqual(outputs.filter(entry => entry.isFile() && /\.(?:md|html)$/.test(entry.name)).map(entry => entry.name), [], '稿件写入了文件');
 
   // Errors carry the page's line; unpublished pages and duplicate names are reported.
   let answer = await request('preview', { path: 'content/wiki/甲/index.md', text: wiki('甲', '见 @eq:不存在。') });
@@ -166,7 +158,7 @@ try {
   assert.deepEqual([answer.status, answer.json.errors[0].message, answer.json.errors[0].line], [422, '导言区没有结束：front matter 之后应有单独一行的 ---', 1]);
   answer = await request('check', { path: 'wiki/甲/index.md', text: '---\ntitle: \n---\n\n正文\n' });
   assert.deepEqual([answer.status, answer.json.errors[0].message, answer.json.errors[0].line], [422, 'title 不能为空', 2]);
-  // Keys Hugo would act on (markup, layout, url, cascade…) are not the editor's to set.
+  // Only the keys authors write are the editor's to set.
   answer = await request('check', { path: 'wiki/甲/index.md', text: '---\ntitle: 甲\nmarkup: html\n---\n\n正文\n' });
   assert.deepEqual([answer.status, answer.json.errors[0].line], [422, 3]);
   assert.match(answer.json.errors[0].message, /不能使用字段 “markup”/);
@@ -189,7 +181,7 @@ try {
   assert.deepEqual([crowd.filter(answer => answer.status === 200).length, crowd.filter(answer => answer.status === 503).length], [19, 6]);
 
   // Request limits.
-  for (const [path, status] of [['../hugo.md', 400], ['content/navboxes/提示.md', 400], ['wiki/甲/index.html', 400], [3, 400], ['search/index.md', 400], ['wiki/甲.md', 400], ['wiki/甲/_index.md', 400], ['wiki/甲/子页/index.md', 400], [`wiki/${'甲/'.repeat(9)}index.md`, 400]]) {
+  for (const [path, status] of [['../page.md', 400], ['content/navboxes/提示.md', 400], ['wiki/甲/index.html', 400], [3, 400], ['search/index.md', 400], ['wiki/甲.md', 400], ['wiki/甲/_index.md', 400], ['wiki/甲/子页/index.md', 400], [`wiki/${'甲/'.repeat(9)}index.md`, 400]]) {
     assert.equal((await request('preview', { path, text: '' })).status, status, String(path));
   }
   assert.equal((await request('preview', { path: 'wiki/甲/index.md', text: 'x'.repeat(1024 * 1024) })).status, 413);
@@ -205,7 +197,7 @@ try {
   const closed = once(child, 'close');
   child.kill('SIGTERM');
   await closed;
-  console.log(`API：开发登录、会话与跨站拒绝、源文本；条目、别名、新页面与书册稿件（去掉行号标记后）与完整构建一致、行号标记，稿件之间互不影响，20 个并发预览按序正确（${Math.round(elapsed)} ms），启动预热、生成目录不受稿件影响、错误行号、未发布与重名、请求限制验证通过`);
+  console.log(`API：开发登录、会话与跨站拒绝、源文本；条目、别名、新页面与书册稿件（去掉行号标记后）与完整构建一致、行号标记，稿件之间互不影响，20 个并发预览按序正确（${Math.round(elapsed)} ms），启动预热、稿件不写入文件、错误行号、未发布与重名、请求限制验证通过`);
 } catch (error) {
   if (output) console.error(output);
   throw error;

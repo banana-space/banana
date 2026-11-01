@@ -93,5 +93,5 @@ x
 \begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}
 ```
 .
-<figure class="bm-content-figure"><span class="bm-math-rendered bm-math-display bm-tikz-source" data-tex="\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}" data-display="true" data-tikz-mode="text"><code class="bm-tikz-code">\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}</code></span><figcaption>图</figcaption></figure>
+<figure class="bm-content-figure"><span class="bm-math-rendered bm-math-display bm-tikz-source" data-tex="\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}" data-tikz-mode="text"><code class="bm-tikz-code">\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}</code></span><figcaption>图</figcaption></figure>
 ````````````````````````````````

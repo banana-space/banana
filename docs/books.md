@@ -16,7 +16,7 @@ content/books/讲义标题/
 └── appendix/index.md
 ```
 
-每个页面是自己目录中的 `index.md`（叶子也可以写成 `page.md`，但有子页面的节点必须是目录中的 `index.md`）。一个页面之下有其他页面时，它就是这些页面的上级（书、章）；图片等附件放在页面的目录中，有子页面的页面只拥有直接放在自己目录中的文件。根目录和 `contents` 声明的父节点缺少 `index.md` 时，仅在 `.build/content/` 中生成一份无正文的目录页，不修改作者源码。自动页的标题采用目录名；根目录可通过 `book.yaml` 的 `title` 设置标题、`sort` 设置排序读音、`search: false` 将整组排除在搜索之外。根页面 Markdown 中的同名字段优先。
+每个页面是自己目录中的 `index.md`（叶子也可以写成 `page.md`，但有子页面的节点必须是目录中的 `index.md`）。一个页面之下有其他页面时，它就是这些页面的上级（书、章）；图片等附件放在页面的目录中，有子页面的页面只拥有直接放在自己目录中的文件。根目录和 `contents` 声明的父节点缺少 `index.md` 时，预处理生成一份无正文的目录页，不修改作者源码。自动页的标题采用目录名；根目录可通过 `book.yaml` 的 `title` 设置标题、`sort` 设置排序读音、`search: false` 将整组排除在搜索之外。根页面 Markdown 中的同名字段优先。
 
 页面不存在、路径有多种匹配、重复引用页面、遗漏页面、配置未知字段和嵌套书册都会使构建失败。缺失叶子页面不会自动创建，以免隐藏路径拼写错误。
 
@@ -72,7 +72,7 @@ groups:
 
 ## 编号参数
 
-编号的设置是 bananamark 的 `numbering`（README 的 [Numbering](../packages/bananamark/README.md#numbering)，英文），其中的 `pages`（页面是否编号）由站点按章节树处理。所有参数可省略。整组默认等价于：
+编号的设置是 bananamark 的 `numbering`（REFERENCE 的 [Numbering](../packages/bananamark/REFERENCE.md#numbering)，英文），其中的 `pages`（页面是否编号）由站点按章节树处理。所有参数可省略。整组默认等价于：
 
 ```yaml
 numbering:
@@ -187,7 +187,7 @@ referenceFormat:
 
 正文标签、页面标签、定理、公式、列表项目与文献 key 在整组页面内必须唯一；允许前向引用和跨页面引用。不同组、不同 wiki 条目之间可以重用标签。标题引用显示文字中的循环也会跨页检查。
 
-同页引用生成 fragment，跨页引用在渲染时通过源页面身份查找实际地址，兼容 `slug`、`url` 和站点子路径。`[[…]]` 始终查询 wiki 名称索引；`[[页面@标签]]` 仍是保留语法，跨组引用请使用普通 Markdown 链接。
+同页引用生成 fragment，跨页引用在渲染时通过源页面身份查找实际地址，兼容站点子路径。`[[…]]` 始终查询 wiki 名称索引；`[[页面@标签]]` 仍是保留语法，跨组引用请使用普通 Markdown 链接。
 
 文献只需声明一次，在任何同组页面中都可引用。可以集中到参考文献页，也可以分散声明。全组按阅读顺序统一分配作者年份和自定义 label 的消歧后缀；文献实际列表仍保留在原声明位置。
 
@@ -202,14 +202,14 @@ referenceFormat:
 - 没有显示左栏时，正文和网站页脚在所有宽度下都与主导航左端对齐；wiki、分类、普通页面及书册首页共用这一规则，手机端使用与导航相同的左右留白。
 - 手机侧栏启用时锁定背景滚动和背景焦点，支持 Escape、焦点循环以及关闭后恢复焦点；切换到其他目录或搜索时关闭。
 - 根页面的自动目录标题为“目录”，显示全组章节树并省略重复的左栏；设置 `childrenToc: false` 关闭自动目录后恢复宽屏左栏。根页面始终省略副导航及其侧栏按钮。父页面在正文末尾显示默认两层子目录，可设置 `childrenToc: {depth: 3}` 或 `childrenToc: false`。
-- `toc: false` 只影响右侧/页内正文目录；自动章节目录不占正文标题编号，也不进入本页目录。
+- `tocDepth: 0` 只影响右侧/页内正文目录；自动章节目录不占正文标题编号，也不进入本页目录。
 - 前后篇按章节树深度优先顺序排列，包含首页和章介绍页。
 
 `/books/` 只列出 `books` 目录下的各组讲义首页（见下文“讲义列表”）。其他路径的指南不会混入讲义列表。全部条目与分类只包含 wiki，其他页面填写 `categories` 会报错；`aliases` 仍只用于 wiki 的名称别名。
 
 ## 发布与修改时间
 
-`npm run build -- --buildDrafts` 等参数通过 `scripts/build.mjs` 同时传给预处理与站点生成器；开发预览也使用同一组参数。支持 `--buildDrafts`、`--buildFuture`、`--buildExpired`。未发布的父节点会隐藏整个分支，其目标不会注册到引用表；引用隐藏目标会报错。编号、目录和前后篇按当前构建可见的内容计算。
+`npm run build -- --buildDrafts` 通过 `scripts/build.mjs` 同时传给预处理与站点生成器；开发预览也使用同样的参数。未发布的父节点会隐藏整个分支，其目标不会注册到引用表；引用隐藏目标会报错。编号、目录和前后篇按当前构建可见的内容计算。
 
 普通页面与 wiki 的最后修改日期仍取自身 Markdown 的最后一次 Git 提交者日期。指南和讲义的目录、编号、引用与文献消歧共享依赖，因此组内所有页面（包含自动生成的目录页）统一使用以下日期的最大值：
 
@@ -224,13 +224,13 @@ referenceFormat:
 - `scripts/prebuild/collections.mjs`：发现、路径解析、章节树、可见性、自动页、共享依赖日期和导航元数据。
 - `packages/bananamark/src/syntax/numbering.mjs`：配置合并与验证、编号向量、零的显示处理及共享计数器。
 - `packages/bananamark/src/syntax/structure.mjs`：共同 Markdown 结构扫描；`prepareOnly` 返回延迟渲染函数。
-- `scripts/prebuild.mjs`：先加载所有内容，再扫描整组标签与文献，最后统一渲染；源文件不被改写。
-- `scripts/site/templates/collections.mjs`、`assets/scss/_collections.scss`、`static/js/collections.js`：目录、面包屑、响应式侧栏及键盘交互。
-- `assets/scss/_directory-tree.scss`：左右目录共用的网格、基线、折叠图标与高亮竖线；`scripts/site/templates/page.mjs` 和 `static/js/site.js` 负责本页目录结构与阅读位置展开。
+- `scripts/prebuild/run.mjs`：先加载所有内容，再扫描整组标签与文献，最后统一渲染；源文件不被改写。
+- `scripts/site/templates/collections.mjs`、`site/styles/_collections.scss`、`site/scripts/collections.js`：目录、面包屑、响应式侧栏及键盘交互。
+- `site/styles/_directory-tree.scss`：左右目录共用的网格、基线、折叠图标与高亮竖线；`scripts/site/templates/page.mjs` 和 `site/scripts/site.js` 负责本页目录结构与阅读位置展开。
 - `scripts/build.mjs`：完整构建入口。
 - `tests/collections.mjs`：整组构建、普通页面、跨页目标/文献、编号、发布、侧栏、配置错误及真实 Git 历史测试。
 
-`collectionRoot`、`collectionContents`、`collectionChildren`、`collectionNumber`、`collectionAncestors`、`collectionPrevious`、`collectionNext`、`structuredPage` 等元数据由构建生成，不应手写。完整扫描和引用解析成功后，才通过已有的发布流程同步 `.build/content/`；开发预览只在所有构建阶段成功后更新浏览器快照。
+`collectionRoot`、`collectionContents`、`collectionChildren`、`collectionNumber`、`collectionAncestors`、`collectionPrevious`、`collectionNext` 等元数据由构建生成，不能手写。开发预览只在所有构建阶段成功后更新浏览器快照。
 
 验证：
 

@@ -1,11 +1,11 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parse as parseHTML, parseFragment, serialize } from 'parse5';
 import { defineDialect, renderDocument, renderKaTeX } from 'bananamark';
-import { decodeEntities, pageSummary, plainify } from '../scripts/shared/summary.mjs';
-import { parse as parseYAML } from 'yaml';
+import { decodeHTML } from 'entities';
+import { pageDescription, plainText } from '../scripts/shared/summary.mjs';
 import { normalizeText, normalizeTokens } from 'bananamark/internal/typography.mjs';
 import { typesetTree } from 'bananamark/typography';
 import { typography } from '../scripts/shared/typography.mjs';
@@ -25,8 +25,14 @@ assert.equal(pageName(String.raw`中文$\infty$理论`, 'test.md').name, '中文
 assert.equal(pageName('Function (vector spaces)', 'test.md').name, 'Function (vector spaces)');
 assert.equal(pageName('函数 f(x)', 'test.md').name, '函数 f(x)');
 assert.equal(pageName('维数 ($R$ 向量空间)', 'test.md').name, '维数 (R 向量空间)');
-// A page's summary (scripts/shared/summary.mjs, for its description): a TikZ diagram's source is not in it.
-assert.equal(plainify(pageSummary(renderDocument('See\n\n```tikz\n\\draw (0,0);\n```\n\nafter.', { dialect: defineDialect({ tikz: true }) }).html)), 'See\nafter.\n');
+// A page's description (scripts/shared/summary.mjs): the first paragraph with text, without what is not its text.
+assert.equal(pageDescription(renderDocument('```tikz\n\\draw (0,0);\n```\n\nAfter.', { dialect: defineDialect({ tikz: true }) }).html), 'After.');
+assert.equal(pageDescription('<aside class="notice notice-tip"><p>提示</p></aside><h2>节</h2><p> </p><pre>代码</pre><p>第一\n<em>段</em> &amp; <a href="/a">链接</a></p><p>第二段</p>'), '第一 段 & 链接');
+// A formula is its rendered text once, without its MathML.
+assert.equal(pageDescription(renderDocument('设 $p$ 是素数。').html).match(/p/g).length, 1);
+assert.equal(pageDescription('<h2>只有标题</h2>'), '');
+assert.equal(pageDescription(renderDocument('::: definition\n正文。\n:::').html), '正文。');
+assert.equal(plainText('<h2 id="a">A &lt; B\n  C</h2>'), 'A < B C');
 
 function nodes(html) {
   const result = [];
@@ -37,7 +43,7 @@ function nodes(html) {
 const attr = (node, name) => node.attrs?.find(attr => attr.name === name)?.value;
 const text = node => node.nodeName === '#text' ? node.value : (node.childNodes ?? []).map(text).join('');
 const sample = `<html lang="zh-CN"><head><title>中文API。</title><meta property="og:title" content="中文API。"></head><body>
-<p id="mixed">中文<a href="/中文API。">API</a>汉<strong>字</strong>（ <em>汉 字</em> ）汉<span class="bm-math-rendered" data-display="false" data-tex="汉 字。">汉 字。</span>字。</p>
+<p id="mixed">中文<a href="/中文API。">API</a>汉<strong>字</strong>（ <em>汉 字</em> ）汉<span class="bm-math-rendered" data-tex="汉 字。">汉 字。</span>字。</p>
 <p id="links"><a href="/a">汉</a><a href="/b">ABC</a>汉</p>
 <p id="punctuation">如式<a href="/eq">(1.1)</a>所示<span>,</span><em>然后</em>.<a href="/next">其次</a></p>
 <p id="punctuation-break">中文。 \n<span>（注）</span></p>
@@ -51,7 +57,7 @@ const sample = `<html lang="zh-CN"><head><title>中文API。</title><meta proper
 <p id="korean" lang="ko">한 글ABC 漢 字。</p><p id="english" lang="en">漢 字 ( English ) 。</p>
 <div class="bm-bibliography" data-typography="off" lang="en">汉 字。 ( A )</div>
 <pre>汉 字API。 ( X )</pre><script>const title="汉 字API。";</script>
-<p><span class="bm-math-rendered" data-display="true" data-tex="x。">x。</span></p>
+<p><span class="bm-math-rendered bm-math-display" data-tex="x。">x。</span></p>
 <h2>维数 ( <em>向量空间</em> )</h2></body></html>`;
 const formatted = normalizeHTML(sample), all = nodes(formatted);
 const id = name => all.find(node => attr(node, 'id') === name);
@@ -76,7 +82,7 @@ assert.equal(text(all.find(node => node.tagName === 'h2')), '维数 (向量空�
 assert.equal(text(all.find(node => node.tagName === 'title')), '中文 API．');
 assert.equal(attr(all.find(node => node.tagName === 'meta'), 'content'), '中文 API．');
 assert.equal(attr(all.find(node => attr(node, 'href') === '/中文API。'), 'href'), '/中文API。');
-assert.equal(text(all.find(node => attr(node, 'data-display') === 'true')), 'x。');
+assert.equal(text(all.find(node => attr(node, 'class')?.includes('bm-math-display'))), 'x。');
 for (const link of all.filter(node => node.tagName === 'a')) assert.equal(text(link), text(link).trim(), '边界空格进入链接内部');
 assert.equal(normalizeHTML(formatted), formatted, '后处理不是幂等的');
 assert.match(normalizeHTML('<html lang="zh" data-typography-full-stop="off"><body><p>汉字。</p></body></html>'), /汉字。/);
@@ -85,7 +91,7 @@ const proof = normalizeHTML('<div class="bm-envgroup-proof"><span class="bm-envt
 assert.match(proof, /证明\u3000<\/span><div class="bm-envcontent"><p>正文<\/p>/);
 assert.equal(normalizeHTML(proof), proof);
 
-const root = await createProject('typography', ['scripts', 'assets', 'static', 'i18n', 'data', 'site.yaml']);
+const root = await createProject('typography', ['scripts', 'site', 'data']);
 try {
   await mkdir(join(root, 'content/wiki/dimension'), { recursive: true });
   await mkdir(join(root, 'content/wiki/disabled'), { recursive: true });
@@ -103,16 +109,15 @@ $$x + y$$
   await writeFile(join(root, 'content/wiki/disabled/index.md'), '---\ntitle: 中文API。\ntypography:\n  convertChineseFullStop: false\n---\n中文API。定理 X.Y。\n');
   await writeFile(join(root, 'content/wiki/korean/index.md'), '---\ntitle: 漢 字\nlang: ko\n---\n## 漢 字\n\n漢 字ABC。\n\n[[漢 字]]\n');
   buildProject(root);
-  const generated = await readFile(join(root, '.build/content/wiki/dimension/index.md'), 'utf8');
-  assert.equal(parseYAML(generated.split('---\n')[1]).title, '维 数 ( 向 量 空 间 )');
+  assert.equal(generatedPages(root).get('wiki/dimension/index.md').metadata.title, '维 数 ( 向 量 空 间 )');
   // The body is typeset by bananamark already; the text of the templates (the title) as the page is finished.
   const html = await readFile(join(root, 'public/wiki/dimension/index.html'), 'utf8');
   assert.match(html, /<p>中文 <a[^>]*>API/);
   const formulas = value => nodes(value).filter(node => attr(node, 'class')?.split(/\s+/).includes('bm-math-rendered'));
-  // Each formula holds exactly KaTeX's HTML for its data-tex (rendered by bananamark, or by Hugo in template
-  // text), which typography leaves alone.
+  // Each formula holds exactly KaTeX's HTML for its data-tex (rendered by bananamark, or by a template), which
+  // typography leaves alone.
   const katexSpan = node => {
-    const span = parseFragment(`<span>${renderKaTeX(decodeEntities(attr(node, 'data-tex')), attr(node, 'data-display') === 'true')}</span>`).childNodes[0];
+    const span = parseFragment(`<span>${renderKaTeX(decodeHTML(attr(node, 'data-tex')), attr(node, 'class').includes('bm-math-display'))}</span>`).childNodes[0];
     return serialize(span);
   };
   // A formula followed by punctuation has KaTeX's last box with the punctuation in span.bm-math-end (bananamark):

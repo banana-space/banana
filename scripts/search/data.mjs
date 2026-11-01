@@ -2,7 +2,7 @@
 // every metadata field and keeps only alphanumeric characters, so the JSON is
 // written one byte per Braille pattern (U+2800–U+28FF, a symbol category):
 // the field yields no search terms at all, unlike base64 whose fragments
-// would match prefix and fuzzy queries. static/js/search.js decodes it.
+// would match prefix and fuzzy queries. site/scripts/search.js decodes it.
 export function encodeSearchData(value) {
   return Array.from(new TextEncoder().encode(JSON.stringify(value)), byte => String.fromCharCode(0x2800 + byte)).join('');
 }

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, readdir, rm } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { JSDOM } from 'jsdom';
@@ -38,7 +39,7 @@ const scratch = await mkdtemp(join(tmpdir(), 'bananamark-tikz-'));
 const diagrams = (options = {}) => tikz({ cache, fonts: { directory: join(scratch, 'fonts') }, locale: 'zh-cn', ...options });
 const renderer = diagrams();
 const escape = value => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-const placeholder = (tex, display = true) => `<html><head></head><body><span class="bm-math-rendered bm-tikz-source" data-tex="${escape(tex)}" data-display="${display}"></span></body></html>`;
+const placeholder = (tex, display = true) => `<html><head></head><body><span class="bm-math-rendered${display ? ' bm-math-display' : ''} bm-tikz-source" data-tex="${escape(tex)}"></span></body></html>`;
 // DVI text coordinates live inside nested SVG transforms. Compare the final
 // glyph position with the formula baseline, rather than its local y value.
 function glyphBaseline(node) {
@@ -168,4 +169,18 @@ try {
   await new Promise(resolve => setTimeout(resolve, 700));
   assert.equal(sharedTikzWorker(), undefined, 'An idle shared worker stops');
 } finally { await rm(scratch, { recursive: true, force: true }); }
+
+// bananamark's command: --tikz compiles diagrams, with their fonts inside the page.
+{
+  const folder = await mkdtemp(join(tmpdir(), 'bananamark-command-'));
+  try {
+    await writeFile(join(folder, 'a.md'), '```tikz\n\\begin{tikzpicture}\\node {text $x$};\\end{tikzpicture}\n```\n');
+    const command = new URL('../../bananamark/bin/bananamark.mjs', import.meta.url).pathname;
+    const { status, stderr } = spawnSync(process.execPath, [command, join(folder, 'a.md'), '--tikz'], { encoding: 'utf8' });
+    assert.equal(status, 0, stderr);
+    const page = await readFile(join(folder, 'a.html'), 'utf8');
+    assert.match(page, /bm-tikz-rendered/);
+    assert.match(page, /url\("data:font\/ttf;base64,/);
+  } finally { await rm(folder, { recursive: true, force: true }); }
+}
 console.log('tikz: passed');

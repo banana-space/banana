@@ -18,7 +18,7 @@ import { readingMetadata } from './reading.mjs';
  * - more: whether the items leave pages out ("等 N 个页面");
  * - title: for a change to more than one page, the pull request's title or the commit's subject, to say what the
  *   change did.
- * page and book are content paths without index.md, as site.GetPage takes them.
+ * page and book are content paths without index.md, as the site's pageAt takes them.
  */
 export function recentChanges(histories, records, { limit = 5, shown = 3 } = {}) {
   const changes = new Map();
@@ -64,5 +64,5 @@ function listed(record) {
 /** A page's reading (scripts/prebuild/reading.mjs), as the site's lists sort it. */
 const readingOf = metadata => metadata.sortKey ?? readingMetadata({ name: metadata.title, manual: metadata.sort }).sortKey;
 
-/** The page's content path, as Hugo's site.GetPage takes it: wiki/甲/index.md -> wiki/甲. */
+/** The page's content path, as the site's pageAt takes it: wiki/甲/index.md -> wiki/甲. */
 const contentPath = relative => relative.replace(/\/index\.md$/, '').replace(/\.md$/, '');

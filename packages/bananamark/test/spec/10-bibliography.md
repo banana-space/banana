@@ -19,7 +19,7 @@ book:
 <p>见 <a href="#bib-book" class="bm-citation" data-reference="book">Lang 2002</a>。</p>
 <div class="bm-bibliography">
 <div class="bm-bibliography-entry" id="bib-book" lang="en">
-<p><span class="bm-bibliography-names"><strong>Lang</strong>, Serge</span> (2002). <em>Algebra</em>. Springer.</p>
+<p><span class="bm-bibliography-names"><strong>Lang</strong>, Serge</span> (<span class="bm-bibliography-year">2002</span>). <span class="bm-bibliography-title"><em>Algebra</em></span>. Springer.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -43,7 +43,7 @@ a:
 <p><a href="#bib-a" class="bm-citation" data-reference="a">Serre–Borel 1955</a></p>
 <div class="bm-bibliography">
 <div class="bm-bibliography-entry" id="bib-a" lang="en">
-<p><span class="bm-bibliography-names"><a href="/wiki/Jean-Pierre_Serre/" class="bm-wiki-link"><strong>Serre</strong></a>, J.-P.; <a href="/wiki/%E7%BE%A4/" class="bm-wiki-link"><strong>Borel</strong></a></span> (1955). Faisceaux algébriques cohérents. <em>Ann. of Math.</em> 61, 197–278.</p>
+<p><span class="bm-bibliography-names"><a href="/wiki/Jean-Pierre_Serre/" class="bm-wiki-link"><strong>Serre</strong></a>, J.-P.; <a href="/wiki/%E7%BE%A4/" class="bm-wiki-link"><strong>Borel</strong></a></span> (<span class="bm-bibliography-year">1955</span>). <span class="bm-bibliography-title">Faisceaux algébriques cohérents</span>. <em>Ann. of Math.</em> 61, 197–278.</p>
 </div>
 </div>
 ````````````````````````````````
@@ -62,7 +62,7 @@ web:
 .
 <div class="bm-bibliography">
 <div class="bm-bibliography-entry" id="bib-web" lang="en">
-<p><strong>Example</strong>. Page. <span class="bm-bibliography-links"><a href="https://example.org/page" class="bm-external-link" target="_blank" rel="noopener">example.org</a> · <span lang="zh-cn">访问于 2024-06-01</span></span></p>
+<p><strong>Example</strong>. <span class="bm-bibliography-title">Page</span>. <span class="bm-bibliography-links"><a href="https://example.org/page" class="bm-external-link" target="_blank" rel="noopener">example.org</a> · <span lang="zh-cn">访问于 2024-06-01</span></span></p>
 </div>
 </div>
 ````````````````````````````````

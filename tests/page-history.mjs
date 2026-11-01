@@ -8,7 +8,7 @@ import { pageHistories } from '../scripts/prebuild/page-history.mjs';
 import { recentChanges } from '../scripts/prebuild/recent-changes.mjs';
 
 // 页面历史（scripts/prebuild/page-history.mjs）：从本地 Git 历史中读出每个页面的 PR 与提交，跟随改名，
-// 认出 PR 的作者与时间；从旧站迁移来的页面另带旧站的修订（legacy/history.json，以导入时的路径为键，页面不晚于键加入）；
+// 认出 PR 的作者与时间；从旧站迁移来的页面另带旧站的修订（data/legacy_history.json，以导入时的路径为键，页面不晚于键加入）；
 // 构建写出 /history/data/<页面>.json，页面底部链接到 /history/；首页列出最近的几次修改（scripts/prebuild/recent-changes.mjs）。
 const root = await createProject('page-history');
 const page = (title, body) => `---\ntitle: '${title}'\n---\n\n${body}\n`;
@@ -44,6 +44,9 @@ try {
   git(['init', '-q', '-b', 'main']);
   git(['add', '-A']);
   git(['commit', '-q', '-m', '香蕉空间'], { date: '2026-02-01T00:00:00Z' });
+  // The file moved after the import: its keys still count from when they appeared, at its former path.
+  git(['mv', 'legacy/history.json', 'data/legacy_history.json']);
+  git(['commit', '-q', '-m', '移动旧站历史'], { date: '2026-02-01T12:00:00Z' });
 
   // The online editor's pull request: its author is in the branch's name.
   await pull(1, 'banana-space', 'edit/octo/0123456789ab', '甲', { name: 'banana-bot', email: 'bot@example.org' }, '2026-03-01T23:00:00Z', '2026-03-02T08:00:00Z',
@@ -60,7 +63,7 @@ try {
   await writeFile(join(root, 'content/help/style/index.md'), `${await readFile(join(root, 'content/help/style/index.md'), 'utf8')}\n更多帮助。\n`);
   git(['commit', '-q', '-am', '补充帮助'], { name: 'Direct', email: 'direct@example.org', date: '2026-06-01T00:00:00Z' });
   // A book migrated later in a pull request: its pages first, then their legacy history, in two commits of the branch.
-  const withLegacy = async entries => at('legacy/history.json', JSON.stringify({ ...JSON.parse(await readFile(join(root, 'legacy/history.json'), 'utf8')), ...entries }));
+  const withLegacy = async entries => at('data/legacy_history.json', JSON.stringify({ ...JSON.parse(await readFile(join(root, 'data/legacy_history.json'), 'utf8')), ...entries }));
   git(['checkout', '-q', '-b', 'pr-4', 'main']);
   await at('content/books/戊/index.md', page('戊', '戊的正文。'));
   git(['add', '-A']);

@@ -1,6 +1,5 @@
 /**
- * Attribute lists in braces, as Goldmark reads them after a heading's text ({#id .class key="value"},
- * parser.attribute.title) and Hugo after a code fence's language (```lang {key="value"}); and the nodes the syntax
+ * Attribute lists in braces, after a heading's text ({#id .class key="value"}) and after a code fence's language (```lang {key="value"}); and the nodes the syntax
  * layer writes in their place (../syntax/nodes.mjs): a heading node after a heading's text, a caption node after a
  * TikZ fence's language.
  */

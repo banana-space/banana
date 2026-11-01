@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -45,13 +45,9 @@ try {
   await writeFile(page, original
     .replace('## 人名标注', '```terms\n前置术语: {en: early term}\n```\n\n## 人名标注')
     .replace('  de: Gruppe :f', '  de: Gruppe :f\n环:\n  de: Ring :m\n  en: ring') + '\n```terms\n多译名:\n  en: [first, second]\n  ja: {text: 位相, reading: [い, そう]}\n  fr: {text: "<script>literal</script>", gender: f}\n```\n\n数据块之后的正文。\n');
-  // Old generated definitions must be removed on the next successful prebuild.
-  await mkdir(join(root, '.build/content/navboxes'), { recursive: true });
-  await writeFile(join(root, '.build/content/navboxes/leaked.md'), 'This must not become a page.');
   const build = () => buildProject(root);
   build();
-  await assert.rejects(stat(join(root, '.build/content/navboxes')), { code: 'ENOENT' });
-  await assert.rejects(stat(join(root, 'public/navboxes/leaked/index.html')), { code: 'ENOENT' });
+  await assert.rejects(stat(join(root, 'public/navboxes')), { code: 'ENOENT' });
   const html = await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8');
   assert.match(html, /rowspan="2"/);
   assert.match(html, /colspan="2"/);
@@ -66,7 +62,7 @@ try {
   assert.match(html, /aria-label="提示"[\s\S]*日语译名的假名/);
   assert.match(html, /aria-label="问题">[\s\S]*?<p>本条目存在以下问题：<\/p>\s*<ul>\s*<li>这是一条演示问题提示/);
   // The notices are the page's text: a reference names the section by its number.
-  assert.match(html, /<li><a href="#[^"]+">第 1 节<\/a>缺少来源．<\/li>/);
+  assert.match(html, /<li><a href="#[^"]+" class="bm-reference">第 1 节<\/a>缺少来源．<\/li>/);
   // Neither in the description nor in the search document.
   assert.match(html, /<meta property="og:description" content="这个页面演示顶部提示/);
   const terms = html.match(/<section class="terms"[\s\S]*?<\/section>/)[0];
@@ -93,13 +89,13 @@ try {
   assert.match(html, /href="\/wiki\/example\/"[^>]*>排版示例/);
   assert.ok(html.includes('href="/wiki/' + encodeURIComponent('奇异上同调') + '/"'));
   assert.match(html, /bm-wiki-link-missing/);
-  assert.doesNotMatch(html, /raw HTML omitted|```terms|\{\{\{|wiki:\?/);
+  assert.doesNotMatch(html, /```terms|\{\{\{|wiki:\?/);
   assert.equal((html.match(/class="bm-section-number"/g) ?? []).length, 2);
   await writeFile(join(root, 'content/navboxes/代数拓扑.yaml'), grouped.replace('title: [[代数拓扑]]', 'title: 改后的导航标题\ncollapsed: true'));
   build();
   assert.match(await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8'), /<details>\s*<summary>改后的导航标题/);
-  await mkdir(join(root, 'content/wiki/self-target'), { recursive: true });
-  await writeFile(join(root, 'content/wiki/self-target/index.md'), '---\ntitle: 当前页\nslug: custom-address\nnavboxes: [代数拓扑]\n---\n[[当前页|正文链接]]\n');
+  await mkdir(join(root, 'content/wiki/custom-address'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/custom-address/index.md'), '---\ntitle: 当前页\nnavboxes: [代数拓扑]\n---\n[[当前页|正文链接]]\n');
   await writeFile(join(root, 'content/navboxes/代数拓扑.yaml'), grouped
     .replace('title: [[代数拓扑]]', 'title: [[当前页|当前页标题]]')
     .replace('- [[基本群]]', '- [[基本群]]\n      - [[当前页|当前 **条目**]]\n      - [[当前页|$H^n$]]\n      - "[绝对地址](https://example.org/wiki/custom-address/)"\n      - "[其他站点](https://other.example/wiki/custom-address/)"'));
@@ -113,24 +109,20 @@ try {
   assert.match(selfNav, /<strong class="navbox-current" aria-current="page">绝对地址<\/strong>/);
   assert.match(selfNav, /<a href="https:\/\/other.example\/wiki\/custom-address\/"/);
   assert.match(selfHTML, /<a href="\/wiki\/custom-address\/" class="bm-wiki-link">正文链接<\/a>/);
-  const config = await readFile(join(root, 'site.yaml'), 'utf8');
-  await writeFile(join(root, 'site.yaml'), config.replace("https://example.org/", "https://example.org/encyclopedia/"));
+  const config = await readFile(join(root, 'data/site.yaml'), 'utf8');
+  await writeFile(join(root, 'data/site.yaml'), config.replace("https://example.org/", "https://example.org/encyclopedia/"));
   build();
   const subpath = await readFile(join(root, 'public/wiki/custom-address/index.html'), 'utf8');
   assert.match(subpath, /<strong class="navbox-current" aria-current="page">当前<strong>条目<\/strong><\/strong>/);
   assert.match(subpath, /href="\/encyclopedia\/wiki\/custom-address\/" class="bm-wiki-link">正文链接/);
-  await writeFile(join(root, 'site.yaml'), config);
+  await writeFile(join(root, 'data/site.yaml'), config);
   for (const [frontMatter, error] of [
-    ['notices:\n  - name: 提示\n    text: 已改为正文中的标签', /页面提示已改为正文中的标签/],
     ['navboxes: [不存在]', /组件不存在：navboxes\/不存在/],
     ['navboxes: ["../代数拓扑"]', /不能包含路径/],
   ]) {
     await writeFile(page, `---\ntitle: 组件示例\n${frontMatter}\n---\n正文\n`);
-    assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), error);
+    assert.throws(() => generatedPages(root), error);
   }
-  // An image's width in its address, as on the Hugo site: an error on its line.
-  await writeFile(page, '---\ntitle: 组件示例\n---\n\n正文\n\n![图](pic.png?width=120)\n');
-  assert.throws(() => execFileSync(process.execPath, ['scripts/prebuild.mjs'], { cwd: root, stdio: 'pipe' }), /index\.md:7: 图片的宽度已改为写在图片之后/);
   // 人名的生卒年、日语注音与姓名语言；参见；图片宽度；条目默认地址保留大小写与标点。
   await writeFile(page, '---\ntitle: 组件示例\n---\n正文\n');
   await mkdir(join(root, 'content/wiki/Person Test（甲）'), { recursive: true });
@@ -200,5 +192,5 @@ try {
     /<blockquote>\s*<blockquote>\s*<p>甲<span class="person-annotations">[\s\S]*?1900<\/span>）<\/span>，乙<\/p>/);
   await writeFile(page, '---\ntitle: 组件示例\n---\n> 甲 <person lang="en"\n> > ipa="/a/" />\n');
   assert.throws(build, /<person> 的写法有误/);
-  console.log('导航框定义排除及清理、提示标签（图标、引用、本页面、节中的提示、空内容与旧的 notices 报错、页面描述）、人名注音与生卒年、参见、图片宽度（地址中旧的 ?width= 报错）、默认地址、术语汇总与段落排版、导航当前页识别与自定义地址、分组与链接、假名、人名及最终 Hugo 输出验证通过');
+  console.log('导航框定义排除及清理、提示标签（图标、引用、本页面、节中的提示、空内容报错、页面描述）、人名注音与生卒年、参见、图片宽度（地址中旧的 ?width= 报错）、默认地址、术语汇总与段落排版、导航当前页识别与自定义地址、分组与链接、假名、人名及最终 Hugo 输出验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

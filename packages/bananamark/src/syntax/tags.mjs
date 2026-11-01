@@ -52,7 +52,7 @@ export const spoilerTag = {
   render: ({ name, parameters, inner, fragment, fail, problem }) => {
     if (!inner.trim()) fail(problem('tag_empty', { name }));
     const title = parameters.named.title;
-    return `<details>\n  <summary>${title ? fragment(title) : ''}</summary>\n  <div>${fragment(inner.trim(), { block: true })}</div>\n</details>\n`;
+    return `<details class="bm-spoiler">\n  <summary>${title ? fragment(title) : ''}</summary>\n  <div>${fragment(inner.trim(), { block: true })}</div>\n</details>\n`;
   },
 };
 
