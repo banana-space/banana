@@ -20,7 +20,7 @@ $$
 $$
 为**极小复形**，指它右有界，各项均为有限秩自由 $R$-模，
 且对每个 $n\in\mathbb{Z}$，$d(F_n)\subseteq\mathfrak{m}F_{n-1}$。
-换言之，$F_\bullet/\mathfrak{m}F_\bullet$ 的边缘映射都是 $0$。
+换言之，$F_\bullet/\mathfrak{m}F_\bullet$ 的边界映射都是 $0$。
 对链复形 $K_\bullet$，其**极小消解**指一极小复形
 $F_\bullet$ 以及[[拟同构]] $f\colon F_\bullet\to K_\bullet$，
 即 $f$ 是复形同态，诱导各阶同调群映射是同构。
@@ -155,7 +155,7 @@ $$
 
 ::: proof
 用极小消解 $F_\bullet$ 计算导出函子，由 $F_\bullet/\mathfrak{m}F_\bullet$
-的边缘映射都是 $0$，立得结论。
+的边界映射都是 $0$，立得结论。
 :::
 
 ::: corollary

@@ -65,7 +65,7 @@ C^n (X; A) = \operatorname{Hom}_\mathbb{Z} (C_n (X; \mathbb{Z}), A)
 其中 $\sigma$ 取遍所有不同的 $n$ 维奇异单形。
 当 $A$ 为[[交换环]]时，它具有自然的 $A$-[[模]]结构。
 
-定义**余边界映射**
+定义**上边界映射**
 \[
 d^n \colon C^n (X; A) \longrightarrow C^{n+1} (X; A)
 \]
@@ -84,7 +84,7 @@ d^n \colon C^n (X; A) \longrightarrow C^{n+1} (X; A)
 ::: definition [奇异闭上链，奇异边界上链，奇异上同调]
 设 $X$ 是拓扑空间，$n$ 是自然数，$A$ 是 Abel 群。
 
-- $X$ 中 $A$-系数的 $n$ 维**奇异闭上链**是指余边界为 $0$
+- $X$ 中 $A$-系数的 $n$ 维**奇异闭上链**是指上边界为 $0$
   的奇异上链，它们构成的 Abel 群是
   \[
   Z^n (X; A) = \ker \bigl(
@@ -93,7 +93,7 @@ d^n \colon C^n (X; A) \longrightarrow C^{n+1} (X; A)
   \]
 
 - $X$ 中 $A$-系数的 $n$ 维**奇异边界上链**是指能写成
-  $(n-1)$ 维奇异上链的余边界的 $n$ 维奇异上链，
+  $(n-1)$ 维奇异上链的上边界的 $n$ 维奇异上链，
   它们构成的 Abel 群是
   \[
   B^n (X; A) = \operatorname{im} \bigl(

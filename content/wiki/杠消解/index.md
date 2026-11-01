@@ -33,7 +33,7 @@ categories: [同调代数]
 \(\mathbb{Z}[G]\)-模，
 \(F_0\) 是一个符号 \([\,]\) 生成的自由左 \(\mathbb{Z}[G]\)-模，
 \(\epsilon\colon F_0\to \mathbb{Z}\) 将 \([\,]\) 映射到 \(1\)，
-边界同态 \(d\colon F_{n} \to F_{n-1}\) 由下式定义，
+边界映射 \(d\colon F_{n} \to F_{n-1}\) 由下式定义，
 \(d = \sum_{i=0}^n (-1)^i d_i\)，
 \[
 d_i([g_1|g_2|\cdots|g_n]) =

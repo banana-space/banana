@@ -138,7 +138,7 @@ $f^*\mathcal{O}_{\mathbb{P}^1}(1)$ 是丰沛线丛。
 
 ### 上同调消失
 
-::: theorem [Serre 消失定理]
+::: theorem [Serre 消没定理]
 设 $X$ 是域上的射影概形，$L$ 是 $X$ 上的丰沛线丛。
 对任意[[凝聚层]] $\mathcal{F}$，存在整数 $n_0$，
 使得对所有 $n \geq n_0$ 与 $i>0$，都有
@@ -181,9 +181,9 @@ Kleiman 判别法断言，丰沛锥 $\operatorname{Amp}(X)$ 是
 $\operatorname{Nef}(X)$ 的[[内部]]。等价地，除子类 $D$ 丰沛当且仅当
 $D$ 在曲线锥的闭包 $\overline{\operatorname{NE}}(X)$ 的每个非零元素上严格为正。
 
-### Kodaira 消失定理与嵌入定理
+### Kodaira 消没定理与嵌入定理
 
-::: theorem [Kodaira 消失定理]
+::: theorem [Kodaira 消没定理]
 设 $X$ 是特征零域上的[[光滑簇|光滑]][[射影簇]]，
 $\omega_X$ 是其[[典范丛]]，$L$ 是丰沛线丛。则对所有 $i>0$，
 \[
@@ -273,7 +273,7 @@ Hartshorne1970:
   year: 1970
 ```
 
-正特征中 Kodaira 消失定理的反例：
+正特征中 Kodaira 消没定理的反例：
 
 ```bibliography
 Raynaud1978:

@@ -41,8 +41,8 @@ navboxes: [代数拓扑]
   \]
   因此$\Phi([f][g]) = \Phi([f]) + \Phi([g])$。
 
-- 满射性：$H_1(X)$由1-圈生成。
-  任意1-圈可分解为环路之和$\sum n_i \sigma_i \in Z_1(X)$，
+- 满射性：$H_1(X)$由1-闭链生成。
+  任意1-闭链可分解为环路之和$\sum n_i \sigma_i \in Z_1(X)$，
   每个1-单形$\sigma_i$可视为环路（调整端点至基点），
   从而$\sum n_i [\sigma_i] \in \text{Im}(\Phi)$。
 
@@ -158,13 +158,13 @@ H_{n+2}(Y, X) \arrow[r, "\partial"] & H_{n+1}(X) \arrow[r] & H_{n+1}(Y) \arrow[r
   \]
   我们需证明 $\mathrm{Im}(\partial) = \mathrm{Im}(h)$：
 
-- 对任意相对圈 $c \in H_{n+2}(Y,X)$，
+- 对任意相对闭链 $c \in H_{n+2}(Y,X)$，
   其边界 $\partial c \in H_{n+1}(X)$ 对应某个 $(n+2)$-胞腔的边界，
   而该胞腔的附着映射由 $\pi_{n+1}(X)$ 中元素 $[f]$ 定义，因此 $\partial c = h([f])$，
   即 $\mathrm{Im}(\partial) \subseteq \mathrm{Im}(h)$。
 
 - 反之，对任意 $[f] \in \pi_{n+1}(X)$，构造对应的 $(n+2)$-胞腔附加到 $X$ 上，
-  其对应的相对圈 $c$ 满足 $\partial c = h([f])$，
+  其对应的相对闭链 $c$ 满足 $\partial c = h([f])$，
   故 $\mathrm{Im}(h) \subseteq \mathrm{Im}(\partial)$。
 
 - 因此 $\mathrm{Im}(\partial) = \mathrm{Im}(h)$，进而有同构：

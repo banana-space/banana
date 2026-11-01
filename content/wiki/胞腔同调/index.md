@@ -108,7 +108,7 @@ C^n_{\mathrm{CW}} (X; A)
 \]
 其中 $E_n$ 是 $X$ 的 $n$ 维胞腔集合。
 
-定义胞腔余边界映射
+定义胞腔上边界映射
 \[
 d^n_{\mathrm{CW}} \colon C^n_{\mathrm{CW}} (X; A)
 \longrightarrow C^{n+1}_{\mathrm{CW}} (X; A)

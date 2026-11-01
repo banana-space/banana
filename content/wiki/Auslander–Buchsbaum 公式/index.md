@@ -92,7 +92,7 @@ $\operatorname{pd}(M)=0$。此时 $M$ 形如
 $$
 0\to M^0\to M^1\to\cdots
 $$
-其中 $M^i$ 有限秩自由，各边缘映射张量积到 $k$ 都是零，
+其中 $M^i$ 有限秩自由，各上边界映射张量积到 $k$ 都是零，
 $M^0\ne0$。要证明 $\operatorname{depth}(C\otimes M)=
   \operatorname{depth}(C)$。依定义，这相当于证明对任一
 $d\in\mathbb{Z}$ 都有 $\operatorname{RHom}(k,C\otimes M)\in
@@ -104,7 +104,7 @@ $$
 \operatorname{RHom}(k,C)\otimes M=
 \operatorname{RHom}(k,C)\otimes_k(M\otimes k).
 $$
-而 $M$ 各边缘映射张量积到 $k$ 都是零，所以 $M\otimes k$
+而 $M$ 各上边界映射张量积到 $k$ 都是零，所以 $M\otimes k$
 是 $k$ 及其一些右平移的直和，且 $0$ 处有非零个 $k$。由此立得
 $\operatorname{RHom}(k,C\otimes M)\in
   \mathsf{D}^{\ge d}(R)$ 当且仅当

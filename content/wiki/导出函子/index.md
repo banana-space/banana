@@ -215,13 +215,13 @@ $F \colon \mathcal{A} \to \mathcal{B}$，我们记
 
 :::
 
-使用无圈消解也可计算导出函子。
+使用零调消解也可计算导出函子。
 
 ::: proposition
 对左（右）正合函子 $F \colon \mathcal{A} \to \mathcal{B}$
 以及 $\mathcal{A}$ 中对象 $A$，
 如 $A \to C^\bullet$（$C_\bullet \to A$）
-是无圈消解，
+是零调消解，
 则 $RF(A)$（相应地，$LF(A)$）由 $F(C^\bullet)$
 （$F(C_\bullet)$）计算。
 :::

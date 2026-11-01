@@ -153,7 +153,7 @@ H^i(X, \mathcal{O}_X)=0, \quad i>0.
 
 ::: proof
 由定义，$-K_X$ 是丰沛除子。
-对丰沛线丛 $\mathcal{O}_X(-K_X)$ 应用[[Kodaira 消失定理]]，
+对丰沛线丛 $\mathcal{O}_X(-K_X)$ 应用[[Kodaira 消没定理]]，
 得到
 \[
 H^i(X,K_X \otimes \mathcal{O}_X(-K_X))=0, \quad i>0.
@@ -162,7 +162,7 @@ H^i(X,K_X \otimes \mathcal{O}_X(-K_X))=0, \quad i>0.
 :::
 
 当 $X$ 为复光滑 Fano 簇时，
-上述消失定理给出 $H^1(X,\mathcal{O}_X)=H^2(X,\mathcal{O}_X)=0$。
+上述消没定理给出 $H^1(X,\mathcal{O}_X)=H^2(X,\mathcal{O}_X)=0$。
 由[[指数层正合列]]可知，第一陈类给出同构
 \[
 \operatorname{Pic}(X) \simeq H^2(X,\mathbb{Z}).
