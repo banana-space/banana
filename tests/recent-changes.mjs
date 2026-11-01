@@ -230,21 +230,21 @@ try {
   assert.equal((await history('../x.md')).status, 400);
 
   // Anyone may ask, so each address may ask 20 times at once and then once every 2 s; Apache's X-Forwarded-For says
-  // who asked.
-  const answers = [];
-  for (let i = 0; i < 22; i++) answers.push(await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7' }));
-  assert.deepEqual(answers.map(answer => answer.status).slice(19), [200, 429, 429], '同一地址连续请求时限频');
+  // who asked. Requests go out together: one after another, a slow machine would refill a token before the last.
+  const burst = (count, ask) => Promise.all(Array.from({ length: count }, (_, i) => ask(i)));
+  const answers = await burst(22, () => history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7' }));
+  assert.deepEqual(answers.map(answer => answer.status).sort(), [...Array(20).fill(200), 429, 429], '同一地址连续请求时限频');
+  const refused = answers.find(answer => answer.status === 429);
   // 2 s while the requests come within a second of the first refusal; a slow machine has refilled half a token since.
-  assert.ok(['1', '2'].includes(answers.at(-1).headers.get('retry-after')), answers.at(-1).headers.get('retry-after'));
+  assert.ok(['1', '2'].includes(refused.headers.get('retry-after')), refused.headers.get('retry-after'));
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '198.51.100.7, 203.0.113.9' })).status, 200, '以 Apache 加上的最后一项为准');
-  for (let i = 0; i < 20; i++) await history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2::${i + 1}` });
+  await burst(20, i => history('wiki/甲/index.md', { 'X-Forwarded-For': `2001:db8:1:2::${i + 1}` }));
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:2:ffff::1' })).status, 429, 'IPv6 地址按 /64 网段限频');
   assert.equal((await history('wiki/甲/index.md', { 'X-Forwarded-For': '2001:db8:1:3::1' })).status, 200);
   // The recent changes and their diffs likewise, each counted on its own.
   const listing = () => fetch(`${base}/api/recent-changes?page=1`, { headers: { 'X-Forwarded-For': '198.51.100.7' } }).then(response => response.status);
-  const listings = [];
-  for (let i = 0; i < 21; i++) listings.push(await listing());
-  assert.deepEqual(listings.slice(19), [200, 429], '最近更改同样按地址限频，与页面历史分开计数');
+  const listings = await burst(21, listing);
+  assert.deepEqual(listings.sort(), [...Array(20).fill(200), 429], '最近更改同样按地址限频，与页面历史分开计数');
 
   // What a commit fixes (its date, its files, where its branch left main) is kept on disk: after a restart (as after
   // each deploy) the first load reads only the lists from GitHub.
