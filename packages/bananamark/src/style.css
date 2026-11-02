@@ -106,8 +106,9 @@
   overflow-y: hidden;
 }
 .katex-display { margin: 0; }
-/* Closing punctuation after an inline formula, with the formula's last box: one box, kept on one line. */
-.bm-math-end { display: inline-block; white-space: nowrap; }
+/* Closing punctuation after an inline formula, with the formula's last box: one box, kept on one line. An inline
+   block inherits text-indent, which a hanging indent (a bibliography entry) would apply inside it. */
+.bm-math-end { display: inline-block; white-space: nowrap; text-indent: 0; }
 
 /* Headings: the § link before the heading, seen when the heading is pointed at; the section number. */
 :is(h1, h2, h3, h4, h5, h6):has(> .bm-heading-link) { position: relative; }
@@ -181,6 +182,11 @@ ol:has(> li > .bm-item-label, > li > p:first-child > .bm-item-label) { padding-l
 /* Bibliographies: hanging entries, versions below them, the entry a citation leads to marked for a moment. */
 .bm-bibliography { margin: 1.5em 0; }
 .bm-bibliography p { margin: 0; }
+/* A paragraph that introduces a bibliography ("Textbooks:", or a sentence): close to its entries, and further from a
+   bibliography before it. */
+p:has(+ .bm-bibliography) { margin-bottom: 0.5em; }
+p + .bm-bibliography { margin-top: 0; }
+.bm-bibliography + p:has(+ .bm-bibliography) { margin-top: 1.75em; }
 .bm-bibliography-entry { margin: 0 0 1em; }
 .bm-bibliography-entry > p { padding-left: 2em; text-indent: -2em; }
 .bm-bibliography-version { margin-top: 0.2em; padding-left: 2em; }
@@ -213,7 +219,7 @@ ol:has(> li > .bm-item-label, > li > p:first-child > .bm-item-label) { padding-l
   font-size: 0.85em;
 }
 .bm-tikz-rendered .bm-tikz-svg { overflow: visible; }
-.bm-tikz-rendered .bm-tikz-body { display: inline-block; }
+.bm-tikz-rendered .bm-tikz-body { display: inline-block; text-indent: 0; }
 .bm-tikz-rendered.bm-math-display { text-align: center; }
 .bm-tikz-rendered.bm-math-display .bm-tikz-body { display: block; width: max-content; margin-inline: auto; }
 .bm-tikz-layout {

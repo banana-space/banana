@@ -1,6 +1,6 @@
 {
   "name": "bananamark-tikz",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "TikZ diagrams for bananamark: compiled to SVG with node-tikzjax in a worker thread (Node only)",
   "keywords": [
     "bananamark",

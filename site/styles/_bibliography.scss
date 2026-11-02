@@ -22,6 +22,19 @@
   }
 }
 
+// 引出一组文献的段落（“原始文献：”，或一句说明）紧挨着它的条目；前面是另一组文献时，与那一组多隔开一些。
+p:has(+ .bm-bibliography) {
+  margin-bottom: 0.8rem;
+}
+
+p + .bm-bibliography {
+  margin-top: 0;
+}
+
+.bm-bibliography + p:has(+ .bm-bibliography) {
+  margin-top: 2.6rem;
+}
+
 .bm-bibliography-entry {
   margin: 0 0 1.4rem;
 

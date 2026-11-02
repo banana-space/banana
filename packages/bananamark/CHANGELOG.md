@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- **A formula followed by punctuation in a bibliography entry** (`$D$-modules`) no longer overlaps the text before it in `bananamark/style.css`: the box that keeps a formula's end with its punctuation took on the entry's hanging indent. An inline TikZ diagram there did the same.
+- **A paragraph that introduces a bibliography** sits close to its entries in `bananamark/style.css`, and further from a bibliography before it, so that grouped references read as groups.
+
 ## 0.2.0
 
 - **A command.** `bananamark file.md` writes `file.html`, a whole page holding its stylesheets and fonts (see the README).
