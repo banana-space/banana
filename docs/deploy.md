@@ -61,8 +61,9 @@ git clone https://github.com/banana-space/banana.git ~/banana/live
 
 ## Apache
 
-站点配置 `deploy/apache-site.conf` 不在仓库中（已被 git 忽略，由管理员保存，手动复制到服务器）。它是完整的站点配置：`http://` 与 `www` 永久跳转到 `https://bananaspace.org/`；静态站点；`/api/` 转发到 `127.0.0.1:8787`；旧站的 `/legacy/wiki/<页面>` 与 `/legacy/w/`，旧地址 `/w/…` 跳转到 `/legacy/w/…`。需要 `a2enmod ssl rewrite proxy proxy_http deflate`。它取代原来的 `/var/www/html/.htaccess`：旧站的短地址改为 `Alias`，`/static/` 与 503 页面 `/errors/` 照旧指向原来的文件，CPU 过载时的 503 与对最近更改、RSS、链入页面的限制移到配置中，只作用于 `/legacy/`。
+站点配置 `deploy/apache-site.conf` 不在仓库中（已被 git 忽略，由管理员保存，手动复制到服务器）。它是完整的站点配置：`http://` 与 `www` 永久跳转到 `https://bananaspace.org/`；静态站点；`/api/` 转发到 `127.0.0.1:8787`；旧站的 `/legacy/wiki/<页面>` 与 `/legacy/w/`，旧地址 `/w/…` 跳转到 `/legacy/w/…`。需要 `a2enmod ssl rewrite proxy proxy_http deflate remoteip`。它取代原来的 `/var/www/html/.htaccess`：旧站的短地址改为 `Alias`，`/static/` 与 503 页面 `/errors/` 照旧指向原来的文件，CPU 过载时的 503 与对最近更改、RSS、链入页面的限制移到配置中，只作用于 `/legacy/`。
 
+- **读者的地址**：站点在 Cloudflare 之后。必须用 mod_remoteip 取得读者的地址（`RemoteIPHeader CF-Connecting-IP`），并且只信任 Cloudflare 的地址段（`RemoteIPTrustedProxy` 或 `RemoteIPTrustedProxyList`，地址段见 Cloudflare 的网站）；API 依赖这一点。
 - `<Directory /var/www/html/banana-space>` 中 PHP 的处理方式须与服务器原来的一致（mod_php，或 php-fpm 的 `SetHandler`）。
 - 维护 cookie 的值不进仓库：在服务器上建 `/etc/apache2/conf-enabled/banana-secrets.conf`（权限 600），写一行 `Define BANANA_MAINTENANCE_COOKIE <值>`。
 - 切换后删除（或改名）`/var/www/html/.htaccess`：`/legacy/w/` 的请求映射到 `/var/www/html/banana-space/`，Apache 仍会读取上级目录的 `.htaccess`，其中的规则会重复生效。原来以 `/var/www/html` 为 DocumentRoot 的默认站点（如 `000-default.conf`）也要停用或改为跳转，否则它继续以旧的方式提供旧站。
@@ -121,7 +122,7 @@ $wgSiteNotice = "旧站已只读。新站：[https://bananaspace.org/ bananaspac
 
 - **日志**：`journalctl --user -u banana-deploy`（部署与构建输出）、`journalctl --user -u banana-api`（API）。`systemctl --user list-timers` 显示下一次检查的时间。
 - **立即部署**：`systemctl --user start banana-deploy`。
-- **构建失败**：站点保持原来的版本，失败的提交记在 `~/banana/failed`。推送修复后自动部署；要重试同一提交（例如失败是因为网络），删除这个文件。
+- **构建失败**：站点保持原来的版本，失败的提交记在 `~/banana/failed`。推送修复后自动部署；要重试同一提交（例如失败是因为网络），删除这个文件。常见的原因是 TikZ 图形编译超时：完整构建中每张图最多 60 s（`npm run build -- --tikz-timeout <秒>` 可以改变），服务器比编写时的电脑慢几倍，见 [TikZ 图形](tikz.md#缓存与构建时间)。
 - **回退**：在 GitHub 上 revert 有问题的提交。直接改 `current` 只是临时的，下一次检查会重新发布 `main`。
 - **令牌到期**：机器人令牌有有效期，到期前在 GitHub 上重新生成，写入 `api.env`，再 `systemctl --user restart banana-api`。
 - **修改部署脚本**：`deploy.sh` 从 `live/` 运行，随部署更新；单元文件修改后须在服务器上重新运行 `install.sh`。

@@ -65,9 +65,37 @@ async function copyInto(source, target) {
 const week = 7 * 24 * 3600 * 1000;
 /** The fonts' file names (the BaKoMa fonts node-tikzjax draws text with), for the caller to publish. */
 export const fontFile = font => join(packageRoot, 'css/bakoma/ttf', `${font}.ttf`);
-// Diagrams whose TeX failed, by key, so that a draft with a broken diagram does not compile it at every
-// preview (the most recent ones; a timeout or a crashed worker may be transient and is not remembered).
-const failures = new Map(), failureLimit = 200;
+// Diagrams that failed, by key, so that a draft with a broken diagram does not compile it at every preview (the most
+// recent ones): { message } for TeX's error; { timeout, until } for a diagram that ran out of time, remembered for a
+// while with the limit it had (instances allowing no more fail it at once). A crashed worker may be transient and is
+// not remembered.
+const failures = new Map(), failureLimit = 200, timeoutMemory = 10 * 60 * 1000;
+function remember(key, failure) {
+  failures.delete(key);
+  failures.set(key, failure);
+  if (failures.size > failureLimit) failures.delete(failures.keys().next().value);
+}
+// Raw output into the SVG (TeX's \special, dvisvgm:raw) is for the compiler and the preamble alone: an author's would
+// go into the page as it is. Refused with its own error; outputSafety() below is what makes sure. A control word ends
+// at a non-letter; \special@… is refused too.
+const forbidden = /\\(special)(?![A-Za-z])/;
+// What TikZ draws with (patterns: <pattern> and <use>, referring within the picture). The compiler writes the SVG as
+// XML, which escapes every < in text and in attributes' values: each < there begins markup.
+const drawing = new Set(['svg', 'g', 'path', 'text', 'tspan', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon',
+  'defs', 'clipPath', 'mask', 'pattern', 'use', 'symbol', 'linearGradient', 'radialGradient', 'stop']);
+/**
+ * What in a compiled SVG is more than a drawing, or undefined: an element TikZ does not draw with, an event handler, a
+ * reference outside the picture, a declaration. Nothing is removed: a diagram with any of them is refused. Text that
+ * merely looks like such an attribute is refused too: the check errs towards refusing.
+ */
+function outputSafety(svg) {
+  const declaration = svg.match(/<[!?]/)?.[0];
+  if (declaration) return declaration;
+  for (const [, name] of svg.matchAll(/<\/?([^\s/>]+)/g)) if (!drawing.has(name)) return `<${name}>`;
+  for (const [, name, , value] of svg.matchAll(/\s([^\s="'<>/]+)\s*=\s*(["'])(.*?)\2/gs)) {
+    if (/^on/i.test(name) || (/href$/i.test(name) && !value.startsWith('#'))) return `${name}="…"`;
+  }
+}
 // The worker shared by renderers created with workerIdleTimeout (a preview service), stopped after idling.
 const shared = { worker: undefined, timer: undefined };
 // A TeX worker compiles one diagram at a time, and replies carry no request: compilations take turns.
@@ -85,7 +113,8 @@ export const sharedTikzWorker = () => shared.worker;
  * - cache: the directory compiled diagrams are kept in (one JSON file each); without it, only in memory.
  * - fonts: { directory, href }: the fonts a page's diagrams use are copied into directory (with their licence),
  *   and the page refers to them by href(font, outputPath), by default the path from the page's HTML file to the font.
- * - timeout (ms, default 15000): a diagram's longest compilation.
+ * - timeout (ms, default 15000): a diagram's longest compilation. A diagram that ran out of it is not compiled again
+ *   for ten minutes by instances allowing no more (in this process).
  * - totalTimeout (ms): the time this instance may spend compiling in all (a preview: a draft with many slow diagrams
  *   must not hold the queue); diagrams beyond it fail.
  * - workerIdleTimeout (ms): share one worker between instances, kept for that long after the last closes, instead of
@@ -94,7 +123,8 @@ export const sharedTikzWorker = () => shared.worker;
  *   errors are messages/zh-cn.mjs and messages/en.mjs); by default a page's (a processor gives its plugins its own).
  *
  * Errors in a page are bananamark's BananamarkError: file, code (tikz_failed, with TeX's error as params.message;
- * tikz_timeout, tikz_total_timeout, tikz_worker_exit), params, and the error under it as cause.
+ * tikz_command, a diagram using \special; tikz_unsafe, an SVG with more than a drawing (outputSafety's find as
+ * params.found); tikz_timeout, tikz_total_timeout, tikz_worker_exit), params, and the error under it as cause.
  */
 export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerIdleTimeout = 0, totalTimeout = Infinity, locale, messages } = {}) {
   let worker, spent = 0;
@@ -127,13 +157,22 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
     return current.terminate();
   }
   async function compile(input) {
+    // Before the cache: a diagram cached before this check is refused too.
+    const command = input.tex.match(forbidden)?.[1];
+    if (command) throw failure('tikz_command', { command: `\\${command}` });
     const key = diagramKey(input);
-    if (results.has(key)) return results.get(key);
-    if (!pending.has(key)) pending.set(key, load(key, input).finally(() => pending.delete(key)));
-    return pending.get(key);
+    if (!results.has(key) && !pending.has(key)) pending.set(key, load(key, input).finally(() => pending.delete(key)));
+    const result = results.get(key) ?? await pending.get(key);
+    // The cache keeps what TeX wrote; whether a page may show it is decided here, each time, compiled now or before.
+    const found = outputSafety(result.svg) ?? (result.tagSvg === undefined ? undefined : outputSafety(result.tagSvg));
+    if (found) throw failure('tikz_unsafe', { found });
+    return result;
   }
   async function load(key, input) {
-    if (failures.has(key)) throw new Error(failures.get(key));
+    const known = failures.get(key);
+    if (known?.message) throw new Error(known.message);
+    if (known && known.until <= Date.now()) failures.delete(key);
+    else if (known && timeout <= known.timeout) throw failure('tikz_timeout', { seconds: timeout / 1000 });
     used.add(key);
     if (!cache) {
       const result = await inTurn(() => compileTeX(key, input));
@@ -169,9 +208,7 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
       const onMessage = message => {
         cleanup();
         if (!message.error) { resolve(message.result); return; }
-        failures.delete(key);
-        failures.set(key, message.error);
-        if (failures.size > failureLimit) failures.delete(failures.keys().next().value);
+        remember(key, { message: message.error });
         reject(Object.assign(new Error(message.error), { tex: true }));
       };
       const onError = error => { cleanup(); reject(error); };
@@ -179,7 +216,10 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
       const timer = setTimeout(() => {
         cleanup();
         void discard(current);
-        reject(limit < timeout ? failure('tikz_total_timeout', { seconds: totalTimeout / 1000 }) : failure('tikz_timeout', { seconds: timeout / 1000 }));
+        if (limit < timeout) { reject(failure('tikz_total_timeout', { seconds: totalTimeout / 1000 })); return; }
+        // Out of its own time (not the budget, which depends on the other diagrams): it would run out again.
+        remember(key, { timeout, until: Date.now() + timeoutMemory });
+        reject(failure('tikz_timeout', { seconds: timeout / 1000 }));
       }, limit);
       current.once('message', onMessage); current.once('error', onError); current.once('exit', onExit);
       current.postMessage(input);

@@ -4,6 +4,8 @@
 
 - **A formula followed by punctuation in a bibliography entry** (`$D$-modules`) no longer overlaps the text before it in `bananamark/style.css`: the box that keeps a formula's end with its punctuation took on the entry's hanging indent. An inline TikZ diagram there did the same.
 - **A paragraph that introduces a bibliography** sits close to its entries in `bananamark/style.css`, and further from a bibliography before it, so that grouped references read as groups.
+- **bananamark-tikz lets only a drawing into a page.** A diagram whose SVG has an element TikZ does not draw with (links, scripts, animation, embedded content), an event handler, a reference outside the picture or a markup declaration is now an error, `tikz_unsafe` (with what was found as `params.found`), however its TeX wrote it and also when it is in the cache. `\special` in a diagram's source, which writes into the SVG as it is, is an error of its own, `tikz_command`.
+- **bananamark-tikz remembers a diagram that ran out of time** for ten minutes, as it does one whose TeX fails: instances whose `timeout` is no longer fail it at once rather than compile it again.
 
 ## 0.2.0
 

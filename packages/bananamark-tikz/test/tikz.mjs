@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { JSDOM } from 'jsdom';
 import { BananamarkError, createProcessor } from 'bananamark';
-import { sharedTikzWorker, tikz } from 'bananamark-tikz';
+import { diagramKey, sharedTikzWorker, tikz } from 'bananamark-tikz';
 import { splitTag } from '../src/compiler.mjs';
 import { preambleFor } from '../src/preamble.mjs';
 import zh from '../src/messages/zh-cn.mjs';
@@ -16,7 +16,7 @@ import { readFileSync } from 'node:fs';
 {
   const code = readFileSync(new URL('../src/index.mjs', import.meta.url), 'utf8');
   const used = new Set([...code.matchAll(/'(tikz_\w+)'/g)].map(match => match[1]));
-  assert.deepEqual([...used].sort(), ['tikz_failed', 'tikz_timeout', 'tikz_total_timeout', 'tikz_worker_exit']);
+  assert.deepEqual([...used].sort(), ['tikz_command', 'tikz_failed', 'tikz_timeout', 'tikz_total_timeout', 'tikz_unsafe', 'tikz_worker_exit']);
   for (const key of used) assert.ok(zh[key] && en[key], key);
   assert.deepEqual(Object.keys(zh).sort(), Object.keys(en).sort());
   const values = template => [...template.matchAll(/\{([a-z][A-Za-z0-9]*)\}/g)].map(match => match[1]).sort();
@@ -96,8 +96,49 @@ try {
 } finally { await renderer.close(); }
 const limited = diagrams({ timeout: 750 });
 try {
-  await assert.rejects(limited.render(placeholder(String.raw`\def\BananaForever{\BananaForever}\BananaForever\begin{tikzcd} A & B \end{tikzcd}`), { outputPath: join(scratch, 'loop.html') }), /超过/);
+  const loop = placeholder(String.raw`\def\BananaForever{\BananaForever}\BananaForever\begin{tikzcd} A & B \end{tikzcd}`);
+  await assert.rejects(limited.render(loop, { outputPath: join(scratch, 'loop.html') }), /超过 0.75 秒/);
+  // A timeout is remembered: the same diagram fails at once, for instances allowing no more time.
+  const shorter = diagrams({ timeout: 500 }), longer = diagrams({ timeout: 1000 });
+  let start = performance.now();
+  await assert.rejects(shorter.render(loop, { outputPath: join(scratch, 'loop.html') }), /超过 0.5 秒/);
+  assert.ok(performance.now() - start < 100, 'A remembered timeout is not compiled again');
+  start = performance.now();
+  await assert.rejects(longer.render(loop, { outputPath: join(scratch, 'loop.html') }), /超过 1 秒/);
+  assert.ok(performance.now() - start >= 1000, 'An instance allowing more time compiles it again');
+  await Promise.all([shorter.close(), longer.close()]);
 } finally { await limited.close(); }
+// \special writes into the SVG as it is: refused, before the cache, as an error of its own.
+{
+  const raw = diagrams();
+  await assert.rejects(raw.render(placeholder(String.raw`\begin{tikzpicture}\node {\special{dvisvgm:raw <g/>}A};\end{tikzpicture}`), { file: 'raw.md' }),
+    error => error.code === 'tikz_command' && error.params.command === '\\special' && error.message === 'raw.md: TikZ 图形中不能使用 \\special');
+  await raw.close();
+}
+// Only a drawing comes out. Patterns refer within the picture (<use href="#…">); an SVG with more than a drawing is
+// refused however it was written, from the cache too (these are written into it directly).
+{
+  const checked = diagrams();
+  const processor = createProcessor({ tikz: true, plugins: [checked] });
+  const patterned = await processor.renderAsync('```tikz\n\\usetikzlibrary{patterns}\n\\begin{tikzpicture}\\fill[pattern=north east lines] (0,0) rectangle (1,1);\\end{tikzpicture}\n```\n', { outputPath: join(scratch, 'pattern.html') });
+  assert.match(patterned.html, /bm-tikz-rendered.*<pattern [^>]*xlink:href="#[^"]+">.*<use xlink:href="#[^"]+"\/>/s, 'A pattern is a drawing');
+  const svg = body => `<svg xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+  const unsafe = [
+    [{ svg: svg('<foreignObject/>') }, '<foreignObject>'],
+    [{ svg: svg('<g onload="f()"/>') }, 'onload="…"'],
+    [{ svg: svg('<use href="other.svg#a"/>') }, 'href="…"'],
+    [{ svg: svg('<![CDATA[x]]>') }, '<!'],
+    [{ svg: svg('<g/>'), tagSvg: svg('<foreignObject/>'), tagWidth: 10 }, '<foreignObject>'],
+  ];
+  await mkdir(cache, { recursive: true });
+  for (const [i, [result, found]] of unsafe.entries()) {
+    const tex = String.raw`\begin{tikzcd} A & U_{${i}} \end{tikzcd}`;
+    await writeFile(join(cache, `${diagramKey({ tex, display: true, mode: 'math' })}.json`), JSON.stringify({ fonts: [], ...result }));
+    await assert.rejects(checked.render(placeholder(tex), { file: 'unsafe.md' }),
+      error => error.code === 'tikz_unsafe' && error.params.found === found && error.message === `unsafe.md: TikZ 图形的输出中有不允许的内容：${found}`, found);
+  }
+  await processor.close();
+}
 // A preview's diagrams share a budget: once it is spent, the rest fail rather than wait.
 const budgeted = diagrams({ totalTimeout: 750 });
 try {

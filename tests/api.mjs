@@ -15,14 +15,10 @@ const read = path => readFile(join(root, 'content', path), 'utf8');
 // Entries carry categories: the editor requires them (scripts/prebuild/front-matter-rules.mjs). The body starts on line 6.
 const wiki = (title, body, extra = '') => `---\ntitle: ${title}\ncategories: []\n${extra}---\n\n${body}\n`;
 let child, output = '';
-try {
-  await page('wiki/甲/index.md', wiki('甲', '甲的正文，公式 $x^2$。'));
-  await page('wiki/乙/index.md', wiki('乙', '链接 [[甲]] 与 [[别名丙]]。'));
-  // Spaces and capitals in the pages' paths.
-  const many = Array.from({ length: 16 }, (_, i) => `wiki/Stress Page ${String(i + 1).padStart(2, '0')}/index.md`);
-  for (const [i, path] of many.entries()) await page(path, wiki(`压力${i + 1}`, `第 ${i + 1} 页：$\\int_0^1 x^{${i}} dx$`));
-
-  child = spawn(process.execPath, ['scripts/api.mjs', '--port', '0', '--dev-user', 'tester', '--preview-interval', '0'], {
+/** Starts the API on the test project (--dev-user: logged in as tester without GitHub): its address. */
+async function startAPI(extra) {
+  output = '';
+  child = spawn(process.execPath, ['scripts/api.mjs', '--port', '0', '--dev-user', 'tester', ...extra], {
     cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
   });
   child.stdout.on('data', data => { output += data; });
@@ -32,7 +28,17 @@ try {
     if (child.exitCode !== null || Date.now() > deadline) throw new Error(`API 未启动：${output}`);
     await delay(100);
   }
-  const base = output.match(/listening on (http:\/\/\S+)\/api\//)[1];
+  return output.match(/listening on (http:\/\/\S+)\/api\//)[1];
+}
+try {
+  await page('wiki/甲/index.md', wiki('甲', '甲的正文，公式 $x^2$。'));
+  await page('wiki/乙/index.md', wiki('乙', '链接 [[甲]] 与 [[别名丙]]。'));
+  // Spaces and capitals in the pages' paths.
+  const many = Array.from({ length: 16 }, (_, i) => `wiki/Stress Page ${String(i + 1).padStart(2, '0')}/index.md`);
+  for (const [i, path] of many.entries()) await page(path, wiki(`压力${i + 1}`, `第 ${i + 1} 页：$\\int_0^1 x^{${i}} dx$`));
+
+  // No per-account limits: requests below arrive many at once.
+  const base = await startAPI(['--preview-interval', '0']);
   // --dev-user logs in without GitHub; previews need the session.
   const loginResponse = await fetch(`${base}/api/auth/login?return=/edit/`, { redirect: 'manual' });
   assert.equal(loginResponse.headers.get('location'), '/edit/');
@@ -197,6 +203,25 @@ try {
   const closed = once(child, 'close');
   child.kill('SIGTERM');
   await closed;
+
+  // One preview or check per account at a time (lifted above by --preview-interval 0): the next is refused until it ends.
+  const limitedBase = await startAPI([]);
+  const limitedSession = (await fetch(`${limitedBase}/api/auth/login?return=/edit/`, { redirect: 'manual' })).headers.get('set-cookie').split(';')[0];
+  const post = (action, body) => fetch(`${limitedBase}/api/${action}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Cookie: limitedSession }, body: JSON.stringify(body) });
+  // A new diagram: starting the TikZ worker and compiling take most of a second.
+  const busy = post('preview', { path: many[0], text: wiki('压力', `\`\`\`tikz\n\\begin{tikzpicture}\\node {${Date.now()}b};\\end{tikzpicture}\n\`\`\``) });
+  await delay(100);
+  for (const action of ['preview', 'check']) {
+    const refused = await post(action, { path: 'wiki/甲/index.md', text: wiki('甲', '甲') });
+    assert.deepEqual([refused.status, refused.headers.get('retry-after')], [429, '3'], `${action}：同一账号同时只有一个`);
+  }
+  assert.equal((await busy).status, 200);
+  assert.equal((await post('preview', { path: 'wiki/甲/index.md', text: wiki('甲', '甲') })).status, 200, '上一个结束后可以再预览');
+  assert.match(output, /\[api\] tester refused: a preview or check of the account is still waiting or running/);
+  const limitedClosed = once(child, 'close');
+  child.kill('SIGTERM');
+  await limitedClosed;
+  console.log('API：每个账号同时只有一个预览或检查验证通过');
   console.log(`API：开发登录、会话与跨站拒绝、源文本；条目、别名、新页面与书册稿件（去掉行号标记后）与完整构建一致、行号标记，稿件之间互不影响，20 个并发预览按序正确（${Math.round(elapsed)} ms），启动预热、稿件不写入文件、错误行号、未发布与重名、请求限制验证通过`);
 } catch (error) {
   if (output) console.error(output);

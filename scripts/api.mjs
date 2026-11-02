@@ -25,7 +25,8 @@ import { displayTitle } from './shared/display-title.mjs';
 //   --public-url <地址>              浏览器访问站点（与 /api/）的地址，用于登录回调，默认为 base-url 的源
 //   --github-repo owner/name         提交 PR 的仓库；--github-base main 为目标分支
 //   --preview-interval <秒>          每个账号的预览频率：可以连续预览 3 次，之后每隔这么久恢复一次，默认 3；
-//                                    检查的最短间隔为它的 1/3，提交为 5 倍
+//                                    检查的最短间隔为它的 1/3，提交为 5 倍；每个账号同时只能有一个预览或检查
+//                                    在排队或进行中。0 取消这些按账号的限制（测试用）
 //   --dev-user <login>               本地开发：不经 GitHub，直接以该用户登录（只允许监听本机地址时使用）
 //   --env-file <文件>                先从该文件读取环境变量（KEY=value 每行一个，如 .env.api，已被 git 忽略）
 //   --environment production         资源文件名的环境（与正式构建一致才能用上网站的样式与脚本），默认 production
@@ -70,7 +71,7 @@ import { displayTitle } from './shared/display-title.mjs';
 //                                          页面已被别人修改时返回 409 与 current: { text, original }
 // path 为 content/ 中的页面（可省略 content/ 前缀，可以是新页面；只能提交新的条目 wiki/<名称>/index.md，其他新页面返回 403）。
 // 错误时为 { ok: false, errors: [{ file, line, message }] }：预处理与渲染错误为 422，
-// 未登录 401，请求过于频繁 429（带 Retry-After），排队超过 20 个 503。
+// 未登录 401，请求过于频繁或同一账号上一个预览、检查尚未结束 429（带 Retry-After），排队超过 20 个 503。
 // 启动期间（预处理与预热，正式部署中不到一分钟）只回答登录与最近更改（后者在预处理完成后），其他请求返回 503
 // （带 Retry-After）；就绪时打印 listening on。
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -421,13 +422,13 @@ const routes = {
     const steps = result ? Object.entries(result.timings).map(([name, ms]) => `${name} ${ms}`).join(', ') : 'failed';
     console.log(`[api] preview ${user.login} content/${path} ${Math.round(performance.now() - start)} ms (${steps})`);
     if (result) send(response, 200, { ok: true, ...result });
-  }),
+  }, { single: true }),
   'POST /api/check': queued(async (request, response, user) => {
     throttle(user.login, 'check');
     const { path, text } = await draft(request);
     const result = await serviceCall(response, 'check', path, text);
     if (result) send(response, 200, { ok: true, ...result });
-  }),
+  }, { single: true }),
   'POST /api/submit': queued(async (request, response, user) => {
     if (!repository) throw new RequestError(503, 'submitting is not configured');
     throttle(user.login, 'submit');
@@ -571,13 +572,26 @@ async function draft(request) {
 
 // Requests admitted and not yet answered; counted on arrival, before the body is read.
 let admitted = 0;
-/** A logged-in request that waits in the preview service's queue. */
-function queued(handler) {
+// Accounts with a preview or check waiting or running. One each: a preview compiling new TikZ diagrams holds the queue
+// for up to 20 s, so one account sending them steadily would otherwise fill it. The editor sends one at a time.
+// --preview-interval 0 lifts this with the other per-account limits.
+const accountsQueued = new Set();
+/** A logged-in request that waits in the preview service's queue; single: one per account at a time. */
+function queued(handler, { single = false } = {}) {
+  single &&= options.previewInterval > 0;
   return async (request, response) => {
     const user = requireUser(request);
     if (admitted >= maxWaiting) throw new RequestError(503, 'too many preview requests are waiting; try again shortly');
+    if (single && accountsQueued.has(user.login)) {
+      console.log(`[api] ${user.login} refused: a preview or check of the account is still waiting or running`);
+      throw new RequestError(429, 'your previous preview is still running; try again when it ends', { headers: { 'Retry-After': '3' } });
+    }
+    if (single) accountsQueued.add(user.login);
     admitted++;
-    try { await handler(request, response, user); } finally { admitted--; }
+    try { await handler(request, response, user); } finally {
+      admitted--;
+      if (single) accountsQueued.delete(user.login);
+    }
   };
 }
 
