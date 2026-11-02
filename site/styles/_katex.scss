@@ -46,10 +46,12 @@ span.katex svg {
 }
 
 // Closing punctuation after an inline formula, with the formula's last box (bananamark's span.bm-math-end): one box,
-// kept on one line.
+// kept on one line. An inline block inherits text-indent, which a hanging indent (bibliography entries, terms) would
+// apply inside it.
 .bm-math-end {
   display: inline-block;
   white-space: nowrap;
+  text-indent: 0;
 }
 
 .bm-math-display {

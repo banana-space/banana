@@ -1,6 +1,6 @@
 {
   "name": "bananamark",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Markdown dialect for mathematical writing: formulas, numbered sections and theorems, cross-references, bibliographies, wiki links and Chinese typography, rendered to HTML",
   "keywords": [
     "markdown",
