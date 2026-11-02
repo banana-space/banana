@@ -45,10 +45,10 @@ Once every page is rendered, `prune()` deletes what the cache no longer needs; `
 | --- | --- | --- |
 | `cache` | The directory compiled diagrams are kept in | in memory only |
 | `fonts` | `{ directory }`: the fonts a page's diagrams use are copied there (with their licence), and the page refers to them by their path from its HTML file; or `{ href(font, outputPath) }`: the fonts' addresses | none: diagrams with text are an error |
-| `timeout` | A diagram's longest compilation, in ms | 15000 |
+| `timeout` | A diagram's longest compilation, in ms. A diagram that runs out of it is remembered for ten minutes: instances allowing no more time fail it at once | 15000 |
 | `totalTimeout` | The time, in ms, this instance may spend compiling in all (a preview: a draft with many slow diagrams must not hold the queue); diagrams after it fail | no limit |
 | `workerIdleTimeout` | In ms: instances share one worker (about 0.5 s to start, 370 MB), kept that long after the last of them closes | each instance its own worker |
-| `locale`, `messages` | The language of errors and the caller's messages, as bananamark's options (this package's own messages: `tikz_failed`, `tikz_timeout`, `tikz_total_timeout`, `tikz_worker_exit`), over the page's | the page's; otherwise `'en'` |
+| `locale`, `messages` | The language of errors and the caller's messages, as bananamark's options (this package's own messages: `tikz_failed`, `tikz_command`, `tikz_unsafe`, `tikz_timeout`, `tikz_total_timeout`, `tikz_worker_exit`), over the page's | the page's; otherwise `'en'` |
 
 ## Output
 
@@ -60,6 +60,8 @@ A placeholder (`bm-tikz-source`, whose `code.bm-tikz-code` shows the source unti
 - The commands `\coloneqq`, `\eqqcolon`, `\bra`, `\ket`, `\braket`, `\set`, `\Set` and `\bm`, and Unicode maths symbols, Greek letters and accented Latin letters typed directly, as in KaTeX.
 - Chinese characters, drawn with the page's fonts.
 - Not bananamark's `katex` macros: diagrams are compiled by TeX, apart from KaTeX. There is no option for a preamble of the caller's yet.
+- Not `\special`, anywhere in a diagram's source (comments too): it writes into the SVG as it is. The diagram is an error (`tikz_command`), also when it is in the cache.
+- Only a drawing comes out: a diagram whose SVG has an element TikZ does not draw with (links, scripts, animation, embedded content), an event handler, a reference outside the picture or a markup declaration is an error (`tikz_unsafe`), however the TeX wrote it. Nothing is removed from an SVG; the check runs on each diagram as it is used, from the cache too.
 
 ## How diagrams are drawn
 
@@ -75,11 +77,11 @@ A placeholder (`bm-tikz-source`, whose `code.bm-tikz-code` shows the source unti
 A compiled diagram is kept by a hash of its input (its source, whether display, its mode), the compiler's code, the engine's version and the preamble it gets (the optional lines above are in it only when the diagram uses them): changing one command compiles again only the diagrams using it.
 
 - `prune({ maxAge })`: after rendering every page, deletes the cache's files this instance did not use and nothing has used within `maxAge` (ms, default a week: drafts being edited online keep theirs). Returns the number deleted.
-- A diagram whose TeX fails is remembered (the 200 most recent), and not compiled again; a diagram several pages ask for at once is compiled once.
+- A diagram whose TeX fails is remembered (the 200 most recent failures), and not compiled again; one that ran out of time, for ten minutes, by instances whose `timeout` is no longer. A diagram several pages ask for at once is compiled once.
 
 ## Errors
 
-When a diagram does not compile, `render` throws a bananamark `BananamarkError`: its message is the file and the reason ("groups.md: TikZ compilation failed: …" and TeX's error), `error.file` the file, `error.code` and `error.params` the message's key and values (`tikz_failed`, with TeX's error as `params.message`; `tikz_timeout` and `tikz_total_timeout`, with `seconds`; `tikz_worker_exit`, with the worker's exit `code`), and `error.cause` the error under it. The words are in the instance's `locale` and `messages`, or else the page's (a processor gives its plugins its own), in English by default; a locale of the caller's without these keys takes English's.
+When a diagram does not compile, `render` throws a bananamark `BananamarkError`: its message is the file and the reason ("groups.md: TikZ compilation failed: …" and TeX's error), `error.file` the file, `error.code` and `error.params` the message's key and values (`tikz_failed`, with TeX's error as `params.message`; `tikz_command`, a diagram using `\special`, with the command as `params.command`; `tikz_unsafe`, an SVG with more than a drawing, with what was found as `params.found`; `tikz_timeout` and `tikz_total_timeout`, with `seconds`; `tikz_worker_exit`, with the worker's exit `code`), and `error.cause` the error under it. The words are in the instance's `locale` and `messages`, or else the page's (a processor gives its plugins its own), in English by default; a locale of the caller's without these keys takes English's.
 
 ## Contributing
 

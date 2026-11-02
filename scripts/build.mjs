@@ -15,7 +15,7 @@ import { siteDiagrams } from './shared/diagrams.mjs';
  *
  * --buildDrafts: publishes drafts. --baseURL (or -b): the site's address.
  * --jobs N: finishing workers (default up to 4). --playground: also Pagefind's diagnostic search page
- * (/pagefind/playground/).
+ * (/pagefind/playground/). --tikz-timeout S: a TikZ diagram's longest compilation, in seconds (default 60).
  */
 
 const args = process.argv.slice(2);
@@ -25,6 +25,10 @@ const output = resolve(option('-d') ?? option('--destination') ?? 'public');
 // 2.3 GB. Four by default: the server has 4 GB.
 const jobs = option('--jobs') === undefined ? undefined : Number(option('--jobs'));
 if (jobs !== undefined && (!Number.isInteger(jobs) || jobs < 1)) throw new Error(`build: --jobs must be a positive integer, not ${option('--jobs')}`);
+// Longer than the editor's preview (15 s): the server compiles over three times slower than the machines diagrams are
+// written on, and a diagram that fails here stops every deploy until it is fixed.
+const tikzTimeout = Number(option('--tikz-timeout') ?? 60);
+if (!(tikzTimeout > 0)) throw new Error(`build: --tikz-timeout must be a positive number of seconds, not ${option('--tikz-timeout')}`);
 
 /** The prebuild, its pages written to pagesFile: { attachments, count, timings } (scripts/prebuild/process.mjs). Its errors go to stderr. */
 function runPrebuild() {
@@ -47,7 +51,7 @@ for (const line of prebuilt.timings) console.log(line);
 const timer = stepTimer();
 const start = performance.now();
 const generator = siteGenerator({ jobs });
-const diagrams = siteDiagrams(output);
+const diagrams = siteDiagrams(output, { timeout: tikzTimeout * 1000 });
 try {
   await rm(output, { recursive: true, force: true });
   await timer.time('static files', () => generator.call('copyStatic', output));

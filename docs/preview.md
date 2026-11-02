@@ -134,7 +134,7 @@ npm run check -- content/wiki/条目甲
 - `POST /api/submit`，`{ path, text, original, message, pull, minor }`：检查通过后把文本用 `npm run format` 的规则排版（`scripts/format/markdown.mjs`，只改换行与缩进，页面不变）再提交，打开或更新该用户对该页的 PR，提交说明的末尾写上这个页面是否小修改（`minor`，`Minor-edit:` 或 `Major-edit:` 加页面的路径，见开发文档的“小修改”）；给出 `pull`（PR 编号）时添加到该页的这个 PR（可以是别人的；已不再打开时不写入，返回 410，带上是否已合并 `merged`，以及不带 `pull` 提交时的基础 `current` 与该用户自己的 PR `pull`），见下；返回 `{ ok, number, url, updated, original, text }`，`text` 是提交的（排版后的）文本，编辑器随即显示它（提交期间又有输入时保留输入）。
 - `GET /api/page-history?path=…`：修改该页面而尚未出现在网站上的 PR（待审阅的，以及已合并而 API 所在的提交还不包含的），供页面历史补在构建时写出的历史之前。不需要登录：所有页面共用一份待审阅 PR 的列表，每分钟至多向 GitHub 读取一次，每个来源地址（Apache 加在 `X-Forwarded-For` 最后的一项；IPv6 按 /64 网段）可以连续请求 20 次，之后每 2 秒一次。`/api/recent-changes` 与 `/api/recent-changes/diff` 同样按来源地址限频（各自计数）。
 - 登录：`GET /api/auth/login?return=…`、`GET /api/auth/callback`、`POST /api/auth/logout`、`GET /api/me`。
-- 错误返回 `{ ok: false, errors: [{ file, line, message }] }`：预处理与渲染错误为 422，未登录 401，跨站请求 403，过于频繁 429（带 `Retry-After`），请求体超过 300 KiB 为 413，排队超过 20 个为 503。
+- 错误返回 `{ ok: false, errors: [{ file, line, message }] }`：预处理与渲染错误为 422，未登录 401，跨站请求 403，过于频繁或同一账号上一个预览、检查尚未结束 429（带 `Retry-After`），请求体超过 300 KiB 为 413，排队超过 20 个为 503。
 - `GET /api/health`：`{ ok, waiting }`。
 
 各接口的参数与选项见 `scripts/api.mjs` 开头的说明。
@@ -147,7 +147,7 @@ npm run check -- content/wiki/条目甲
 - 链接与图片：只允许站内地址与 http、https（链接另有 mailto），图片地址经过转义；Markdown 中的原始 HTML 本来就不输出。预览 iframe 还设置了 sandbox，不运行脚本。
 - 资源：请求体不超过 300 KiB；一次预览的 TikZ 编译总共不超过 20 s（`totalTimeout`，消息 `tikz_total_timeout`），单个图形 15 s；TeX 运行在内存文件系统中，读不到主机文件。YAML 别名有数量上限。预处理、编辑器语法与各扫描器对任何输入都是近似线性的时间：`tests/adversarial.mjs` 把 56 种病态模式各重复到 30 000 字符（单行与多行），要求每一步在 2 s 内完成。
 
-**登录与限流。** 预览、检查和提交都需要用 GitHub 登录。登录只用来确认身份：OAuth 不请求任何权限，换得的令牌取得用户名后即丢弃。会话是签名的 cookie（`HttpOnly`、`SameSite=Lax`，30 天），服务器不保存会话。带 cookie 的 POST 如果来自其他网站（`Origin` 不同）则拒绝；JSON 请求体本身也需要跨站预检，而预检永远不会通过。预览按账号限流：可以连续 3 次（快速打开几个页面时各自立刻预览），之后每 3 s 恢复一次（`--preview-interval`）；检查的最短间隔为它的 1/3，提交为 5 倍。被拒绝时返回 429 与 `Retry-After`，并打印一行日志；每次预览也打印一行日志，含页面、总耗时与各步耗时（总耗时多出的部分是排队）。请求依次处理，一次条目预览约 50 ms。
+**登录与限流。** 预览、检查和提交都需要用 GitHub 登录。登录只用来确认身份：OAuth 不请求任何权限，换得的令牌取得用户名后即丢弃。会话是签名的 cookie（`HttpOnly`、`SameSite=Lax`，30 天），服务器不保存会话。带 cookie 的 POST 如果来自其他网站（`Origin` 不同）则拒绝；JSON 请求体本身也需要跨站预检，而预检永远不会通过。预览按账号限流：可以连续 3 次（快速打开几个页面时各自立刻预览），之后每 3 s 恢复一次（`--preview-interval`）；检查的最短间隔为它的 1/3，提交为 5 倍。每个账号同时只能有一个预览或检查在排队或进行中：一次编译新 TikZ 图形的预览可以占住队列 20 s，不断发送这样的预览的一个账号原本能占满队列；编辑器一次只发一个。`--preview-interval 0` 取消这些按账号的限制（测试用）。被拒绝时返回 429 与 `Retry-After`，并打印一行日志；每次预览也打印一行日志，含页面、总耗时与各步耗时（总耗时多出的部分是排队）。请求依次处理，一次条目预览约 50 ms。
 
 **提交。** PR 由机器人令牌创建，用户不需要授予任何仓库权限。每个用户对每个页面使用一个分支 `edit/<用户名>/<路径的哈希>`：没有未合并的 PR 时，从目标分支建立（合并或关闭后残留的同名分支重置到目标分支），提交后开 PR；已有未合并的 PR 时，在该分支上追加 commit，PR 随之更新。commit 的作者是登录的用户（`<id>+<用户名>@users.noreply.github.com`），合并后计入用户的贡献；PR 正文注明由谁提交，并链接到编辑器中的该 PR（`/edit/?path=…&pull=<编号>`；PR 建立后才知道编号，所以随即改写一次正文）。
 
