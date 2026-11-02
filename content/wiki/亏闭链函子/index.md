@@ -25,87 +25,37 @@ navboxes: [层论]
 \definecolor{ink}{HTML}{36465C}
 \definecolor{cycle}{HTML}{D23F2B}
 \definecolor{disc}{HTML}{E9EEF5}
-% 管子横截面上的明暗：25bp 与 75bp 是管子的两边。
-\pgfdeclarehorizontalshading{tube}{100bp}{color(0bp)=(tubeA);
-  color(25bp)=(tubeA); color(35bp)=(tubeB); color(44bp)=(tubeC);
-  color(51bp)=(tubeD); color(60bp)=(tubeC); color(68bp)=(tubeB);
-  color(75bp)=(tubeA); color(100bp)=(tubeA)}
-% 环面的中心圆半径为 \R，从斜上方看去（视角的正弦、余弦为 \Sa、\Ca）；
-% 管子半径为 \tubeR，在右侧收窄到 \tubeR 的 #2 倍。
-% 管子的每个圆截面都近似投影为圆盘，环面的轮廓即这些圆盘的包络。
-\def\R{.72} \def\tubeR{.27} \def\Sa{.72} \def\Ca{.69}
-\newcommand\torusPoint[2]{%
-  \pgfmathsetmacro\cosT{cos(#1)}\pgfmathsetmacro\sinT{sin(#1)}%
-  \pgfmathsetmacro\speed{\R*sqrt(\sinT*\sinT+\Sa*\Sa*\cosT*\cosT)}%
-  \pgfmathsetmacro\tanX{-\R*\sinT/\speed}%
-  \pgfmathsetmacro\tanY{\R*\Sa*\cosT/\speed}%
-  \pgfmathsetmacro\cosH{abs(cos(#1/2))}%
-  \pgfmathsetmacro\rad{\tubeR*sqrt(#2*#2+(1-#2*#2)*(1-\cosH^5))}%
-  \pgfmathsetmacro\slope{\tubeR*\tubeR*(1-#2*#2)*2.5*\cosH^4*sin(#1/2)
-    /(2*max(\rad,.0001)*\speed)}%
-  \pgfmathsetmacro\halfW{\rad*sqrt(max(1-\slope*\slope,0))}%
-  \pgfmathsetmacro\midX{\R*\cosT-\rad*\slope*\tanX}%
-  \pgfmathsetmacro\midY{\R*\Sa*\sinT-\rad*\slope*\tanY}%
-  \pgfmathsetmacro\upX{\midX-\halfW*\tanY}%
-  \pgfmathsetmacro\upY{\midY+\halfW*\tanX}%
-  \pgfmathsetmacro\loX{\midX+\halfW*\tanY}%
-  \pgfmathsetmacro\loY{\midY-\halfW*\tanX}%
-}
-% \fibre{位置}{收窄的倍数}{标签}：先沿管子一段段地画明暗，每段盖住上一段的
-% 末端；再画轮廓，它分成两半，在收窄处相接。
-\newcommand\fibre[3]{\begin{scope}[shift={(#1,0)}]
-  \gdef\upA{}\gdef\loA{}\gdef\upB{}\gdef\loB{}\gdef\seen{0}
-  \foreach \t in {-192,-186,...,-30,-27,-24,...,27,30,36,...,192} {
-    \torusPoint{\t}{#2}
-    \ifdim\t pt<1pt\ifdim\t pt>-181pt
-      \xdef\upA{\upA (\upX,\upY)}\xdef\loA{\loA (\loX,\loY)}
-    \fi\fi
-    \ifdim\t pt>-1pt\ifdim\t pt<181pt
-      \xdef\upB{\upB (\upX,\upY)}\xdef\loB{\loB (\loX,\loY)}
-    \fi\fi
-    \ifnum\seen>1
-      \begin{scope}
-        \clip ({(\uuX+\uX)/2},{(\uuY+\uY)/2}) -- (\upX,\upY)
-          -- (\loX,\loY) -- ({(\llX+\lX)/2},{(\llY+\lY)/2}) -- cycle;
-        \pgfmathsetmacro\wid{max(\w,.02)}
-        \pgfmathsetmacro\ox{(#1+\mX-.3*\aX*\wid*\aY)*28.45}
-        \pgfmathsetmacro\oy{(\mY+.3*\aX*\wid*\aX)*28.45}
-        \pgfmathsetmacro\sx{-\wid*1.138*\aY}
-        \pgfmathsetmacro\sy{\wid*1.138*\aX}
-        \pgflowlevel{\pgftransformcm{\sx}{\sy}{\aX}{\aY}
-          {\pgfpoint{\ox pt}{\oy pt}}}
-        \pgfuseshading{tube}
-      \end{scope}
-    \fi
-    \ifnum\seen>0
-      \xdef\uuX{\uX}\xdef\uuY{\uY}\xdef\llX{\lX}\xdef\llY{\lY}
-    \fi
-    \xdef\uX{\upX}\xdef\uY{\upY}\xdef\lX{\loX}\xdef\lY{\loY}
-    \xdef\w{\halfW}\xdef\aX{\tanX}\xdef\aY{\tanY}
-    \xdef\mX{\midX}\xdef\mY{\midY}
-    \pgfmathtruncatemacro\count{\seen+1}\xdef\seen{\count}
-  }
-  \begin{scope}[ink, line width=.55pt, line cap=round, line join=round]
-    \draw plot[smooth] coordinates {\upA};
-    \draw plot[smooth] coordinates {\upB};
-    \draw plot[smooth] coordinates {\loA};
-    \draw plot[smooth] coordinates {\loB};
-  \end{scope}
-  % 亏闭链：背面画虚线，正面画实线；收窄到零时成为结点。
-  \pgfmathsetmacro\neck{\tubeR*#2}
+% 环面的明暗：25bp 是外轮廓，17.5bp 是管子最亮的一圈。
+\pgfdeclareradialshading{torus}{\pgfpointorigin}{color(0bp)=(tubeA);
+  color(8bp)=(tubeA); color(12bp)=(tubeB); color(15bp)=(tubeC);
+  color(17.5bp)=(tubeD); color(20bp)=(tubeC); color(22.5bp)=(tubeB);
+  color(25bp)=(tubeA); color(50bp)=(tubeA)}
+% \fibre{位置}{管子在右端的半径}{外轮廓的控制点}{内轮廓的控制点}{标签}：
+% 环面的左半边是两个半椭圆，右半边各用两段曲线，在 y = 0 处相接；
+% 内轮廓与外轮廓方向相反，所以中间留空。
+\def\R{.72}
+\newcommand\fibre[7]{\begin{scope}[shift={(#1,0)}]
+  \shadedraw[shading=torus, draw=ink, line width=.55pt, line join=round]
+    (-.055,.775) .. controls (.535,.775) and (#3,#4) .. ({\R+#2},0)
+      .. controls (#3,-#4) and (.535,-.775) .. (-.055,-.775)
+      arc (270:90:.935 and .775) -- cycle
+    (.065,-.27) .. controls (.365,-.27) and (#5,-#6) .. ({\R-#2},0)
+      .. controls (#5,#6) and (.365,.27) .. (.065,.27)
+      arc (90:270:.515 and .27) -- cycle;
+  % 亏闭链：背面画虚线，正面画实线；半径为零时成为结点。
   \ifdim #2pt>0pt
-    \begin{scope}[cm={\neck,0,0,\neck*\Ca,(\R,0)}]
+    \begin{scope}[cm={#2,0,0,#2*.69,(\R,0)}]
       \draw[cycle, line width=.45pt, dash pattern=on 1.6pt off 1.3pt]
         (180:1) arc (180:360:1);
       \draw[cycle, line width=1pt, line cap=round] (0:1) arc (0:180:1);
     \end{scope}
-    \pgfmathsetmacro\edge{\R+\neck+.018}
+    \pgfmathsetmacro\edge{\R+#2+.018}
   \else
     \fill[cycle] (\R,0) circle (1.6pt);
     \pgfmathsetmacro\edge{\R+.056}
   \fi
   % 标签与红色部分（圆周的线宽、结点的半径都算在内）的距离相同。
-  \node[cycle, anchor=west] at ({\edge+.08},0) {#3};
+  \node[cycle, anchor=west] at ({\edge+.08},0) {#7};
 \end{scope}}
 % 底空间：圆盘、三个点、绕 0 的回路。
 \fill[disc] (.35,-2.45) ellipse (4.85 and 1.05);
@@ -117,9 +67,9 @@ navboxes: [层论]
 \draw[ink!35, line width=1.4pt, -{Stealth[length=7pt, width=6.5pt]}]
   (2.85,-2.45) ++(105:.82 and .47) arc (105:430:.82 and .47);
 % 三条纤维。
-\fibre{-2.85}{.8}{$\delta$}
-\fibre{0}{.34}{$\delta$}
-\fibre{2.85}{0}{$p$}
+\fibre{-2.85}{.216}{.93}{.425}{.51}{.12}{$\delta$}
+\fibre{0}{.092}{.85}{.305}{.615}{.18}{$\delta$}
+\fibre{2.85}{0}{.865}{.27}{.605}{.225}{$p$}
 % 映射 f。
 \node[ink, scale=1.25] at (-5.4,.1) {$X$};
 \node[ink, scale=1.25] at (-5.4,-2.45) {$D$};
@@ -708,63 +658,39 @@ $\operatorname{can} \colon H^n (X_t; \Lambda) \to H^n (X_0; \varphi_f \Lambda_X)
   color(25bp)=(tubeA); color(36bp)=(tubeB); color(47bp)=(tubeC);
   color(57bp)=(tubeD); color(66bp)=(tubeC); color(72bp)=(tubeB);
   color(75bp)=(tubeA); color(100bp)=(tubeA)}
-% 从侧面看环带 {uv = t}：x 处的圆截面半径为 neckr(x)，略微倾斜，
-% 其上角度为 a 的点画在 (x + \lean r cos a, r sin a)；cos a > 0 时在正面。
-\def\lean{.2}
-\pgfmathdeclarefunction{neckr}{1}{\pgfmathparse{sqrt(.3+.09*#1*#1)}}
-% 道路 T(gamma) 的角度：从 0 转到 360 度，主要在中间转动。
-\pgfmathdeclarefunction{ang}{1}{%
-  \pgfmathparse{180+180*sin(min(max(#1/1.15,-1),1)*90)}}
-% \sheet{位置}：环带与绕它一周的亏闭链。
+% \sheet{位置}：从侧面看环带 {uv = t}，两端是半径 .73 的椭圆，腰部半径为 .55。
 \newcommand\sheet[1]{\begin{scope}[shift={(#1,0)}]
   \fill[tubeA!85!black, draw=ink, line width=.55pt]
-    (-1.6,0) ++(0:{\lean*neckr(1.6)} and {neckr(1.6)})
-    arc (0:360:{\lean*neckr(1.6)} and {neckr(1.6)});
-  \foreach \x in {-1.6,-1.5,...,1.5} {
-    \pgfmathsetmacro\a{neckr(\x)}
-    \pgfmathsetmacro\b{neckr(\x+.2)}
-    \pgfmathsetmacro\m{neckr(\x+.1)}
-    \pgfmathsetmacro\ox{(#1+\x+.1)*28.45}
-    \pgfmathsetmacro\sc{\m*1.138}
-    \begin{scope}
-      \clip (\x,-\a) arc (-90:90:{\lean*\a} and {\a}) -- (\x+.2,\b)
-        arc (90:-90:{\lean*\b} and {\b}) -- cycle;
-      \pgflowlevel{\pgftransformcm{1}{0}{0}{\sc}{\pgfpoint{\ox pt}{0pt}}}
-      \pgfuseshading{tube}
-    \end{scope}
-  }
-  \begin{scope}[ink, line width=.55pt, line cap=round]
-    \draw[domain=-1.6:1.6, samples=25, smooth] plot (\x,{neckr(\x)});
-    \draw[domain=-1.6:1.6, samples=25, smooth] plot (\x,{-neckr(\x)});
-    \draw (1.6,{-neckr(1.6)})
-      arc (-90:90:{\lean*neckr(1.6)} and {neckr(1.6)});
-  \end{scope}
-  \pgfmathsetmacro\ry{neckr(0)}\pgfmathsetmacro\rx{\lean*\ry}
+    (-1.6,0) ellipse (.146 and .73);
+  \shadedraw[shading=tube, draw=ink, line width=.55pt, line join=round]
+    (-1.6,.73) .. controls (-.8,.57) and (-.4,.55) .. (0,.55)
+      .. controls (.4,.55) and (.8,.57) .. (1.6,.73)
+      arc (90:-90:.146 and .73)
+      .. controls (.8,-.57) and (.4,-.55) .. (0,-.55)
+      .. controls (-.4,-.55) and (-.8,-.57) .. (-1.6,-.73)
+      arc (-90:90:.146 and .73) -- cycle;
+  % 绕它一周的亏闭链：背面画虚线，正面画实线。
   \draw[cycle, line width=.45pt, dash pattern=on 1.6pt off 1.3pt]
-    (0,\ry) arc (90:270:{\rx} and {\ry});
+    (0,.55) arc (90:270:.11 and .55);
   \draw[cycle, line width=1pt, line cap=round]
-    (0,-\ry) arc (-90:90:{\rx} and {\ry});
+    (0,-.55) arc (-90:90:.11 and .55);
 \end{scope}}
 \sheet{0}
 \sheet{5.2}
 % 道路 gamma。
 \begin{scope}[path, line cap=round]
-  \draw[line width=1pt, domain=-1.6:1.6, samples=25, smooth]
-    plot ({\x+\lean*neckr(\x)},0);
-  \fill ({-1.6+\lean*neckr(1.6)},0) circle (1.3pt)
-    ({1.6+\lean*neckr(1.6)},0) circle (1.3pt);
+  \draw[line width=1pt] (-1.45,0) -- (1.75,0);
+  \fill (-1.45,0) circle (1.3pt) (1.75,0) circle (1.3pt);
 \end{scope}
 % 道路 T(gamma)：它绕到背面的部分画虚线。
 \begin{scope}[shift={(5.2,0)}, path, line cap=round]
-  \draw[line width=1pt, domain=-1.6:-.3834, samples=30, smooth] plot
-    ({\x+\lean*neckr(\x)*cos(ang(\x))},{-neckr(\x)*sin(ang(\x))});
-  \draw[line width=.5pt, dash pattern=on 1.8pt off 1.4pt,
-    domain=-.3834:.3834, samples=20, smooth] plot
-    ({\x+\lean*neckr(\x)*cos(ang(\x))},{-neckr(\x)*sin(ang(\x))});
-  \draw[line width=1pt, domain=.3834:1.6, samples=30, smooth] plot
-    ({\x+\lean*neckr(\x)*cos(ang(\x))},{-neckr(\x)*sin(ang(\x))});
-  \fill ({-1.6+\lean*neckr(1.6)},0) circle (1.3pt)
-    ({1.6+\lean*neckr(1.6)},0) circle (1.3pt);
+  \draw[line width=1pt] (-1.45,0) -- (-1.02,0)
+    .. controls (-.7,0) and (-.5,-.6) .. (-.38,-.56);
+  \draw[line width=.5pt, dash pattern=on 1.8pt off 1.4pt]
+    (-.38,-.56) .. controls (-.25,-.51) and (.01,.62) .. (.38,.56);
+  \draw[line width=1pt] (.38,.56) .. controls (.67,.61) and (.95,0) .. (1.28,0)
+    -- (1.75,0);
+  \fill (-1.45,0) circle (1.3pt) (1.75,0) circle (1.3pt);
 \end{scope}
 \draw[ink!80, line width=.5pt, -{Stealth[length=4.5pt]}]
   (2.2,0) -- node[above, ink] {$T$} (3.1,0);
