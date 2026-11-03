@@ -736,13 +736,8 @@ T (\gamma) = \gamma + \delta .
 :::
 
 见 [@Verdier1985, 第 3 节]。
-对于与 Verdier 对偶的交换，系数环 $\Lambda$ 只需是
-有限 Krull 维数的正则 Noether 环 [@Massey2016]。
-此时 $\operatorname{can}$ 和 $\operatorname{var}$ 也互相对偶，
-但由于 $T$ 变为 $T^{-1}$，
-使 $\mathbb{D} (\operatorname{var})$ 对应 $\operatorname{can}$ 的同构，
-与使 $\mathbb{D} (\operatorname{can})$ 对应 $\operatorname{var}$ 的同构
-不能取为同一个 [@Massey2023, 第 3、4 节]。
+对于与 Verdier 对偶的交换，见 [@Massey2016; @Massey2023]，
+此时 $\operatorname{can}$ 和 $\operatorname{var}$ 也互相对偶。
 
 特别地，若 $\mathcal{F}$ 和 $i^* \mathcal{F} [-1]$ 都是错致层，
 则定义中的余纤维列给出错致层的短正合列
