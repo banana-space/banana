@@ -70,7 +70,8 @@ ${opengraph(site, page)}
 <link rel="stylesheet" href="${styles.href}"${styles.integrity ? html` integrity="${styles.integrity}" crossorigin="anonymous"` : ''}>
 <script defer src="${relURL('js/inline-punctuation.js')}"></script>
 <script defer src="${relURL('js/site.js')}"></script>
-<script defer src="${relURL('js/local-time.js')}"></script>`;
+<script defer src="${relURL('js/local-time.js')}"></script>
+<script type="module" src="${relURL('js/link-preview.js')}" data-go-to-article="${t('link_preview_go_to_article')}"></script>`;
 }
 
 // The logo inlined, so that its text takes the navigation's colour.

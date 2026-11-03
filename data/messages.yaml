@@ -26,6 +26,7 @@ lastmod_utc_datetime: "{Date} UTC"
 letter_continued: "{Letter}（续）"
 letter_navigation: 按首字母跳转
 letter_page: 第 {Number} 页
+link_preview_go_to_article: 前往条目
 link_to_heading: 链接到本节
 main_navigation: 主导航
 missing_article: 条目尚未创建
