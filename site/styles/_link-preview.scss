@@ -1,0 +1,213 @@
+// 正文链接的预览（site/scripts/link-preview.js）：引用显示所指的定理、列表项或公式（连同前后的段落），文献引用显示参考文献
+// 条目，脚注的标记显示脚注，百科链接显示条目的开头．浮起的白色面板，没有边框，只有淡淡的轮廓与柔和的阴影（轮廓比首页的
+// 搜索框深一些，面板浮在正文上更清楚），边上一个小尖角指向链接；宽度固定．面板在链接所在的 article 中，内容沿用正文的
+// 样式，字号小一些．内容过长时，百科链接的预览截断在约十行，其他的在里面一层滚动；底部渐隐，渐隐的文字与面板的底边之间
+// 留出内边距．
+$link-preview-padding-y: 1.4rem;
+$link-preview-padding-x: 1.8rem;
+$link-preview-radius: 1.2rem;
+$link-preview-outline: rgba($shadow-color, .13);
+// 面板的底边：轮廓叠在面板向下的阴影上（底边处约 .15），看上去深得多（约 .26）．底边的尖角在白色的方块上，用这个颜色．
+$link-preview-outline-shadowed: rgba($shadow-color, .26);
+
+.link-preview {
+  position: absolute;
+  inset: auto;
+  box-sizing: border-box;
+  width: unquote("min(44rem, calc(100vw - 3.2rem))");
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: $link-preview-radius;
+  background: $white;
+  color: $fg-color;
+  box-shadow: 0 0 0 1px $link-preview-outline, 0 1px 2px rgba($shadow-color, .06), 0 12px 32px -12px rgba($shadow-color, .22);
+  font-size: 1.4rem;
+  line-height: 1.75;
+
+  // 尖角：转 45° 的方块，朝外的两边有与轮廓相同的边线．方块的中心比面板的边缘向里 1px：它盖住那里的轮廓，伸进面板的
+  // 部分由 .link-preview-body（白色，定位在它之上）盖住，两者相接处不会露出一条细线．横向的位置由脚本给出（--wedge-x）．
+  &::before {
+    content: "";
+    position: absolute;
+    left: var(--wedge-x, 2.4rem);
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    margin-left: -.5rem;
+    border: 1px solid transparent;
+    background: $white;
+    transform: rotate(45deg);
+  }
+
+  &[data-side="below"]::before {
+    top: calc(1px - .5rem);
+    border-top-color: $link-preview-outline;
+    border-left-color: $link-preview-outline;
+  }
+
+  &[data-side="above"]::before {
+    bottom: calc(1px - .5rem);
+    border-right-color: $link-preview-outline-shadowed;
+    border-bottom-color: $link-preview-outline-shadowed;
+  }
+
+  // 下面还有内容时的渐隐：盖在内容上的白色渐变，最下面与内边距一样高的一段全白．右侧露出滚动条．
+  &.is-clipped::after {
+    content: "";
+    position: absolute;
+    right: 1.2rem;
+    bottom: 0;
+    left: 0;
+    height: 4rem + $link-preview-padding-y;
+    border-bottom-left-radius: $link-preview-radius;
+    background: linear-gradient(to bottom, rgba($white, 0), $white calc(100% - #{$link-preview-padding-y}));
+    pointer-events: none;
+  }
+
+  &[data-kind="wiki"].is-clipped::after {
+    right: 0;
+    border-bottom-right-radius: $link-preview-radius;
+  }
+
+  &:popover-open {
+    animation: link-preview-in .12s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:popover-open {
+      animation: none;
+    }
+  }
+
+  @media print {
+    display: none !important;
+  }
+}
+
+@keyframes link-preview-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.link-preview-body {
+  position: relative;
+  box-sizing: border-box;
+  max-height: unquote("min(50vh, 44rem)");
+  padding: $link-preview-padding-y $link-preview-padding-x;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: inherit;
+  background: $white;
+  scrollbar-width: thin;
+  // Firefox 不按圆角裁剪滚动条（Chrome 裁剪），它会伸出面板的圆角．
+  clip-path: inset(0 round $link-preview-radius);
+
+  // 首尾不留外边距．最后一个元素的下边距（它是列表时，最后一项中最后一段的……）会穿过它的祖先留在面板中，所以首尾的
+  // 一串元素都去掉．
+  :first-child:not(.link-preview-body :not(:first-child) *) {
+    margin-top: 0;
+  }
+
+  :last-child:not(.link-preview-body :not(:last-child) *) {
+    margin-bottom: 0;
+  }
+
+  // 正文中写明字号（rem）的文献与代码随预览的字号．
+  .bm-bibliography,
+  code,
+  pre {
+    font-size: inherit;
+  }
+}
+
+// 百科链接的预览：条目的开头不滚动，截断在约十行，截断了或没有在句末结束时底部渐隐；右下是“前往条目”，灰色，指针
+// 在预览上时成为链接的颜色．整个预览是一个到条目的链接（如维基百科的页面预览），内边距在链接上，点哪里都到条目；开头
+// 中的链接已成为文字．
+.link-preview[data-kind="wiki"] .link-preview-body {
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.link-preview-excerpt {
+  max-height: 17.5em;
+  overflow: hidden;
+
+  // 渐隐最后约两行；只有一两行时渐隐下半．
+  &.is-faded {
+    mask-image: linear-gradient(to bottom, #000 unquote("max(50%, 100% - 3.5em)"), transparent);
+  }
+
+  :last-child:not(.link-preview-excerpt :not(:last-child) *) {
+    margin-bottom: 0;
+  }
+}
+
+// 后面的箭头是站点的线条图标（scripts/shared/icons.mjs 的 back 左右翻转），用作遮罩，颜色随文字．
+.link-preview-more {
+  display: flex;
+  align-items: center;
+  gap: .3em;
+  width: fit-content;
+  margin: .2rem 0 0 auto;
+  color: $semi-light-text-color;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  transition: color .15s ease-in;
+
+  &::after {
+    content: "";
+    width: 1.15em;
+    height: 1.15em;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m13 5 7 7-7 7M20 12H4'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+}
+
+.link-preview-article {
+  display: block;
+  padding: $link-preview-padding-y $link-preview-padding-x;
+  border: 0;
+  border-radius: inherit;
+  color: inherit;
+
+  &:focus,
+  &:hover {
+    color: inherit;
+  }
+
+  &:focus-visible {
+    outline-offset: -3px;
+  }
+
+  &:hover .link-preview-more,
+  &:focus-visible .link-preview-more {
+    color: $link-color;
+  }
+}
+
+// 最后一行文字伸过约三分之二宽（到了“前往条目”的上方）时，两者看上去挤在一起，多隔开一些（由脚本判断）．
+.link-preview-excerpt.is-wide-end + .link-preview-more {
+  margin-top: .8rem;
+}
+
+// 公式前后的段落只留几行（由脚本裁剪），被截断的一侧渐隐．
+.link-preview-context {
+  position: relative;
+  overflow: hidden;
+
+  &.is-cut-start {
+    mask-image: linear-gradient(to bottom, transparent, #000 3.5em);
+  }
+
+  &.is-cut-end {
+    mask-image: linear-gradient(to top, transparent, #000 3.5em);
+  }
+
+  &.is-cut-start.is-cut-end {
+    mask-image: linear-gradient(to bottom, transparent, #000 3.5em, #000 calc(100% - 3.5em), transparent);
+  }
+}

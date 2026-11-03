@@ -104,6 +104,11 @@ try {
   const browserScript = join(root, 'site/scripts/local-time.js');
   await writeFile(browserScript, `${await readFile(browserScript, 'utf8')}\n// 已更新\n`);
   await until(async () => (await html('/js/local-time.js')).includes('已更新'), '浏览器脚本更新');
+  // Saved together with a change that restarts the preview service, the script is still published after the restart.
+  const messages = join(root, 'data/messages.yaml');
+  await writeFile(browserScript, `${await readFile(browserScript, 'utf8')}\n// 重启时更新\n`);
+  await writeFile(messages, `${await readFile(messages, 'utf8')}\n# 重启\n`);
+  await until(async () => (await html('/js/local-time.js')).includes('重启时更新'), '重启时浏览器脚本更新');
   const styles = join(root, 'site/styles/_base.scss');
   await writeFile(styles, `${await readFile(styles, 'utf8')}\n.served-check { color: red; }\n`);
   await until(async () => (await html('/css/site.css')).includes('served-check'), '样式更新');
