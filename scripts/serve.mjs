@@ -335,7 +335,8 @@ async function fullBuild() {
   if (!service || restartRequested || first) {
     service?.child.kill('SIGTERM');
     restartRequested = generatorRequested = assetsRequested = false;
-    staticPending.clear();
+    // The first build copies all static files; after a restart, update() copies the changed ones.
+    if (first) staticPending.clear();
     console.log(t('serve_prebuild_start'));
     service = startService();
     const prebuilt = await service.request('refresh');
@@ -469,17 +470,18 @@ async function updateSite(pages, paths = []) {
 
 /** Handles the changes since the last update, the cheapest way that gives the result of a full build. */
 async function update(changed) {
-  if (needFull || restartRequested) return fullBuild();
-  const plan = await classify(changed);
-  if (plan.full) {
-    restartRequested = true;
-    return fullBuild();
+  const plan = needFull || restartRequested ? undefined : await classify(changed);
+  if (!plan || plan.full) {
+    if (plan) restartRequested = true;
+    await fullBuild();
+  } else {
+    await updateContent(changed, plan);
+    if (generatorRequested) await generatorBuild();
+    else if (assetsRequested) await assetsBuild();
+    if (generatorRequested && !needFull) await generatorBuild(); // New asset addresses.
   }
-  await updateContent(changed, plan);
-  if (generatorRequested) await generatorBuild();
-  else if (assetsRequested) await assetsBuild();
-  if (generatorRequested && !needFull) await generatorBuild(); // New asset addresses.
-  if (staticPending.size) await staticBuild();
+  // After a full build too: a restarted preview service copies no static files.
+  if (staticPending.size && snapshot && service && !stopping) await staticBuild();
 }
 
 /** Handles changes in content/ and the category tree (see classify). */
