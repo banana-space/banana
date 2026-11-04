@@ -27,7 +27,7 @@ navboxes: [范畴论]
 因为向量空间的维数一定非负。
 这种构造可以用来证明一些正性结果，
 例如 [[Kazhdan–Lusztig 猜想]]的证明就是通过
-[[Hecke 代数 (Coxeter 群)|Hecke 代数]]的范畴化。
+[[Hecke 代数]]的范畴化。
 
 ## 例子
 
