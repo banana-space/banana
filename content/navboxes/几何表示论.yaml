@@ -21,12 +21,19 @@ groups:
       - '[[Deligne–Lusztig 理论]]'
       - '[[特征层]]'
       - '[[几乎特征标]]'
+  - title: Hecke 代数
+    items:
+      - '[[Hecke 代数]]'
+      - '[[Kazhdan–Lusztig 多项式]]'
+      - '[[Hecke 范畴]]'
+      - '[[Soergel 双模]]'
+      - '[[仿射 Hecke 代数]]'
+      - '[[双仿射 Hecke 代数]]'
   - title: 局部化
     items:
       - '[[Beilinson–Bernstein 局部化定理]]'
       - '[[范畴 $\mathcal{O}$]]'
       - '[[Kazhdan–Lusztig 猜想]]'
-      - '[[Hecke 范畴]]'
   - title: Satake 与 Langlands
     items:
       - '[[仿射 Graßmann 形]]'

@@ -195,7 +195,7 @@ $\mu = v \bullet 0$，其中 $w, v \in W$。
 [M(\lambda) : L(\mu)] = P_{w_0 w, w_0 v}(1),
 \]
 其中 $w_0$ 是 $W$ 的最长元，$P_{x,y}$ 是与 [[Hecke 代数]]关联的多项式。
-此结果说明该块的 Grothendieck 群与 [[Iwahori–Hecke 代数]]同构，
+此结果说明该块的 Grothendieck 群与 Hecke 代数同构，
 单模类对应 Kazhdan–Lusztig 基。
 :::
 

@@ -596,7 +596,7 @@ $\mu$ 与 $\mu'$ 在 $\rho (v) \otimes \rho (w)$ 处的取值相同。
 $\check{R}_{12} \check{R}_{23} \check{R}_{12}
 = \check{R}_{23} \check{R}_{12} \check{R}_{23}$
 与 Hecke 关系 $(\check{R} - q) (\check{R} + q^{-1}) = 0$，
-从而在 $V^{\otimes m}$ 上给出 [[Iwahori–Hecke 代数]]的作用，
+从而在 $V^{\otimes m}$ 上给出 [[Hecke 代数]]的作用，
 这是 [[Schur–Weyl 对偶]]的量子类比。
 一般地，有限维 1 型 $U_q (\mathfrak{g})$-模构成[[辫幺半范畴]]，
 但它一般不是对称的。

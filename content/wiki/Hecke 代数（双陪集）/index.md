@@ -3,6 +3,10 @@ title: Hecke 代数（双陪集）
 categories: [表示论]
 ---
 
+<disambiguation>
+关于 Weyl 群与 Coxeter 群的 Hecke 代数，请参见[[Hecke 代数]]。
+</disambiguation>
+
 <problems>
 - “例子”一节中与 Weyl 群的 Hecke 代数的关系及 Satake 同构等结论可能需要系数环满足一定条件，这些条件尚未写明。
 </problems>
@@ -83,7 +87,7 @@ $B$ 是它的 [[Borel 子群]]，$W$ 是 $G$ 的[[Weyl 群]]，
 \mathcal{H}(G(\mathbb{F}_q)/B(\mathbb{F_q}))
 \simeq \mathcal{H}(W, q^{1/2}).
 \]
-其中后者表示 $W$ 的 [[Iwahori–Hecke 代数|Hecke 代数]]在 $q$ 处的[[特殊化]]。
+其中后者表示 $W$ 的 [[Hecke 代数]]在 $q$ 处的[[特殊化]]。
 :::
 
 ::: example
