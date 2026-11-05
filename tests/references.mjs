@@ -54,6 +54,19 @@ try {
   await mkdir(directory, { recursive: true });
   const original = `---\ntitle: 引用测试\n---\n${fixture}`;
   await writeFile(join(directory, 'index.md'), original);
+  const nested = `## 目标 {@sec:target}
+
+## 参见 @sec:target 与 @named {@sec:references}
+
+### **子节** @sec:target 与 $A$ {@sub}
+
+@sub
+[见 @sec:target 和 @sub](@sec:references)
+[[顶点代数|参见 @sec:target]]
+
+${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendieck, A.", year: 1960}')}`;
+  await mkdir(join(root, 'content/wiki/nested-reference'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/nested-reference/index.md'), `---\ntitle: 嵌套引用\n---\n${nested}`);
   const build = () => buildProject(root);
   build();
   const html = await readFile(join(root, 'public/wiki/reference-test/index.html'), 'utf8');
@@ -74,20 +87,7 @@ try {
   const generated = generatedPages(root).get('wiki/reference-test/index.md').metadata;
   assert.ok(generated.bibliographyEntries.some(entry => entry.citationAuthor === 'nLab'));
   // 目录复用正文解析后的引用；未编号标题与自定义文字的嵌套引用只能生成一层链接。
-  const nested = `## 目标 {@sec:target}
-
-## 参见 @sec:target 与 @named {@sec:references}
-
-### **子节** @sec:target 与 $A$ {@sub}
-
-@sub
-[见 @sec:target 和 @sub](@sec:references)
-[[顶点代数|参见 @sec:target]]
-
-${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendieck, A.", year: 1960}')}`;
-  await writeFile(join(directory, 'index.md'), `---\ntitle: 嵌套引用\n---\n${nested}`);
-  build();
-  const nestedHtml = await readFile(join(root, 'public/wiki/reference-test/index.html'), 'utf8');
+  const nestedHtml = await readFile(join(root, 'public/wiki/nested-reference/index.html'), 'utf8');
   const toc = nestedHtml.match(/<nav id="TableOfContents"[^>]*>([\s\S]*?)<\/nav>/)[1];
   assert.match(toc, /<span class="toc-section-number directory-number">2<\/span> <span class="toc-item-title directory-item-title">参见第 1 节与 EGA I/);
   assert.equal((toc.match(/<a /g) ?? []).length, 3);

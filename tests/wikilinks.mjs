@@ -50,6 +50,7 @@ A[[t]] \text{$b$}
 ` + '```tex\n$A[[t]]$ [[顶点代数]]\n```';
   await article('link-test', 'title: 链接测试', body);
   const source = await readFile(join(root, 'content/wiki/link-test/index.md'), 'utf8');
+  await article('unsafe-image', 'title: 图', '![图](<x.png" onerror="alert(1)>)');
   const build = (extra = []) => buildProject(root, extra);
   build();
   const html = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
@@ -87,16 +88,14 @@ A[[t]] \text{$b$}
   assert.match(html, /条目尚未创建：草稿/);
   assert.match(await readFile(join(root, 'public/missing/index.html'), 'utf8'), /id="missing-name"/);
   assert.equal(await readFile(join(root, 'content/wiki/link-test/index.md'), 'utf8'), source);
-  build(['--baseURL', 'https://example.org/docs/']);
+  // In a subdirectory, with drafts published.
+  build(['--baseURL', 'https://example.org/docs/', '--buildDrafts']);
   const subpathHTML = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
   assert.match(subpathHTML, /href="\.\.\/\.\.\/categories\/[^\"]+" class="category-link"><svg[^>]+icon-folder/);
   assert.match(subpathHTML, /href="\/docs\/categories\/"/);
   assert.match(subpathHTML, /href="\/docs\/categories\/">分类总览<\/a>/);
-  build(['--buildDrafts']);
   assert.doesNotMatch(await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8'), /条目尚未创建：草稿/);
   // Links and images: site addresses, http and https (and mailto for links); an image's address is encoded, as a link's.
-  await article('unsafe-image', 'title: 图', '![图](<x.png" onerror="alert(1)>)');
-  build();
   const imageHTML = await readFile(join(root, 'public/wiki/unsafe-image/index.html'), 'utf8');
   assert.match(imageHTML, /<img src="x.png%22%20onerror=%22alert%281%29"/);
   assert.doesNotMatch(imageHTML, / onerror="/);

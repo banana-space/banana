@@ -91,7 +91,7 @@ async function browserSearch(site, file, url) {
 const root = await createProject('search');
 const write = async (file, text) => { await mkdir(join(root, file, '..'), { recursive: true }); await writeFile(join(root, file), text); };
 const page = (front, body = '') => `---\n${front}\n---\n${body}\n`;
-const build = (extra = []) => buildProject(root, extra);
+const build = (extra = []) => buildProject(root, extra, { search: true });
 try {
   await rm(join(root, 'content'), { recursive: true, force: true });
   await write('data/categories.yaml', '数学: {}\n代数拓扑:\n  parent: 数学\n  sort: dai shu tuo pu\n');
@@ -345,7 +345,7 @@ try {
   assert.equal(nestedUI.config.page, '/docs/search/');
 
   // The preview's diagnostic page is opt-in.
-  buildProject(root, ['--playground']);
+  buildProject(root, ['--playground'], { search: true });
   assert.ok((await readdir(join(root, 'public/pagefind'))).includes('playground'));
 } finally {
   await rm(root, { recursive: true, force: true });

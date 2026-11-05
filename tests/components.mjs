@@ -45,6 +45,36 @@ try {
   await writeFile(page, original
     .replace('## 人名标注', '```terms\n前置术语: {en: early term}\n```\n\n## 人名标注')
     .replace('  de: Gruppe :f', '  de: Gruppe :f\n环:\n  de: Ring :m\n  en: ring') + '\n```terms\n多译名:\n  en: [first, second]\n  ja: {text: 位相, reading: [い, そう]}\n  fr: {text: "<script>literal</script>", gender: f}\n```\n\n数据块之后的正文。\n');
+  // The other pages, so that one build serves them all. A collapsed navbox under a title of its own; one whose title and
+  // items link to the page showing it.
+  await writeFile(join(root, 'content/navboxes/折叠导航.yaml'), grouped.replace('title: [[代数拓扑]]', 'title: 改后的导航标题\ncollapsed: true'));
+  await mkdir(join(root, 'content/wiki/collapsed-navbox'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/collapsed-navbox/index.md'), '---\ntitle: 折叠导航页\nnavboxes: [折叠导航]\n---\n正文\n');
+  await mkdir(join(root, 'content/wiki/custom-address'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/custom-address/index.md'), '---\ntitle: 当前页\nnavboxes: [当前页导航]\n---\n[[当前页|正文链接]]\n');
+  await writeFile(join(root, 'content/navboxes/当前页导航.yaml'), grouped
+    .replace('title: [[代数拓扑]]', 'title: [[当前页|当前页标题]]')
+    .replace('- [[基本群]]', '- [[基本群]]\n      - [[当前页|当前 **条目**]]\n      - [[当前页|$H^n$]]\n      - "[绝对地址](https://example.org/wiki/custom-address/)"\n      - "[其他站点](https://other.example/wiki/custom-address/)"'));
+  // 人名的生卒年、日语注音与姓名语言；参见；图片宽度；条目默认地址保留大小写与标点。
+  await mkdir(join(root, 'content/wiki/Person Test（甲）'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/Person Test（甲）/index.md'), [
+    '---', 'title: 人名测试',
+    'categories: [数学家]', '---',
+    '**Nobuo Yoneda** <person original="[米田]<よねだ> 信<のぶ>夫<お>" lang="ja" translit="Yoneda Nobuo" years="1930--1996" />，',
+    'Armand Borel <person lang="fr" ipa="/a/">。',
+    // Continued on the next lines (a long tag within the line width).
+    '**Peter Dirichlet**', '<person lang="de" years="1805--1859"', '  ipa="/x/"', '  />，德国数学家。', '',
+    '<see>[[奇异上同调]]、[[不存在的条目]]</see>', '',
+    '![图](pic.png){width=120}', '', '![](pic.png "替代文字")', '', '<align right>', '——某人\\', '*某书*', '</align>', '', '```terms', '米田 信夫:', '  lang: ja', '  zh: 米田信夫', '$\\infty$-范畴:', '  en: $\\infty$-category', '```', '',
+  ].join('\n'));
+  await writeFile(join(root, 'content/wiki/Person Test（甲）/pic.png'), 'png');
+  // <problems> on a page that is not an article: “本页面”; also within a section, where it is written.
+  const appendix = join(root, 'content/books/线性代数拾遗/appendix/index.md');
+  const appendixSource = await readFile(appendix, 'utf8');
+  await writeFile(appendix, appendixSource + '\n## 待补充\n\n<problems>\n本节需要扩充。\n</problems>\n\n本节的正文。\n');
+  // In a quote, the continuation lines carry the quote's marks (or none, a lazy line), as many as the first line.
+  await mkdir(join(root, 'content/wiki/quoted-person'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/quoted-person/index.md'), '---\ntitle: 引用中的人名\n---\n> > 甲 <person lang="en"\n> >   ipa="/a/"\n  years="1900" />，乙\n');
   const build = () => buildProject(root);
   build();
   await assert.rejects(stat(join(root, 'public/navboxes')), { code: 'ENOENT' });
@@ -91,15 +121,7 @@ try {
   assert.match(html, /bm-wiki-link-missing/);
   assert.doesNotMatch(html, /```terms|\{\{\{|wiki:\?/);
   assert.equal((html.match(/class="bm-section-number"/g) ?? []).length, 2);
-  await writeFile(join(root, 'content/navboxes/代数拓扑.yaml'), grouped.replace('title: [[代数拓扑]]', 'title: 改后的导航标题\ncollapsed: true'));
-  build();
-  assert.match(await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8'), /<details>\s*<summary>改后的导航标题/);
-  await mkdir(join(root, 'content/wiki/custom-address'), { recursive: true });
-  await writeFile(join(root, 'content/wiki/custom-address/index.md'), '---\ntitle: 当前页\nnavboxes: [代数拓扑]\n---\n[[当前页|正文链接]]\n');
-  await writeFile(join(root, 'content/navboxes/代数拓扑.yaml'), grouped
-    .replace('title: [[代数拓扑]]', 'title: [[当前页|当前页标题]]')
-    .replace('- [[基本群]]', '- [[基本群]]\n      - [[当前页|当前 **条目**]]\n      - [[当前页|$H^n$]]\n      - "[绝对地址](https://example.org/wiki/custom-address/)"\n      - "[其他站点](https://other.example/wiki/custom-address/)"'));
-  build();
+  assert.match(await readFile(join(root, 'public/wiki/collapsed-navbox/index.html'), 'utf8'), /<details>\s*<summary>改后的导航标题/);
   const selfHTML = await readFile(join(root, 'public/wiki/custom-address/index.html'), 'utf8');
   assert.doesNotMatch(selfHTML, /class="terms"/);
   const selfNav = selfHTML.match(/<nav class="navbox"[\s\S]*?<\/nav>/)[0];
@@ -109,35 +131,6 @@ try {
   assert.match(selfNav, /<strong class="navbox-current" aria-current="page">绝对地址<\/strong>/);
   assert.match(selfNav, /<a href="https:\/\/other.example\/wiki\/custom-address\/"/);
   assert.match(selfHTML, /<a href="\/wiki\/custom-address\/" class="bm-wiki-link">正文链接<\/a>/);
-  const config = await readFile(join(root, 'data/site.yaml'), 'utf8');
-  await writeFile(join(root, 'data/site.yaml'), config.replace("https://example.org/", "https://example.org/encyclopedia/"));
-  build();
-  const subpath = await readFile(join(root, 'public/wiki/custom-address/index.html'), 'utf8');
-  assert.match(subpath, /<strong class="navbox-current" aria-current="page">当前<strong>条目<\/strong><\/strong>/);
-  assert.match(subpath, /href="\/encyclopedia\/wiki\/custom-address\/" class="bm-wiki-link">正文链接/);
-  await writeFile(join(root, 'data/site.yaml'), config);
-  for (const [frontMatter, error] of [
-    ['navboxes: [不存在]', /组件不存在：navboxes\/不存在/],
-    ['navboxes: ["../代数拓扑"]', /不能包含路径/],
-  ]) {
-    await writeFile(page, `---\ntitle: 组件示例\n${frontMatter}\n---\n正文\n`);
-    assert.throws(() => generatedPages(root), error);
-  }
-  // 人名的生卒年、日语注音与姓名语言；参见；图片宽度；条目默认地址保留大小写与标点。
-  await writeFile(page, '---\ntitle: 组件示例\n---\n正文\n');
-  await mkdir(join(root, 'content/wiki/Person Test（甲）'), { recursive: true });
-  await writeFile(join(root, 'content/wiki/Person Test（甲）/index.md'), [
-    '---', 'title: 人名测试',
-    'categories: [数学家]', '---',
-    '**Nobuo Yoneda** <person original="[米田]<よねだ> 信<のぶ>夫<お>" lang="ja" translit="Yoneda Nobuo" years="1930--1996" />，',
-    'Armand Borel <person lang="fr" ipa="/a/">。',
-    // Continued on the next lines (a long tag within the line width).
-    '**Peter Dirichlet**', '<person lang="de" years="1805--1859"', '  ipa="/x/"', '  />，德国数学家。', '',
-    '<see>[[奇异上同调]]、[[不存在的条目]]</see>', '',
-    '![图](pic.png){width=120}', '', '![](pic.png "替代文字")', '', '<align right>', '——某人\\', '*某书*', '</align>', '', '```terms', '米田 信夫:', '  lang: ja', '  zh: 米田信夫', '$\\infty$-范畴:', '  en: $\\infty$-category', '```', '',
-  ].join('\n'));
-  await writeFile(join(root, 'content/wiki/Person Test（甲）/pic.png'), 'png');
-  build();
   const personHTML = await readFile(join(root, 'public/wiki/Person_Test（甲）/index.html'), 'utf8');
   assert.match(personHTML, /<span class="person-annotations">（<span class="person-label" data-typography="boundary">日语<\/span> <span lang="ja"><ruby>米田<rp> \(<\/rp><rt>よねだ<\/rt><rp>\) <\/rp><\/ruby> <ruby>信<rp> \(<\/rp><rt>のぶ<\/rt>[\s\S]*?，<span class="person-years">1930(?:–|&ndash;)1996<\/span>）/);
   // The note follows the name (the space between them goes); years are Markdown ("--" is a dash).
@@ -159,16 +152,27 @@ try {
   assert.match(personHTML, /<figure class="bm-content-figure"><img [^>]*alt="替代文字"[^>]*><\/figure>/);
   // align：居右的署名，行末反斜杠是硬换行。
   assert.match(personHTML, /<div class="bm-align-right"><p>——某人<br>\s*<em>某书<\/em><\/p>\s*<\/div>/);
-  await rm(join(root, 'content/wiki/Person Test（甲）'), { recursive: true });
-
-  // <problems> on a page that is not an article: “本页面”; also within a section, where it is written. Empty: an error.
-  const appendix = join(root, 'content/books/线性代数拾遗/appendix/index.md');
-  const appendixSource = await readFile(appendix, 'utf8');
-  await writeFile(appendix, appendixSource + '\n## 待补充\n\n<problems>\n本节需要扩充。\n</problems>\n\n本节的正文。\n');
-  build();
   const appendixHTML = await readFile(join(root, 'public/books/线性代数拾遗/appendix/index.html'), 'utf8');
   assert.match(appendixHTML, /待补充[\s\S]*<p>本页面存在以下问题：<\/p>\s*<p>本节需要扩充．<\/p>[\s\S]*本节的正文/);
   await writeFile(appendix, appendixSource);
+  assert.match(normalizeHTML(await readFile(join(root, 'public/wiki/quoted-person/index.html'), 'utf8')),
+    /<blockquote>\s*<blockquote>\s*<p>甲<span class="person-annotations">[\s\S]*?1900<\/span>）<\/span>，乙<\/p>/);
+  const config = await readFile(join(root, 'data/site.yaml'), 'utf8');
+  await writeFile(join(root, 'data/site.yaml'), config.replace("https://example.org/", "https://example.org/encyclopedia/"));
+  build();
+  const subpath = await readFile(join(root, 'public/wiki/custom-address/index.html'), 'utf8');
+  assert.match(subpath, /<strong class="navbox-current" aria-current="page">当前<strong>条目<\/strong><\/strong>/);
+  assert.match(subpath, /href="\/encyclopedia\/wiki\/custom-address\/" class="bm-wiki-link">正文链接/);
+  await writeFile(join(root, 'data/site.yaml'), config);
+
+  // Errors, found by the prebuild.
+  for (const [frontMatter, error] of [
+    ['navboxes: [不存在]', /组件不存在：navboxes\/不存在/],
+    ['navboxes: ["../代数拓扑"]', /不能包含路径/],
+  ]) {
+    await writeFile(page, `---\ntitle: 组件示例\n${frontMatter}\n---\n正文\n`);
+    assert.throws(() => generatedPages(root), error);
+  }
   for (const tag of ['problems', 'disambiguation', 'tip']) {
     await writeFile(page, `---\ntitle: 组件示例\n---\n<${tag}>\n</${tag}>\n\n正文\n`);
     assert.throws(() => generatedPages(root), new RegExp(`<${tag}> 的内容不能为空`));
@@ -185,11 +189,6 @@ try {
   }
   await writeFile(page, '---\ntitle: 组件示例\n---\n示例 <person lang="en"\n  ipa="/a/" />\n');
   execFileSync(process.execPath, ['scripts/check.mjs', 'content/wiki/components-example'], { cwd: root, stdio: 'pipe' });
-  // In a quote, the continuation lines carry the quote's marks (or none, a lazy line), as many as the first line.
-  await writeFile(page, '---\ntitle: 组件示例\n---\n> > 甲 <person lang="en"\n> >   ipa="/a/"\n  years="1900" />，乙\n');
-  build();
-  assert.match(normalizeHTML(await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8')),
-    /<blockquote>\s*<blockquote>\s*<p>甲<span class="person-annotations">[\s\S]*?1900<\/span>）<\/span>，乙<\/p>/);
   await writeFile(page, '---\ntitle: 组件示例\n---\n> 甲 <person lang="en"\n> > ipa="/a/" />\n');
   assert.throws(() => generatedPages(root), /<person> 的写法有误/);
 } finally { await rm(root, { recursive: true, force: true }); }

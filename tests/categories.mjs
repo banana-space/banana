@@ -16,11 +16,20 @@ try {
   const card = (name, count = '\\d+') => new RegExp(`class="category-card-name"><svg[^>]*icon-folder[^>]*>.*?</svg>${name}</span> ?<span class="category-card-count">${count}</span>`);
   const group = (name, count) => new RegExp(`class="category-group-title"><a href="[^"]+">${name}</a> ?<span class="category-group-count">${count} 个条目</span>`);
   await writeFile(join(root, 'data/categories.yaml'), '数学: {}\n代数学:\n  parent: 数学\n顶点代数:\n  parent: 代数学\n深层分类:\n  parent: 顶点代数\n更深分类:\n  parent: 深层分类\n');
+  // An article filed under a leaf only: counted in its ancestors' cards, listed on its own category's page alone.
+  await mkdir(join(root, 'content/wiki/leaf-only'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/leaf-only/index.md'), '---\ntitle: 仅属叶子条目\ncategories: [顶点代数]\n---\n');
+  // Letter groups: `#` first, Western before Han within a letter, letter bar only with several pages.
+  const letterTitles = ['! 模态', '2-范畴', '阿贝尔群', 'Abel 群', ...Array.from({ length: 56 }, (_, i) => `条目 ${String(i + 1).padStart(2, '0')}`)];
+  for (const [i, title] of letterTitles.entries()) {
+    await mkdir(join(root, `content/wiki/letter-${i}`), { recursive: true });
+    await writeFile(join(root, `content/wiki/letter-${i}/index.md`), `---\ntitle: '${title}'\ncategories: [${i < 3 ? '字母分类, 小分类' : '字母分类'}]\n---\n`);
+  }
   build();
   // The overview: a section for each top-level category with subcategories, cards one level down, the rest under 其他.
   const overview = await readFile(join(root, 'public/categories/index.html'), 'utf8');
-  assert.match(overview, group('数学', 1));
-  assert.match(overview, card('代数学', 1));
+  assert.match(overview, group('数学', 2));
+  assert.match(overview, card('代数学', 2));
   assert.doesNotMatch(overview, card('顶点代数'));
   assert.match(overview, /<h2 class="category-group-title">其他<\/h2>\s*<ul class="category-cards">[\s\S]*?class="category-card-name"><svg[\s\S]*?<\/svg>示例分类</);
   assert.doesNotMatch(overview, card('数学'));
@@ -38,17 +47,11 @@ try {
   const breadcrumb = deep.match(/<nav aria-label="祖先分类"[\s\S]*?<\/nav>/)[0];
   assert.match(breadcrumb, />数学<\/a>[\s\S]*>代数学<\/a>[\s\S]*>顶点代数<\/a>[\s\S]*>深层分类<\/span>/);
   assert.equal((breadcrumb.match(/icon-folder/g) ?? []).length, 1);
-  await mkdir(join(root, 'content/wiki/leaf-only'), { recursive: true });
-  await writeFile(join(root, 'content/wiki/leaf-only/index.md'), '---\ntitle: 仅属叶子条目\ncategories: [顶点代数]\n---\n');
-  build();
   const parentPage = await readFile(join(root, 'public/categories/代数学/index.html'), 'utf8');
   assert.doesNotMatch(parentPage, /仅属叶子条目/);
   assert.match(parentPage, /分类测试条目/);
   assert.ok(parentPage.includes("<h2>条目</h2>"));
   assert.match(parentPage, card('顶点代数', 2));
-  const updatedOverview = await readFile(join(root, "public/categories/index.html"), "utf8");
-  assert.match(updatedOverview, group('数学', 2));
-  assert.match(updatedOverview, card('代数学', 2));
   const leafPage = await readFile(join(root, 'public/categories/顶点代数/index.html'), 'utf8');
   assert.match(leafPage, /仅属叶子条目/);
   assert.match(leafPage, /分类测试条目/);
@@ -63,13 +66,6 @@ try {
   assert.match(article, /<\/main>\s*<footer class="site-footer">/);
   assert.doesNotMatch(overview, /article-footer/);
   assert.doesNotMatch(await readFile(join(root, 'public/index.html'), 'utf8'), /article-footer/);
-  // Letter groups: `#` first, Western before Han within a letter, letter bar only with several pages.
-  const letterTitles = ['! 模态', '2-范畴', '阿贝尔群', 'Abel 群', ...Array.from({ length: 56 }, (_, i) => `条目 ${String(i + 1).padStart(2, '0')}`)];
-  for (const [i, title] of letterTitles.entries()) {
-    await mkdir(join(root, `content/wiki/letter-${i}`), { recursive: true });
-    await writeFile(join(root, `content/wiki/letter-${i}/index.md`), `---\ntitle: '${title}'\ncategories: [${i < 3 ? '字母分类, 小分类' : '字母分类'}]\n---\n`);
-  }
-  build();
   const titles = html => [...html.matchAll(/<span class="title">([^<]*)<\/span>/g)].map(match => match[1]);
   const headings = html => [...html.matchAll(/class="letter-heading" id="([^"]+)">([^<]*)</g)].map(match => `${match[1]} ${match[2]}`);
   const first = await readFile(join(root, 'public/categories/字母分类/index.html'), 'utf8');

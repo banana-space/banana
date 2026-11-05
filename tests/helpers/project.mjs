@@ -30,8 +30,9 @@ export async function createProject(name, paths = defaults) {
 }
 
 
-export function buildProject(root, extra = []) {
-  execFileSync(process.execPath, ['scripts/build.mjs', ...extra], { cwd: root, stdio: 'pipe', env: buildEnvironment() });
+/** The full build; without the search index unless `search` (scripts/build.mjs --no-search). */
+export function buildProject(root, extra = [], { search = false } = {}) {
+  execFileSync(process.execPath, ['scripts/build.mjs', ...extra, ...search ? [] : ['--no-search']], { cwd: root, stdio: 'pipe', env: buildEnvironment() });
 }
 
 /**

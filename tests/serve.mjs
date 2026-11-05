@@ -21,9 +21,9 @@ async function until(check, description) {
   throw new Error(`${description} 超时：${output}`);
 }
 // Successful rebuilds; unchanged pages keep their HTML, including the preview revision.
-/** Waits until serve has printed nothing for a second, so no rebuild is still running. */
+/** Waits until serve has printed nothing for half a second (its watcher waits 150 ms), so no rebuild is still running. */
 async function settle() {
-  for (let length = -1; length !== output.length;) { length = output.length; await delay(1000); }
+  for (let length = -1; length !== output.length;) { length = output.length; await delay(500); }
 }
 const completed = () => (output.match(/full build done|updated \d+ page/g) ?? []).length;
 const body = text => `---\ntitle: Live\ncategories: [测试]\nnavboxes: [预览导航]\n---\n## 参考文献* {@sec:ref}\n\n${text}\n\n@sec:ref\n`;
@@ -220,7 +220,7 @@ try {
   const quiet = output.length;
   await writeFile(join(root, 'content/wiki/live/.index.md.tmp'), 'x');
   await rm(join(root, 'content/wiki/live/.index.md.tmp'));
-  await delay(1000);
+  await delay(500); // A rebuild would start 150 ms after the change.
   assert.doesNotMatch(output.slice(quiet), /^prebuild: \d+ pages|body-only change/m);
 
   const nested = join(root, 'content/wiki/added/deep');

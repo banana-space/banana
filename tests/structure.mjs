@@ -22,6 +22,53 @@ try {
   const labelledDirectory = join(root, 'content/wiki/labelled-test');
   await mkdir(labelledDirectory, { recursive: true });
   await writeFile(join(labelledDirectory, 'index.md'), `---\ntitle: 标签列表\n---\n设\n\n(a) {@la} 甲\n(b) 乙\n\n    第二段\n\n($\\ast$) 星\n\n1. 外\n\n   (i) {@li} 内\n\n由 @la、@li 与 @-la。\n\n(3) (4)\n        嵌套\n\n见 @lb。\n\nB4)\n\n    1. {@lb} 设 $x~y$，\n       \\[\n       E(x) = x~y\n       \\]\n\n    2. 乙 $z$\n`);
+  // Pages for the checks after the build, each on its own page so that one build serves them all.
+  const page = async (name, body) => {
+    await mkdir(join(root, 'content/wiki', name), { recursive: true });
+    await writeFile(join(root, 'content/wiki', name, 'index.md'), body.startsWith('---\n') ? body : `---\ntitle: ${name}\n---\n${body}`);
+  };
+  const built = name => readFile(join(root, 'public/wiki', name, 'index.html'), 'utf8');
+  // Moving a label with its item updates every reference while retaining the anchor.
+  await page('reordered', '@a @b\n\n1. {@b} B\n1. {@a} A\n');
+  // Numbering must not alter IDs derived from the heading text.
+  await page('stable', '## Stable\n');
+  await page('stable-inserted', '## Inserted\n\n## Stable\n');
+  // A heading's label does not take an automatic ID another heading has.
+  await page('heading-label', '## same\n\n### 名称 {@same}\n');
+  // Labels never override generated IDs, even for forward/custom links and duplicate titles.
+  await page('repeated', '@first [后一个](@second) @minor\n\n## 同名 {@first}\n\n## 同名 {@second}\n\n### 子节 {@minor}\n');
+  // Native headings in containers must not shift a later section reference.
+  await page('containers', '@last [引用中的标题](@quoted)\n\n## 开头\n\n> ### 引用标题 {@quoted}\n\n- #### 列表标题\n\n## 结尾 {@last}\n');
+  // Normalization, suffix collisions, all heading styles and final links together.
+  const normalizedBody = String.raw`@accent [含公式的标题](@math) @tensor @setext
+
+## Über {@accent .accent-heading}
+
+## Über
+
+## uber-1
+
+## Über
+
+## Poincaré–Lefschetz $\infty$-范畴 {@math}
+
+### $A \otimes B$ {@tensor}
+
+Ångström $\varnothing$ {@setext}
+------------------------------
+
+## !!!
+
+## ???
+`;
+  await page('normalized', normalizedBody);
+  // Automatic directory generation, placement, and nesting; pages without one.
+  const directoryBody = '导言在目录之前。\n\n## 第一节\n\n### 小节\n\n#### 深层标题\n\n## 第二节\n';
+  const directoryPage = (title, metadata = '') => `---\ntitle: ${title}\n${metadata}---\n${directoryBody}`;
+  await page('toc-automatic', directoryPage('自动目录'));
+  await page('toc-depth-0', directoryPage('不要目录', 'tocDepth: 0\n'));
+  await page('toc-short', '---\ntitle: 短页\n---\n## 唯一标题\n正文。\n');
+  await page('toc-none', '---\ntitle: 无标题\n---\n正文。\n');
   const build = () => buildProject(root);
   build();
   const html = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
@@ -110,6 +157,50 @@ try {
   assert.equal(new Set(accents).size, 4);
   assert.match(css, /border-left:\s*\d+px solid var\(--theorem-accent\)/);
   assert.match(css, /color:\s*var\(--theorem-accent\)/);
+  assert.ok((await built('reordered')).includes('href="#a" class="bm-reference">2</a>'));
+  assert.ok((await built('reordered')).includes('href="#b" class="bm-reference">1</a>'));
+  assert.match(await built('stable'), /<h2 id="stable"><a class="bm-heading-link"[^>]*>§<\/a><span class="bm-section-number">1<\/span>/);
+  assert.match(await built('stable-inserted'), /<h2 id="stable"><a class="bm-heading-link"[^>]*>§<\/a><span class="bm-section-number">2<\/span>/);
+  assert.match(await built('heading-label'), /<h3 id="名称">/);
+  const repeated = await built('repeated');
+  const repeatedIds = [...repeated.matchAll(/<h[23] id="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(repeatedIds, ['同名', '同名-1', '子节']);
+  for (const [id, caption] of [['同名', '第 1 节'], ['同名-1', '后一个'], ['子节', '子节']]) {
+    assert.ok(repeated.includes(`href="#${encodeURIComponent(id)}" class="bm-reference">${caption}</a>`));
+  }
+  const containers = await built('containers');
+  assert.ok(containers.includes(`href="#${encodeURIComponent('结尾')}" class="bm-reference">第 2 节</a>`));
+  assert.ok(containers.includes(`href="#${encodeURIComponent('引用标题')}" class="bm-reference">引用中的标题</a>`));
+  assert.match(containers, /<blockquote>\s*<h3 id="引用标题">/);
+  assert.match(containers, /<li>\s*<h4 id="列表标题">/);
+  const normalized = await built('normalized');
+  const normalizedIds = [...normalized.matchAll(/<h[23] id="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(normalizedIds, ['uber', 'uber-1', 'uber-1-1', 'uber-2', 'poincare-lefschetz-∞-范畴', 'a⊗b', 'angstrom-∅', 'heading', 'heading-1']);
+  assert.match(normalized, /<h2 id="uber" class="accent-heading">/);
+  for (const [id, caption] of [['uber', '第 1 节'], ['poincare-lefschetz-∞-范畴', '含公式的标题']]) {
+    assert.ok(normalized.includes(`href="#${encodeURIComponent(id)}" class="bm-reference">${caption}</a>`));
+  }
+  // Links only: the inline logo's <use href="#…"> points into its own SVG.
+  for (const match of normalized.matchAll(/<a [^>]*href="#([^"]+)"/g)) {
+    assert.ok(normalizedIds.includes(decodeURIComponent(match[1])), `缺失标题锚点：${match[1]}`);
+  }
+  const automatic = await built('toc-automatic');
+  const automaticToc = automatic.match(/<nav id="TableOfContents"[^>]*>([\s\S]*?)<\/nav>/)[1];
+  assert.equal((automaticToc.match(/<a /g) ?? []).length, 3);
+  assert.match(automaticToc, /toc-level-2[\s\S]*<ul class="toc-list directory-tree"><li class="toc-level-3"/);
+  assert.doesNotMatch(automaticToc, /深层标题/);
+  const directoryDom = new JSDOM(automaticToc).window.document;
+  const branch = directoryDom.querySelector('.toc-branch');
+  assert.ok(branch.hasAttribute('open'), '本页目录子节默认展开');
+  assert.equal(branch.querySelector('summary > a .toc-item-title').textContent, '第一节');
+  assert.equal(branch.querySelector(':scope > ul a .toc-item-title').textContent, '小节');
+  assert.ok(branch.querySelector('summary > .directory-chevron'), '展开控制与标题链接应分开');
+  assert.equal(directoryDom.querySelectorAll('a a').length, 0);
+  assert.ok(automatic.indexOf('导言在目录之前。') < automatic.indexOf('class="toc-shell"'));
+  assert.ok(automatic.indexOf('class="toc-shell"') < automatic.indexOf('<h2 id="第一节"'));
+  assert.match(automatic, /class="header-toc-button"/);
+  for (const name of ['toc-depth-0', 'toc-short', 'toc-none']) assert.doesNotMatch(await built(name), /id="TableOfContents"|class="header-toc-button"/, name);
+
   // Environments are named in data/theorems.yaml: the title and the references follow (the rest of the
   // reference text is bananamark's, in its locale).
   const theoremsPath = join(root, 'data/theorems.yaml');
@@ -126,107 +217,14 @@ try {
   const translatedStars = await readFile(join(root, 'public/wiki/star-test/index.html'), 'utf8');
   assert.match(translatedStars, /href="#named" class="bm-reference">Theorem（<strong>存在性<\/strong>/);
   await writeFile(theoremsPath, theorems);
-  // Moving a label with its item updates every reference while retaining the anchor.
-  await writeFile(join(starDirectory, 'index.md'), '---\ntitle: 星号和列表引用\n---\n@a @b\n\n1. {@b} B\n1. {@a} A\n');
-  build();
-  const reordered = await readFile(join(root, 'public/wiki/star-test/index.html'), 'utf8');
-  assert.ok(reordered.includes('href="#a" class="bm-reference">2</a>'));
-  assert.ok(reordered.includes('href="#b" class="bm-reference">1</a>'));
-  // Numbering must not alter IDs derived from the heading text.
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n## Stable\n');
-  build();
-  assert.match(await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8'), /<h2 id="stable"><a class="bm-heading-link"[^>]*>§<\/a><span class="bm-section-number">1<\/span>/);
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n## Inserted\n\n## Stable\n');
-  build();
-  assert.match(await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8'), /<h2 id="stable"><a class="bm-heading-link"[^>]*>§<\/a><span class="bm-section-number">2<\/span>/);
-  // Detect collisions between explicit environment labels and automatic IDs.
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n## same\n\n::: theorem {@same}\n正文\n:::');
-  assert.throws(() => generatedPages(root), /引用标签与标题自动锚点重复/);
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n## same\n\n### 名称 {@same}\n');
-  build();
-  assert.match(await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8'), /<h3 id="名称">/);
-  // Labels never override generated IDs, even for forward/custom links and duplicate titles.
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n@first [后一个](@second) @minor\n\n## 同名 {@first}\n\n## 同名 {@second}\n\n### 子节 {@minor}\n');
-  build();
-  const repeated = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
-  const repeatedIds = [...repeated.matchAll(/<h[23] id="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(repeatedIds, ['同名', '同名-1', '子节']);
-  for (const [id, caption] of [['同名', '第 1 节'], ['同名-1', '后一个'], ['子节', '子节']]) {
-    assert.ok(repeated.includes(`href="#${encodeURIComponent(id)}" class="bm-reference">${caption}</a>`));
-  }
-  // Native headings in containers must not shift a later section reference.
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n@last [引用中的标题](@quoted)\n\n## 开头\n\n> ### 引用标题 {@quoted}\n\n- #### 列表标题\n\n## 结尾 {@last}\n');
-  build();
-  const containers = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
-  assert.ok(containers.includes(`href="#${encodeURIComponent('结尾')}" class="bm-reference">第 2 节</a>`));
-  assert.ok(containers.includes(`href="#${encodeURIComponent('引用标题')}" class="bm-reference">引用中的标题</a>`));
-  assert.match(containers, /<blockquote>\s*<h3 id="引用标题">/);
-  assert.match(containers, /<li>\s*<h4 id="列表标题">/);
-  // Test normalization, suffix collisions, all heading styles and final links together.
-  const normalizedBody = String.raw`@accent [含公式的标题](@math) @tensor @setext
 
-## Über {@accent .accent-heading}
-
-## Über
-
-## uber-1
-
-## Über
-
-## Poincaré–Lefschetz $\infty$-范畴 {@math}
-
-### $A \otimes B$ {@tensor}
-
-Ångström $\varnothing$ {@setext}
-------------------------------
-
-## !!!
-
-## ???
-`;
-  await writeFile(join(directory, 'index.md'), `---\ntitle: 编号测试\n---\n${normalizedBody}`);
-  build();
-  const normalized = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
-  const normalizedIds = [...normalized.matchAll(/<h[23] id="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(normalizedIds, ['uber', 'uber-1', 'uber-1-1', 'uber-2', 'poincare-lefschetz-∞-范畴', 'a⊗b', 'angstrom-∅', 'heading', 'heading-1']);
-  assert.match(normalized, /<h2 id="uber" class="accent-heading">/);
-  for (const [id, caption] of [['uber', '第 1 节'], ['poincare-lefschetz-∞-范畴', '含公式的标题']]) {
-    assert.ok(normalized.includes(`href="#${encodeURIComponent(id)}" class="bm-reference">${caption}</a>`));
-  }
-  // Links only: the inline logo's <use href="#…"> points into its own SVG.
-  for (const match of normalized.matchAll(/<a [^>]*href="#([^"]+)"/g)) {
-    assert.ok(normalizedIds.includes(decodeURIComponent(match[1])), `缺失标题锚点：${match[1]}`);
-  }
-  // Automatic directory generation, placement, and nesting.
-  const directoryBody = '导言在目录之前。\n\n## 第一节\n\n### 小节\n\n#### 深层标题\n\n## 第二节\n';
-  const directoryPage = metadata => `---\ntitle: 自动目录\n${metadata}---\n${directoryBody}`;
-  await writeFile(join(directory, 'index.md'), directoryPage(''));
-  build();
-  const automatic = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
-  const automaticToc = automatic.match(/<nav id="TableOfContents"[^>]*>([\s\S]*?)<\/nav>/)[1];
-  assert.equal((automaticToc.match(/<a /g) ?? []).length, 3);
-  assert.match(automaticToc, /toc-level-2[\s\S]*<ul class="toc-list directory-tree"><li class="toc-level-3"/);
-  assert.doesNotMatch(automaticToc, /深层标题/);
-  const directoryDom = new JSDOM(automaticToc).window.document;
-  const branch = directoryDom.querySelector('.toc-branch');
-  assert.ok(branch.hasAttribute('open'), '本页目录子节默认展开');
-  assert.equal(branch.querySelector('summary > a .toc-item-title').textContent, '第一节');
-  assert.equal(branch.querySelector(':scope > ul a .toc-item-title').textContent, '小节');
-  assert.ok(branch.querySelector('summary > .directory-chevron'), '展开控制与标题链接应分开');
-  assert.equal(directoryDom.querySelectorAll('a a').length, 0);
-  assert.ok(automatic.indexOf('导言在目录之前。') < automatic.indexOf('class="toc-shell"'));
-  assert.ok(automatic.indexOf('class="toc-shell"') < automatic.indexOf('<h2 id="第一节"'));
-  assert.match(automatic, /class="header-toc-button"/);
-  for (const body of [directoryPage('tocDepth: 0\n'), '---\ntitle: 短页\n---\n## 唯一标题\n正文。\n', '---\ntitle: 无标题\n---\n正文。\n']) {
-    await writeFile(join(directory, 'index.md'), body);
-    build();
-    const hidden = await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8');
-    assert.doesNotMatch(hidden, /id="TableOfContents"|class="header-toc-button"/);
-  }
-  for (const [body, message] of [['> # 引用块中的一级标题', /不能使用一级标题/], ['- # 列表中的一级标题', /不能使用一级标题/], ['> ## 引用块中的二级标题', /二级节标题必须位于正文层级/]]) {
+  // Errors, found by the prebuild.
+  for (const [body, message] of [
+    ['## same\n\n::: theorem {@same}\n正文\n:::', /引用标签与标题自动锚点重复/],
+    ['> # 引用块中的一级标题', /不能使用一级标题/], ['- # 列表中的一级标题', /不能使用一级标题/], ['> ## 引用块中的二级标题', /二级节标题必须位于正文层级/],
+    ['@missing', /content\/wiki\/structure-test\/index.md:4: 引用标签不存在/],
+  ]) {
     await writeFile(join(directory, 'index.md'), `---\ntitle: 编号测试\n---\n${body}\n`);
     assert.throws(() => generatedPages(root), message);
   }
-  await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n@missing\n');
-  assert.throws(() => generatedPages(root), /content\/wiki\/structure-test\/index.md:4: 引用标签不存在/);
 } finally { await rm(root, { recursive: true, force: true }); }

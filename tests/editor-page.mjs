@@ -45,7 +45,7 @@ try {
   // Errors the page logs (CodeMirror reports exceptions in its listeners this way) fail the test at the end.
   const consoleErrors = [];
   // local: as serve without --api serves it (scripts/service/local-edit.mjs), its events sent with emit(name, data).
-  // previewInterval: the least time between previews, in ms; shorter than the site's 3 s but where that is tested.
+  // previewInterval: the least time between previews, in ms; shorter than the site's 3 s.
   function open(path, routes, { storage = {}, checkFailures = 0, local = false, previewInterval = 300 } = {}) {
     const virtualConsole = new VirtualConsole();
     virtualConsole.on('error', (...args) => consoleErrors.push(args.map(String).join(' ')));
@@ -107,10 +107,13 @@ try {
   editor.window.close();
 
   // Logged in. The account links to GitHub. The first preview comes at once; a later edit is previewed after a
-  // pause, never sooner than 3 s after the last request, while the status pulses. A refusal (429) is retried
-  // quietly, a failed request offers a retry, and errors in the draft appear over the preview, not in the status.
+  // pause, never sooner than the interval after the last request (3 s on the site, checked above; shorter here),
+  // while the status pulses. A refusal (429) is retried quietly, a failed request offers a retry, and errors in the
+  // draft appear over the preview, not in the status.
   // Ctrl+S previews at once, but only a changed text. The first load of the instant checks fails, the next works.
   const behaviour = ['ok', '429', 'network', 'ok', '422', 'ok'], times = [];
+  // Short, but well over the instant checks' 300 ms pause.
+  const spacing = 600;
   editor = open('wiki/甲/index.md', {
     me: me(tester), source: page({ file: 'https://github.example/blob/main/content/wiki/甲/index.md' }),
     preview: body => {
@@ -122,7 +125,7 @@ try {
       if (kind === '422') return [422, { ok: false, errors: [{ file: 'content/wiki/甲/index.md', line: 6, message: 'KaTeX 无法解析公式' }] }];
       return [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [{ line: 6, column: 1, target: '乙' }], timings: {} }];
     },
-  }, { checkFailures: 1, previewInterval: 3000 });
+  }, { checkFailures: 1, previewInterval: spacing });
   const status = () => editor.$('.editor-status');
   const pressSave = () => editor.view().contentDOM.dispatchEvent(new editor.window.KeyboardEvent('keydown', { key: 's', ctrlKey: true, bubbles: true, cancelable: true }));
   await until(() => editor.$('.editor-frame').getAttribute('srcdoc'), '首次预览');
@@ -180,7 +183,7 @@ try {
   const saved = JSON.parse(editor.window.localStorage.getItem('banana-editor:wiki/甲/index.md'));
   assert.deepEqual([saved.text, saved.original], [`${source}新增。\n`, original], '修改保存在本机');
   // Typing does not preview; the button and Ctrl+S do (its key in the button's hover text).
-  await delay(2000);
+  await delay(spacing + 400);
   assert.equal(times.length, 1, '输入不触发预览');
   const previewButton = editor.$('.editor-preview-button');
   assert.deepEqual([previewButton.textContent, previewButton.title], ['预览', '预览（Ctrl+S）']);
@@ -211,7 +214,7 @@ try {
   await until(() => !editor.$('.editor-preview-error').hidden, '浏览器发现的错误显示在预览上');
   assert.equal(editor.$('.editor-preview-error h2').textContent, '预览错误');
   assert.equal(editor.$('.editor-preview-error pre').textContent, '第 8 行：引用标签不存在：eq:不存在\n');
-  await delay(3500);
+  await delay(spacing + 500);
   assert.equal(editor.requests.length, requestsBefore, '浏览器发现错误时不请求服务器预览');
   assert.equal(status().textContent, '', '错误不显示在状态中');
   assert.deepEqual([confirmButton().disabled, waitNote().textContent], [true, '预览有错误，修正后才能提交．'], '有错误时不能提交');
@@ -246,7 +249,7 @@ try {
   pressSave();
   await until(() => editor.$('.editor-preview-error').hidden, '成功预览后错误消失');
   assert.ok(!confirmButton().disabled && waitNote().hidden, '成功预览后可以提交');
-  for (let i = 1; i < times.length; i++) assert.ok(times[i] - times[i - 1] >= 2990, `第 ${i + 1} 次预览距上一次不足 3 秒`);
+  for (let i = 1; i < times.length; i++) assert.ok(times[i] - times[i - 1] >= spacing - 10, `第 ${i + 1} 次预览距上一次不足预览间隔`);
   editor.window.close();
 
   // A draft from an earlier visit is restored; the notice can be closed (keeping the draft), and the draft discarded.

@@ -13,6 +13,8 @@ const write = async (file, text) => { await mkdir(join(root, file, '..'), { recu
 const source = (title, body, extra = '') => `---\ntitle: ${title}\n${extra}---\n${body}\n`;
 const generated = (file, extra) => generatedPages(root, extra).get(file).metadata;
 const html = file => readFile(join(root, 'public', file, 'index.html'), 'utf8');
+/** Pages' HTML from the prebuild alone (numbers and references are resolved there): file → html. */
+const prebuilt = (extra) => { const pages = generatedPages(root, extra); return file => pages.get(`${file}/index.md`).html; };
 const config = {
   title: '测试讲义',
   authors: ['甲', '乙'],
@@ -148,13 +150,13 @@ try {
   assert.equal(prefix.object('theorems'), 'T.1');
   assert.throws(() => numbering({ theorems: { depth: 1, absoluteDepth: 1 } }, defaultNumbering), /cannot both be set/);
 
-  // Absolute numbering must also survive the complete cross-page rendering pipeline.
+  // Absolute numbering across the pages of the book.
   await write(marker, stringify({ ...config, numbering: { headings: { depth: 2 }, theorems: { absoluteDepth: 1 } } }));
-  buildProject(root);
-  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 <span class="bm-envnumber">1\.1<\/span>/);
-  assert.match(await html('books/test/first/one'), /bm-envtitle">定理 <span class="bm-envnumber">1\.2<\/span>/);
-  assert.match(await html('books/test/first/two'), /bm-envtitle">定理 <span class="bm-envnumber">1\.3<\/span>/);
-  assert.match(await html('books/test/first/one'), /#thm:two"[^>]*>定理 1\.3/);
+  const absolutePages = prebuilt();
+  assert.match(absolutePages('books/test/first/one'), /bm-envtitle">定理 <span class="bm-envnumber">1\.1<\/span>/);
+  assert.match(absolutePages('books/test/first/one'), /bm-envtitle">定理 <span class="bm-envnumber">1\.2<\/span>/);
+  assert.match(absolutePages('books/test/first/two'), /bm-envtitle">定理 <span class="bm-envnumber">1\.3<\/span>/);
+  assert.match(absolutePages('books/test/first/one'), /#thm:two"[^>]*>定理 1\.3/);
   await write(marker, stringify(config));
 
   // String/list compatibility, explicit fallback, and disabling automatic root contents.
@@ -166,11 +168,9 @@ try {
   assert.doesNotMatch(await html('books/test'), /id="collection-drawer"|class="collection-navigation"/);
   assert.doesNotMatch(await html('books/test'), /class="collection-children"/);
   await write(marker, stringify({ ...config, referenceFormat: '§{number}' }));
-  buildProject(root);
-  assert.match(await html('books/test/first/one'), /#page-title"[^>]*>§1\.2/);
+  assert.match(prebuilt()('books/test/first/one'), /#page-title"[^>]*>§1\.2/);
   await write(marker, stringify({ ...config, referenceFormat: { 1: '章 {number}', default: '§{number}' } }));
-  buildProject(root);
-  assert.match(await html('books/test/first/one'), /#page-title"[^>]*>§1\.2/);
+  assert.match(prebuilt()('books/test/first/one'), /#page-title"[^>]*>§1\.2/);
   await write(marker, stringify({ ...config, referenceFormat: { 0: '非法层级' } }));
   assert.throws(() => generatedPages(root), /referenceFormat/);
   await rm(join(root, 'content/books/test/index.md'));
