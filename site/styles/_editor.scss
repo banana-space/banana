@@ -680,7 +680,8 @@ $editor-changed-color: #6fa8dc;
     padding: 0 0.1rem 0 0.6rem;
   }
 
-  .cm-activeLine {
+  // The lines with a cursor, beneath the selection (main.js, activeLines).
+  .editor-active-line {
     background: rgba($alt-bg-color, 0.6);
   }
 
@@ -724,74 +725,301 @@ $editor-changed-color: #6fa8dc;
     color: $muted-color;
   }
 
-  // Search: matches in the banana yellow, the panel at the bottom like the site's forms.
+  // Search: matches in a pale banana yellow, the selected one (the one a single replacement changes) in the full yellow
+  // with a darker ring. While searching, the text like the selection is not marked too: on top of the matches it
+  // made them nearly as yellow as the selected one.
   .cm-searchMatch {
-    background: rgba($banana-color, 0.35);
+    border-radius: 0.2rem;
+    background: rgba($banana-color, 0.3);
     outline: none;
   }
 
   .cm-searchMatch-selected {
-    background: rgba($banana-color, 0.7);
+    background: $banana-color;
+    box-shadow: 0 0 0 1.5px darken($banana-color, 28%);
+  }
+
+  &:has(.cm-search) .cm-selectionMatch {
+    background: none;
   }
 
   .cm-panels {
     border-color: $border-color;
-    background: $white;
+    background: $alt-bg-color;
     color: $fg-color;
     font-family: $font-family;
     font-size: 1.4rem;
   }
 
   .cm-panels-bottom {
-    border-top: 1.5px solid $border-color;
+    border-top: 1px solid mix($border-color, $alt-bg-color, 60%);
   }
 
+  // The search panel (at the top, main.js) floats over the editor's top right, as in VS Code, clear of the scroll
+  // bar: white, as the tooltips are, its fields grey. CodeMirror keeps it out of the text's way (its height is a
+  // scroll margin: a match scrolled to is not under it). Its corners are its padding wider than the fields'.
+  .cm-panels-top {
+    position: absolute;
+    left: auto;
+    width: min(44rem, 100% - 2.4rem - var(--editor-scrollbar, 0px));
+    // As far from the scroll bar (its width from main.js, adjustSearchPanel; none where it overlays) as from the top.
+    margin: 0.8rem calc(0.8rem + var(--editor-scrollbar, 0px)) 0 0;
+    border: 1px solid $border-color;
+    border-radius: 1.4rem;
+    background: $white;
+    box-shadow: 0 0.4rem 1.6rem rgba($shadow-color, 0.12);
+  }
+
+  // The search field above the replace field, joined into one rounded box split by a line, the buttons beside them;
+  // the options are icons inside the search field, at its end, lit when on (as in VS Code). CodeMirror's panel puts
+  // everything in one element (search field, buttons, options, a <br>, the replace row): a grid places it, both fields
+  // in the first column, which takes what the buttons and the count leave, so that the two line up and the count
+  // never wraps.
   .cm-search {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(11rem, 1fr) repeat(4, auto);
+    row-gap: 1px; // The panel's white between the fields: one line.
     align-items: center;
-    gap: 0.6rem 0.8rem;
-    padding: 0.8rem 3.6rem 0.8rem 1.2rem;
+    padding: 0.6rem 3.2rem 0.6rem 0.6rem;
+    line-height: 1.5;
 
     br {
       display: none;
     }
 
+    [name="search"],
     label {
+      grid-area: 1 / 1;
+    }
+
+    [name="next"] {
+      grid-area: 1 / 2;
+    }
+
+    [name="prev"] {
+      grid-area: 1 / 3;
+    }
+
+    [name="select"] {
+      grid-area: 1 / 4;
+    }
+
+    .cm-search-count {
+      grid-area: 1 / 5;
+    }
+
+    .cm-textfield[name="replace"] {
+      grid-area: 2 / 1;
+    }
+
+    .cm-button[name="replace"] {
+      grid-area: 2 / 2;
+    }
+
+    [name="replaceAll"] {
+      grid-area: 2 / 3;
+    }
+
+    [name="replaceSelection"] {
+      grid-area: 2 / 4;
+    }
+
+    // The buttons: icons alone (their words as tooltips, main.js), plain until pointed at.
+    .cm-button {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      padding: 0;
+      background: none;
       color: $muted-color;
-      font-size: 1.3rem;
+      font-size: 0;
+
+      &::after {
+        width: 1.6rem;
+        height: 1.6rem;
+        background: currentColor;
+        content: "";
+        mask: var(--icon) center / contain no-repeat;
+      }
+
+      &:hover:not(:disabled) {
+        background: rgba($fg-color, 0.07);
+        color: $fg-color;
+      }
+
+      // Nothing to find or to replace.
+      &:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+    }
+
+    // How many matches, after the search row's buttons (main.js, showMatches); wide enough for the usual counts, so
+    // that the fields keep their width as it changes.
+    .cm-search-count {
+      min-width: 3.6rem;
+      margin-left: 0.6rem;
+      color: $muted-color;
+      font-size: 1.2rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    // 0.4rem from the field, 0.2rem apart.
+    [name="next"],
+    .cm-button[name="replace"] {
+      margin-left: 0.4rem;
+    }
+
+    [name="prev"],
+    [name="select"],
+    [name="replaceAll"],
+    [name="replaceSelection"] {
+      margin-left: 0.2rem;
+    }
+
+    [name="next"] {
+      --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2.5v11M3.5 9 8 13.5 12.5 9'/%3E%3C/svg%3E");
+    }
+
+    [name="prev"] {
+      --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 13.5v-11M3.5 7 8 2.5 12.5 7'/%3E%3C/svg%3E");
+    }
+
+    // Matches highlighted on two lines.
+    [name="select"] {
+      --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='5.5' height='4' rx='1' fill='%23000' stroke='none'/%3E%3Crect x='2' y='10' width='5.5' height='4' rx='1' fill='%23000' stroke='none'/%3E%3Cpath d='M1.5 4h1.5M12.5 4h2M9.5 12h5'/%3E%3C/svg%3E");
+    }
+
+    // A match (outlined, top left) becoming its replacement (filled, bottom right), on a 24-unit grid, by an arrow
+    // symmetric about the diagonal: straight out to the top right, round, and straight back in: one; every one (each
+    // square on an outlined one of the same size, behind it at its bottom left, touching); one within the selection (in
+    // its corners).
+    .cm-button[name="replace"] {
+      --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.95' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.48' y='3.98' width='7.05' height='7.05' rx='1.02'/%3E%3Crect x='13.25' y='12.75' width='9' height='9' rx='2' fill='%23000' stroke='none'/%3E%3Cpath d='M12.25 5L14.35 2.9C18.02 -0.77 23.52 4.73 19.85 8.4L17.75 10.5'/%3E%3Cpath d='M20.35 10.5H17.75V7.9'/%3E%3C/svg%3E");
+    }
+
+    [name="replaceAll"] {
+      --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.95' stroke-linecap='round' stroke-linejoin='round'%3E%3Cdefs%3E%3Cmask id='a' maskUnits='userSpaceOnUse' x='0' y='0' width='24' height='24'%3E%3Crect width='24' height='24' fill='%23fff' stroke='none'/%3E%3Crect x='4' y='1' width='8.5' height='8.5' rx='2' fill='%23000' stroke='none'/%3E%3C/mask%3E%3Cmask id='b' maskUnits='userSpaceOnUse' x='0' y='0' width='24' height='24'%3E%3Crect width='24' height='24' fill='%23fff' stroke='none'/%3E%3Crect x='14.75' y='11.5' width='8.5' height='8.5' rx='2' fill='%23000' stroke='none'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='1.73' y='5.22' width='6.55' height='6.55' rx='1.02' mask='url(%23a)'/%3E%3Crect x='4.97' y='1.98' width='6.55' height='6.55' rx='1.02'/%3E%3Crect x='12.47' y='15.72' width='6.55' height='6.55' rx='1.02' mask='url(%23b)'/%3E%3Crect x='14.75' y='11.5' width='8.5' height='8.5' rx='2' fill='%23000' stroke='none'/%3E%3Cpath d='M14 4.75L15.75 3C18.75 0 23.25 4.5 20.25 7.5L18.5 9.25'/%3E%3Cpath d='M21 9.25H18.5V6.75'/%3E%3C/svg%3E");
+    }
+
+    [name="replaceSelection"] {
+      --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.95' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(3.6 3.6) scale(0.7)' stroke-width='2.79'%3E%3Crect x='2.48' y='3.98' width='7.05' height='7.05' rx='1.02'/%3E%3Crect x='13.25' y='12.75' width='9' height='9' rx='2' fill='%23000' stroke='none'/%3E%3Cpath d='M12.25 5L14.35 2.9C18.02 -0.77 23.52 4.73 19.85 8.4L17.75 10.5'/%3E%3Cpath d='M20.35 10.5H17.75V7.9'/%3E%3C/g%3E%3Cpath d='M1 4.25V1H4.25M19.75 1H23V4.25M23 19.75V23H19.75M4.25 23H1V19.75'/%3E%3C/svg%3E");
+    }
+
+    // The options' icons (their words are kept for screen readers and as tooltips, main.js), with the checkbox
+    // hidden but still focusable: at the field's end, three of 2.2rem, 0.2rem apart, 0.3rem from the end.
+    label {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: end;
+      width: 2.2rem;
+      height: 2.2rem;
+      margin: 0;
+      border-radius: 0.4rem;
+      color: $muted-color;
+      font-size: 0;
+      cursor: pointer;
+
+      &::after {
+        width: 1.6rem;
+        height: 1.6rem;
+        background: currentColor;
+        content: "";
+        mask: var(--icon) center / contain no-repeat;
+      }
+
+      &:hover {
+        background: rgba($fg-color, 0.07);
+        color: $fg-color;
+      }
+
+      &:has(input:checked) {
+        background: rgba($link-color, 0.14);
+        color: $link-color;
+      }
+
+      &:has(input:focus-visible) {
+        outline: 1.5px solid $link-color;
+      }
+
+      &:has([name="case"]) {
+        --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.5 12.5 4.5 3.5l3 9M2.6 9.5h3.8M13.5 8v4.5'/%3E%3Ccircle cx='11.25' cy='10.25' r='2.25'/%3E%3C/svg%3E");
+        margin-right: 5.1rem;
+      }
+
+      &:has([name="re"]) {
+        --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 2.5v6M8.4 4l5.2 3M8.4 7l5.2-3'/%3E%3Ccircle cx='3.5' cy='12' r='1.1' fill='%23000'/%3E%3C/svg%3E");
+        margin-right: 2.7rem;
+      }
+
+      &:has([name="word"]) {
+        --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.3 4.7v3.6M9.7 2v6.3M1.5 11v2h13v-2'/%3E%3Ccircle cx='4.5' cy='6.5' r='1.8'/%3E%3Ccircle cx='11.5' cy='6.5' r='1.8'/%3E%3C/svg%3E");
+        margin-right: 0.3rem;
+      }
+
+      input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: 0;
+        opacity: 0;
+      }
     }
   }
 
+  // The fields fill the grid's first column.
   .cm-textfield {
+    width: 100%;
     margin: 0;
-    padding: 0.3rem 0.8rem;
-    border: 1.5px solid $border-color;
+    padding: 0.3rem 0.9rem;
+    border: 0;
     border-radius: 0.8rem;
+    background: $alt-bg-color;
     font: inherit;
 
     &:focus {
-      border-color: $link-color;
+      position: relative;
+      z-index: 1;
       outline: none;
+      box-shadow: 0 0 0 1.5px $link-color;
     }
+  }
+
+  // Room for the options' icons.
+  .cm-textfield[name="search"] {
+    padding-right: 7.6rem;
+  }
+
+  .cm-textfield[name="search"]:has(~ [name="replace"]) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .cm-textfield[name="replace"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 
   .cm-button {
     margin: 0;
-    padding: 0.3rem 1rem;
-    border: 1.5px solid $border-color;
-    border-radius: 0.8rem;
-    background: $white;
+    border: 0;
+    border-radius: 0.4rem;
     background-image: none;
-    color: $fg-color;
     font: inherit;
     cursor: pointer;
 
-    &:hover {
-      border-color: darken($border-color, 15%);
+    &:active {
+      background-image: none;
+    }
+
+    &:focus-visible {
+      outline: 1.5px solid $link-color;
     }
   }
 

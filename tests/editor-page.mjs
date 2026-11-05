@@ -718,13 +718,51 @@ try {
     saveButton.click();
     await until(() => saves.length === 4 && savedAll(), '再次保存');
     assert.equal(diskText, localEditor.text());
+    // The search panel: its buttons and options with their words as tooltips, no browser suggestions in its fields,
+    // and replacing within the selection ($1 a group of a regular expression).
+    const panelView = localEditor.view();
+    panelView.dispatch({ changes: { from: 0, to: panelView.state.doc.length, insert: 'a1 b2\na3 b4\na5\n' } });
+    panelView.dispatch({ selection: { anchor: 3, head: 9 } });
+    panelView.contentDOM.dispatchEvent(new localEditor.window.KeyboardEvent('keydown', { key: 'f', ctrlKey: true, bubbles: true, cancelable: true }));
+    const panel = find('.cm-search');
+    assert.deepEqual([...panel.querySelectorAll('.cm-textfield')].map(field => field.autocomplete), ['off', 'off'], '搜索框不用浏览器的自动填充');
+    assert.deepEqual([...panel.querySelectorAll('button')].map(button => button.title),
+      ['下一个（Enter、F3、Ctrl+G）', '上一个（Shift+Enter、Shift+F3、Shift+Ctrl+G）', '选择全部', '替换（Enter）', '全部替换', '在选区中替换', '关闭（Esc）'], '提示文字与快捷键');
+    const count = () => panel.querySelector('.cm-search-count').textContent;
+    const disabled = () => [...panel.querySelectorAll('button:disabled')].map(button => button.name);
+    assert.equal(panel.querySelector('label:has([name="re"])').title, '正则表达式');
+    const field = (name, value) => {
+      const element = panel.querySelector(`.cm-textfield[name="${name}"]`);
+      element.value = value;
+      element.dispatchEvent(new localEditor.window.Event('change', { bubbles: true }));
+    };
+    // The number of matches, which one the selection is; the replace buttons only with something to replace.
+    field('search', 'x');
+    assert.deepEqual([count(), disabled()], ['无结果', ['next', 'prev', 'select', 'replace', 'replaceAll', 'replaceSelection']]);
+    field('search', 'a');
+    assert.deepEqual([count(), disabled()], ['3 处', []]);
+    field('search', '5');
+    assert.deepEqual([count(), disabled()], ['1 处', ['replaceSelection']], '选区中没有匹配');
+    panel.querySelector('[name="re"]').click();
+    field('search', '([ab])(\\d)');
+    assert.equal(count(), '5 处');
+    field('replace', '$2$1$$');
+    panel.querySelector('[name="replaceSelection"]').click();
+    assert.equal(localEditor.text(), 'a1 2b$\n3a$ b4\na5\n', '只替换选区中的匹配');
+    assert.equal(count(), '3 处', '替换后重新计数');
+    panelView.dispatch({ selection: { anchor: 0, head: 2 } });
+    assert.equal(count(), '1/3', '选中的匹配');
+    localEditor.view().contentDOM.dispatchEvent(new localEditor.window.KeyboardEvent('keydown', { key: 'z', ctrlKey: true, bubbles: true, cancelable: true }));
+    assert.equal(localEditor.text(), 'a1 b2\na3 b4\na5\n', '一次撤销');
+    panelView.dispatch({ changes: { from: 0, to: panelView.state.doc.length, insert: diskText } });
+
     // A commit: the change markers are measured against the new HEAD.
     localEditor.emit('head', { head: diskText });
     await until(() => changedLines() === 0, '提交后修改标记');
     localEditor.window.close();
   }
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、Tab 接受补全与缩进、提交与成功提示、小修改的标记、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面、本地编辑（保存、磁盘上的修改的载入与按行合并、冲突、相对 HEAD 的修改标记）验证通过');
+  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、Tab 接受补全与缩进、提交与成功提示、小修改的标记、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面、本地编辑（保存、磁盘上的修改的载入与按行合并、冲突、相对 HEAD 的修改标记）、搜索面板（提示文字与快捷键、不自动填充、匹配数、无匹配时停用按钮、在选区中替换）验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }

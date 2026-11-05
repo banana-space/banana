@@ -5,12 +5,12 @@
 // no login, no drafts, saving writes the file, and the file's changes on disk come into the editor as they are made.
 import { ChangeSet, Compartment, EditorSelection, EditorState, Prec, RangeSet, StateEffect, StateField, Text, Transaction, countColumn } from '@codemirror/state';
 import {
-  Decoration, EditorView, GutterMarker, WidgetType, crosshairCursor, drawSelection, dropCursor, gutter, highlightActiveLine, highlightActiveLineGutter,
-  highlightSpecialChars, keymap, lineNumbers, rectangularSelection,
+  Decoration, EditorView, GutterMarker, RectangleMarker, WidgetType, crosshairCursor, drawSelection, dropCursor, gutter, highlightActiveLineGutter,
+  highlightSpecialChars, keymap, layer, lineNumbers, rectangularSelection,
 } from '@codemirror/view';
 import { bracketMatching, foldGutter, foldKeymap, getIndentUnit, indentOnInput, indentUnit, syntaxHighlighting } from '@codemirror/language';
 import { defaultKeymap, history, historyKeymap, indentLess, indentMore } from '@codemirror/commands';
-import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
+import { getSearchQuery, highlightSelectionMatches, search, searchKeymap } from '@codemirror/search';
 import { acceptCompletion, autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
@@ -41,6 +41,142 @@ function insertIndentation(view) {
   return true;
 }
 
+/**
+ * The replacement for a match, as CodeMirror's replace commands make it (its own is not public): unless the query is
+ * literal, \n, \r, \t and \\ are those characters; with a regular expression, $& is the match, $1… its groups, $$ a $.
+ */
+function replacementFor(query, match) {
+  const text = query.literal ? query.replace
+    : query.replace.replace(/\\([nrt\\])/g, (_, ch) => ({ n: '\n', r: '\r', t: '\t' })[ch] ?? '\\');
+  if (!query.regexp) return text;
+  return text.replace(/\$([$&]|\d+)/g, (whole, name) => {
+    if (name === '&') return match[0];
+    if (name === '$') return '$';
+    // $12 is group 12 if there is one, otherwise group 1 followed by 2.
+    for (let length = name.length; length > 0; length--) {
+      const number = +name.slice(0, length);
+      if (number > 0 && number < match.length) return match[number] + name.slice(length);
+    }
+    return whole;
+  });
+}
+
+/** Replaces the matches of the search panel's query within the selected text (one edit, undone as one). */
+function replaceInSelection(view) {
+  const { state } = view, query = getSearchQuery(state);
+  if (state.readOnly || !query.valid) return false;
+  const changes = [];
+  for (const range of state.selection.ranges) {
+    if (range.empty) continue;
+    const cursor = query.getCursor(state, range.from, range.to);
+    for (let next = cursor.next(); !next.done; next = cursor.next()) {
+      const { from, to, match } = next.value;
+      changes.push({ from, to, insert: replacementFor(query, match) });
+    }
+  }
+  if (!changes.length) return false;
+  view.dispatch({
+    changes, userEvent: 'input.replace.all',
+    effects: EditorView.announce.of(`${state.phrase('replaced $ matches', changes.length)}.`),
+  });
+  return true;
+}
+
+const mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+/**
+ * The keys of the search panel's buttons, shown in their tooltips (CodeMirror's searchKeymap and its panel's Enter,
+ * written ⏎ on macOS: the menus' ↩ looks like a mere hooked arrow in some browsers' fonts).
+ */
+const searchKeys = mac
+  ? { next: '⏎、F3、⌘G', prev: '⇧⏎、⇧F3、⇧⌘G', replace: '⏎', close: 'Esc' }
+  : { next: 'Enter、F3、Ctrl+G', prev: 'Shift+Enter、Shift+F3、Shift+Ctrl+G', replace: 'Enter', close: 'Esc' };
+
+/**
+ * The search panel as the editor has it: its buttons and options show as icons (_editor.scss), their words (and
+ * keys) as tooltips; a button that replaces within the selection, after "replace all"; the number of matches; no
+ * browser suggestions in its fields; its place beside the scroll bar.
+ */
+function adjustSearchPanel(view) {
+  const panel = view.dom.querySelector('.cm-search');
+  if (!panel) return;
+  if (!panel.dataset.adjusted) {
+    panel.dataset.adjusted = 'true';
+    const all = panel.querySelector('[name="replaceAll"]');
+    if (all) {
+      const button = Object.assign(document.createElement('button'), { type: 'button', name: 'replaceSelection', className: 'cm-button', textContent: text('cm_replace_selection') });
+      button.addEventListener('click', () => replaceInSelection(view));
+      all.after(button);
+    }
+    for (const element of panel.querySelectorAll('label, button')) {
+      const words = element.getAttribute('aria-label') ?? element.textContent.trim(), keys = searchKeys[element.name];
+      element.title = keys ? text('cm_shortcut', { label: words, key: keys }) : words;
+    }
+    for (const field of panel.querySelectorAll('.cm-textfield')) field.autocomplete = 'off';
+    panel.querySelector('[name="select"]').after(Object.assign(document.createElement('span'), { className: 'cm-search-count' }));
+  }
+  // The floating panel keeps as far from the scroll bar as from the top (_editor.scss): the bar's width, none where it
+  // overlays the text or is not there.
+  const bar = `${view.scrollDOM.offsetWidth - view.scrollDOM.clientWidth}px`;
+  if (view.dom.style.getPropertyValue('--editor-scrollbar') !== bar) view.dom.style.setProperty('--editor-scrollbar', bar);
+  showMatches(view, panel);
+}
+
+/**
+ * The number of matches after the search row's buttons (which one the selection is, when it is one); the buttons only
+ * while there is something to find or replace: any match, or for replacing within the selection, one within it.
+ * Counted again only when the text, the selection or the query changed.
+ */
+const counted = new WeakMap(); // view -> { doc, selection, query }
+const maxCount = 9999;
+function showMatches(view, panel) {
+  const { state } = view, query = getSearchQuery(state), last = counted.get(view);
+  if (last && last.doc === state.doc && last.selection === state.selection && last.query.eq(query) && panel.dataset.counted) return;
+  counted.set(view, { doc: state.doc, selection: state.selection, query });
+  panel.dataset.counted = 'true';
+  const { main, ranges } = state.selection, selected = ranges.filter(range => !range.empty);
+  let total = 0, current = 0, inSelection = 0;
+  if (query.valid) {
+    const cursor = query.getCursor(state);
+    for (let next = cursor.next(); !next.done && total < maxCount; next = cursor.next()) {
+      const { from, to } = next.value;
+      total++;
+      if (from === main.from && to === main.to) current = total;
+      if (selected.some(range => range.from <= from && to <= range.to)) inSelection++;
+    }
+  }
+  const shown = total >= maxCount ? `${maxCount}+` : total;
+  panel.querySelector('.cm-search-count').textContent = !query.search ? ''
+    : !total ? text('search_none') : current ? text('search_current', { current, total: shown }) : text('search_total', { total: shown });
+  for (const name of ['next', 'prev', 'select', 'replace', 'replaceAll']) {
+    const button = panel.querySelector(`.cm-button[name="${name}"]`);
+    if (button) button.disabled = !total;
+  }
+  const inside = panel.querySelector('[name="replaceSelection"]');
+  if (inside) inside.disabled = !inSelection;
+}
+
+/**
+ * The lines with a cursor, lit beneath the selection: CodeMirror's highlightActiveLine colours the lines themselves,
+ * over the layer where the selection is drawn. A layer of its own instead, after drawSelection's (later layers lie
+ * lower), as wide as the text.
+ */
+const activeLines = layer({
+  above: false,
+  class: 'editor-active-lines',
+  update: update => update.docChanged || update.selectionSet || update.viewportChanged,
+  markers(view) {
+    const scroller = view.scrollDOM.getBoundingClientRect(), content = view.contentDOM.getBoundingClientRect();
+    // Positions from the scrolled document's corner, as the layer has them.
+    const left = content.left - scroller.left + view.scrollDOM.scrollLeft, top = view.documentTop - scroller.top + view.scrollDOM.scrollTop;
+    const lines = new Map();
+    for (const range of view.state.selection.ranges) {
+      const block = view.lineBlockAt(range.head);
+      lines.set(block.from, new RectangleMarker('editor-active-line', left, top + block.top, content.width, block.height));
+    }
+    return [...lines.values()];
+  },
+});
+
 /** CodeMirror's basicSetup, spelled out so that the fold markers can be the site's chevron. */
 function setup() {
   return [
@@ -59,7 +195,10 @@ function setup() {
     EditorView.domEventHandlers({
       compositionend: (event, view) => { setTimeout(() => { if (afterComposition(view.state)) startCompletion(view); }); },
     }),
-    rectangularSelection(), crosshairCursor(), highlightActiveLine(), highlightSelectionMatches(),
+    rectangularSelection(), crosshairCursor(), activeLines, highlightSelectionMatches(),
+    // The search panel at the top, where it floats over the editor's top right (_editor.scss).
+    search({ top: true }),
+    EditorView.updateListener.of(update => adjustSearchPanel(update.view)),
     EditorState.phrases.of(Object.fromEntries(Object.entries(codemirrorPhrases).map(([phrase, key]) => [phrase, config.strings[key]]))),
     // Ahead of the bracket pairing: "\[" closes with "\]", not "]".
     Prec.high(EditorView.inputHandler.of(pairFormulaDelimiters)),
@@ -741,7 +880,7 @@ async function openPage(path, user, title) {
   }
   // Previews come on request (the button, Ctrl+S or ⌘S), and once when the page opens: previewing while typing
   // kept the preview restless and the server busy.
-  const previewKey = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘S' : 'Ctrl+S';
+  const previewKey = mac ? '⌘S' : 'Ctrl+S';
   const previewButton = $('.editor-preview-button');
   previewButton.title = text('preview_button_title', { key: previewKey });
   previewButton.addEventListener('click', () => schedulePreview(0));
