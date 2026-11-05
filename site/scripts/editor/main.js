@@ -762,7 +762,10 @@ async function openPage(path, user, title) {
 
   // Scrolling either side scrolls the other to the same place, unless the preview shows errors or failed. The
   // preview's source-line marks anchor the two (without them, each "#" heading of the source and its heading in
-  // the preview, both in order); between anchors, positions are interpolated by line.
+  // the preview, both in order); between anchors, positions are interpolated by line. What is matched is the line
+  // 40% down each pane, where the eye is (the source runs about twice as long as the preview, so matching the top
+  // lines left the middles apart); nearer than that to either end of a pane, the point moves to that end, so that
+  // the two panes' tops and ends still meet.
   let headingCache = { doc: null, lines: [] };
   /** Lines (from 1) of the source's headings, outside the front matter and code blocks. */
   function sourceHeadings() {
@@ -832,30 +835,60 @@ async function openPage(path, user, title) {
     syncing = true;
     requestAnimationFrame(() => {
       syncing = false;
-      scrollPreviewTo(sourceTopLine());
+      scrollPreviewTo(sourceAnchorLine());
     });
   }, { passive: true });
-  /** The line at the top of the source, with the fraction of it scrolled past. */
-  function sourceTopLine() {
-    const top = view.scrollDOM.scrollTop, block = view.lineBlockAtHeight(top);
-    return view.state.doc.lineAt(block.from).number + (top - block.top) / (block.height || 1);
+  const anchorAt = 0.4;
+  /**
+   * How far down a pane (height, scrolled to top of at most max) its matched point is: 40%, less near the start
+   * (none at the top) and more near the end (all of it at the end).
+   */
+  const anchorOffset = (top, height, max) => Math.min(Math.max(Math.min(anchorAt * height, top), height - (max - top)), height);
+  /** The scroll position whose matched point is at y (it moves down as the pane scrolls: halving finds it). */
+  function scrollFor(y, height, max) {
+    let low = 0, high = Math.max(max, 0);
+    for (let i = 0; i < 30; i++) {
+      const middle = (low + high) / 2;
+      if (middle + anchorOffset(middle, height, max) < y) low = middle;
+      else high = middle;
+    }
+    return high;
   }
-  function scrollSourceTo(line) {
+  const sourceScroll = () => ({ height: view.scrollDOM.clientHeight, max: view.scrollDOM.scrollHeight - view.scrollDOM.clientHeight });
+  /** The line at the source's matched point, with the fraction of it above that point. */
+  function sourceAnchorLine() {
+    const { height, max } = sourceScroll(), top = view.scrollDOM.scrollTop, y = top + anchorOffset(top, height, max);
+    const block = view.lineBlockAtHeight(y);
+    return view.state.doc.lineAt(block.from).number + (y - block.top) / (block.height || 1);
+  }
+  /** Where a line of the source (with a fraction) is, from the top of the text. */
+  function sourceHeight(line) {
     const doc = view.state.doc, number = Math.min(Math.max(Math.floor(line), 1), doc.lines);
     const block = view.lineBlockAt(doc.line(number).from);
-    view.scrollDOM.scrollTop = block.top + (line - number) * block.height;
+    return { block, y: block.top + (line - number) * block.height };
   }
-  /** The line at the top of the preview, or null without a usable preview. */
-  function previewTopLine() {
+  /** The source's scroll position that puts a line at its matched point. */
+  function sourceScrollFor(line) {
+    const { height, max } = sourceScroll();
+    return scrollFor(sourceHeight(line).y, height, max);
+  }
+  function scrollSourceTo(line) {
+    view.scrollDOM.scrollTop = sourceScrollFor(line);
+  }
+  /** The line at the preview's matched point, or null without a usable preview. */
+  function previewAnchorLine() {
     const points = anchors();
-    return points && between(points, 'y', frames[active].contentWindow.scrollY, 'line');
+    if (!points) return null;
+    const frame = frames[active].contentWindow, max = frame.document.documentElement.scrollHeight - frame.innerHeight;
+    return between(points, 'y', frame.scrollY + anchorOffset(frame.scrollY, frame.innerHeight, max), 'line');
   }
-  /** Scrolls the preview to a line of the source, offset (px) below its top. */
-  function scrollPreviewTo(line, offset = 0) {
+  /** Scrolls the preview to a line of the source: at its matched point, or offset (px) below its top. */
+  function scrollPreviewTo(line, offset) {
     const points = anchors();
     if (!points) return;
-    const frame = frames[active].contentWindow;
-    frame.scrollTo({ top: between(points, 'line', line, 'y') - offset, behavior: 'instant' });
+    const frame = frames[active].contentWindow, y = between(points, 'line', line, 'y');
+    const max = frame.document.documentElement.scrollHeight - frame.innerHeight;
+    frame.scrollTo({ top: offset === undefined ? scrollFor(y, frame.innerHeight, max) : y - offset, behavior: 'instant' });
     previewSeen = { frame, y: frame.scrollY }; // Not the user's scrolling of the preview.
   }
   // The other way: the preview's frame runs no scripts, and Chrome fires no scroll events in it, so its
@@ -871,7 +904,7 @@ async function openPage(path, user, title) {
     if (y === previewSeen.y) return;
     previewSeen.y = y;
     if (Date.now() <= userScroll) return; // The source is being scrolled and leads.
-    const line = previewTopLine();
+    const line = previewAnchorLine();
     if (line !== null) scrollSourceTo(line);
   })();
   function select(anchor, head) {
@@ -1055,9 +1088,9 @@ async function openPage(path, user, title) {
     const panes = $('.editor-panes');
     if (panes.dataset.pane === pane) return;
     // Read while the pane being left is laid out; placed once the other one is. To the preview: the caret's line,
-    // as far down as it is in the source (the top line when the caret is out of sight).
+    // as far down as it is in the source (the matched line when the caret is out of sight).
     const caret = pane === 'preview' ? caretPlace() : null;
-    const line = caret ? caret.line : pane === 'preview' ? sourceTopLine() : previewTopLine();
+    const line = caret ? caret.line : pane === 'preview' ? sourceAnchorLine() : previewAnchorLine();
     panes.dataset.pane = pane;
     for (const tab of root.querySelectorAll('.editor-tab')) tab.setAttribute('aria-selected', String(tab.dataset.pane === pane));
     previewSeen = { frame: null, y: 0 }; // Where the preview stood while hidden says nothing.
@@ -1065,9 +1098,8 @@ async function openPage(path, user, title) {
     if (pane === 'preview') scrollPreviewTo(line, caret?.offset); // Reading its layout lays it out.
     else {
       // Through CodeMirror, which otherwise puts back its own position once it sees itself shown again.
-      const doc = view.state.doc, number = Math.min(Math.max(Math.floor(line), 1), doc.lines);
-      const block = view.lineBlockAt(doc.line(number).from);
-      view.dispatch({ effects: EditorView.scrollIntoView(block.from, { y: 'start', yMargin: -(line - number) * block.height }) });
+      const { block } = sourceHeight(line);
+      view.dispatch({ effects: EditorView.scrollIntoView(block.from, { y: 'start', yMargin: block.top - sourceScrollFor(line) }) });
     }
   }
   // In the one-pane layout the preview tab is the preview button: it previews, and shows the preview once done.
