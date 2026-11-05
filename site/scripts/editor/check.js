@@ -8,7 +8,7 @@ import { checkDocument } from 'bananamark-codemirror';
 import { nameList, pageName } from '../../../scripts/shared/names.mjs';
 
 export { directoryName } from '../../../scripts/shared/names.mjs';
-import { frontMatterProblems } from '../../../scripts/prebuild/front-matter-rules.mjs';
+import { frontMatterProblems, pageKeys } from '../../../scripts/prebuild/front-matter-rules.mjs';
 import { pageTypography } from '../../../scripts/shared/typography.mjs';
 import { siteSyntax } from '../../../scripts/shared/syntax.mjs';
 
@@ -16,9 +16,10 @@ import { siteSyntax } from '../../../scripts/shared/syntax.mjs';
  * Problems in a draft of content/<path>: [{ line, column, message }], lines and columns from 1, the
  * column only where known. The front matter's syntax error alone; otherwise what the editor requires
  * of the front matter, and the body's first error (the preprocessing stops at the first). labels: on a
- * book page, the labels of the book's other pages ({ name, page }, page being its title).
+ * book page, the labels of the book's other pages ({ name, page }, page being its title). local: editing the files
+ * here (scripts/service/local-edit.mjs), where the front matter may have every key a page may have.
  */
-export function check(text, path, labels = []) {
+export function check(text, path, labels = [], { local = false } = {}) {
   const file = `content/${path}`;
   const match = text.match(/^(?:﻿)?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
   let metadata;
@@ -29,7 +30,7 @@ export function check(text, path, labels = []) {
     return [{ line: (position?.line ?? 0) + 1, column: position?.col, message: error.message.split('\n')[0] }];
   }
   if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) return [{ line: 1, message: 'front matter must be a mapping' }];
-  const problems = frontMatterProblems(text);
+  const problems = frontMatterProblems(text, local ? { keys: pageKeys } : undefined);
   const start = match?.[0].length ?? 0;
   const article = path.startsWith('wiki/') && path !== 'wiki/index.md';
   const lineOffset = text.slice(0, start).split('\n').length - 1;

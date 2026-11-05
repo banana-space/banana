@@ -570,6 +570,21 @@ $editor-changed-color: #6fa8dc;
   }
 }
 
+// Lines a change on disk just changed (local editing, main.js, externalLines): lit, fading over three seconds.
+@keyframes editor-external-change {
+  from {
+    background-color: rgba($editor-changed-color, 0.35);
+  }
+
+  to {
+    background-color: rgba($editor-changed-color, 0);
+  }
+}
+
+.editor .editor-source .editor-external-change {
+  animation: editor-external-change 3s ease-out forwards;
+}
+
 // One change below it (main.js, ChangePeek), opened by clicking its marker: as the diff page shows a change
 // (_recent-changes.scss), with buttons to put the original back and to close.
 .editor .editor-source {

@@ -406,3 +406,8 @@ editor_submit_close: 关闭
 editor_submit_failed: 提交失败：{message}
 editor_unchanged: 尚未编辑．
 editor_offline_unsaved: 未能保存草稿，离开页面前保存更改．
+editor_local_save: 保存
+editor_local_save_title: 保存到文件并预览（{key}）
+editor_local_save_failed: "保存失败：{message}"
+editor_local_conflict: 文件在磁盘上被修改了，与你未保存的修改改动了相同的行．下面标出了你的版本与磁盘上版本的差异，请确认后再保存．
+editor_local_open_hint: 输入条目的名称，或 content/ 中的页面路径（如 books/讲义/甲/index.md）．

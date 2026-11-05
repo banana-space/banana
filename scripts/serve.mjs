@@ -9,6 +9,7 @@ import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 import { availableParallelism } from 'node:os';
 import { dirname, extname, join, resolve } from 'node:path';
+import { localEditor, localPrefix } from './service/local-edit.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const destination = join(root, '.build/preview');
@@ -26,6 +27,10 @@ for (let i = 0; i < args.length; i++) {
 }
 if (!Number.isInteger(port) || port < 1 || port > 65535 || !bind) throw new Error(t('serve_invalid_address'));
 const origin = `http://${bind.includes(':') ? `[${bind}]` : bind}:${port}`;
+// Without --api, the editor (/edit/) edits the files here (scripts/service/local-edit.mjs): only on this machine.
+const local = !api && ['127.0.0.1', '::1', 'localhost'].includes(bind)
+  ? localEditor({ root, origin, request: (method, ...args) => service?.request(method, ...args) })
+  : undefined;
 // Two instances would build into the same directories and break each other's builds.
 const lock = join(root, '.build/serve.lock');
 await mkdir(dirname(lock), { recursive: true });
@@ -112,6 +117,10 @@ const server = createServer((request, response) => {
     request.pipe(forward);
     return;
   }
+  if (local && url.pathname.startsWith(localPrefix)) {
+    void local.handle(request, response, url);
+    return;
+  }
   if (path === '/__banana_events') {
     response.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });
     try { response.pagePath = url.searchParams.has('path') ? decodeURIComponent(url.searchParams.get('path')) : undefined; }
@@ -141,7 +150,7 @@ const server = createServer((request, response) => {
   let content = snapshot.get(file) ?? Buffer.from(t('serve_not_found'));
   if (extname(file) === '.html') {
     content = Buffer.from(content.toString('utf8')
-      .replace('<html ', `<html data-preview-revision="${fileRevision(file)}" `)
+      .replace('<html ', `<html data-preview-revision="${fileRevision(file)}" ${local && file === '/edit/index.html' ? 'data-local-edit ' : ''}`)
       .replace('</body>', '<script defer src="/__banana_reload.js"></script></body>'));
   }
   response.writeHead(found ? 200 : 404, {
@@ -158,6 +167,7 @@ function stop(code = 0) {
   clearTimeout(timer);
   for (const watcher of watchers) watcher.close();
   for (const client of clients) client.end();
+  local?.close();
   if (service?.child.exitCode === null && service.child.signalCode === null) {
     const current = service.child;
     current.kill('SIGTERM');
@@ -357,6 +367,8 @@ async function fullBuild() {
   if (first) {
     snapshot = await readSnapshot(destination, new Map(), '', path => path === '/pagefind' || path === '/.pagefind-next');
     revision++;
+    // Pages reload only when they change from here on (an open editor would otherwise lose its unsaved text).
+    for (const file of snapshot.keys()) revisions.set(file, revision);
   } else {
     // The pages that every page's frame shows (the stylesheet, a template) changed for all.
     await mergeFiles(built.result, { all: built.result.written.length > 0 });
@@ -585,6 +597,7 @@ try {
     const watcher = watch(join(root, directory), { recursive: true }, (_event, file) => {
       const change = changeOf(directory, file && String(file).split('\\').join('/'));
       if (change !== undefined) schedule(change);
+      if (directory === 'content' && file) local?.contentChanged(String(file).split('\\').join('/'));
     });
     watcher.on('error', error => { console.error(t('serve_watch_failed', { Message: error.message })); stop(1); });
     watchers.push(watcher);
@@ -602,7 +615,11 @@ try {
   // hold slashes). Not the whole directory: on Linux a recursive watch adds a watch for each of its directories
   // (objects/ alone has hundreds) and reports every object Git writes.
   const watchGit = (directory, recursive, test) => {
-    const watcher = watch(directory, { recursive }, (_event, file) => { if (file && test(String(file).split('\\').join('/'))) schedule('site'); });
+    const watcher = watch(directory, { recursive }, (_event, file) => {
+      if (!file || !test(String(file).split('\\').join('/'))) return;
+      schedule('site');
+      local?.headChanged();
+    });
     watcher.on('error', error => { console.error(t('serve_git_watch_failed', { Message: error.message })); stop(1); });
     watchers.push(watcher);
   };
