@@ -284,4 +284,3 @@ assert.throws(() => transformDocument('::: -remark [寄语]\n二\n:::'), /不再
   }
 }
 
-console.log('structure: passed');

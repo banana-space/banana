@@ -228,5 +228,5 @@ export function editorContent(site, page) {
   </dialog>
   <noscript><p>${t('editor_noscript')}</p></noscript>
   <template id="editor-icons"><span data-icon="close">${icon('close')}</span><span data-icon="chevron">${icon('chevron')}</span></template>
-</section><script type="application/json" id="editor-config">${json({ api: relURL('api/'), check: editorCheck.href, names: names.href, page: page.href, strings })}</script><script type="module" src="${editor.href}"></script>`;
+</section><script type="application/json" id="editor-config">${json({ api: relURL('api/'), previewInterval: 3000, check: editorCheck.href, names: names.href, page: page.href, strings })}</script><script type="module" src="${editor.href}"></script>`;
 }

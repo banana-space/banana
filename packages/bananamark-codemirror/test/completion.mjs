@@ -222,4 +222,3 @@ assert.equal(await accept('甲 <person y¦ />', 'years'), '甲 <person years="¦
   // Options beside it are over bananamark's, as without a dialect.
   assert.deepEqual(await offered('<¦', { tags: { box: { paired: true } } }), ['<lang', '<box']);
 }
-console.log('补全：环境与代码块（行首）、环境标题与标签的简写、条目与别名（[[ 之后至少一个非 $ 字符）、本页与书中其他页面的标签、输入法结束后补全、KaTeX 命令与环境（公式内）、标签与其参数、语言与方向、结束标签、\\[ 回车补全 \\]，条目只取一次验证通过');

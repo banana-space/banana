@@ -131,9 +131,7 @@ try {
     ['wiki/乙/index.md', (await read('wiki/乙/index.md')).replace('。', `。${marker(18)}`)],
     ['books/线性代数拾遗/appendix/index.md', (await read('books/线性代数拾遗/appendix/index.md')) + `\n${marker(19)}\n`],
   ];
-  const started = performance.now();
   const answers = await Promise.all(concurrent.map(([path, text]) => preview(path, text)));
-  const elapsed = performance.now() - started;
   for (const [i, answer] of answers.entries()) {
     assert.ok(answer.html.includes(marker(i)), `第 ${i + 1} 个请求缺少自己的内容`);
     for (let j = 0; j < concurrent.length; j++) if (j !== i) assert.ok(!answer.html.includes(marker(j)), `第 ${i + 1} 个请求混入了第 ${j + 1} 个的内容`);
@@ -221,8 +219,6 @@ try {
   const limitedClosed = once(child, 'close');
   child.kill('SIGTERM');
   await limitedClosed;
-  console.log('API：每个账号同时只有一个预览或检查验证通过');
-  console.log(`API：开发登录、会话与跨站拒绝、源文本；条目、别名、新页面与书册稿件（去掉行号标记后）与完整构建一致、行号标记，稿件之间互不影响，20 个并发预览按序正确（${Math.round(elapsed)} ms），启动预热、稿件不写入文件、错误行号、未发布与重名、请求限制验证通过`);
 } catch (error) {
   if (output) console.error(output);
   throw error;

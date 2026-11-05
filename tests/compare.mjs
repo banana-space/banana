@@ -87,4 +87,3 @@ try {
   await rm(root, { recursive: true, force: true });
 }
 
-console.log('compare tests passed');

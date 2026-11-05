@@ -181,4 +181,3 @@ assert.equal(open, true, 'kept while the pointer is in it');
 document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
 assert.equal(open, false, 'Escape closes it');
 
-console.log('链接预览：定理、公式与前后的段落、列表项、文献、脚注与百科条目的预览（学科导航中也有，整个是到条目的链接，右下有“前往条目”，没有在句末结束时渐隐），其他页面只取一次、链接的地址、图形的 id 改名、补上图形的字体，标题引用、缺失的目标与条目、本页与触摸不预览验证通过');

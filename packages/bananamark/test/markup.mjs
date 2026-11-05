@@ -100,4 +100,3 @@ for (const text of ['@@node:0:node@@', '`@@node:x`', '[a](bananamark:0)']) {
   assert.deepEqual([read('$a $b$', 0), read('$a $b$', 3)], [{ end: 4, value: 'a ', display: false }, { end: 6, value: 'b', display: false }]);
 }
 
-console.log('markup: passed');

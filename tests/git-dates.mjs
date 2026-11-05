@@ -15,12 +15,14 @@ const html = () => readFile(join(root, 'public/wiki/git-date/index.html'), 'utf8
 try {
   await mkdir(join(root, 'content/wiki/git-date'), { recursive: true });
   await writeFile(join(root, file), source('第一次'));
-  buildProject(root);
+  // No fallback to date or file mtime (tests/categories.mjs: no date in the page).
   assert.equal((await generated()).gitLastmod, undefined);
-  assert.doesNotMatch(await html(), /last-modified/); // No fallback to date or file mtime.
+  // Double braces are text (an untracked page: no date).
+  await mkdir(join(root, 'content/wiki/braces'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/braces/index.md'), '---\ntitle: 双花括号\n---\n{{< toc >}} 与 {{% block %}}\n');
   git(['init']);
   git(['add', file]);
-  buildProject(root); // Staged source in a repository with no commits.
+  // Staged source in a repository with no commits.
   assert.equal((await generated()).gitLastmod, undefined);
   git(['commit', '-m', 'First'], '2024-06-01T12:30:00Z');
   buildProject(root);
@@ -28,8 +30,8 @@ try {
   assert.match(await html(), /datetime="2024-06-01T12:30:00Z"/);
   assert.match(await html(), /2024 年 6 月 1 日 12:30 UTC/);
   assert.match(await html(), /data-local-time/);
+  assert.match(await readFile(join(root, 'public/wiki/braces/index.html'), 'utf8'), /\{\{&lt; toc &gt;\}\} 与 \{\{% block %\}\}/);
   await writeFile(join(root, file), source('尚未提交'));
-  buildProject(root);
   assert.equal((await generated()).gitLastmod, '2024-06-01T12:30:00Z');
   git(['add', file]);
   git(['commit', '-m', 'Second'], '2025-08-02T18:00:00+08:00');
@@ -40,11 +42,6 @@ try {
   // A date is the commit's: a page cannot give its own.
   for (const field of ['lastmod', 'gitLastmod']) {
     await writeFile(join(root, file), source('手动日期').replace('title:', `${field}: 2026-01-01\ntitle:`));
-    assert.throws(() => buildProject(root), new RegExp(`不能使用字段 “${field}”`));
+    assert.throws(() => generatedPages(root), new RegExp(`不能使用字段 “${field}”`));
   }
-  // Double braces are text.
-  await writeFile(join(root, file), source('{{< toc >}} 与 {{% block %}}'));
-  buildProject(root);
-  assert.match(await html(), /\{\{&lt; toc &gt;\}\} 与 \{\{% block %\}\}/);
-  console.log('Git 提交者日期、未提交与无历史页面、日期更新、手动日期拒绝及 shortcode 写法作为文字验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

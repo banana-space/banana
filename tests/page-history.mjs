@@ -345,7 +345,6 @@ try {
   assert.deepEqual(recentChanges(new Map([['content/books/书/一/index.md', titled(9, '书')], ['content/books/书/二/index.md', titled(9, '书')]]), records).map(change => [change.book, change.title]),
     [['books/书', undefined]], '只写了讲义名的标题不显示');
   assert.equal(recentChanges(new Map([...['环', '域', '模', 'Abel 群'].map(name => [`content/wiki/${name}/index.md`, history([3])])]), records)[0].items.length, 4, '默认列出所有页面（最多 50 个）');
-  console.log('页面历史：PR 与直接提交的作者（取自 GitHub：缓存、失败时下次再读、没有令牌时只用缓存、服务器的构建）、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序、只写页面名称的标题不显示）、小修改的标记（PR 的提交与合并说明，后来的标记为准）、没有 Git 历史时验证通过');
 } finally {
   fake.close();
   await rm(root, { recursive: true, force: true });

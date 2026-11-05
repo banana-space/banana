@@ -21,9 +21,9 @@ async function until(check, description) {
   throw new Error(`${description} 超时：${output}`);
 }
 // Successful rebuilds; unchanged pages keep their HTML, including the preview revision.
-/** Waits until serve has printed nothing for a second, so no rebuild is still running. */
+/** Waits until serve has printed nothing for half a second (its watcher waits 150 ms), so no rebuild is still running. */
 async function settle() {
-  for (let length = -1; length !== output.length;) { length = output.length; await delay(1000); }
+  for (let length = -1; length !== output.length;) { length = output.length; await delay(500); }
 }
 const completed = () => (output.match(/full build done|updated \d+ page/g) ?? []).length;
 const body = text => `---\ntitle: Live\ncategories: [测试]\nnavboxes: [预览导航]\n---\n## 参考文献* {@sec:ref}\n\n${text}\n\n@sec:ref\n`;
@@ -220,7 +220,7 @@ try {
   const quiet = output.length;
   await writeFile(join(root, 'content/wiki/live/.index.md.tmp'), 'x');
   await rm(join(root, 'content/wiki/live/.index.md.tmp'));
-  await delay(1000);
+  await delay(500); // A rebuild would start 150 ms after the change.
   assert.doesNotMatch(output.slice(quiet), /^prebuild: \d+ pages|body-only change/m);
 
   const nested = join(root, 'content/wiki/added/deep');
@@ -285,7 +285,6 @@ try {
   const [code] = await Promise.race([closed, delay(5000, undefined, { ref: false }).then(() => { throw new Error('Ctrl+C 未停止预览'); })]);
   assert.equal(code, 0);
   await assert.rejects(fetch(base + '/wiki/live/', { signal: AbortSignal.timeout(1000) }), '预览服务器未停止');
-  console.log('serve 的自动预处理、后台写入的搜索索引、front matter 与其他内容修改的部分更新（与完整构建一致）、正文修改单页更新与按页刷新、书册正文修改整组更新、连续保存、错误恢复、嵌套目录与附件增删改名、分类树、提示与导航组件刷新和恢复、预览服务预热及 Ctrl+C 验证通过');
 } finally {
   if (child?.pid) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }

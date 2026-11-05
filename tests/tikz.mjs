@@ -39,7 +39,8 @@ $$
   const old = new Date(Date.now() - 8 * 24 * 3600 * 1000);
   await utimes(join(cache, 'stale.json'), old, old);
   await writeFile(join(cache, 'recent.json'), '{}');
-  buildProject(root, ['--baseURL', 'https://example.org/subdirectory/']);
+  // This build also gives the pages with one worker, compared below with three.
+  buildProject(root, ['--baseURL', 'https://example.org/subdirectory/', '--jobs', '1']);
   assert.deepEqual((await readdir(cache)).sort(), [...cached, 'recent.json'].sort(), 'Pruning keeps the diagrams in use and recent ones, and removes the rest');
   const file = join(root, 'public/wiki/tikz-test/index.html');
   const html = await readFile(file, 'utf8');
@@ -92,15 +93,11 @@ $$
     }
     return result;
   };
-  const outputs = [];
-  for (const jobs of ['1', '3']) {
-    buildProject(root, ['--baseURL', 'https://example.org/subdirectory/', '--jobs', jobs]);
-    outputs.push(await pages());
-  }
+  const outputs = [await pages()];
+  buildProject(root, ['--baseURL', 'https://example.org/subdirectory/', '--jobs', '3']);
+  outputs.push(await pages());
   assert.ok(outputs[0].size > 3);
-  assert.deepEqual(outputs[1], outputs[0], 'The pages depend on the number of workers');
-  assert.equal(outputs[0].get(file), html, 'Diagram IDs depend on the page alone');
+  assert.deepEqual(outputs[1], outputs[0], 'The pages, their diagram IDs among them, depend on the number of workers');
   assert.throws(() => buildProject(root, ['--tikz-timeout', '0']), /--tikz-timeout must be a positive number of seconds/);
 } finally { await rm(root, { recursive: true, force: true }); }
 
-console.log('TikZ 构建：中文与字号、括号和多图、编号引用、字体（子目录中的地址）、重复 SVG 的 ID、与线程数无关、缓存清理、--tikz-timeout 验证通过');

@@ -152,7 +152,7 @@ assert.ok(!nodes('a ~x~ b\n').some(([name]) => /Subscript|Strikethrough/.test(na
 
 // All pages: the grammar finds exactly the formulas the build finds, every wiki link and every environment fence.
 const files = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', 'content/*.md', 'content/**/*.md'], { encoding: 'utf8' }).trim().split('\n');
-let formulas = 0, wikiLinks = 0, fences = 0, slowest = 0;
+let slowest = 0;
 for (const file of files) {
   const text = await readFile(file, 'utf8');
   const front = text.match(/^---\n[\s\S]*?\n---\n/)?.[0].length ?? 0;
@@ -168,7 +168,6 @@ for (const file of files) {
   } });
   const expected = formulaRanges(text.slice(front)).map(({ from, to }) => `${from + front}-${to + front}`);
   assert.deepEqual(math.filter(([from]) => from >= front).map(([from, to]) => `${from}-${to}`), expected, `${file}: formulas`);
-  formulas += expected.length;
   const inside = (ranges, position) => ranges.some(([from, to]) => from <= position && position < to);
   for (let i = text.indexOf('[[', front); i >= 0; i = text.indexOf('[[', i + 1)) {
     const wiki = !inside(code, i) && !inside(math, i) && readWiki(text, i);
@@ -177,14 +176,12 @@ for (const file of files) {
     if (links.get(i) !== wiki.end && !links.has(i + 1) && !/^:::.*\[$/.test(text.slice(text.lastIndexOf('\n', i) + 1, i + 1).trim())) {
       assert.fail(`${file}:${text.slice(0, i).split('\n').length}: wiki link ${text.slice(i, wiki.end)}`);
     }
-    wikiLinks++;
     i = wiki.end - 1;
   }
   let lineStart = front;
   for (const line of text.slice(front).split('\n')) {
     if (/^\s*(?:>\s*)*:::/.test(line) && !inside(code, lineStart)) {
       assert.ok(fenceLines.has(lineStart), `${file}:${text.slice(0, lineStart).split('\n').length}: environment fence`);
-      fences++;
     }
     lineStart += line.length + 1;
   }
@@ -227,4 +224,3 @@ for (const file of files.filter(file => /^content\/(?:wiki|books|help)\//.test(f
   try { transformDocument(text.slice(front.length), { file, lineOffset: front.split('\n').length - 1, checkMath: true, pageAnchor: true }); }
   catch (error) { assert.doesNotMatch(error.message, /公式无法渲染/); }
 }
-console.log(`编辑器语法：页面各部分的高亮、公式内的行、脚注、标签、表格、折叠、回车的缩进、站点代码块的高亮，以及全部 ${files.length} 页的 ${formulas} 个公式（与构建一致）、${wikiLinks} 个百科链接、${fences} 个环境围栏验证通过`);

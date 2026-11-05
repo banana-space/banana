@@ -26,4 +26,3 @@ assert.equal(link.querySelector('.external-link-label').textContent, '某个 ', 
 // Run again: nothing more.
 dom.window.eval(script);
 assert.equal(document.querySelectorAll('.inline-punctuation').length, 2);
-console.log('图与链接后的标点：TikZ 图与外部链接与标点成组、公式（bananamark 已处理）不变、重复运行无变化验证通过');

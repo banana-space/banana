@@ -108,4 +108,3 @@ assert.equal(typesetHTML('<p>中文English。</p>', { lang: 'zh-cn', typography:
 assert.equal(typesetHTML('<p data-typography="off">中文English</p><p>中<span data-typography="boundary"></span>A</p><p data-typography-full-stop="on">汉。</p>', { lang: 'zh-cn' }),
   '<p data-typography="off">中文English</p><p>中<span data-typography="boundary"></span>A</p><p data-typography-full-stop="on">汉．</p>');
 
-console.log('dialect: passed');

@@ -91,7 +91,7 @@ async function browserSearch(site, file, url) {
 const root = await createProject('search');
 const write = async (file, text) => { await mkdir(join(root, file, '..'), { recursive: true }); await writeFile(join(root, file), text); };
 const page = (front, body = '') => `---\n${front}\n---\n${body}\n`;
-const build = (extra = []) => buildProject(root, extra);
+const build = (extra = []) => buildProject(root, extra, { search: true });
 try {
   await rm(join(root, 'content'), { recursive: true, force: true });
   await write('data/categories.yaml', '数学: {}\n代数拓扑:\n  parent: 数学\n  sort: dai shu tuo pu\n');
@@ -324,12 +324,12 @@ try {
 
   // Invalid settings fail in prebuild.
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目\nsearch: true'));
-  assert.throws(() => build(), /search 只能设为 false/);
+  assert.throws(() => generatedPages(root), /search 只能设为 false/);
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目\nsort: 隐藏'));
-  assert.throws(() => build(), /sort 的读音只能由小写字母/);
+  assert.throws(() => generatedPages(root), /sort 的读音只能由小写字母/);
   await write('content/wiki/hidden/index.md', page('title: 隐藏条目'));
   await write('data/readings.yaml', '重数: chong\n');
-  assert.throws(() => build(), /重数 必须只含汉字，读音须为每个字一个音节/);
+  assert.throws(() => generatedPages(root), /重数 必须只含汉字，读音须为每个字一个音节/);
   await write('data/readings.yaml', '');
 
   // A site in a subdirectory gets prefixed result and breadcrumb URLs.
@@ -345,9 +345,8 @@ try {
   assert.equal(nestedUI.config.page, '/docs/search/');
 
   // The preview's diagnostic page is opt-in.
-  buildProject(root, ['--playground']);
+  buildProject(root, ['--playground'], { search: true });
   assert.ok((await readdir(join(root, 'public/pagefind'))).includes('playground'));
 } finally {
   await rm(root, { recursive: true, force: true });
 }
-console.log('search tests passed');

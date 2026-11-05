@@ -56,4 +56,3 @@ assert.deepEqual(entryLines(transformDocument(markSourceLines(bibliography, 3), 
 assert.ok(!transformDocument(bibliography, { lineOffset: 3 }).markdown.includes('\uE000'));
 const formulaText = '甲 $a$ `$b$` \\[\nc\n\\] \\$d$e$\n```\n$f$\n```\n';
 assert.deepEqual(formulaRanges(formulaText).map(({ from, to }) => formulaText.slice(from, to)), ['$a$', '\\[\nc\n\\]', '$e$']);
-console.log('源码行号标记：正文、跨行公式与代码、标题、强调、列表标签、缩进代码块、公式块、表格、引用、作者的标签、分隔线、环境、图片、参考文献的条目、脚注与链接定义，以及公式位置验证通过');

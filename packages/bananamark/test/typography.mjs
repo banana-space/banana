@@ -119,4 +119,3 @@ assert.equal(headingId('<lang ko>漢 字</lang>'), '漢-字');
   assert.equal(typesetHTML(html, { lang: 'zh-cn', typography: { convertFullStop: true, spaceQuotes: true } }), html);
 }
 
-console.log('typography: passed');

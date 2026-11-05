@@ -11,4 +11,3 @@ assert.deepEqual([...minorPages(['改写', 'x\n\nMinor-edit: all\nMajor-edit: wi
 assert.deepEqual([...minorPages(['Minor-edit: wiki/乙', 'Major-edit: all'], pages)], [], '后来的 all 取代之前的单页标记');
 assert.deepEqual([...minorPages(['Minor-edit: wiki/旧丙'], pages)], ['content/wiki/丙/index.md'], '改名的页面也认旧名');
 assert.deepEqual([...minorPages(['没有标记'], pages)], [], '默认都是主要修改');
-console.log('小修改的标记：页面的写法、只读行首、all 与单页的先后、改名、默认验证通过');

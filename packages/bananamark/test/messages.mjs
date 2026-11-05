@@ -32,4 +32,3 @@ for (const key of Object.keys(zh)) assert.deepEqual(values(en[key]), values(zh[k
   assert.throws(() => renderDocument('@nowhere', { locale: 'en' }), /no such label: nowhere/);
 }
 
-console.log('messages: passed');

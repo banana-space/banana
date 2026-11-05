@@ -54,6 +54,19 @@ try {
   await mkdir(directory, { recursive: true });
   const original = `---\ntitle: 引用测试\n---\n${fixture}`;
   await writeFile(join(directory, 'index.md'), original);
+  const nested = `## 目标 {@sec:target}
+
+## 参见 @sec:target 与 @named {@sec:references}
+
+### **子节** @sec:target 与 $A$ {@sub}
+
+@sub
+[见 @sec:target 和 @sub](@sec:references)
+[[顶点代数|参见 @sec:target]]
+
+${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendieck, A.", year: 1960}')}`;
+  await mkdir(join(root, 'content/wiki/nested-reference'), { recursive: true });
+  await writeFile(join(root, 'content/wiki/nested-reference/index.md'), `---\ntitle: 嵌套引用\n---\n${nested}`);
   const build = () => buildProject(root);
   build();
   const html = await readFile(join(root, 'public/wiki/reference-test/index.html'), 'utf8');
@@ -74,20 +87,7 @@ try {
   const generated = generatedPages(root).get('wiki/reference-test/index.md').metadata;
   assert.ok(generated.bibliographyEntries.some(entry => entry.citationAuthor === 'nLab'));
   // 目录复用正文解析后的引用；未编号标题与自定义文字的嵌套引用只能生成一层链接。
-  const nested = `## 目标 {@sec:target}
-
-## 参见 @sec:target 与 @named {@sec:references}
-
-### **子节** @sec:target 与 $A$ {@sub}
-
-@sub
-[见 @sec:target 和 @sub](@sec:references)
-[[顶点代数|参见 @sec:target]]
-
-${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendieck, A.", year: 1960}')}`;
-  await writeFile(join(directory, 'index.md'), `---\ntitle: 嵌套引用\n---\n${nested}`);
-  build();
-  const nestedHtml = await readFile(join(root, 'public/wiki/reference-test/index.html'), 'utf8');
+  const nestedHtml = await readFile(join(root, 'public/wiki/nested-reference/index.html'), 'utf8');
   const toc = nestedHtml.match(/<nav id="TableOfContents"[^>]*>([\s\S]*?)<\/nav>/)[1];
   assert.match(toc, /<span class="toc-section-number directory-number">2<\/span> <span class="toc-item-title directory-item-title">参见第 1 节与 EGA I/);
   assert.equal((toc.match(/<a /g) ?? []).length, 3);
@@ -100,10 +100,9 @@ ${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendie
   assert.throws(() => transformDocument('### A @b {@a}\n\n### B @a {@b}'), /循环引用/);
   // 文献锚点参与标题冲突检查。
   await writeFile(join(directory, 'index.md'), `---\ntitle: 引用测试\n---\n## bib-book\n\n${first}`);
-  assert.throws(build, /引用标签与标题自动锚点重复/);
+  assert.throws(() => generatedPages(root), /引用标签与标题自动锚点重复/);
   // 脚注定义中的引用与百科链接照常转换；引用式链接定义保持原样。
   const footnote = transformDocument('正文[^1]。\n\n[^1]: 见 [@fn, 命题 1] 与 [[群]]。\n\n[x]: https://example.com/[[群]]\n\n' + block('fn: {type: book, title: Footnote book, author: Ann Lee, year: 2017}'));
   assert.match(footnote, /^\[\^1\]: 见 \[\[Lee 2017\]\(⟦citation id="bib-fn" key="fn"⟧\), 命题 1\] 与 \[群\]\(⟦wiki /m);
   assert.match(footnote, /^\[x\]: https:\/\/example\.com\/\[\[群\]\]$/m);
-  console.log('统一 @ 引用、作者排版与作者链接、文献版本与附注、自定义文献标签、多块消歧、代码保护、脚注内引用、目录及嵌套引用验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

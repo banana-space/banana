@@ -50,6 +50,7 @@ A[[t]] \text{$b$}
 ` + '```tex\n$A[[t]]$ [[顶点代数]]\n```';
   await article('link-test', 'title: 链接测试', body);
   const source = await readFile(join(root, 'content/wiki/link-test/index.md'), 'utf8');
+  await article('unsafe-image', 'title: 图', '![图](<x.png" onerror="alert(1)>)');
   const build = (extra = []) => buildProject(root, extra);
   build();
   const html = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
@@ -87,22 +88,20 @@ A[[t]] \text{$b$}
   assert.match(html, /条目尚未创建：草稿/);
   assert.match(await readFile(join(root, 'public/missing/index.html'), 'utf8'), /id="missing-name"/);
   assert.equal(await readFile(join(root, 'content/wiki/link-test/index.md'), 'utf8'), source);
-  build(['--baseURL', 'https://example.org/docs/']);
+  // In a subdirectory, with drafts published.
+  build(['--baseURL', 'https://example.org/docs/', '--buildDrafts']);
   const subpathHTML = await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8');
   assert.match(subpathHTML, /href="\.\.\/\.\.\/categories\/[^\"]+" class="category-link"><svg[^>]+icon-folder/);
   assert.match(subpathHTML, /href="\/docs\/categories\/"/);
   assert.match(subpathHTML, /href="\/docs\/categories\/">分类总览<\/a>/);
-  build(['--buildDrafts']);
   assert.doesNotMatch(await readFile(join(root, 'public/wiki/link-test/index.html'), 'utf8'), /条目尚未创建：草稿/);
   // Links and images: site addresses, http and https (and mailto for links); an image's address is encoded, as a link's.
-  await article('unsafe-image', 'title: 图', '![图](<x.png" onerror="alert(1)>)');
-  build();
   const imageHTML = await readFile(join(root, 'public/wiki/unsafe-image/index.html'), 'utf8');
   assert.match(imageHTML, /<img src="x.png%22%20onerror=%22alert%281%29"/);
   assert.doesNotMatch(imageHTML, / onerror="/);
   for (const [name, body] of [['unsafe-link', '[点](javascript:alert(1))'], ['unsafe-data', '![图](data:image/svg+xml,x)'], ['unsafe-autolink', '<javascript:alert(1)>']]) {
     await article(name, 'title: 链', body);
-    assert.throws(() => build(), /链接或图片的地址只能是站内地址或 http、https/, name);
+    assert.throws(() => generatedPages(root), /链接或图片的地址只能是站内地址或 http、https/, name);
     await rm(join(root, 'content/wiki', name), { recursive: true });
   }
   await rm(join(root, 'content/wiki/unsafe-image'), { recursive: true });
@@ -114,4 +113,3 @@ const name = { textContent: '', dataset: { nameFormat: '“{name}”', titleForm
 const document = { getElementById: id => id === 'missing-name' ? name : null, querySelectorAll: () => [], title: '' };
 runInNewContext(await readFile(join(project, 'site/scripts/missing.js'), 'utf8'), { document, URLSearchParams, window: { location: { search: '?title=%3Cscript%3E' } } });
 assert.equal(name.textContent, '“<script>”');
-console.log('内部链接、数学嵌套与转义、代码保护、实际 URL、缺失条目、草稿、同名冲突及构建时公式渲染验证通过');

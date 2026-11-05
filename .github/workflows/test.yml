@@ -26,6 +26,13 @@ concurrency:
 
 jobs:
   test:
+    # The test files in three parts, each on a machine of its own: a runner has 4 vCPUs but runs only about two
+    # test files at the speed of one.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    name: test (${{ matrix.shard }}/3)
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -36,4 +43,4 @@ jobs:
           cache: npm
       - run: npm ci
 
-      - run: npm test
+      - run: npm test -- --shard ${{ matrix.shard }}/3

@@ -16,6 +16,7 @@ import { siteDiagrams } from './shared/diagrams.mjs';
  * --buildDrafts: publishes drafts. --baseURL (or -b): the site's address.
  * --jobs N: finishing workers (default up to 4). --playground: also Pagefind's diagnostic search page
  * (/pagefind/playground/). --tikz-timeout S: a TikZ diagram's longest compilation, in seconds (default 60).
+ * --no-search: no search index (the tests' fixture sites, most of which never search; some 0.4 s a build).
  */
 
 const args = process.argv.slice(2);
@@ -66,14 +67,14 @@ try {
   const shared = await generator.call('shared', [...attachments.keys()]);
   const entries = manifestEntries(shared.manifest);
   const relatives = await generator.call('renderable');
-  const search = await searchIndexer(output, shared.manifest, { playground: args.includes('--playground') });
+  const search = args.includes('--no-search') ? undefined : await searchIndexer(output, shared.manifest, { playground: args.includes('--playground') });
   const add = (path, document) => timer.time('search: add pages', () => search.add(path, document));
-  const { written } = await publishPages(generator, relatives, { destination: output, diagrams, search: path => entries.get(path), onDocument: add, timer });
+  const { written } = await publishPages(generator, relatives, { destination: output, diagrams, search: search && (path => entries.get(path)), onDocument: search && add, timer });
   await publishShared(generator, shared, { destination: output, diagrams, source: relative => attachments.get(relative) });
   const pagesDone = elapsed(start);
   for (const [name, ms] of await generator.close()) timer.add(name, ms);
-  const indexed = await timer.time('search: write index', () => search.finish());
-  await search.close();
+  const indexed = search ? await timer.time('search: write index', () => search.finish()) : 0;
+  await search?.close();
   const pruned = await timer.time('tikz: prune cache', () => diagrams.prune());
   console.log(headline('site', `${written.length} pages in ${generator.jobs} workers (${pagesDone} ms), ${indexed} indexed for search${pruned ? `, ${pruned} unused TikZ cache files removed` : ''}`, elapsed(start)));
   console.log('  (parse, typography, search document and serialize are summed over the workers)');

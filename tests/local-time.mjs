@@ -79,4 +79,3 @@ for (const [zone, expected] of [['Asia/Shanghai', [false, true, false]], ['UTC',
   const result = JSON.parse(execFileSync(process.execPath, ['--input-type=module', '-e', code], { env: { ...process.env, TZ: zone }, encoding: 'utf8' }));
   assert.deepEqual(result, expected, `${zone}: 同一天的日期只显示一次`);
 }
-console.log('用户时区、夏令时、跨日与跨年、非整小时时差、分钟精度、无效日期回退，今天、昨天与其他年份的日期，以及列表中同一天的日期只显示一次验证通过');

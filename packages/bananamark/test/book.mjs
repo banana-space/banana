@@ -57,4 +57,3 @@ assert.deepEqual(syntax.labels(), [
 assert.match(renderDocument('{@me}\n\n## 节\n\n::: theorem\n甲\n:::\n\n见 @me。', { key: 'me', title: '本页', numbering: { theorems: { depth: 0 } } }).html,
   /bm-envtitle">定理 <span class="bm-envnumber">1<\/span><\/p>[\s\S]*<a href="#page-title" class="bm-reference">本页<\/a>/);
 
-console.log('book: passed');

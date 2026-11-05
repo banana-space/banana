@@ -224,4 +224,3 @@ try {
     assert.match(page, /url\("data:font\/ttf;base64,/);
   } finally { await rm(folder, { recursive: true, force: true }); }
 }
-console.log('tikz: passed');

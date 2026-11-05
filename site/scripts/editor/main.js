@@ -938,7 +938,8 @@ async function openPage(path, user, title) {
       element.replaceChildren(retry);
     } else element.textContent = '';
   }
-  const minInterval = local ? 0 : 3000; // The server allows one preview per account every 3 s.
+  // The server allows one preview per account every 3 s (config.previewInterval, in ms; tests make it shorter).
+  const minInterval = local ? 0 : config.previewInterval;
   // again: a preview was asked for while one was on its way; submitWaiting: the submit button waits for the
   // preview, to open the dialog once it succeeds.
   let again = false, submitWaiting = false;

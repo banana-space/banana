@@ -134,4 +134,3 @@ try {
   rmSync(directory, { recursive: true, force: true });
 }
 
-console.log('command: ok');

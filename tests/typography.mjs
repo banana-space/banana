@@ -173,4 +173,3 @@ $$x + y$$
   // Typesetting the finished page again changes nothing (beyond writing it as parse5 does: KaTeX's HTML is not).
   assert.equal(normalizeHTML(html), serialize(parseHTML(html)));
 } finally { await rm(root, { recursive: true, force: true }); }
-console.log('排版：链接/公式边界、特殊空格、韩文、括号与引号、标题/锚点、三种条目名称、句号开关、参考文献按语言排版及重复构建验证通过');

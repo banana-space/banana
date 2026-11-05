@@ -215,4 +215,3 @@ assert.throws(() => renderDocument('甲', { locale: 'fr' }), /unknown locale "fr
 // Errors carry their message's key and values, and where they are.
 assert.throws(() => renderDocument('\n见 @nowhere。', { file: 'a.md' }), error => error.code === 'label_missing' && error.params.name === 'nowhere' && error.line === 2 && error.column === 3);
 
-console.log('render: passed');

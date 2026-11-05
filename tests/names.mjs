@@ -193,4 +193,3 @@ for (const source of ['无穷范畴', '<script>', '未声明的来源', '', null
   assert.equal(notice.hidden, !['无穷范畴', '<script>'].includes(source));
   assert.equal(caption.textContent, ['无穷范畴', '<script>'].includes(source) ? source : '');
 }
-console.log('公式标题与分类、纯文本名称、名称别名、来源提示、冲突校验、草稿与子路径验证通过');
