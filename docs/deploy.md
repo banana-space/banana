@@ -20,7 +20,7 @@
 `deploy/deploy.sh` 由 systemd 的用户定时器每次部署结束两分钟后运行一次：
 
 1. `build/` 取得 `main` 的最新提交；与 `current` 相同则跳过。
-2. 完整构建（`npm run build`，`package-lock.json` 变化时先 `npm ci`）。失败时记下这个提交，不再重试，直到出现更新的提交；站点与 API 保持原来的版本。
+2. 完整构建（`npm run build`，`package-lock.json` 变化时先 `npm ci`），只带 `api.env` 中的 `BANANA_GITHUB_TOKEN`：页面历史中每次修改的作者向 GitHub 读取（见 [开发文档](README.md)），新合并的 PR 每个两个请求，结果存在 `build/.build/github-authors.json`。失败时记下这个提交，不再重试，直到出现更新的提交；站点与 API 保持原来的版本。
 3. 复制到 `releases/<提交>/`，原子切换 `current`，Apache 不需要重新加载。
 4. `live/` 切换到同一提交，重启 API（约 10 秒）。构建期间 API 一直运行旧版本：它读取自己工作目录中的内容，所以两个工作目录必须分开。
 5. 只保留最近 3 个版本。

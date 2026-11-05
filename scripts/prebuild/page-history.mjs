@@ -2,6 +2,7 @@ import { execFile, spawn } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { promisify } from 'node:util';
 import { hasMarks, minorPages } from '../shared/minor-edits.mjs';
+import { githubAuthors } from './github-authors.mjs';
 
 const run = promisify(execFile);
 
@@ -17,10 +18,12 @@ const legacyFile = 'data/legacy_history.json', formerLegacyFile = 'legacy/histor
  *   沿改名追溯到导入时的路径后取得）。旧站没有的页面（如帮助页面）为空。页面须不晚于它的键首次出现在
  *   这个文件的那次变化加入：网站的首次导入与之后迁移的讲义都是如此，此后以旧站用过的名字新建的页面不算。
  *
- * repository 为 GitHub 上的 owner/name，用来认出复刻中的分支的作者。返回 Map：仓库中的路径（content/…）
- * → { changes, legacy }，只含当前提交中存在的 content/ 中的 Markdown 文件；不是 Git 仓库时为空。
+ * 每次修改的作者（author，不止一人时另有 authors，都是 GitHub 用户名）取自 GitHub（github-authors.mjs）：
+ * repository 为 GitHub 上的 owner/name，github 为 { token, api, cacheFile }；没有 github 或 GitHub 不知道时 author 为 null。
+ * 返回 Map：仓库中的路径（content/…）→ { changes, legacy }，只含当前提交中存在的 content/ 中的 Markdown 文件；
+ * 不是 Git 仓库时为空。
  */
-export async function pageHistories(root, { repository } = {}) {
+export async function pageHistories(root, { repository, github } = {}) {
   let top;
   try {
     top = (await run('git', ['rev-parse', '--show-toplevel'], { cwd: root })).stdout.trim();
@@ -29,34 +32,32 @@ export async function pageHistories(root, { repository } = {}) {
     if (error.code === 128) return new Map(); // A source export without Git history.
     throw error;
   }
-  const owner = repository?.split('/')[0]?.toLowerCase();
   const git = args => run('git', args, { cwd: top, maxBuffer: 1024 * 1024 * 1024 }).then(result => result.stdout);
 
   const present = (await git(['ls-files', '-z', '--', 'content'])).split('\0').filter(path => path.endsWith('.md'));
-  const commits = parseLog(await git(['log', '--first-parent', '-M', '--raw', '--numstat', '-z', '--format=%x1e%H%x1f%P%x1f%cI%x1f%an%x1f%s%x1f%b%x1d', 'HEAD', '--', 'content']));
+  const commits = parseLog(await git(['log', '--first-parent', '-M', '--raw', '--numstat', '-z', '--format=%x1e%H%x1f%P%x1f%cI%x1f%s%x1f%b%x1d', 'HEAD', '--', 'content']));
 
-  // A pull request's branch: who wrote it and when its latest commit was made (the time of the change, as on the
-  // recent changes page; merging comes later).
+  // When a pull request's latest commit was made: the time of the change, as on the recent changes page (merging
+  // comes later).
   const heads = commits.map(commit => commit.parents[1]).filter(Boolean);
-  const branchCommits = new Map();
+  const headTimes = new Map();
   if (heads.length) {
-    const output = await gitWithInput(top, ['log', '--no-walk=unsorted', '--stdin', '--format=%H%x1f%an%x1f%ae%x1f%cI'], heads.join('\n'));
+    const output = await gitWithInput(top, ['log', '--no-walk=unsorted', '--stdin', '--format=%H%x1f%cI'], heads.join('\n'));
     for (const line of output.split('\n').filter(Boolean)) {
-      const [sha, name, email, time] = line.split('\x1f');
-      branchCommits.set(sha, { name, email, time });
+      const [sha, time] = line.split('\x1f');
+      headTimes.set(sha, time);
     }
   }
   const pullRequest = commit => {
-    const match = commit.subject.match(/^Merge pull request #(\d+) from ([\w.-]+)\/(\S+)$/);
-    if (!match || commit.parents.length < 2) return;
-    const [, number, from, branch] = match, head = branchCommits.get(commit.parents[1]);
-    // The online editor's branches are edit/<login>/<hash> (scripts/api/github.mjs); a fork's owner wrote the
-    // rest of its pull requests; otherwise the branch's last author, by GitHub login where the address gives one.
-    const login = branch.match(/^edit\/([A-Za-z0-9-]+)\/[0-9a-f]{12}$/)?.[1]
-      ?? (owner && from.toLowerCase() !== owner ? from : undefined)
-      ?? head?.email.match(/^(?:\d+\+)?([A-Za-z0-9-]+)@users\.noreply\.github\.com$/)?.[1];
-    return { number: Number(number), author: login ?? head?.name ?? null, time: head?.time ?? commit.time };
+    const number = commit.subject.match(/^Merge pull request #(\d+) from \S+$/)?.[1];
+    if (!number || commit.parents.length < 2) return;
+    return { number: Number(number), time: headTimes.get(commit.parents[1]) ?? commit.time };
   };
+  // Who wrote each change, by GitHub: the pull requests merged, and the commits straight on the branch.
+  const pulls = new Map(commits.map(commit => [commit.sha, pullRequest(commit)]).filter(([, pull]) => pull));
+  const found = repository && github
+    ? await githubAuthors({ ...github, repo: repository, pulls: [...pulls.values()].map(pull => pull.number), commits: commits.filter(commit => !pulls.has(commit.sha)).map(commit => commit.sha) })
+    : { pulls: new Map(), commits: new Map() };
 
   // Minor edits: the marks in the messages of the commits each change brought, then in its own.
   const marked = await markedMessages(git);
@@ -70,7 +71,8 @@ export async function pageHistories(root, { repository } = {}) {
   const histories = new Map(present.map(path => [path, { changes: [], legacy: [], origin: undefined, added: undefined }]));
   const names = new Map(present.map(path => [path, path]));
   for (const commit of commits) {
-    const pull = pullRequest(commit), minor = minorOf(commit);
+    const pull = pulls.get(commit.sha), minor = minorOf(commit);
+    const authors = (pull ? found.pulls.get(pull.number) : found.commits.get(commit.sha)) ?? [];
     for (const change of commit.changes) {
       const page = names.get(change.path);
       if (!page) continue;
@@ -78,7 +80,7 @@ export async function pageHistories(root, { repository } = {}) {
       const entry = {
         ...(pull ? { pr: pull.number } : { commit: commit.sha }),
         title: (pull ? commit.body.split('\n')[0].trim() : '') || commit.subject,
-        author: pull ? pull.author : commit.author || null, time: pull ? pull.time : commit.time, merged: commit.time,
+        author: authors[0] ?? null, ...(authors.length > 1 ? { authors } : {}), time: pull ? pull.time : commit.time, merged: commit.time,
         status: change.status, add: change.add, del: change.del, ...(minor.has(change.path) ? { minor: true } : {}),
       };
       // The page's path then, where it differs from now (the diff page asks for the file as the pull request had it).
@@ -170,7 +172,7 @@ function gitWithInput(cwd, args, input) {
 }
 
 /**
- * Parses git log --raw --numstat -z with the format above into [{ sha, parents, time, author, subject, body, changes }]:
+ * Parses git log --raw --numstat -z with the format above into [{ sha, parents, time, subject, body, changes }]:
  * each change { path, previous, status, add, del } (add and del are null for binary files).
  */
 function parseLog(output) {
@@ -178,7 +180,7 @@ function parseLog(output) {
   const commits = [];
   for (const chunk of output.split('\x1e').slice(1)) {
     const end = chunk.indexOf('\x1d');
-    const [sha, parents, time, author, subject, body] = chunk.slice(0, end).split('\x1f');
+    const [sha, parents, time, subject, body] = chunk.slice(0, end).split('\x1f');
     const tokens = chunk.slice(end + 1).split('\0').map(token => token.replace(/^\n/, ''));
     const changes = new Map(), counts = [];
     for (let i = 0; i < tokens.length; i++) {
@@ -202,7 +204,7 @@ function parseLog(output) {
     }
     for (const [path, add, del] of counts) Object.assign(changes.get(path) ?? {}, { add, del });
     pairMoves(changes);
-    commits.push({ sha, parents: parents ? parents.split(' ') : [], time, author, subject, body, changes: [...changes.values()].filter(change => change.path.endsWith('.md') || change.previous?.endsWith('.md')) });
+    commits.push({ sha, parents: parents ? parents.split(' ') : [], time, subject, body, changes: [...changes.values()].filter(change => change.path.endsWith('.md') || change.previous?.endsWith('.md')) });
   }
   return commits;
 }

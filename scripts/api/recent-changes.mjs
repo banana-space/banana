@@ -3,6 +3,7 @@ import { mkdir, rename, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { GitHubError } from './github.mjs';
 import { hasMarks, minorPages } from '../shared/minor-edits.mjs';
+import { editorLogin as editorOf, pullAuthors } from '../shared/github-authors.mjs';
 
 // 最近更改（/recent-changes/）与差异页面（/diff/）的数据：站点仓库最近的 PR（待审阅与已合并，不含关闭未合并的）、
 // 它们修改的文件，以及一个文件在 PR 前后的全文。只读，公开仓库不需要令牌（有令牌时 GitHub 的频率限制宽得多）。
@@ -12,9 +13,10 @@ import { hasMarks, minorPages } from '../shared/minor-edits.mjs';
 
 /**
  * repo is "owner/name". list(page) resolves to { pulls, more }: one page of the recent pull requests, most recently
- * updated first, each { number, url, title, state: 'open' | 'merged', draft, editor, author: { login }, time, created,
+ * updated first, each { number, url, title, state: 'open' | 'merged', draft, editor, author: { login }, authors, time, created,
  * merged, files: [{ path, status, previous, additions, deletions, minor }], fileCount, truncated }; time is when the pull
- * request's latest commit was made (when the change was written, not when it was reviewed), merged when it was merged
+ * request's latest commit was made (when the change was written, not when it was reviewed), authors the GitHub logins of
+ * everyone who wrote it (its author first, then its commits' authors, bots left out), merged when it was merged
  * (null while open); editor is whether the online editor opened it; minor marks a file whose change the pull request
  * marks a minor edit (its commits' messages, and a merged one's merge commit: scripts/shared/minor-edits.mjs); mergeCommit is
  * the commit a merged pull request made on the base branch. diff(number, path) resolves to { pull, file, before,
@@ -37,7 +39,7 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
   const segments = path => path.split('/').map(encodeURIComponent).join('/');
 
   // What never changes, kept across restarts: { kind: Map(key -> value) }, oldest first. Unreadable is empty.
-  const kept = { commits: new Map(), files: new Map(), bases: new Map(), messages: new Map() };
+  const kept = { commits: new Map(), files: new Map(), bases: new Map(), messages: new Map(), authors: new Map() };
   if (cacheFile) {
     try {
       const saved = JSON.parse(readFileSync(cacheFile, 'utf8'));
@@ -90,7 +92,10 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
   }
   const cachedPages = memo(50), cachedPulls = memo(200), cachedTexts = memo(400);
   const cachedFiles = memo(500, 'files'), cachedCommits = memo(2000, 'commits'), cachedBases = memo(2000, 'bases');
-  const cachedMessages = memo(1000, 'messages');
+  const cachedMessages = memo(1000, 'messages'), cachedAuthors = memo(1000, 'authors'), cachedPullCommits = memo(200);
+
+  /** A pull request's commits (the first 250, oldest first), as of its latest commit. */
+  const commitsOf = pull => cachedPullCommits(`${pull.number}@${pull.head.sha}`, () => request(`/pulls/${pull.number}/commits?per_page=100`));
 
   /**
    * When a pull request's latest commit was made (its committer date): the time of the change, which merging later
@@ -123,7 +128,7 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
    */
   const messagesOf = pull => cachedMessages(`${pull.number}@${pull.head.sha}@${pull.merged_at ? pull.merge_commit_sha ?? '' : ''}`, async () => {
     const [commits, merge] = await Promise.all([
-      request(`/pulls/${pull.number}/commits?per_page=100`),
+      commitsOf(pull),
       pull.merged_at && pull.merge_commit_sha ? request(`/commits/${pull.merge_commit_sha}`) : undefined,
     ]);
     return [...commits.map(commit => commit.commit.message), ...(merge ? [merge.commit.message] : [])].filter(hasMarks);
@@ -132,16 +137,21 @@ export function recentPullRequests({ repo, token, api = 'https://api.github.com'
     return [];
   });
 
+  /** The online editor's user, for the pull requests it opened (scripts/shared/github-authors.mjs). */
+  const editorLogin = pull => editorOf(pull, repo);
   /**
-   * The online editor opens its pull requests by the bot from edit/<login>/<hash of path> in the repository itself:
-   * their author is that login, and the editor can add to them (scripts/api/github.mjs).
+   * Who wrote a pull request, by GitHub login: its author, then its commits' authors by the accounts GitHub links them
+   * to (scripts/shared/github-authors.mjs); if its commits cannot be read, its author alone.
    */
-  const editorLogin = pull => pull.head.repo?.full_name?.toLowerCase() === repo.toLowerCase()
-    && pull.head.ref.match(/^edit\/([A-Za-z0-9-]+)\/[0-9a-f]{12}$/)?.[1];
+  const authorsOf = pull => cachedAuthors(`${pull.number}@${pull.head.sha}`, async () => pullAuthors(pull, await commitsOf(pull), repo))
+    .catch(error => {
+      console.error(`[api] ${error.message}`);
+      return pullAuthors(pull, [], repo);
+    });
   const summary = async pull => ({
     number: pull.number, url: pull.html_url, title: pull.title,
     state: pull.merged_at ? 'merged' : 'open', draft: Boolean(pull.draft), editor: Boolean(editorLogin(pull)),
-    author: { login: editorLogin(pull) || pull.user.login }, time: await timeOf(pull), merged: pull.merged_at, created: pull.created_at,
+    author: { login: editorLogin(pull) ?? pull.user.login }, authors: await authorsOf(pull), time: await timeOf(pull), merged: pull.merged_at, created: pull.created_at,
     mergeCommit: pull.merged_at ? pull.merge_commit_sha ?? null : null,
   });
 

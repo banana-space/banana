@@ -2,14 +2,58 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { execFileSync } from 'node:child_process';
-import { createProject, buildProject } from './helpers/project.mjs';
+import { execFile, execFileSync } from 'node:child_process';
+import { createServer } from 'node:http';
+import { once } from 'node:events';
+import { mkdtemp } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { promisify } from 'node:util';
+import { createProject, buildProject, buildEnvironment } from './helpers/project.mjs';
 import { pageHistories } from '../scripts/prebuild/page-history.mjs';
 import { recentChanges } from '../scripts/prebuild/recent-changes.mjs';
 
 // 页面历史（scripts/prebuild/page-history.mjs）：从本地 Git 历史中读出每个页面的 PR 与提交，跟随改名，
-// 认出 PR 的作者与时间；从旧站迁移来的页面另带旧站的修订（data/legacy_history.json，以导入时的路径为键，页面不晚于键加入）；
+// PR 与提交的作者取自 GitHub（scripts/prebuild/github-authors.mjs，这里是模拟的 GitHub），PR 的时间；从旧站迁移来的页面另带旧站的修订（data/legacy_history.json，以导入时的路径为键，页面不晚于键加入）；
 // 构建写出 /history/data/<页面>.json，页面底部链接到 /history/；首页列出最近的几次修改（scripts/prebuild/recent-changes.mjs）。
+// A GitHub of the site's repository (scripts/prebuild/github-authors.mjs reads who wrote each change from it): pull
+// requests by number, with their commits; the commits on the branch by commit.
+const pulls = new Map(), branchCommits = new Map(), requests = [], broken = new Map();
+const user = (login, type = 'User') => ({ login, type });
+/** A merged pull request opened by author, its commits' authors as GitHub links them (a login, null for no account). */
+function pullOnGitHub(number, author, writers, { ref = `branch-${number}`, from = 'banana-space/banana', merged = true } = {}) {
+  pulls.set(number, {
+    pull: { number, merged_at: merged ? '2026-01-01T00:00:00Z' : null, user: user(author), head: { ref, repo: { full_name: from } } },
+    commits: writers.map((writer, i) => ({ sha: `${number}-${i}`, author: typeof writer === 'string' ? user(writer) : writer })),
+  });
+}
+const fake = createServer((request, response) => {
+  const url = new URL(request.url, 'http://localhost'), path = url.pathname.replace(/^\/repos\/banana-space\/banana/, '');
+  requests.push({ path: `${path}${url.search}`, authorization: request.headers.authorization });
+  const reply = (status, value) => { response.writeHead(status, { 'Content-Type': 'application/json' }); response.end(JSON.stringify(value)); };
+  const failure = broken.get(path);
+  if (failure === 'hang') return; // Never answers: the build gives up after its timeout.
+  if (failure) return reply(failure, { message: 'API rate limit exceeded' });
+  let match = path.match(/^\/pulls\/(\d+)(\/commits)?$/);
+  if (match) {
+    const found = pulls.get(Number(match[1]));
+    if (!found) return reply(404, { message: 'Not Found' });
+    if (!match[2]) return reply(200, found.pull);
+    const page = Number(url.searchParams.get('page') ?? 1), size = Number(url.searchParams.get('per_page') ?? 30);
+    return reply(200, found.commits.slice((page - 1) * size, page * size));
+  }
+  match = path.match(/^\/commits\/([0-9a-f]{40})$/);
+  if (match) return reply(200, { sha: match[1], author: branchCommits.has(match[1]) ? branchCommits.get(match[1]) : null });
+  reply(404, { message: 'Not Found' });
+});
+fake.listen(0, '127.0.0.1');
+await once(fake, 'listening');
+const api = `http://127.0.0.1:${fake.address().port}`;
+const cacheDirectory = await mkdtemp(join(tmpdir(), 'banana-github-authors-'));
+const warnings = [];
+const github = { token: 'test-token', api, cacheFile: join(cacheDirectory, 'authors.json'), log: message => warnings.push(message) };
+/** The requests made since the last call, as paths. */
+const since = () => requests.splice(0).map(request => request.path);
+
 const root = await createProject('page-history');
 const page = (title, body) => `---\ntitle: '${title}'\n---\n\n${body}\n`;
 const at = (path, text) => mkdir(join(root, path, '..'), { recursive: true }).then(() => writeFile(join(root, path), text));
@@ -81,30 +125,44 @@ try {
   git(['add', '-A']);
   git(['commit', '-q', '-m', '己的旧站历史'], { date: '2026-08-02T00:00:00Z' });
 
-  const histories = await pageHistories(root, { repository: 'banana-space/banana' });
+  // On GitHub: the editor's pull request is opened by the bot for octo, whose address its commit has; the fork's by its
+  // owner, its commit's address belonging to no account; the book's by maint, with commits by none.
+  pullOnGitHub(1, 'banana-bot', ['octo'], { ref: 'edit/octo/0123456789ab' });
+  pullOnGitHub(2, 'forker', [null], { ref: 'rename', from: 'forker/banana' });
+  pullOnGitHub(3, 'writer', ['writer']);
+  pullOnGitHub(4, 'maint', [null, null]);
+  branchCommits.set(git(['log', '-1', '--format=%H', '--grep=补充帮助']), user('direct'));
+
+  const histories = await pageHistories(root, { repository: 'banana-space/banana', github });
+  const asked = requests.splice(0);
+  assert.deepEqual(asked.map(request => request.path).sort(), [
+    ...[1, 2, 3, 4].flatMap(number => [`/pulls/${number}`, `/pulls/${number}/commits?per_page=100&page=1`]),
+    ...git(['log', '--first-parent', '--no-merges', '--format=%H', 'HEAD', '--', 'content']).split('\n').map(sha => `/commits/${sha}`),
+  ].sort(), '每个合并的 PR 两个请求（PR 与它的提交），每个直接提交一个');
+  assert.ok(asked.every(request => request.authorization === 'Bearer test-token'), '带着令牌');
   const shown = path => histories.get(path).changes.map(({ pr, commit, title, author, time, status, add, del, path: then, previous, import: imported }) =>
     ({ id: pr ?? commit.length, title, author, time, status, add, del, ...(then ? { then } : {}), ...(previous ? { previous } : {}), ...(imported ? { imported } : {}) }));
   const head = git(['rev-list', '--max-parents=0', 'HEAD']);
   assert.equal(histories.get('content/wiki/甲/index.md').changes.at(-1).commit, head);
   assert.deepEqual(shown('content/wiki/甲/index.md'), [
     { id: 1, title: '甲', author: 'octo', time: '2026-03-01T23:00:00Z', status: 'modified', add: 1, del: 1 },
-    { id: 40, title: '香蕉空间', author: 'Maintainer', time: '2026-02-01T00:00:00Z', status: 'added', add: 7, del: 0, imported: true },
-  ], '编辑器的 PR：作者取自分支名，时间是分支上最新提交的时间（不是合并的时间），标题取自合并提交的正文');
+    { id: 40, title: '香蕉空间', author: null, time: '2026-02-01T00:00:00Z', status: 'added', add: 7, del: 0, imported: true },
+  ], '编辑器的 PR：作者是编辑器的用户，不是开 PR 的机器人；时间是分支上最新提交的时间（不是合并的时间），标题取自合并提交的正文；GitHub 不知道作者的提交没有作者（不用 Git 记下的姓名）');
   assert.equal(histories.get('content/wiki/甲/index.md').changes[0].merged, '2026-03-02T08:00:00Z');
   assert.deepEqual(histories.get('content/wiki/甲/index.md').legacy.map(revision => revision.user), ['Bob', 'Ada'], '旧站的修订，最新的在前');
   assert.deepEqual(shown('content/wiki/丙/index.md'), [
     { id: 2, title: '乙改名为丙', author: 'forker', time: '2026-04-01T00:00:00Z', status: 'renamed', add: 1, del: 1, previous: 'wiki/乙/index.md' },
-    { id: 40, title: '香蕉空间', author: 'Maintainer', time: '2026-02-01T00:00:00Z', status: 'added', add: 5, del: 0, then: 'wiki/乙/index.md', imported: true },
-  ], '改名之前的历史跟随旧名；复刻的 PR 的作者是复刻的所有者');
+    { id: 40, title: '香蕉空间', author: null, time: '2026-02-01T00:00:00Z', status: 'added', add: 5, del: 0, then: 'wiki/乙/index.md', imported: true },
+  ], '改名之前的历史跟随旧名；复刻的 PR 的作者是开 PR 的人，提交的邮箱不属于任何账号也不影响');
   assert.deepEqual(histories.get('content/wiki/丙/index.md').legacy.map(revision => revision.user), ['Cy'], '改名的页面带着导入时的名字的旧站历史');
   assert.equal(histories.has('content/wiki/乙/index.md'), false, '只有当前的页面');
   assert.deepEqual(shown('content/wiki/丁/index.md'), [{ id: 3, title: '新页面丁', author: 'writer', time: '2026-05-01T00:00:00Z', status: 'added', add: 5, del: 0 }],
-    '仓库中的分支：作者取自 GitHub 的地址');
+    '仓库中的分支');
   assert.deepEqual(histories.get('content/wiki/丁/index.md').legacy, [], '导入之后新建的页面没有旧站的历史，即使旧站有同名页面');
   assert.deepEqual(histories.get('content/books/戊/index.md').legacy.map(revision => revision.user), ['Dee'], '之后在 PR 中迁移的讲义：页面与旧站历史一起合并');
   assert.deepEqual(histories.get('content/books/己/index.md').legacy.map(revision => revision.user), ['Eve'], '之后迁移的讲义：旧站历史晚于页面加入');
-  assert.deepEqual(shown('content/help/style/index.md').map(change => [change.id, change.title, change.author]), [[40, '补充帮助', 'Direct'], [40, '香蕉空间', 'Maintainer']],
-    '直接提交到分支的提交');
+  assert.deepEqual(shown('content/help/style/index.md').map(change => [change.id, change.title, change.author]), [[40, '补充帮助', 'direct'], [40, '香蕉空间', null]],
+    '直接提交到分支的提交：GitHub 对应到的账号');
   assert.deepEqual(histories.get('content/help/style/index.md').legacy, []);
 
   // The build writes each published page's history with its title and address; the page links to its history.
@@ -151,7 +209,12 @@ try {
   git(['commit', '-q', '-am', '格式'], { date: '2026-10-01T00:00:00Z' });
   git(['checkout', '-q', 'main']);
   git(['merge', '-q', '--no-ff', 'pr-6', '-m', 'Merge pull request #6 from banana-space/format', '-m', '格式\n\nMinor-edit: all'], { date: '2026-10-02T00:00:00Z' });
-  const marked = await pageHistories(root, { repository: 'banana-space/banana' });
+  pullOnGitHub(5, 'linker', ['linker', 'reviewer']);
+  pullOnGitHub(6, 'formatter', ['formatter']);
+  const marked = await pageHistories(root, { repository: 'banana-space/banana', github });
+  assert.deepEqual(since().sort(), [5, 6].flatMap(number => [`/pulls/${number}`, `/pulls/${number}/commits?per_page=100&page=1`]).sort(),
+    '已经读过的 PR 与提交取自缓存，只读取新合并的 PR');
+  assert.deepEqual(marked.get('content/wiki/甲/index.md').changes[0].authors, ['linker', 'reviewer'], '不止一个作者时另有 authors');
   const minor = path => marked.get(path).changes.filter(change => change.pr >= 5).map(change => [change.pr, Boolean(change.minor)]);
   assert.deepEqual(minor('content/wiki/甲/index.md'), [[5, false]], '标为主要修改的页面');
   assert.deepEqual(minor('content/wiki/丁/index.md'), [[6, true], [5, true]], '“all”标出的小修改；合并说明中的标记');
@@ -183,6 +246,63 @@ try {
     { status: 'renamed', then: undefined, previous: 'books/庚/_index.md' },
     { status: 'added', then: 'books/庚/_index.md', previous: undefined },
   ], '同一地址的页面移到另一个文件');
+
+  // Who wrote a pull request is what GitHub says, not the names and addresses in Git: PR 7's commits are by “Real Name”
+  // (an address GitHub links to writer), Helper (twice, spelt two ways), an address of no account and a bot; GitHub lists
+  // 100 commits a page.
+  git(['checkout', '-q', '-b', 'pr-7', 'main']);
+  await at('content/wiki/甲/index.md', page('甲', '甲的第三版正文。\n\n第二段。'));
+  git(['commit', '-q', '-am', '改写甲'], { name: 'Real Name', email: 'real@example.org', date: '2026-11-01T00:00:00Z' });
+  await at('content/wiki/甲/index.md', page('甲', '甲的第三版正文．\n\n第二段．'));
+  git(['commit', '-q', '-am', '格式'], { name: 'formatter[bot]', email: '9+formatter[bot]@users.noreply.github.com', date: '2026-11-01T02:00:00Z' });
+  git(['checkout', '-q', 'main']);
+  git(['merge', '-q', '--no-ff', 'pr-7', '-m', 'Merge pull request #7 from banana-space/rewrite', '-m', '改写甲'], { date: '2026-11-02T00:00:00Z' });
+  pullOnGitHub(7, 'writer', ['writer', ...Array.from({ length: 100 }, (_, i) => i % 2 ? 'helper' : 'Helper'), null, user('formatter[bot]', 'Bot'), 'late']);
+  await at('content/wiki/丁/index.md', page('丁', '直接改丁。'));
+  git(['commit', '-q', '-am', '直接改丁'], { name: 'Real Name', email: 'real@example.org', date: '2026-11-04T00:00:00Z' });
+  const direct = git(['rev-parse', 'HEAD']);
+  branchCommits.set(direct, user('writer'));
+
+  // GitHub does not answer about PR 7 and refuses the commit (the rate limit): the history is complete but for their
+  // authors, which are not kept, so the next build asks again.
+  broken.set('/pulls/7/commits', 'hang').set(`/commits/${direct}`, 403);
+  const failed = await pageHistories(root, { repository: 'banana-space/banana', github: { ...github, timeout: 300 } });
+  assert.deepEqual(['content/wiki/甲/index.md', 'content/wiki/丁/index.md'].map(path => [failed.get(path).changes[0].title, failed.get(path).changes[0].author]),
+    [['改写甲', null], ['直接改丁', null]], '读取失败的修改没有作者');
+  assert.equal(failed.get('content/wiki/甲/index.md').changes[1].author, 'linker', '其余照常');
+  assert.match(warnings.join('\n'), /2 of 4 lookups failed/, '庚的两个直接提交照常读取');
+  since();
+  broken.clear();
+  const byLogin = await pageHistories(root, { repository: 'banana-space/banana', github });
+  assert.deepEqual(since().sort(), ['/pulls/7', '/pulls/7/commits?per_page=100&page=1', '/pulls/7/commits?per_page=100&page=2', `/commits/${direct}`].sort(),
+    '下一次再读取失败的，提交多于 100 个时读取下一页');
+  const latestOf = path => byLogin.get(path).changes[0];
+  assert.deepEqual([latestOf('content/wiki/甲/index.md').author, latestOf('content/wiki/甲/index.md').authors], ['writer', ['writer', 'Helper', 'late']],
+    'PR 的作者在前，再是提交的作者，各一次（不分大小写），机器人与不属于任何账号的提交除外');
+  assert.deepEqual([latestOf('content/wiki/丁/index.md').author, latestOf('content/wiki/丁/index.md').authors], ['writer', undefined], '直接提交的作者');
+
+  // Without the token only what is kept: nothing is asked; with nothing kept, no authors.
+  const offline = await pageHistories(root, { repository: 'banana-space/banana', github: { ...github, token: undefined } });
+  assert.deepEqual(offline.get('content/wiki/甲/index.md').changes[0].authors, ['writer', 'Helper', 'late'], '没有令牌时用缓存');
+  const empty = await pageHistories(root, { repository: 'banana-space/banana', github: { ...github, token: undefined, cacheFile: join(cacheDirectory, 'none.json') } });
+  assert.deepEqual(empty.get('content/wiki/甲/index.md').changes.map(change => change.author), [null, null, null, null], '没有令牌也没有缓存时没有作者');
+  assert.deepEqual(since(), [], '没有令牌时不向 GitHub 读取');
+
+  // The server's build (docs/deploy.md): the full build, given the token and GitHub's address in its environment, as
+  // deploy.sh gives them; the authors are kept in .build/ for the next build, which then needs GitHub for nothing.
+  const build = env => promisify(execFile)(process.execPath, ['scripts/build.mjs'], { cwd: root, env: buildEnvironment(env), maxBuffer: 2 ** 28 });
+  await build({ BANANA_GITHUB_TOKEN: 'server-token', BANANA_GITHUB_API: api });
+  const built = requests.splice(0);
+  assert.ok(built.length >= 15 && built.every(request => request.authorization === 'Bearer server-token'), '构建用环境中的令牌读取全部 PR 与提交');
+  const published = async () => JSON.parse(await readFile(join(root, 'public/history/data/wiki/甲/index.md.json'), 'utf8')).changes.map(change => [change.pr ?? 'commit', change.author, change.authors]);
+  const expected = [[7, 'writer', ['writer', 'Helper', 'late']], [5, 'linker', ['linker', 'reviewer']], [1, 'octo', undefined], ['commit', null, undefined]];
+  assert.deepEqual(await published(), expected, '发布的页面历史带着 GitHub 用户名');
+  assert.ok(existsSync(join(root, '.build/github-authors.json')));
+  for (const path of [...requests, ...built].map(request => request.path.replace(/\?.*/, ''))) broken.set(path, 500);
+  await build({ BANANA_GITHUB_TOKEN: 'server-token', BANANA_GITHUB_API: api });
+  assert.deepEqual(since(), [], '下一次构建不需要读取');
+  assert.deepEqual(await published(), expected);
+  broken.clear();
 
   // Without Git history: no history, and no link to it.
   await rm(join(root, '.git'), { recursive: true, force: true });
@@ -225,5 +345,9 @@ try {
   assert.deepEqual(recentChanges(new Map([['content/books/书/一/index.md', titled(9, '书')], ['content/books/书/二/index.md', titled(9, '书')]]), records).map(change => [change.book, change.title]),
     [['books/书', undefined]], '只写了讲义名的标题不显示');
   assert.equal(recentChanges(new Map([...['环', '域', '模', 'Abel 群'].map(name => [`content/wiki/${name}/index.md`, history([3])])]), records)[0].items.length, 4, '默认列出所有页面（最多 50 个）');
-  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序、只写页面名称的标题不显示）、小修改的标记（PR 的提交与合并说明，后来的标记为准）、没有 Git 历史时验证通过');
-} finally { await rm(root, { recursive: true, force: true }); }
+  console.log('页面历史：PR 与直接提交的作者（取自 GitHub：缓存、失败时下次再读、没有令牌时只用缓存、服务器的构建）、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序、只写页面名称的标题不显示）、小修改的标记（PR 的提交与合并说明，后来的标记为准）、没有 Git 历史时验证通过');
+} finally {
+  fake.close();
+  await rm(root, { recursive: true, force: true });
+  await rm(cacheDirectory, { recursive: true, force: true });
+}

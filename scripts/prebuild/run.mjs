@@ -245,9 +245,12 @@ export async function prebuild({ pages, check = false, frontMatterOnly = false, 
     return true;
   }, source));
   // Each page's Git history: written for the history pages (/history/), and the home page lists the latest changes.
+  // Who wrote each change comes from GitHub, for the history pages only: read with BANANA_GITHUB_TOKEN (the server's
+  // build has it), kept in .build/github-authors.json, which a build without the token reads alone.
   let histories;
   if (!check) histories = await timer.time('git history', async () => {
-    return pageHistories(root, { repository: config.repository });
+    const github = history ? { token: process.env.BANANA_GITHUB_TOKEN || undefined, api: process.env.BANANA_GITHUB_API || undefined, cacheFile: `${root}.build/github-authors.json` } : undefined;
+    return pageHistories(root, { repository: config.repository, github });
   });
   /** The home page's latest changes: set on its record (a copy when given one that is shared); true when they changed. */
   function listRecentChanges(state, copy = false) {
