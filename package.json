@@ -12,7 +12,7 @@
     "check": "node scripts/check.mjs",
     "bench": "node scripts/bench.mjs",
     "compare": "node scripts/compare.mjs",
-    "test": "node --test --test-reporter=./tests/helpers/reporter.mjs tests/*.mjs packages/bananamark/test/index.mjs packages/bananamark-codemirror/test/index.mjs packages/bananamark-tikz/test/tikz.mjs",
+    "test": "node scripts/test.mjs",
     "format": "node scripts/format.mjs"
   },
   "engines": {

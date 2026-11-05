@@ -292,4 +292,4 @@ npm test
 
 `npm run serve` 启动时完整构建一次，再提供本地预览；修改 `content/` 中的页面、附件与导航定义，或 `data/categories.yaml`，会重新处理并刷新浏览器中变化的页面；修改模板、样式、脚本或 `data/site.yaml` 时完整构建。详见 [预览与检查](preview.md)。发布参数可以透传，例如 `npm run serve -- --port 1414 --buildDrafts`。
 
-`npm test` 运行站点的测试（`tests/`）与三个包的测试，各测试文件在单独的进程中并行运行，只输出失败的文件与其输出；单个文件也可以直接运行（`node tests/search.mjs`）。方言本身的测试与规范在 `packages/bananamark/test/`（见 [包的开发](../packages/CONTRIBUTING.md)）。
+`npm test` 运行站点的测试（`tests/`）与三个包的测试，各测试文件在单独的进程中并行运行，只输出失败的文件与其输出（`npm test -- --shard 1/3` 只运行三份中的第一份，CI 分三台机器运行）；单个文件也可以直接运行（`node tests/search.mjs`）。方言本身的测试与规范在 `packages/bananamark/test/`（见 [包的开发](../packages/CONTRIBUTING.md)）。
