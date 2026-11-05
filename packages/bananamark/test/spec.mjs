@@ -110,4 +110,4 @@ if (failures) {
   console.error(`spec: ${failures} of ${count} examples failed`);
   process.exit(1);
 }
-console.log(`spec: ${count} examples passed${update ? ' (updated)' : ''}`);
+if (update) console.log(`spec: ${count} examples updated`);

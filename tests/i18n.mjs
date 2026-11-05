@@ -3,7 +3,7 @@ import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { parse, stringify } from 'yaml';
-import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
+import { createProject, generatedPages } from './helpers/project.mjs';
 import { parse as parseHTML, serialize } from 'parse5';
 import { typesetTree } from 'bananamark/typography';
 import { typography } from '../scripts/shared/typography.mjs';
@@ -57,6 +57,5 @@ try {
   assert.match(missing, /data-name-format="\[\{name\}\]"/);
   assert.match(missing, /<\/span> has no content/);
   await writeFile(join(directory, 'index.md'), '---\ntitle: Translation test\n---\n@missing\n');
-  assert.throws(() => buildProject(root), /index.md:4: 引用标签不存在：missing/);
-  console.log('统一语言文件、预处理输出与错误定位、界面和脚本文字、证明间隔验证通过');
+  assert.throws(() => generatedPages(root), /index.md:4: 引用标签不存在：missing/);
 } finally { await rm(root, { recursive: true, force: true }); }

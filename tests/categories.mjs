@@ -107,5 +107,4 @@ try {
   assert.throws(() => generatedPages(root), /分类存在循环/);
   await writeFile(join(root, 'data/categories.yaml'), '甲:\n  parent: 不存在\n');
   assert.throws(() => generatedPages(root), /分类不存在/);
-  console.log('分类卡片与总览分节、完整祖先导航、直接归属筛选、后代汇总计数、空条目标题、去重、空分类、字母分组与无效配置验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

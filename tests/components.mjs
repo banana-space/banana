@@ -171,16 +171,16 @@ try {
   await writeFile(appendix, appendixSource);
   for (const tag of ['problems', 'disambiguation', 'tip']) {
     await writeFile(page, `---\ntitle: 组件示例\n---\n<${tag}>\n</${tag}>\n\n正文\n`);
-    assert.throws(build, new RegExp(`<${tag}> 的内容不能为空`));
+    assert.throws(() => generatedPages(root), new RegExp(`<${tag}> 的内容不能为空`));
   }
   await writeFile(page, '---\ntitle: 组件示例\n---\n示例 <person name="示例" />\n');
-  assert.throws(build, /<person> 没有参数 name/);
+  assert.throws(() => generatedPages(root), /<person> 没有参数 name/);
   await writeFile(page, '---\ntitle: 组件示例\n---\n示例 <person lang="en" />\n');
-  assert.throws(build, /<person> 至少需要 original、translit、ipa、years 之一/);
+  assert.throws(() => generatedPages(root), /<person> 至少需要 original、translit、ipa、years 之一/);
   // A tag continues on the next lines between its parameters, not within a value or across a blank line.
   for (const tag of ['<person lang="en" ipa="/a\n  b/" />', '<person lang="en"\n\n  ipa="/a/" />', '<person lang="en"\n> ipa="/a/" />']) {
     await writeFile(page, `---\ntitle: 组件示例\n---\n示例 ${tag}\n`);
-    assert.throws(build, /<person> 的写法有误/, tag);
+    assert.throws(() => generatedPages(root), /<person> 的写法有误/, tag);
     assert.throws(() => execFileSync(process.execPath, ['scripts/check.mjs', 'content/wiki/components-example'], { cwd: root, stdio: 'pipe' }), error => /<person> 的写法有误/.test(error.stdout), tag);
   }
   await writeFile(page, '---\ntitle: 组件示例\n---\n示例 <person lang="en"\n  ipa="/a/" />\n');
@@ -191,6 +191,5 @@ try {
   assert.match(normalizeHTML(await readFile(join(root, 'public/wiki/components-example/index.html'), 'utf8')),
     /<blockquote>\s*<blockquote>\s*<p>甲<span class="person-annotations">[\s\S]*?1900<\/span>）<\/span>，乙<\/p>/);
   await writeFile(page, '---\ntitle: 组件示例\n---\n> 甲 <person lang="en"\n> > ipa="/a/" />\n');
-  assert.throws(build, /<person> 的写法有误/);
-  console.log('导航框定义排除及清理、提示标签（图标、引用、本页面、节中的提示、空内容报错、页面描述）、人名注音与生卒年、参见、图片宽度（地址中旧的 ?width= 报错）、默认地址、术语汇总与段落排版、导航当前页识别与自定义地址、分组与链接、假名、人名及最终 Hugo 输出验证通过');
+  assert.throws(() => generatedPages(root), /<person> 的写法有误/);
 } finally { await rm(root, { recursive: true, force: true }); }

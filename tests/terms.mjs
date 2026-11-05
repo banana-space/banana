@@ -46,4 +46,3 @@ const withoutTerms = transform('前段\n```terms\n群: {en: group}\n```\n中段\
 assert.deepEqual(withoutTerms.meta.data.terms.flat().map(term => term.title), ['群', '环']);
 assert.equal(withoutTerms.markdown, '前段\n\n中段\n\n后段');
 
-console.log('terms: passed');

@@ -102,7 +102,7 @@ A[[t]] \text{$b$}
   assert.doesNotMatch(imageHTML, / onerror="/);
   for (const [name, body] of [['unsafe-link', '[点](javascript:alert(1))'], ['unsafe-data', '![图](data:image/svg+xml,x)'], ['unsafe-autolink', '<javascript:alert(1)>']]) {
     await article(name, 'title: 链', body);
-    assert.throws(() => build(), /链接或图片的地址只能是站内地址或 http、https/, name);
+    assert.throws(() => generatedPages(root), /链接或图片的地址只能是站内地址或 http、https/, name);
     await rm(join(root, 'content/wiki', name), { recursive: true });
   }
   await rm(join(root, 'content/wiki/unsafe-image'), { recursive: true });
@@ -114,4 +114,3 @@ const name = { textContent: '', dataset: { nameFormat: '“{name}”', titleForm
 const document = { getElementById: id => id === 'missing-name' ? name : null, querySelectorAll: () => [], title: '' };
 runInNewContext(await readFile(join(project, 'site/scripts/missing.js'), 'utf8'), { document, URLSearchParams, window: { location: { search: '?title=%3Cscript%3E' } } });
 assert.equal(name.textContent, '“<script>”');
-console.log('内部链接、数学嵌套与转义、代码保护、实际 URL、缺失条目、草稿、同名冲突及构建时公式渲染验证通过');

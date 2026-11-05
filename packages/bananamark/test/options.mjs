@@ -85,4 +85,3 @@ assert.throws(() => renderDocument('@x', { locale: 'de', messages: { de: {}, en:
   assert.throws(() => renderDocument('<div>', { tags, locale: 'de', messages: { de: { list_separator: ' / ' } } }), /only <lang> \/ <box>;/);
 }
 
-console.log('options: passed');

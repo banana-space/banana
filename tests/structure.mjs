@@ -1,4 +1,4 @@
-import { createProject, buildProject } from './helpers/project.mjs';
+import { createProject, buildProject, generatedPages } from './helpers/project.mjs';
 import assert from 'node:assert/strict';
 import { parse, stringify } from 'yaml';
 import { JSDOM } from 'jsdom';
@@ -141,7 +141,7 @@ try {
   assert.match(await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8'), /<h2 id="stable"><a class="bm-heading-link"[^>]*>§<\/a><span class="bm-section-number">2<\/span>/);
   // Detect collisions between explicit environment labels and automatic IDs.
   await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n## same\n\n::: theorem {@same}\n正文\n:::');
-  assert.throws(build, /引用标签与标题自动锚点重复/);
+  assert.throws(() => generatedPages(root), /引用标签与标题自动锚点重复/);
   await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n## same\n\n### 名称 {@same}\n');
   build();
   assert.match(await readFile(join(root, 'public/wiki/structure-test/index.html'), 'utf8'), /<h3 id="名称">/);
@@ -225,9 +225,8 @@ try {
   }
   for (const [body, message] of [['> # 引用块中的一级标题', /不能使用一级标题/], ['- # 列表中的一级标题', /不能使用一级标题/], ['> ## 引用块中的二级标题', /二级节标题必须位于正文层级/]]) {
     await writeFile(join(directory, 'index.md'), `---\ntitle: 编号测试\n---\n${body}\n`);
-    assert.throws(build, message);
+    assert.throws(() => generatedPages(root), message);
   }
   await writeFile(join(directory, 'index.md'), '---\ntitle: 编号测试\n---\n@missing\n');
-  assert.throws(build, /content\/wiki\/structure-test\/index.md:4: 引用标签不存在/);
-  console.log('节与统一环境编号、首节前整数编号、星号语法、嵌套列表引用与重排、独立证明、i18n、自动公式、错误定位、锚点稳定性及完整 KaTeX 验证通过');
+  assert.throws(() => generatedPages(root), /content\/wiki\/structure-test\/index.md:4: 引用标签不存在/);
 } finally { await rm(root, { recursive: true, force: true }); }

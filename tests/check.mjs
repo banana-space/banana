@@ -75,5 +75,4 @@ try {
   result = run('check', 'content/wiki/甲', '--json');
   assert.equal(result.status, 1);
   assert.deepEqual(result.json.errors.map(error => error.file), ['content/wiki/重名/index.md']);
-  console.log('检查：收集全部错误、按页面归属、缺失链接、分节目录与 JSON 输出验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

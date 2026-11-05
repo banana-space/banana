@@ -12,6 +12,8 @@ try {
   const html = await readFile(join(root, 'public/edit/index.html'), 'utf8');
   const config = JSON.parse(html.match(/<script type="?application\/json"? id="?editor-config"?>(.*?)<\/script>/s)[1]);
   assert.equal(config.api, '/api/');
+  assert.equal(config.previewInterval, 3000, '前端的预览间隔与服务器的默认值一致');
+  assert.ok(html.includes('"previewInterval":3000'), 'open() 替换预览间隔的写法');
   assert.equal(config.strings.missing_link, '条目 “{name}” 不存在');
   const script = html.match(/<script type="?module"? src="?(\/js\/editor\.[0-9a-f]+\.js)"?/)[1];
   // The bundle is an ES module without imports; as a function body it runs in jsdom, which has no modules.
@@ -43,11 +45,13 @@ try {
   // Errors the page logs (CodeMirror reports exceptions in its listeners this way) fail the test at the end.
   const consoleErrors = [];
   // local: as serve without --api serves it (scripts/service/local-edit.mjs), its events sent with emit(name, data).
-  function open(path, routes, { storage = {}, checkFailures = 0, local = false } = {}) {
+  // previewInterval: the least time between previews, in ms; shorter than the site's 3 s but where that is tested.
+  function open(path, routes, { storage = {}, checkFailures = 0, local = false, previewInterval = 300 } = {}) {
     const virtualConsole = new VirtualConsole();
     virtualConsole.on('error', (...args) => consoleErrors.push(args.map(String).join(' ')));
     virtualConsole.on('jsdomError', error => { if (!/Not implemented/.test(error.message)) consoleErrors.push(error.message); });
-    const dom = new JSDOM(local ? html.replace('<html ', '<html data-local-edit ') : html, { url: `http://site.test/edit/${path.startsWith('?') ? path : path ? `?path=${encodeURIComponent(path)}` : ''}`, runScripts: 'outside-only', pretendToBeVisual: true, virtualConsole });
+    const page = html.replace('"previewInterval":3000', `"previewInterval":${previewInterval}`);
+    const dom = new JSDOM(local ? page.replace('<html ', '<html data-local-edit ') : page, { url: `http://site.test/edit/${path.startsWith('?') ? path : path ? `?path=${encodeURIComponent(path)}` : ''}`, runScripts: 'outside-only', pretendToBeVisual: true, virtualConsole });
     const { window } = dom;
     for (const [key, value] of Object.entries(storage)) window.localStorage.setItem(key, JSON.stringify(value));
     // jsdom has no layout; CodeMirror measures text ranges.
@@ -118,7 +122,7 @@ try {
       if (kind === '422') return [422, { ok: false, errors: [{ file: 'content/wiki/甲/index.md', line: 6, message: 'KaTeX 无法解析公式' }] }];
       return [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [{ line: 6, column: 1, target: '乙' }], timings: {} }];
     },
-  }, { checkFailures: 1 });
+  }, { checkFailures: 1, previewInterval: 3000 });
   const status = () => editor.$('.editor-status');
   const pressSave = () => editor.view().contentDOM.dispatchEvent(new editor.window.KeyboardEvent('keydown', { key: 's', ctrlKey: true, bubbles: true, cancelable: true }));
   await until(() => editor.$('.editor-frame').getAttribute('srcdoc'), '首次预览');
@@ -762,7 +766,6 @@ try {
     localEditor.window.close();
   }
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、Tab 接受补全与缩进、提交与成功提示、小修改的标记、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面、本地编辑（保存、磁盘上的修改的载入与按行合并、冲突、相对 HEAD 的修改标记）、搜索面板（提示文字与快捷键、不自动填充、匹配数、无匹配时停用按钮、在选区中替换）验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }

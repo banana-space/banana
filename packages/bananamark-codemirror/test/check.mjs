@@ -35,4 +35,3 @@ assert.deepEqual(problemRange(doc, 2, 3), { from: 4, to: 10 });
 assert.deepEqual(problemRange(doc, 2, 12), { from: 13, to: 14 });
 assert.deepEqual(problemRange(doc, 1), { from: 0, to: 1 });
 assert.deepEqual(problemRange(doc, 9), { from: 2, to: 15 }, 'a line past the end: the last');
-console.log('检查：第一个错误及其行列、KaTeX、选项、书中的页面、标出的范围验证通过');

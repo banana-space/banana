@@ -80,7 +80,6 @@ assert.match(css, /\.content \[id\]\s*\{\s*scroll-margin-top: var\(--anchor-offs
 assert.doesNotMatch(css, /scroll-padding-top\s*:/);
 assert.match(css, /scroll-behavior: smooth/);
 assert.match(css, /prefers-reduced-motion: reduce[\s\S]*scroll-behavior: auto/);
-console.log('导航栏动态滚动偏移、直接锚点 URL、无效 fragment、再次点击文献引用时重新标出、动画与减少动态效果偏好验证通过');
 
 // Exercise the reading controls with a small DOM fixture; the actual responsive
 // layout and native fragment scrolling are also checked in a browser.
@@ -266,7 +265,6 @@ assert.equal(home.search.classList.contains('is-open'), false, '另一个搜索�
 assert.equal(home.doc.activeElement, home.homeInput, '焦点留在正在输入的搜索框');
 home.homeInput.value = ''; home.homeInput.emit('search');
 assert.equal(home.input.value, '', 'Esc 清空首页的搜索框时顶栏的也清空');
-console.log('目录滚动高亮、浮层迁移、原生链接、互斥面板、键盘焦点、手机全屏搜索、首页两个搜索框的文字同步及无目录页面验证通过');
 
 // The missing-article page fills in the name after the typography pass, so it
 // applies the curly-quote spacing itself.
@@ -283,4 +281,3 @@ assert.deepEqual(missingPage('?title=上同调'), { text: '“上同调” 目�
 assert.equal(missingPage('?title=上同调', '关于').text, '关于 “上同调” 目前还没有内容．');
 assert.equal(missingPage('?title=%24%26', '', ', see').text, '“$&”, see');
 assert.equal(missingPage('').text, '你访问的条目目前还没有内容．');
-console.log('缺失条目名称的引号间距验证通过');

@@ -20,7 +20,7 @@ try {
   assert.doesNotMatch(await html(), /last-modified/); // No fallback to date or file mtime.
   git(['init']);
   git(['add', file]);
-  buildProject(root); // Staged source in a repository with no commits.
+  // Staged source in a repository with no commits.
   assert.equal((await generated()).gitLastmod, undefined);
   git(['commit', '-m', 'First'], '2024-06-01T12:30:00Z');
   buildProject(root);
@@ -29,7 +29,6 @@ try {
   assert.match(await html(), /2024 年 6 月 1 日 12:30 UTC/);
   assert.match(await html(), /data-local-time/);
   await writeFile(join(root, file), source('尚未提交'));
-  buildProject(root);
   assert.equal((await generated()).gitLastmod, '2024-06-01T12:30:00Z');
   git(['add', file]);
   git(['commit', '-m', 'Second'], '2025-08-02T18:00:00+08:00');
@@ -40,11 +39,10 @@ try {
   // A date is the commit's: a page cannot give its own.
   for (const field of ['lastmod', 'gitLastmod']) {
     await writeFile(join(root, file), source('手动日期').replace('title:', `${field}: 2026-01-01\ntitle:`));
-    assert.throws(() => buildProject(root), new RegExp(`不能使用字段 “${field}”`));
+    assert.throws(() => generatedPages(root), new RegExp(`不能使用字段 “${field}”`));
   }
   // Double braces are text.
   await writeFile(join(root, file), source('{{< toc >}} 与 {{% block %}}'));
   buildProject(root);
   assert.match(await html(), /\{\{&lt; toc &gt;\}\} 与 \{\{% block %\}\}/);
-  console.log('Git 提交者日期、未提交与无历史页面、日期更新、手动日期拒绝及 shortcode 写法作为文字验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

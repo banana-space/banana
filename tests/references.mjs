@@ -100,10 +100,9 @@ ${block('named: {type: book, label: "EGA I", title: Example, author: "Grothendie
   assert.throws(() => transformDocument('### A @b {@a}\n\n### B @a {@b}'), /循环引用/);
   // 文献锚点参与标题冲突检查。
   await writeFile(join(directory, 'index.md'), `---\ntitle: 引用测试\n---\n## bib-book\n\n${first}`);
-  assert.throws(build, /引用标签与标题自动锚点重复/);
+  assert.throws(() => generatedPages(root), /引用标签与标题自动锚点重复/);
   // 脚注定义中的引用与百科链接照常转换；引用式链接定义保持原样。
   const footnote = transformDocument('正文[^1]。\n\n[^1]: 见 [@fn, 命题 1] 与 [[群]]。\n\n[x]: https://example.com/[[群]]\n\n' + block('fn: {type: book, title: Footnote book, author: Ann Lee, year: 2017}'));
   assert.match(footnote, /^\[\^1\]: 见 \[\[Lee 2017\]\(⟦citation id="bib-fn" key="fn"⟧\), 命题 1\] 与 \[群\]\(⟦wiki /m);
   assert.match(footnote, /^\[x\]: https:\/\/example\.com\/\[\[群\]\]$/m);
-  console.log('统一 @ 引用、作者排版与作者链接、文献版本与附注、自定义文献标签、多块消歧、代码保护、脚注内引用、目录及嵌套引用验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

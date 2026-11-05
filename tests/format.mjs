@@ -146,5 +146,4 @@ try {
     while (html[i] === after.get(path)[i]) i++;
     assert.fail(`${path} changed:\n  before: ${html.slice(i - 100, i + 100)}\n  after:  ${after.get(path).slice(i - 100, i + 100)}`);
   }
-  console.log(`源文件排版：导言区后的空行、行间公式独占一行及缩进、100 列换行（断行位置的优先级、列表与引用的续行、不可断开处）、幂等，以及排版前后构建的页面一致（${before.size} 页）验证通过`);
 } finally { await rm(root, { recursive: true, force: true }); }

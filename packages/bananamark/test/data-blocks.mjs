@@ -49,4 +49,3 @@ assert.deepEqual(book.render(first).data.notes, ['甲']);
 assert.deepEqual(book.render(second).data.notes, []);
 assert.deepEqual(createProcessor().render('正文').data, {});
 
-console.log('data blocks: passed');

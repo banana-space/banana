@@ -103,4 +103,3 @@ $$
   assert.throws(() => buildProject(root, ['--tikz-timeout', '0']), /--tikz-timeout must be a positive number of seconds/);
 } finally { await rm(root, { recursive: true, force: true }); }
 
-console.log('TikZ 构建：中文与字号、括号和多图、编号引用、字体（子目录中的地址）、重复 SVG 的 ID、与线程数无关、缓存清理、--tikz-timeout 验证通过');

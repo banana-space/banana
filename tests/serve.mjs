@@ -285,7 +285,6 @@ try {
   const [code] = await Promise.race([closed, delay(5000, undefined, { ref: false }).then(() => { throw new Error('Ctrl+C 未停止预览'); })]);
   assert.equal(code, 0);
   await assert.rejects(fetch(base + '/wiki/live/', { signal: AbortSignal.timeout(1000) }), '预览服务器未停止');
-  console.log('serve 的自动预处理、后台写入的搜索索引、front matter 与其他内容修改的部分更新（与完整构建一致）、正文修改单页更新与按页刷新、书册正文修改整组更新、连续保存、错误恢复、嵌套目录与附件增删改名、分类树、提示与导航组件刷新和恢复、预览服务预热及 Ctrl+C 验证通过');
 } finally {
   if (child?.pid) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }

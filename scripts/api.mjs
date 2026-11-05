@@ -25,8 +25,9 @@ import { displayTitle } from './shared/display-title.mjs';
 //   --public-url <地址>              浏览器访问站点（与 /api/）的地址，用于登录回调，默认为 base-url 的源
 //   --github-repo owner/name         提交 PR 的仓库；--github-base main 为目标分支
 //   --preview-interval <秒>          每个账号的预览频率：可以连续预览 3 次，之后每隔这么久恢复一次，默认 3；
-//                                    检查的最短间隔为它的 1/3，提交为 5 倍；每个账号同时只能有一个预览或检查
+//                                    检查的最短间隔为它的 1/3；每个账号同时只能有一个预览或检查
 //                                    在排队或进行中。0 取消这些按账号的限制（测试用）
+//   --submit-interval <秒>           每个账号两次提交的最短间隔，默认为 --preview-interval 的 5 倍
 //   --dev-user <login>               本地开发：不经 GitHub，直接以该用户登录（只允许监听本机地址时使用）
 //   --env-file <文件>                先从该文件读取环境变量（KEY=value 每行一个，如 .env.api，已被 git 忽略）
 //   --environment production         资源文件名的环境（与正式构建一致才能用上网站的样式与脚本），默认 production
@@ -82,18 +83,20 @@ const sessionDays = 30;
 const args = process.argv.slice(2);
 const options = {
   port: 8787, bind: '127.0.0.1', baseURL: undefined, publicURL: undefined, environment: 'production',
-  previewInterval: 3, githubRepo: undefined, githubBase: 'main', devUser: undefined, envFile: undefined,
+  previewInterval: 3, submitInterval: undefined, githubRepo: undefined, githubBase: 'main', devUser: undefined, envFile: undefined,
 };
-const names = { 'base-url': 'baseURL', 'public-url': 'publicURL', 'preview-interval': 'previewInterval', 'github-repo': 'githubRepo', 'github-base': 'githubBase', 'dev-user': 'devUser', 'env-file': 'envFile' };
+const names = { 'base-url': 'baseURL', 'public-url': 'publicURL', 'preview-interval': 'previewInterval', 'submit-interval': 'submitInterval', 'github-repo': 'githubRepo', 'github-base': 'githubBase', 'dev-user': 'devUser', 'env-file': 'envFile' };
 for (let i = 0; i < args.length; i++) {
-  const match = args[i].match(/^--(port|bind|base-url|public-url|environment|preview-interval|github-repo|github-base|dev-user|env-file)(?:=(.*))?$/);
+  const match = args[i].match(/^--(port|bind|base-url|public-url|environment|preview-interval|submit-interval|github-repo|github-base|dev-user|env-file)(?:=(.*))?$/);
   if (!match) continue; // The publishing flag (--buildDrafts), read by prebuild.
   const value = match[2] ?? args[++i];
   const key = names[match[1]] ?? match[1];
-  options[key] = ['port', 'previewInterval'].includes(key) ? Number(value) : value;
+  options[key] = ['port', 'previewInterval', 'submitInterval'].includes(key) ? Number(value) : value;
 }
 if (!Number.isInteger(options.port) || options.port < 0 || options.port > 65535) throw new Error('invalid --port');
 if (!Number.isFinite(options.previewInterval) || options.previewInterval < 0) throw new Error('invalid --preview-interval');
+options.submitInterval ??= options.previewInterval * 5;
+if (!Number.isFinite(options.submitInterval) || options.submitInterval < 0) throw new Error('invalid --submit-interval');
 if (options.githubRepo !== undefined && !/^[\w.-]+\/[\w.-]+$/.test(options.githubRepo)) throw new Error('--github-repo must be owner/name');
 if (options.devUser !== undefined) {
   if (!/^[A-Za-z0-9-]+$/.test(options.devUser)) throw new Error('invalid --dev-user');
@@ -205,7 +208,7 @@ function startSession(user) {
 const limits = {
   preview: { interval: options.previewInterval * 1000, burst: 3 },
   check: { interval: options.previewInterval * 1000 / 3, burst: 1 },
-  submit: { interval: options.previewInterval * 5000, burst: 1 },
+  submit: { interval: options.submitInterval * 1000, burst: 1 },
   // Answered from memory, but anyone may ask, and a crawler would ask for every page.
   history: { interval: 2000, burst: 20 },
   // Each new pull request and page is read from GitHub, whose limit the whole site shares. Pages of the recent

@@ -143,7 +143,6 @@ try {
   const closed = once(child, 'close');
   child.kill('SIGINT');
   await closed;
-  console.log('本地编辑：编辑器页面的标记、读取源文件与 HEAD 中的版本、拒绝 content/ 之外的路径与其他主机和网站、预览与检查及其错误、文件变化与 HEAD 变化的通知、保存与冲突、新文件、保存后只刷新变化的页面验证通过');
 } finally {
   if (child?.pid) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }

@@ -110,4 +110,3 @@ assert.equal(enter('\\[\n- x¦\n\\]'), null);
   }
 }
 
-console.log('语言：回车的缩进、折叠、其他语言的代码块、裸地址、注释验证通过');

@@ -50,4 +50,3 @@ assert.equal(fetches, 1, 'the names are fetched once');
 // After an input method commits: in a link's target or a category.
 const at = marked => { const pos = marked.indexOf('¦'); return EditorState.create({ doc: marked.replace('¦', ''), selection: { anchor: pos } }); };
 assert.deepEqual(['见 [[光滑¦', '见 [[¦', '---\ncategories: [代数¦', '  - 代数¦', '正文¦'].map(text => afterComposition(at(text))), [true, false, true, true, false]);
-console.log('编辑器补全：站点的环境、数据块与标签及其文字、条目与语言、KaTeX 命令、导言区的分类、输入法结束后补全，名称只取一次验证通过');

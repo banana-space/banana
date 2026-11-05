@@ -268,4 +268,3 @@ for (const [source, error] of [
   [block('a: {type: book, title: T, versions: [{key: a, relation: reprint}]}'), /引用标签重复/],
 ]) assert.throws(() => transformDocument(source), error);
 
-console.log('references: passed');

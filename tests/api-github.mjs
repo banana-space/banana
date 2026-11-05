@@ -124,7 +124,7 @@ try {
   // Secrets from a file (--env-file), as when trying it out locally.
   await writeFile(join(root, '.env.api'), `BANANA_SESSION_SECRET=secret\nBANANA_GITHUB_CLIENT_ID=client-id\nBANANA_GITHUB_CLIENT_SECRET=client-secret\nBANANA_GITHUB_TOKEN=${botToken}\n`);
   child = spawn(process.execPath, ['scripts/api.mjs', '--port', '0', '--public-url', 'http://site.example', '--github-repo', 'owner/site',
-    '--preview-interval', '0.6', '--env-file', '.env.api'], {
+    '--preview-interval', '0.6', '--submit-interval', '1', '--env-file', '.env.api'], {
     cwd: root, stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32',
     env: { ...process.env, BANANA_GITHUB_WEB: githubOrigin, BANANA_GITHUB_API: githubOrigin },
   });
@@ -184,7 +184,7 @@ try {
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: edited + '\n补充。\n', original: source.original, message: '' });
   assert.equal(answer.status, 429, '提交间隔');
   assert.ok(Number(answer.headers.get('retry-after')) >= 1);
-  await delay(3100);
+  await delay(1100);
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: edited + '\n补充。\n', original: source.original, message: '', minor: true });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.deepEqual([answer.json.number, answer.json.updated, pulls.length], [1, true, 1]);
@@ -192,7 +192,7 @@ try {
   assert.equal((await call('GET', 'source?path=wiki/甲/index.md')).json.minor, true, 'PR 现在把页面标为小修改');
 
   // A stale start: the file changed on the branch since; nothing is written, the current version comes back.
-  await delay(3100);
+  await delay(1100);
   const before = branches.get(branch);
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: edited + '\n过时。\n', original: blob(edited), message: '' });
   assert.equal(answer.status, 409);
@@ -200,7 +200,7 @@ try {
   assert.equal(branches.get(branch), before);
 
   // Errors are caught before GitHub sees anything.
-  await delay(3100);
+  await delay(1100);
   const calls = log.length;
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: '---\ntitle: 甲\ncategories: []\n---\n\n见 @eq:不存在。\n', original: blob(edited), message: '' });
   assert.equal(answer.status, 422);
@@ -232,7 +232,7 @@ try {
   assert.equal((await callAs(other, 'GET', 'source?path=wiki/甲/index.md&pull=1')).json.minor, false, '后来的标记为准');
   assert.deepEqual(comments, [{ number: 1, body: '@hubot 通过在线编辑器更新了此 PR：\n\n> 补一句' }], '通知 PR 作者');
   assert.ok(!branches.has(branch.replace('octo', 'hubot')), '不另开分支');
-  await delay(3100);
+  await delay(1100);
   answer = await callAs(other, 'POST', 'submit', { path: 'wiki/甲/index.md', text: inPull, original: blob(inPull), message: '', pull: 99 });
   assert.equal(answer.status, 410, '目标 PR 已关闭');
   assert.deepEqual([answer.json.current, answer.json.merged, answer.json.pull], [{ text: original, original: blob(original) }, false, null], '不带 pull 提交的基础：网站上的版本');
@@ -241,7 +241,7 @@ try {
   assert.deepEqual([source.text, source.pull], [inPull + '\n他人补充。\n', octoPull]);
 
   // A new page; a merged pull request's branch left behind starts over from main.
-  await delay(3100);
+  await delay(1100);
   answer = await call('POST', 'submit', { path: 'wiki/新条目/index.md', text: '---\ntitle: 新条目\ncategories: []\n---\n\n新的。\n', original: null, message: '新建' });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.equal(pulls[1].title, '新条目');
@@ -253,33 +253,33 @@ try {
   assert.deepEqual([source.exists, source.text, source.original, source.pull?.number, source.pullMissing], [true, newText, blob(newText), 2, null], 'PR 中新建的页面按编号载入');
   source = (await callAs(other, 'GET', 'source?path=wiki/新条目/index.md')).json;
   assert.deepEqual([source.exists, source.pull, source.pulls.map(pull => pull.number)], [false, null, [2]], '不带编号时网站上没有此页，提供该 PR 供选择');
-  await delay(3100);
+  await delay(1100);
   answer = await callAs(other, 'POST', 'submit', { path: 'wiki/新条目/index.md', text: newText + '\n补充。\n', original: blob(newText), message: '补充新条目', pull: 2 });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.deepEqual([answer.json.number, answer.json.updated, pulls.length], [2, true, 2], '加到原 PR，不另开');
   assert.deepEqual(comments.at(-1), { number: 2, body: '@hubot 通过在线编辑器更新了此 PR：\n\n> 补充新条目' }, '通知新条目 PR 的作者');
   // Only entries are created online.
-  await delay(3100);
+  await delay(1100);
   const beforeRefusal = log.length;
   answer = await call('POST', 'submit', { path: 'books/新讲义/index.md', text: '---\ntitle: 新讲义\n---\n\n新的。\n', original: null, message: '' });
   assert.equal(answer.status, 403);
   assert.equal(log.length, beforeRefusal, "不应提交条目以外的新页面");
   // octo's pull request merged while he edits it: nothing is written; he is told, with what a new one starts from.
   Object.assign(pulls[0], { state: 'closed', merged: true });
-  await delay(3100);
+  await delay(1100);
   const beforeMerged = branches.get(branch);
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: original + '\n晚了。\n', original: blob(inPull + '\n他人补充。\n'), message: '', pull: 1 });
   assert.equal(answer.status, 410);
   assert.deepEqual([answer.json.current, answer.json.merged, answer.json.pull], [{ text: original, original: blob(original) }, true, null], '已合并');
   assert.equal(branches.get(branch), beforeMerged, '已合并的 PR 不写入');
-  await delay(3100);
+  await delay(1100);
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: original + '\n再来。\n', original: blob(original), message: '' });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.deepEqual([answer.json.number, answer.json.updated, pulls[2].head], [3, false, branch]);
   assert.ok(log.includes(`PATCH /git/refs/heads/${branch}`), '残留分支应重置到 main');
   assert.equal(commits.get(branches.get(branch)).get('content/wiki/甲/index.md'), original + '\n再来。\n');
   // What is committed is formatted (scripts/format/markdown.mjs), and the answer has it.
-  await delay(3100);
+  await delay(1100);
   answer = await call('POST', 'submit', { path: 'wiki/甲/index.md', text: original + '\n再来。\n\n* 列表项\n', original: blob(original + '\n再来。\n'), message: '' });
   assert.equal(answer.status, 200, JSON.stringify(answer.json));
   assert.equal(answer.json.text, original + '\n再来。\n\n- 列表项\n');
@@ -300,7 +300,6 @@ try {
   const logout = await fetch(`${base}/api/auth/logout`, { method: 'POST', headers: { Cookie: session } });
   assert.match(logout.headers.get('set-cookie'), /^banana_session=; Path=\/api\/; Max-Age=0/);
   assert.ok(!output.includes(botToken) && !output.includes(userToken), '令牌不应出现在日志中');
-  console.log('API 与 GitHub：OAuth 登录与 state 校验、站内跳转、PR 分支上的源文本、以用户为作者提交并开 PR、再次提交更新同一 PR、编辑他人的 PR 并通知作者、编辑他人 PR 中新建的页面、PR 中途合并或关闭、冲突检测、有错误不提交、新页面、残留分支重置、提交排版后的文本、按账号限流（可连续三次）、预览日志与退出登录验证通过');
 } catch (error) {
   if (output) console.error(output);
   throw error;

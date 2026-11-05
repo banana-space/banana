@@ -82,4 +82,3 @@ const badBibliography = '```bibliography\na: {type: nothing}\n```\n';
 assert.equal(checkFile(badBibliography, { dialect: site }).length, 1);
 assert.deepEqual(checkFile(badBibliography, { dialect: plain }), [], 'otherwise an ordinary code block');
 assert.match(checkFile('See [[Groups]] and @x.', { dialect: plain })[0].message, /no such label: x/);
-console.log('setup: passed');
