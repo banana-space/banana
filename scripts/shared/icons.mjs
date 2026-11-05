@@ -18,5 +18,6 @@ const shapes = {
   view: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
   edit: '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/>',
   problem: '<path d="M12 3 2 21h20L12 3Z M12 9v5"/><circle cx="12" cy="18" r="1.2" fill="currentColor" stroke="none"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
 };
 export const iconSVG = name => `<svg class="ui-icon${['folder', 'book', 'external'].includes(name) ? ` link-icon icon-${name}` : ''}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${shapes[name] ?? ''}</svg>`;

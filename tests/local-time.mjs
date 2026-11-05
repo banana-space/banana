@@ -24,7 +24,7 @@ for (const [zone, instant, expected, viewedAt = '2024-07-01T12:00:00Z'] of [
       constructor(...args) { super(...(args.length ? args : [${JSON.stringify(viewedAt)}])); }
       static now() { return Date.parse(${JSON.stringify(viewedAt)}); }
     }
-    runInNewContext(${JSON.stringify(script)}, { Date: ClockDate, document: { querySelectorAll: () => [element] } });
+    runInNewContext(${JSON.stringify(script)}, { Date: ClockDate, document: { querySelectorAll: selector => selector === 'time[data-local-time]' ? [element] : [] } });
     process.stdout.write(JSON.stringify(element));
   `;
   const result = JSON.parse(execFileSync(process.execPath, ['--input-type=module', '-e', code], {
@@ -53,10 +53,30 @@ for (const [zone, instant, viewedAt, expected] of [
       constructor(...args) { super(...(args.length ? args : [${JSON.stringify(viewedAt)}])); }
       static now() { return Date.parse(${JSON.stringify(viewedAt)}); }
     }
-    runInNewContext(${JSON.stringify(script)}, { Date: ClockDate, document: { querySelectorAll: () => [element] } });
+    runInNewContext(${JSON.stringify(script)}, { Date: ClockDate, document: { querySelectorAll: selector => selector === 'time[data-local-time]' ? [element] : [] } });
     process.stdout.write(element.textContent);
   `;
   const result = execFileSync(process.execPath, ['--input-type=module', '-e', code], { env: { ...process.env, TZ: zone }, encoding: 'utf8' });
   assert.equal(result, expected, `${zone}: ${instant} seen at ${viewedAt}`);
 }
-console.log('用户时区、夏令时、跨日与跨年、非整小时时差、分钟精度、无效日期回退，以及今天、昨天与其他年份的日期验证通过');
+// In a list marked data-hide-repeats (the home page's recent changes), a date that the row above shows in the
+// visitor's zone is marked is-repeat: two changes a few hours apart fall on one day in Shanghai, on two in UTC.
+for (const [zone, expected] of [['Asia/Shanghai', [false, true, false]], ['UTC', [false, false, false]]]) {
+  const code = `
+    import { runInNewContext } from 'node:vm';
+    const instants = ['2024-06-02T03:00:00Z', '2024-06-01T20:00:00Z', '2024-05-30T12:00:00Z'];
+    const elements = instants.map(instant => ({
+      textContent: 'fallback', dataset: { format: '{month} 月 {day} 日' }, getAttribute: () => instant,
+      classList: { marked: false, toggle(name, on) { this.marked = on; } },
+    }));
+    const list = { querySelectorAll: () => elements };
+    class ClockDate extends Date {
+      constructor(...args) { super(...(args.length ? args : ['2024-07-01T12:00:00Z'])); }
+    }
+    runInNewContext(${JSON.stringify(script)}, { Date: ClockDate, document: { querySelectorAll: selector => selector === '[data-hide-repeats]' ? [list] : elements } });
+    process.stdout.write(JSON.stringify(elements.map(element => element.classList.marked)));
+  `;
+  const result = JSON.parse(execFileSync(process.execPath, ['--input-type=module', '-e', code], { env: { ...process.env, TZ: zone }, encoding: 'utf8' }));
+  assert.deepEqual(result, expected, `${zone}: 同一天的日期只显示一次`);
+}
+console.log('用户时区、夏令时、跨日与跨年、非整小时时差、分钟精度、无效日期回退，今天、昨天与其他年份的日期，以及列表中同一天的日期只显示一次验证通过');

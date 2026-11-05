@@ -422,3 +422,52 @@ if (navigation && homeSearch) {
     }, { rootMargin: `-${navHeight}px 0px 0px 0px` }).observe(homeSearch);
   }
 }
+
+// The home page's recent changes (scripts/site/templates/home.mjs): each change's names on one line. When they all
+// fit (and the build left none out, data-more), that is all; otherwise as many whole names as fit beside the button
+// that says how many pages the change made ("N 个页面", at the line's end), the rest left out from the last and an
+// ellipsis after the last one shown. The button expands the names to all of them, wrapping beside it (so that it stays
+// where it was: "收起"), and after them how many pages the build left out (.home-recent-rest).
+const recentList = document.querySelector('.home-recent-list');
+if (recentList) {
+  const fitNames = names => {
+    const entries = [...names.querySelectorAll('.home-recent-entry')], toggle = names.nextElementSibling;
+    // The first `shown` names show; `cut`: names are left out, which an ellipsis after the last one shown says.
+    const show = (shown, cut) => entries.forEach((entry, i) => {
+      entry.hidden = i >= shown;
+      entry.classList.toggle('is-last', i === shown - 1);
+      entry.classList.toggle('is-cut', cut && i === shown - 1);
+    });
+    show(entries.length, false);
+    if (!toggle?.matches('.home-recent-toggle')) return;
+    const expanded = toggle.getAttribute('aria-expanded') === 'true', more = 'more' in toggle.dataset;
+    if (expanded) { toggle.hidden = false; return; }
+    const onFirstLine = entry => entry.offsetTop < entries[0].offsetTop + entries[0].offsetHeight;
+    // Without the button: out of the line while measuring, but not hidden, which would stop its arrow turning back.
+    toggle.classList.add('is-measuring');
+    const fits = !more && onFirstLine(entries.at(-1));
+    toggle.classList.remove('is-measuring');
+    toggle.hidden = fits;
+    if (fits) return;
+    // The button takes room at the line's end: names go from the last until the last one shown (with its ellipsis)
+    // is on the first line again.
+    let shown = entries.length;
+    show(shown, more);
+    while (shown > 1 && !onFirstLine(entries[shown - 1])) show(--shown, true);
+  };
+  const fitAll = () => recentList.querySelectorAll('.home-recent-names').forEach(fitNames);
+  recentList.addEventListener('click', event => {
+    const toggle = event.target.closest('.home-recent-toggle');
+    if (!toggle) return;
+    const expanded = toggle.getAttribute('aria-expanded') !== 'true', names = document.getElementById(toggle.getAttribute('aria-controls'));
+    toggle.setAttribute('aria-expanded', String(expanded));
+    names.classList.toggle('is-expanded', expanded);
+    toggle.querySelector('.home-recent-toggle-text').textContent = expanded ? toggle.dataset.collapse : toggle.dataset.label;
+    const rest = names.querySelector('.home-recent-rest');
+    if (rest) rest.hidden = !expanded;
+    fitNames(names);
+  });
+  fitAll();
+  document.fonts?.ready.then(fitAll);
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(fitAll).observe(recentList);
+}

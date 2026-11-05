@@ -125,12 +125,13 @@ try {
   assert.equal(rows.length, 4, '四次修改：直接提交、PR 3、2、1；导入与 books/ 中不属于讲义的页面不列出');
   assert.match(rows[0], /写作指南<\/a><span class="home-recent-path" aria-hidden="true">›<\/span><a href="\/help\/style\/">风格指引<\/a>/);
   assert.doesNotMatch(rows[0], /icon-book/, '指南不是讲义，没有书的图标');
-  assert.match(rows[1], /href="\/wiki\/%E4%B8%81\/">丁<\/a><sup class="home-recent-new"><span aria-hidden="true">\+<\/span><span class="sr-only">新页面<\/span><\/sup>/);
+  assert.match(rows[1], /href="\/wiki\/%E4%B8%81\/">丁<\/a><span class="home-recent-new"><svg class="ui-icon"[^>]*><path d="M12 5v14M5 12h14"><\/path><\/svg><span class="sr-only">新页面<\/span><\/span>/);
   assert.match(rows[2], /href="\/wiki\/%E4%B8%99\/"><span class="bm-math-rendered"/);
   assert.doesNotMatch(rows[2], /home-recent-new/, '改名不是新页面');
   assert.match(rows[3], /href="\/wiki\/%E7%94%B2\/">甲<\/a>/);
-  assert.match(rows[3], /<time class="home-recent-day" datetime="2026-03-01T23:00:00Z" data-local-time[^>]*>3 月 1 日<\/time>/, '日期与时间：写作的时间，没有脚本时为 UTC');
-  assert.match(rows[3], /<time class="home-recent-clock" datetime="2026-03-01T23:00:00Z" data-local-time="" data-format="\{hour\}:\{minute\}">23:00<\/time>/);
+  assert.match(rows[3], /<time class="home-recent-day" datetime="2026-03-01T23:00:00Z" data-local-time[^>]*>3 月 1 日<\/time>/, '日期：写作的时间，没有脚本时为 UTC');
+  assert.doesNotMatch(home, /home-recent-clock/, '不写时间');
+  assert.match(home, /<ol class="?home-recent-list"? data-hide-repeats/, '与上一行同一天的日期不显示（local-time.js）');
   assert.doesNotMatch(home.match(/<ul class="home-links">[\s\S]*?<\/ul>/)[0], /recent-changes/, '有最近更改一节时，链接一行不再重复');
 
   // Minor edits (scripts/shared/minor-edits.mjs): a pull request rewrites 甲 and fixes links in 丁 and 丙, marked in its
@@ -162,6 +163,11 @@ try {
   assert.equal(latest.length, 5, '只有小修改的 PR 6 不列出');
   assert.match(latest[0], /甲[\s\S]*丙|丙[\s\S]*甲/);
   assert.doesNotMatch(latest[0], /%E4%B8%81|>丁</, 'PR 5 中的小修改（丁）不列出');
+  // A change to several pages: “2 个页面”, a button that shows all the names (site.js), hidden until names are left
+  // out; the separator follows each name but the last.
+  assert.match(latest[0], /<button type="?button"? class="?home-recent-toggle"? aria-expanded="?false"? aria-controls="?home-recent-names-0"? data-label="?2 个页面"? data-collapse="?收起"? hidden/, '页数是展开全部名称的按钮');
+  assert.match(latest[0], /home-recent-entry"?><span class="?home-recent-name"?>(?:(?!home-recent-entry)[\s\S])*?<\/span><span class="?home-recent-separator"?>/, '分隔号在前一个名称后面');
+  assert.doesNotMatch(latest[0], /home-recent-entry"?><span class="?home-recent-separator/, '名称前没有分隔号');
 
   // A page moved to another file of the same address and rewritten on the way (books/庚/_index.md → books/庚/index.md):
   // Git sees a page removed and another added, the history a move.
@@ -200,7 +206,7 @@ try {
     ['content/wiki/模/index.md', history([3])], ['content/wiki/Abel 群/index.md', history([3], [4])],
     ['content/wiki/草稿/index.md', history([5])], ['content/books/书/一/index.md', history([2], [3])], ['content/books/书/二/index.md', history([2], [4])],
     ['content/books/书/index.md', history([4, 'added'])],
-  ]), records, { limit: 4 });
+  ]), records, { limit: 4, shown: 3 });
   assert.deepEqual(recent, [
     { time: '2026-01-05T00:00:00Z', pages: 1, items: [{ page: 'wiki/环', added: false }], more: false },
     { time: '2026-01-04T00:00:00Z', pages: 3, items: [{ book: 'books/书', added: true }, { page: 'wiki/Abel 群', added: false }], more: true, title: 'PR 4' },
@@ -210,5 +216,14 @@ try {
   assert.deepEqual(recentChanges(new Map([['content/wiki/环/index.md', history([6])], ['content/wiki/域/index.md', history([6])]]), records),
     [{ time: '2026-01-06T00:00:00Z', pages: 2, items: [{ page: 'wiki/环', added: false }, { page: 'wiki/域', added: false }], more: false, title: 'PR 6' }],
     '全部列出的两个页面也带标题');
-  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序）、小修改的标记（PR 的提交与合并说明，后来的标记为准）、没有 Git 历史时验证通过');
+  // A title that only names the pages is left out; the home page names as many pages as fit (by default up to 12).
+  const titled = (id, title) => ({ changes: [{ pr: id, time: `2026-01-0${id}T00:00:00Z`, merged: `2026-01-0${id}T01:00:00Z`, status: 'modified', title }] });
+  assert.deepEqual(recentChanges(new Map([['content/wiki/环/index.md', titled(7, '环、域')], ['content/wiki/域/index.md', titled(7, '环、域')]]), records).map(change => change.title),
+    [undefined], '只写了页面名称的标题不显示');
+  assert.deepEqual(recentChanges(new Map([['content/wiki/环/index.md', titled(8, '环与域：补充例子')], ['content/wiki/域/index.md', titled(8, '环与域：补充例子')]]), records).map(change => change.title),
+    ['环与域：补充例子'], '还说了别的的标题照常显示');
+  assert.deepEqual(recentChanges(new Map([['content/books/书/一/index.md', titled(9, '书')], ['content/books/书/二/index.md', titled(9, '书')]]), records).map(change => [change.book, change.title]),
+    [['books/书', undefined]], '只写了讲义名的标题不显示');
+  assert.equal(recentChanges(new Map([...['环', '域', '模', 'Abel 群'].map(name => [`content/wiki/${name}/index.md`, history([3])])]), records)[0].items.length, 4, '默认列出所有页面（最多 50 个）');
+  console.log('页面历史：PR 的作者、时间与标题、复刻与编辑器的分支、直接提交、改名、旧站的修订（导入时与之后迁移的页面）、构建写出的数据与链接、首页的最近更改（分组与排序、只写页面名称的标题不显示）、小修改的标记（PR 的提交与合并说明，后来的标记为准）、没有 Git 历史时验证通过');
 } finally { await rm(root, { recursive: true, force: true }); }

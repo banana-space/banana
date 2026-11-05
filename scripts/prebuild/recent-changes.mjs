@@ -14,13 +14,14 @@ import { readingMetadata } from './reading.mjs';
  *   (not minor edits);
  * - items: up to `shown` of them in reading order, new and renamed pages first, then articles; each { page, added },
  *   or for a book { book, page, added } (one of its pages) or { book, added } (several, the book standing for them;
- *   added when the book itself is new);
- * - more: whether the items leave pages out ("等 N 个页面");
+ *   added when the book itself is new). The home page shows as many as fit on a line, and all of them on request;
+ * - more: whether the items leave pages out (the home page then says "N 个页面" in any case, and "等 N 个页面"
+ *   after all the items);
  * - title: for a change to more than one page, the pull request's title or the commit's subject, to say what the
- *   change did.
+ *   change did; left out when it says no more than the pages' names (as “甲、乙”).
  * page and book are content paths without index.md, as the site's pageAt takes them.
  */
-export function recentChanges(histories, records, { limit = 5, shown = 3 } = {}) {
+export function recentChanges(histories, records, { limit = 5, shown = 50 } = {}) {
   const changes = new Map();
   for (const [path, { changes: entries }] of histories) {
     const relative = path.slice('content/'.length), record = records.get(relative);
@@ -49,11 +50,25 @@ export function recentChanges(histories, records, { limit = 5, shown = 3 } = {})
       else units.push({ book, added: Boolean(home?.added), first: Boolean(home?.added), key: readingMetadata({ name: title }).sortKey, title, several: pages.length > 1 });
     }
     const total = change.pages.length;
-    if (units.length === 1 && units[0].several) return { time: change.time, pages: total, book: units[0].book, added: units[0].added, title: change.title };
+    if (units.length === 1 && units[0].several) {
+      const named = change.title && !onlyNames(change.title, [units[0].title, ...change.pages.map(page => page.metadata.title)]);
+      return { time: change.time, pages: total, book: units[0].book, added: units[0].added, ...(named ? { title: change.title } : {}) };
+    }
     units.sort((a, b) => b.first - a.first || Boolean(b.article) - Boolean(a.article) || a.key.localeCompare(b.key) || a.title.localeCompare(b.title, 'zh-Hans-CN'));
     const items = units.slice(0, shown).map(({ book, page, added }) => ({ ...(book ? { book } : {}), ...(page ? { page } : {}), added }));
-    return { time: change.time, pages: total, items, more: total > items.length, ...(total > 1 ? { title: change.title } : {}) };
+    const named = total > 1 && change.title && !onlyNames(change.title, units.map(unit => unit.title));
+    return { time: change.time, pages: total, items, more: total > items.length, ...(named ? { title: change.title } : {}) };
   });
+}
+
+/**
+ * Whether a title says no more than these names: once they are taken out (the longest first), nothing is left but
+ * punctuation, spaces and the words that join names (和、与、及), as in “仿射 Hecke 代数、Hecke 代数”.
+ */
+function onlyNames(title, names) {
+  let rest = title;
+  for (const name of [...names].sort((a, b) => b.length - a.length)) rest = rest.split(name).join(' ');
+  return !/[^\s\p{P}\p{S}和与及]/u.test(rest);
 }
 
 /** An article or a page of a lecture or guide that the site shows. */

@@ -50,14 +50,16 @@ see_also_label: 参见：
 # 首页（scripts/site/templates/home.mjs）
 home_lede: 中文数学百科及讲义集
 home_search_placeholder: 搜索条目或讲义…
-home_browse: 浏览网站内容
+home_browse: 浏览内容
 home_wiki: 百科
 home_wiki_text: 按分类浏览条目，或在上方搜索．
 home_wiki_count: <strong class="home-count">{Count}</strong>个条目
 home_books_text: 课程讲义与专题讲义，可在线阅读．
 home_books_count: <strong class="home-count">{Count}</strong>本讲义
 home_recent_all: 全部更改
-home_recent_more: 等 {Count} 个页面
+home_recent_more: "{Count} 个页面"
+home_recent_rest: "等 {Count} 个页面"
+home_recent_collapse: 收起
 home_recent_in_book: 中的 {Count} 个页面
 home_recent_year_date: "{year} 年 {month} 月 {day} 日"
 home_recent_changes_text: 网站的最新动态
