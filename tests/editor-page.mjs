@@ -42,11 +42,12 @@ try {
   /** Opens /edit/ for a path (or a query: ?title=…); routes answer requests by path ("preview", "source", …) with [status, json, headers]. */
   // Errors the page logs (CodeMirror reports exceptions in its listeners this way) fail the test at the end.
   const consoleErrors = [];
-  function open(path, routes, { storage = {}, checkFailures = 0 } = {}) {
+  // local: as serve without --api serves it (scripts/service/local-edit.mjs), its events sent with emit(name, data).
+  function open(path, routes, { storage = {}, checkFailures = 0, local = false } = {}) {
     const virtualConsole = new VirtualConsole();
     virtualConsole.on('error', (...args) => consoleErrors.push(args.map(String).join(' ')));
     virtualConsole.on('jsdomError', error => { if (!/Not implemented/.test(error.message)) consoleErrors.push(error.message); });
-    const dom = new JSDOM(html, { url: `http://site.test/edit/${path.startsWith('?') ? path : path ? `?path=${encodeURIComponent(path)}` : ''}`, runScripts: 'outside-only', pretendToBeVisual: true, virtualConsole });
+    const dom = new JSDOM(local ? html.replace('<html ', '<html data-local-edit ') : html, { url: `http://site.test/edit/${path.startsWith('?') ? path : path ? `?path=${encodeURIComponent(path)}` : ''}`, runScripts: 'outside-only', pretendToBeVisual: true, virtualConsole });
     const { window } = dom;
     for (const [key, value] of Object.entries(storage)) window.localStorage.setItem(key, JSON.stringify(value));
     // jsdom has no layout; CodeMirror measures text ranges.
@@ -57,18 +58,24 @@ try {
     }
     const requests = [];
     window.fetch = async (url, options = {}) => {
-      const route = url.replace(/^\/api\//, '').replace(/\?.*$/, '');
+      const route = url.replace(/^\/(?:api|__banana_local)\//, '').replace(/\?.*$/, '');
       const body = options.body ? JSON.parse(options.body) : undefined;
       requests.push({ method: options.method ?? 'GET', route, url, body });
       const [status, json, headers = {}] = await routes[route](body, url);
       return { status, headers: { get: name => headers[name] ?? null }, json: async () => json };
+    };
+    const streams = [];
+    window.EventSource = class {
+      constructor(url) { this.url = url; this.listeners = {}; streams.push(this); }
+      addEventListener(name, listener) { (this.listeners[name] ??= []).push(listener); }
     };
     let failures = checkFailures;
     window.importCheck = () => failures-- > 0 ? Promise.reject(new Error('not deployed yet')) : import(checkModule);
     window.eval(bundle);
     const document = window.document;
     return {
-      window, document, requests,
+      window, document, requests, streams,
+      emit(name, data) { for (const stream of streams) for (const listener of stream.listeners[name] ?? []) listener({ data: JSON.stringify(data) }); },
       $: selector => document.querySelector(selector),
       view: () => document.getElementById('editor').editorView,
       type(text) { const view = this.view(); view.dispatch({ changes: { from: view.state.doc.length, insert: text } }); },
@@ -636,8 +643,126 @@ try {
   assert.equal(editor.window.location.search, '');
   editor.window.close();
 
+  // Editing locally: no login, no drafts; the lines' changes are measured against HEAD; saving writes the file
+  // (Ctrl+S saves and previews); changes on disk come in at once, merged with unsaved edits by lines, or compared
+  // with them where both changed the same lines.
+  {
+    const lines = text => `---\ntitle: 甲\ncategories: []\n---\n\n${text}\n`;
+    const head = lines('一。\n\n二。\n\n三。'), onDisk = lines('一，已修改。\n\n二。\n\n三。');
+    const saves = [];
+    let diskText = onDisk;
+    const localEditor = open('wiki/甲/index.md', {
+      source: () => [200, { ok: true, path: 'content/wiki/甲/index.md', exists: true, text: onDisk, head, url: '/wiki/甲/', labels: [] }],
+      preview: body => [200, { ok: true, url: '/wiki/甲/', html: rendered(body), missingLinks: [], timings: {} }],
+      save: body => {
+        saves.push(body);
+        if (body.base !== diskText) return [409, { ok: false, errors: [{ message: 'the file changed on disk' }], current: diskText }];
+        diskText = body.text;
+        return [200, { ok: true }];
+      },
+    }, { local: true });
+    const { $: find } = localEditor;
+    await until(() => localEditor.view() && find('.editor-frame').getAttribute('srcdoc'), '本地编辑的首次预览');
+    assert.ok(!localEditor.requests.some(request => request.route === 'me'), '本地编辑不登录');
+    assert.equal(localEditor.streams[0].url, `/__banana_local/events?path=${encodeURIComponent('wiki/甲/index.md')}`);
+    assert.equal(find('.editor-user').childElementCount, 0, '没有账号菜单');
+    assert.equal(find('.editor-path').getAttribute('href'), null, '文件名不是链接');
+    assert.ok(find('.editor-preview-button').hidden, '保存即预览，没有预览按钮');
+    const saveButton = find('.editor-submit-button');
+    assert.deepEqual([saveButton.textContent, saveButton.disabled], ['保存', true], '没有修改时不能保存');
+    // The line changed since HEAD is marked.
+    const changedLines = () => [...localEditor.document.querySelectorAll('.editor-change-gutter .cm-gutterElement')].filter(element => /editor-change-/.test(element.className)).length;
+    await until(() => changedLines() === 1, '相对 HEAD 的修改标记');
+    const lineEnd = number => localEditor.view().state.doc.line(number).to;
+    const insert = (at, text) => localEditor.view().dispatch({ changes: { from: at, insert: text } });
+    insert(lineEnd(10), '（我的）');
+    assert.ok(!saveButton.disabled && localEditor.document.title.startsWith('• '), '未保存的修改');
+    // A change on disk to other lines is merged with the unsaved edit, and lit.
+    diskText = lines('一，已修改。\n\n二，由 Claude 修改。\n\n三。');
+    localEditor.emit('file', { text: diskText });
+    assert.equal(localEditor.text(), lines('一，已修改。\n\n二，由 Claude 修改。\n\n三。（我的）'), '按行合并');
+    assert.equal(localEditor.document.querySelectorAll('.editor-external-change').length, 1, '标出磁盘上修改的行');
+    assert.ok(find('.editor-banner').hidden);
+    // Ctrl+S saves against the file as last seen on disk.
+    localEditor.view().contentDOM.dispatchEvent(new localEditor.window.KeyboardEvent('keydown', { key: 's', ctrlKey: true, bubbles: true, cancelable: true }));
+    const savedAll = () => saveButton.disabled && !localEditor.document.title.startsWith('• ');
+    await until(() => saves.length === 1 && savedAll(), '保存');
+    assert.deepEqual(saves[0], { path: 'wiki/甲/index.md', text: localEditor.text(), base: lines('一，已修改。\n\n二，由 Claude 修改。\n\n三。') });
+    // The saved text reported back changes nothing; a change on disk without unsaved edits comes in as it is.
+    localEditor.emit('file', { text: diskText });
+    assert.equal(localEditor.text(), diskText);
+    diskText = lines('一，已修改。\n\n二，再次修改。\n\n三。（我的）');
+    localEditor.emit('file', { text: diskText });
+    assert.deepEqual([localEditor.text(), saveButton.disabled], [diskText, true], '直接载入磁盘上的修改');
+    // Undo takes back the user's own edits, not the changes on disk.
+    const press = (key, extra = {}) => localEditor.view().contentDOM.dispatchEvent(new localEditor.window.KeyboardEvent('keydown', { key, ctrlKey: true, bubbles: true, cancelable: true, ...extra }));
+    press('z');
+    assert.equal(localEditor.text(), lines('一，已修改。\n\n二，再次修改。\n\n三。'), '撤销不应撤回磁盘上的修改');
+    press('y');
+    assert.equal(localEditor.text(), diskText);
+    // Both changed the same line: compared, the unsaved text kept, and saved against the file on disk.
+    insert(lineEnd(8), '（我的第二处）');
+    diskText = lines('一，已修改。\n\n二，Claude 又改了这行。\n\n三。（我的）');
+    localEditor.emit('file', { text: diskText });
+    assert.equal(localEditor.text(), lines('一，已修改。\n\n二，再次修改。（我的第二处）\n\n三。（我的）'));
+    assert.ok(!find('.editor-banner').hidden && /改动了相同的行/.test(find('.editor-banner').textContent), '冲突时比较');
+    saveButton.click();
+    await until(() => saves.length === 2 && savedAll(), '冲突后保存');
+    assert.equal(saves[1].base, lines('一，已修改。\n\n二，Claude 又改了这行。\n\n三。（我的）'));
+    // A file changed on disk before its event arrives: the save is refused (409), the change taken in, and saving again works.
+    insert(lineEnd(6), '（再加）');
+    diskText = lines('一，已修改。\n\n二，再次修改。（我的第二处）\n\n三。（我的）\n\n四，新的一段。');
+    saveButton.click();
+    await until(() => saves.length === 2 + 1 && localEditor.text().includes('四，新的一段') && !saveButton.disabled, '保存冲突后载入');
+    assert.ok(localEditor.text().includes('一，已修改。（再加）'));
+    saveButton.click();
+    await until(() => saves.length === 4 && savedAll(), '再次保存');
+    assert.equal(diskText, localEditor.text());
+    // The search panel: its buttons and options with their words as tooltips, no browser suggestions in its fields,
+    // and replacing within the selection ($1 a group of a regular expression).
+    const panelView = localEditor.view();
+    panelView.dispatch({ changes: { from: 0, to: panelView.state.doc.length, insert: 'a1 b2\na3 b4\na5\n' } });
+    panelView.dispatch({ selection: { anchor: 3, head: 9 } });
+    panelView.contentDOM.dispatchEvent(new localEditor.window.KeyboardEvent('keydown', { key: 'f', ctrlKey: true, bubbles: true, cancelable: true }));
+    const panel = find('.cm-search');
+    assert.deepEqual([...panel.querySelectorAll('.cm-textfield')].map(field => field.autocomplete), ['off', 'off'], '搜索框不用浏览器的自动填充');
+    assert.deepEqual([...panel.querySelectorAll('button')].map(button => button.title),
+      ['下一个（Enter、F3、Ctrl+G）', '上一个（Shift+Enter、Shift+F3、Shift+Ctrl+G）', '选择全部', '替换（Enter）', '全部替换', '在选区中替换', '关闭（Esc）'], '提示文字与快捷键');
+    const count = () => panel.querySelector('.cm-search-count').textContent;
+    const disabled = () => [...panel.querySelectorAll('button:disabled')].map(button => button.name);
+    assert.equal(panel.querySelector('label:has([name="re"])').title, '正则表达式');
+    const field = (name, value) => {
+      const element = panel.querySelector(`.cm-textfield[name="${name}"]`);
+      element.value = value;
+      element.dispatchEvent(new localEditor.window.Event('change', { bubbles: true }));
+    };
+    // The number of matches, which one the selection is; the replace buttons only with something to replace.
+    field('search', 'x');
+    assert.deepEqual([count(), disabled()], ['无结果', ['next', 'prev', 'select', 'replace', 'replaceAll', 'replaceSelection']]);
+    field('search', 'a');
+    assert.deepEqual([count(), disabled()], ['3 处', []]);
+    field('search', '5');
+    assert.deepEqual([count(), disabled()], ['1 处', ['replaceSelection']], '选区中没有匹配');
+    panel.querySelector('[name="re"]').click();
+    field('search', '([ab])(\\d)');
+    assert.equal(count(), '5 处');
+    field('replace', '$2$1$$');
+    panel.querySelector('[name="replaceSelection"]').click();
+    assert.equal(localEditor.text(), 'a1 2b$\n3a$ b4\na5\n', '只替换选区中的匹配');
+    assert.equal(count(), '3 处', '替换后重新计数');
+    panelView.dispatch({ selection: { anchor: 0, head: 2 } });
+    assert.equal(count(), '1/3', '选中的匹配');
+    localEditor.view().contentDOM.dispatchEvent(new localEditor.window.KeyboardEvent('keydown', { key: 'z', ctrlKey: true, bubbles: true, cancelable: true }));
+    assert.equal(localEditor.text(), 'a1 b2\na3 b4\na5\n', '一次撤销');
+    panelView.dispatch({ changes: { from: 0, to: panelView.state.doc.length, insert: diskText } });
+
+    // A commit: the change markers are measured against the new HEAD.
+    localEditor.emit('head', { head: diskText });
+    await until(() => changedLines() === 0, '提交后修改标记');
+    localEditor.window.close();
+  }
   assert.deepEqual(consoleErrors, [], '页面不应记录错误');
-  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、Tab 接受补全与缩进、提交与成功提示、小修改的标记、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面验证通过');
+  console.log('编辑器页面：未登录时的登录提示、服务不可用、账号菜单、文件与页面及 PR 的图标、文件链接、首次预览、输入不预览、预览按钮与 Ctrl+S、提交时等待预览成功再打开对话框、提交后显示排版后的文本、按钮的等待图标、预览标签页等预览完成再切换、修改标记内文字时标记消失、前端 3 秒间隔、限流与网络失败后重试、Ctrl+S 只预览修改、浏览器发现错误时不请求服务器、错误遮罩与行号跳转、工具栏提交按钮总可点而对话框等待预览、提示的关闭按钮、旧版本草稿的加载与放弃、缺失条目页的创建链接（公式标题）、按标题新建条目与目录名、只能新建条目、导言区的必要项目、只标出出错部分、服务器标记随编辑移动、预览隐藏页脚、预览中隐藏导航与目录、问题跳转、浏览器内检查与加载失败后重试、本机草稿的恢复与比较、各行的修改标记与还原、Tab 接受补全与缩进、提交与成功提示、小修改的标记、PR 编号链接、更新已有 PR、选择并编辑他人的 PR、PR 中途合并或关闭后改开新 PR、冲突后比较并以新版本为基础、书册页面的浏览器内检查（书中其他页面的标签）、新页面与打开页面、本地编辑（保存、磁盘上的修改的载入与按行合并、冲突、相对 HEAD 的修改标记）、搜索面板（提示文字与快捷键、不自动填充、匹配数、无匹配时停用按钮、在选区中替换）验证通过');
 } finally {
   await rm(root, { recursive: true, force: true });
 }

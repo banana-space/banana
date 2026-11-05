@@ -31,8 +31,17 @@ export async function createProject(name, paths = defaults) {
 
 
 export function buildProject(root, extra = []) {
-  execFileSync(process.execPath, ['scripts/build.mjs', ...extra], { cwd: root, stdio: 'pipe' });
+  execFileSync(process.execPath, ['scripts/build.mjs', ...extra], { cwd: root, stdio: 'pipe', env: buildEnvironment() });
 }
+
+/**
+ * The environment of a test's build: without the GitHub token a developer may have set, so that a fixture's history
+ * never asks the real GitHub about pull requests of the same numbers (scripts/prebuild/github-authors.mjs).
+ */
+export const buildEnvironment = (extra = {}) => {
+  const { BANANA_GITHUB_TOKEN, BANANA_GITHUB_API, ...rest } = process.env;
+  return { ...rest, ...extra };
+};
 
 /** The prebuild alone: Map of a page's relative path → { metadata, html }. Its errors are thrown. */
 export function generatedPages(root, extra = []) {

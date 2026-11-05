@@ -39,7 +39,7 @@ function header(pull, page, edit) {
   const stateLabel = element('span', `recent-state recent-state-${state}`, strings[state]);
   if (state === 'publishing') stateLabel.title = strings.publishingHint;
   const time = new Date(pull.time), pad = value => String(value).padStart(2, '0');
-  const pullLink = element('a', 'recent-pull', element('span', 'recent-author', pull.author), element('span', 'recent-pull-number', `#${pull.number}`));
+  const pullLink = element('a', 'recent-pull', element('span', 'recent-author', (pull.authors?.length ? pull.authors : [pull.author]).filter(Boolean).join(', ')), element('span', 'recent-pull-number', `#${pull.number}`));
   Object.assign(pullLink, { href: pull.url, target: '_blank', rel: 'noopener' });
   const when = element('time', 'diff-time', `${time.getFullYear()}-${pad(time.getMonth() + 1)}-${pad(time.getDate())} ${pad(time.getHours())}:${pad(time.getMinutes())}`);
   when.dateTime = pull.time;

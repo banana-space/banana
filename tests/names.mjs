@@ -140,7 +140,8 @@ try {
   for (const font of new Set(katexFonts)) await readFile(join(root, 'public/katex', font));
   assert.doesNotMatch(subpath, /cdn\.jsdelivr\.net/);
   const css = await readFile(join(root, 'public', cssPath), 'utf8');
-  const fontURLs = [...css.matchAll(/url\(["']?([^\s)'"\n]+)["']?\)/g)].map(match => match[1]);
+  // Font files only: the icons' inline SVGs have url() of their own (masks: url(#a)).
+  const fontURLs = [...css.matchAll(/url\(["']?([^\s)'"\n]+\.(?:woff2?|ttf|otf))["']?\)/g)].map(match => match[1]);
   // Commit Mono, Banana Math, Banana Punctuation (3), Inter (6) and the JetBrains Mono Cyrillic subsets (4).
   assert.equal(fontURLs.length, 15);
   // Relative to the stylesheet (css/), so they hold below any base URL.

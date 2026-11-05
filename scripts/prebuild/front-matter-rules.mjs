@@ -6,6 +6,7 @@ import { t } from '../shared/i18n.mjs';
  * （完整构建在没有 title 时取目录名），并且只能有作者使用的字段（authorKeys）。由浏览器内检查（site/scripts/editor/check.js）与 API
  * （scripts/api.mjs）共用。
  *
+ * keys：允许的字段；本地编辑（scripts/service/local-edit.mjs）允许页面的全部字段（pageKeys）。
  * 返回 [{ line, column, message }]，行列号从 1 起；
  * YAML 语法错误不在这里报告（由解析导言区的地方报告）。
  */
@@ -14,7 +15,7 @@ export const authorKeys = ['title', 'aliases', 'categories', 'navboxes', 'sort',
 /** The front matter's keys any page may have: anything else is an error in the build too. */
 export const pageKeys = [...authorKeys, 'childrenToc', 'draft'];
 
-export function frontMatterProblems(text) {
+export function frontMatterProblems(text, { keys = authorKeys } = {}) {
   const match = text.match(/^(?:﻿)?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
   if (!match) return [{ line: 1, column: 1, message: t(/^(?:\uFEFF)?---\r?\n/.test(text) ? 'build_front_matter_unclosed' : 'build_front_matter_missing') }];
   const document = parseDocument(match[1]);
@@ -32,8 +33,8 @@ export function frontMatterProblems(text) {
   // Only the keys authors write: a page edited online is not kept from being published (draft).
   for (const pair of root.items ?? []) {
     const key = pair.key?.value;
-    if (typeof key !== 'string' || !authorKeys.includes(key)) {
-      problems.push({ ...position(pair.key), message: t('build_front_matter_key', { Key: String(key), Allowed: authorKeys.join('、') }) });
+    if (typeof key !== 'string' || !keys.includes(key)) {
+      problems.push({ ...position(pair.key), message: t('build_front_matter_key', { Key: String(key), Allowed: keys.join('、') }) });
     }
   }
   const title = root.get('title', true);

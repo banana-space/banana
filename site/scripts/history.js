@@ -69,7 +69,7 @@ function pullRow(pull, path) {
   // The diff page's back link returns here (history: the page's path now, which a rename may have changed).
   const title = link(`${config.diff}?${new URLSearchParams({ pr: pull.number, path: pull.path ?? path, history: path })}`, 'recent-pull-title', pull.title);
   const by = external(link(pull.url ?? `${config.repository}/pull/${pull.number}`, 'recent-pull',
-    element('span', 'recent-author', pull.author ?? ''), element('span', 'recent-pull-number', `#${pull.number}`)));
+    element('span', 'recent-author', (pull.authors?.length ? pull.authors : [pull.author]).filter(Boolean).join(', ')), element('span', 'recent-pull-number', `#${pull.number}`)));
   return row(`recent-item-${pull.state === 'open' ? 'open' : 'merged'}`, pull.time,
     element('div', 'recent-head', title, ...badges(pull)),
     element('div', 'recent-meta', stateLabel(state), by, diffStat(pull.additions ?? pull.add, pull.deletions ?? pull.del)));
@@ -87,7 +87,7 @@ function commitRow(change, withLegacy) {
       element('div', 'recent-meta', stateLabel('merged'), withLegacy ? null : diffStat(change.add, change.del)));
   }
   const by = external(link(`${config.repository}/commit/${change.commit}`, 'recent-pull',
-    element('span', 'recent-author', change.author ?? ''), element('span', 'recent-pull-number', change.commit.slice(0, 7))));
+    element('span', 'recent-author', (change.authors?.length ? change.authors : [change.author]).filter(Boolean).join(', ')), element('span', 'recent-pull-number', change.commit.slice(0, 7))));
   return row('recent-item-merged', change.time,
     element('div', 'recent-head', element('span', 'recent-pull-title', change.title), ...badges(change)),
     element('div', 'recent-meta', stateLabel('merged'), by, diffStat(change.add, change.del)));

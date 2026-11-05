@@ -87,9 +87,9 @@ function stateLabel(pull) {
   return label;
 }
 
-/** Who and which pull request, as one link to the pull request. */
+/** Who wrote it (everyone, by GitHub login) and which pull request, as one link to the pull request. */
 function pullLink(pull) {
-  const node = link(pull.url, 'recent-pull', element('span', 'recent-author', pull.author), element('span', 'recent-pull-number', `#${pull.number}`));
+  const node = link(pull.url, 'recent-pull', element('span', 'recent-author', (pull.authors?.length ? pull.authors : [pull.author]).filter(Boolean).join(', ')), element('span', 'recent-pull-number', `#${pull.number}`));
   Object.assign(node, { target: '_blank', rel: 'noopener' });
   return node;
 }

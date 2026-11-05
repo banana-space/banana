@@ -17,7 +17,7 @@ const files = new Map([ // "commit:path" -> text
 const at = (sha, path, text) => files.set(`${sha}:${path}`, text);
 const pulls = [];
 const committed = number => `2026-09-${String(number % 28 + 1).padStart(2, '0')}T23:30:00Z`;
-function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, closed = false, changed, title, messages = [title] }) {
+function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, closed = false, changed, title, messages = [title], writers = [] }) {
   const head = String(number).padStart(40, 'b');
   for (const [path, text] of Object.entries(changed)) if (text !== null) at(head, path, text);
   pulls.push({
@@ -26,7 +26,7 @@ function pull(number, { ref, fork = false, user = 'banana-bot', merged = false, 
     // A commit the API's checkout does not have: merged, not yet deployed. #6's is set to the checkout's below.
     merge_commit_sha: merged ? 'c'.repeat(40) : null,
     updated_at: `2026-10-1${number % 9}T08:00:00Z`, created_at: '2026-10-01T08:00:00Z', draft: false,
-    base: { sha: main }, head: { sha: head, ref, repo: { full_name: fork ? 'fork/site' : 'Owner/Site' } }, messages,
+    base: { sha: main }, head: { sha: head, ref, repo: { full_name: fork ? 'fork/site' : 'Owner/Site' } }, messages, writers,
     files: Object.entries(changed).map(([path, text]) => ({
       filename: path, status: text === null ? 'removed' : files.has(`${main}:${path}`) ? 'modified' : 'added', additions: 1, deletions: 0,
     })),
@@ -36,7 +36,10 @@ const page = (title, body) => `---\ntitle: ${title}\ncategories: []\n---\n\n${bo
 // Newest first, as GitHub lists them by update.
 // Its second commit marks the page a minor edit (scripts/shared/minor-edits.mjs).
 pull(9, { ref: 'edit/octo/0123456789ab', title: '乙', changed: { 'content/wiki/乙/index.md': page('乙', '新条目。') }, messages: ['编辑 乙\n\nMajor-edit: wiki/乙', '格式\n\nMinor-edit: wiki/乙'] });
-pull(8, { ref: 'new-page', user: 'hand', title: '手写的新页面', changed: { 'content/wiki/丙/index.md': page('丙', '手写。') } });
+// Its commits by its author, someone else (twice), a bot and an address GitHub links to no account but names a login.
+pull(8, { ref: 'new-page', user: 'hand', title: '手写的新页面', changed: { 'content/wiki/丙/index.md': page('丙', '手写。') },
+  messages: ['手写的新页面', '补充', '再补充', '格式', '链接'],
+  writers: [{ author: { login: 'hand' } }, { author: { login: 'Helper' } }, { author: { login: 'helper' } }, { author: { login: 'fmt[bot]', type: 'Bot' } }, { email: '5+mailer@users.noreply.github.com' }] });
 pull(7, { ref: 'edit/evil/0123456789ab', fork: true, user: 'evil', title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '复刻中的修改。') } });
 pull(6, { ref: 'edit/hubot/fedcba987654', merged: true, title: '甲', changed: { 'content/wiki/甲/index.md': page('甲', '甲的新正文。') } });
 pull(5, { ref: 'closed', closed: true, title: '关闭的', changed: { 'content/wiki/甲/index.md': page('甲', '没有合并。') } });
@@ -66,8 +69,8 @@ const github = createServer((request, response) => {
   if (found) {
     const pull = pulls.find(pull => pull.number === Number(found[1]));
     if (!pull) return reply(404, { message: 'Not Found' });
-    const { files: changed, messages, ...rest } = pull;
-    if (found[2] === '/commits') return reply(200, messages.map(message => ({ commit: { message } })));
+    const { files: changed, messages, writers, ...rest } = pull;
+    if (found[2] === '/commits') return reply(200, messages.map((message, i) => ({ commit: { message, author: { email: writers[i]?.email ?? 'someone@example.org' } }, author: writers[i]?.author ?? null })));
     return reply(200, found[2] ? (Number(url.searchParams.get('page')) > 1 ? [] : changed) : rest);
   }
   // The latest commit's date: written in the night, merged the next morning. #4's is missing.
@@ -153,6 +156,8 @@ try {
   const first = json.pulls.filter(pull => pull.number < 10);
   assert.deepEqual(first.map(pull => [pull.number, pull.state, pull.author, pull.editor]),
     [[9, 'open', 'octo', true], [8, 'open', 'hand', false], [7, 'open', 'evil', false], [6, 'merged', 'hubot', true], [4, 'merged', 'dev', false]]);
+  assert.deepEqual(first.map(pull => pull.authors), [['octo'], ['hand', 'Helper'], ['evil'], ['hubot'], ['dev']],
+    'PR 的所有作者：先是 PR 的作者，再是 GitHub 对应到账号的提交作者，机器人与不属于任何账号的邮箱（即使像是 GitHub 的地址）除外，同一用户名只算一次');
   const [bySomeoneNew, byHandNew, , merged, code] = first;
   assert.deepEqual(bySomeoneNew.pages.map(({ path, title, url, status, letter }) => ({ path, title, url, status, letter })),
     [{ path: 'wiki/乙/index.md', title: '乙', url: null, status: 'added', letter: 'y' }], '新页面以目录名为标题，尚无网址');
@@ -276,7 +281,7 @@ try {
   base = await logged(/listening on (http:\/\/\S+)\/api\//);
   assert.equal((await get('recent-changes')).json.pulls.length, json0.pulls.length, '缓存文件损坏时从头读取');
 
-  console.log(`最近更改：PR 列表与分页、页面历史中尚未发布的修改与限频、关闭的 PR、编辑器 PR 的作者与复刻分支、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过（限频：${limited}）`);
+  console.log(`最近更改：PR 列表与分页、页面历史中尚未发布的修改与限频、关闭的 PR、编辑器 PR 的作者与复刻分支、PR 的所有作者、页面标题与新页面、只改代码的 PR 与讲义列表、合并后是否已发布、最新提交的时间、差异的前后全文、编辑按钮（编辑器 PR 中的新页面打开该 PR）、错误请求与缓存、启动期间的回答、重启后从磁盘读取缓存验证通过（限频：${limited}）`);
 } finally {
   if (child && child.exitCode === null) {
     try { process.kill(process.platform === 'win32' ? child.pid : -child.pid, 'SIGTERM'); } catch {}

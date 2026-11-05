@@ -1,14 +1,16 @@
 // The online editor on /edit/ (scripts/site/templates/special.mjs), bundled by esbuild (scripts/site/assets.mjs).
 // The page's source comes from /api/source; previews, checks and submissions go to /api/
 // (scripts/api.mjs). Drafts are kept in localStorage until they are submitted.
-import { ChangeSet, Compartment, EditorSelection, EditorState, Prec, RangeSet, StateEffect, StateField, Text, countColumn } from '@codemirror/state';
+// Served by npm run serve without --api, it edits the files on this machine instead (scripts/service/local-edit.mjs):
+// no login, no drafts, saving writes the file, and the file's changes on disk come into the editor as they are made.
+import { ChangeSet, Compartment, EditorSelection, EditorState, Prec, RangeSet, StateEffect, StateField, Text, Transaction, countColumn } from '@codemirror/state';
 import {
-  Decoration, EditorView, GutterMarker, WidgetType, crosshairCursor, drawSelection, dropCursor, gutter, highlightActiveLine, highlightActiveLineGutter,
-  highlightSpecialChars, keymap, lineNumbers, rectangularSelection,
+  Decoration, EditorView, GutterMarker, RectangleMarker, WidgetType, crosshairCursor, drawSelection, dropCursor, gutter, highlightActiveLineGutter,
+  highlightSpecialChars, keymap, layer, lineNumbers, rectangularSelection,
 } from '@codemirror/view';
 import { bracketMatching, foldGutter, foldKeymap, getIndentUnit, indentOnInput, indentUnit, syntaxHighlighting } from '@codemirror/language';
 import { defaultKeymap, history, historyKeymap, indentLess, indentMore } from '@codemirror/commands';
-import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
+import { getSearchQuery, highlightSelectionMatches, search, searchKeymap } from '@codemirror/search';
 import { acceptCompletion, autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
@@ -39,6 +41,142 @@ function insertIndentation(view) {
   return true;
 }
 
+/**
+ * The replacement for a match, as CodeMirror's replace commands make it (its own is not public): unless the query is
+ * literal, \n, \r, \t and \\ are those characters; with a regular expression, $& is the match, $1… its groups, $$ a $.
+ */
+function replacementFor(query, match) {
+  const text = query.literal ? query.replace
+    : query.replace.replace(/\\([nrt\\])/g, (_, ch) => ({ n: '\n', r: '\r', t: '\t' })[ch] ?? '\\');
+  if (!query.regexp) return text;
+  return text.replace(/\$([$&]|\d+)/g, (whole, name) => {
+    if (name === '&') return match[0];
+    if (name === '$') return '$';
+    // $12 is group 12 if there is one, otherwise group 1 followed by 2.
+    for (let length = name.length; length > 0; length--) {
+      const number = +name.slice(0, length);
+      if (number > 0 && number < match.length) return match[number] + name.slice(length);
+    }
+    return whole;
+  });
+}
+
+/** Replaces the matches of the search panel's query within the selected text (one edit, undone as one). */
+function replaceInSelection(view) {
+  const { state } = view, query = getSearchQuery(state);
+  if (state.readOnly || !query.valid) return false;
+  const changes = [];
+  for (const range of state.selection.ranges) {
+    if (range.empty) continue;
+    const cursor = query.getCursor(state, range.from, range.to);
+    for (let next = cursor.next(); !next.done; next = cursor.next()) {
+      const { from, to, match } = next.value;
+      changes.push({ from, to, insert: replacementFor(query, match) });
+    }
+  }
+  if (!changes.length) return false;
+  view.dispatch({
+    changes, userEvent: 'input.replace.all',
+    effects: EditorView.announce.of(`${state.phrase('replaced $ matches', changes.length)}.`),
+  });
+  return true;
+}
+
+const mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+/**
+ * The keys of the search panel's buttons, shown in their tooltips (CodeMirror's searchKeymap and its panel's Enter,
+ * written ⏎ on macOS: the menus' ↩ looks like a mere hooked arrow in some browsers' fonts).
+ */
+const searchKeys = mac
+  ? { next: '⏎、F3、⌘G', prev: '⇧⏎、⇧F3、⇧⌘G', replace: '⏎', close: 'Esc' }
+  : { next: 'Enter、F3、Ctrl+G', prev: 'Shift+Enter、Shift+F3、Shift+Ctrl+G', replace: 'Enter', close: 'Esc' };
+
+/**
+ * The search panel as the editor has it: its buttons and options show as icons (_editor.scss), their words (and
+ * keys) as tooltips; a button that replaces within the selection, after "replace all"; the number of matches; no
+ * browser suggestions in its fields; its place beside the scroll bar.
+ */
+function adjustSearchPanel(view) {
+  const panel = view.dom.querySelector('.cm-search');
+  if (!panel) return;
+  if (!panel.dataset.adjusted) {
+    panel.dataset.adjusted = 'true';
+    const all = panel.querySelector('[name="replaceAll"]');
+    if (all) {
+      const button = Object.assign(document.createElement('button'), { type: 'button', name: 'replaceSelection', className: 'cm-button', textContent: text('cm_replace_selection') });
+      button.addEventListener('click', () => replaceInSelection(view));
+      all.after(button);
+    }
+    for (const element of panel.querySelectorAll('label, button')) {
+      const words = element.getAttribute('aria-label') ?? element.textContent.trim(), keys = searchKeys[element.name];
+      element.title = keys ? text('cm_shortcut', { label: words, key: keys }) : words;
+    }
+    for (const field of panel.querySelectorAll('.cm-textfield')) field.autocomplete = 'off';
+    panel.querySelector('[name="select"]').after(Object.assign(document.createElement('span'), { className: 'cm-search-count' }));
+  }
+  // The floating panel keeps as far from the scroll bar as from the top (_editor.scss): the bar's width, none where it
+  // overlays the text or is not there.
+  const bar = `${view.scrollDOM.offsetWidth - view.scrollDOM.clientWidth}px`;
+  if (view.dom.style.getPropertyValue('--editor-scrollbar') !== bar) view.dom.style.setProperty('--editor-scrollbar', bar);
+  showMatches(view, panel);
+}
+
+/**
+ * The number of matches after the search row's buttons (which one the selection is, when it is one); the buttons only
+ * while there is something to find or replace: any match, or for replacing within the selection, one within it.
+ * Counted again only when the text, the selection or the query changed.
+ */
+const counted = new WeakMap(); // view -> { doc, selection, query }
+const maxCount = 9999;
+function showMatches(view, panel) {
+  const { state } = view, query = getSearchQuery(state), last = counted.get(view);
+  if (last && last.doc === state.doc && last.selection === state.selection && last.query.eq(query) && panel.dataset.counted) return;
+  counted.set(view, { doc: state.doc, selection: state.selection, query });
+  panel.dataset.counted = 'true';
+  const { main, ranges } = state.selection, selected = ranges.filter(range => !range.empty);
+  let total = 0, current = 0, inSelection = 0;
+  if (query.valid) {
+    const cursor = query.getCursor(state);
+    for (let next = cursor.next(); !next.done && total < maxCount; next = cursor.next()) {
+      const { from, to } = next.value;
+      total++;
+      if (from === main.from && to === main.to) current = total;
+      if (selected.some(range => range.from <= from && to <= range.to)) inSelection++;
+    }
+  }
+  const shown = total >= maxCount ? `${maxCount}+` : total;
+  panel.querySelector('.cm-search-count').textContent = !query.search ? ''
+    : !total ? text('search_none') : current ? text('search_current', { current, total: shown }) : text('search_total', { total: shown });
+  for (const name of ['next', 'prev', 'select', 'replace', 'replaceAll']) {
+    const button = panel.querySelector(`.cm-button[name="${name}"]`);
+    if (button) button.disabled = !total;
+  }
+  const inside = panel.querySelector('[name="replaceSelection"]');
+  if (inside) inside.disabled = !inSelection;
+}
+
+/**
+ * The lines with a cursor, lit beneath the selection: CodeMirror's highlightActiveLine colours the lines themselves,
+ * over the layer where the selection is drawn. A layer of its own instead, after drawSelection's (later layers lie
+ * lower), as wide as the text.
+ */
+const activeLines = layer({
+  above: false,
+  class: 'editor-active-lines',
+  update: update => update.docChanged || update.selectionSet || update.viewportChanged,
+  markers(view) {
+    const scroller = view.scrollDOM.getBoundingClientRect(), content = view.contentDOM.getBoundingClientRect();
+    // Positions from the scrolled document's corner, as the layer has them.
+    const left = content.left - scroller.left + view.scrollDOM.scrollLeft, top = view.documentTop - scroller.top + view.scrollDOM.scrollTop;
+    const lines = new Map();
+    for (const range of view.state.selection.ranges) {
+      const block = view.lineBlockAt(range.head);
+      lines.set(block.from, new RectangleMarker('editor-active-line', left, top + block.top, content.width, block.height));
+    }
+    return [...lines.values()];
+  },
+});
+
 /** CodeMirror's basicSetup, spelled out so that the fold markers can be the site's chevron. */
 function setup() {
   return [
@@ -57,7 +195,10 @@ function setup() {
     EditorView.domEventHandlers({
       compositionend: (event, view) => { setTimeout(() => { if (afterComposition(view.state)) startCompletion(view); }); },
     }),
-    rectangularSelection(), crosshairCursor(), highlightActiveLine(), highlightSelectionMatches(),
+    rectangularSelection(), crosshairCursor(), activeLines, highlightSelectionMatches(),
+    // The search panel at the top, where it floats over the editor's top right (_editor.scss).
+    search({ top: true }),
+    EditorView.updateListener.of(update => adjustSearchPanel(update.view)),
     EditorState.phrases.of(Object.fromEntries(Object.entries(codemirrorPhrases).map(([phrase, key]) => [phrase, config.strings[key]]))),
     // Ahead of the bracket pairing: "\[" closes with "\]", not "]".
     Prec.high(EditorView.inputHandler.of(pairFormulaDelimiters)),
@@ -223,7 +364,42 @@ const changeGutter = [
   keymap.of([{ key: 'Escape', run: view => { if (!view.state.field(changePeek)) return false; view.dispatch({ effects: showChange.of(null) }); return true; } }]),
 ];
 
+// Lines that a change on disk just changed (local editing), lit for a moment.
+const setExternal = StateEffect.define(); // a DecorationSet, or null
+const externalLines = StateField.define({
+  create: () => Decoration.none,
+  update(value, transaction) {
+    for (const effect of transaction.effects) if (effect.is(setExternal)) return effect.value ?? Decoration.none;
+    return value.map(transaction.changes);
+  },
+  provide: field => EditorView.decorations.from(field),
+});
+const externalLine = Decoration.line({ class: 'editor-external-change' });
+
+/**
+ * Both sides' changes to base, merged by lines as Git merges: the merged text, or null when they change the same
+ * lines or lines next to each other.
+ */
+function mergeLines(base, mine, theirs) {
+  const [a, b, c] = [base, mine, theirs].map(value => Text.of(value.split('\n')));
+  const codes = new Map(), from = lineString(a, codes);
+  const ours = diff(from, lineString(b, codes)).map(change => ({ ...change, doc: b }));
+  const others = diff(from, lineString(c, codes)).map(change => ({ ...change, doc: c }));
+  if (ours.some(x => others.some(y => x.fromA <= y.toA && y.fromA <= x.toA))) return null;
+  const lines = (doc, start, end) => Array.from({ length: end - start }, (_, i) => doc.line(start + i + 1).text);
+  const result = [];
+  let at = 0;
+  for (const change of [...ours, ...others].sort((x, y) => x.fromA - y.fromA)) {
+    result.push(...lines(a, at, change.fromA), ...lines(change.doc, change.fromB, change.toB));
+    at = change.toA;
+  }
+  result.push(...lines(a, at, a.lines));
+  return result.join('\n');
+}
+
 const config = JSON.parse(document.getElementById('editor-config').textContent);
+const local = document.documentElement.hasAttribute('data-local-edit');
+const api = local ? '/__banana_local/' : config.api;
 // CodeMirror's own words, by its phrases.
 const codemirrorPhrases = {
   'Find': 'cm_find',
@@ -271,7 +447,7 @@ const storage = {
 
 async function request(method, path, body) {
   try {
-    const response = await fetch(config.api + path, {
+    const response = await fetch(api + path, {
       method, credentials: 'same-origin',
       headers: body ? { 'Content-Type': 'application/json' } : {}, body: body && JSON.stringify(body),
     });
@@ -343,22 +519,24 @@ start(params.get('path'), params.get('title')?.trim());
 
 /** Logged out: an invitation to log in instead of an editor that cannot preview. Then a page, or the choice of one. */
 async function start(requested, title) {
-  const me = await request('GET', 'me');
+  const me = local ? null : await request('GET', 'me');
   $('.editor-loading').hidden = true;
-  if (!me.json.ok) {
+  if (me && !me.json.ok) {
     Object.assign($('.editor-unavailable'), { textContent: text('unavailable'), hidden: false });
     return;
   }
-  if (!me.json.user) {
+  if (me && !me.json.user) {
     const login = $('.editor-login');
     login.querySelector('a').href = `${config.api}auth/login?return=${encodeURIComponent(location.pathname + location.search)}`;
     login.hidden = false;
     return;
   }
   const path = requested ? pagePath(requested) : title && await entryPath(title);
-  if (path) { openPage(path, me.json.user, title); return; }
+  if (path) { openPage(path, me?.json.user ?? null, title); return; }
   const form = $('.editor-open');
   form.hidden = false;
+  // Editing locally, any page by its path in content/.
+  if (local) form.querySelector('.editor-open-hint').textContent = text('local_open_hint');
   // The title of an entry, never a path: only entries are created online (other pages are edited from
   // their own "edit this page" link).
   const input = form.elements.path;
@@ -366,6 +544,7 @@ async function start(requested, title) {
   form.addEventListener('submit', event => {
     event.preventDefault();
     const value = input.value.trim();
+    if (value.includes('/') && local) { location.search = `?path=${encodeURIComponent(value)}`; return; }
     if (value.includes('/')) { input.setCustomValidity(text('open_no_slash')); input.reportValidity(); return; }
     if (value) location.search = `?title=${encodeURIComponent(value)}`;
   });
@@ -380,7 +559,7 @@ async function openPage(path, user, title) {
   $('.editor-path-name').textContent = `content/${path}`;
   // ?pull= is the pull request to edit (a number, or "none" for the site's version), as chosen below or linked
   // from the pull request's description.
-  const asked = params.get('pull');
+  const asked = local ? null : params.get('pull');
   const source = await request('GET', `source?path=${encodeURIComponent(path)}${asked ? `&pull=${encodeURIComponent(asked)}` : ''}`);
   if (!source.json.ok) { status(text('load_failed', { message: errorText(source.json) })); return; }
   // Other people's pull requests of the page: the user chooses which to edit, unless the address says.
@@ -393,7 +572,7 @@ async function openPage(path, user, title) {
     }
   }
   // Only entries are created online.
-  if (!source.json.exists && !/^wiki\/[^/]+\/index\.md$/.test(path)) { status(text('new_page_not_entry')); return; }
+  if (!local && !source.json.exists && !/^wiki\/[^/]+\/index\.md$/.test(path)) { status(text('new_page_not_entry')); return; }
   status('');
   bookLabels = source.json.labels ?? [];
   let { original, pull } = source.json;
@@ -402,8 +581,12 @@ async function openPage(path, user, title) {
   // The version the server has: drafts and "unchanged" are measured against it.
   // A new page starts from the front matter the editor requires (categories for an entry, even if empty).
   const article = path.startsWith('wiki/') && path !== 'wiki/index.md';
-  let baseline = source.json.exists ? source.json.text
+  const initial = source.json.exists ? source.json.text
     : `---\ntitle: ${yamlString(title || (path.split('/').at(-2) ?? path.replace(/\.md$/, '')))}\n${article ? 'categories: []\nnavboxes: []\n' : ''}---\n\n`;
+  // Editing locally, the lines' changes are measured against the file in Git's HEAD; saved is the file as the editor
+  // last knew it on disk (null: none yet).
+  let baseline = local ? source.json.head ?? initial : initial;
+  let saved = local && source.json.exists ? source.json.text : null;
   if (source.json.file) file.href = source.json.file;
   if (!source.json.exists) file.append(Object.assign(document.createElement('span'), { className: 'editor-new-page', textContent: text('new_page') }));
   if (source.json.url) Object.assign($('.editor-view'), { href: source.json.url, hidden: false });
@@ -413,29 +596,31 @@ async function openPage(path, user, title) {
   // Account: the GitHub avatar and login open a menu (also on hover): the user's pull requests, their
   // GitHub page, logging out.
   const account = $('.editor-user');
-  const toggle = Object.assign(document.createElement('button'), { type: 'button', className: 'editor-account-button', title: user.name });
-  toggle.setAttribute('aria-haspopup', 'menu');
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-label', `${user.login} · ${text('account_menu')}`);
-  if (user.avatar) toggle.append(Object.assign(document.createElement('img'), { className: 'editor-avatar', src: user.avatar, alt: '', width: 24, height: 24 }));
-  toggle.append(Object.assign(document.createElement('strong'), { textContent: user.login }), icon('chevron'));
-  const menu = Object.assign(document.createElement('div'), { className: 'editor-account-menu' });
-  menu.setAttribute('role', 'menu');
-  const item = (element, label) => {
-    Object.assign(element, { className: 'editor-account-item', textContent: label });
-    element.setAttribute('role', 'menuitem');
-    menu.append(element);
-    return element;
-  };
-  if (user.pulls) item(Object.assign(document.createElement('a'), { href: user.pulls, target: '_blank', rel: 'noopener' }), text('my_pulls'));
-  item(Object.assign(document.createElement('a'), { href: user.url, target: '_blank', rel: 'noopener' }), text('profile'));
-  item(Object.assign(document.createElement('button'), { type: 'button' }), text('logout'))
-    .addEventListener('click', async () => { await request('POST', 'auth/logout'); location.reload(); });
-  const setOpen = open => { account.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open)); };
-  toggle.addEventListener('click', () => setOpen(!account.classList.contains('is-open')));
-  document.addEventListener('click', event => { if (!account.contains(event.target)) setOpen(false); });
-  account.addEventListener('keydown', event => { if (event.key === 'Escape') { setOpen(false); toggle.focus(); } });
-  account.append(toggle, menu);
+  if (user) {
+    const toggle = Object.assign(document.createElement('button'), { type: 'button', className: 'editor-account-button', title: user.name });
+    toggle.setAttribute('aria-haspopup', 'menu');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', `${user.login} · ${text('account_menu')}`);
+    if (user.avatar) toggle.append(Object.assign(document.createElement('img'), { className: 'editor-avatar', src: user.avatar, alt: '', width: 24, height: 24 }));
+    toggle.append(Object.assign(document.createElement('strong'), { textContent: user.login }), icon('chevron'));
+    const menu = Object.assign(document.createElement('div'), { className: 'editor-account-menu' });
+    menu.setAttribute('role', 'menu');
+    const item = (element, label) => {
+      Object.assign(element, { className: 'editor-account-item', textContent: label });
+      element.setAttribute('role', 'menuitem');
+      menu.append(element);
+      return element;
+    };
+    if (user.pulls) item(Object.assign(document.createElement('a'), { href: user.pulls, target: '_blank', rel: 'noopener' }), text('my_pulls'));
+    item(Object.assign(document.createElement('a'), { href: user.url, target: '_blank', rel: 'noopener' }), text('profile'));
+    item(Object.assign(document.createElement('button'), { type: 'button' }), text('logout'))
+      .addEventListener('click', async () => { await request('POST', 'auth/logout'); location.reload(); });
+    const setOpen = open => { account.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open)); };
+    toggle.addEventListener('click', () => setOpen(!account.classList.contains('is-open')));
+    document.addEventListener('click', event => { if (!account.contains(event.target)) setOpen(false); });
+    account.addEventListener('keydown', event => { if (event.key === 'Escape') { setOpen(false); toggle.focus(); } });
+    account.append(toggle, menu);
+  }
 
   // Editor.
   const draftKey = `banana-editor:${path}`;
@@ -453,12 +638,13 @@ async function openPage(path, user, title) {
   let reported = []; // [{ from, to, severity, message }]
   const trackers = new Set(); // { changes }
   const view = new EditorView({
-    doc: baseline,
+    doc: initial,
     parent: $('.editor-source'),
     extensions: [
       // No line wrapping: indentation stays visible, and long lines are better broken in the source.
-      setup(), bananaMarkdown(), lintGutter(), merge.of([]), lint.of([]), changesFrom(baseline),
-      keymap.of([{ key: 'Mod-s', preventDefault: true, run: () => { if (current() !== previewed) schedulePreview(0); return true; } }]),
+      setup(), bananaMarkdown(), lintGutter(), merge.of([]), lint.of([]), changesFrom(baseline), externalLines,
+      // Locally, Ctrl+S / ⌘S saves too.
+      keymap.of([{ key: 'Mod-s', preventDefault: true, run: () => { if (local) void save(); if (current() !== previewed) schedulePreview(0); return true; } }]),
       EditorView.updateListener.of(update => { if (update.docChanged) { follow(update.changes); dropTouched(update); changed(); } }),
     ],
   });
@@ -469,13 +655,16 @@ async function openPage(path, user, title) {
     baseline = value;
     view.dispatch({ effects: setOriginal.of(value) });
   }
+  /** Locally: whether the text differs from the file (from what a new file starts with, before it exists). */
+  const unsaved = () => current() !== (saved ?? initial);
   function changed() {
     const value = current();
+    if (local) { showSaved(); return; }
     if (value === baseline) storage.remove(draftKey);
     else storageWorks = storage.set(draftKey, { text: value, original, saved: Date.now() });
     updateSubmit();
   }
-  addEventListener('beforeunload', event => { if (!storageWorks && current() !== baseline) event.preventDefault(); });
+  addEventListener('beforeunload', event => { if (local ? unsaved() : !storageWorks && current() !== baseline) event.preventDefault(); });
 
   // A banner above the editor, with buttons, and a close button when it only informs.
   function banner(message, actions = [], { closable = false } = {}) {
@@ -507,7 +696,7 @@ async function openPage(path, user, title) {
   const replaceAll = value => view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: value } });
 
   // A draft from an earlier visit.
-  const draft = storage.get(draftKey);
+  const draft = local ? null : storage.get(draftKey);
   if (draft?.text && draft.text !== baseline) {
     if (draft.original === original) {
       replaceAll(draft.text);
@@ -573,7 +762,10 @@ async function openPage(path, user, title) {
 
   // Scrolling either side scrolls the other to the same place, unless the preview shows errors or failed. The
   // preview's source-line marks anchor the two (without them, each "#" heading of the source and its heading in
-  // the preview, both in order); between anchors, positions are interpolated by line.
+  // the preview, both in order); between anchors, positions are interpolated by line. What is matched is the line
+  // 40% down each pane, where the eye is (the source runs about twice as long as the preview, so matching the top
+  // lines left the middles apart); nearer than that to either end of a pane, the point moves to that end, so that
+  // the two panes' tops and ends still meet.
   let headingCache = { doc: null, lines: [] };
   /** Lines (from 1) of the source's headings, outside the front matter and code blocks. */
   function sourceHeadings() {
@@ -643,30 +835,60 @@ async function openPage(path, user, title) {
     syncing = true;
     requestAnimationFrame(() => {
       syncing = false;
-      scrollPreviewTo(sourceTopLine());
+      scrollPreviewTo(sourceAnchorLine());
     });
   }, { passive: true });
-  /** The line at the top of the source, with the fraction of it scrolled past. */
-  function sourceTopLine() {
-    const top = view.scrollDOM.scrollTop, block = view.lineBlockAtHeight(top);
-    return view.state.doc.lineAt(block.from).number + (top - block.top) / (block.height || 1);
+  const anchorAt = 0.4;
+  /**
+   * How far down a pane (height, scrolled to top of at most max) its matched point is: 40%, less near the start
+   * (none at the top) and more near the end (all of it at the end).
+   */
+  const anchorOffset = (top, height, max) => Math.min(Math.max(Math.min(anchorAt * height, top), height - (max - top)), height);
+  /** The scroll position whose matched point is at y (it moves down as the pane scrolls: halving finds it). */
+  function scrollFor(y, height, max) {
+    let low = 0, high = Math.max(max, 0);
+    for (let i = 0; i < 30; i++) {
+      const middle = (low + high) / 2;
+      if (middle + anchorOffset(middle, height, max) < y) low = middle;
+      else high = middle;
+    }
+    return high;
   }
-  function scrollSourceTo(line) {
+  const sourceScroll = () => ({ height: view.scrollDOM.clientHeight, max: view.scrollDOM.scrollHeight - view.scrollDOM.clientHeight });
+  /** The line at the source's matched point, with the fraction of it above that point. */
+  function sourceAnchorLine() {
+    const { height, max } = sourceScroll(), top = view.scrollDOM.scrollTop, y = top + anchorOffset(top, height, max);
+    const block = view.lineBlockAtHeight(y);
+    return view.state.doc.lineAt(block.from).number + (y - block.top) / (block.height || 1);
+  }
+  /** Where a line of the source (with a fraction) is, from the top of the text. */
+  function sourceHeight(line) {
     const doc = view.state.doc, number = Math.min(Math.max(Math.floor(line), 1), doc.lines);
     const block = view.lineBlockAt(doc.line(number).from);
-    view.scrollDOM.scrollTop = block.top + (line - number) * block.height;
+    return { block, y: block.top + (line - number) * block.height };
   }
-  /** The line at the top of the preview, or null without a usable preview. */
-  function previewTopLine() {
+  /** The source's scroll position that puts a line at its matched point. */
+  function sourceScrollFor(line) {
+    const { height, max } = sourceScroll();
+    return scrollFor(sourceHeight(line).y, height, max);
+  }
+  function scrollSourceTo(line) {
+    view.scrollDOM.scrollTop = sourceScrollFor(line);
+  }
+  /** The line at the preview's matched point, or null without a usable preview. */
+  function previewAnchorLine() {
     const points = anchors();
-    return points && between(points, 'y', frames[active].contentWindow.scrollY, 'line');
+    if (!points) return null;
+    const frame = frames[active].contentWindow, max = frame.document.documentElement.scrollHeight - frame.innerHeight;
+    return between(points, 'y', frame.scrollY + anchorOffset(frame.scrollY, frame.innerHeight, max), 'line');
   }
-  /** Scrolls the preview to a line of the source, offset (px) below its top. */
-  function scrollPreviewTo(line, offset = 0) {
+  /** Scrolls the preview to a line of the source: at its matched point, or offset (px) below its top. */
+  function scrollPreviewTo(line, offset) {
     const points = anchors();
     if (!points) return;
-    const frame = frames[active].contentWindow;
-    frame.scrollTo({ top: between(points, 'line', line, 'y') - offset, behavior: 'instant' });
+    const frame = frames[active].contentWindow, y = between(points, 'line', line, 'y');
+    const max = frame.document.documentElement.scrollHeight - frame.innerHeight;
+    frame.scrollTo({ top: offset === undefined ? scrollFor(y, frame.innerHeight, max) : y - offset, behavior: 'instant' });
     previewSeen = { frame, y: frame.scrollY }; // Not the user's scrolling of the preview.
   }
   // The other way: the preview's frame runs no scripts, and Chrome fires no scroll events in it, so its
@@ -682,7 +904,7 @@ async function openPage(path, user, title) {
     if (y === previewSeen.y) return;
     previewSeen.y = y;
     if (Date.now() <= userScroll) return; // The source is being scrolled and leads.
-    const line = previewTopLine();
+    const line = previewAnchorLine();
     if (line !== null) scrollSourceTo(line);
   })();
   function select(anchor, head) {
@@ -691,10 +913,12 @@ async function openPage(path, user, title) {
   }
   // Previews come on request (the button, Ctrl+S or ⌘S), and once when the page opens: previewing while typing
   // kept the preview restless and the server busy.
-  const previewKey = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘S' : 'Ctrl+S';
+  const previewKey = mac ? '⌘S' : 'Ctrl+S';
   const previewButton = $('.editor-preview-button');
   previewButton.title = text('preview_button_title', { key: previewKey });
   previewButton.addEventListener('click', () => schedulePreview(0));
+  // Locally, saving previews: the button would only preview a text that is not saved.
+  previewButton.hidden = local;
   $('.editor-preview-empty').textContent = text('preview_empty', { key: previewKey });
   // A preview on its way (asked for by either button) shows as a spinner left of the preview button, or, in
   // the one-pane layout, inside the preview tab; the status shows only a failure that can be retried. Errors
@@ -714,7 +938,7 @@ async function openPage(path, user, title) {
       element.replaceChildren(retry);
     } else element.textContent = '';
   }
-  const minInterval = 3000; // The server allows one preview per account every 3 s.
+  const minInterval = local ? 0 : 3000; // The server allows one preview per account every 3 s.
   // again: a preview was asked for while one was on its way; submitWaiting: the submit button waits for the
   // preview, to open the dialog once it succeeds.
   let again = false, submitWaiting = false;
@@ -748,10 +972,10 @@ async function openPage(path, user, title) {
   async function previewText(value, tracker) {
     // Errors the browser finds itself go straight over the preview; the server would only repeat them.
     const check = await loadChecker();
-    const local = check ? check(value, path, bookLabels) : [];
-    if (local.length) {
+    const found = check ? check(value, path, bookLabels, { local }) : [];
+    if (found.length) {
       previewed = value;
-      showErrors(local);
+      showErrors(found);
       updateSubmit();
       settle();
       return;
@@ -864,9 +1088,9 @@ async function openPage(path, user, title) {
     const panes = $('.editor-panes');
     if (panes.dataset.pane === pane) return;
     // Read while the pane being left is laid out; placed once the other one is. To the preview: the caret's line,
-    // as far down as it is in the source (the top line when the caret is out of sight).
+    // as far down as it is in the source (the matched line when the caret is out of sight).
     const caret = pane === 'preview' ? caretPlace() : null;
-    const line = caret ? caret.line : pane === 'preview' ? sourceTopLine() : previewTopLine();
+    const line = caret ? caret.line : pane === 'preview' ? sourceAnchorLine() : previewAnchorLine();
     panes.dataset.pane = pane;
     for (const tab of root.querySelectorAll('.editor-tab')) tab.setAttribute('aria-selected', String(tab.dataset.pane === pane));
     previewSeen = { frame: null, y: 0 }; // Where the preview stood while hidden says nothing.
@@ -874,9 +1098,8 @@ async function openPage(path, user, title) {
     if (pane === 'preview') scrollPreviewTo(line, caret?.offset); // Reading its layout lays it out.
     else {
       // Through CodeMirror, which otherwise puts back its own position once it sees itself shown again.
-      const doc = view.state.doc, number = Math.min(Math.max(Math.floor(line), 1), doc.lines);
-      const block = view.lineBlockAt(doc.line(number).from);
-      view.dispatch({ effects: EditorView.scrollIntoView(block.from, { y: 'start', yMargin: -(line - number) * block.height }) });
+      const { block } = sourceHeight(line);
+      view.dispatch({ effects: EditorView.scrollIntoView(block.from, { y: 'start', yMargin: block.top - sourceScrollFor(line) }) });
     }
   }
   // In the one-pane layout the preview tab is the preview button: it previews, and shows the preview once done.
@@ -930,7 +1153,7 @@ async function openPage(path, user, title) {
   }
   // A failed load (a deployment in progress, say) is tried again at the next check.
   const loadChecker = () => loadCheckModule().then(module => module?.check);
-  const lintNow = async () => { const check = await loadChecker(); return lintPage(check ? check(current(), path, bookLabels) : []); };
+  const lintNow = async () => { const check = await loadChecker(); return lintPage(check ? check(current(), path, bookLabels, { local }) : []); };
   /** What the server reported about `sent` (the text then), placed in the current text and shown at once. */
   async function problems(missing, errors, tracker, sent) {
     const doc = Text.of(sent.split('\n'));
@@ -974,7 +1197,7 @@ async function openPage(path, user, title) {
   done.querySelector('.editor-submit-done-close').addEventListener('click', () => dialog.close());
   // The dialog opens once the text is previewed without errors: at once if it is, otherwise after its preview
   // (the button shows a spinner meanwhile); errors appear over the preview instead.
-  $('.editor-submit-button').addEventListener('click', () => {
+  if (!local) $('.editor-submit-button').addEventListener('click', () => {
     if (current() === baseline && source.json.exists) { $('.editor-status').textContent = text('unchanged'); return; }
     if (current() === approved) { openSubmitDialog(); return; }
     if (submitWaiting) return;
@@ -1063,6 +1286,72 @@ async function openPage(path, user, title) {
     }
     result.textContent = text('submit_failed', { message: errorText(json) });
   });
+
+  // Saving, locally: the file is written as it is (serve updates its page), unless it changed on disk meanwhile.
+  const saveButton = $('.editor-submit-button'), pageTitle = document.title;
+  let saving = null, saveAgain = false; // the text being saved; whether to save again once that is done
+  /** The save button only while there is something to save; the tab's title marks unsaved changes. */
+  function showSaved() {
+    saveButton.disabled = !unsaved() || saving !== null;
+    document.title = `${unsaved() ? '• ' : ''}${pageTitle}`;
+  }
+  async function save() {
+    if (saving !== null) { saveAgain = true; return; }
+    if (!unsaved()) return;
+    saving = current();
+    showSaved();
+    const { status: code, json } = await request('POST', 'save', { path, text: saving, base: saved });
+    const value = saving;
+    saving = null;
+    if (json.ok) {
+      saved = value;
+      source.json.exists = true;
+      file.querySelector('.editor-new-page')?.remove();
+    } else if (code === 409) {
+      external(json.current ?? null); // Saved again once the change on disk is taken in.
+    } else status(text('local_save_failed', { message: errorText(json) }));
+    showSaved();
+    if (saveAgain) { saveAgain = false; void save(); }
+  }
+  /**
+   * The file changed on disk (another editor, Claude): taken in at once, with the lines it changed lit for a moment;
+   * with unsaved edits, merged with them by lines, or, where both changed the same lines, compared with them.
+   */
+  function external(disk) {
+    if (disk === saved || (saving !== null && disk === saving)) return;
+    const mine = current(), base = saved ?? initial;
+    saved = disk;
+    if (disk !== null && disk !== mine) {
+      const merged = mine === base ? disk : mergeLines(base, mine, disk);
+      if (merged === null) compareWith(disk, text('local_conflict'));
+      else {
+        const before = view.state.doc;
+        view.dispatch({
+          changes: diff(mine, merged).map(({ fromA, toA, fromB, toB }) => ({ from: fromA, to: toA, insert: merged.slice(fromB, toB) })),
+          // Not undone by Ctrl+Z (the change markers put lines back).
+          annotations: Transaction.addToHistory.of(false),
+        });
+        const lit = [];
+        for (const { fromB, toB } of compareLines(before, view.state.doc).changes) {
+          for (let number = fromB + 1; number <= toB; number++) lit.push(externalLine.range(view.state.doc.line(number).from));
+        }
+        view.dispatch({ effects: setExternal.of(Decoration.set(lit)) });
+        setTimeout(() => view.dispatch({ effects: setExternal.of(null) }), 3000);
+        schedulePreview(0);
+      }
+    }
+    showSaved();
+  }
+  if (local) {
+    saveButton.textContent = text('local_save');
+    saveButton.title = text('local_save_title', { key: previewKey });
+    saveButton.addEventListener('click', () => { void save(); if (current() !== previewed) schedulePreview(0); });
+    showSaved();
+    const events = new EventSource(`${api}events?path=${encodeURIComponent(path)}`);
+    events.addEventListener('file', event => external(JSON.parse(event.data).text));
+    // A commit: the lines' changes are measured against the new version.
+    events.addEventListener('head', event => setBaseline(JSON.parse(event.data).head ?? saved ?? initial));
+  }
 
   if (!storageWorks) status(text('offline_unsaved'));
   schedulePreview(0);

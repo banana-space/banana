@@ -18,3 +18,12 @@ document.querySelectorAll('time[data-local-time]').forEach(element => {
   const format = yearFormat && date.getFullYear() !== now.getFullYear() ? yearFormat : element.dataset.format;
   element.textContent = format.replace(/\{(year|month|day|hour|minute)\}/g, (_match, key) => values[key]);
 });
+// In a list marked data-hide-repeats, a date the row above already shows (in the visitor's zone) is marked
+// is-repeat, which hides it; the build marked them by the UTC date.
+document.querySelectorAll('[data-hide-repeats]').forEach(list => {
+  let previous;
+  for (const element of list.querySelectorAll('time[data-local-time]')) {
+    element.classList.toggle('is-repeat', element.textContent === previous);
+    previous = element.textContent;
+  }
+});
