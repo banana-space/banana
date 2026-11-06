@@ -5,6 +5,7 @@
 - **Feature:** bananamark-codemirror wraps a selection in `*`, `` ` `` or `$` typed over it.
 - **Feature:** bananamark-codemirror closes a formula opened by `$$` on Enter, and steps over a `\]` or `\)` it added.
 - **Change:** Stars may open and close emphasis beside punctuation, with nothing added around them: `文字*（注）*文字`, `a**(b)**c`. Headings and editor highlighting follow. `_` is unchanged.
+- **Change:** bananamark-tikz moves to jsdom 30, and the packages now need Node 22.22.2+, 24.15+ or 26+.
 - **Fix:** A stray run of stars no longer upsets emphasis elsewhere in its paragraph.
 - **Fix:** bananamark-codemirror closes a formula opened by `\[` on Enter also when a later formula is in the same paragraph.
 

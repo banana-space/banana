@@ -23,7 +23,7 @@ npm install bananamark       # in a project
 npm install -g bananamark    # for the command, anywhere
 ```
 
-Or without installing: `npx bananamark file.md`. Node 22 or later.
+Or without installing: `npx bananamark file.md`. Node 22 (from 22.22.2), 24 (from 24.15), or 26 and later.
 
 ## From the command line
 
@@ -165,7 +165,7 @@ new EditorView({ extensions: [basicSetup, bananamark({ dialect })] });   // bana
 ## Status
 
 - Version 0.3. Until 1.0, a minor version (0.4) may change the interface and the HTML the spec describes; a patch version (0.3.1) does not. The three packages are released together with the same version; `bananamark-codemirror` and `bananamark-tikz` take `bananamark` as a peer dependency of the same minor version.
-- Node 22 and later; browsers from 2023 on (the stylesheet needs `:has()`).
+- Node 22 (from 22.22.2), 24 (from 24.15), or 26 and later; browsers from 2023 on (the stylesheet needs `:has()`).
 - ES modules only. No TypeScript types yet.
 - MIT licence.
 

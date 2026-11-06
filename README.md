@@ -9,7 +9,7 @@
 
 ## 准备
 
-- [Node.js](https://nodejs.org/) 22.15 或更新版本
+- [Node.js](https://nodejs.org/) 22（22.22.2 或更新）、24（24.15 或更新）或 26 以上
 - [Git](https://git-scm.com/)
 
 不需要安装 LaTeX：交换图与 TikZ 图形由 npm 包中的 TeX 引擎编译。
