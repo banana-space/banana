@@ -2,8 +2,7 @@
 
 ## 0.3.0
 
-- **Feature:** bananamark-codemirror wraps a selection in `*`, `` ` `` or `$` typed over it.
-- **Feature:** bananamark-codemirror closes a formula opened by `$$` on Enter, and steps over a `\]` or `\)` it added.
+- **Feature:** bananamark-codemirror wraps a selection in `*`, `` ` `` or `$` typed over it, and closes a formula opened by `$$` on Enter.
 - **Feature:** bananamark-tikz draws `\mathreflectbox`, as KaTeX does.
 - **Feature:** bananamark-tikz's `glyphs` draws alphabets (`\mathbb`, `\mathcal`…), letters and characters in the page's fonts; `katexGlyphs` gives KaTeX's.
 - **Change:** Stars may open and close emphasis beside punctuation, with no spaces added around them: `文字*（注）*文字`, `a**(b)**c`. Headings and editor highlighting follow. `_` is unchanged and follows CommonMark.
