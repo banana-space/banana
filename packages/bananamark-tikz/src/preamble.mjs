@@ -1,23 +1,25 @@
-// The TeX preamble of a diagram. Kept apart from the compiler so that the
-// TikZ cache (index.mjs) is keyed by the preamble a diagram
-// actually gets: optional lines — a \providecommand or a Unicode character
-// declaration — are included only when the diagram uses that command or
-// character, so adding one invalidates just the diagrams that use it.
+// The TeX preamble of a diagram. Kept apart from the compiler so that the TikZ cache (index.mjs) is keyed by the
+// preamble a diagram actually gets: a \providecommand or a Unicode character declaration goes in only when the
+// diagram uses that command or character, and each section below only when the diagram uses what it defines, so
+// changing one invalidates just the diagrams that use it.
 import fontMetrics from 'katex/src/fontMetricsData.js';
+import bananaMath from './banana-math-metrics.mjs';
 
-// The bundled engine already understands UTF-8, but has no CJK fonts. Give
-// TeX a prose-sized box, then emit Unicode SVG text at its final DVI position.
-// TikZ still controls colours, transforms, label sizes and all arrow geometry.
-const cjkPreamble = String.raw`\makeatletter
-\def\BananaCJKBox#1{\begingroup%
+const cjkCharacter = /[\p{Script=Han}　-〿！-｠]/u;
+
+// Han characters. The bundled engine already understands UTF-8, but has no CJK fonts. Give TeX a prose-sized box,
+// then emit Unicode SVG text at its final DVI position. TikZ still controls colours, transforms, label sizes and all
+// arrow geometry.
+const cjkSection = String.raw`\def\BananaCJKBox#1{\begingroup%
   \dimen@=\f@size pt\relax%
   \dimen@=.9090909\dimen@% compensate the surrounding 1.1em math size
   \hbox to\dimen@{\vrule width0pt height.85\dimen@ depth.15\dimen@%
-    \special{dvisvgm:raw <text x="{?x}" y="{?y}" class="tikz-cjk" font-size="\strip@pt\dimen@" data-series="\f@series" data-shape="\f@shape">banana-cjk-#1</text>}\hss}%
+    \special{dvisvgm:raw <text x="{?x}" y="{?y}" class="bm-tikz-cjk" font-size="\strip@pt\dimen@" data-series="\f@series" data-shape="\f@shape">banana-cjk-#1</text>}\hss}%
 \endgroup}
-\DeclareRobustCommand\BananaCJK[1]{\ifmmode\text{\BananaCJKBox{#1}}\else\BananaCJKBox{#1}\fi}
-\makeatother
-% Unicode maths symbols and Greek letters that authors type directly, as in KaTeX.
+\DeclareRobustCommand\BananaCJK[1]{\ifmmode\text{\BananaCJKBox{#1}}\else\BananaCJKBox{#1}\fi}`;
+
+
+const symbols = String.raw`% Unicode maths symbols and Greek letters that authors type directly, as in KaTeX.
 \DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
 \DeclareUnicodeCharacter{00B7}{\ensuremath{\cdot}}
 \DeclareUnicodeCharacter{2208}{\ensuremath{\in}}
@@ -108,29 +110,48 @@ const cjkPreamble = String.raw`\makeatletter
 \providecommand\mathreflectbox[1]{\mathchoice{\reflectbox{$\displaystyle#1$}}{\reflectbox{$\textstyle#1$}}{\reflectbox{$\scriptstyle#1$}}{\reflectbox{$\scriptscriptstyle#1$}}}
 `;
 // \mathreflectbox (KaTeX's: \reflectbox of maths, at the surrounding size) mirrors as \reflectbox does.
-// Web glyphs: characters this TeX has no font for are drawn by the browser in a
-// font the page already loads. TeX reserves a box with the glyph's metrics (in em
-// of the current maths size) and dvisvgm writes an SVG <text> element at the box's
-// position; the marker text is replaced by the character after compilation.
+
+// Web glyphs: characters this TeX has no font for are drawn by the browser in a font the page already loads. TeX
+// reserves a box with the glyph's metrics (in em of the current maths size: \tf@size, \sf@size or \ssf@size) and
+// dvisvgm writes an SVG <text> element at the box's position; the compiler puts the character in place of the marker.
 //   \mathscr: KaTeX_Script, with KaTeX's own metrics, so diagrams match formulas.
 //   𝟙: KaTeX_Main, which BananaMath supplies for U+1D7D9 (see _katex.scss).
+//   \mathbb of A–Z and k: Banana Math, the blackboard letters BananaMath has at those code points (_katex.scss);
+//   other letters keep this TeX's msbm (none on the site: \mathbb{1} is 𝟙 by then).
+// Other tokens in their argument (F^2) pass as they are. Both give one group, so that _\mathbb{N} works as with a
+// maths alphabet.
+// The BananaMath metrics are written by scripts/fonts/banana-math.py.
+const glyphSection = String.raw`\def\BananaGlyphBox#1#2#3#4#5#6{\dimen@=#6pt\relax\hbox{\vrule width0pt height#4\dimen@ depth#5\dimen@\special{dvisvgm:raw <text x="{?x}" y="{?y}" class="bm-tikz-glyph" font-family="#1" font-size="\strip@pt\dimen@">#2</text>}\kern#3\dimen@}}
+\def\BananaGlyph#1#2#3#4#5{\mathord{\mathchoice{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}\tf@size}{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}\tf@size}{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}\sf@size}{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}\ssf@size}}}
+\def\BananaLetter#1#2#3{\ifcat a\noexpand#3\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi{\ifcsname #1@#3\endcsname\csname #1@#3\endcsname\else#2{#3}\fi}{#3}}`;
+const glyph = (family, marker, [width, height, depth]) => String.raw`\BananaGlyph{${family}}{${marker}}{${width}}{${height}}{${depth}}`;
+const letterDefinition = (prefix, letter, definition) => String.raw`\expandafter\def\csname ${prefix}@${letter}\endcsname{${definition}}`;
+
 const scriptMetrics = fontMetrics['Script-Regular'];
-const webGlyphs = { 0x1D7D9: { family: 'KaTeX_Main', width: 0.663, height: 0.655, depth: 0 } };
-const glyphPreamble = String.raw`\makeatletter
-\def\BananaGlyphBox#1#2#3#4#5#6{\dimen@=\fontdimen6#6\relax%
-  \hbox{\vrule width0pt height#4\dimen@ depth#5\dimen@%
-    \special{dvisvgm:raw <text x="{?x}" y="{?y}" class="tikz-glyph" font-family="#1" font-size="\strip@pt\dimen@">#2</text>}%
-    \kern#3\dimen@}}
-\def\BananaGlyph#1#2#3#4#5{\mathord{\mathchoice{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}{\textfont2}}{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}{\textfont2}}{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}{\scriptfont2}}{\BananaGlyphBox{#1}{#2}{#3}{#4}{#5}{\scriptscriptfont2}}}}
-\def\BananaScriptLetter#1{\BananaGlyph{KaTeX_Script}{banana-letter-#1}{\csname BananaScriptW@#1\endcsname}{\csname BananaScriptH@#1\endcsname}{\csname BananaScriptD@#1\endcsname}}
-\def\BananaScriptLetters#1{\ifx#1\relax\else\BananaScriptLetter{#1}\expandafter\BananaScriptLetters\fi}
-\DeclareRobustCommand\mathscr[1]{\BananaScriptLetters#1\relax}
+const scriptSection = String.raw`\def\BananaScriptLetters#1{\ifx#1\relax\else\BananaLetter{BananaScript}\relax{#1}\expandafter\BananaScriptLetters\fi}
+\DeclareRobustCommand\mathscr[1]{{\BananaScriptLetters#1\relax}}
 ` + [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map(letter => {
   const [depth, height, , , width] = scriptMetrics[letter.charCodeAt(0)];
-  return String.raw`\expandafter\def\csname BananaScriptW@${letter}\endcsname{${width}}\expandafter\def\csname BananaScriptH@${letter}\endcsname{${height}}\expandafter\def\csname BananaScriptD@${letter}\endcsname{${depth}}`;
-}).join('\n') + '\n' + Object.entries(webGlyphs).map(([code, glyph]) =>
-  String.raw`\DeclareUnicodeCharacter{${Number(code).toString(16).toUpperCase()}}{\ensuremath{\BananaGlyph{${glyph.family}}{banana-glyph-${code}}{${glyph.width}}{${glyph.height}}{${glyph.depth}}}}`).join('\n') + '\n\\makeatother\n';
-const cjkCharacter = /[\p{Script=Han}\u3000-\u303f\uff01-\uff60]/gu;
+  return letterDefinition('BananaScript', letter, glyph('KaTeX_Script', `banana-letter-${letter}`, [width, height, depth]));
+}).join('\n');
+
+const blackboardLetters = Object.keys(bananaMath).filter(key => /^[A-Za-z]$/.test(key));
+const blackboardSection = String.raw`\DeclareMathAlphabet{\BananaMsbm}{U}{msb}{m}{n}
+\def\BananaBlackboardLetters#1{\ifx#1\relax\else\BananaLetter{BananaBlackboard}\BananaMsbm{#1}\expandafter\BananaBlackboardLetters\fi}
+\DeclareRobustCommand\mathbb[1]{{\BananaBlackboardLetters#1\relax}}
+` + blackboardLetters.map(letter => letterDefinition('BananaBlackboard', letter, glyph('Banana Math', `banana-letter-${letter}`, bananaMath[letter]))).join('\n');
+
+const oneSection = String.raw`\DeclareUnicodeCharacter{1D7D9}{\ensuremath{${glyph('KaTeX_Main', `banana-glyph-${0x1D7D9}`, bananaMath[0x1D7D9])}}}`;
+
+const usesCommand = (tex, name) => new RegExp(String.raw`\\${name}(?![A-Za-z])`).test(tex);
+// The sections, in order, each with when a diagram needs it.
+const sections = [
+  [tex => cjkCharacter.test(tex), cjkSection],
+  [tex => usesCommand(tex, 'mathscr') || usesCommand(tex, 'mathbb') || tex.includes('\u{1D7D9}'), glyphSection],
+  [tex => usesCommand(tex, 'mathscr'), scriptSection],
+  [tex => usesCommand(tex, 'mathbb'), blackboardSection],
+  [tex => tex.includes('\u{1D7D9}'), oneSection],
+];
 // Accented Latin letters (Ét, Möbius): TeX accents in text, maths accents in formulas.
 const accents = { '\u0300': ['`', 'grave'], '\u0301': ["'", 'acute'], '\u0302': ['^', 'hat'], '\u0303': ['~', 'tilde'], '\u0304': ['=', 'bar'],
   '\u0306': ['u', 'breve'], '\u0307': ['.', 'dot'], '\u0308': ['"', 'ddot'], '\u030a': ['r', 'mathring'], '\u030c': ['v', 'check'] };
@@ -144,10 +165,10 @@ function accentDeclaration(char) {
   return `\\DeclareUnicodeCharacter{${char.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}}{\\ifmmode\\${accent[1]}{${mathLetter}}\\else\\${accent[0]}{${letter}}\\fi}`;
 }
 
-/** Fixed lines always; a \\providecommand or character declaration only when the source uses it. */
+/** A line of the symbols: a \providecommand or a character declaration only when the source uses it. */
 const used = (line, tex) => {
   const command = line.match(/^\\providecommand\\([A-Za-z]+)/)?.[1];
-  if (command) return new RegExp(`\\\\${command}(?![A-Za-z])`).test(tex);
+  if (command) return usesCommand(tex, command);
   const code = line.match(/^\\DeclareUnicodeCharacter\{([0-9A-F]+)\}/)?.[1];
   return !code || tex.includes(String.fromCodePoint(parseInt(code, 16)));
 };
@@ -157,13 +178,15 @@ const used = (line, tex) => {
 // preamble instead; loading them again in the diagram itself then does nothing.
 const tikzLibrary = /\\usetikzlibrary\s*\{[^{}]*\}/g;
 
-/** The preamble for one diagram: fixed definitions, plus the optional ones its source uses. */
+/** The preamble for one diagram: the symbols and sections its source uses, its Han and accented characters, its TikZ libraries. */
 export function preambleFor(tex) {
-  const fixed = (cjkPreamble + glyphPreamble).split('\n').filter(line => used(line, tex)).join('\n');
-  const declarations = [...new Set(tex.match(cjkCharacter) ?? [])].map(char => {
+  const fixed = symbols.split('\n').filter(line => used(line, tex)).join('\n');
+  const needed = sections.filter(([uses]) => uses(tex)).map(([, section]) => section);
+  const definitions = needed.length ? `\\makeatletter\n${needed.join('\n')}\n\\makeatother\n` : '';
+  const declarations = [...new Set(tex.match(new RegExp(cjkCharacter, 'gu')) ?? [])].map(char => {
     const code = char.codePointAt(0);
     return `\\DeclareUnicodeCharacter{${code.toString(16).toUpperCase()}}{\\BananaCJK{${code}}}`;
   }).concat([...new Set(tex.match(accentedLetter) ?? [])].map(accentDeclaration).filter(Boolean))
     .concat([...new Set(tex.match(tikzLibrary) ?? [])]);
-  return fixed + declarations.join('\n');
+  return fixed + definitions + declarations.join('\n');
 }

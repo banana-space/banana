@@ -142,8 +142,9 @@ try {
   const css = await readFile(join(root, 'public', cssPath), 'utf8');
   // Font files only: the icons' inline SVGs have url() of their own (masks: url(#a)).
   const fontURLs = [...css.matchAll(/url\(["']?([^\s)'"\n]+\.(?:woff2?|ttf|otf))["']?\)/g)].map(match => match[1]);
-  // Commit Mono, Banana Math, Banana Punctuation (3), Inter (6) and the JetBrains Mono Cyrillic subsets (4).
-  assert.equal(fontURLs.length, 15);
+  // Commit Mono, BananaMath (twice: as KaTeX_Main and as Banana Math), Banana Punctuation (3), Inter (6) and the
+  // JetBrains Mono Cyrillic subsets (4).
+  assert.equal(fontURLs.length, 16);
   // Relative to the stylesheet (css/), so they hold below any base URL.
   assert.ok(cssPath.startsWith('css/') && fontURLs.every(url => url.startsWith('../fonts/')));
   for (const url of fontURLs) await readFile(join(root, 'public/css', url));

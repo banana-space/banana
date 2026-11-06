@@ -42,6 +42,11 @@
 
   ruby rt {
     font-size: 0.6em;
+
+    // 日语注音按惯例取一半字号：两个假名正好一个汉字宽．
+    &:lang(ja) {
+      font-size: 0.5em;
+    }
   }
 }
 
@@ -53,6 +58,11 @@
 
   ruby rt {
     font-size: 0.6em;
+
+    // 日语注音按惯例取一半字号：两个假名正好一个汉字宽．
+    &:lang(ja) {
+      font-size: 0.5em;
+    }
   }
 }
 

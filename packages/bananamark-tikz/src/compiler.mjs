@@ -61,12 +61,12 @@ async function compileBox(tex, display, mode) {
   const svg = document.documentElement;
   const fonts = new Set();
   for (const text of svg.querySelectorAll('text')) {
-    if (text.classList.contains('tikz-glyph')) {
+    if (text.classList.contains('bm-tikz-glyph')) {
       const [, code, letter] = text.textContent.match(/^banana-(?:glyph-(\d+)|letter-([A-Za-z]))$/) ?? [];
       if (!code && !letter) throw new Error('Invalid glyph marker');
       text.textContent = letter ?? String.fromCodePoint(Number(code));
       text.removeAttribute('class');
-    } else if (text.classList.contains('tikz-cjk')) {
+    } else if (text.classList.contains('bm-tikz-cjk')) {
       const code = text.textContent.match(/^banana-cjk-(\d+)$/)?.[1];
       if (!code) throw new Error('Invalid CJK text marker');
       text.textContent = String.fromCodePoint(Number(code));
@@ -84,10 +84,10 @@ async function compileBox(tex, display, mode) {
   }
   // A separate SVG text element for each Han glyph would put line breaks in
   // copied words. Join adjacent glyphs that TeX placed on the same baseline.
-  for (const text of svg.querySelectorAll('text.tikz-cjk')) {
+  for (const text of svg.querySelectorAll('text.bm-tikz-cjk')) {
     if (!text.parentNode) continue;
     let next = text.nextElementSibling;
-    while (next?.matches('text.tikz-cjk')) {
+    while (next?.matches('text.bm-tikz-cjk')) {
       const size = Number(text.getAttribute('font-size'));
       const count = [...text.textContent].length;
       const expectedX = Number(text.getAttribute('x')) + size * count;
@@ -123,7 +123,7 @@ async function compileBox(tex, display, mode) {
   svg.setAttribute('width', `${width / 10}em`);
   svg.setAttribute('height', `${height / 10}em`);
   svg.setAttribute('style', `vertical-align: ${-depth / 10}em`);
-  svg.setAttribute('class', 'tikz-svg');
+  svg.setAttribute('class', 'bm-tikz-svg');
   // Remove the private metrics comment after extracting it.
   const walker = document.createTreeWalker(svg, document.defaultView.NodeFilter.SHOW_COMMENT);
   const comments = [];

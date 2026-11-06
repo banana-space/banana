@@ -38,11 +38,6 @@ const placeholder = /<span( id="[^"]*")? class="([^"]*\bbm-tikz-source\b[^"]*)" 
 const entities = { amp: '&', quot: '"', nbsp: '\u00a0', lt: '<', gt: '>', apos: "'" };
 const decode = value => value.replace(/&(?:#(\d+)|#x([0-9a-f]+)|(\w+));/gi, (match, decimal, hex, name) =>
   decimal ? String.fromCodePoint(Number(decimal)) : hex ? String.fromCodePoint(parseInt(hex, 16)) : entities[name] ?? match);
-/**
- * The classes in a diagram's SVG as bananamark names them (bm-tikz-svg, bm-tikz-cjk). The compiler
- * and the preamble write them unprefixed: they are part of every diagram's cache key, so they stay as they were.
- */
-const svgClasses = svg => svg.replace(/class="tikz-(svg|cjk)"/g, 'class="bm-tikz-$1"');
 /** Gives the diagram's SVG ids the page's diagram number, so that cached copies of one picture share none. */
 function renumber(svg, count) {
   const ids = new Map();
@@ -278,8 +273,8 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
     html = html.replace(placeholder, (_, id = '', classes, tex) => {
       const result = rendered[count++];
       const style = result.tagSvg ? ` style="--bm-tikz-tag-space: ${result.tagWidth / 10 + 1}em"` : '';
-      const body = `<span class="bm-tikz-body">${svgClasses(renumber(result.svg, count))}</span>`;
-      return `<span${id} class="${classes.replace(/\bbm-tikz-source\b/, 'bm-tikz-rendered')}" data-tex="${tex}"${style}>${result.tagSvg ? `<span class="bm-tikz-layout">${body}<span class="bm-tikz-tag">${svgClasses(renumber(result.tagSvg, count))}</span></span>` : body}</span>`;
+      const body = `<span class="bm-tikz-body">${renumber(result.svg, count)}</span>`;
+      return `<span${id} class="${classes.replace(/\bbm-tikz-source\b/, 'bm-tikz-rendered')}" data-tex="${tex}"${style}>${result.tagSvg ? `<span class="bm-tikz-layout">${body}<span class="bm-tikz-tag">${renumber(result.tagSvg, count)}</span></span>` : body}</span>`;
     });
     // The fonts' @font-face rules: before </head> on a whole page, at the start of a body (as a plugin sees it).
     if (!fonts.size) return html;
