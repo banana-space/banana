@@ -16,6 +16,12 @@ span.katex {
   font-size: 1.1em;
 }
 
+// 粗体中的公式也用粗体．KaTeX 带有 Main、Math、Caligraphic、Fraktur、SansSerif 的粗体字形；
+// 其余字体（如 \mathbb 的 AMS）没有粗体，由浏览器加粗．
+:is(b, strong) span.katex {
+  font-weight: bold;
+}
+
 span.katex span.cjk_fallback {
   font-size: 90%;
   font-family: $font-family;
