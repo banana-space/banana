@@ -23,7 +23,7 @@ $$
 \end{tikzcd}\right) = \begin{tikzcd} X \arrow[r] & Y \end{tikzcd}
 $$
 
-行内 $\begin{tikzcd} 群 \arrow[r, "\mathscr{F}"] & \mathbb{1}_{环} \arrow[r] & \mathsf{Ét} \end{tikzcd}$。
+行内 $\begin{tikzcd} 群 \arrow[r, "\mathscr{F}"] & \mathbb{1}_{环} \arrow[r] & \mathsf{Ét} \arrow[r] & \mathbb{Zb} \end{tikzcd}$。
 
 ` + '```math {@eq:test}\n' + String.raw`\begin{tikzcd} A \arrow[r] & B \end{tikzcd}` + '\n```\n\n引用 @eq:test。\n\n'
     + '```tikz\n' + gradient + '\n```\n\n```tikz {caption="渐变 $x$"}\n' + gradient + '\n```\n\n'
@@ -52,9 +52,12 @@ $$
   assert.equal(document.querySelectorAll('#eq\\:test .bm-tikz-svg').length, 2, 'Equation tag is a separate SVG');
   assert.match(document.querySelector('a[href="#eq:test"]').textContent, /1/);
   assert.ok(document.querySelector('pre code').textContent.includes('中文'), 'Code examples stay literal');
-  // 字体中没有的字形由浏览器用页面字体绘制：\mathscr 用 KaTeX_Script，𝟙 用 KaTeX_Main（BananaMath）。
-  const glyphs = [...document.querySelectorAll('svg text[font-family^="KaTeX_"]')].map(node => [node.getAttribute('font-family'), node.textContent]);
-  assert.deepEqual(glyphs.sort(), [['KaTeX_Main', '𝟙'], ['KaTeX_Script', 'F']]);
+  // 字体中没有的字形由浏览器用页面字体绘制：\mathscr 用 KaTeX_Script，𝟙 用 KaTeX_Main（BananaMath），
+  // \mathbb 的大写字母与 k 用 Banana Math（BananaMath）；其余（b）仍交给 TeX 的 msbm，与原来一样（msbm 没有小写 b，什么也不画）。
+  const glyphs = [...document.querySelectorAll('svg text[font-family^="KaTeX_"], svg text[font-family="Banana Math"]')].map(node => [node.getAttribute('font-family'), node.textContent]);
+  assert.deepEqual(glyphs.sort(), [['Banana Math', 'Z'], ['KaTeX_Main', '𝟙'], ['KaTeX_Script', 'F']]);
+  // 字号是数学字号本身：箭头上的标签（脚标大小）是 7pt，不是 cmsy7 的 quad（8.19pt）。
+  assert.equal(document.querySelector('svg text[font-family="KaTeX_Script"]').getAttribute('font-size'), '7');
   assert.ok(![...document.querySelectorAll('svg text')].some(node => node.textContent.includes('banana-')));
   const cjk = [...document.querySelectorAll('.bm-tikz-cjk')];
   assert.ok(cjk.every(node => !node.textContent.includes('banana-')));
