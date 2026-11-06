@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { JSDOM } from 'jsdom';
 import { BananamarkError, createProcessor } from 'bananamark';
-import { diagramKey, sharedTikzWorker, tikz } from 'bananamark-tikz';
+import { defaultGlyphs, diagramKey, katexGlyphs, sharedTikzWorker, tikz } from 'bananamark-tikz';
 import { splitTag } from '../src/compiler.mjs';
 import { preambleFor } from '../src/preamble.mjs';
 import zh from '../src/messages/zh-cn.mjs';
@@ -99,6 +99,47 @@ try {
   assert.match(label.getAttribute('transform'), /^matrix\(-1 /);
   assert.equal(label.getAttribute('font-size'), '7');
 } finally { await renderer.close(); }
+// Page glyphs. By default \mathscr is KaTeX_Script (this TeX has none) and the rest TeX's: \mathbb msbm, letters cmmi.
+// glyphs gives alphabets (their other letters, and what is not a plain letter, as TeX has them), letters typed in
+// maths (outside an alphabet: not \mathrm's) and characters, each in a font of the page, at the size of the maths.
+{
+  const tex = String.raw`\begin{tikzcd} \mathscr{F} \arrow[r, "\mathbb{Z}^{\mathbb{N}}"] & \mathcal{C}_x \arrow[r] & \mathrm{x} + α \end{tikzcd}`;
+  const glyphs = [
+    ...defaultGlyphs,
+    { alphabet: '\\mathbb', family: 'Blackboard, KaTeX_AMS', metrics: { Z: [0.722, 0.689, 0] } },
+    { alphabet: '\\mathcal', ...katexGlyphs('Caligraphic-Regular') },
+    katexGlyphs('Math-Italic', 'x'),
+    { family: 'KaTeX_Main', weight: 'bold', metrics: { 'α': [0.64, 0.443, 0.011] } },
+  ];
+  assert.deepEqual(katexGlyphs('Math-Italic', 'x'), { family: 'KaTeX_Math', style: 'italic', metrics: { x: [0.57153, 0.43056, 0] } });
+  const texts = async options => {
+    const instance = diagrams(options);
+    try {
+      const html = await instance.render(placeholder(tex), { outputPath: join(scratch, 'glyphs.html') });
+      assert.ok(!html.includes('banana-') && !html.includes('bm-tikz-glyph'), 'Glyph markers are replaced');
+      return [...new JSDOM(html).window.document.querySelectorAll('svg text')]
+        .map(node => [node.textContent, node.getAttribute('font-family').replace(/^tikzjax-/, ''), node.getAttribute('font-size'), node.getAttribute('font-style') ?? node.getAttribute('font-weight') ?? '']);
+    } finally { await instance.close(); }
+  };
+  assert.deepEqual((await texts()).sort(), [['+', 'cmr10', '10', ''], ['C', 'cmsy10', '10', ''], ['F', 'KaTeX_Script', '10', ''], ['N', 'msbm5', '5', ''],
+    ['Z', 'msbm7', '7', ''], ['x', 'cmmi7', '7', ''], ['x', 'cmr10', '10', ''], ['®', 'cmmi10', '10', '']]); // α at its place in BaKoMa's cmmi10
+  assert.deepEqual((await texts({ glyphs })).sort(), [['+', 'cmr10', '10', ''], ['C', 'KaTeX_Caligraphic', '10', ''], ['F', 'KaTeX_Script', '10', ''],
+    ['N', 'msbm5', '5', ''], ['Z', 'Blackboard, KaTeX_AMS', '7', ''], ['x', 'KaTeX_Math', '7', 'italic'], ['x', 'cmr10', '10', ''], ['α', 'KaTeX_Main', '10', 'bold']]);
+  // The glyphs are part of a diagram's key: only diagrams using the alphabets and characters given are compiled again.
+  const blackboard = [...defaultGlyphs, glyphs[1]];
+  assert.notEqual(diagramKey({ tex: String.raw`\mathbb{Z}`, display: true, mode: 'math' }, blackboard), diagramKey({ tex: String.raw`\mathbb{Z}`, display: true, mode: 'math' }));
+  assert.equal(diagramKey({ tex: 'A', display: true, mode: 'math' }, blackboard), diagramKey({ tex: 'A', display: true, mode: 'math' }));
+  // A wrong entry is an error at once.
+  for (const [entry, message] of [
+    [{ alphabet: 'mathbb', family: 'A', metrics: {} }, /alphabet is a command/],
+    [{ family: 'A"><script', metrics: {} }, /family is a list of font names/],
+    [{ family: 'A', style: 'slanted', metrics: {} }, /style is/],
+    [{ family: 'A', metrics: { '+': [1, 1, 0] } }, /"\+" is not a letter or digit or one character beyond ASCII/],
+    [{ alphabet: '\\mathbb', family: 'A', metrics: { 'ℤ': [1, 1, 0] } }, /"ℤ" is not a letter or digit$/],
+    [{ family: 'A', metrics: { x: [1, 1] } }, /the metrics of x are \[width, height, depth\]/],
+  ]) assert.throws(() => tikz({ glyphs: [entry] }), message);
+  assert.throws(() => katexGlyphs('Nonexistent-Regular'), /KaTeX has no font Nonexistent-Regular/);
+}
 const limited = diagrams({ timeout: 750 });
 try {
   const loop = placeholder(String.raw`\def\BananaForever{\BananaForever}\BananaForever\begin{tikzcd} A & B \end{tikzcd}`);

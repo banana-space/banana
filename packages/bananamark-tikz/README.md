@@ -48,6 +48,7 @@ Once every page is rendered, `prune()` deletes what the cache no longer needs; `
 | `timeout` | A diagram's longest compilation, in ms. A diagram that runs out of it is remembered for ten minutes: instances allowing no more time fail it at once | 15000 |
 | `totalTimeout` | The time, in ms, this instance may spend compiling in all (a preview: a draft with many slow diagrams must not hold the queue); diagrams after it fail | no limit |
 | `workerIdleTimeout` | In ms: instances share one worker (about 0.5 s to start, 370 MB), kept that long after the last of them closes | each instance its own worker |
+| `glyphs` | Characters drawn in the page's fonts rather than TeX's: see [Page glyphs](#page-glyphs) | `defaultGlyphs`: `\mathscr` in KaTeX_Script |
 | `locale`, `messages` | The language of errors and the caller's messages, as bananamark's options (this package's own messages: `tikz_failed`, `tikz_command`, `tikz_unsafe`, `tikz_timeout`, `tikz_total_timeout`, `tikz_worker_exit`), over the page's | the page's; otherwise `'en'` |
 
 ## Output
@@ -59,6 +60,7 @@ A placeholder (`bm-tikz-source`, whose `code.bm-tikz-code` shows the source unti
 - TeX packages `tikz-cd`, `amsmath`, `amssymb` and `array`; TikZ libraries a diagram loads with `\usetikzlibrary{…}`.
 - The commands `\coloneqq`, `\eqqcolon`, `\bra`, `\ket`, `\braket`, `\set`, `\Set` and `\bm`, and Unicode maths symbols, Greek letters and accented Latin letters typed directly, as in KaTeX.
 - Chinese characters, drawn with the page's fonts.
+- `\mathscr`, in KaTeX's script letters; and the alphabets, letters and characters [`glyphs`](#page-glyphs) gives, in the page's fonts.
 - Not bananamark's `katex` macros: diagrams are compiled by TeX, apart from KaTeX. There is no option for a preamble of the caller's yet.
 - Not `\special`, anywhere in a diagram's source (comments too): it writes into the SVG as it is. The diagram is an error (`tikz_command`), also when it is in the cache.
 - Only a drawing comes out: a diagram whose SVG has an element TikZ does not draw with (links, scripts, animation, embedded content), an event handler, a reference outside the picture or a markup declaration is an error (`tikz_unsafe`), however the TeX wrote it. Nothing is removed from an SVG; the check runs on each diagram as it is used, from the cache too.
@@ -71,6 +73,32 @@ A placeholder (`bm-tikz-source`, whose `code.bm-tikz-code` shows the source unti
 - This is not CTeX or xeCJK: widths are assumed, not measured from the reader's fonts (whether a rare character shows depends on them), and there is no line breaking of Chinese text, no rules for punctuation at line ends and no vertical text. Write node names in ASCII; Chinese is for what is shown.
 - Accented Latin letters are declared as TeX's accents, so `\text{Möbius}` and `\mathsf{Ét}` can be typed directly.
 - Copying gives the Chinese characters as they are; the Western maths is in the engine's BaKoMa fonts, whose Greek letters, symbols and large brackets may copy as other characters. Diagrams have no MathML.
+
+## Page glyphs
+
+The engine draws maths in its own fonts (Computer Modern, as the BaKoMa fonts). A glyph of the page's is drawn by the browser instead: TeX keeps a box with the glyph's metrics, at the size of the maths around it, and the SVG writes the character as `<text>` in the page's font where TeX put the box. By default only `\mathscr` is, in KaTeX_Script as in KaTeX's formulas (this TeX has no `\mathscr`); `glyphs` gives others:
+
+```js
+import { defaultGlyphs, katexGlyphs, tikz } from 'bananamark-tikz';
+
+const diagrams = tikz({
+  glyphs: [
+    ...defaultGlyphs,                                                       // \mathscr in KaTeX_Script
+    { alphabet: '\\mathcal', ...katexGlyphs('Caligraphic-Regular') },        // \mathcal as KaTeX draws it
+    { alphabet: '\\mathbb', family: 'My Blackboard', metrics: { R: [0.722, 0.683, 0] } },
+    katexGlyphs('Math-Italic'),                                             // letters typed in maths
+    { family: 'My Symbols', metrics: { '𝟙': [0.663, 0.655, 0] } },           // a character
+  ],
+});
+```
+
+- Each entry is a font the page has (`family`: CSS font names; `style` and `weight`, optional, as CSS's) and what to draw in it: `metrics`, `{ character: [width, height, depth] }` in em.
+- With `alphabet` (a command such as `\mathbb`, `\mathcal` or `\mathfrak`), its letters and digits inside that command. The others are TeX's alphabet as before (`\mathbb{b}` in msbm), or plain maths when TeX has no such command; so is the rest of an argument from a command on (in `\mathbb{Z\bar{N}}`, `\bar{N}`). Groups, subscripts and superscripts in the argument are read the same way.
+- Without, letters and digits typed in maths (outside an alphabet: not in `\mathrm`, `\mathbf`, `\operatorname` or `\text`), and characters beyond ASCII: `katexGlyphs('Math-Italic')` gives diagrams KaTeX's letters. A glyph is an ordinary symbol, as a letter: not for operators or relations.
+- `katexGlyphs(font, characters)` is one of KaTeX's fonts with its metrics: `font` the name of its metrics (`Main-Regular`, `Math-Italic`, `Caligraphic-Regular`, `Fraktur-Regular`, `SansSerif-Regular` and so on), `characters` a string, by default every letter and digit it has. A page with bananamark's `katex.css` has these fonts.
+- A later entry wins over an earlier one for the same character. The entries are checked when the instance is made (a `TypeError`).
+- The browser draws the glyph in TeX's box: there is no kerning between glyphs and no italic correction, and whether one shows depends on the reader's fonts, as for Chinese. Copying gives the characters as they are.
+- The glyphs are in the preamble, so in each diagram's key: changing an alphabet compiles again the diagrams using it, a character beyond ASCII those with it; letters and digits, every diagram.
 
 ## The cache
 

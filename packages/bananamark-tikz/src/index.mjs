@@ -7,7 +7,9 @@ import { threadId, Worker } from 'node:worker_threads';
 import { problem, sourceError, withLocale } from 'bananamark/messages';
 import zhCN from './messages/zh-cn.mjs';
 import en from './messages/en.mjs';
-import { preambleFor } from './preamble.mjs';
+import { defaultGlyphs, glyphTable, preambleFor } from './preamble.mjs';
+
+export { defaultGlyphs, katexGlyphs } from './preamble.mjs';
 
 /**
  * bananamark-tikz: TikZ diagrams for bananamark's pages (a plugin of bananamark, apart from it: node-tikzjax and
@@ -29,8 +31,9 @@ const packageRoot = dirname(require.resolve('node-tikzjax/package.json'));
 const recipe = createHash('sha256').update(readFileSync(new URL('./compiler.mjs', import.meta.url)))
   .update(readFileSync(new URL('./worker.mjs', import.meta.url)))
   .update(readFileSync(join(packageRoot, 'package.json'))).digest('hex');
-/** A diagram's cache key: its input, with the compiler and the preamble it uses. */
-export const diagramKey = input => createHash('sha256').update(recipe + preambleFor(input.tex) + JSON.stringify(input)).digest('hex');
+const keyFor = (input, table) => createHash('sha256').update(recipe + preambleFor(input.tex, table) + JSON.stringify(input)).digest('hex');
+/** A diagram's cache key: its input, with the compiler and the preamble it gets with these glyphs (tikz()'s option). */
+export const diagramKey = (input, glyphs = defaultGlyphs) => keyFor(input, glyphTable(glyphs));
 // A diagram's placeholder as bananamark's renderer writes it (its render/math.mjs) and parse5
 // writes it back: an empty span with the TeX and how it is typeset; its class says whether it is displayed.
 const placeholder = /<span( id="[^"]*")? class="([^"]*\bbm-tikz-source\b[^"]*)" data-tex="([^"]*)"(?: data-tikz-mode="([^"]*)")?>(?:<code class="bm-tikz-code">[^<]*<\/code>)?<\/span>/g;
@@ -116,12 +119,16 @@ export const sharedTikzWorker = () => shared.worker;
  *   starting a worker (about half a second, some 370 MB) for each.
  * - locale, messages: the language of errors and the caller's messages, as bananamark's (this package's own
  *   errors are messages/zh-cn.mjs and messages/en.mjs); by default a page's (a processor gives its plugins its own).
+ * - glyphs: characters drawn in the page's fonts rather than TeX's, each entry { alphabet, family, style, weight,
+ *   metrics } (see preamble.mjs's glyphTable; katexGlyphs gives one of KaTeX's fonts); by default defaultGlyphs,
+ *   \mathscr in KaTeX_Script. Checked here: a wrong entry throws a TypeError.
  *
  * Errors in a page are bananamark's BananamarkError: file, code (tikz_failed, with TeX's error as params.message;
  * tikz_command, a diagram using \special; tikz_unsafe, an SVG with more than a drawing (outputSafety's find as
  * params.found); tikz_timeout, tikz_total_timeout, tikz_worker_exit), params, and the error under it as cause.
  */
-export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerIdleTimeout = 0, totalTimeout = Infinity, locale, messages } = {}) {
+export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerIdleTimeout = 0, totalTimeout = Infinity, locale, messages, glyphs = defaultGlyphs } = {}) {
+  const glyphDefinitions = glyphTable(glyphs);
   let worker, spent = 0;
   /**
    * An error of a page (file, from the page's options page), in the locale and messages given, else the page's:
@@ -155,7 +162,7 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
     // Before the cache: a diagram cached before this check is refused too.
     const command = input.tex.match(forbidden)?.[1];
     if (command) throw failure('tikz_command', { command: `\\${command}` });
-    const key = diagramKey(input);
+    const key = keyFor(input, glyphDefinitions);
     if (!results.has(key) && !pending.has(key)) pending.set(key, load(key, input).finally(() => pending.delete(key)));
     const result = results.get(key) ?? await pending.get(key);
     // The cache keeps what TeX wrote; whether a page may show it is decided here, each time, compiled now or before.
@@ -217,7 +224,7 @@ export function tikz({ cache, fonts: fontOptions = {}, timeout = 15000, workerId
         reject(failure('tikz_timeout', { seconds: timeout / 1000 }));
       }, limit);
       current.once('message', onMessage); current.once('error', onError); current.once('exit', onExit);
-      current.postMessage(input);
+      current.postMessage({ ...input, glyphs: glyphDefinitions });
     }).catch(async error => {
       // A TeX error leaves the worker usable; anything else may not.
       if (!error.tex) await discard(current);

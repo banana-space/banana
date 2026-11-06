@@ -40,7 +40,7 @@ export function splitTag(source) {
   return { tex: tag === undefined ? source : source.slice(0, start) + source.slice(end), tag };
 }
 
-async function compileBox(tex, display, mode) {
+async function compileBox(tex, display, mode, glyphs) {
   const math = tex.trim().replace(/\n[ \t]*\n/g, '\n');
   const body = mode === 'text' ? tex + '\n' : `$${display ? '\\displaystyle' : '\\textstyle'} ${math}\n$`;
   // The outer picture retains surrounding maths, multiple inner pictures and
@@ -51,7 +51,7 @@ async function compileBox(tex, display, mode) {
     + body + String.raw`}\begin{tikzpicture}[baseline=0pt]\node[anchor=base,inner sep=0pt,outer sep=0pt,minimum size=0pt] at (0,0) {\special{dvisvgm:raw <!--banana-box:\the\wd\BananaFormulaBox,\the\ht\BananaFormulaBox,\the\dp\BananaFormulaBox-->}\copy\BananaFormulaBox};\end{tikzpicture}\end{document}`;
   const raw = await tikzjax.default(source, {
     texPackages: { 'tikz-cd': '', amsmath: '', amssymb: '', array: '' },
-    addToPreamble: '\\nonstopmode\n' + preambleFor(tex) + '\n',
+    addToPreamble: '\\nonstopmode\n' + preambleFor(tex, glyphs) + '\n',
     disableOptimize: true,
     showConsole: true,
   });
@@ -62,9 +62,9 @@ async function compileBox(tex, display, mode) {
   const fonts = new Set();
   for (const text of svg.querySelectorAll('text')) {
     if (text.classList.contains('bm-tikz-glyph')) {
-      const [, code, letter] = text.textContent.match(/^banana-(?:glyph-(\d+)|letter-([A-Za-z]))$/) ?? [];
-      if (!code && !letter) throw new Error('Invalid glyph marker');
-      text.textContent = letter ?? String.fromCodePoint(Number(code));
+      const code = text.textContent.match(/^banana-glyph-(\d+)$/)?.[1];
+      if (!code) throw new Error('Invalid glyph marker');
+      text.textContent = String.fromCodePoint(Number(code));
       text.removeAttribute('class');
     } else if (text.classList.contains('bm-tikz-cjk')) {
       const code = text.textContent.match(/^banana-cjk-(\d+)$/)?.[1];
@@ -132,12 +132,13 @@ async function compileBox(tex, display, mode) {
   return { svg: svg.outerHTML, fonts: [...fonts], width, height, depth };
 }
 
-export async function compileTikz({ tex, display = false, mode = 'math' }) {
+/** A diagram's { svg, fonts, width, height, depth, tagSvg, tagWidth }; glyphs: the page glyphs (preamble.mjs's glyphTable). */
+export async function compileTikz({ tex, display = false, mode = 'math', glyphs }) {
   const { tex: body, tag } = mode === 'math' ? splitTag(tex) : { tex };
-  const main = await compileBox(body, display, mode);
+  const main = await compileBox(body, display, mode, glyphs);
   if (tag !== undefined) {
     if (!display) throw new Error('Equation tags require display maths');
-    const label = await compileBox(tag, false, 'math');
+    const label = await compileBox(tag, false, 'math', glyphs);
     main.tagSvg = label.svg;
     main.tagWidth = label.width;
     main.fonts = [...new Set([...main.fonts, ...label.fonts])];
