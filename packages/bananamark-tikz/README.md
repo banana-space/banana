@@ -1,10 +1,10 @@
 # bananamark-tikz
 
-TikZ diagrams for [bananamark](https://github.com/banana-space/banana/tree/main/packages/bananamark#readme). With TikZ on (the dialect's `tikz: true`), TikZ diagrams (```` ```tikz ```` blocks, and `tikzcd` and `tikzpicture` environments in formulas) are placeholders in bananamark's HTML, elements holding their source; this package compiles them with node-tikzjax (a TeX engine in WebAssembly) in a worker thread and puts the SVG in their place. Node only.
+TikZ diagrams for [bananamark](https://www.npmjs.com/package/bananamark). With TikZ on (the dialect's `tikz: true`), TikZ diagrams (```` ```tikz ```` blocks, and `tikzcd` and `tikzpicture` environments in formulas) are placeholders in bananamark's HTML, elements holding their source; this package compiles them with node-tikzjax (a TeX engine in WebAssembly) in a worker thread and puts the SVG in their place. Node only.
 
 ## Status
 
-Version 0.2, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependency: `bananamark` of the same minor version. ES modules only; MIT licence.
+Version 0.3, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependency: `bananamark` of the same minor version. ES modules only; MIT licence.
 
 ```sh
 npm install bananamark bananamark-tikz

@@ -1,10 +1,10 @@
 # bananamark-codemirror
 
-CodeMirror 6 language support for the [bananamark](https://github.com/banana-space/banana/tree/main/packages/bananamark#readme) Markdown dialect: highlighting, folding, keys, completion and checking. The grammar is bananamark's own (`bananamark/grammar`), where formulas and tags end comes from bananamark's scanner (`bananamark/scan`), and checking runs bananamark's dialect layer, so the editor reads pages as the renderer does. Completion takes the dialect's rules from `bananamark/rules` (data only). It runs in browsers (with a bundler); checking also runs in Node.
+CodeMirror 6 language support for the [bananamark](https://www.npmjs.com/package/bananamark) Markdown dialect: highlighting, folding, keys, completion and checking. The grammar is bananamark's own (`bananamark/grammar`), where formulas and tags end comes from bananamark's scanner (`bananamark/scan`), and checking runs bananamark's dialect layer, so the editor reads pages as the renderer does. Completion takes the dialect's rules from `bananamark/rules` (data only). It runs in browsers (with a bundler); checking also runs in Node.
 
 ## Status
 
-Version 0.2, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependencies: `bananamark` of the same minor version, and CodeMirror's `@codemirror/language`, `state`, `view`, `autocomplete`, `lint` and `lang-markdown` (one copy of each in your bundle: CodeMirror does not work with two). ES modules only; MIT licence.
+Version 0.3, released with `bananamark` (see its [status](https://github.com/banana-space/banana/tree/main/packages/bananamark#status)): until 1.0, a minor version may change the interface. Peer dependencies: `bananamark` of the same minor version, and CodeMirror's `@codemirror/language`, `state`, `view`, `autocomplete`, `lint` and `lang-markdown` (one copy of each in your bundle: CodeMirror does not work with two). ES modules only; MIT licence.
 
 ```sh
 npm install bananamark bananamark-codemirror codemirror
@@ -30,7 +30,7 @@ Give the editor the dialect the renderer has (bananamark's [`defineDialect`](htt
 
 ## Everything at once
 
-`bananamark(options)` returns an array of extensions: the language, highlighting, keys, formula editing, completion and checking, in the order and with the precedence they need.
+`bananamark(options)` returns an array of extensions: the language, highlighting, keys, formula editing, wrapping, completion and checking, in the order and with the precedence they need.
 
 | Option | Meaning | Default |
 | --- | --- | --- |
@@ -42,6 +42,7 @@ Give the editor the dialect the renderer has (bananamark's [`defineDialect`](htt
 | `highlight` | The `bm-hl-…` classes (`syntaxHighlighting(highlightClasses)`) | `true` |
 | `keymap` | `bananamarkKeymap` | `true` |
 | `formulaEditing` | `\[` and `\(` closed as they are typed (`pairFormulaDelimiters`) | `true` |
+| `wrapping` | `*`, `` ` `` and `$` typed over a selection wrap it (`wrapSelection`) | `true` |
 
 Completion is registered as language data (`EditorState.languageData`), at every position, formulas included: CodeMirror's `autocompletion()` (in `basicSetup`, or added by `bananamark`) uses it, together with other extensions' sources. Nothing is offered while an input method composes; when it commits, completion opens where names are typed (`afterComposition`).
 
@@ -63,9 +64,13 @@ Each piece is exported too, for an editor that puts them together itself (with a
 
 ## Editing formulas
 
-- `pairFormulaDelimiters(view, from, to, text)`: typing `[` or `(` after `\` gives the pair (`\[|\]`). An `EditorView.inputHandler`, before bracket closing (`Prec.high`).
+- `pairFormulaDelimiters(view, from, to, text)`: typing `[` or `(` after `\` gives the pair (`\[|\]`); typing `\]` (or `\)`) just before its closing steps over it. An `EditorView.inputHandler`, before bracket closing (`Prec.high`).
 - `deleteFormulaDelimiters(view)`: Backspace between an empty `\[` and `\]` removes both. A Backspace command.
-- `closeDisplayFormula(view)`: Enter on a line holding only `\[` (with its `\]`, perhaps) gives `\[`, an empty line and `\]`, indented alike. An Enter command, before `newlineAndIndent`.
+- `closeDisplayFormula(view)`: Enter on a line holding only `\[` (with its `\]`, perhaps) or `$$` gives the opening, an empty line and the closing, indented alike, unless the paragraph closes the formula already further down (a later formula in the paragraph does not count) or the `$$` closes one. Not in code, comments or the front matter. An Enter command, before `newlineAndIndent`.
+
+## Wrapping selections
+
+- `wrapSelection(view, from, to, text)`: typing `*`, `` ` `` or `$` over selected text puts it on both sides (of every selection) and keeps the text selected, so a second `*` makes it bold, as CodeMirror's bracket closing does for brackets and quotes. Spaces at the selection's ends stay outside. The dialect reads `*…*` also between a letter and punctuation (`文字*（注）*文字`), so nothing more is needed. `_` is not wrapped: it emphasizes only beside spaces or punctuation, not against Chinese text. In formulas, code, comments and the front matter the character replaces the selection as usual. An `EditorView.inputHandler` (`Prec.high`).
 
 ## Completion
 

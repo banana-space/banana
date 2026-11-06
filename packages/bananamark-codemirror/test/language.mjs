@@ -75,6 +75,28 @@ assert.equal(enter('\\[\n- x¦\n\\]'), null);
   }
 }
 
+// Emphasis and bold: the editor marks as many as the renderer writes, also where the dialect lets a run of stars (any
+// number) stand between a letter and punctuation, and none where it leaves the stars as text.
+{
+  const parser = bananamarkLanguage({ wikiLinks: true }).language.parser;
+  const marked = text => {
+    const counts = { em: 0, strong: 0 };
+    parser.parse(text).iterate({ enter: node => { if (node.name === 'Emphasis') counts.em++; if (node.name === 'StrongEmphasis') counts.strong++; } });
+    return counts;
+  };
+  const rendered = text => {
+    const { html } = renderDocument(text, { wikiLinks: true });
+    return { em: html.split('<em>').length - 1, strong: html.split('<strong>').length - 1 };
+  };
+  const contexts = [['', ''], ['文字', '文字'], ['word', 'word'], ['（', '）'], ['文字，', '。'], ['$x$', '$y$'], ['[[甲]]', '[[乙]]'], ['1', '2']];
+  const insides = ['强调', 'emph', '（注）', '$z$', '[[丙]]', '`k`', '“引”', '强调。', '(1)'];
+  const cases = ['C*-代数与 C*-代数', '注* 文字*（注）*文字', 'a * b * c', '*a *b* c*', '文字*（注）文字', '- K2**) 证明', '文字*（注） $a*b$ 文字', '*斜体* **粗体** ***两者***', 'Ti*k*Z',
+    '文字*（注） *文字', '文字*（注）\n\n文字）*文字', '## 参考文献*\n\n文字', '**甲*乙*丙**', '*甲**乙**丙*', 'a**(b)**c', 'a***(b)***c', '****甲****', '***甲** 乙*',
+    '**甲***乙*', '*甲***乙**', '## 文字*（注）*\n\n文字', '- 甲*（注）*乙', '**1*', '*（**', '**$x$*', '甲\n\n**1*'];
+  for (const [before, after] of contexts) for (const inside of insides) for (const stars of ['*', '**', '***']) cases.push(before + stars + inside + stars + after);
+  for (const text of cases) assert.deepEqual(marked(text), rendered(text), text);
+}
+
 // Comments: what the editor marks as one is what the renderer leaves out.
 {
   const parser = bananamarkLanguage().language.parser;

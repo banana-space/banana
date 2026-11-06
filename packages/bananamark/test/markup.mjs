@@ -71,14 +71,8 @@ assert.equal(transformMarkup('[标签][id]\n\n[id]: /$a$'), '[标签][id]\n\n[id
 assert.equal(transformMarkup('[标签 [[交换环]]](https://example.com)'), '[标签 [[交换环]]](https://example.com)');
 assert.equal(readMath('$a % } $ \n b$', 0).value, 'a % } $ \n b');
 assert.equal(transformMarkup('@@', [(text, start) => text.startsWith('@@', start) ? { end: start + 2, output: '扩展' } : undefined]), '扩展');
-// Bold between a letter and punctuation (CommonMark's flanking rules would leave its "**" as text): a space
-// beside it, which postbuild takes out again next to Chinese. Only where a run could not open or close.
-assert.equal(transformMarkup('文字**[[模]]**文字'), `文字 **[模](${link('模')})** 文字`);
-assert.equal(transformMarkup('文字**（注）**文字，**$x$**是'), '文字 **（注）** 文字，**⟦math tex="x"⟧** 是');
-assert.equal(transformMarkup('**粗体**[[模]]'), `**粗体**[模](${link('模')})`, 'a closing after a letter');
-assert.equal(transformMarkup('文字**普通**文字 a ** b'), '文字**普通**文字 a ** b');
-assert.equal(transformMarkup('- K2**) 证明\n\n**甲**'), '- K2**) 证明\n\n**甲**', 'a stray run');
-assert.equal(transformMarkup('**甲**\n\n文字**[[模]]**'), `**甲**\n\n文字 **[模](${link('模')})**`, 'each paragraph in turn');
+// Stars are the renderer's (../src/markdown/emphasis.mjs): the dialect's layer leaves them as written.
+assert.equal(transformMarkup('文字**[[模]]**文字，a*(b)*c'), `文字**[模](${link('模')})**文字，a*(b)*c`);
 
 // A TikZ figure's caption is text of the page, a node after the fence's language.
 assert.equal(transformMarkup('```tikz {caption="见 [[交换环]]"}\n\\draw;\n```'), '```tikz ⟦caption text="见 [交换环](⟦wiki target=\\"交换环\\" name=\\"交换环\\"⟧)"⟧\n\\draw;\n```');

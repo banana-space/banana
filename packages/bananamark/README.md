@@ -81,7 +81,7 @@ export default { wikiLinks: true, katex: { macros: { '\\RR': '\\mathbb{R}' } } }
 
 A module may instead export what `defineDialect` returned (as its default, or as `dialect`), which is then used as it is. That needs the same copy of `bananamark` as the command, so install both in the project.
 
-**TikZ.** Diagrams need the separate package [`bananamark-tikz`](https://github.com/banana-space/banana/tree/main/packages/bananamark-tikz#readme), installed beside `bananamark`. With `--tikz` (or a dialect with `tikz: true`) they are compiled to SVG, and their fonts are put in the page too; without it, ```` ```tikz ```` blocks are ordinary code blocks. To try it without installing: `npx -p bananamark -p bananamark-tikz bananamark file.md --tikz`.
+**TikZ.** Diagrams need the separate package [`bananamark-tikz`](https://www.npmjs.com/package/bananamark-tikz), installed beside `bananamark`. With `--tikz` (or a dialect with `tikz: true`) they are compiled to SVG, and their fonts are put in the page too; without it, ```` ```tikz ```` blocks are ordinary code blocks. To try it without installing: `npx -p bananamark -p bananamark-tikz bananamark file.md --tikz`.
 
 ## In a program
 
@@ -140,8 +140,8 @@ In these docs a *label* is the target of a reference (`{@thm:a}`); `<lang>` and 
 | Package | What for |
 | --- | --- |
 | `bananamark` (this one) | Rendering pages to HTML, in Node or in a browser |
-| [`bananamark-tikz`](https://github.com/banana-space/banana/tree/main/packages/bananamark-tikz#readme) | TikZ diagrams (```` ```tikz ```` blocks, `tikzcd` in formulas) compiled to SVG; Node only |
-| [`bananamark-codemirror`](https://github.com/banana-space/banana/tree/main/packages/bananamark-codemirror#readme) | Editing the dialect in CodeMirror 6: highlighting, completion, checking as you type |
+| [`bananamark-tikz`](https://www.npmjs.com/package/bananamark-tikz) | TikZ diagrams (```` ```tikz ```` blocks, `tikzcd` in formulas) compiled to SVG; Node only |
+| [`bananamark-codemirror`](https://www.npmjs.com/package/bananamark-codemirror) | Editing the dialect in CodeMirror 6: highlighting, completion, checking as you type |
 
 A site renders with `bananamark` (plus `bananamark-tikz` for diagrams); an editor in the browser adds `bananamark-codemirror`. Describe the site's dialect once with [`defineDialect`](https://github.com/banana-space/banana/blob/main/packages/bananamark/REFERENCE.md#the-dialect), in a module of its own, and give it to each, so that the editor reads pages as the renderer does:
 
@@ -164,7 +164,7 @@ new EditorView({ extensions: [basicSetup, bananamark({ dialect })] });   // bana
 
 ## Status
 
-- Version 0.2. Until 1.0, a minor version (0.3) may change the interface and the HTML the spec describes; a patch version (0.2.1) does not. The three packages are released together with the same version; `bananamark-codemirror` and `bananamark-tikz` take `bananamark` as a peer dependency of the same minor version.
+- Version 0.3. Until 1.0, a minor version (0.4) may change the interface and the HTML the spec describes; a patch version (0.3.1) does not. The three packages are released together with the same version; `bananamark-codemirror` and `bananamark-tikz` take `bananamark` as a peer dependency of the same minor version.
 - Node 22 and later; browsers from 2023 on (the stylesheet needs `:has()`).
 - ES modules only. No TypeScript types yet.
 - MIT licence.

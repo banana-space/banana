@@ -36,6 +36,28 @@ assert.match(render({ markdown: 'a\n@@node:0:node@@\nb', nodes: [formula] }), /^
 assert.match(render({ markdown: '*a @@node:0:node@@*', nodes: [formula] }), /^<p><em>a <span class="bm-math-rendered" data-tex="x">/);
 assert.throws(() => render('@@node:0:node@@'), /node 0 is not in the document's table/);
 
+// Emphasis and bold: a run of stars opens unless a space follows it and closes unless a space comes before it, also
+// between a letter and punctuation, where CommonMark would leave it as text; nothing is added around it. Runs pair as
+// CommonMark pairs them; "_" is CommonMark's.
+{
+  const html = text => renderDocument(text, { typography: false }).html.trim();
+  assert.equal(html('a**(b)**c a*(b)*c a***(b)***c'), '<p>a<strong>(b)</strong>c a<em>(b)</em>c a<em><strong>(b)</strong></em>c</p>');
+  assert.equal(html('文字*（注）*文字**（注）**文字'), '<p>文字<em>（注）</em>文字<strong>（注）</strong>文字</p>');
+  assert.match(html('文字**[[集合]]**文字，*$x$*是'), /^<p>文字<strong><a [^>]*>集合<\/a><\/strong>文字，<em><span class="bm-math-rendered" data-tex="x">.*<\/span><\/em>是<\/p>$/);
+  assert.equal(html('*斜体* **粗体** ***两者*** Ti*k*Z'), '<p><em>斜体</em> <strong>粗体</strong> <em><strong>两者</strong></em> Ti<em>k</em>Z</p>');
+  // A run with a space after it opens nothing, one with a space before it closes nothing; the runs around them still pair.
+  assert.equal(html('a * b * c，注* 文字*（注）*文字，注** 文字**（注）**文字'), '<p>a * b * c，注* 文字<em>（注）</em>文字，注** 文字<strong>（注）</strong>文字</p>');
+  assert.equal(html('*a *b* c*'), '<p><em>a <em>b</em> c</em></p>');
+  // A run with no partner stays as written: not one in a formula or code, nor one in the next paragraph.
+  assert.match(html('文字*（注） $a*b$ `c*d` 文字'), /^<p>文字\*（注） <span class="bm-math-rendered" data-tex="a\*b">.*<\/span> <code>c\*d<\/code> 文字<\/p>$/);
+  assert.equal(html('文字**（注）\n\n文字）**文字'), '<p>文字**（注）</p>\n<p>文字）**文字</p>');
+  assert.equal(html(String.raw`\*（注）*文字`), '<p>*（注）*文字</p>');
+  assert.equal(html('a_(b)_c 文字_强调_文字 _强调_'), '<p>a_(b)_c 文字_强调_文字 <em>强调</em></p>');
+  // Headings read stars as the text does: a closing star is the text's, a trailing one alone leaves it unnumbered.
+  assert.match(html('## 文字*（注）*\n\n正文'), /<span class="bm-section-number">1<\/span> 文字<em>（注）<\/em><\/h2>/);
+  assert.doesNotMatch(html('## 参考文献*\n\n正文'), /bm-section-number/);
+}
+
 // Links: wiki links to articles, aliases and missing articles; ordinary links kept as written.
 const wiki = (label, target) => ({ markdown: `[${label}](bananamark:0)`, nodes: [{ type: 'wiki', target, name: target }] });
 assert.equal(inline(wiki('群', '群')), '<a href="/wiki/%E7%BE%A4/" class="bm-wiki-link">群</a>');

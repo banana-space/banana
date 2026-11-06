@@ -57,6 +57,10 @@ assert.deepEqual(['**', '`'].map(mark => classesOf(blocks, mark)), [['bm-hl-stro
 assert.ok(has('文字**[[链接]]**文字\n', 'StrongEmphasis', '**[[链接]]**'));
 assert.ok(has('**粗体**[[链接]]\n', 'StrongEmphasis', '**粗体**'));
 assert.ok(!nodes('a ** b ** c\n').some(([name]) => name === 'StrongEmphasis'));
+// Emphasis the same: 文字*（注）*文字.
+assert.ok(has('文字*（注）*文字\n', 'Emphasis', '*（注）*'));
+assert.ok(has('*斜体*[[链接]]\n', 'Emphasis', '*斜体*'));
+assert.ok(!nodes('a * b * c\n').some(([name]) => name === 'Emphasis'));
 // References end as the build ends them; e-mail addresses are not references.
 assert.ok(!nodes('写信到 a@b.org。').some(([name]) => name === 'Reference'));
 assert.ok(has('见 @eq:x.', 'Reference', '@eq:x'));

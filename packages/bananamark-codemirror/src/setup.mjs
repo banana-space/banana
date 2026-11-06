@@ -7,11 +7,11 @@ import { EditorView, keymap } from '@codemirror/view';
 import { highlightClasses } from 'bananamark/grammar';
 import { bananamarkLanguage, newlineAndIndent } from './language.mjs';
 import { afterComposition, completionSources } from './completion.mjs';
-import { closeDisplayFormula, deleteFormulaDelimiters, pairFormulaDelimiters } from './editing.mjs';
+import { closeDisplayFormula, deleteFormulaDelimiters, pairFormulaDelimiters, wrapSelection } from './editing.mjs';
 import { bananamarkLinter } from './check.mjs';
 
 /**
- * Enter and Backspace in the dialect, in order: Enter on a line holding only \[ closes the formula below it
+ * Enter and Backspace in the dialect, in order: Enter on a line holding only \[ or $$ closes the formula below it
  * (closeDisplayFormula), else continues the line's indentation (newlineAndIndent); Backspace in an empty \[\] removes
  * both (deleteFormulaDelimiters). Each falls through to the next binding where it does nothing.
  */
@@ -33,15 +33,16 @@ export const bananamarkKeymap = [
  *   commits; default this package's); false for none. Registered as language data, so that other extensions' sources
  *   still work;
  * - lint: checkFile's options (and delay, in ms), or false for none;
- * - highlight (the bm-hl-… classes), keymap (bananamarkKeymap), formulaEditing (\[ and \( closed as they are typed):
- *   each true, or false to leave it out.
+ * - highlight (the bm-hl-… classes), keymap (bananamarkKeymap), formulaEditing (\[ and \( closed as they are typed),
+ *   wrapping (*, ` and $ typed over a selection wrap it): each true, or false to leave it out.
  */
-export function bananamark({ dialect, codeLanguages, wikiLinks, locale, completion = {}, lint = {}, highlight = true, keymap: keys = true, formulaEditing = true } = {}) {
+export function bananamark({ dialect, codeLanguages, wikiLinks, locale, completion = {}, lint = {}, highlight = true, keymap: keys = true, formulaEditing = true, wrapping = true } = {}) {
   const extensions = [bananamarkLanguage({ dialect, codeLanguages, wikiLinks })];
   const switches = wikiLinks === undefined ? {} : { wikiLinks };
   if (highlight) extensions.push(syntaxHighlighting(highlightClasses));
   // Ahead of the defaults: "\[" closes with "\]", not "]"; Enter and Backspace before CodeMirror's.
   if (formulaEditing) extensions.push(Prec.high(EditorView.inputHandler.of(pairFormulaDelimiters)));
+  if (wrapping) extensions.push(Prec.high(EditorView.inputHandler.of(wrapSelection)));
   if (keys) extensions.push(Prec.high(keymap.of(bananamarkKeymap)));
   if (completion) {
     const { sources: more = [], afterComposition: opens = afterComposition, ...options } = completion;

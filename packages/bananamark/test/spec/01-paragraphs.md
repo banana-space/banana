@@ -22,6 +22,17 @@ Emphasis; bold can stand right beside Chinese text and links.
 <p><em>斜体</em><strong>粗体</strong>文字<strong><a href="/wiki/%E7%BE%A4/" class="bm-wiki-link">群</a></strong>文字</p>
 ````````````````````````````````
 
+A run of stars (any number) opens unless a space follows it and closes unless a space comes before it, so emphasis and bold may stand against letters and punctuation alike, where CommonMark would leave the stars as text; nothing is added around them. Runs then pair as in CommonMark, and a run with no partner stays as written. `_` is CommonMark's.
+
+```````````````````````````````` example
+文字*（注）*文字，a**(b)**c，a***(b)***c，文字**[[群]]**文字
+
+注* 文字*$x$*文字，a * b，文字_强调_文字
+.
+<p>文字<em>（注）</em>文字，a<strong>(b)</strong>c，a<em><strong>(b)</strong></em>c，文字<strong><a href="/wiki/%E7%BE%A4/" class="bm-wiki-link">群</a></strong>文字</p>
+<p>注* 文字 <em><span class="bm-math-rendered" data-tex="x">…</span></em> 文字，a * b，文字_强调_文字</p>
+````````````````````````````````
+
 Two spaces or a backslash at the end of a line are a hard line break.
 
 ```````````````````````````````` example

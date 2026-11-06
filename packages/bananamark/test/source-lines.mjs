@@ -56,3 +56,11 @@ assert.deepEqual(entryLines(transformDocument(markSourceLines(bibliography, 3), 
 assert.ok(!transformDocument(bibliography, { lineOffset: 3 }).markdown.includes('\uE000'));
 const formulaText = '甲 $a$ `$b$` \\[\nc\n\\] \\$d$e$\n```\n$f$\n```\n';
 assert.deepEqual(formulaRanges(formulaText).map(({ from, to }) => formulaText.slice(from, to)), ['$a$', '\\[\nc\n\\]', '$e$']);
+
+// A mark stands where its line starts: stars after it are read as at a line's start, so a page pairs its stars alike
+// with marks and without.
+{
+  const { renderDocument } = await import('./zh.mjs');
+  const html = text => renderDocument(text, { typography: false }).html.replace(markPattern, '');
+  for (const text of ['*甲\n*乙*', '甲*\n*乙', '**甲**\n- *乙*（丙）', '文字*（注）\n*文字*']) assert.equal(html(markSourceLines(text, 0)), html(text), text);
+}
