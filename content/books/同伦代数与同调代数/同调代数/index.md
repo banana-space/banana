@@ -56,7 +56,7 @@ title: 同调代数
   \ar[r,phantom,"\bot"] &
   \smash{\mathsf{Cat}_{\mathsf{sMod}_R}}\vphantom{|}
   \ar[l,bend left=40,start anchor=south west,end anchor=south east,"\text{forget}"]
-  \ar[r,bend left=40,start anchor=north east,end anchor=north west,"\mathrm{ꓘꓷ}"]
+  \ar[r,bend left=40,start anchor=north east,end anchor=north west,"\mathreflectbox{\mathrm{DK}}"]
   \ar[r,phantom,"\simeq"] &
   \smash{\mathsf{Cat}_{(\mathsf{Ch}_R)_{\geq0}}}\vphantom{|}
   \ar[l,bend left=40,start anchor=south west,end anchor=south east,"\operatorname{DK}"]
@@ -212,7 +212,7 @@ $\infty$-范畴**，
 则 $f$ 是 $\mathsf{sSet}$ 中的纤维化，
 当且仅当映射
 \[
-\mathrm{ꓘꓷ}(f)\colon\mathrm{ꓘꓷ}(X)\to\mathrm{ꓘꓷ}(Y)
+\mathreflectbox{\mathrm{DK}}(f)\colon\mathreflectbox{\mathrm{DK}}(X)\to\mathreflectbox{\mathrm{DK}}(Y)
 \]
 是链复形的逐次满射。
 :::
@@ -220,7 +220,7 @@ $\infty$-范畴**，
 ::: proof
 设 $0\leq i\leq n$。则有分解
 \[
-\mathrm{ꓘꓷ}(\mathbb{Z}\Delta[n]) \simeq \mathrm{ꓘꓷ}(\mathbb{Z}\Lambda_i[n]) \oplus D^n,
+\mathreflectbox{\mathrm{DK}}(\mathbb{Z}\Delta[n]) \simeq \mathreflectbox{\mathrm{DK}}(\mathbb{Z}\Lambda_i[n]) \oplus D^n,
 \]
 其中
 \[
@@ -233,15 +233,15 @@ D^n := \Bigl(\cdots\to0\to\mathbb{Z}\xrightarrow{1}\mathbb{Z}\to0\to\cdots\Bigr)
   \Lambda_i[n] \ar[r]\ar[d] & X \ar[d] \\
   \Delta[n]\ar[r]\ar[ur,dashed] & Y
 \end{tikzcd} \enspace\iff\enspace \begin{tikzcd}[column sep=2em]
-  \mathrm{ꓘꓷ}(\Lambda_i[n]) \ar[r]\ar[d] & \mathrm{ꓘꓷ}(X) \ar[d] \\
-  \mathrm{ꓘꓷ}(\Delta[n])\ar[r]\ar[ur,dashed] & \mathrm{ꓘꓷ}(Y)
+  \mathreflectbox{\mathrm{DK}}(\Lambda_i[n]) \ar[r]\ar[d] & \mathreflectbox{\mathrm{DK}}(X) \ar[d] \\
+  \mathreflectbox{\mathrm{DK}}(\Delta[n])\ar[r]\ar[ur,dashed] & \mathreflectbox{\mathrm{DK}}(Y)
 \end{tikzcd} \enspace\iff\enspace \begin{tikzcd}
-  0 \ar[r]\ar[d] & \mathrm{ꓘꓷ}(X) \ar[d] \\
-  D^n \ar[r]\ar[ur,dashed] & \mathrm{ꓘꓷ}(Y)\rlap{\ .}
+  0 \ar[r]\ar[d] & \mathreflectbox{\mathrm{DK}}(X) \ar[d] \\
+  D^n \ar[r]\ar[ur,dashed] & \mathreflectbox{\mathrm{DK}}(Y)\rlap{\ .}
 \end{tikzcd}
 \]
 因为从 $D^n$ 到任何链复形 $C$ 的映射等价于 $C_n$ 中的元素，
-所以最后一个图表中的提升性质等价于 $\mathrm{ꓘꓷ}(X)\to\mathrm{ꓘꓷ}(Y)$ 是逐次满射。
+所以最后一个图表中的提升性质等价于 $\mathreflectbox{\mathrm{DK}}(X)\to\mathreflectbox{\mathrm{DK}}(Y)$ 是逐次满射。
 :::
 
 ::: corollary {@thm-9-s}

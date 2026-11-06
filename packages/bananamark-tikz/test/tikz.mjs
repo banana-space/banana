@@ -93,6 +93,11 @@ try {
   for (const attribute of ['viewBox', 'width', 'height', 'style']) {
     assert.equal(multiInline.getAttribute(attribute), multiDisplay.getAttribute(attribute), 'Multi-row diagrams retain native centring');
   }
+  // \mathreflectbox (KaTeX's) mirrors its maths at the surrounding size: in an arrow's label, script size.
+  const mirrored = new JSDOM(await renderer.render(placeholder(String.raw`\begin{tikzcd} A \arrow[r,"\mathreflectbox{\mathrm{DK}}"] & B \end{tikzcd}`), { outputPath: join(scratch, 'mirrored.html') })).window.document;
+  const label = [...mirrored.querySelectorAll('text')].find(node => node.textContent === 'DK');
+  assert.match(label.getAttribute('transform'), /^matrix\(-1 /);
+  assert.equal(label.getAttribute('font-size'), '7');
 } finally { await renderer.close(); }
 const limited = diagrams({ timeout: 750 });
 try {

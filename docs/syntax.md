@@ -20,7 +20,7 @@
 | `typography` | 句号转换与引号旁的空格都打开（`scripts/shared/typography.mjs`，见 [中文排版](typography.md)） |
 | `allowH1` | 百科条目中为否：`# 标题` 与 Setext 一级标题报错；首页等其他页面可以使用 |
 
-KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩展命令。几个特殊字形由站点的字体给出：`\mathbb{1}` 显示为 𝟙（交换图中也是），镜像字母 `ꓘ`（U+A4D8）、`ꓷ`（U+A4F7）显示为左右翻转的 K、D（如 `\mathrm{ꓘꓷ}` 是镜像的 DK），由 KaTeX_Main 改成的 BananaMath 补足（`site/styles/_katex.scss`；TikZ 中见 [TikZ 图形](tikz.md)）。
+KaTeX 的 `trust` 不打开，所以不能使用 `\htmlStyle`、`\href` 等扩展命令。`\mathbb{1}` 显示为 𝟙（交换图中也是），由 KaTeX_Main 改成的 BananaMath 补足（`site/styles/_katex.scss`）。左右翻转的字母写作 `\mathreflectbox{\mathrm{DK}}`（镜像的 DK，随所在的字号缩放；`\reflectbox{…}` 的内容是正文，不随下标缩小），公式与交换图中都可以用（TikZ 中见 [TikZ 图形](tikz.md)）。
 
 ### 定理类环境
 

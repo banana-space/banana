@@ -47,6 +47,6 @@
     "bananamark": "~0.3.0"
   },
   "devDependencies": {
-    "katex": "0.18.4"
+    "katex": "0.19.1"
   }
 }

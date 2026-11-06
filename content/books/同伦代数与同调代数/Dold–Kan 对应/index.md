@@ -288,17 +288,17 @@ $n\in\mathbb Z$。
 
 - $X$ 的**正规链复形**，即**逆 Dold–Kan 构造**，
   \[
-  \mathrm{ꓘꓷ}_\bullet(X)\in\mathsf{Ch}(\mathsf{A})_{\geq0},
+  \mathreflectbox{\mathrm{DK}}_\bullet(X)\in\mathsf{Ch}(\mathsf{A})_{\geq0},
   \]
   定义为
   \[
-  \mathrm{ꓘꓷ}_n(X):=\bigcap_{0<i\leq n}\ker\bigl(d_i\colon X_n\to X_{n-1}\bigr),
+  \mathreflectbox{\mathrm{DK}}_n(X):=\bigcap_{0<i\leq n}\ker\bigl(d_i\colon X_n\to X_{n-1}\bigr),
   \qquad\partial_n:=d_0.
   \]
 
 :::
 
-这里的 $\mathrm{ꓘꓷ}(X)$ 可能看起来包含的信息比 $X$ 少，
+这里的 $\mathreflectbox{\mathrm{DK}}(X)$ 可能看起来包含的信息比 $X$ 少，
 但我们将看到，这些丢失的信息并不重要，
 可以从 $X$ 的群结构（指 $\mathsf{A}=\mathsf{Ab}$ 的情况）
 中恢复出来。
@@ -311,15 +311,15 @@ $n\in\mathbb Z$。
   \ar[r,shift left=2ex,bend left,"\operatorname{DK}"]
   \ar[r,phantom,"\simeq"] &
   \smash{\rlap{$\operatorname{Fun}(\mathbb{\Delta}^{\mathrm{op}},\mathsf{A})$}}
-  \ar[l,shift left=2ex,bend left,"\mathrm{ꓘꓷ}"]
+  \ar[l,shift left=2ex,bend left,"\mathreflectbox{\mathrm{DK}}"]
 \end{tikzcd}
 \]
 互为逆函子。
 :::
 
 ::: proof
-不难验证 $\mathrm{ꓘꓷ}\circ\mathrm{DK}=\mathbb{1}$。
-我们需要证明 $\mathrm{DK}\circ\mathrm{ꓘꓷ}=\mathbb{1}$。
+不难验证 $\mathreflectbox{\mathrm{DK}}\circ\mathrm{DK}=\mathbb{1}$。
+我们需要证明 $\mathrm{DK}\circ\mathreflectbox{\mathrm{DK}}=\mathbb{1}$。
 证明比较初等，也并不是很有意思，
 我们在此略过。见 [@HA, 引理 1.2.3.13]。
 :::

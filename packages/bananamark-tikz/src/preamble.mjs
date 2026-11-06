@@ -17,10 +17,6 @@ const cjkPreamble = String.raw`\makeatletter
 \endgroup}
 \DeclareRobustCommand\BananaCJK[1]{\ifmmode\text{\BananaCJKBox{#1}}\else\BananaCJKBox{#1}\fi}
 \makeatother
-% Mirrored letters (U+A4D8 ꓘ, U+A4F7 ꓷ) stand for a reversed K and D, as in the inverse Dold–Kan functor.
-% Reflect the glyphs about the centre of their box: at the centre x, p -> 2x - p.
-\DeclareRobustCommand\BananaMirror[1]{\ifmmode\mathchoice{\BananaMirrorBox{$\displaystyle\mathrm{#1}$}}{\BananaMirrorBox{$\textstyle\mathrm{#1}$}}{\BananaMirrorBox{$\scriptstyle\mathrm{#1}$}}{\BananaMirrorBox{$\scriptscriptstyle\mathrm{#1}$}}\else\BananaMirrorBox{#1}\fi}
-\def\BananaMirrorBox#1{\setbox0\hbox{#1}\hbox{\kern.5\wd0\special{dvisvgm:raw <g transform="translate({?x},0) translate({?x},0) scale(-1,1)">}\kern-.5\wd0\copy0\special{dvisvgm:raw </g>}}}
 % Unicode maths symbols and Greek letters that authors type directly, as in KaTeX.
 \DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
 \DeclareUnicodeCharacter{00B7}{\ensuremath{\cdot}}
@@ -109,9 +105,9 @@ const cjkPreamble = String.raw`\makeatletter
 \providecommand\Set[1]{\left\{#1\right\}}
 \providecommand\bra[1]{\langle #1\rvert}
 \providecommand\ket[1]{\lvert #1\rangle}
-\DeclareUnicodeCharacter{A4D8}{\BananaMirror{K}}
-\DeclareUnicodeCharacter{A4F7}{\BananaMirror{D}}
+\providecommand\mathreflectbox[1]{\mathchoice{\reflectbox{$\displaystyle#1$}}{\reflectbox{$\textstyle#1$}}{\reflectbox{$\scriptstyle#1$}}{\reflectbox{$\scriptscriptstyle#1$}}}
 `;
+// \mathreflectbox (KaTeX's: \reflectbox of maths, at the surrounding size) mirrors as \reflectbox does.
 // Web glyphs: characters this TeX has no font for are drawn by the browser in a
 // font the page already loads. TeX reserves a box with the glyph's metrics (in em
 // of the current maths size) and dvisvgm writes an SVG <text> element at the box's

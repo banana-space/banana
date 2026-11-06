@@ -1,9 +1,9 @@
-"""Build site/files/fonts/BananaMath-Regular.woff2: the few glyphs KaTeX's fonts lack.
+"""Build site/files/fonts/BananaMath-Regular.woff2: the glyph KaTeX's fonts lack.
 
 - U+1D7D9 𝟙 (double-struck one), drawn for this site; its outline is taken from an
   existing font that has it, by default the current BananaMath.
-- U+A4D8 ꓘ and U+A4F7 ꓷ, KaTeX_Main's K and D mirrored left to right; the site uses
-  them for mirrored letters such as \\mathrm{ꓘꓷ}.
+
+(Mirrored letters are written \\mathreflectbox{\\mathrm{DK}}, which KaTeX draws itself.)
 
 The font is a modified KaTeX_Main (SIL OFL 1.1, Reserved Font Name KaTeX_Main; see
 site/files/fonts/BananaMath-OFL.txt), so it is renamed and keeps KaTeX_Main's metrics.
@@ -16,8 +16,6 @@ import sys
 from fontTools.ttLib import TTFont
 from fontTools import subset
 from fontTools.pens.ttGlyphPen import TTGlyphPen
-from fontTools.pens.transformPen import TransformPen
-from fontTools.pens.reverseContourPen import ReverseContourPen
 from fontTools.pens.cu2quPen import Cu2QuPen
 
 one_source = sys.argv[1] if len(sys.argv) > 1 else 'site/files/fonts/BananaMath-Regular.woff2'
@@ -39,27 +37,17 @@ options.layout_features = []
 options.name_IDs = ['*']
 options.notdef_outline = True
 subsetter = subset.Subsetter(options)
-subsetter.populate(text='DK')
+# KaTeX_Main's tables and metrics, none of its glyphs.
+subsetter.populate(unicodes=[])
 subsetter.subset(font)
-cmap = font.getBestCmap()
-mirrored = {cmap[ord('K')]: 0xA4D8, cmap[ord('D')]: 0xA4F7}
 glyf, hmtx = font['glyf'], font['hmtx']
-glyphs = font.getGlyphSet()
-for name in mirrored:
-    advance = hmtx[name][0]
-    pen = TTGlyphPen(glyphs)
-    glyphs[name].draw(TransformPen(ReverseContourPen(pen), (-1, 0, 0, 1, advance, 0)))
-    glyph = pen.glyph()
-    glyph.recalcBounds(glyf)
-    glyf[name] = glyph
-    hmtx[name] = (advance, getattr(glyph, 'xMin', 0))
 
 one_glyph.recalcBounds(glyf)
 font.setGlyphOrder(font.getGlyphOrder() + ['u1D7D9'])
 glyf['u1D7D9'] = one_glyph
 hmtx['u1D7D9'] = (one_advance, getattr(one_glyph, 'xMin', 0))
 font['maxp'].numGlyphs = len(font.getGlyphOrder())
-codes = {**{code: name for name, code in mirrored.items()}, 0x1D7D9: 'u1D7D9'}
+codes = {0x1D7D9: 'u1D7D9'}
 for table in font['cmap'].tables:
     table.cmap = {code: name for code, name in codes.items() if code <= 0xFFFF or table.format in (12, 13)}
 if not any(table.format == 12 for table in font['cmap'].tables):

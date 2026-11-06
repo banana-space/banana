@@ -87,7 +87,7 @@ A module may instead export what `defineDialect` returned (as its default, or as
 
 ```js
 import { renderDocument } from 'bananamark';
-import 'bananamark/katex.css';   // with a bundler; or serve katex/dist/ of the same KaTeX version, 0.18.4
+import 'bananamark/katex.css';   // with a bundler; or serve katex/dist/ of the same KaTeX version, 0.19.1
 import 'bananamark/style.css';   // a plain look, to start from
 
 const source = '## Groups {@sec:groups}\n\n::: definition [Group] {@def:group}\nA set with an operation…\n:::\n\nBy @def:group, $e$ is unique.';

@@ -207,6 +207,18 @@ assert.throws(() => renderDocument('甲', { locale: 'fr' }), /unknown locale "fr
   assert.equal(warned.length, 1);
   assert.match(warned[0], /strict mode is set to 'warn'/);
 }
+// KaTeX reports such characters through strict (symbolNotInFont): ignored whatever the caller's strict, which still
+// decides KaTeX's other checks (here unknownSymbol: • is not a character KaTeX knows).
+{
+  const warned = [], warn = console.warn;
+  console.warn = (...args) => warned.push(args.join(' '));
+  try { renderDocument('$a • b$', { katex: { strict: 'warn' } }); } finally { console.warn = warn; }
+  assert.equal(warned.length, 1);
+  assert.match(warned[0], /\[unknownSymbol\]/);
+  const asked = [];
+  renderDocument('$a • b$', { katex: { strict: code => { asked.push(code); return 'ignore'; } } });
+  assert.deepEqual(asked, ['unknownSymbol']);
+}
 // The caller's messages: changes to bananamark's, and a language of its own (its missing keys from English).
 {
   const messages = { de: { reference_section: 'Abschnitt {number}' }, 'zh-cn': { link_to_heading: '本节的链接' } };

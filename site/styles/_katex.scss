@@ -1,15 +1,13 @@
-// KaTeX 的字体缺少的几个字形，由 BananaMath 补足（由 KaTeX_Main 修改而来，OFL，见 site/files/fonts/BananaMath-OFL.txt）：
-// - 𝟙（U+1D7D9）：math.html 把 \mathbb{1} 改为 𝟙；字形为本站绘制。
-// - 镜像字母 ꓘ（U+A4D8）、ꓷ（U+A4F7）：KaTeX_Main 的 K、D 左右翻转（如 \mathrm{ꓘꓷ} 表示镜像的 DK）；
-//   TikZ 中由 bananamark-tikz 的导言区（packages/bananamark-tikz/src/preamble.mjs）翻转普通字母。
-// 与 KaTeX_Main 同名，浏览器只在 KaTeX_Main 缺字时使用它。
+// KaTeX 的字体缺少的 𝟙（U+1D7D9），由 BananaMath 补足（由 KaTeX_Main 修改而来，OFL，见 site/files/fonts/BananaMath-OFL.txt；
+// scripts/fonts/banana-math.py 生成）：math.html 把 \mathbb{1} 改为 𝟙；字形为本站绘制。
+// 与 KaTeX_Main 同名，浏览器只在 KaTeX_Main 缺字时使用它。（镜像的字母写作 \mathreflectbox{\mathrm{DK}}，由 KaTeX 翻转。）
 @font-face {
   font-family: "KaTeX_Main";
   src: url("#{$font-path}BananaMath-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+A4D8, U+A4F7, U+1D7D9;
+  unicode-range: U+1D7D9;
 }
 
 span.katex {

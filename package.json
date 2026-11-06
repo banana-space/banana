@@ -36,7 +36,7 @@
     "entities": "8.1.0",
     "esbuild": "^0.28.2",
     "jsdom": "23.2.0",
-    "katex": "0.18.4",
+    "katex": "0.19.1",
     "pagefind": "^1.5.2",
     "parse5": "^8.0.1",
     "pinyin-pro": "^3.29.4",
