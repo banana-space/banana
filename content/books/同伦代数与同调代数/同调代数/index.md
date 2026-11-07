@@ -241,7 +241,8 @@ D^n := \Bigl(\cdots\to0\to\mathbb{Z}\xrightarrow{1}\mathbb{Z}\to0\to\cdots\Bigr)
 \end{tikzcd}
 \]
 因为从 $D^n$ 到任何链复形 $C$ 的映射等价于 $C_n$ 中的元素，
-所以最后一个图表中的提升性质等价于 $\mathreflectbox{\mathrm{DK}}(X)\to\mathreflectbox{\mathrm{DK}}(Y)$ 是逐次满射。
+所以最后一个图表中的提升性质等价于
+$\mathreflectbox{\mathrm{DK}}(X)\to\mathreflectbox{\mathrm{DK}}(Y)$ 是逐次满射。
 :::
 
 ::: corollary {@thm-9-s}
