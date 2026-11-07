@@ -1,6 +1,12 @@
+import { createRequire } from 'node:module';
 import tikzjax from 'node-tikzjax';
 import { JSDOM } from 'jsdom';
-import { preambleFor } from './preamble.mjs';
+import { defaultGlyphs, glyphTable, preambleFor } from './preamble.mjs';
+
+// The engine reads a font's metric file, and its DVI converter the font's metrics, from the converter's table of
+// fonts (base64 TFM files by name): the custom glyphs' fonts go in there (named by their content, so never stale).
+const require = createRequire(import.meta.url);
+const fontTable = createRequire(require.resolve('node-tikzjax'))('@prinsss/dvi2html/lib/tfm/fonts.json');
 
 /** Separate the outer equation tag without interpreting diagram syntax. */
 export function splitTag(source) {
@@ -60,12 +66,18 @@ async function compileBox(tex, display, mode, glyphs) {
   const document = new JSDOM(raw, { contentType: 'image/svg+xml' }).window.document;
   const svg = document.documentElement;
   const fonts = new Set();
+  const glyphFonts = new Map(glyphs.fonts.map(font => [font.name, font]));
   for (const text of svg.querySelectorAll('text')) {
-    if (text.classList.contains('bm-tikz-glyph')) {
-      const code = text.textContent.match(/^banana-glyph-(\d+)$/)?.[1];
-      if (!code) throw new Error('Invalid glyph marker');
-      text.textContent = String.fromCodePoint(Number(code));
-      text.removeAttribute('class');
+    const glyphFont = glyphFonts.get(text.getAttribute('font-family'));
+    if (glyphFont) {
+      // The converter writes codes 33 to 255 but 127 as the characters with those codes (the glyphs have no others).
+      text.textContent = [...text.textContent].map(char => {
+        const glyph = glyphFont.characters[char.charCodeAt(0)];
+        if (glyph === undefined) throw new Error('Invalid glyph code');
+        return glyph;
+      }).join('');
+      text.setAttribute('font-family', glyphFont.family);
+      for (const name of ['style', 'weight']) if (glyphFont[name]) text.setAttribute(`font-${name}`, glyphFont[name]);
     } else if (text.classList.contains('bm-tikz-cjk')) {
       const code = text.textContent.match(/^banana-cjk-(\d+)$/)?.[1];
       if (!code) throw new Error('Invalid CJK text marker');
@@ -132,8 +144,9 @@ async function compileBox(tex, display, mode, glyphs) {
   return { svg: svg.outerHTML, fonts: [...fonts], width, height, depth };
 }
 
-/** A diagram's { svg, fonts, width, height, depth, tagSvg, tagWidth }; glyphs: the page glyphs (preamble.mjs's glyphTable). */
-export async function compileTikz({ tex, display = false, mode = 'math', glyphs }) {
+/** A diagram's { svg, fonts, width, height, depth, tagSvg, tagWidth }; glyphs: the custom glyphs (preamble.mjs's glyphTable). */
+export async function compileTikz({ tex, display = false, mode = 'math', glyphs = glyphTable(defaultGlyphs) }) {
+  for (const { name, tfm } of glyphs.fonts) fontTable[name] ??= tfm;
   const { tex: body, tag } = mode === 'math' ? splitTag(tex) : { tex };
   const main = await compileBox(body, display, mode, glyphs);
   if (tag !== undefined) {

@@ -4,13 +4,15 @@
 
 - **Feature:** bananamark-codemirror wraps a selection in `*`, `` ` `` or `$` typed over it, and closes a formula opened by `$$` on Enter.
 - **Feature:** bananamark-tikz draws `\mathreflectbox`, as KaTeX does.
-- **Feature:** bananamark-tikz's `glyphs` draws alphabets (`\mathbb`, `\mathcal`…), letters and characters in the page's fonts; `katexGlyphs` gives KaTeX's.
+- **Feature:** bananamark-tikz supports custom glyphs better: its `glyphs` option draws alphabets (`\mathbb`, `\mathcal`…), letters (including Greek) and other characters in custom fonts, with italic corrections and accent positions. `katexGlyphs` gives KaTeX's fonts.
 - **Change:** Stars may open and close emphasis beside punctuation, with no spaces added around them: `文字*（注）*文字`, `a**(b)**c`. Headings and editor highlighting follow. `_` is unchanged and follows CommonMark.
 - **Change:** KaTeX 0.19.1 (from 0.18.4), with `\mapsfrom` and `\reflectbox`. Characters outside its fonts are still never reported, whatever `strict` is.
 - **Change:** bananamark-tikz moves to jsdom 30, and the packages now need Node 22.22.2+, 24.15+ or 26+.
 - **Fix:** A stray run of stars no longer upsets emphasis elsewhere in its paragraph.
 - **Fix:** bananamark-codemirror closes a formula opened by `\[` on Enter also when a later formula is in the same paragraph.
 - **Fix:** bananamark-tikz draws `\mathscr` in subscripts and labels at the size of the maths around it, not larger.
+- **Fix:** bananamark-tikz's `\mathscr` takes the colour of the maths around it, and its superscripts and accents sit where KaTeX puts them.
+- **Fix:** bananamark-tikz reads Greek letters typed in diagrams as KaTeX does: ε and φ as `\varepsilon` and `\varphi` (they were ϵ and ϕ).
 - **Security:** markdown-it 15.0.3, which no longer takes quadratic time on some reference definitions and unclosed inline HTML.
 
 ## 0.2.1
