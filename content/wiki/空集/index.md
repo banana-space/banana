@@ -4,8 +4,6 @@ categories: [集合论]
 navboxes: [集合论]
 ---
 
-$\varnothing$
-
 **空集**是没有元素的[[集合]]，记为
 \[
 \varnothing = \{ \ \}.
