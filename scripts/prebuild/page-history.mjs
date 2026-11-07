@@ -13,7 +13,8 @@ const legacyFile = 'data/legacy_history.json', formerLegacyFile = 'legacy/histor
  * 每个页面的编辑历史，供页面历史（/history/?path=<页面>）使用：
  * - changes：合并进当前分支的 PR（及直接提交到分支的提交）中修改了它的那些，最新的在前，来自本地 Git 历史
  *   （git log --first-parent：每项是分支上的一次变化，与它的第一个父提交比较），跟随改名（页面换了文件而地址不变也算）；小修改带 minor
- *   （提交说明中的标记，scripts/shared/minor-edits.mjs）；
+ *   （提交说明中的标记，scripts/shared/minor-edits.mjs）。在 main 以外的分支上预览时，还没有进入 origin/main 的提交将来是一个 PR，
+ *   它们的标记合起来读，与合并之后相同；
  * - legacy：从旧站迁移来的页面在旧站的修订，最新的在前（data/legacy_history.json，以页面导入时的路径为键，
  *   沿改名追溯到导入时的路径后取得）。旧站没有的页面（如帮助页面）为空。页面须不晚于它的键首次出现在
  *   这个文件的那次变化加入：网站的首次导入与之后迁移的讲义都是如此，此后以旧站用过的名字新建的页面不算。
@@ -59,11 +60,16 @@ export async function pageHistories(root, { repository, github } = {}) {
     ? await githubAuthors({ ...github, repo: repository, pulls: [...pulls.values()].map(pull => pull.number), commits: commits.filter(commit => !pulls.has(commit.sha)).map(commit => commit.sha) })
     : { pulls: new Map(), commits: new Map() };
 
-  // Minor edits: the marks in the messages of the commits each change brought, then in its own.
+  // Minor edits: the marks in the messages of the commits each change brought, then in its own; for a commit not yet
+  // on the main branch, those of all such commits, which its pull request will bring.
   const marked = await markedMessages(git);
   const brought = marked.size ? await commitsBrought(git) : new Map();
+  const pending = marked.size ? await pendingCommits(git) : [];
+  const pendingMessages = pending.filter(sha => marked.has(sha)).map(sha => marked.get(sha));
+  const unmerged = new Set(pending);
   const minorOf = commit => {
-    const messages = [...(brought.get(commit.sha) ?? []).filter(sha => marked.has(sha)).map(sha => marked.get(sha)), `${commit.subject}\n\n${commit.body}`];
+    const messages = unmerged.has(commit.sha) ? pendingMessages
+      : [...(brought.get(commit.sha) ?? []).filter(sha => marked.has(sha)).map(sha => marked.get(sha)), `${commit.subject}\n\n${commit.body}`];
     return messages.some(hasMarks) ? minorPages(messages, commit.changes.map(change => [change.path, change.previous])) : new Set();
   };
 
@@ -129,6 +135,18 @@ export async function pageHistories(root, { repository, github } = {}) {
 async function markedMessages(git) {
   const output = await git(['log', '-E', '--grep=^(Minor|Major)-edit:', '--format=%H%x1f%B%x1e', 'HEAD']);
   return new Map(output.split('\x1e').map(chunk => chunk.replace(/^\n/, '')).filter(Boolean).map(chunk => chunk.split('\x1f')));
+}
+
+/**
+ * The commits of a branch being previewed that are not on the main branch yet (origin/main), oldest first: they will
+ * reach the site as one pull request, whose merge reads all their marks. None on main itself (its commits go straight
+ * on, each a change of its own) or without origin/main (a server's checkout, a copy of the repository).
+ */
+async function pendingCommits(git) {
+  const branch = await git(['symbolic-ref', '-q', 'HEAD']).catch(() => '');
+  const base = await git(['rev-parse', '--verify', '-q', 'refs/remotes/origin/main']).catch(() => '');
+  if (branch.trim() === 'refs/heads/main' || !base.trim()) return [];
+  return (await git(['rev-list', '--topo-order', '--reverse', 'HEAD', `^${base.trim()}`])).split('\n').filter(Boolean);
 }
 
 /**

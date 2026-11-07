@@ -9,7 +9,7 @@
 
 ## 准备
 
-- [Node.js](https://nodejs.org/) 22.15 或更新版本
+- [Node.js](https://nodejs.org/) 22（22.22.2 或更新）、24（24.15 或更新）或 26 以上
 - [Git](https://git-scm.com/)
 
 不需要安装 LaTeX：交换图与 TikZ 图形由 npm 包中的 TeX 引擎编译。
@@ -100,7 +100,7 @@ Minor-edit: all
 Major-edit: wiki/群
 ```
 
-`Minor-edit: all` 把这个 PR 修改的全部页面标为小修改，`Major-edit: wiki/群` 把其中的一个页面（写 `content/` 之下的路径，可以省略 `index.md`）标回主要修改；没有标记的页面都是主要修改。PR 中后来的提交的标记优先。在线编辑器的提交对话框中有“小修改”勾选框，写的是同样的标记。
+`Minor-edit: all` 把这个 PR 修改的全部页面标为小修改，`Major-edit: wiki/群` 把其中的一个页面（写 `content/` 之下的路径，可以省略 `index.md`）标回主要修改；没有标记的页面都是主要修改。PR 中后来的提交的标记优先。在 main 以外的分支上本地预览时，未合并的提交中也是后来的标记优先。在线编辑器的提交对话框中有“小修改”勾选框，写的是同样的标记。
 
 ## 许可
 

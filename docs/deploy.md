@@ -29,7 +29,7 @@
 
 ## 准备
 
-1. **服务器软件**：Node.js 22.15 以上、Git、rsync、OpenSSL。内存：API 约 0.6 GB（以 `--max-old-space-size=512` 运行，见 [预览与在线编辑](preview.md)），完整构建期间更多（单个进程最多约 1.9 GB），加上旧站的 MySQL 与 PHP，4 GB 的服务器应加 2–4 GB 交换空间，第一次构建时观察 `free -m`。磁盘：每个工作目录的 `.build/` 数 GB，每个版本约 500 MB（硬链接后增量很小）。
+1. **服务器软件**：Node.js 22（22.22.2 或更新）、24（24.15 或更新）或 26 以上，Git、rsync、OpenSSL。内存：API 约 0.6 GB（以 `--max-old-space-size=512` 运行，见 [预览与在线编辑](preview.md)），完整构建期间更多（单个进程最多约 1.9 GB），加上旧站的 MySQL 与 PHP，4 GB 的服务器应加 2–4 GB 交换空间，第一次构建时观察 `free -m`。磁盘：每个工作目录的 `.build/` 数 GB，每个版本约 500 MB（硬链接后增量很小）。
 2. **仓库**：在 GitHub 上为 `main` 设规则：只能经 PR 合并、需要审阅、禁止强制推送。合并即发布，审阅就是发布前的检查；机器人令牌有写权限，这条规则也防止它直接写入 `main`。
 3. **GitHub 登录与提交**：按 [在线编辑的 GitHub 设置](editor-setup.md) 的“正式部署”建 OAuth App（回调 `https://bananaspace.org/api/auth/callback`）与机器人令牌。
 4. **域名**：为 `bananaspace.org` 加 A/AAAA 记录（根域名不能用 CNAME），`www` 保留。生效后取得同时包含两个名称的证书：`sudo certbot certonly --apache -d bananaspace.org -d www.bananaspace.org`。

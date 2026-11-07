@@ -1,6 +1,12 @@
+import { createRequire } from 'node:module';
 import tikzjax from 'node-tikzjax';
 import { JSDOM } from 'jsdom';
-import { preambleFor } from './preamble.mjs';
+import { defaultGlyphs, glyphTable, preambleFor } from './preamble.mjs';
+
+// The engine reads a font's metric file, and its DVI converter the font's metrics, from the converter's table of
+// fonts (base64 TFM files by name): the custom glyphs' fonts go in there (named by their content, so never stale).
+const require = createRequire(import.meta.url);
+const fontTable = createRequire(require.resolve('node-tikzjax'))('@prinsss/dvi2html/lib/tfm/fonts.json');
 
 /** Separate the outer equation tag without interpreting diagram syntax. */
 export function splitTag(source) {
@@ -40,7 +46,7 @@ export function splitTag(source) {
   return { tex: tag === undefined ? source : source.slice(0, start) + source.slice(end), tag };
 }
 
-async function compileBox(tex, display, mode) {
+async function compileBox(tex, display, mode, glyphs) {
   const math = tex.trim().replace(/\n[ \t]*\n/g, '\n');
   const body = mode === 'text' ? tex + '\n' : `$${display ? '\\displaystyle' : '\\textstyle'} ${math}\n$`;
   // The outer picture retains surrounding maths, multiple inner pictures and
@@ -51,7 +57,7 @@ async function compileBox(tex, display, mode) {
     + body + String.raw`}\begin{tikzpicture}[baseline=0pt]\node[anchor=base,inner sep=0pt,outer sep=0pt,minimum size=0pt] at (0,0) {\special{dvisvgm:raw <!--banana-box:\the\wd\BananaFormulaBox,\the\ht\BananaFormulaBox,\the\dp\BananaFormulaBox-->}\copy\BananaFormulaBox};\end{tikzpicture}\end{document}`;
   const raw = await tikzjax.default(source, {
     texPackages: { 'tikz-cd': '', amsmath: '', amssymb: '', array: '' },
-    addToPreamble: '\\nonstopmode\n' + preambleFor(tex) + '\n',
+    addToPreamble: '\\nonstopmode\n' + preambleFor(tex, glyphs) + '\n',
     disableOptimize: true,
     showConsole: true,
   });
@@ -60,13 +66,19 @@ async function compileBox(tex, display, mode) {
   const document = new JSDOM(raw, { contentType: 'image/svg+xml' }).window.document;
   const svg = document.documentElement;
   const fonts = new Set();
+  const glyphFonts = new Map(glyphs.fonts.map(font => [font.name, font]));
   for (const text of svg.querySelectorAll('text')) {
-    if (text.classList.contains('tikz-glyph')) {
-      const [, code, letter] = text.textContent.match(/^banana-(?:glyph-(\d+)|letter-([A-Za-z]))$/) ?? [];
-      if (!code && !letter) throw new Error('Invalid glyph marker');
-      text.textContent = letter ?? String.fromCodePoint(Number(code));
-      text.removeAttribute('class');
-    } else if (text.classList.contains('tikz-cjk')) {
+    const glyphFont = glyphFonts.get(text.getAttribute('font-family'));
+    if (glyphFont) {
+      // The converter writes codes 33 to 255 but 127 as the characters with those codes (the glyphs have no others).
+      text.textContent = [...text.textContent].map(char => {
+        const glyph = glyphFont.characters[char.charCodeAt(0)];
+        if (glyph === undefined) throw new Error('Invalid glyph code');
+        return glyph;
+      }).join('');
+      text.setAttribute('font-family', glyphFont.family);
+      for (const name of ['style', 'weight']) if (glyphFont[name]) text.setAttribute(`font-${name}`, glyphFont[name]);
+    } else if (text.classList.contains('bm-tikz-cjk')) {
       const code = text.textContent.match(/^banana-cjk-(\d+)$/)?.[1];
       if (!code) throw new Error('Invalid CJK text marker');
       text.textContent = String.fromCodePoint(Number(code));
@@ -84,10 +96,10 @@ async function compileBox(tex, display, mode) {
   }
   // A separate SVG text element for each Han glyph would put line breaks in
   // copied words. Join adjacent glyphs that TeX placed on the same baseline.
-  for (const text of svg.querySelectorAll('text.tikz-cjk')) {
+  for (const text of svg.querySelectorAll('text.bm-tikz-cjk')) {
     if (!text.parentNode) continue;
     let next = text.nextElementSibling;
-    while (next?.matches('text.tikz-cjk')) {
+    while (next?.matches('text.bm-tikz-cjk')) {
       const size = Number(text.getAttribute('font-size'));
       const count = [...text.textContent].length;
       const expectedX = Number(text.getAttribute('x')) + size * count;
@@ -123,7 +135,7 @@ async function compileBox(tex, display, mode) {
   svg.setAttribute('width', `${width / 10}em`);
   svg.setAttribute('height', `${height / 10}em`);
   svg.setAttribute('style', `vertical-align: ${-depth / 10}em`);
-  svg.setAttribute('class', 'tikz-svg');
+  svg.setAttribute('class', 'bm-tikz-svg');
   // Remove the private metrics comment after extracting it.
   const walker = document.createTreeWalker(svg, document.defaultView.NodeFilter.SHOW_COMMENT);
   const comments = [];
@@ -132,12 +144,14 @@ async function compileBox(tex, display, mode) {
   return { svg: svg.outerHTML, fonts: [...fonts], width, height, depth };
 }
 
-export async function compileTikz({ tex, display = false, mode = 'math' }) {
+/** A diagram's { svg, fonts, width, height, depth, tagSvg, tagWidth }; glyphs: the custom glyphs (preamble.mjs's glyphTable). */
+export async function compileTikz({ tex, display = false, mode = 'math', glyphs = glyphTable(defaultGlyphs) }) {
+  for (const { name, tfm } of glyphs.fonts) fontTable[name] ??= tfm;
   const { tex: body, tag } = mode === 'math' ? splitTag(tex) : { tex };
-  const main = await compileBox(body, display, mode);
+  const main = await compileBox(body, display, mode, glyphs);
   if (tag !== undefined) {
     if (!display) throw new Error('Equation tags require display maths');
-    const label = await compileBox(tag, false, 'math');
+    const label = await compileBox(tag, false, 'math', glyphs);
     main.tagSvg = label.svg;
     main.tagWidth = label.width;
     main.fonts = [...new Set([...main.fonts, ...label.fonts])];

@@ -15,6 +15,7 @@ import { normalizeTokens } from './typography.mjs';
 import { checkEnvironments, environmentName, resolveEnvironments } from './environments.mjs';
 import { inspectDocument, describeMarkdown, newDocument, nodeMarker, reservedNotation } from './nodes.mjs';
 import { parseAttributeList } from '../markdown/attributes.mjs';
+import { dialectEmphasis } from '../markdown/emphasis.mjs';
 
 /**
  * The dialect's layer on a page: its structure (sections, theorem-like environments, numbered formulas,
@@ -25,8 +26,9 @@ import { parseAttributeList } from '../markdown/attributes.mjs';
  */
 
 // Headings' text as CommonMark reads it (markdown-it without the renderer's extensions, which would change the
-// text ids are made of: the typography, bare addresses).
+// text ids are made of: the typography, bare addresses), with the dialect's emphasis.
 const headingParser = new MarkdownIt('commonmark');
+dialectEmphasis(headingParser);
 /** The inline tokens of a Markdown document, in order. */
 const inlineTokens = markdown => headingParser.parse(markdown, {}).flatMap(token => token.type === 'inline' ? token.children : []);
 // A line starting with a labelled list item's marker (after container markers): a setext heading's text ends before it.

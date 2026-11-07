@@ -14,7 +14,7 @@ import { getSearchQuery, highlightSelectionMatches, search, searchKeymap } from 
 import { acceptCompletion, autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
-import { bananamarkKeymap, bananamarkLanguage, highlightClasses, pairFormulaDelimiters, problemRange } from 'bananamark-codemirror';
+import { bananamarkKeymap, bananamarkLanguage, highlightClasses, pairFormulaDelimiters, problemRange, wrapSelection } from 'bananamark-codemirror';
 import { dialectLanguages } from '../../../scripts/shared/dialect.mjs';
 import { afterComposition, completionSources } from '../../../scripts/editor/completion.mjs';
 
@@ -200,8 +200,10 @@ function setup() {
     search({ top: true }),
     EditorView.updateListener.of(update => adjustSearchPanel(update.view)),
     EditorState.phrases.of(Object.fromEntries(Object.entries(codemirrorPhrases).map(([phrase, key]) => [phrase, config.strings[key]]))),
-    // Ahead of the bracket pairing: "\[" closes with "\]", not "]".
+    // Ahead of the bracket pairing: "\[" closes with "\]", not "]". "*", "`" and "$" typed over a selection
+    // wrap it, as brackets and quotes do.
     Prec.high(EditorView.inputHandler.of(pairFormulaDelimiters)),
+    Prec.high(EditorView.inputHandler.of(wrapSelection)),
     // Tab accepts the completion offered; otherwise it indents (insertIndentation), and Shift+Tab outdents the lines,
     // by two spaces (the site's indentation, as in YAML; a list item's continuation lines are at its text, two spaces
     // after "-", three after "1.").

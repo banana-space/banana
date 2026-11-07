@@ -27,7 +27,7 @@ npm run katex-commands --workspace bananamark-codemirror
 
 ## The TikZ cache
 
-`bananamark-tikz`'s cache keys hold the compiler's code (`src/compiler.mjs`, `src/worker.mjs`) and the preamble a diagram gets (`src/preamble.mjs`). Changing them recompiles every diagram, which for the site takes an hour on its server: change them only when the output must change.
+`bananamark-tikz`'s cache keys hold the compiler's code (`src/compiler.mjs`, `src/worker.mjs`) and the preamble a diagram gets (`src/preamble.mjs`, with the glyph fonts `src/tfm.mjs` writes). Changing them recompiles every diagram, which for the site takes an hour on its server: change them only when the output must change.
 
 ## The source
 

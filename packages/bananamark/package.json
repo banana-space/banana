@@ -1,6 +1,6 @@
 {
   "name": "bananamark",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A Markdown dialect for mathematical writing: formulas, numbered sections and theorems, cross-references, bibliographies, wiki links and Chinese typography, rendered to HTML",
   "keywords": [
     "markdown",
@@ -54,7 +54,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=22"
+    "node": "^22.22.2 || ^24.15.0 || >=26"
   },
   "scripts": {
     "test": "node test/index.mjs",
@@ -70,8 +70,8 @@
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/lang-rust": "^6.0.2",
     "@codemirror/legacy-modes": "^6.5.5",
-    "katex": "0.18.4",
-    "markdown-it": "15.0.2",
+    "katex": "0.19.1",
+    "markdown-it": "15.0.3",
     "markdown-it-footnote": "4.0.0",
     "parse5": "^8.0.1",
     "yaml": "^2.9.1"

@@ -5,6 +5,7 @@ import { linkify } from './linkify.mjs';
 import { typographer } from './typographer.mjs';
 import { formula, splitFormulaBlocks } from './formulas.mjs';
 import { headingAttributes, fenceAttributes } from './attributes.mjs';
+import { dialectEmphasis } from './emphasis.mjs';
 
 /**
  * markdown-it set up to read the dialect's Markdown: CommonMark with tables, strikethrough, footnotes, bare addresses
@@ -56,6 +57,7 @@ export function createMarkdownParser() {
   // environment fences, and tags, which pages have as nodes).
   md.block.ruler.before('html_block', 'left_out', leftOutBlock, { alt: ['paragraph', 'reference', 'blockquote'] });
   md.inline.ruler.before('backticks', 'formula', formula);
+  dialectEmphasis(md);
   md.use(footnotes);
   md.inline.ruler.disable('footnote_inline');
   md.core.ruler.before('inline', 'heading_attributes', headingAttributes);

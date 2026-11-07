@@ -8,7 +8,7 @@ For **writing** pages: [Syntax in detail](#syntax-in-detail), [Typography](#typo
 
 What each part of the dialect does, in more detail than the [summary in the README](README.md#syntax); the spec files show each with examples.
 
-Bold `**…**` may stand against letters, links, formulas and punctuation (`text**[[link]]**text`): bananamark pairs a paragraph's `**` in turn as openings and closings, where CommonMark alone would not; a `**` with no partner after it stays as written. An image alone in a paragraph is a figure: the text in its brackets (formulas and links allowed) is the caption below it, and its alt text; for alt text without a caption, leave the brackets empty and give a title, `![](image.png "alt text")`.
+Emphasis and bold (`*…*`, `**…**`, `***…***`) may stand against letters, links, formulas and punctuation (`text*(note)*text`, `a**(b)**c`, `text**[[link]]**text`): a run of stars opens unless a space follows it and closes unless a space comes before it (a line's start and end count as spaces), where CommonMark's flanking rules would leave the stars as text; nothing is added around them. Runs then pair as CommonMark pairs them (the nearest opening, and its rule of three), and a run with no partner stays as written. `_…_` is CommonMark's: only beside spaces or punctuation. An image alone in a paragraph is a figure: the text in its brackets (formulas and links allowed) is the caption below it, and its alt text; for alt text without a caption, leave the brackets empty and give a title, `![](image.png "alt text")`.
 
 ### Headings
 

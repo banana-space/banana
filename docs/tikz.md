@@ -9,7 +9,8 @@
 - 站点的方言打开 TikZ（`scripts/shared/syntax.mjs` 的 `tikz: true`）：bananamark 把含图的公式与 `tikz` 围栏写成占位的空元素（`bm-tikz-source`），站点生成器在页面完成之后用插件把 SVG 放回原处（`scripts/service/generator.mjs` 的 `publishPages`、`publishShared`）。模板中的公式（标题等）也一样：`scripts/site/templates/layout.mjs` 写出同样的占位元素。
 - 插件由 `scripts/shared/diagrams.mjs` 的 `siteDiagrams(output)` 创建：缓存在 `.build/tikz-cache/`（同一个检出中的所有构建共用），字体复制到输出目录的 `fonts/tikzjax/`，页面按自己的路径引用（支持站点子目录），错误为中文。
 - 样式在 `site/styles/_tikz.scss`：图为 1.1em（与公式相同），汉字（`bm-tikz-cjk`）用 `$font-family-western` 的字体，图中的文字可以选中；独立的图居中，带编号的图把编号放在右侧（`bm-tikz-layout`）。
-- 镜像的字母 `ꓘ`、`ꓷ` 在图中由插件的导言区翻转普通字母画出（`packages/bananamark-tikz/src/preamble.mjs` 的 `\BananaMirror`），与公式中 BananaMath 的字形一致（见 [页面的写法](syntax.md#站点的方言)）。
+- 图中用页面字体画的字形（插件的 `glyphs`，见包的 README 的 Custom glyphs）是 `scripts/shared/diagrams.mjs` 的 `siteGlyphs`，与公式一致（`site/styles/_katex.scss`）：`\mathscr` 用 KaTeX_Script（插件的默认），`\mathbb` 的大写字母与 k 用 Banana Math，𝟙（`\mathbb{1}`）用 KaTeX_Main，后两者是 BananaMath 的字形，尺寸由 `scripts/fonts/banana-math.py` 写在 `scripts/shared/banana-math-metrics.mjs`。其余的 `\mathbb` 字母仍用 TeX 的 msbm。改动它们只重新编译用到的图。
+- `\mathreflectbox`（KaTeX 的命令，TeX 中没有）由插件的导言区用 graphicx 的 `\reflectbox` 定义，随所在的字号缩放，与公式中一致（见 [页面的写法](syntax.md#站点的方言)）。
 
 ## 缓存与构建时间
 

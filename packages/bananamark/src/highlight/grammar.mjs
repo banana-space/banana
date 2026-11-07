@@ -655,16 +655,19 @@ const table = {
 };
 
 /**
- * "**" opens or closes bold text also between a letter and punctuation (文字**[[链接]]**文字), as the dialect's layer
- * lets it (../syntax/markup.mjs, strongRun): only a space after it keeps it from opening, before it from closing.
+ * A run of "*" (any number) opens unless a space follows it, and closes unless a space comes before it, also between
+ * a letter and punctuation (文字*（注）*文字, a**(b)**c), as the renderer reads it (../markdown/emphasis.mjs).
  */
-const strongRun = {
-  name: 'StrongRun',
+const emphasisRun = {
+  name: 'EmphasisRun',
   before: 'Emphasis',
   parse(cx, next, pos) {
-    if (next !== 42 /* * */ || cx.char(pos + 1) !== 42 || cx.char(pos - 1) === 42 || cx.char(pos + 2) === 42) return -1;
-    const space = char => char < 0 || /\s/.test(String.fromCharCode(char));
-    return cx.addDelimiter(InlineContext.emphasisAsterisk, pos, pos + 2, !space(cx.char(pos + 2)), !space(cx.char(pos - 1)));
+    if (next !== 42 /* * */ || cx.char(pos - 1) === 42) return -1;
+    let end = pos + 1;
+    while (cx.char(end) === 42) end++;
+    // Before the paragraph's text (NaN) and after it (-1) count as spaces.
+    const space = char => !(char >= 0) || /\s/.test(String.fromCharCode(char));
+    return cx.addDelimiter(InlineContext.emphasisAsterisk, pos, end, !space(cx.char(end)), !space(cx.char(pos - 1)));
   },
 };
 
@@ -775,7 +778,7 @@ const dialect = {
     // fence, the fence's closing mark no longer matches FencedCode/CodeMark.)
     'InlineCode/CodeMark': tags.processingInstruction,
   })],
-  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, leftOutInline, tag, imageAttributes, strongRun],
+  parseInline: [inlineMath, wikiLink, footnoteReference, plainBracket, reference, leftOutInline, tag, imageAttributes, emphasisRun],
   // A line starting with a tag (<align right>, <see>) is a paragraph's: as an HTML block it would hide the
   // Markdown that follows.
   remove: ['HTMLBlock'],

@@ -1,6 +1,6 @@
 {
   "name": "bananamark-codemirror",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "CodeMirror 6 language support for the bananamark Markdown dialect: highlighting, folding, completion and checking",
   "keywords": [
     "bananamark",
@@ -31,7 +31,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=22"
+    "node": "^22.22.2 || ^24.15.0 || >=26"
   },
   "scripts": {
     "test": "node test/index.mjs",
@@ -44,9 +44,9 @@
     "@codemirror/lint": "^6.9.7",
     "@codemirror/state": "^6.7.6",
     "@codemirror/view": "^6.43.14",
-    "bananamark": "~0.2.0"
+    "bananamark": "~0.3.0"
   },
   "devDependencies": {
-    "katex": "0.18.4"
+    "katex": "0.19.1"
   }
 }

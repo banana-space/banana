@@ -27,7 +27,7 @@
 - 标点字体 `Banana Punctuation`：普通字重 `site/files/fonts/BananaPunctuation-Regular.woff2`，500 与 600 为 `-Medium`、`-SemiBold`。字符范围在 `_base.scss` 的 `@font-face` 中声明，只有中文标点与弯引号 `‘’“”`，不含 ASCII 句点、逗号与数学符号。
 - 字体用 `kern` 收紧相邻的标点（如 `），`）；正文设 `font-kerning: normal`，因为 Firefox 的 `auto` 对 CJK 文字不做 kerning。`scripts/fonts/banana-punctuation.py` 给字体加上 `halt`（标点的半宽）与 `chws`（与 `kern` 共用同一个查找表）：中文正文设 `text-spacing-trim: trim-start`，Chromium 据此把行首的开括号压成半宽，并在字体切换处（如加粗的边界 `**文）**（`）收紧括号；同一字体内的相邻标点仍由 `kern` 处理，不会重复收紧。Chromium 把 `、。，．` 视作一组，要求它们宽度相同且字形不超过半宽，本字体不满足，所以字体切换处的逗号、句号（如 `**（文）**，`）不收紧。Firefox 不支持 `text-spacing-trim`。代码块恢复 `text-spacing-trim: normal`。
 - 代码字体为 Commit Mono。它没有西里尔字母，希腊字母也不全；缺少的字母用 JetBrains Mono 的子集 `JetBrains Mono Cyrillic`（普通代码用字重 350 的固定字重文件 `-350`，与 Commit Mono 的粗细相近；粗体用可变字重文件 `-Variable`；`site/files/fonts/JetBrainsMono-Cyrillic*.woff2`，由 `scripts/fonts/jetbrains-mono-cyrillic.py` 生成，OFL）。两者字宽同为 600/1000，代码对齐不变；只有代码中出现这些字母的页面才下载它。
-- KaTeX 缺少的几个字形（𝟙、镜像字母 ꓘ ꓷ）由 BananaMath 补足（`site/styles/_katex.scss`）。
+- KaTeX 缺少的 𝟙 由 BananaMath 补足（`site/styles/_katex.scss`）。
 
 ## 公式、图标之后的标点
 

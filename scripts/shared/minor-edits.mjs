@@ -10,7 +10,8 @@
  * A change's pages start as major. Its messages are read oldest first (a pull request's commits, then the merge
  * commit's message; a squashed or direct commit's own message), each mark over the earlier ones: all sets every page,
  * a path one page. So a reviewer's later commit (an empty one will do) changes what the author marked, and so does
- * the merge message.
+ * the merge message. A preview of a branch reads its commits not yet on origin/main as the one pull request they will
+ * be (prebuild/page-history.mjs).
  */
 
 const markLine = /^(Minor|Major)-edit:[ \t]*(\S(?:.*\S)?)[ \t]*$/gim;
