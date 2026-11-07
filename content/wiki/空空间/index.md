@@ -3,8 +3,6 @@ title: 空空间
 categories: [一般拓扑]
 ---
 
-$\varnothing$
-
 **空空间**是没有点的[[拓扑空间]]，记为
 \[
 \varnothing = \{ \ \}.
