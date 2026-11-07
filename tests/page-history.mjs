@@ -232,6 +232,23 @@ try {
   assert.match(latest[0], /home-recent-entry"?><span class="?home-recent-name"?>(?:(?!home-recent-entry)[\s\S])*?<\/span><span class="?home-recent-separator"?>/, '分隔号在前一个名称后面');
   assert.doesNotMatch(latest[0], /home-recent-entry"?><span class="?home-recent-separator/, '名称前没有分隔号');
 
+  // Previewing a branch: its commits not yet on origin/main will be one pull request, so their marks are read together,
+  // as after the merge (a later commit marks an earlier one's pages). On main itself each commit is a change of its own.
+  git(['update-ref', 'refs/remotes/origin/main', 'main']);
+  git(['checkout', '-q', '-b', 'preview', 'main']);
+  await at('content/wiki/甲/index.md', page('甲', '甲的又一版正文．\n\n第二段．'));
+  git(['commit', '-q', '-am', '标点'], { date: '2026-10-02T01:00:00Z' });
+  git(['commit', '-q', '--allow-empty', '-m', '标记', '-m', 'Minor-edit: all'], { date: '2026-10-02T02:00:00Z' });
+  const newest = async () => (await pageHistories(root)).get('content/wiki/甲/index.md').changes[0];
+  assert.deepEqual(await newest().then(({ commit, minor }) => ({ subject: git(['log', '-1', '--format=%s', commit]), minor })), { subject: '标点', minor: true },
+    '分支上后来的提交标出前面提交的页面');
+  git(['checkout', '-q', 'main']);
+  git(['merge', '-q', '--ff-only', 'preview']);
+  assert.equal((await newest()).minor, undefined, '直接提交到 main 的提交各是一次变化');
+  git(['reset', '-q', '--hard', 'HEAD~2']);
+  git(['branch', '-q', '-D', 'preview']);
+  git(['update-ref', '-d', 'refs/remotes/origin/main']);
+
   // A page moved to another file of the same address and rewritten on the way (books/庚/_index.md → books/庚/index.md):
   // Git sees a page removed and another added, the history a move.
   await at('content/books/庚/_index.md', page('庚', '庚的正文。'));
