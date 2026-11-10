@@ -20,5 +20,5 @@ groups:
     items:
       - '[[$\varphi^4$ 理论]]'
       - '[[$O(N)$ 模型]]'
-      - '[[sigma 模型|$σ$ 模型]]'
+      - '[[$\sigma$ 模型]]'
       - '[[sine–Gordon 模型]]'
