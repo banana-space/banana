@@ -10,7 +10,7 @@ import {
 } from '@codemirror/view';
 import { bracketMatching, foldGutter, foldKeymap, getIndentUnit, indentOnInput, indentUnit, syntaxHighlighting } from '@codemirror/language';
 import { defaultKeymap, history, historyKeymap, indentLess, indentMore } from '@codemirror/commands';
-import { getSearchQuery, highlightSelectionMatches, search, searchKeymap } from '@codemirror/search';
+import { SearchQuery, getSearchQuery, highlightSelectionMatches, search, searchKeymap, setSearchQuery } from '@codemirror/search';
 import { acceptCompletion, autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, startCompletion } from '@codemirror/autocomplete';
 import { forEachDiagnostic, lintGutter, lintKeymap, linter, setDiagnostics } from '@codemirror/lint';
 import { diff, unifiedMergeView } from '@codemirror/merge';
@@ -60,6 +60,18 @@ function replacementFor(query, match) {
     return whole;
   });
 }
+
+/**
+ * Plain searches are literal: "\t" finds a backslash and a t, and replaces with them (CodeMirror reads \n, \r, \t and
+ * \\ as those characters unless the query is literal, and its panel drops the option as it builds each query). With a
+ * regular expression the pattern has its own escapes, and the replacement keeps CodeMirror's. The search state takes
+ * the last query of a transaction; the panel does not compare the option, so it keeps its fields.
+ */
+const literalSearch = EditorState.transactionExtender.of(tr => {
+  const query = tr.effects.findLast(effect => effect.is(setSearchQuery))?.value;
+  if (!query || query.literal !== query.regexp) return null;
+  return { effects: setSearchQuery.of(new SearchQuery({ ...query, literal: !query.regexp })) };
+});
 
 /** Replaces the matches of the search panel's query within the selected text (one edit, undone as one). */
 function replaceInSelection(view) {
@@ -197,7 +209,7 @@ function setup() {
     }),
     rectangularSelection(), crosshairCursor(), activeLines, highlightSelectionMatches(),
     // The search panel at the top, where it floats over the editor's top right (_editor.scss).
-    search({ top: true }),
+    search({ top: true, literal: true }), literalSearch,
     EditorView.updateListener.of(update => adjustSearchPanel(update.view)),
     EditorState.phrases.of(Object.fromEntries(Object.entries(codemirrorPhrases).map(([phrase, key]) => [phrase, config.strings[key]]))),
     // Ahead of the bracket pairing: "\[" closes with "\]", not "]". "*", "`" and "$" typed over a selection
@@ -765,9 +777,9 @@ async function openPage(path, user, title) {
   // Scrolling either side scrolls the other to the same place, unless the preview shows errors or failed. The
   // preview's source-line marks anchor the two (without them, each "#" heading of the source and its heading in
   // the preview, both in order); between anchors, positions are interpolated by line. What is matched is the line
-  // 40% down each pane, where the eye is (the source runs about twice as long as the preview, so matching the top
-  // lines left the middles apart); nearer than that to either end of a pane, the point moves to that end, so that
-  // the two panes' tops and ends still meet.
+  // a quarter of the way down each pane, where the eye is while editing (the source runs about twice as long as the
+  // preview, so matching the top lines left the panes apart there); within a quarter of a pane of either end, the
+  // point moves to that end, so that the two panes' tops and ends still meet.
   let headingCache = { doc: null, lines: [] };
   /** Lines (from 1) of the source's headings, outside the front matter and code blocks. */
   function sourceHeadings() {
@@ -840,12 +852,17 @@ async function openPage(path, user, title) {
       scrollPreviewTo(sourceAnchorLine());
     });
   }, { passive: true });
-  const anchorAt = 0.4;
+  const anchorAt = 0.25;
   /**
-   * How far down a pane (height, scrolled to top of at most max) its matched point is: 40%, less near the start
-   * (none at the top) and more near the end (all of it at the end).
+   * How far down a pane (height, scrolled to top of at most max) its matched point is: a quarter, less within a
+   * quarter of a pane of the start (none at the top) and more within a quarter of a pane of the end (all of it at the
+   * end; it moves down faster there, so that the end does not take over short pages).
    */
-  const anchorOffset = (top, height, max) => Math.min(Math.max(Math.min(anchorAt * height, top), height - (max - top)), height);
+  const anchorOffset = (top, height, max) => {
+    const usual = anchorAt * height, left = Math.max(max - top, 0);
+    const end = left < usual ? height - (height - usual) * left / usual : 0;
+    return Math.min(Math.max(Math.min(usual, top), end), height);
+  };
   /** The scroll position whose matched point is at y (it moves down as the pane scrolls: halving finds it). */
   function scrollFor(y, height, max) {
     let low = 0, high = Math.max(max, 0);
