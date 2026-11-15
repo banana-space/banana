@@ -96,7 +96,8 @@ $H^1 (X; G)$。
 Deligne 联络给出由 $\lambda \in \mathbb{A}^1$ 参数化的一族结构，
 而 $\lambda \neq 0$ 和 $\lambda = 0$ 的情况分别对应 D-模与 Higgs 层。
 
-当 $X$ 是[[代数曲线|光滑射影曲线]]时，这三种模空间和三种层论也出现在[[几何 Langlands 对应]]中，
+当 $X$ 是[[代数曲线|光滑射影曲线]]时，
+这三种模空间和三种层论也出现在[[几何 Langlands 纲领|几何 Langlands 对应]]中，
 并给出其三种版本：
 
 - **[[Betti 几何 Langlands 对应]]** 大致表明，
