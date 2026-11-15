@@ -193,7 +193,7 @@ d(ab) = d(a)b + (-1)^p a\,d(b),
 是 $\mathsf{Ch}(\mathbb{R})$ 中的代数对象。
 :::
 
-::: example [扭曲群代数]
+::: example [扭转群代数]
 设 $G$ 是有限[[群]]，
 $\omega \colon G \times G \times G \to k^\times$
 是正规化的 $3$-[[闭上链]]。

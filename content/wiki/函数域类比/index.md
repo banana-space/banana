@@ -41,7 +41,7 @@ $\operatorname{Spec}(\mathbb{Z})\rightarrow\operatorname{Spec}(\mathbb{F}_1)$
 |  | [[局部数域]] | [[局部函数域]] $\mathbb{F}_q((t))$ | $\mathbb{C}((t))$ |
 |  | [[$\delta$-环]]结构 $\partial_p(a) = \frac {a^p - a} {p}$ | $\frac {\partial} {\partial z}$ | $\frac {\partial} {\partial z}$ |
 | **[[Langlands 纲领]]相关** | [[类域论]] | [[类域论]] | [[几何类域论]] |
-|  | [[Langlands 对应（数域）]] | [[Langlands 对应（函数域）]] | [[几何 Langlands 对应]] |
+|  | [[Langlands 对应（数域）]] | [[Langlands 对应（函数域）]] | [[几何 Langlands 纲领\|几何 Langlands 对应]] |
 |  | [[Galois 群]] | [[Galois 群]]/[[平展基本群]] | [[基本群]] |
 |  | [[Galois 表示]] | [[Galois 表示]] | [[局部系统]]/[[平坦联络]] |
 |  | [[加元环\|$G(K)\backslash G(\mathbb{A}_K) / G(\mathcal{O}_{\mathbb{A}})$]] | 同左/[[模叠]] $\operatorname{Bun}_G(X)$ | [[模叠]] $\operatorname{Bun}_G(X)$ |
