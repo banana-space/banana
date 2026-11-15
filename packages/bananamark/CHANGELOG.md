@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- **Fix:** In Chinese text with `spaceQuotes`, an apostrophe that starts a word (`’t Hooft`, `’90s`) is spaced like the word, no longer like a closing quotation mark: `汉’t Hooft` and `汉 ’t Hooft` both read `汉 ’t Hooft`, and `rock ’n’ roll` keeps its spaces. Link targets' keys follow: `[[汉't Hooft]]` and `[[汉 't Hooft]]` now match.
+- **Fix:** A single quote that never closes in a wiki link's target is an apostrophe, as in the text: `[['t Hooft 线算子]]` proposes the missing article's title as `’t Hooft 线算子`, not `‘t Hooft 线算子`.
+
 ## 0.3.0
 
 - **Feature:** bananamark-codemirror wraps a selection in `*`, `` ` `` or `$` typed over it, and closes a formula opened by `$$` on Enter.

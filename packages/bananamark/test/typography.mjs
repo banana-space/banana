@@ -45,6 +45,25 @@ assert.equal(typeset('汉“字”汉‘字’汉'), '汉 “字” 汉 ‘字�
 assert.equal(typeset('汉“字，汉‘字；”汉，’汉'), '汉 “字，汉 ‘字；” 汉，’ 汉');
 assert.equal(typeset('“汉，汉”；‘汉，汉’'), '“汉，汉”；‘汉，汉’');
 assert.equal(typeset('Noether’s theorem, James’ theorem, “quoted”'), 'Noether’s theorem, James’ theorem, “quoted”');
+// ’ before a letter or digit is an apostrophe, not a closing quotation mark: starting a word (’t Hooft, ’90s, rock ’n’
+// roll), it spaces as the word does, whether a space is written or not.
+for (const [text, expected] of [
+  ['汉 ’t Hooft 汉', '汉 ’t Hooft 汉'], ['汉’t Hooft', '汉 ’t Hooft'], ['汉  ’t Hooft', '汉 ’t Hooft'],
+  ['汉 ’90s 汉', '汉 ’90s 汉'], ['流行于’90s', '流行于 ’90s'], ['rock ’n’ roll 汉', 'rock ’n’ roll 汉'],
+  ['汉rock ’n’ roll汉', '汉 rock ’n’ roll 汉'], ['汉， ’t Hooft', '汉，’t Hooft'], ['（ ’90s ）', '（’90s）'],
+]) {
+  assert.equal(typeset(text), expected, text);
+  assert.equal(typeset(expected), expected, `${expected} 不幂等`);
+}
+// Quotation marks as before: ‘字’ pairs, also with a letter right after one (’ closes the ‘ left open), and ’ before a
+// space.
+assert.equal(typeset('汉‘字’汉'), '汉 ‘字’ 汉');
+assert.equal(typeset('汉 ‘字’ 汉'), '汉 ‘字’ 汉');
+assert.equal(typeset('称为‘正规’Lie 代数'), '称为 ‘正规’Lie 代数');
+assert.equal(typeset('James’ 定理，汉’ t'), 'James’ 定理，汉’ t');
+// On HTML the space goes outside the link. Without spaceQuotes, spaces beside ’ are as written.
+assert.equal(typesetHTML('<p>对应于<a href="#x">’t Hooft 线算子</a>。</p>', { typography: site }), '<p>对应于 <a href="#x">’t Hooft 线算子</a>．</p>');
+assert.equal(normalizeText('汉’t Hooft，汉 ’90s'), '汉’t Hooft，汉 ’90s');
 assert.equal(typeset('English. “Quoted”'), 'English. “Quoted”');
 assert.equal(typeset('xxx （注）， xxx 。 123 ； α ： β ！'), 'xxx（注），xxx．123；α：β！');
 assert.equal(typeset('。 汉字， 汉字 ； 汉字 ： 汉字 ！ 汉字 ？ 汉字'), '．汉字，汉字；汉字：汉字！汉字？汉字');
