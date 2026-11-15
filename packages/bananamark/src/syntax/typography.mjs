@@ -7,8 +7,9 @@
 // - convertFullStop (default false): 。 becomes ．, a full stop centred like a Western one;
 // - spaceQuotes (default false): the curly quotation marks ‘ ’ “ ”, which Chinese and Western text share (Unicode
 //   has no separate full-width ones), are Western glyphs in a site's fonts: one space between them and Han
-//   outside, as for half-width brackets. Otherwise spaces next to them are left as written. Straight quotes " '
-//   are Western always (their full-width forms are other characters).
+//   outside, as for half-width brackets, and an apostrophe ’ starting a word (’t Hooft, ’90s) spaces as its word
+//   does. Otherwise spaces next to them are left as written. Straight quotes " ' are Western always (their
+//   full-width forms are other characters).
 // A footnote reference keeps the spaces written around it (none: it sits against the text).
 // The rules apply to Chinese text: all text of a Chinese page or element (lang zh…), and in pages of other
 // languages, Han characters and Chinese punctuation where they occur; never in Japanese or Korean (ja…, ko…).
@@ -24,6 +25,8 @@ const han = /\p{Script=Han}/u;
 const western = /[\p{L}\p{N}]/u;
 const eastAsian = /[\p{Script=Han}\p{Script=Hangul}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Bopomofo}]/u;
 const westernLetter = char => western.test(char) && !eastAsian.test(char);
+// A record of a Western letter or digit, or the apostrophe starting a word (’t Hooft), which spaces as its word does.
+const letter = record => record.word || westernLetter(record.char);
 const opening = /[\p{Ps}\p{Pi}]/u;
 const closing = /[\p{Pe}\p{Pf}]/u;
 const punctuation = /\p{P}/u;
@@ -53,7 +56,7 @@ export function normalizeTokens(tokens, { lang = 'en', convertFullStop = false, 
     if (token.fixed) return [{ token, zh: false, char: '\ufffc', fixed: true }];
     return characters(token.text).map(char => ({ token, zh: zh(char), char, before: '', after: '', editable: !token.opaque }));
   });
-  let previous;
+  let previous, singles = 0; // singles: the curly ‘ not closed yet.
   const quotes = new Set();
   for (let i = 0; i < records.length; i++) {
     const record = records[i];
@@ -72,8 +75,21 @@ export function normalizeTokens(tokens, { lang = 'en', convertFullStop = false, 
     } else {
       record.open = opening.test(record.char);
       record.close = closing.test(record.char);
-      // Curved apostrophes also occur inside Western words.
-      if (record.char === '’' && westernLetter(previous?.char ?? '') && westernLetter(records[i + 1]?.char ?? '')) record.close = false;
+      if (record.char === '‘') singles++;
+      else if (record.char === '’') {
+        // ’ before a Western letter or digit is an apostrophe, not a closing quotation mark (an opening one would be
+        // ‘): inside a word (Noether’s), or starting one (’t Hooft, ’90s, rock ’n’ roll), where it spaces as the
+        // word does. Right after other text (Han, say) it closes a ‘ left open, as in ‘字’A.
+        const before = previous?.char ?? '';
+        if (westernLetter(records[i + 1]?.char ?? '')) {
+          if (westernLetter(before)) record.close = false;
+          else if (!singles || !before || /\s/u.test(before) || previous.open) {
+            record.close = false;
+            record.word = true;
+          }
+        }
+        if (record.close && singles) singles--;
+      }
     }
     previous = record;
   }
@@ -84,7 +100,7 @@ export function normalizeTokens(tokens, { lang = 'en', convertFullStop = false, 
     if (left.fixed || right.fixed) return 0;
     if (!spaceQuotes && (quote(left.char) || quote(right.char))) return 0;
     if ((left.open && left.zh) || (right.close && right.zh)) return -1;
-    const text = record => record.math || westernLetter(record.char) || (record.zh && han.test(record.char));
+    const text = record => record.math || letter(record) || (record.zh && han.test(record.char));
     if ((left.zh && chinesePunctuation(left.char) && (text(right) || (right.zh && punctuation.test(right.char))))
       || (right.zh && chinesePunctuation(right.char) && (text(left) || (left.zh && punctuation.test(left.char))))) return -1;
     // Sentence punctuation attaches to the preceding text; its following
@@ -93,9 +109,9 @@ export function normalizeTokens(tokens, { lang = 'en', convertFullStop = false, 
     if ((left.zh && right.zh && han.test(left.char) && han.test(right.char))
       || (left.zh && han.test(left.char) && right.open && !westernPunctuation(right.char))
       || (right.zh && han.test(right.char) && left.close && !westernPunctuation(left.char))) return -1;
-    const separate = (left.zh && han.test(left.char) && (right.math || westernLetter(right.char)
+    const separate = (left.zh && han.test(left.char) && (right.math || letter(right)
         || (westernPunctuation(right.char) && right.open)))
-      || (right.zh && han.test(right.char) && (left.math || westernLetter(left.char)
+      || (right.zh && han.test(right.char) && (left.math || letter(left)
         || (westernPunctuation(left.char) && !left.open)));
     return separate ? 1 : 0;
   }

@@ -36,6 +36,12 @@ assert.equal(normalizeTarget('"行"列式'), normalizeTarget('“行”列式'))
 assert.equal(plainName('Guillaume de l’Hôpital'), 'Guillaume de l’Hôpital');
 assert.equal(normalizeTarget("l'Hôpital 法则"), 'l’Hôpital 法则');
 assert.equal(plainName("Bayes' 定理"), 'Bayes’ 定理');
+// A ‘ that nothing closes is an apostrophe after all, as in the page's text: a missing article is offered as ’t Hooft
+// 线算子. An apostrophe in a word closes nothing (’t Hooft’s). Han before one is spaced as before a word.
+assert.equal(transformMarkup("[['t Hooft 线算子]]"), `['t Hooft 线算子](${link('’t Hooft 线算子')})`);
+assert.equal(plainName("'90s 与 't Hooft's 线"), '’90s 与 ’t Hooft’s 线');
+assert.equal(plainName("'Hilbert' 空间"), '‘Hilbert’ 空间');
+assert.equal(normalizeTarget("对应于't Hooft"), normalizeTarget("对应于 't Hooft"));
 // A missing article's title comes from the target, typeset outside its formulas.
 assert.match(transformMarkup("[[$f'$ 与 O'Nan--群]]"), /source="\$f'\$ 与 O’Nan–群"⟧\)$/);
 assert.notEqual(normalizeTarget('$a--b$'), normalizeTarget('$a–b$'));

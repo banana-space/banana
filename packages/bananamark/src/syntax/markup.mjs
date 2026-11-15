@@ -72,25 +72,37 @@ function nameMath(tex, key) {
   catch (error) { throw sourceError('', problem('math_invalid', { tex, message: error.message })); }
 }
 
+const latin = /[\p{Script=Latin}\p{N}]/u;
+
 /**
  * The typography of a name, a heading's id or a link's target, read alone (the page's text has its own,
  * ../markdown/typographer.mjs; these make addresses and keys, and stay as they are): --- →
  * —, -- → –, ... → …, and straight quotes curly by what surrounds them: opening (‘ “) at the start, after a space, an
  * opening bracket or a dash and before something other than a space, closing (’ ”) otherwise (an apostrophe is ’ too:
- * l'Hôpital, Hilbert's, Bayes'). previous: the character before the text (after a formula: the formula's).
+ * l'Hôpital, Hilbert's, Bayes'). A ‘ that nothing closes is an apostrophe after all ('t Hooft, '90s), as in the
+ * page's text. previous: the character before the text (after a formula: the formula's).
  */
 export function typographer(text, previous = '') {
-  const dashed = text.replace(/---/g, '—').replace(/--/g, '–').replace(/\.\.\./g, '…');
-  let result = '';
-  for (const char of dashed) {
+  const characters = [...text.replace(/---/g, '—').replace(/--/g, '–').replace(/\.\.\./g, '…')];
+  const singles = []; // Where the ‘ not closed yet are.
+  characters.forEach((char, at) => {
     if (char === "'" || char === '"') {
-      const next = dashed[result.length + 1] ?? '';
+      const next = characters[at + 1] ?? '';
       const opening = (!previous || /[\s([{‘“–—]/u.test(previous)) && next && !/\s/u.test(next);
-      result += char === "'" ? (opening ? '‘' : '’') : (opening ? '“' : '”');
-    } else result += char;
+      if (char === '"') characters[at] = opening ? '“' : '”';
+      else if (opening) {
+        characters[at] = '‘';
+        singles.push(at);
+      } else {
+        characters[at] = '’';
+        // An apostrophe in a word (l'Hôpital, 't Hooft's) closes nothing.
+        if (!(latin.test(previous) && latin.test(next))) singles.pop();
+      }
+    }
     previous = char;
-  }
-  return result;
+  });
+  for (const at of singles) characters[at] = '’';
+  return characters.join('');
 }
 
 /** The text outside formulas typeset (typographer), formulas as written: a link's target as a new article's title, terms and translations. */
