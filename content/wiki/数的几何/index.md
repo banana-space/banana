@@ -9,7 +9,7 @@ categories: [晶格论]
 通过研究这些晶格来获取有关代数数的信息。
 
 数的几何始于 Minkowski 26 岁时的工作 *Geometrie der Zahlen*。
-它和其他一些数学领域有密切联系，尤其是[[泛函分析]]和[[Diophantine 逼近]]。
+它和其他一些数学领域有密切联系，尤其是[[泛函分析]]和[[Diophantus 逼近]]。
 
 ## 历史
 

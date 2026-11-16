@@ -1,6 +1,6 @@
 ---
 title: Kronecker 逼近定理
-categories: [Diophantos 逼近]
+categories: [Diophantus 逼近]
 ---
 
 <problems>
@@ -18,7 +18,7 @@ categories: [Diophantos 逼近]
 :::
 
 **Kronecker 逼近定理** 是 [[Leopold Kronecker]]
-在1884年一篇论文中证明的 [[Diophantos 逼近]]定理，
+在1884年一篇论文中证明的 [[Diophantus 逼近]]定理，
 一个经典版本的叙述是：如果$1,\alpha_1,\cdots,\alpha_n$在$\mathbb Z$ [[线性相关|线性无关]]，
 那么当$q$取遍全体整数时，$(\{q\alpha_1\},\cdots,\{q\alpha_n\})\in[0,1)^n$ [[稠密]]。
 

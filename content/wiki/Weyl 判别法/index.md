@@ -1,7 +1,7 @@
 ---
 title: Weyl 判别法
 aliases: [Weyl 判别]
-categories: [Diophantos 逼近, 动力系统]
+categories: [Diophantus 逼近, 动力系统]
 ---
 
 ::: convention
