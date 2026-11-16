@@ -1,8 +1,8 @@
 ---
 title: 嵌入（微分几何）
 aliases: [嵌入子流形]
-categories: [微分几何]
-navboxes: [微分几何]
+categories: [微分拓扑, 微分几何]
+navboxes: [微分几何, 微分拓扑]
 ---
 
 <disambiguation>

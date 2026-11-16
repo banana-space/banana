@@ -2,7 +2,7 @@
 title: de Rham 上同调
 aliases: [De Rham 上同调, De Rham 定理]
 categories: [微分几何, 同调论]
-navboxes: [同调与上同调]
+navboxes: [同调与上同调, 微分几何]
 ---
 
 <disambiguation>

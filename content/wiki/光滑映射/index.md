@@ -1,7 +1,7 @@
 ---
 title: 光滑映射
-categories: [微分几何]
-navboxes: [微分几何]
+categories: [微分几何, 微分拓扑]
+navboxes: [微分几何, 微分拓扑]
 ---
 
 <problems>

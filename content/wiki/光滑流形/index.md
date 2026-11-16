@@ -1,8 +1,8 @@
 ---
 title: 光滑流形
 aliases: [光滑结构, 微分流形]
-categories: [微分几何]
-navboxes: [微分几何]
+categories: [微分几何, 微分拓扑]
+navboxes: [微分几何, 微分拓扑]
 ---
 
 **光滑流形**是一种几何对象，是带有附加结构的[[流形]]。

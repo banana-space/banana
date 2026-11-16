@@ -1,7 +1,7 @@
 ---
 title: 子流形
-categories: [微分几何]
-navboxes: [微分几何]
+categories: [微分拓扑]
+navboxes: [微分拓扑]
 ---
 
 **子流形**是指[[光滑流形]]里的另一个光滑流形。

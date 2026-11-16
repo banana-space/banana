@@ -1,7 +1,7 @@
 ---
 title: 微分同胚
-categories: [微分几何]
-navboxes: [微分几何]
+categories: [微分拓扑, 微分几何]
+navboxes: [微分几何, 微分拓扑]
 ---
 
 在[[微分几何]]中，

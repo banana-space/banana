@@ -1,7 +1,7 @@
 ---
 title: 切映射
-categories: [微分几何]
-navboxes: [微分几何]
+categories: [微分拓扑]
+navboxes: [微分拓扑]
 ---
 
 在[[微分几何]]中，
