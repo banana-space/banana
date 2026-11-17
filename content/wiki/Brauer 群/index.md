@@ -1,6 +1,6 @@
 ---
 title: Brauer 群
-categories: [代数论, 代数几何]
+categories: [代数论, 代数几何, 类域论]
 navboxes: [非交换代数]
 ---
 

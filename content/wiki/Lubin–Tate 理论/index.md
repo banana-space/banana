@@ -1,7 +1,7 @@
 ---
 title: Lubin–Tate 理论
 aliases: [Lubin-Tate 理论]
-categories: [代数数论]
+categories: [类域论]
 ---
 
 <problems>

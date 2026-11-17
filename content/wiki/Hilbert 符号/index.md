@@ -1,6 +1,6 @@
 ---
 title: Hilbert 符号
-categories: [代数数论]
+categories: [类域论]
 navboxes: [代数数论]
 ---
 
