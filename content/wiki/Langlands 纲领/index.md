@@ -5,32 +5,32 @@ categories: [Galois 表示论, 自守表示论]
 navboxes: [Langlands 纲领, Galois 表示论, 自守表示论]
 ---
 
-在[[代数数论]]与[[表示论]]中，**Langlands 纲领**是联系 [[Galois 表示]]与[[自守表示]]的一系列猜想与定理
-（称为**Langlands 对应**），
-可以看作[[类域论]]向非交换情形的推广。
-大致来说，它将[[约化群]] $G$ 的[[自守表示]]
-与取值于其 [[Langlands 对偶群]] $G^\vee$ 的 [[Galois 表示]]联系起来。
+在[[代数数论]]与[[表示论]]中，**Langlands 纲领**是联系 [[Galois 表示]]与[[自守表示]]的一系列猜想与定理，
+其核心的猜想称为 **Langlands 对应**。
+它可以看作[[类域论]]向非 Abel 情形的推广。
 
-例如，整体 Langlands 对应大致希望给出两边的映射
+大致来说，类域论说明[[数域]] $F$ 的 [[Abel 扩张]]由 $F$ 自身的算术描述：
+$F$ 的[[绝对 Galois 群]] $\Gamma_F$ 的一维表示
+与 $F$ 的[[理元类群]]的特征标一一对应。
+Langlands 纲领希望对高维表示也有类似的描述：
+$\Gamma_F$ 的 $n$ 维表示应当对应于 $\mathrm{GL}_n$ 的自守表示。
+更一般地，对[[约化群]] $G$，
+取值于其 [[Langlands 对偶群]] $G^\vee$ 的 Galois 表示应当对应于 $G$ 的自守表示：
 \[
-\{ G(\mathbb{A}_F)\ \text{上的自守表示} \} \leftrightarrows \{ \Gamma_F\ \text{到}\ G^\vee\ 的同态的等价类 \}
+\{ G (\mathbb{A}_F) \text{ 的自守表示} \}
+\longleftrightarrow
+\{ \text{同态 } \Gamma_F \to G^\vee \} ,
 \]
-其中 $F$ 是[[数域]]，$\mathbb{A}_F$ 是[[加元环]]，
-$\Gamma_F$ 是 $F$ 的[[绝对 Galois 群]]。
-这里，式子的左边称为**自守侧**，右边称为**谱侧（或 Galois 侧）**。
+其中 $\mathbb{A}_F$ 是 $F$ 的[[加元环]]。
+左边称为**自守侧**，右边称为**谱侧**或 **Galois 侧**，
+右边的同态也称为 **$L$ 参数**。
 
-这种联系要求两侧的局部信息一致，
-谱侧的 [[Frobenius 元|Frobenius]] 特征值对应于自守侧的 [[Hecke 算子]]特征值。
-对分裂约化群 $G$，若 Galois 表示（也称为 **$L$ 参数**） $\rho$ 对应于自守表示 $\pi_\rho$，
-则在几乎所有素点 $v$ 处，应有
-\[
-c_v (\pi) = [\rho (\operatorname{Frob}_v)_{\mathrm{ss}}] ,
-\]
-其中 $c_v (\pi)$ 是 Hecke 特征值给出的 [[Satake 参数]]，
-右边是 Frobenius 像的[[半单元|半单]]共轭类，两侧采用相容的规范化。
-取对偶群的[[代数群表示|代数表示]]，这一关系给出两侧相应的 [[$L$ 函数]]的局部因子相等。
-当 $G = \mathbb{G}_{\mathrm{m}}$ 时，这就是类域论所描述的互反律；
-当 $G = \mathrm{GL}_2$ 时，典型例子是[[椭圆曲线]]与[[模形式]]之间的[[模性定理]]。
+这一对应的要点在于两侧的算术信息一致：
+在几乎所有素点 $v$ 处，Galois 表示的 [[Frobenius 元]]的特征值，
+应当等于自守表示的 [[Hecke 算子]]的特征值，
+因此两侧的 [[$L$ 函数]]相同。
+例如，[[模性定理]]说明，有理数域上的[[椭圆曲线]] $E$ 对应于某个[[模形式]] $f$，
+使得 $E$ 模素数 $r$ 约化后的点数由 $f$ 的第 $r$ 个 Fourier 系数给出。
 
 这一纲领既有[[整体域]]上的版本，也有[[局部域]]上的版本；
 通过将函数换成[[层]]，还得到[[几何 Langlands 纲领]]及各种[[范畴化]]的对应。
@@ -40,23 +40,24 @@ c_v (\pi) = [\rho (\operatorname{Frob}_v)_{\mathrm{ss}}] ,
 ### 从类域论到高维表示
 
 类域论用域的乘法群描述其 [[Abel 扩张]]。
-例如，设 $F$ 是[[数域]]，$\mathbb{A}_F$ 是其[[加元环]]，
+设 $F$ 是[[数域]]，$\mathbb{A}_F$ 是其[[加元环]]，
 $\Gamma_F = \operatorname{Gal} (\overline{F} / F)$ 是其[[绝对 Galois 群]]。
+用表示的语言，整体类域论可以表述如下：
 
-::: theorem [整体类域论的一维表示形式]
+::: theorem [整体类域论]
 [[互反映射]]给出以下两类对象的一一对应：
 
-- $\Gamma_F$ 的连续有限阶[[一维表示|一维复表示]]；
+- $\Gamma_F$ 的连续有限阶一维复表示；
 
 - [[理元类群]] $F^\times \backslash \mathbb{A}_F^\times$ 的连续有限阶一维复表示。
 
-对应在[[分歧（代数数论）|非分歧]]素点处将 Frobenius 的值与局部[[一致化元]]的值相匹配。
+对应在[[分歧|非分歧]]素点处将 Frobenius 元的值与局部[[离散赋值环|素元]]的值相匹配。
 :::
 
 这里两边都是一维表示，而一维表示只能看到 Galois 群的[[交换化]]。
 为了研究非 Abel 扩张，可以改看高维表示
 \[
-\rho \colon \Gamma_F \longrightarrow \mathrm{GL}_n (\mathbb{C}) ，
+\rho \colon \Gamma_F \longrightarrow \mathrm{GL}_n (\mathbb{C}) ,
 \]
 即把乘法群 $\mathrm{GL}_1$ 换为[[一般线性群]] $\mathrm{GL}_n$，
 并进一步推广到一般连通约化群 $G$。
@@ -78,7 +79,7 @@ Langlands 对应要求这两种局部数据一致。
 因此，它所建立的联系不仅是两类对象之间的抽象配对，还应说明如何从一侧读出另一侧的算术信息。
 例如，[[模性定理]]建立了[[椭圆曲线]]和[[模形式]]的算术信息的对应。
 
-::: theorem [模性定理的点数形式]
+::: theorem [模性定理]
 设 $E$ 是 $\mathbb{Q}$ 上[[导子（椭圆曲线）|导子]]为 $N$ 的椭圆曲线。
 存在权为 $2$、水平为 $N$ 的正规化[[尖点形式|尖点]] Hecke 特征[[新形式]]
 \[
@@ -101,8 +102,10 @@ a_r = r + 1 - \# E (\mathbb{F}_r) .
 
 一般约化群的 Galois 参数取值于对偶群，
 这一点可以从非分歧表示的 Hecke 算子看出。
+下面的定理是 [[Satake 同构]]的推论，
+它大致是说，非分歧表示由对偶群中的一个共轭类决定：
 
-::: theorem [Satake 同构的参数形式]
+::: theorem [Satake 参数]
 设 $K$ 是非 Archimedes 局部域，$G$ 是 $K$ 上的[[分裂约化群|分裂连通约化群]]，
 $U \subset G (K)$ 是[[超特殊紧开子群]]。
 $G (K)$ 的具有非零 $U$-不变向量的不可约复[[光滑表示]]，
@@ -125,62 +128,67 @@ Satake 同构因而给出一般 Langlands 对应在非分歧地方的原型
 ### 数域情形
 
 **[[整体 Langlands 纲领]]**研究整体域上的自守表示与整体 Galois 参数。
-对数域 $F$ 上的连通约化群 $G$，自守表示分解为各个[[完备化]]上的局部表示的[[限制张量积]]
+对数域 $F$ 上的连通约化群 $G$，不可约自守表示分解为各个[[完备化]]上的局部表示的[[限制张量积]]
 \[
-\pi \simeq \bigotimes_v' \pi_v .
+\pi \simeq \mathop{\bigotimes\nolimits'}\limits_v \pi_v .
 \]
 整体对应应与每个地方的局部对应相容：
 把整体 Galois 表示限制到局部 Galois 群，所得到的参数应当描述 $\pi_v$。
 
-以下猜想 [@BuzzardGee2014, 猜想 3.2.1] 给出了整体 Langlands 对应的一个版本。
+对满足代数性条件的自守表示，可以期待对应的 Galois 表示取 $\ell$ 进系数。
+下面的猜想大致是说，这样的自守表示都应给出 $\ell$ 进 Galois 表示，
+并且两者在几乎所有素点处的局部信息一致：
 
-::: conjecture [整体对应的代数部分，Buzzard–Gee]
+::: conjecture [Buzzard–Gee]
 设 $F$ 是数域，$G$ 是 $F$ 上的连通约化群，
 $\pi$ 是 $G (\mathbb{A}_F)$ 的 [[$L$-代数]]自守表示。
 固定素数 $\ell$ 及同构 $\iota \colon \mathbb{C} \simeq \overline{\mathbb{Q}}_\ell$。
-存在连续参数
+则存在连续参数
 \[
 \rho_{\pi, \iota} \colon \Gamma_F \longrightarrow
 {}^L G (\overline{\mathbb{Q}}_\ell) ,
 \]
-它与 $L$ 群向 $\Gamma_F$ 的投影相容，在有限多个地方之外非分歧，
-并在这些地方满足
+它与 $L$ 群向 $\Gamma_F$ 的投影相容，在几乎所有地方非分歧，
+并在 $\pi_v$ 与 $\rho_{\pi, \iota}$ 均非分歧的地方 $v$ 满足
 \[
 [\rho_{\pi, \iota} (\operatorname{Frob}_v)_{\mathrm{ss}}]
-= \iota (c_v (\pi)) .
+= \iota (c_v (\pi)) ,
 \]
+其中 $c_v (\pi)$ 是 $\pi_v$ 的 Satake 参数。
 在 $v \mid \ell$ 处，该参数应满足 [[de Rham 表示|de Rham 条件]]，
-其 Hodge–Tate 余特征由 $\pi$ 的无穷位参数确定。
+其 Hodge–Tate 余特征由 $\pi$ 的无穷位参数确定 [@BuzzardGee2014, 猜想 3.2.1]。
 :::
 
-又如，Harris、蓝开文、Taylor 与 Thorne 为[[复乘域]]或[[全实域]]上的
-正则代数型尖点 $\mathrm{GL}_n$ 自守表示构造了 Galois 表示 [@HLTT2016]。
+这一猜想的部分情形已经证明。
+例如，Harris、蓝凯文、Taylor 与 Thorne 为 [[CM 域]]或[[全实域]]上的
+正则代数尖点 $\mathrm{GL}_n$ 自守表示构造了相应的 Galois 表示 [@HLTT2016]。
+反过来，也可以证明某些 Galois 表示来自自守表示：
+[[模性提升定理|模性提升]]方法已证明许多来自代数几何的 Galois 表示的自守性，
+上文的[[模性定理]]就是一例。
+
 完整的整体对应还要说明哪些参数能够出现，
 以及由同一参数描述的[[自守包]]及其成员在[[自守谱]]中的重数；
 对不满足代数性条件的自守表示，则需要更一般的整体 Langlands 参数框架。
-
-反过来，也可以从 Galois 表示尝试构造自守表示。
-
-例如，对于[[典型群]]，[[Arthur 参数]]与 [[Arthur 包]]给出了[[离散自守谱]]的分类。
-这些参数由适当的一般线性群[[尖点自守表示]]及 $\mathrm{SL}_2$ 的代数表示组成，
+对于[[典型群]]，Arthur 用一般线性群的自守表示代替 Galois 参数，
+给出了[[离散自守谱]]的分类。
+他所用的 [[Arthur 参数]]由适当的一般线性群[[尖点自守表示]]及 $\mathrm{SL}_2$ 的代数表示组成，
 并满足由对偶群规定的正交性或辛性条件。
 
-::: theorem [典型群离散自守谱的内窥分类，Arthur]
+::: theorem [Arthur 分类]
 设 $F$ 是数域，$G$ 是 $F$ 上的分裂[[辛群]] $\mathrm{Sp}_{2n}$
 或分裂奇[[特殊正交群]] $\mathrm{SO}_{2n+1}$。
-$G$ 的离散自守谱可以按整体 Arthur 参数分解为 Arthur 包，
+$G$ 的离散自守谱可以按整体 Arthur 参数分解为 [[Arthur 包]]，
 包中各表示的出现及重数由 [[Arthur 重数公式]]给出。
 :::
 
 这一结果体现了一般群中参数、包与重数之间的关系 [@Arthur2013]。
-又如，[[模性提升定理|模性提升]]方法已证明许多来自代数几何的 Galois 表示的自守性。
 
 ### 整体函子性
 
 **[[Langlands 函子性]]**预言，对偶群之间的同态也应当在自守侧产生对应的提升。
 在参数一侧，这只需复合同态；困难在于自守侧也应存在相应的表示。
 
-::: conjecture [整体函子性，非分歧形式]
+::: conjecture [整体函子性]
 设 $H$、$G$ 是整体域 $F$ 上的[[拟分裂群|拟分裂]]连通约化群，
 $\eta \colon {}^L H \to {}^L G$ 是与 Galois 投影相容的 $L$ 群同态。
 对 $H (\mathbb{A}_F)$ 的自守表示 $\pi$，
@@ -191,7 +199,7 @@ c_v (\Pi) = \eta (c_v (\pi)) .
 \]
 :::
 
-这一猜想包括[[基变换（自守形式）|基变换]]、[[张量积]]和[[对称积]]提升等
+这一猜想包括[[基变换（自守形式）|基变换]]、[[张量积]]和[[对称幂]]提升等
 [@Langlands1967; @Langlands1970]。
 提升不一定保持尖点性；涉及非拟分裂[[内形式]]时，还须加入局部相关性条件。
 典型群的[[内窥]]分类给出向一般线性群的提升。
@@ -206,11 +214,14 @@ $F = \mathbb{F}_q (X)$ 是其[[函数域]]，$\ell \nmid q$。
 这是整体 Langlands 纲领中可以直接使用曲线几何的情形。
 对 $F$ 上的连通约化群 $G$，固定有限[[水平结构|水平]] $N$ 及适当的[[局部紧群的格|中心格]] $\Xi$，
 记 $\mathcal{A}_{\mathrm{cusp}} (G, N, \Xi)$
-为相应[[主丛]]的[[模叠]]上的[[尖点自守形式|尖点函数]]空间。
+为相应[[主丛]]的[[模叠]]的 $\mathbb{F}_q$ 点上取值于 $\overline{\mathbb{Q}}_\ell$
+的[[尖点自守形式|尖点函数]]空间。
 中心格用来处理中心的非紧方向；
 一般 $G$ 的几何表述把与 $G$ 局部处处同构的[[纯内形式]]一并纳入。
+下面的定理大致是说，尖点函数的空间可以按 Galois 参数分解，
+而 Hecke 算子在每一部分上的作用由参数的 Frobenius 像决定：
 
-::: theorem [有限域函数域上尖点自守谱的参数分解，Vincent Lafforgue]
+::: theorem [V. Lafforgue]
 存在 Hecke 稳定的典范分解
 \[
 \mathcal{A}_{\mathrm{cusp}} (G, N, \Xi)
@@ -235,7 +246,7 @@ T_{V, v}|_{\mathcal{H}_\sigma}
 [@VincentLafforgue2018, 定理 12.3、注 12.4]。
 对一般线性群，则有更强的双射定理。
 
-::: theorem [函数域上一般线性群的整体 Langlands 对应，Drinfeld、Laurent Lafforgue]
+::: theorem [Drinfeld–L. Lafforgue]
 以下两类对象的同构类一一对应：
 
 - $\mathrm{GL}_n (\mathbb{A}_F)$ 的具有有限阶[[中心特征标]]的不可约尖点自守表示；
@@ -257,19 +268,17 @@ Drinfeld 证明了 $n = 2$ 的情形，Laurent Lafforgue 证明了一般 $n$ 的
 把自守函数提升为主丛模叠上的层，
 就得到 [[Hecke 特征层]]及范畴等价的预言 [@Frenkel2007, 第 3 节]。
 
-
 ## 局部对应及其范畴化
 
 ### $\ell$ 进情形
 
 **[[局部 Langlands 纲领]]**研究局部域 $K$ 上的对应。
-具体来说，
-非 Archimedes 情形中，
+具体来说，在非 Archimedes 情形中，
 自守侧考虑连通约化群 $G (K)$ 的复系数或 $\ell$ 进系数的[[光滑表示|光滑]]、[[容许表示]]，
 其中 $\ell$ 不等于 $K$ 的[[剩余特征]]。
-谱侧则考虑 [[Weil 群]] $W_K$ 在相同系数的约化群 $G^\vee$ 上的表示。
-其中， Weil 群类似于绝对 Galois 群: 它包含[[惯性子群]]，
-而 Frobenius 的幂构成离散的 $\mathbb{Z}$。
+谱侧则考虑 [[Weil 群]] $W_K$ 的取值于相同系数的约化群 $G^\vee$ 的表示。
+Weil 群类似于绝对 Galois 群：它包含[[惯性群]]，
+但 Frobenius 元的幂只构成离散的 $\mathbb{Z}$，而不是其完备化 $\hat{\mathbb{Z}}$。
 记 $\Phi_G (K)$ 为同态
 \[
 \varphi \colon W_K \times \mathrm{SL}_2 (\mathbb{C})
@@ -282,6 +291,7 @@ $\mathrm{SL}_2$ 部分为代数同态。
 在一般线性群的情形也可以用 [[Weil–Deligne 表示]]中的[[幂零线性变换|幂零算子]]描述。
 
 Archimedes 情形也类似，只是表示和 Weil 群的定义要作修改。
+下面的猜想大致是说，$G (K)$ 的不可约表示按这样的参数分成有限的包：
 
 ::: conjecture [局部 Langlands 对应]
 存在有限纤维映射
@@ -292,7 +302,7 @@ Archimedes 情形也类似，只是表示和 Weil 群的定义要作修改。
 其中左侧是 $G (K)$ 的不可约容许复光滑表示的同构类。
 当 $G$ 拟分裂时，该映射满射；
 对一般 $G$，其像恰为与 $G$ 相关的参数。
-纤维 $\Pi_\varphi (G)$ 称为 **[[L 包|$L$ 包]]**。
+纤维 $\Pi_\varphi (G)$ 称为 **[[$L$ 包]]**。
 对应应延拓[[代数环面|环面]]的[[局部类域论]]，
 并把[[缓增表示]]对应于 $W_K$ 部分在对偶群方向有界的参数。
 :::
@@ -301,7 +311,7 @@ Archimedes 情形也类似，只是表示和 Weil 群的定义要作修改。
 [@Taibi2025, 第 5–6 节]。
 下面是这一猜想的一个已证特例。
 
-::: theorem [一般线性群的局部 Langlands 对应]
+::: theorem [$\mathrm{GL}_n$ 的局部对应]
 设 $K$ 是非 Archimedes 局部域。
 $\mathrm{GL}_n (K)$ 的不可约容许复光滑表示的同构类，
 与 $W_K$ 的 $n$ 维 Frobenius 半单 Weil–Deligne 表示的同构类一一对应。
@@ -315,25 +325,27 @@ Archimedes 情形由 Langlands 建立；
 其中等特征情形由 Laumon–Rapoport–Stuhler 证明。
 一般约化群的局部对应仍有未解决的部分 [@FarguesScholze2021, 第 I.1 节]。
 
-局部对应的**[[范畴化]]**希望同时描述表示、[[表示的扩张|表示之间的扩张]]以及随参数变化的族。
+局部对应的**[[范畴化]]**希望同时描述表示、表示之间的[[扩张]]以及随参数变化的族。
 Fargues 与 Scholze 使用 [[Fargues–Fontaine 曲线]]上的 $G$-[[主丛]]的[[模叠]] $\mathrm{Bun}_G$，
 把 $p$ 进局部域的表示论放进类似几何 Langlands 对应的框架。
-其不同[[分层]]中包含 $G (K)$ 及其内形式的[[群表示范畴|表示范畴]]，
+其各个[[分层]]的层范畴是 $G$ 的内形式及其 [[Levi 子群]]的内形式的[[群表示范畴|表示范畴]]，
 因此自守侧比单独的 $G (K)$ 表示范畴更大。
 
 设 $K / \mathbb{Q}_p$ 是有限扩张，$G$ 是 $K$ 上的拟分裂连通约化群，$\ell \ne p$，
 $\mathrm{Par}_G = [Z^1 (W_K, G^\vee) / G^\vee]$ 是相应的连续 [[Weil 参数叠]]，
-其中[[非交换余圈|余圈]]条件使用 $W_K$ 对 $G^\vee$ 的作用。
+其中[[非交换余闭链|余闭链]]条件使用 $W_K$ 对 $G^\vee$ 的作用。
+下面的猜想大致是说，自守侧的整个层范畴，而不仅是其中的不可约表示，
+都由参数叠上的凝聚层描述：
 
-::: conjecture [范畴局部 Langlands 对应，Fargues–Scholze]
+::: conjecture [范畴局部 Langlands 对应]
 固定 [[Whittaker 数据]]后，有[[范畴等价]]
 \[
 \mathsf{D}_{\mathrm{lis}} (\mathrm{Bun}_G, \overline{\mathbb{Q}}_\ell)^\omega
 \simeq
-\mathsf{D}_{\mathrm{coh}}^{b, \mathrm{qc}} (\mathrm{Par}_G) .
+\mathsf{D}_{\mathrm{coh}}^{\mathrm{b}, \mathrm{qc}} (\mathrm{Par}_G) .
 \]
 左侧是相应层范畴的[[紧对象]]，
-右侧是支撑在有限个连通分支上的有界[[凝聚复形]]。
+右侧是支集包含于有限个连通分支的有界[[凝聚复形]]。
 :::
 
 Fargues–Scholze 已构造谱侧[[完美复形]]对自守侧的作用，
@@ -344,14 +356,14 @@ Hansen 与 Mann 在 2026 年的工作中，
 [@HansenMann2026]。
 
 此外，广义的 $\ell$ 进情形也希望考虑更一般的系数环，而不仅仅是特征 $0$ 代数闭域，
-例如 $\bar{\mathbb{F}}_\ell$、$\bar{\mathbb{Z}}_\ell$、$\bar{\mathbb{Z}}[\frac{1}{p}]$ 等，
+例如 $\overline{\mathbb{F}}_\ell$、$\overline{\mathbb{Z}}_\ell$、$\overline{\mathbb{Z}} [1/p]$ 等，
 这里 $\ell \ne p$。
 $\mathrm{GL}_n$ 的模 $\ell$ 半单对应可参见 Vignéras 的工作 [@Vigneras2001]；
 $\ell$ 进整系数及[[族中的局部 Langlands 对应|系数族版本]]可参见 Emerton–Helm 与 Helm–Moss 的工作，
 它们同样针对 $\mathrm{GL}_n$ [@EmertonHelm2014; @HelmMoss2018]。
 对一般约化群，Dat、Helm、
-Kurinczuk 与 Moss 构造了 $\mathbb{Z}[1/p]$ 上的[[Langlands 参数模空间|参数模空间]]，
-并研究其在 $\bar{\mathbb{Z}}[1/p]$ 及 $\bar{\mathbb{Z}}_\ell$ 上的几何，
+Kurinczuk 与 Moss 构造了 $\mathbb{Z} [1/p]$ 上的[[Langlands 参数模空间|参数模空间]]，
+并研究其在 $\overline{\mathbb{Z}} [1/p]$ 及 $\overline{\mathbb{Z}}_\ell$ 上的几何，
 为整系数对应提供谱侧的几何基础 [@DHKM2025]。
 
 ### 模 $p$ 与 $p$ 进情形
@@ -368,7 +380,10 @@ $E / \mathbb{Q}_p$ 是有限系数扩张，$\mathcal{O}$ 是其[[赋值环]]，$
 记 $\mathcal{X}_G$ 为适当的连续 $L$ 群参数[[模叠]]；
 根据代数性规范化，有时需要使用 [[Langlands C 群|$C$ 群]]。
 
-::: conjecture [模 $p$ 与 $p$ 进对应的范畴化框架，概略形式]
+下面的猜想只是概略的形式，它大致是说，
+$G (K)$ 的表示可以实现为参数模叠上的层：
+
+::: conjecture [范畴化的 $p$ 进对应]
 $G (K)$ 的适当表示[[导出范畴]] $\mathcal{C}_G$ 应当通过[[全忠实函子]]
 嵌入参数模叠上的层范畴，示意地写成
 \[
@@ -388,12 +403,13 @@ Emerton、Gee 与 Hellmann 明确预期这一框架推广到一般 $G$，
 一般群的范畴及相容性条件仍须进一步明确
 [@EGH2025, 注 1.4.7、猜想 6.1.15、6.2.4]。
 
-在 $\mathrm{GL}_2 (\mathbb{Q}_p)$ 的情形，Breuil 建立了下面的模 $p$ 对应 [@Breuil2003]。
+在 $\mathrm{GL}_2 (\mathbb{Q}_p)$ 的情形，Breuil 建立了下面的模 $p$ 对应，
+它大致是说，不可约的二维 Galois 表示恰好对应于不出现在[[抛物诱导]]中的不可约光滑表示：
 
-::: theorem [二维不可约模 $p$ 对应]
+::: theorem [Breuil]
 $\Gamma_{\mathbb{Q}_p}$ 的二维不可约连续 $\overline{\mathbb{F}}_p$ 表示的同构类，
 与 $\mathrm{GL}_2 (\mathbb{Q}_p)$ 的具有中心特征标的不可约[[超奇异表示|超奇异]]
-$\overline{\mathbb{F}}_p$ 光滑表示的同构类存在自然的一一对应。
+$\overline{\mathbb{F}}_p$ 光滑表示的同构类存在自然的一一对应 [@Breuil2003]。
 :::
 
 若允许可约 Galois 表示，则对应需要容纳自守侧的有限长度表示及其扩张；
@@ -407,7 +423,7 @@ $\overline{\mathbb{F}}_p$ 光滑表示的同构类存在自然的一一对应。
 
 Colmez 为 $\mathrm{GL}_2 (\mathbb{Q}_p)$ 构造了二维 $p$ 进对应。
 它能够保留经典 Weil–Deligne 参数之外的 $p$ 进 Hodge 信息，
-例如 [[de Rham 表示]]的[[滤过]]数据 [@CDN2025, 第 1 节]。
+例如 [[de Rham 表示]]的 [[Hodge 滤链]] [@CDN2025, 第 1 节]。
 选取稳定整格再模去[[极大理想]]，可以联系 $p$ 进与模 $p$ 两种理论，
 但约化中的扩张信息及其对整格的依赖也正是研究的一部分。
 
@@ -432,10 +448,11 @@ $\mathrm{LocSys}_{G^\vee}$，有范畴等价
 
 左侧是 [[D-模]]范畴，右侧是具幂零[[奇异支集]]的[[归纳凝聚层]]范畴。
 这一无分歧对应由 Gaitsgory、Raskin 及合作者证明，
-证明由五篇文章组成 [@GLC1; @GLC5]。
+证明由五篇文章组成 [@GLC1--@GLC5]。
 它还有 [[Betti 几何 Langlands 对应|Betti]]、[[Dolbeault 几何 Langlands 对应|Dolbeault]]、
 [[局部几何 Langlands 对应|局部]]与[[量子几何 Langlands 对应|量子]]等变体；
-其中尚未解决的问题不能由上述定理一并推出。
+其中 Betti 版本也由上述工作推出，其余变体中仍有许多猜想，
+详见[[几何 Langlands 纲领]]。
 
 ### 相对情形
 
@@ -487,7 +504,9 @@ Ben-Zvi、Sakellaridis 与 Venkatesh 提出的[[相对 Langlands 对偶]]
 
 ## 拓扑场论观点
 
-[[几何 Langlands 对应]]可以视为两个四维[[拓扑量子场论]]之间的对应，
+Kapustin 与 Witten 指出，
+[[几何 Langlands 纲领|几何 Langlands 对应]]可以视为两个四维[[拓扑量子场论]]之间的对应
+[@KapustinWitten2007]，
 其中对三维、二维、一维流形分别赋予向量空间、范畴、$2$-范畴。例如：
 
 - 复曲线是二维曲面，整体几何对应比较曲线上有关模叠的层范畴。
@@ -496,10 +515,9 @@ Ben-Zvi、Sakellaridis 与 Venkatesh 提出的[[相对 Langlands 对偶]]
 - 几何局部域 $\mathbb{C} (\!(t)\!)$ 像圆周，
   [[局部几何 Langlands 对应|局部几何对应]]预期比较 [[$(\infty, 2)$-范畴|$2$-范畴]]。
 
-
 [[算术拓扑]]把各个算术对象类比为不同维数流形，
 因此各个算术版本也可以大致放入此图景。
-注意这里的维数不是[[Krull 维数]] [@Morishita2009]：
+注意这里的维数不是 [[Krull 维数]] [@Morishita2009]：
 
 - [[有限域]] $\operatorname{Spec} \mathbb{F}_q$ 像[[圆周]]，
   Frobenius 扮演绕圆周一周的角色。
@@ -622,12 +640,6 @@ HLTT2016:
   doi: '10.1186/s40687-016-0078-5'
   arxiv: '1411.6717'
   note: Article 37
-
-ACHTW2026:
-  type: preprint
-  author: [Lambert A'Campo, Bence Hevesi, Jack A. Thorne, Dmitri Whitmore]
-  title: Local-global compatibility of automorphic Galois representations over CM fields at $p$
-  arxiv: '2607.11763'
 ```
 
 局部对应及其范畴化：
@@ -813,7 +825,7 @@ BenZviSakellaridisVenkatesh2024:
   arxiv: '2409.04677'
 ```
 
-算术拓扑与场论观点；四维算术场论的讨论也见 [@BenZviSakellaridisVenkatesh2024]：
+算术拓扑与场论观点：
 
 ```bibliography
 Morishita2009:
