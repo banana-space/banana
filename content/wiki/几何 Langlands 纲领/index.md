@@ -2,7 +2,7 @@
 title: 几何 Langlands 纲领
 aliases: [几何 Langlands, 几何 Langlands 对应]
 categories: [几何表示论]
-navboxes: [几何表示论, 代数数论]
+navboxes: [Langlands 纲领, 几何表示论]
 ---
 
 在[[几何表示论]]中，**几何 Langlands 纲领**是 [[Langlands 纲领]]的几何类比，

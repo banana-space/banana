@@ -1,6 +1,6 @@
 ---
 title: 局部类域论
-categories: [代数数论]
+categories: [类域论]
 ---
 
 <problems>

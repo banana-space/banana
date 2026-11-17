@@ -1,7 +1,7 @@
 ---
 title: $p$ 进周期环
 categories: [$p$ 进几何]
-navboxes: [P 进几何]
+navboxes: [Galois 表示论, P 进几何]
 ---
 
 <problems>

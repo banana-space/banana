@@ -1,0 +1,51 @@
+title: '[[自守表示论]]'
+groups:
+  - title: 局部理论
+    subgroups:
+      - title: 复系数
+        items:
+          - '[[光滑表示]]'
+          - '[[容许表示]]'
+          - '[[抛物诱导]]'
+          - '[[超尖点表示]]'
+          - '[[缓增表示]]'
+          - '[[球 Hecke 代数]]'
+          - '[[Satake 同构]]'
+          - '[[Bernstein 分解]]'
+          - '[[局部 Langlands 纲领|局部 Langlands 对应]]'
+      - title: '$p$ 进系数'
+        items:
+          - '[[酉 Banach 表示]]'
+          - '[[局部解析表示]]'
+          - '[[模 $p$ Langlands 对应]]'
+          - '[[$p$ 进 Langlands 对应]]'
+      - title: 实理论
+        items:
+          - '[[$(\mathfrak{g}, K)$-模]]'
+          - '[[无穷小特征标]]'
+          - '[[主序列表示]]'
+          - '[[离散系列表示]]'
+          - '[[Langlands 分类]]'
+          - '[[实 Langlands 对应]]'
+  - title: 整体理论
+    subgroups:
+      - title: 基本对象
+        items:
+          - '[[自守形式]]'
+          - '[[自守表示]]'
+          - '[[模形式]]'
+          - '[[尖点自守表示]]'
+          - '[[离散自守谱]]'
+          - '[[Eisenstein 级数]]'
+          - '[[Hecke $L$ 函数]]'
+          - '[[自守 $L$ 函数]]'
+      - title: 重要结论与对应
+        items:
+          - '[[强重数一定理]]'
+          - '[[Arthur–Selberg 迹公式]]'
+          - '[[Arthur 重数公式]]'
+          - '[[Langlands 纲领]]'
+          - '[[整体 Langlands 纲领|整体 Langlands 对应]]'
+          - '[[Langlands 函子性]]'
+          - '[[模性定理]]'
+          - '[[Tate 论题]]'

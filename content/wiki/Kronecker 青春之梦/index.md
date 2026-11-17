@@ -1,7 +1,7 @@
 ---
 title: Kronecker 青春之梦
 aliases: [Hilbert 第十二问题]
-categories: [代数数论]
+categories: [类域论]
 ---
 
 广义的 Kronecker 青春之梦（又称 Hilbert 第十二问题）
