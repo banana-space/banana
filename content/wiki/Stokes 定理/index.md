@@ -1,7 +1,7 @@
 ---
 title: Stokes 定理
 aliases: [Stokes 公式]
-categories: [实分析]
+categories: [实分析, 微分几何]
 navboxes: [微积分学]
 ---
 

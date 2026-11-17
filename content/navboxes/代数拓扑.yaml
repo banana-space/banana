@@ -57,6 +57,7 @@ groups:
   - title: 纤维丛论
     items:
       - '[[纤维丛]]、[[拓扑向量丛]]、[[主丛]]'
+      - '[[Thom 空间]]'
       - '[[Thom 同构定理]]'
       - '[[Gysin 序列]]'
       - '[[Leray–Hirsch 定理]]'

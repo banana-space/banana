@@ -1,7 +1,7 @@
 ---
 title: 常秩定理
 aliases: [秩定理]
-categories: [微分拓扑, 微分几何]
+categories: [实分析, 微分拓扑]
 navboxes: [微积分学, 微分拓扑]
 ---
 
