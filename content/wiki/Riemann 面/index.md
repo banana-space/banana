@@ -18,8 +18,9 @@ categories: [复分析, 复几何]
 :::
 
 ::: remark
-**Riemann 面**的定义中可以省略底空间是[[第二可数空间]]的假设，因为Tibor Rado证明了
-一个带有[[复结构]]的[[连通]][[Hausdorff 空间]]自动是[[第二可数空间]]。
+Riemann 面的定义中可以省略底空间是[[第二可数空间]]的假设，因为 Tibor Radó 证明了
+一个带有 $1$ 维[[复结构]]的[[连通]][[Hausdorff 空间]]自动是[[第二可数空间]]
+[@Forster1981, 定理 23.3]。
 :::
 
 ## 例子
@@ -39,6 +40,19 @@ categories: [复分析, 复几何]
   再构造[[等温坐标]]来得到。
 
 ## 性质
+
+## 参考文献
+
+```bibliography
+Forster1981:
+  type: book
+  author: Otto Forster
+  title: Lectures on Riemann Surfaces
+  year: 1981
+  series: Graduate Texts in Mathematics
+  volume: 81
+  publisher: Springer
+```
 
 ```terms
 Riemann 面:
