@@ -2,7 +2,7 @@
 title: Langlands 纲领
 aliases: [Langlands 对应, 算术 Langlands 纲领, 算术 Langlands 对应]
 categories: [Galois 表示论, 自守表示论]
-navboxes: [Langlands 纲领]
+navboxes: [Langlands 纲领, Galois 表示论, 自守表示论]
 ---
 
 在[[代数数论]]与[[表示论]]中，**Langlands 纲领**是联系 [[Galois 表示]]与[[自守表示]]的一系列猜想与定理
@@ -364,7 +364,7 @@ $E / \mathbb{Q}_p$ 是有限系数扩张，$\mathcal{O}$ 是其[[赋值环]]，$
 这里酉性指存在定义其拓扑的群不变范数。
 这种情形远比 $\ell$ 进情形困难。
 
-这些对应希望同时保留[[表示的扩张]]及 [[Galois 表示的变形|Galois 参数的变形]]。
+这些对应希望同时保留[[表示的扩张]]及 [[Galois 表示的形变|Galois 参数的形变]]。
 记 $\mathcal{X}_G$ 为适当的连续 $L$ 群参数[[模叠]]；
 根据代数性规范化，有时需要使用 [[Langlands C 群|$C$ 群]]。
 

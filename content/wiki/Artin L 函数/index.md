@@ -1,6 +1,7 @@
 ---
 title: Artin $L$ 函数
 categories: [解析数论]
+navboxes: [Galois 表示论]
 ---
 
 <problems>

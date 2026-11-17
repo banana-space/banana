@@ -2,7 +2,7 @@
 title: 模形式
 aliases: [模函数]
 categories: [模形式论]
-navboxes: [模形式论]
+navboxes: [模形式论, 自守表示论]
 ---
 
 <problems>

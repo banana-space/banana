@@ -1,6 +1,7 @@
 ---
 title: Hecke $L$ 函数
 categories: [解析数论]
+navboxes: [自守表示论]
 ---
 
 <problems>

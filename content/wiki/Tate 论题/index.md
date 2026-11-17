@@ -1,7 +1,7 @@
 ---
 title: Tate 论题
 categories: [自守表示论]
-navboxes: [代数数论]
+navboxes: [自守表示论]
 ---
 
 <problems>
