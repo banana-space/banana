@@ -1,6 +1,7 @@
 ---
 title: Ehresmann 纤维化定理
-categories: [微分几何]
+categories: [微分拓扑]
+navboxes: [微分拓扑]
 ---
 
 **Ehresmann 纤维化定理**，或称 **Ehresmann 引理**，

@@ -2,6 +2,7 @@
 title: Stokes 定理
 aliases: [Stokes 公式]
 categories: [实分析, 微分几何]
+navboxes: [微积分学]
 ---
 
 **Stokes 定理**是[[微积分基本定理]]在高维空间的推广。

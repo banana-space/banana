@@ -1,6 +1,7 @@
 ---
 title: 流
 categories: [微分几何]
+navboxes: [微分几何]
 ---
 
 **流**是微分几何中的概念，
