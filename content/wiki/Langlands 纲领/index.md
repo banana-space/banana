@@ -332,7 +332,7 @@ Fargues 与 Scholze 使用 [[Fargues–Fontaine 曲线]]上的 $G$-[[主丛]]的
 因此自守侧比单独的 $G (K)$ 表示范畴更大。
 
 设 $K / \mathbb{Q}_p$ 是有限扩张，$G$ 是 $K$ 上的拟分裂连通约化群，$\ell \ne p$，
-$\mathrm{Par}_G = [Z^1 (W_K, G^\vee) / G^\vee]$ 是相应的连续 [[Weil 参数叠]]，
+$\mathrm{Par}_G = [Z^1 (W_K, G^\vee) / G^\vee]$ 是相应的连续 [[L 参数模叠|$L$ 参数叠]]，
 其中[[非交换余闭链|余闭链]]条件使用 $W_K$ 对 $G^\vee$ 的作用。
 下面的猜想大致是说，自守侧的整个层范畴，而不仅是其中的不可约表示，
 都由参数叠上的凝聚层描述：
@@ -362,7 +362,7 @@ $\mathrm{GL}_n$ 的模 $\ell$ 半单对应可参见 Vignéras 的工作 [@Vigner
 $\ell$ 进整系数及[[族中的局部 Langlands 对应|系数族版本]]可参见 Emerton–Helm 与 Helm–Moss 的工作，
 它们同样针对 $\mathrm{GL}_n$ [@EmertonHelm2014; @HelmMoss2018]。
 对一般约化群，Dat、Helm、
-Kurinczuk 与 Moss 构造了 $\mathbb{Z} [1/p]$ 上的[[Langlands 参数模空间|参数模空间]]，
+Kurinczuk 与 Moss 构造了 $\mathbb{Z} [1/p]$ 上的[[L 参数模叠|参数模空间]]，
 并研究其在 $\overline{\mathbb{Z}} [1/p]$ 及 $\overline{\mathbb{Z}}_\ell$ 上的几何，
 为整系数对应提供谱侧的几何基础 [@DHKM2025]。
 
@@ -396,8 +396,8 @@ $G (K)$ 的适当表示[[导出范畴]] $\mathcal{C}_G$ 应当通过[[全忠实�
 
 模 $p$ 版本使用剩余域上的参数叠；
 整数系数版本从光滑 $p$ 幂挠表示出发，经[[稳定整格]]的 $p$ 进极限联系 Banach 表示。
-局部解析版本的谱侧则预期使用 [[Robba 环]]上带群结构的 [[$(\varphi,\Gamma)$-模]]的解析模叠，
-允许不满足[[平展 $(\varphi,\Gamma)$-模|平展条件]]的对象。
+局部解析版本的谱侧则预期使用 [[Robba 环]]上带群结构的 [[$(\varphi, \Gamma)$-模]]的解析模叠，
+允许不满足[[平展 $(\varphi, \Gamma)$-模|平展条件]]的对象。
 Emerton、Gee 与 Hellmann 明确预期这一框架推广到一般 $G$，
 但其精确的整数系数与局部解析猜想主要针对 $\mathrm{GL}_d (K)$；
 一般群的范畴及相容性条件仍须进一步明确

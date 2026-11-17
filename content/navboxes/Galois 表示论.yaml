@@ -11,38 +11,39 @@ groups:
     subgroups:
       - title: '$\ell$ 进（$\ell \ne p$）'
         items:
-          - '[[l 进 Galois 表示|$\ell$ 进 Galois 表示]]'
+          - '[[$\ell$ 进 Galois 表示]]'
           - '[[Weil 群]]'
           - '[[Weil–Deligne 表示]]'
-          - '[[L 参数模叠|$L$ 参数模叠]]'
+          - '[[$L$ 参数模叠]]'
           - '[[Grothendieck 单值定理]]'
           - '[[Néron–Ogg–Shafarevich 判别法]]'
       - title: '$p$ 进'
         items:
-          - '[[p 进 Galois 表示|$p$ 进 Galois 表示]]'
-          - '[[模 p Galois 表示|模 $p$ Galois 表示]]'
-          - '[[p 进 Hodge 理论|$p$ 进 Hodge 理论]]'
-          - '[[p 进周期环|$p$ 进周期环]]'
+          - '[[$p$ 进 Galois 表示]]'
+          - '[[模 $p$ Galois 表示]]'
+          - '[[$p$ 进 Hodge 理论]]'
+          - '[[$p$ 进周期环]]'
           - '[[Hodge–Tate 表示]]'
           - '[[de Rham 表示]]'
           - '[[晶体表示]]'
           - '[[半稳定表示]]'
-          - '[[$(\varphi,\Gamma)$-模]]'
-          - '[[p 进单值定理|$p$ 进单值定理]]'
+          - '[[$(\varphi, \Gamma)$-模]]'
+          - '[[$p$ 进单值定理]]'
       - title: 实理论
         items:
           - '[[实 Weil 群]]'
           - '[[Adams–Barbasch–Vogan 参数]]'
   - title: 整体理论
     subgroups:
-      - title: 基本对象
+      - title: '表示与 $L$ 函数'
         items:
           - '[[几何 Galois 表示]]'
           - '[[Galois 表示的相容系]]'
           - '[[奇 Galois 表示|二维奇 Galois 表示]]'
-          - '[[Artin L 函数|Artin $L$ 函数]]'
+          - '[[Artin $L$ 函数]]'
       - title: 重要结论与猜想
         items:
+          - '[[Langlands 纲领]]'
           - '[[Fontaine–Mazur 猜想]]'
           - '[[Serre 模性猜想]]'
           - '[[模性提升定理]]'
