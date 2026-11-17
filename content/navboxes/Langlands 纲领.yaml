@@ -1,0 +1,37 @@
+title: '[[Langlands 纲领]]'
+groups:
+  - title: 基本对象
+    items:
+      - '[[Galois 表示]]'
+      - '[[自守表示]]'
+      - '[[Langlands 对偶群]]'
+      - '[[Langlands L 群|$L$ 群]]'
+      - '[[L 包|$L$ 包]]'
+      - '[[Arthur 参数]]'
+  - title: 算术对应
+    items:
+      - '[[类域论]]'
+      - '[[整体 Langlands 纲领|整体 Langlands 对应]]'
+      - '[[局部 Langlands 纲领|局部 Langlands 对应]]'
+      - '[[Langlands 函子性]]'
+      - '[[模 p Langlands 对应|模 $p$ Langlands 对应]]'
+      - '[[p 进 Langlands 对应|$p$ 进 Langlands 对应]]'
+      - '[[模性定理]]'
+      - '[[Satake 同构]]'
+  - title: 函数域与几何对应
+    items:
+      - '[[块]]'
+      - '[[函数域 Langlands 对应]]'
+      - '[[几何 Langlands 纲领|几何 Langlands 对应]]'
+      - '[[de Rham 几何 Langlands 对应|de Rham 对应]]'
+      - '[[Betti 几何 Langlands 对应|Betti 对应]]'
+      - '[[Dolbeault 几何 Langlands 对应|Dolbeault 对应]]'
+      - '[[局部几何 Langlands 对应|局部几何对应]]'
+      - '[[量子几何 Langlands 对应|量子几何对应]]'
+      - '[[几何 Satake 等价]]'
+      - '[[Hecke 特征层]]'
+  - title: 相对情形
+    items:
+      - '[[相对 Langlands 纲领|相对 Langlands 对应]]'
+      - '[[相对 Langlands 对偶]]'
+      - '[[Gan–Gross–Prasad 猜想]]'

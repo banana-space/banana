@@ -185,6 +185,10 @@ $K$ 理论:
   parent: 数学
 代数数论:
   parent: 数论
+Galois 表示论:
+  parent: 代数数论
+自守表示论:
+  parent: 代数数论
 解析数论:
   parent: 数论
 Diophantus 逼近:
@@ -198,7 +202,7 @@ $p$ 进几何:
 超越数论:
   parent: 数论
 模形式论:
-  parent: 数论
+  parent: 代数数论
 组合学:
   parent: 数学
 图论:

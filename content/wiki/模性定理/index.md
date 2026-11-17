@@ -2,7 +2,7 @@
 title: 模性定理
 aliases: [Taniyama–Shimura 猜想, Taniyama-Shimura 猜想]
 categories: [模形式论]
-navboxes: [模形式论]
+navboxes: [模形式论, Langlands 纲领]
 ---
 
 **模性定理**
