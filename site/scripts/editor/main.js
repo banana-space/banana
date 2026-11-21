@@ -283,18 +283,17 @@ function changeAt(state, number) {
 
 // The change whose original lines are shown ({ change, original, decorations }), or null; closed by any edit.
 const showChange = StateEffect.define(); // { change, original } or null
+/** Where a change's panel opens: below its lines; for a deletion, below the line before it (above the first line, before that). */
+const peekPosition = (doc, { toB }) => (toB > 0 ? doc.line(toB).to : 0);
 const changePeek = StateField.define({
   create: () => null,
   update(value, transaction) {
     for (const effect of transaction.effects) {
       if (!effect.is(showChange)) continue;
       if (!effect.value) return null;
-      // Below the change's lines; for a deletion, below the line before it (above the first line, before that).
       const { change, original } = effect.value, { doc } = transaction.state;
-      const below = change.toB > 0;
-      const at = below ? doc.line(change.toB).to : 0;
-      const widget = Decoration.widget({ widget: new ChangePeek(change, changeTexts(original, doc, change)), block: true, side: below ? 1 : -1 });
-      return { change, original, decorations: Decoration.set(widget.range(at)) };
+      const widget = Decoration.widget({ widget: new ChangePeek(change, changeTexts(original, doc, change)), block: true, side: change.toB > 0 ? 1 : -1 });
+      return { change, original, decorations: Decoration.set(widget.range(peekPosition(doc, change))) };
     }
     return transaction.docChanged || transaction.effects.some(effect => effect.is(setOriginal)) ? null : value;
   },
@@ -361,11 +360,40 @@ class ChangePeek extends WidgetType {
   destroy(element) { element.peekView?.destroy(); }
   ignoreEvent() { return true; }
 }
+/**
+ * Scrolls as little as it takes to show the panel just opened at pos, with a line to spare: whole, or from its top
+ * when it is taller than the editor. Below a long change it opens out of sight, perhaps below the lines drawn: then
+ * its line is scrolled to first, and the panel, drawn by then, shown in the next round. (CodeMirror's scrollIntoView
+ * reaches only the lines around a block widget, not the widget itself.)
+ */
+function revealPeek(view, pos) {
+  let drawing = false;
+  const request = {
+    read: view => view.state.field(changePeek) && {
+      panel: view.contentDOM.querySelector('.editor-change-peek')?.getBoundingClientRect(),
+      top: view.scrollDOM.getBoundingClientRect().top, height: view.scrollDOM.clientHeight,
+    },
+    write(measured, view) {
+      // Closed meanwhile, or the editor out of sight.
+      if (!measured?.height) return;
+      const { panel, top, height } = measured, scroller = view.scrollDOM, margin = view.defaultLineHeight;
+      if (!panel) {
+        if (drawing) return;
+        drawing = true;
+        scroller.scrollTop = view.lineBlockAt(pos).top - height / 2;
+        view.requestMeasure(request);
+        return;
+      }
+      scroller.scrollTop += Math.min(Math.max(0, panel.bottom + margin - (top + height)), panel.top - margin - top);
+    },
+  };
+  view.requestMeasure(request);
+}
 const changeGutter = [
   gutter({
     class: 'editor-change-gutter',
     markers: view => view.state.field(lineChanges, false)?.markers ?? RangeSet.empty,
-    // A click on a marker shows its change, or closes it again.
+    // A click on a marker shows its change, in sight, or closes it again.
     domEventHandlers: {
       mousedown(view, block) {
         if (!view.state.field(lineChanges, false)) return false;
@@ -373,6 +401,7 @@ const changeGutter = [
         if (!change) return false;
         const same = open?.fromB === change.fromB && open?.toB === change.toB;
         view.dispatch({ effects: showChange.of(same ? null : { change, original: view.state.field(lineChanges).original }) });
+        if (!same) revealPeek(view, peekPosition(view.state.doc, change));
         return true;
       },
     },

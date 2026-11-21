@@ -395,6 +395,37 @@ try {
   assert.deepEqual([shown()[0], peek().previousElementSibling], [['---'], null]);
   revert();
   assert.equal(editor.text(), source);
+  // A panel out of sight (below a long change, or at the editor's foot) is scrolled into view, as little as it takes,
+  // with a line to spare: whole, or from its top when it is taller than the editor; one in sight stays where it is.
+  // (jsdom has no layout: the editor shows 100 to 400 on the screen, and the panel's place is given.)
+  {
+    const view = editor.view(), scroller = view.scrollDOM, { prototype } = editor.window.HTMLElement;
+    const rect = (top, bottom) => ({ top, bottom, left: 0, right: 0, width: 0, height: bottom - top, x: 0, y: top });
+    const elementRect = prototype.getBoundingClientRect;
+    let panel;
+    scroller.getBoundingClientRect = () => rect(100, 400);
+    Object.defineProperty(scroller, 'clientHeight', { configurable: true, value: 300 });
+    prototype.getBoundingClientRect = function () { return this.matches('.editor-change-peek') ? rect(...panel) : elementRect.call(this); };
+    try {
+      editor.type(`${Array.from({ length: 30 }, (_, i) => `新增 ${i + 1}。`).join('\n')}\n`);
+      // The line to spare: CodeMirror's line height.
+      for (const [at, scrolled, description] of [[[200, 300], () => 0, '面板在视野内，不滚动'], [[500, 600], line => 600 + line - 400, '滚动到面板底部'], [[500, 900], line => 500 - line - 100, '高于编辑器的面板，滚动到其顶部']]) {
+        panel = at;
+        scroller.scrollTop = 0;
+        press(7);
+        await delay(100);
+        assert.equal(scroller.scrollTop, scrolled(view.defaultLineHeight), description);
+        key('Escape');
+      }
+    } finally {
+      prototype.getBoundingClientRect = elementRect;
+      delete scroller.getBoundingClientRect;
+      delete scroller.clientHeight;
+      scroller.scrollTop = 0;
+    }
+    view.dispatch({ changes: { from: source.length, to: editor.text().length } });
+    assert.equal(editor.text(), source);
+  }
   // Tab: with nothing selected, spaces at the cursor up to the next multiple of two columns; with a selection, its
   // lines indented, and Shift+Tab outdents them; while completion offers something, it takes the option.
   const tabView = editor.view(), typeAtEnd = text => tabView.dispatch({ changes: { from: tabView.state.doc.length, insert: text }, selection: { anchor: tabView.state.doc.length + text.length }, userEvent: 'input.type' });
