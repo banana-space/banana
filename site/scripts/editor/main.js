@@ -73,6 +73,9 @@ const literalSearch = EditorState.transactionExtender.of(tr => {
   return { effects: setSearchQuery.of(new SearchQuery({ ...query, literal: !query.regexp })) };
 });
 
+/** Whether a transaction is the search panel moving to a match: find next or previous, or replace and go on to the next. */
+const searchJump = tr => tr.selection !== undefined && ['select.search', 'input.replace'].includes(tr.annotation(Transaction.userEvent));
+
 /** Replaces the matches of the search panel's query within the selected text (one edit, undone as one). */
 function replaceInSelection(view) {
   const { state } = view, query = getSearchQuery(state);
@@ -660,6 +663,7 @@ async function openPage(path, user, title) {
       // Locally, Ctrl+S / ⌘S saves too.
       keymap.of([{ key: 'Mod-s', preventDefault: true, run: () => { if (local) void save(); if (current() !== previewed) schedulePreview(0); return true; } }]),
       EditorView.updateListener.of(update => { if (update.docChanged) { follow(update.changes); dropTouched(update); changed(); } }),
+      EditorView.updateListener.of(update => { if (update.transactions.some(searchJump)) followSearchJump(); }),
     ],
   });
   root.editorView = view; // For tests and debugging.
@@ -836,9 +840,9 @@ async function openPage(path, user, title) {
     const a = points[i - 1], b = points[i];
     return a[other] + (b[other] - a[other]) * Math.min(Math.max((value - a[key]) / (b[key] - a[key] || 1), 0), 1);
   };
-  // Only the user's own scrolling of the source moves the preview (wheel, touch, scroll bar, navigation keys):
-  // not a jump to a line (the preview stays where the user looked), CodeMirror's own adjustments as it
-  // measures lines, or the cursor following typing.
+  // Only the user's own scrolling of the source moves the preview (wheel, touch, scroll bar, navigation keys), and
+  // the search panel's jumps to a match (followSearchJump()): not other jumps to a line (the preview stays where the
+  // user looked), CodeMirror's own adjustments as it measures lines, or the cursor following typing.
   let syncing = false, userScroll = 0; // userScroll: until when scroll events count as the user's (ms)
   const byUser = () => { if (userScroll !== Infinity) userScroll = Date.now() + 300; };
   view.scrollDOM.addEventListener('wheel', byUser, { passive: true });
@@ -913,6 +917,24 @@ async function openPage(path, user, title) {
     const max = frame.document.documentElement.scrollHeight - frame.innerHeight;
     frame.scrollTo({ top: offset === undefined ? scrollFor(y, frame.innerHeight, max) : y - offset, behavior: 'instant' });
     previewSeen = { frame, y: frame.scrollY }; // Not the user's scrolling of the preview.
+  }
+  /**
+   * After the search panel jumps to a match, the preview follows as it follows the user's scrolling of the source,
+   * once CodeMirror has scrolled to the match: it does so as it measures, in an animation frame requested before
+   * the update listeners run, so ahead of this one. Where the preview runs longer than the source, that can leave
+   * the match out of sight (CodeMirror brings it just into view, at an edge): its line then goes as far down the
+   * preview as it is in the source.
+   */
+  function followSearchJump() {
+    requestAnimationFrame(() => {
+      scrollPreviewTo(sourceAnchorLine());
+      const caret = caretPlace(), points = caret && anchors();
+      if (!points) return;
+      const frame = frames[active].contentWindow, from = between(points, 'line', caret.line, 'y') - frame.scrollY;
+      if (from < 0 || between(points, 'line', caret.line + 1, 'y') - frame.scrollY > frame.innerHeight) {
+        scrollPreviewTo(caret.line, caret.offset);
+      }
+    });
   }
   // The other way: the preview's frame runs no scripts, and Chrome fires no scroll events in it, so its
   // position is watched each frame. A change that the source did not cause (the user's scrolling, a link
