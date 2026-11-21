@@ -804,21 +804,25 @@ async function openPage(path, user, title) {
     const { doc, tracker } = shownSource, from = doc.line(Math.min(Math.max(line, 1), doc.lines)).from;
     return view.state.doc.lineAt(Math.min(tracker.changes.mapPos(from, 1), view.state.doc.length)).number;
   }
-  /** The shown preview's source-line marks (packages/bananamark/src/syntax/source-lines.mjs) that are laid out. */
-  const lineMarks = doc => [...doc.querySelectorAll('[data-source-line]')].filter(mark => mark.getClientRects().length);
   /**
    * Anchors pairing lines of the current text with positions in the shown preview, or null without a
-   * usable preview: the preview's source-line marks, or, should it have none, the headings.
+   * usable preview: the preview's source-line marks (packages/bananamark/src/syntax/source-lines.mjs), or, should
+   * none be laid out, the headings. Only what is laid out counts (not what is inside something hidden).
    */
   function anchors() {
     if (active < 0 || !$('.editor-preview-error').hidden || $('.editor-status button')) return null;
     const doc = frames[active].contentDocument, scroll = doc.defaultView.scrollY;
-    const top = element => element.getClientRects()[0].top + scroll;
-    let pairs = lineMarks(doc).map(mark => ({ line: currentLine(Number(mark.dataset.sourceLine)), y: top(mark) }));
+    // Its pane hidden (the one-pane layout showing the source), the preview is not laid out at all.
+    if (!doc.documentElement.getClientRects().length) return null;
+    const top = element => { const rect = element.getClientRects()[0]; return rect ? rect.top + scroll : null; };
+    const laidOut = pair => pair.y !== null;
+    let pairs = [...doc.querySelectorAll('[data-source-line]')]
+      .map(mark => ({ line: currentLine(Number(mark.dataset.sourceLine)), y: top(mark) })).filter(laidOut);
     if (!pairs.length) {
       const headings = [...doc.querySelectorAll('article h2, article h3, article h4, article h5, article h6')]
         .filter(heading => !heading.closest('.toc-shell, .notice, .navbox, .terms, .article-footer, .collection-sidebar'));
-      pairs = sourceHeadings().slice(0, headings.length).map((line, i) => ({ line, y: top(headings[i]) }));
+      // Paired in order before those not laid out are left out, so that each stays with its own line.
+      pairs = sourceHeadings().slice(0, headings.length).map((line, i) => ({ line, y: top(headings[i]) })).filter(laidOut);
     }
     const points = [{ line: 1, y: 0 }];
     // Keep both increasing: a mark the preview places out of order is skipped.
