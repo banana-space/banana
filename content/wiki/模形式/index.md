@@ -211,14 +211,14 @@ $\mathcal{H}^*:=\mathcal{H}\cup\{i\infty\}\cup\mathbb Q$ 为**扩充上半平面
 $\mathrm{SL}_2(\mathbb{Z})$ 的包含某个 $\Gamma(N)$ 的子群称为**同余子群**。
 :::
 
-::: definition [级、特征]
-$\Gamma_0(N)$ 上权为 $k$ 的模形式称为**级** 为 $N$ 的 $k$ 权模形式。
+::: definition [水平、特征]
+$\Gamma_0(N)$ 上权为 $k$ 的模形式称为**水平**为 $N$ 的 $k$ 权模形式。
 若 $\chi$ 是模 $N$ [[Dirichlet 特征]]，$f$ 是 $\Gamma_1(N)$ 上 $k$ 权模形式，
 满足对任何 $\begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \Gamma_0(N)$ 都有
 \[
 f[\gamma]_k = \chi(d) f,
 \]
-称 $f$ 是 $N$ 级**特征**为 $\chi$ 的 $k$ 权模形式。
+称 $f$ 是水平为 $N$、**特征**为 $\chi$ 的 $k$ 权模形式。
 :::
 
 ## 例子
