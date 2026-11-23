@@ -45,7 +45,7 @@ $\operatorname{Spec}(\mathbb{Z})\rightarrow\operatorname{Spec}(\mathbb{F}_1)$
 |  | [[Galois 群]] | [[Galois 群]]/[[平展基本群]] | [[基本群]] |
 |  | [[Galois 表示]] | [[Galois 表示]] | [[局部系统]]/[[平坦联络]] |
 |  | [[加元环\|$G(K)\backslash G(\mathbb{A}_K) / G(\mathcal{O}_{\mathbb{A}})$]] | 同左/[[模叠]] $\operatorname{Bun}_G(X)$ | [[模叠]] $\operatorname{Bun}_G(X)$ |
-|  | [[自守表示]]（由上述集合上的函数构成） | [[自守表示]]/[[反常层]] | [[反常层]]（在上述[[模叠]]上） |
+|  | [[自守表示]]（由上述集合上的函数构成） | [[自守表示]]/[[错致层]] | [[错致层]]（在上述[[模叠]]上） |
 |  | [[Hecke 特征函数]] | [[Hecke 特征函数]] | [[Hecke 特征层]] |
 | **特殊函数** | [[Dedekind $\zeta$ 函数]] | [[Weil $\zeta$ 函数]] | [[Laplace 算子]]的 [[zeta 函数 (Laplace 算子)\|$\zeta$ 函数]] |
 
