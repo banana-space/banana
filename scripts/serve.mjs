@@ -69,10 +69,22 @@ const mime = {
 };
 // The browser only reloads completed builds.
 // Each page subscribes with its own path and reloads only when that page changed.
-const reloadScript = `const events = new EventSource('/__banana_events?path=' + encodeURIComponent(location.pathname));
-events.addEventListener('build', event => {
-  if (event.data !== document.documentElement.dataset.previewRevision) location.reload();
-});`;
+// A hidden tab closes its stream: a browser allows six connections to a server over HTTP/1.1, and open tabs holding
+// them all left pages waiting for their styles and scripts. Reopened, the stream sends the page's revision at once,
+// so a build missed meanwhile still reloads it.
+const reloadScript = `{
+  let events;
+  const connect = () => {
+    events = new EventSource('/__banana_events?path=' + encodeURIComponent(location.pathname));
+    events.addEventListener('build', event => {
+      if (event.data !== document.documentElement.dataset.previewRevision) location.reload();
+    });
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { events?.close(); events = undefined; } else if (!events) connect();
+  });
+  if (!document.hidden) connect();
+}`;
 
 /** The snapshot file served for a URL path; missing pages are served by 404.html. */
 function servedFile(path) {

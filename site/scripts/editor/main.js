@@ -1422,10 +1422,20 @@ async function openPage(path, user, title) {
     saveButton.title = text('local_save_title', { key: previewKey });
     saveButton.addEventListener('click', () => { void save(); if (current() !== previewed) schedulePreview(0); });
     showSaved();
-    const events = new EventSource(`${api}events?path=${encodeURIComponent(path)}`);
-    events.addEventListener('file', event => external(JSON.parse(event.data).text));
-    // A commit: the lines' changes are measured against the new version.
-    events.addEventListener('head', event => setBaseline(JSON.parse(event.data).head ?? saved ?? initial));
+    // A hidden tab closes its stream: a browser allows six connections to a server over HTTP/1.1, and open tabs
+    // holding them all left pages waiting for their styles, scripts and previews. Reopened, the stream sends the
+    // file as it is, which external() takes in like any other change.
+    let events;
+    const connect = () => {
+      events = new EventSource(`${api}events?path=${encodeURIComponent(path)}`);
+      events.addEventListener('file', event => external(JSON.parse(event.data).text));
+      // A commit: the lines' changes are measured against the new version.
+      events.addEventListener('head', event => setBaseline(JSON.parse(event.data).head ?? saved ?? initial));
+    };
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { events?.close(); events = undefined; } else if (!events) connect();
+    });
+    if (!document.hidden) connect();
   }
 
   if (!storageWorks) status(text('offline_unsaved'));
