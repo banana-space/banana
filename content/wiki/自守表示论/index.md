@@ -6,7 +6,7 @@ navboxes: [自守表示论]
 
 <problems>
 - @thm:arthur-mok 依赖若干在 [@Arthur2013] 与 [@Mok2015] 出版时尚未证明的结果。
-  据 Atobe、Gan、Ichino、Kaletha、Mínguez、Shin 的工作
+  据 Atobe、颜维德、Ichino、Kaletha、Mínguez、Shin 的工作
   （[arXiv:2410.13504](https://arxiv.org/abs/2410.13504)），
   它目前仍以扭转加权基本引理为前提。应在定理中注明这一点，并补充相应的文献。
 </problems>
@@ -450,7 +450,7 @@ $\Theta_r (\pi)$ 是它到 $\mathrm{U} (W_r)$ 的整体 $\theta$ 提升。
 [[相对 Langlands 纲领|相对理论]]研究自守形式沿子群积分所得的[[自守周期]]，
 以及局部表示上在子群下不变的线性泛函。
 它希望把周期的非零性及大小与 $L$ 函数的特殊值联系起来，
-典型的例子包括 [[Gan–Gross–Prasad 猜想]]和 [[Ichino–Ikeda 公式]]。
+典型的例子包括 [[颜–Gross–Prasad 猜想]]和 [[Ichino–Ikeda 公式]]。
 [[相对迹公式]]是研究这些问题的主要工具，
 而[[相对 Langlands 对偶]]为它们提供了统一的猜想框架
 [@BenZviSakellaridisVenkatesh2024]。
@@ -482,7 +482,7 @@ $\mathrm{GL}_{n+1} (\mathbb{A}_E)$ 的基变换。
 这一定理由酉群的 Ichino–Ikeda 公式 [@BCZ2022, 定理 1.1.6.1] 立即得到：
 该公式把 $| P_H (f) |^2$ 写成上述中心 $L$ 值、一个非零常数与局部周期的乘积。
 固定群与表示时，局部周期的条件不可省略；
-若不固定，[[Gan–Gross–Prasad 猜想]]断言，
+若不固定，[[颜–Gross–Prasad 猜想]]断言，
 中心 $L$ 值非零当且仅当在某一对相关的 Hermite 空间及相应的表示上，整体周期非零。
 
 ### 几何方法
@@ -758,7 +758,7 @@ $\theta$ 对应与整体提升：
 ```bibliography
 GanTakeda2016:
   type: article
-  author: [Wee Teck Gan, Shuichiro Takeda]
+  author: [颜维德, Shuichiro Takeda]
   title: A proof of the Howe duality conjecture
   journaltitle: Journal of the American Mathematical Society
   volume: 29
@@ -770,7 +770,7 @@ GanTakeda2016:
 
 Gan2022:
   type: preprint
-  author: Wee Teck Gan
+  author: 颜维德
   title: Automorphic Forms and the Theta Correspondence
   year: 2022
   url: 'https://swc-math.github.io/aws/2022/2022GanNotes.pdf'
