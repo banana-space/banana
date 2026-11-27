@@ -467,7 +467,7 @@ $\mathrm{LocSys}_{G^\vee}$，有范畴等价
 周期不为零表示 $\varphi$ 在沿 $H$ 平均后仍保留信息。
 相对纲领希望用 Galois 参数及 $L$ 函数特殊值来刻画这种现象。
 
-典型例子是 [[Gan–Gross–Prasad 猜想]]：
+典型例子是 [[颜–Gross–Prasad 猜想]]：
 对相邻秩的[[酉群]]或特殊正交群，
 沿小群的对角嵌入所得周期的非零性，
 应与相应张量积 $L$ 函数在中心点的非零性及各处局部周期条件相联系。
@@ -492,7 +492,7 @@ L (1/2, \Pi_n \times \Pi_{n+1}) \ne 0 .
 :::
 
 局部条件不可省略：即使中心值非零，选定的局部表示也可能不容许所需的周期。
-这一结论来自酉群情形的 Gan–Gross–Prasad 理论及其 [[Ichino–Ikeda 公式|Ichino–Ikeda 精细公式]]
+这一结论来自酉群情形的颜–Gross–Prasad 理论及其 [[Ichino–Ikeda 公式|Ichino–Ikeda 精细公式]]
 [@BCZ2022, 定理 1.1.6.1]。
 
 Ben-Zvi、Sakellaridis 与 Venkatesh 提出的[[相对 Langlands 对偶]]
